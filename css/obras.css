@@ -1,19 +1,12 @@
-@font-face{
+@font-face {
     font-family: 'Permanent Marker', cursive;
     src: url('../fonts/PermanentMarker-Regular.ttf');
 }
 
-@font-face{
+@font-face {
     font-family: "Sedgwick Ave Display", cursive;
     src: url('../fonts/SedgwickAveDisplay-Regular.ttf');
 }
-
-/*
-a{
-    font-family: 'Permanent Marker', cursive;
-    color: color: rgb(254, 232, 176); 
-}
-*/
 
 * {
     box-sizing: border-box;
@@ -21,25 +14,25 @@ a{
     padding: 0px;
 }
 
-:root{
+:root {
     font-size: 20px;
 }
 
-.contenedor{
+.contenedor {
     width: 660px;
     height: 600px;
     /*background-color: rgb(124, 144, 112);*/
-    background-color:#006600;
+    background-color: #006600;
 }
 
-.disco{
+.disco {
     width: 200px;
     height: 200px;
-    margin: 5px; 
+    margin: 5px;
     display: inline-block;
 }
 
-#p1{
+#p1 {
     width: 206px;
     height: 210px;
     border-color: rgb(249, 123, 34);
@@ -47,20 +40,20 @@ a{
     border-width: 3px;
     position: absolute;
     display: inline-block;
-    margin: auto; 
-        /* margin: 30px; */
-        /*margin-top:  30px;*/
-        /* margin: 30px 10px 20px 5px; */
-        /*padding: 30px; */
-        /* padding-top: 30px;
+    margin: auto;
+    /* margin: 30px; */
+    /*margin-top:  30px;*/
+    /* margin: 30px 10px 20px 5px; */
+    /*padding: 30px; */
+    /* padding-top: 30px;
         padding-left: 30px;
         padding: 10px 20px 5px 50px; */
-        /*border-color: brown blue violet green;*/
-        /*border-width: 2px 5px 8px 10px;*/
-        /*border-style:groove double solid dotted;*/
+    /*border-color: brown blue violet green;*/
+    /*border-width: 2px 5px 8px 10px;*/
+    /*border-style:groove double solid dotted;*/
 }
 
-#p2{
+#p2 {
     width: 206px;
     height: 206px;
     border-color: rgb(249, 123, 34);
@@ -68,13 +61,13 @@ a{
     border-width: 1px;
     position: relative;
     display: inline-block;
-    
-    
+
+
 }
 
 /*overflow:scroll;*/
 
-header{
+header {
     font-family: 'Permanent Marker';
     color: orange;
     background-color: #006600;
@@ -82,7 +75,7 @@ header{
     text-align: center;
 }
 
-h1{
+h1 {
     font-family: Verdana, arial, Tahoma, sans-serif;
     color: orange;
     background-color: #006600;
@@ -90,7 +83,7 @@ h1{
     font-size: 4rem;
 }
 
-h4{
+h4 {
     color: rgb(254, 232, 176);
     background-color: #006600;
     text-align: center;
@@ -101,7 +94,7 @@ body {
     font-family: Verdana, arial, Tahoma, sans-serif;
     color: orange;
     background-color: #006600;
-    
+
 }
 
 nav {
@@ -118,26 +111,7 @@ main {
     margin: auto;
     padding: 40px;
 }
-/* -------Selector por ID-------------*/
-#nombre{
-    color: black;
-    font-weight: 700;
-}
 
-#email{
-    color: black;
-    font-weight: 700;
-}
-
-#asunto{
-    color: black;
-    font-weight: 700;
-}
-
-#comentario{
-    color: black;
-    font-weight: 700;
-}
 /* ----- -----  Mediaqueries ----- ----- */
 /*
 @media screen and (max-width: 800px) {

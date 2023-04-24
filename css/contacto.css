@@ -1,125 +1,14 @@
-@font-face{
-    font-family: "Permanent Marker", cursive;
-    src: url('../fonts/PermanentMarker-Regular.ttf');
-}
-
-@font-face{
-    font-family: "Sedgwick Ave Display", cursive;
-    src: url('../fonts/SedgwickAveDisplay-Regular.ttf');
-}
-
-@font-face{
-    font-family: "Rock Salt", cursive;
-    src: url('../fonts/RockSalt-Regular.ttf');
-}
-
 * {
     box-sizing: border-box;
     margin: auto;
-    padding: 0px;
 }
 
 :root{
     font-size: 20px;
 }
 
-/*-------PARA OBRAS HTML-----------*/
-.contenedor {
-    width: 660px;
-    height: 600px;
-    /*background-color: rgb(124, 144, 112);*/
-    background-color: #006600;
-}
-
-.disco {
-    width: 200px;
-    height: 200px;
-    margin: 5px;
-    display: inline-block;
-}
-
-#p1 {
-    width: 206px;
-    height: 210px;
-    border-color: rgb(249, 123, 34);
-    border-style: solid;
-    border-width: 3px;
-    position: absolute;
-    display: inline-block;
-    margin: auto;
-    /* margin: 30px; */
-    /*margin-top:  30px;*/
-    /* margin: 30px 10px 20px 5px; */
-    /*padding: 30px; */
-    /* padding-top: 30px;
-        padding-left: 30px;
-        padding: 10px 20px 5px 50px; */
-    /*border-color: brown blue violet green;*/
-    /*border-width: 2px 5px 8px 10px;*/
-    /*border-style:groove double solid dotted;*/
-}
-
-#p2 {
-    width: 206px;
-    height: 206px;
-    border-color: rgb(249, 123, 34);
-    border-style: solid;
-    border-width: 1px;
-    position: relative;
-    display: inline-block;
-
-
-}
-/*--------------------------*/
-/*  EJEMPLO DE UNIDADES FLEXIBLES ¡¡¡¡RESPONSIVE!!!!
-p{
-    font-size: 5vw;
-    font-size: 5vh;
-    background-color: rgba(0,255,0,0.23);
-
-}
-*/
-/*--------------------------*/
-a{
-    font-family: "Permanent Marker", cursive;
-    text-decoration: none;
-    color: rgb(254, 232, 176);
-    background-color: #006600;
-    text-align: center;
-    font-size: 2.3rem;
-    margin-right: 5px;
-}
-
-a:hover {
-font-style: oblique;
-color: blue;
-    background-color: #006600;
-    
-}
 /*rgb(249, 123, 34) rgb(254, 232, 176) rgb(156, 167, 119) rgb(124, 144, 112)*/
-a:link{
-    background-color: #006600;
-}
 
-a:active{
-    background-color: #006600;
-}
-a:visited{
-    color: rgb(254, 232, 176);
-}
-/* Primer hipervinculo
-:first-child 
-a:first-child{
-    color:cyan
-    font-size: xx-large;
-}*/
-
-/* Último elemento 
-:last-child 
-a:last-child{
-    color:violet;
-    font-size: xx-large;
-}*/
 
 header{
     
@@ -139,13 +28,7 @@ h1{
     font-size: 4rem;
 }
 
-h2{
-    font-family: "Sedgwick Ave Display";
-    font-size: 2rem;
-}
-
 h4{
-    font-family: "Permanent Marker";
     color: rgb(254, 232, 176);
     background-color: #006600;
     text-align: center;
@@ -165,13 +48,6 @@ nav {
     color: orange;
     background-color: #006600;
     text-align: center;
-}
-
-.nav__btn{
-    color: rgb(254, 232, 176);
-    background-color: #006600;
-    text-align: center;
-    font-size: 2rem;
 }
 
 main {
@@ -350,38 +226,3 @@ main {
     color: black;
     font-weight: 700;
 }
-
-
-/* ----- -----  Mediaqueries ----- ----- */
-/*
-@media screen and (max-width: 800px) {
-    .formulario {
-        grid-template-columns: 1fr;
-    }
-
-    .formulario__grupo-terminos,
-    .formulario__mensaje,
-    .formulario__grupo-btn-enviar {
-        grid-column: 1;
-    }
-
-    .formulario__btn {
-        width: 100%;
-    }
-}
-*/
-/*  EJEMPLO DE UNIDADES FLEXIBLES ¡¡¡¡RESPONSIVE!!!!
-p{
-    font-size: 5vw;
-    font-size: 5vh;
-    background-color: rgba(0,255,0,0.23);
-
-}
-//EJEMPLO DE DESBORDE PARA PONER SCROLL
-.desborde{
-    width: 300px;
-    height: 100px;
-    border: 2px solid crimson;
-    overflow:scroll;
-}
-*/
