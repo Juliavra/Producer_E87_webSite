@@ -296,14 +296,12 @@ Nota: sidebar sin altura
     grid-area: cabeza;
     background-color: #006600;
     color: orange;
-    height: 10vh;
+    height: 12vh;
     width: 70%;
     text-align: center;
-    margin-top: 0%;
     font-size: 5rem;
     margin-top: 0%;
     padding: 0%;
-
  }
 
  .contenedor .nav{
@@ -314,6 +312,7 @@ Nota: sidebar sin altura
     height: 6vh;
     width: 100vh;
     text-align: center;
+    margin-top: 0%;
  }
 
 .contenedor .main{
