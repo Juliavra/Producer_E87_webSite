@@ -16,10 +16,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
+
+<!--
 <header>
-Producer E87 <!--ANIMATE.CSS O ANIMAR.CSS PARA SACAR UNA ANIMACION PARA PRESENTAR EL NOMBRE-->
-</header>
+Producer E87 -->
+<!--ANIMATE.CSS O ANIMAR.CSS PARA SACAR UNA ANIMACION PARA PRESENTAR EL NOMBRE-->
+<!--</header>-->
+
 <body>
+    <!--
     <div>
             <nav class="nav__btn" id="nav__btn">
                 <a href="index.html"> Home</a>
@@ -28,105 +33,129 @@ Producer E87 <!--ANIMATE.CSS O ANIMAR.CSS PARA SACAR UNA ANIMACION PARA PRESENTA
                 <a href="contacto.html"> Contacto</a>
     </nav>
     </div>
-
-    <main>
-        <section>
-            <form action="https://formspree.io/f/mvondkre" method="POST" class="formulario" id="formulario">
-                <fieldset>
-                    <div class="formulario__grupo" id="grupo__nombre">
-                        <label for="nombre" class="formulario__label">Nombre</label>
-                        <div class="formulario__grupo-input">
-                            <input type="text" class="formulario__input" name="nombre_ingresado" id="nombre"
-                                placeholder="Ingrese su nombre">
-                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                        </div>
-                        <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede
-                            contener
-                            numeros, letras y guion bajo.</p>
-                    </div>
-
-                    <div class="formulario__grupo" id="grupo__email">
-                        <label for="email" class="formulario__label">Email</label>
-                        <div class="formulario__grupo-input">
-                            <input type="email" class="formulario__input" name="email_ingresado" id="email"
-                                placeholder="correo@correo.com">
-                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                        </div>
-                        <p class="formulario__input-error">El correo solo puede contener letras, numeros, puntos,
-                            guiones y
-                            guion bajo.</p>
-                    </div>
-
-                    <div class="formulario__grupo" id="grupo__asunto">
-                        <label for="asunto" class="formulario__label">Asunto</label>
-                        <div class="formulario__grupo-input">
-                            <input type="text" class="formulario__input" name="asunto_ingresado" id="asunto">
-                            <!--<input type="text" class="formulario__input" name="asunto_ingresado" id="asunto" required>-->
-                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                        </div>
-                        <p class="formulario__input-error">El asunto tiene que ser de al menos 4 dígitos y solo puede
-                            contener numeros, letras y guion bajo.</p>
-                    </div>
-
-                    <div class="formulario__grupo" id="grupo__comentario">
-                        <label for="comentario" class="formulario__label">Comentario</label>
-                        <div class="formulario__grupo-input">
-                            <textarea name="comentario_ingresado" id="comentario" cols="30" rows="10"
-                                maxlength="300"></textarea>
-                            <i class="formulario__validacion-estado fas fa-times-circle"></i>
-                        </div>
-                        <p class="formulario__input-error">El comentario tiene que ser de al menos 4 dígitos y solo
-                            puede
-                            contener numeros, letras y guion bajo.</p>
-                    </div>
-
-                    <div class="formulario__grupo" id="grupo__terminos">
-                        <label class="formulario__label">
-                            <input class="formulario__checkbox" type="checkbox" name="terminos" id="terminos">
-                            Acepto los Términos y Condiciones
-                        </label>
-                    </div>
-
-                    <div class="formulario__grupo" id="grupo__spam">
-                        <label class="formulario__label">
-                            <input class="formulario__checkbox" type="checkbox" name="spam" id="spam">
-                            Deseo recibir Spam
-                        </label>
-                    </div>
-                    <!--      <div>
-                    <input type="reset" value="Borrar todo">
-                    <input type="submit" name="Enviar" id="Enviar" value="Enviar">
-                </div>
-                -->
-                    <div class="formulario__mensaje" id="formulario__mensaje">
-                        <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario
-                            correctamente. </p>
-                    </div>
-
-                    <div class="formulario__grupo formulario__grupo-btn-enviar">
-                        <button type="submit" class="formulario__btn">Enviar</button>
-                        <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado
-                            exitosamente!
-                        </p>
-                    </div>
-                </fieldset>
-            </form>
-        </section>
-
-        <footer>
-            <fieldset>
-                <h4>yo soy el footer con todos los iconos de redes sociales</h4>
-                <img src="img/instagram.png" alt"" width="40" height="40">
-                <!--
-WWW.flaticon.es  SACAR DE ESTA WEB LOS ICONOS PARA ESTA SECCION
-DESCARGAR LA IMAGEN PNG
-----COMO METER ICONO DE RED SOCIAL
 -->
-            </fieldset>
-        </footer>
-        <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
-        <script src="js/index.js"></script>
-    </main>
+ 
+
+        <div class="contenedor">
+            <header class="header">
+                Producer E87
+            </header>
+    
+            <nav class="nav" id="nav_Menu">
+                <a href="index.html"> Home</a>
+                <a href="bio.html"> Bio</a>
+                <a href="obras.html"> Music</a>
+                <a href="contacto.html"> Contacto</a>
+            </nav>
+    
+            <main class="main">
+                <section>
+                    <form action="https://formspree.io/f/mvondkre" method="POST" class="formulario" id="formulario">
+                        <fieldset>
+                            <div class="formulario__grupo" id="grupo__nombre">
+                                <label for="nombre" class="formulario__label">Nombre</label>
+                                <div class="formulario__grupo-input">
+                                    <input type="text" class="formulario__input" name="nombre_ingresado" id="nombre"
+                                        placeholder="Ingrese su nombre">
+                                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                </div>
+                                <p class="formulario__input-error">El usuario tiene que ser de 4 a 16 dígitos y solo puede
+                                    contener
+                                    numeros, letras y guion bajo.</p>
+                            </div>
+        
+                            <div class="formulario__grupo" id="grupo__email">
+                                <label for="email" class="formulario__label">Email</label>
+                                <div class="formulario__grupo-input">
+                                    <input type="email" class="formulario__input" name="email_ingresado" id="email"
+                                        placeholder="correo@correo.com">
+                                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                </div>
+                                <p class="formulario__input-error">El correo solo puede contener letras, numeros, puntos,
+                                    guiones y
+                                    guion bajo.</p>
+                            </div>
+        
+                            <div class="formulario__grupo" id="grupo__asunto">
+                                <label for="asunto" class="formulario__label">Asunto</label>
+                                <div class="formulario__grupo-input">
+                                    <input type="text" class="formulario__input" name="asunto_ingresado" id="asunto">
+                                    <!--<input type="text" class="formulario__input" name="asunto_ingresado" id="asunto" required>-->
+                                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                </div>
+                                <p class="formulario__input-error">El asunto tiene que ser de al menos 4 dígitos y solo puede
+                                    contener numeros, letras y guion bajo.</p>
+                            </div>
+        
+                            <div class="formulario__grupo" id="grupo__comentario">
+                                <label for="comentario" class="formulario__label">Comentario</label>
+                                <div class="formulario__grupo-input">
+                                    <textarea name="comentario_ingresado" id="comentario" cols="30" rows="10"
+                                        maxlength="300"></textarea>
+                                    <i class="formulario__validacion-estado fas fa-times-circle"></i>
+                                </div>
+                                <p class="formulario__input-error">El comentario tiene que ser de al menos 4 dígitos y solo
+                                    puede
+                                    contener numeros, letras y guion bajo.</p>
+                            </div>
+        
+                            <div class="formulario__grupo" id="grupo__terminos">
+                                <label class="formulario__label">
+                                    <input class="formulario__checkbox" type="checkbox" name="terminos" id="terminos">
+                                    Acepto los Términos y Condiciones
+                                </label>
+                            </div>
+        
+                            <div class="formulario__grupo" id="grupo__spam">
+                                <label class="formulario__label">
+                                    <input class="formulario__checkbox" type="checkbox" name="spam" id="spam">
+                                    Deseo recibir Spam
+                                </label>
+                            </div>
+                            <!--      <div>
+                            <input type="reset" value="Borrar todo">
+                            <input type="submit" name="Enviar" id="Enviar" value="Enviar">
+                        </div>
+                        -->
+                            <div class="formulario__mensaje" id="formulario__mensaje">
+                                <p><i class="fas fa-exclamation-triangle"></i> <b>Error:</b> Por favor rellena el formulario
+                                    correctamente. </p>
+                            </div>
+        
+                            <div class="formulario__grupo formulario__grupo-btn-enviar">
+                                <button type="submit" class="formulario__btn">Enviar</button>
+                                <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado
+                                    exitosamente!
+                                </p>
+                            </div>
+                        </fieldset>
+                    </form>
+                </section>
+        
+
+                <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+                <script src="js/index.js"></script>
+        
+                <footer class="footer">
+                    <fieldset>
+                        <img src="img/instagram.png" alt"" width="40" height="40">
+                        yo soy el footer con todos los iconos de redes sociales    
+                        <br><br><br>
+                        <!--
+                WWW.flaticon.es  SACAR DE ESTA WEB LOS ICONOS PARA ESTA SECCION
+                DESCARGAR LA IMAGEN PNG
+                ----COMO METER ICONO DE RED SOCIAL
+                -->
+                    </fieldset>
+                </footer>
+            </main>
+   
+            <!-- <div class="sidebar">Sidebar</div>-->
+            <!-- <div class="bloque1">Bloque1</div>-->
+           
+        </div>
+
+        
 </body>
 
 </html>
