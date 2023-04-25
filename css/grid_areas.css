@@ -1,0 +1,91 @@
+/* Definir el tamaño de fuente 62.5%
+en el html */
+html{     font-size: 62.5%; /*10px*/}
+
+/* Definir las propiedades para el contenedor
+máximo ancho 120rem
+display
+tamaño de 3 columnas con repeat()
+tamaño de 4 filas con repeat() y auto ajuste
+áreas con grid-template-areas
+margen derecho e izquierdo auto ajuste
+separación columnas y filas con gap*/
+.contenedor{
+    max-width: 120rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, auto);
+   grid-template-areas: 
+   "cabeza   cabeza   cabeza cabeza"
+   "nav       nav      nav     nav"
+   "bloque1   main    main   sidebar"
+   "bloque2  main  main   sidebar"
+   "footer   footer    footer footer";
+   margin-right: auto;
+   margin-left: auto;
+   gap: 0.1%;
+}
+
+
+/* Partiendo del contenedor
+.contenedor .elemento
+Definir el nombre de cada área 
+con la propiedad grid-area indicando el nombre 
+sin comillas
+color fondo #12203e cabeza y pie
+color fuente
+alto en vh
+Nota: sidebar sin altura
+ */
+/* Accedo a la clase */
+.contenedor .header{
+    font-family: "Permanent Marker", cursive;
+    grid-area: cabeza;
+    background-color: #006600;
+    color: orange;
+    height: 10vh;
+ }
+
+ .contenedor .nav{
+    grid-area: nav;
+    background-color: #660044;
+    color: white;
+    height: 6vh;
+ }
+
+.contenedor .main{
+    grid-area: main;
+    background-color:blueviolet;
+    color: white;
+    height: 40vh;
+   
+ }
+
+.contenedor .sidebar{
+    grid-area: sidebar;
+    background-color:orangered;
+    color: white;
+   
+ }
+
+.contenedor .bloque1{
+    grid-area: bloque1;
+    background-color: aquamarine;
+    color:black;
+    height: 15vh;
+ }
+
+.contenedor .bloque2{
+    grid-area: bloque2;
+    background-color:antiquewhite;
+    color:black;
+    height: 15vh;
+   
+ }
+
+.contenedor .footer{
+    grid-area: footer;
+    background-color: #006600;
+    color: white;
+    height: 10vh;
+ }
