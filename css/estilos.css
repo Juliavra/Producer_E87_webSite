@@ -1,8 +1,8 @@
 @font-face {
     font-family: "Permanent Marker", cursive;
     /*src: url('fonts/PermanentMarker-Regular.ttf');*/
-src: url('fonts/PermanentMarker-Regular.ttf');
-    
+    src: url('fonts/PermanentMarker-Regular.ttf');
+
 }
 
 * {
@@ -23,6 +23,13 @@ h1 {
     font-size: 4rem;
 }
 
+h3 {
+    font-family: "Permanent Marker";
+    color: orange;
+    background-color: #006600;
+    text-align: center;
+    font-size: 3rem;
+}
 
 h4 {
     font-family: "Permanent Marker";
@@ -42,6 +49,13 @@ h5 {
     /*#9CA777  */
     background-color: rgb(156, 167, 119);
     /*#7C9070*/
+}
+h6 {
+    font-family: "Permanent Marker";
+    color: orange;
+    background-color: #006600;
+    text-align: center;
+    font-size: 2rem;
 }
 
 /*-------PARA OBRAS HTML-----------*/
@@ -63,6 +77,23 @@ h5 {
     animation-duration: 3s;
     animation-delay: 0.5s;
     animation-iteration-count: infinite;
+}
+
+.disco_portrait_single {
+    padding: 0px;
+    margin: 0%;
+    height: auto;
+    width: auto;
+    text-align: left;
+    display: inline-block;
+    border: rgb(156, 167, 119) solid 5px;
+
+}
+
+.titulo_track {
+    background-color: red;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.3rem;
 }
 
 @keyframes ejemplo {
@@ -128,21 +159,22 @@ a {
     font-family: "Permanent Marker", cursive;
     text-decoration: none;
     color: rgb(254, 232, 176);
-    background-color: #006600;
+    /*background-color: #006600;*/
     text-align: center;
     font-size: 2.3rem;
     margin-right: 5px;
 }
 
 a:hover {
-    font-style: oblique;
-    color: blue;
+    /*font-style: oblique;*/
+    /*color: blue;*/
     background-color: #006600;
-    padding: 0px;
+    /*padding: 0px;*/
+    /*
     transition-property: all;
     transition-duration: 0.3s;
     transition-timing-function: ease-in;
-
+*/
 }
 
 a:link {
@@ -228,7 +260,7 @@ nav {
 }
 
 .nav__btn:hover {
-    color: blue;
+    /*color: blue;*/
     background-color: #006600;
     text-align: center;
     font-size: 2rem;
@@ -238,8 +270,9 @@ main {
     max-width: 800px;
     width: 90%;
     margin: auto;
-   /* padding: 40px;*/
+    /* padding: 40px;*/
 }
+
 /*-- ^   -----ETIQUETAS SEMANTICAS------------*/
 /*-- |  -----ETIQUETAS SEMANTICAS------------*/
 
@@ -247,7 +280,10 @@ main {
 /*-------------GRID AREAS------------*/
 /* Definir el tamaño de fuente 62.5%
 en el html */
-html{     font-size: 62.5%; /*10px*/}
+html {
+    font-size: 62.5%;
+    /*10px*/
+}
 
 /* Definir las propiedades para el contenedor
 máximo ancho 120rem
@@ -257,27 +293,27 @@ tamaño de 4 filas con repeat() y auto ajuste
 áreas con grid-template-areas
 margen derecho e izquierdo auto ajuste
 separación columnas y filas con gap*/
-.contenedor{
+.contenedor {
     font-family: "Permanent Marker", cursive;
     /*max-width: 120rem;*/
     max-width: 90rem;
-    max-height:180rem;
+    max-height: 180rem;
     display: grid;
     padding: 0%;
-  /*  background-color: #bed1f3;*/
-  background-color: #006600;
+    background-color: #006600;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(6, auto);
-   grid-template-areas: 
-   "cabeza   cabeza   cabeza cabeza"
-   "nav       nav      nav     nav"
-   "bloque1   main    main   sidebar"
-   "bloque1   main    main   sidebar"
-   "bloque1  main  main   sidebar"
-   "footer   footer    footer footer";
-   margin-right: auto;
-   margin-left: auto;
-   gap: 0.1%;
+    grid-template-areas:
+        "cabeza   cabeza   cabeza cabeza"
+        "nav       nav      nav     nav"
+        "bloque1   main    main   sidebar"
+        "bloque1   main    main   sidebar"
+        "bloque1  main  main   sidebar"
+        "footer   footer    footer footer";
+    margin-right: auto;
+    margin-left: auto;
+    gap: 0.1%;
+    
 }
 
 /* Partiendo del contenedor
@@ -291,7 +327,7 @@ alto en vh
 Nota: sidebar sin altura
  */
 /* Accedo a la clase */
-.contenedor .header{
+.contenedor .header {
     font-family: "Permanent Marker";
     grid-area: cabeza;
     background-color: #006600;
@@ -302,10 +338,11 @@ Nota: sidebar sin altura
     font-size: 5rem;
     margin-top: 0%;
     padding: 0%;
- }
+    border:red solid 2px;
+}
 
- .contenedor .nav{
-    font-family:"Permanent Marker", cursive;
+.contenedor .nav {
+    font-family: "Permanent Marker", cursive;
     grid-area: nav;
     background-color: #006600;
     color: white;
@@ -313,48 +350,206 @@ Nota: sidebar sin altura
     width: 100vh;
     text-align: center;
     margin-top: 0%;
- }
+    border:red solid 2px;
+}
 
-.contenedor .main{
+.contenedor .main {
     grid-area: main;
     /*background-color:blueviolet;*/
     background-color: #006600;
     color: orange;
-    height: 100vh;
+    height: 78vh;
     margin-top: 3vh;
-   
- }
+    border:cyan solid 2px;
+    padding: 0%;
+   /* overflow:scroll;*/
+}
 
-.contenedor .sidebar{
+.contenedor .sidebar {
     grid-area: sidebar;
-    background-color:orangered;
+    background-color: #006600;
     color: white;
-   
- }
+    border:red solid 2px;
+    margin:0%;
+    padding: 0%;
 
-.contenedor .bloque1{
+
+}
+
+.contenedor .bloque1 {
+    grid-area: bloque1;
+    background-color: #006600;
+    color: white;
+    
+    border:red solid 2px;
+    margin:0%;
+    padding: 0%;
+}
+
+.contenedor .bloque2 {
+    grid-area: bloque2;
+    background-color: antiquewhite;
+    color: black;
+    height: 15vh;
+    border:red solid 2px;
+
+}
+
+.contenedor .footer {
+    grid-area: footer;
+    background-color: #006600;
+    color: orange;
+    width: 100%;
+    height: 14vh;
+    margin-top: 0%;
+    border:red solid 2px;
+}
+
+/*--------------------------------------*/
+/*----CONTENEDOR PARA DISCO INDIVIDUAL*/
+
+.contenedor_single_album {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    /*max-width: 120rem;*/
+    max-width: 90rem;
+    max-height: 180rem;
+    display: grid;
+    padding: 0%;
+    /*  background-color: #bed1f3;*/
+    background-color: pink;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(6, auto);
+    grid-template-areas:
+        "cabeza   cabeza   cabeza cabeza cabeza"
+        "nav       nav      nav     nav   nav"
+        "bloque1   main    main    main  sidebar"
+        "bloque1   main    main    main  sidebar"
+        "bloque1  main     main    main  sidebar"
+        "footer   footer  footer  footer footer";
+    margin-right: auto;
+    margin-left: auto;
+    gap: 0.1%;
+}
+
+.contenedor_single_album .header {
+    font-family: "Permanent Marker";
+    grid-area: cabeza;
+    background-color: #006600;
+    color: orange;
+    height: 12vh;
+    width: 70%;
+    text-align: center;
+    font-size: 5rem;
+    margin-top: 0%;
+    padding: 0%;
+}
+
+.contenedor_single_album .nav {
+    font-family: "Permanent Marker", cursive;
+    grid-area: nav;
+    background-color: #006600;
+    color: white;
+    height: 6vh;
+    width: 100vh;
+    text-align: center;
+    margin-top: 0%;
+
+}
+
+.contenedor_single_album .main {
+    grid-area: main;
+    /*background-color:blueviolet;*/
+    background-color: blue;
+    color: orange;
+    height: 65vh;
+    margin-top: 3vh;
+
+}
+
+.contenedor_single_album .sidebar {
+    grid-area: sidebar;
+    background-color: yellow;
+    color: white;
+
+}
+
+.contenedor_single_album .bloque1 {
     grid-area: bloque1;
     background-color: aquamarine;
-    color:black;
+    color: black;
     height: 15vh;
- }
+}
 
-.contenedor .bloque2{
+.contenedor_single_album .bloque2 {
     grid-area: bloque2;
-    background-color:antiquewhite;
-    color:black;
+    background-color: antiquewhite;
+    color: black;
     height: 15vh;
-   
- }
 
-.contenedor .footer{
+}
+
+.contenedor_single_album .lista_temas {
+    grid-area: lista_temas;
+    background-color: antiquewhite;
+    color: black;
+    height: 15vh;
+    text-align: left;
+
+}
+
+.contenedor_single_album .footer {
     grid-area: footer;
     background-color: #006600;
     color: orange;
     width: 100%;
     height: 14vh;
     margin-top: 10%;
- }
+}
+
+/*|||||||||||||||||||||||||||||||||||||||||||||||*/
+/*     CONTENEDOR PLAYER*/
+
+/* Definir las propiedades para el contenedor
+máximo ancho 120rem
+display
+tamaño de 3 columnas con repeat()
+tamaño de 4 filas con repeat() y auto ajuste
+áreas con grid-template-areas
+margen derecho e izquierdo auto ajuste
+separación columnas y filas con gap*/
+.contenedor .player {
+    /*  font-family: "Permanent Marker", cursive;*/
+    /*max-width: 120rem;*/
+    max-width: 18rem;
+    max-height: 9rem;
+    display: grid;
+    padding: 0%;
+    /*  background-color: #bed1f3;*/
+    background-color: #006600;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, auto);
+    grid-template-areas:
+        "cabeza   cabeza   cabeza cabeza"
+        "nav       nav      nav     nav"
+        "bloque1   main    main   sidebar"
+        "bloque1   main    main   sidebar"
+        "bloque1  main  main   sidebar"
+        "footer   footer    footer footer";
+    margin-right: auto;
+    margin-left: auto;
+    align-items: center;
+    gap: 0.1%;
+}
+
+
+/*||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+
+
+
+
 
 
 /*--  ^  ------GRID AREAS------------*/
@@ -388,7 +583,8 @@ Nota: sidebar sin altura
 
 .contenedortpo {
     /*height: 90vh;*/
-    height: 600px;
+    height: 120vh;
+    width:200vh
     background-color: #bed1f3;
     display: grid;
     border: #fff solid 10px;
@@ -407,16 +603,16 @@ Nota: sidebar sin altura
     gap: 0.1%
 }
 
-#disco_Home{
+#disco_Home {
     background-color: #006600;
-text-align: center;
-/*border: 1px solid rgb(187, 238, 46);*/
+    text-align: center;
+    /*border: 1px solid rgb(187, 238, 46);*/
 }
 
-#producer_E87_portrait{
+#producer_E87_portrait {
     background-color: #006600;
-text-align: center;
-/*border: 1px solid rgb(187, 238, 46);*/
+    text-align: center;
+    /*border: 1px solid rgb(187, 238, 46);*/
 }
 
 
@@ -431,7 +627,7 @@ text-align: center;
 .formulario__label {
     display: block;
     font-weight: 700;
-    padding: 10px;
+    padding: 0px;
     cursor: pointer;
 }
 
@@ -445,13 +641,14 @@ text-align: center;
     border: 3px solid transparent;
     border-radius: 3px;
     height: 45px;
+    width: 600px;
     line-height: 45px;
     padding: 0 40px 0 10px;
     transition: .3s ease all;
 }
 
 .formulario__input:focus {
-    border: 3px solid #0075FF;
+    border: 3px solid rgb(249, 123, 34);
     outline: none;
     box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
 }
@@ -476,22 +673,25 @@ text-align: center;
 }
 
 .formulario__checkbox {
-    margin-right: 10px;
+    margin-right: 0px;
 }
 
 .formulario__grupo-terminos,
 .formulario__mensaje,
 .formulario__grupo-btn-enviar {
-    grid-column: span 2;
+    grid-column: span 1;
 }
 
 .formulario__mensaje {
-    height: 45px;
-    line-height: 45px;
-    background: #F66060;
+    /*height: 45px;*/
+    /*line-height: 45px;*/
+    /*background-color: rgb(164, 102, 102);*/
     padding: 0 15px;
-    border-radius: 3px;
+    border-radius: 10px;
     display: none;
+    font-size: 3vh;
+    color: red;
+    text-align: center;
 }
 
 .formulario__mensaje-activo {
@@ -509,20 +709,30 @@ text-align: center;
 }
 
 .formulario__btn {
-    height: 45px;
-    line-height: 45px;
-    width: 30%;
-    background: #000;
+    font-family: "Permanent Marker", cursive;
+   /* height: 45px;*/
+    /*line-height: 45px;*/
+    width: 120%;
+    /*background-color:  white;*/
     color: orange;
     font-weight: bold;
-    border: none;
-    border-radius: 3px;
+    font-size: 4vh;
+  /*  border: orange solid 4px;*/
+    border-radius: 10px;
     cursor: pointer;
     transition: .1s ease all;
+    margin: 0%;
+    padding: 0%;
 }
 
+background-color: #006600;
+
+
+
+
+
 .formulario__btn:hover {
-    box-shadow: 3px 0px 30px rgba(163, 163, 163, 1);
+    box-shadow: 3px 0px 30px orange;
 }
 
 .formulario__mensaje-exito {
@@ -553,6 +763,7 @@ text-align: center;
 .formulario__grupo-incorrecto .formulario__input {
     border: 3px solid #bb2929;
 }
+
 /*-- ^   -----FORMULARIO------------*/
 /*-- |  -----FORMULARIO------------*/
 
@@ -734,3 +945,207 @@ alinear los items */
 
 */
 /*--------------------------*/
+/*CARROUSEL*/
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 600px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+/*--------------------------*/
+.contenedor_contacto{
+    max-width: 90rem;
+    max-height: 180rem;
+    display: grid;
+    padding: 0%;
+    background-color: #006600;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, auto);
+    grid-template-areas:
+        "cabeza   cabeza   cabeza cabeza"
+        "nav       nav      nav     nav"
+        "bloque1   main    main   sidebar"
+        "bloque1   main    main   sidebar"
+        "bloque1  main  main   sidebar"
+        "footer   footer    footer footer";
+    margin-right: auto;
+    margin-left: auto;
+    gap: 0.1%;
+}
+
+.contenedor_contacto .header{
+    font-family: "Permanent Marker";
+    grid-area: cabeza;
+    background-color: #006600;
+    color: orange;
+    height: 12vh;
+    width: 70%;
+    text-align: center;
+    font-size: 5rem;
+    margin-top: 0%;
+    padding: 0%;
+}
+
+
+.contenedor_contacto .nav {
+    font-family: "Permanent Marker", cursive;
+    grid-area: nav;
+    background-color: #006600;
+    color: white;
+    height: 6vh;
+    width: 100vh;
+    text-align: center;
+    margin-top: 0%;
+}
+
+.contenedor_contacto .main {
+    font-family: "Permanent Marker", cursive;
+    grid-area: main;
+    /*background-color:blueviolet;*/
+    /*background-color: #006600;*/
+    color: orange;
+    height: 100vh;
+    margin-top: 3vh;
+
+}
+
+.contenedor_contacto .sidebar {
+    grid-area: sidebar;
+    background-color: orangered;
+    color: white;
+
+}
+
+.contenedor_contacto .bloque1 {
+    grid-area: bloque1;
+    background-color: aquamarine;
+    color: black;
+    height: 15vh;
+}
+
+.contenedor_contacto .bloque2 {
+    grid-area: bloque2;
+    background-color: antiquewhite;
+    color: black;
+    height: 15vh;
+
+}
+
+.contenedor_contacto .footer {
+    grid-area: footer;
+    background-color: red;
+    color: orange;
+    width: 100%;
+    height: 14vh;
+    margin-top: 10%;
+}
+
+/*-------------------------------------*/
+/*----------BOTON ENVIAR---------------*/
+.enviar__btn{
+    
+    font-family: "Permanent Marker", cursive;
+    color: orange;
+    background-color: #006600;
+    border: 3px solid #006600;
+    padding: 0%;
+    font-size: 4vh;
+    cursor: pointer;
+}
+
+.enviar__btn:hover {
+    box-shadow: 3px 4px 30px orange;
+
+   /* border-radius: 0px;*/
+/*    Syntax: <length-percentage>{1,2}*/
+}
+
+
+
+
+/*--------------------------------------*/

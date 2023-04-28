@@ -1,7 +1,110 @@
+@font-face {
+   font-family: "Permanent Marker", cursive;
+   /*src: url('fonts/PermanentMarker-Regular.ttf');*/
+   src: url('fonts/PermanentMarker-Regular.ttf');
+
+}
+
+/*-|-----ENLACES---------------------*/
+
+a {
+   font-family: "Permanent Marker", cursive;
+   text-decoration: none;
+   color: rgb(254, 232, 176);
+   text-align: center;
+   font-size: 2.3rem;
+   /*margin-right: 5px;*/
+   margin: 0;
+}
+
+/*
+a:hover {
+   font-style: oblique;
+   color: blue;
+   background-color: #006600;
+   padding: 0px;
+   */
+   /*
+   transition-property: all;
+   transition-duration: 0.3s;
+   transition-timing-function: ease-in;
+
+}*/
+/*
+a:link {
+   color: red;
+   background-color: #006600;
+}
+*/
+/*
+a:active {
+   background-color: #006600;
+}
+*/
+/*
+a:visited {
+   color: rgb(254, 232, 176);
+}
+*/
+/*--------ETIQUETAS SEMANTICAS------------*/
+
+header {
+   font-family: "Permanent Marker";
+   background-color: #006600;
+   font-size: 5rem;
+   text-align: center;
+   margin-top: 0%;
+   padding: 0%;
+}
+
+body {
+   font-family: Verdana, arial, Tahoma, sans-serif;
+   color: orange;
+   background-color: #006600;
+
+}
+
+/*
+nav {
+   font-family: 'Sedgwick Ave Display';
+   font-size: 1.5rem;
+   color: orange;
+   background-color: #006600;
+   text-align: center;
+}
+*/
+
+.nav__btn {
+   color: rgb(254, 232, 176);
+   background-color: #006600;
+   text-align: center;
+   font-size: 2rem;
+}
+
+.nav__btn:hover {
+   /*color: blue;*/
+   background-color: #006600;
+   text-align: center;
+   font-size: 2rem;
+}
+
+main {
+   max-width: 800px;
+   width: 90%;
+   margin: auto;
+   /* padding: 40px;*/
+}
+
+
+:root {
+   font-size: 20px;
+}
+
+/*------------------------------------*/
+/*------GRID BOXES DISEÑO CONTENEDOR------------------------------*/
 /* Definir el tamaño de fuente 62.5%
 en el html */
-html{     font-size: 62.5%; /*10px*/}
-
+/*html{     font-size: 62.5%; }*/ /*10px*/
 /* Definir las propiedades para el contenedor
 máximo ancho 120rem
 display
@@ -11,22 +114,21 @@ tamaño de 4 filas con repeat() y auto ajuste
 margen derecho e izquierdo auto ajuste
 separación columnas y filas con gap*/
 .contenedor{
-    max-width: 120rem;
+    max-width: 220rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, auto);
    grid-template-areas: 
    "cabeza   cabeza   cabeza cabeza"
    "nav       nav      nav     nav"
-   "bloque1   main    main   sidebar"
+   "player   player    player   player"   
    "bloque2  main  main   sidebar"
    "footer   footer    footer footer";
    margin-right: auto;
    margin-left: auto;
-   gap: 0.1%;
+   margin-top: 0px;
+   gap: 0%;
 }
-
-
 /* Partiendo del contenedor
 .contenedor .elemento
 Definir el nombre de cada área 
@@ -41,51 +143,105 @@ Nota: sidebar sin altura
 .contenedor .header{
     font-family: "Permanent Marker", cursive;
     grid-area: cabeza;
-    background-color: #006600;
+    background-color: blue;
     color: orange;
-    height: 10vh;
+    height: 12vh;
+    width: 70%;
+    font-size: 5rem;
+    text-align: center;
+    align-items: center;
+    margin: 0%;
+    padding: 0%;
+    border:red solid 1.5px;
  }
 
  .contenedor .nav{
+   font-family: "Permanent Marker", cursive;
     grid-area: nav;
-    background-color: #660044;
+    background-color: #006600;
     color: white;
     height: 6vh;
+    width: 100vh;
+    font-size: 4rem;
+    text-align: center;
+    margin: 0%;
+    padding: 0%;
+    border:red solid 1.5px;
  }
-
+ .contenedor .player{
+   font-family: "Permanent Marker", cursive;
+   font-size: 3rem;
+   grid-area: player;
+   background-color: #006600;
+    color:wheat;
+    height: 30vh;
+    text-align: center;
+    border:red solid 1.5px;
+ }
+ .contenedor .frame{
+   font-family: "Permanent Marker", cursive;
+   font-size: 3rem;
+   grid-area: player;
+   background-color: wheat;
+    color:wheat;
+    height: 30vh;
+    width: 45vh;
+    margin-top: 0px;
+    text-align: center;
+       border:red solid 1.5px;
+ }
 .contenedor .main{
+   font-family: "Permanent Marker", cursive;
     grid-area: main;
-    background-color:blueviolet;
+    background-color:#006600;
     color: white;
-    height: 40vh;
-   
+    height: 65vh;
+    font-size: 4rem;
+    text-align: center;
+    border:red solid 1.5px;
+    
  }
-
 .contenedor .sidebar{
+   font-family: "Permanent Marker", cursive;
     grid-area: sidebar;
-    background-color:orangered;
+    font-size: 4rem;
+    background-color:#006600;
     color: white;
-   
+    border:red solid 1.5px;
+    text-align: center;
  }
-
 .contenedor .bloque1{
+   font-family: "Permanent Marker", cursive;
     grid-area: bloque1;
-    background-color: aquamarine;
-    color:black;
-    height: 15vh;
+    font-size: 4rem;
+    background-color: #006600;
+    color:white;
+    height: 20vh;
+    border:red solid 1.5px;
+    text-align: center;
  }
-
 .contenedor .bloque2{
-    grid-area: bloque2;
-    background-color:antiquewhite;
-    color:black;
-    height: 15vh;
-   
+   font-family: "Permanent Marker", cursive;
+   font-size: 4rem;
+   grid-area: bloque2;
+    background-color:#006600;
+    color:white;
+    height: 65vh;
+    border:red solid 1.5px;
+    text-align: center;
  }
-
 .contenedor .footer{
+   font-family: "Permanent Marker", cursive;
+   font-size: 4rem;
     grid-area: footer;
     background-color: #006600;
     color: white;
     height: 10vh;
+    border:red solid 1.5px;
+    text-align: center;
+    
  }
+
+ /**********************************************************/
+
+ 

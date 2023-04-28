@@ -5,7 +5,7 @@ const expresiones = {
 	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
 	password: /^.{4,12}$/, // 4 a 12 digitos.
-	correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
 	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
 }
 
@@ -13,27 +13,18 @@ const campos = {
 	usuario: false,
 	nombre: false,
 	password: false,
-	correo: false,
+	email: false,
 	telefono: false
 }
 
 const validarFormulario = (e) => {
+	console.log("VALIDA ANTES DE SWITCH");
 	switch (e.target.name) {
-		case "usuario":
-			validarCampo(expresiones.usuario, e.target, 'usuario');
-		break;
 		case "nombre":
 			validarCampo(expresiones.nombre, e.target, 'nombre');
 		break;
-		case "password":
-			validarCampo(expresiones.password, e.target, 'password');
-			validarPassword2();
-		break;
-		case "password2":
-			validarPassword2();
-		break;
-		case "correo":
-			validarCampo(expresiones.correo, e.target, 'correo');
+		case "email":
+			validarCampo(expresiones.email, e.target, 'email');
 		break;
 		case "telefono":
 			validarCampo(expresiones.telefono, e.target, 'telefono');
@@ -58,7 +49,7 @@ const validarCampo = (expresion, input, campo) => {
 		campos[campo] = false;
 	}
 }
-
+/*
 const validarPassword2 = () => {
 	const inputPassword1 = document.getElementById('password');
 	const inputPassword2 = document.getElementById('password2');
@@ -79,6 +70,7 @@ const validarPassword2 = () => {
 		campos['password'] = true;
 	}
 }
+*/
 
 inputs.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
@@ -89,13 +81,14 @@ formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
 
 	const terminos = document.getElementById('terminos');
-	if(campos.usuario && campos.nombre && campos.password && campos.correo && campos.telefono && terminos.checked ){
+	/*if(campos.nombre && campos.email && campos.telefono && terminos.checked ){*/
+	if(campos.nombre && campos.email && terminos.checked && terminos.spam ){
 		formulario.reset();
 
 		document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
 		setTimeout(() => {
 			document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
-		}, 5000);
+		}, 3000);
 
 		document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
 			icono.classList.remove('formulario__grupo-correcto');
