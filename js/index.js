@@ -1,6 +1,8 @@
+/*
 const formulario = document.getElementById('formulario');
 const inputs = document.querySelectorAll('#formulario input');
-
+*/
+/*
 const expresiones = {
 	usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
 	nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
@@ -8,7 +10,8 @@ const expresiones = {
 	email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
 	telefono: /^\d{7,14}$/ // 7 a 14 numeros.
 }
-
+*/
+/*
 const campos = {
 	usuario: false,
 	nombre: false,
@@ -16,7 +19,8 @@ const campos = {
 	email: false,
 	telefono: false
 }
-
+*/
+/*
 const validarFormulario = (e) => {
 	console.log("VALIDA ANTES DE SWITCH");
 	switch (e.target.name) {
@@ -31,7 +35,8 @@ const validarFormulario = (e) => {
 		break;
 	}
 }
-
+*/
+/*
 const validarCampo = (expresion, input, campo) => {
 	if(expresion.test(input.value)){
 		document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
@@ -49,6 +54,7 @@ const validarCampo = (expresion, input, campo) => {
 		campos[campo] = false;
 	}
 }
+*/
 /*
 const validarPassword2 = () => {
 	const inputPassword1 = document.getElementById('password');
@@ -71,18 +77,19 @@ const validarPassword2 = () => {
 	}
 }
 */
-
+/*
 inputs.forEach((input) => {
 	input.addEventListener('keyup', validarFormulario);
 	input.addEventListener('blur', validarFormulario);
 });
-
+*/
+/*
 formulario.addEventListener('submit', (e) => {
 	e.preventDefault();
 
 	const terminos = document.getElementById('terminos');
-	/*if(campos.nombre && campos.email && campos.telefono && terminos.checked ){*/
-	if(campos.nombre && campos.email && terminos.checked && terminos.spam ){
+	/*if(campos.nombre && campos.email && campos.telefono && terminos.checked ){
+	if(campos.nombre && campos.email && terminos.checked ){
 		formulario.reset();
 
 		document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
@@ -98,23 +105,25 @@ formulario.addEventListener('submit', (e) => {
 	}
 });
 
+*/
 
 
+//iniciar();
 
-
-//console.log("Hola Mundo");
 //document.write("Hola write");
 
 /*console.log(nombre);*/
 /*document.write(nombre);*/
 /*
+let test_Nombre = document.getElementsByName(nombre_ingresado);
+
     function iniciar()
     {
-    var boton = document
-    .getElementById("Enviar");
+    var boton = document.getElementById("Enviar");
     boton.addEventListener("click", enviarformulario); 
     }
-    function enviarformulario()
+ 
+	function enviarformulario()
     {
     var lista = document.forms;
     var formulario = lista[0];
@@ -128,3 +137,41 @@ var lista = document.forms;
 var formulario = lista[0];
 console.log(formulario);
 */
+console.log("Test");
+let id = (id) => document.getElementById(id);
+
+let classes = (classes) => document.getElementsByClassName(classes);
+
+let username = id("username"),
+  email = id("email"),
+  password = id("password"),
+  form = id("form"),
+  errorMsg = classes("error"),
+  successIcon = classes("success-icon"),
+  failureIcon = classes("failure-icon");
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  engine(username, 0, "Username cannot be blank");
+  engine(email, 1, "Email cannot be blank");
+  engine(password, 2, "Password cannot be blank");
+});
+
+let engine = (id, serial, message) => {
+  if (id.value.trim() === "") {
+    errorMsg[serial].innerHTML = message;
+    id.style.border = "2px solid red";
+
+    // icons
+    failureIcon[serial].style.opacity = "1";
+    successIcon[serial].style.opacity = "0";
+  } else {
+    errorMsg[serial].innerHTML = "";
+    id.style.border = "2px solid green";
+
+    // icons
+    failureIcon[serial].style.opacity = "0";
+    successIcon[serial].style.opacity = "1";
+  }
+};

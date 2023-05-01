@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang=“es”>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="" X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="icon" href="img/html.ico" type 
+    flaticon.com SACAR ICONOS DE AHI
+    BAJAR COMO IMAGEN PNG
+
+    -->
+    <link rel="STYLESHEET" href="css/estilos.css">
+    <title>TPO Consigna</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<header>
+    TPO
+</header>
+<!--
+<div>
+    <nav class="nav__btn" id="nav__btn">
+        <div>
+            <a href="index.html"> Home</a>
+            <a href="bio.html"> Bio</a>
+            <a href="obras.html"> Obras</a>
+            <a href="contacto.html"> Contacto</a>
+        </div>
+    </nav>
+</div>
+-->
+
+<body>
+    <main>
+        <section>
+            <div>
+                <p>
+                <h6>
+
+                    Funciones | Función flecha (arrow Function)
+
+                    function (a){ // Función tradicional
+                        return a + 100
+                        }
+                        // Desglose de la función flecha
+                        // 1. Elimina la palabra "function" y coloca la flecha entre el argumento y las llaves de
+                        apertura.
+                        (a) => { return a + 100 }
+                        // 2. Quita los llaves{} del cuerpo y la palabra "return" (el return está implícito).
+                        (a) => a + 100
+                        // 3. Suprime los paréntesis de los argumentos
+                        a => a + 100
+
+                        Funciones | Función flecha - Sintaxis básica
+                        //Un parámetro. Con una expresión simple no se necesita return:
+                        param => expression
+                        //Varios parámetros requieren paréntesis. Con una expresión simple no se necesita return:
+                        (param1, paramN) => expression
+                        //Las declaraciones de varias líneas requieren llaves y return:
+                        param => {
+                        let a = 1
+                        return a + b
+                        }
+                        //Varios parámetros requieren paréntesis. Las declaraciones de varias líneas requieren llaves
+                        y return:
+                        (param1, paramN) => {
+                        let a = 1
+                        return a + b
+                        }
+
+
+                        Funciones | Función anónima
+
+                        const saludo = function (nombre) {
+                            var mensaje = "Hola " + nombre
+                            return mensaje
+                            }
+
+
+
+                            let y var
+let declara una variable de alcance local, limitando su alcance (scope) al
+bloque, declaración, o expresión donde se está usando. var define una
+variable global o local en una función sin importar el ámbito del bloque.
+
+
+
+Callbacks (devolución de llamada)
+Las funciones en JavaScript son objetos. Como cualquier otro objeto, se
+pueden pasar como parámetro. Por lo tanto, podemos pasar una función
+como argumento de otra función. Esto se llama función de devolución de
+llamada (callback). Las funciones también se pueden devolver como
+resultado de otra función.
+function saludar(nombre) {
+alert('Hola ' + nombre)
+}
+function procesarEntradaUsuario(callback) {
+var nombre = prompt('Por favor ingresa tu nombre.')
+callback(nombre)
+}
+procesarEntradaUsuario(saludar)
+
+
+Clausuras | Ejemplo
+La función creaSumador(x) toma un
+argumento único x y devuelve una nueva
+función. Esa nueva función toma un único
+argumento y, devolviendo la suma de x + y.
+creaSumador es una fábrica de función.
+suma5 y suma10 son ambos closures.
+Comparten la misma definición de cuerpo
+de función, pero almacenan diferentes
+entornos. En el entorno suma5, x es 5. En lo
+que respecta a suma10, x es 10
+
+
+function creaSumador(x) {
+    return function(y) {
+    return x + y;
+    };
+    }
+    var suma5 = creaSumador(5);
+    var suma10 = creaSumador(10);
+    console.log(suma5(2)); // muestra 7
+    console.log(suma10(2)); // muestra 12
+
+
+
+
+    Objetos | ¿Qué son?
+Las propiedades
+de un objeto definen las características del mismo. Se accede a las
+propiedades de un objeto con la notación punto:
+
+//nombreDelObjeto.propiedadDelObjeto
+texto1 = objectName.propertyName
+
+
+// Creamos el objeto
+var miAuto = new Object()
+// Creamos las propiedades
+miAuto.marca = 'Ford'
+miAuto.tipo = 'Ranger'
+miAuto.modelo = 2019
+console.log("El auto es:", miAuto.marca,
+miAuto.tipo,"y el modelo es",miAuto.modelo)
+
+// Creamos el objeto
+var miAuto = {
+marca: 'Ford',
+tipo: 'Ranger',
+modelo: 2019
+}
+
+var persona = {
+    nombre: "Juan", //variable del objeto. Par variable: valor,
+    apellido: "Paz",
+    dni: 11223344,
+    //Método: es una propiedad más
+    nombreCompleto: function () {
+    return this.nombre + " " + this.apellido
+    //El string que devuelve tiene información del propio objeto, por eso usamos “this”
+    }
+    }
+    console.log(persona) // Imprimo el objeto
+    console.log(persona.nombre) // Imprimo una propiedad del objeto: Juan
+    console.log(persona.nombreCompleto()) // Imprimo el resultado del método: Juan Paz
+
+
+    Objetos | Métodos
+    Por ejemplo, veamos cómo definir un nuevo objeto Perro, con los métodos
+    quienSoy() y ladrar():
+    var perro = {
+    nombre: "Milo",
+    edad: 12,
+    vivo: true,
+    quienSoy() {return "Soy " + this.nombre},
+    ladrar() {return this.nombre + " dice guau!"}
+    }
+    console.log(perro.nombre,"tiene",perro.edad,"años")
+    console.log(perro.quienSoy())
+    if (perro.vivo) {
+    console.log(perro.ladrar())
+    }
+    
+    largo = texto1.length
+
+
+    Plantilla de cadena de caracteres (template string)
+Las Template Strings utilizan las comillas invertidas o backticks para
+delimitar sus contenidos, en vez de las tradicionales comillas simples o
+dobles de las cadenas de texto normales.
+
+// esto es una Template String
+var saludo = `¡Hola Mundo!`
+
+
+Las partes variables de una Template String se denominan placeholders y
+utilizan la sintaxis ${ } para diferenciarse del resto de la cadena. Ejemplo:
+// Sustitución simple de cadenas
+var nombre = "Juan"
+console.log(`¡Hola ${nombre}!`)
+// resultado => "¡Hola Juan!"
+
+
+
+Plantilla de cadena de caracteres (template string)
+Dentro de un valor interpolado también se puede utilizar cualquier función:
+La sintaxis ${} también funciona con expresiones que invocan métodos y
+acceden a propiedades:
+function fn() { return "Este es el resultado de la función" }
+console.log(`Hola Mundo: ${fn()}`)
+//Hola Mundo: Este es el resultado de la función
+var usuario = {nombre: 'Juan Perez'}
+console.log(`Estás conectado como ${usuario.nombre.toUpperCase()}.`)
+// Estás conectado como JUAN PEREZ.
+var divisa = 'Pesos'
+console.log(`Los precios se indican en ${divisa}. Convierte ${divisa} en tu moneda local.`)
+//Los precios se indican en Pesos. Convierte Pesos en tu moneda local.
+
+
+For in
+For in recorre las propiedades de un objeto, por ejemplo, un string o un array:
+variable es variable que itera a través de las propiedades del objeto. Y object
+es el objeto sobre el que iteramos. Veamos un ejemplo iterando por un array:
+var arreglo=["P","r","u","e","b","a"]
+for (letra in arreglo) {
+console.log(letra)
+}
+for (variable in object) {
+//bloque de código a ser ejecutado
+}
+var arreglo=["P","r","u","e","b","a"]
+for (letra in arreglo) {
+console.log(arreglo[letra])
+
+
+For in con objetos
+For in también recorre las propiedades de un objeto, de principio a fin, sin
+necesidad de indicar “desde dónde” ni “hasta donde” ni “el paso” como con
+un for “normal”.
+var persona = {
+nombre: "Ana",
+apellido: "Paz",
+edad: 25
+};
+for (var x in persona) {
+console.log(x)
+}
+var persona = {
+nombre: "Ana",
+apellido: "Paz",
+edad: 25
+};
+for (var x in persona) {
+console.log(x + ": " +
+persona[x])
+}
+
+
+For of
+For of recorre una cadena (string) o arreglo (array), proporcionando acceso a
+cada uno de sus elementos. Su sintaxis es muy simple:
+Ejemplo: Definimos un arreglo, y lo recorremos guardando cada elemento
+en la variable letra, que mostramos por la consola:
+for (variable of iterable) {
+//statement
+}
+var arreglo = ["P","r","u","e","b","a"]
+for (var letra of arreglo){
+console.log(letra)
+}
+
+
+LocalStorage
+El objeto localStorage almacena datos sin fecha de vencimiento. Los datos
+no se eliminarán cuando se cierre el navegador y estarán disponibles en
+cualquier momento futuro.
+localStorage puede realizar esta tarea mediante los métodos setItem y
+getItem, que permiten guardar y recuperar información. Los datos se
+almacenan en formato de texto, como pares clave / valor.
+No todos los navegadores soportan estas tecnologías. Si proporciona soporte,
+la condición (typeof(Storage) !== "undefined") es verdadera (true). Esto
+puede utilizarse para determinar si es posible grabar los datos o no.
+
+
+LocalStorage
+El siguiente código almacena y recupera datos mediante localStorage:
+// ¿El navegador soporta esta función?
+if (typeof(Storage) !== "undefined") {
+// setItem guarda datos en el dispositivo
+localStorage.setItem("apellido", "Perez")
+localStorage.setItem("nombre", "Juan")
+console.log("Datos guardados.")
+} else {
+console.log("Web Storage no soportado.")
+}
+// ¿El navegador soporta esta función?
+if (typeof(Storage) !== "undefined") {
+// getItem recupera datos del dispositivo
+ape = localStorage.getItem("apellido")
+nom = localStorage.getItem("nombre")
+console.log(ape + ", " + nom)
+} else {
+console.log("Web Storage no soportado.")
+}
+
+
+SessionStorage
+Los datos almacenados en sessionStorage son eliminados cuando finaliza la sesión de
+navegación, habitualmente al cerrar la pestaña en la que se muestra la página. Para ver el
+web storage en Chrome: F12/Application/Storage. +info
+// ¿El navegador soporta esta función?
+if (typeof(Storage) !== "undefined") {
+// setItem guarda datos en el dispositivo
+sessionStorage.setItem("curso", "Full
+Stack Python")
+// getItem recupera datos del dispositivo
+curso = sessionStorage.getItem("curso")
+console.log("recuperado:" + curso)
+} else {
+console.log("Web Storage no soportado.")
+}
+
+
+JSON | Sintaxis
+Reglas de sintaxis JSON:
+La sintaxis JSON se deriva de la sintaxis de notación de objetos de JavaScript:
+● Los datos se guardan en pares de nombre / valor
+● Los datos están separados por comas
+● Las {} contienen objetos
+● Los corchetes se usan para indicar un array
+En JSON , los valores deben ser uno de los siguientes tipos de datos:
+● string
+● number
+● object (JSON object)
+● array
+● boolean
+● null
+La extensión por defecto para los archivos JSON es ".json
+
+
+JSON | Estructura de un archivo JSON
+El JSON de la derecha posee una
+propiedad “empleados” compuesta
+por un arreglo de 3 elementos.
+Cada uno de ellos es un objeto con
+dos propiedades.
+Este objeto JSON tiene varias
+propiedades con su valor. En el
+caso de la propiedad “hijos” el valor
+es un array.
+{
+"empleados": [
+{ "nombre": "Juan", "apellido": "Pérez" },
+{ "nombre": "Ana", "apellido": "López" },
+{ "nombre": "Pedro", "apellido": "Uriarte" }
+]
+}
+{
+"nombre": "Luis",
+"apellido": "Fernández",
+"segundoNombre": null,
+"edad": 30,
+"hijos": ["Ana", "Luisa", "Marcelo"]
+}
+
+
+JSON | JSON.stringify( ) y JSON.parse( )
+Podemos convertir datos almacenados en un objeto JavaScript al formato
+JSON usando JSON.stringify( ):
+Si los datos están almacenados en JSON los podemos convertir a un objeto
+JS usando JSON.parse( ):
+var myObj = { name: "John", age: 31, city: "New York" }
+var myJSON = JSON.stringify(myObj)
+// myJson= {"name":"John","age":31,"city":"New York"}
+var myObj1=JSON.parse(myJSON)
+//myObj1= { name: "John", age: 31, city: "New York" }
+
+
+
+
+
+
+DOM | Eventos con .addEventListener()
+.addEventListener() es la forma más elaborada de utilizar eventos: +info
+<!DOCTYPE html>
+<html><head>
+<script>
+function modifyText() { // Función que modifica el contenido de #t2
+var t2 = document.getElementById("t2")
+t2.firstChild.nodeValue = "Tocado!"
+}
+function load() { // Función que establece el EventListener()
+var el = document.getElementById("t2")
+el.addEventListener("click", modifyText, false)
+}
+// Al cargar el documento, agregamos el EventListener()
+document.addEventListener("DOMContentLoaded", load, false)
+</script>
+</head>
+<body>
+<p id="t2">¡Haz click aquí!</p>
+</body></html>

@@ -2,7 +2,6 @@
     font-family: "Permanent Marker", cursive;
     /*src: url('fonts/PermanentMarker-Regular.ttf');*/
     src: url('fonts/PermanentMarker-Regular.ttf');
-
 }
 
 * {
@@ -78,7 +77,7 @@ h6 {
     animation-delay: 0.5s;
     animation-iteration-count: infinite;
 }
-
+/*
 .disco_portrait_single {
     padding: 0px;
     margin: 0%;
@@ -89,14 +88,10 @@ h6 {
     border: rgb(156, 167, 119) solid 5px;
 
 }
+*/
 
-.titulo_track {
-    background-color: red;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 1.3rem;
-}
 
-@keyframes ejemplo {
+@keyframes ejemplo {/*BUSCAR EJEMPLO Y USAR ESTE FADE */
     0% {
         border: rgba(249, 123, 34, 1) solid 1.5px;
     }
@@ -112,43 +107,6 @@ h6 {
     75% {
         border: rgba(249, 123, 34, 0.25) solid 1.5px;
     }
-}
-
-.disco_titulo {
-    font-family: Verdana, arial, Tahoma, sans-serif;
-}
-
-#p1 {
-    width: 206px;
-    height: 210px;
-    border-color: rgb(249, 123, 34);
-    border-style: solid;
-    border-width: 3px;
-    position: absolute;
-    display: inline-block;
-    margin: auto;
-    /* margin: 30px; */
-    /*margin-top:  30px;*/
-    /* margin: 30px 10px 20px 5px; */
-    /*padding: 30px; */
-    /* padding-top: 30px;
-        padding-left: 30px;
-        padding: 10px 20px 5px 50px; */
-    /*border-color: brown blue violet green;*/
-    /*border-width: 2px 5px 8px 10px;*/
-    /*border-style:groove double solid dotted;*/
-}
-
-#p2 {
-    width: 206px;
-    height: 206px;
-    border-color: rgb(249, 123, 34);
-    border-style: solid;
-    border-width: 1px;
-    position: relative;
-    display: inline-block;
-
-
 }
 
 /*-------PARA OBRAS HTML-----^-----*/
@@ -581,28 +539,6 @@ separación columnas y filas con gap*/
     border-radius: 0px;
 }
 
-.contenedortpo {
-    /*height: 90vh;*/
-    height: 120vh;
-    width:200vh
-    background-color: #bed1f3;
-    display: grid;
-    border: #fff solid 10px;
-    margin: 0%;
-    padding: 0%;
-    /* Responsive correcto: repeat(auto-fit, minmax(px,1fr)) */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    /*grid-template-columns: repeat(3, minmax(250px, 1fr)); */
-    grid-template-rows: repeat(1, 1fr);
-    grid-auto-rows: 1fr;
-
-    justify-content: center;
-    /* Eje horizontal*/
-    align-content: center;
-    /* Eje vertical*/
-    gap: 0.1%
-}
-
 #disco_Home {
     background-color: #006600;
     text-align: center;
@@ -644,7 +580,7 @@ separación columnas y filas con gap*/
     width: 600px;
     line-height: 45px;
     padding: 0 40px 0 10px;
-    transition: .3s ease all;
+    transition: .5s ease all;
 }
 
 .formulario__input:focus {
@@ -724,12 +660,6 @@ separación columnas y filas con gap*/
     margin: 0%;
     padding: 0%;
 }
-
-background-color: #006600;
-
-
-
-
 
 .formulario__btn:hover {
     box-shadow: 3px 0px 30px orange;
