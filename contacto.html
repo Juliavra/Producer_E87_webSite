@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
     <link rel="stylesheet" href="css/estilos.css">
+    <link rel="icon" href="img/html.ico">
     <title>Contacto</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,8 +25,63 @@
             <a href="contacto.html"> Contacto</a>
         </nav>
         <main class="main">
+            <div class="container">
+                <form action="js/main.js" class="form" id="formulario">
+                    <!-- /** ! user name Input **/ -->
+                    <div>
+                        <label for="nombre">Nombre</label>
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="nombre" id="nombre" placeholder="Ingrese su nombre">
+                        <i class="fas fa-exclamation-circle failure-icon"></i>
+                        <i class="far fa-check-circle success-icon"></i>
+                        <div class="error"></div>
+                    </div>
+                    <!-- /** ! Email Input **/ -->
+                    <div>
+                        <label for="email">Email</label>
+                        <i class="far fa-envelope"></i>
+                        <input type="email" name="email" id="email" placeholder="ejemplo@gmail.com" />
+                        <i class="fas fa-exclamation-circle failure-icon"></i>
+                        <i class="far fa-check-circle success-icon"></i>
+                        <div class="error"></div>
+                    </div>
+                    <!-- /** ! Asunto Input **/ -->
+                    <div>
+                        <label for="asunto">Asunto</label>
+                        <input type="text" name="asunto" id="asunto" placeholder="" />
+                        <i class="fas fa-exclamation-circle failure-icon"></i>
+                        <i class="far fa-check-circle success-icon"></i>
+                        <div class="error"></div>
+                    </div>
+                    <!-- /** ! Comentario Input **/ -->
+                    <div>
+                        <label for="comentario">Comentario</label>
+                        <textarea name="comentario" id="comentario" cols="47  " rows="10" maxlength="300"
+                            style="resize: none"></textarea>
+                        <i class="fas fa-exclamation-circle failure-icon"></i>
+                        <i class="far fa-check-circle success-icon"></i>
+                        <div class="error"></div>
+                    </div>
+                    
+                        <!-- /** ! Checkbox Input **/ -->
+                        <input class="checkbox" type="checkbox" name="terminos" id="terminos">  
+                            Acepto Términos y Condiciones
+                        <div class="error"></div>
+
+                        <input class="checkbox" type="checkbox" name="spam" id="spam">
+                        Deseo recibir Spam
+                        <div class="error"></div>
+                    
+
+                    <!-- /** ! Boton Enviar**/ -->
+                    <div>
+                        <button type="submit" id="submit" class="_btn">Enviar</button>
+                    </div>
+                </form>
+            </div>
+
+            <!--
             <section>
-                <!--<form action="https://formspree.io/f/mvondkre" method="POST" class="formulario" id="formulario">-->
                 <form action="https://formspree.io/f/mvondkre" method="POST">
 
                    
@@ -57,7 +113,6 @@
                         <label for="asunto" class="formulario__label">Asunto</label>
                         <div class="formulario__grupo-input">
                             <input type="text" class="formulario__input" name="asunto_ingresado" id="asunto">
-                            <!--<input type="text" class="formulario__input" name="asunto_ingresado" id="asunto" required>-->
                             <i class="formulario__validacion-estado fas fa-times-circle"></i>
                         </div>
                         <p class="formulario__input-error">El asunto tiene que ser de al menos 4 dígitos y solo puede
@@ -89,7 +144,6 @@
 
                     <div class="formulario__grupo formulario__grupo-btn-enviar">
                         <button type="submit" class="enviar__btn">Enviar</button>
-                        <!-- <button type="submit" class="formulario__btn">Enviar</button>-->
                         <p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado
                             exitosamente!
                         </p>
@@ -100,17 +154,11 @@
                     </div>
                 </form>
             </section>
+        -->
         </main>
 
         <div class="sidebar">
             Sidebar
-
-            <div>
-                <input type="reset" value="Borrar todo">
-                <input type="submit" name="Enviar" id="Enviar" value="Enviar">
-            </div>
-
-            <button type="submit" class="enviar__btn">Enviar</button>
         </div>
         <div class="bloque1">Bloque1</div>
 
@@ -134,8 +182,6 @@
 </body>
 
 </html>
-
-
 
 <!--
 Función Descripción
