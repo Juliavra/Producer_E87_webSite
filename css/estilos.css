@@ -1,28 +1,7 @@
 @font-face {
     font-family: "Permanent Marker", cursive;
-    /*src: url('fonts/PermanentMarker-Regular.ttf');*/
     src: url('fonts/PermanentMarker-Regular.ttf');
 }
-
-/*
-
-/*@font-face{
-    font-family: "Permanent Marker", cursive;
-    src: url('../fonts/PermanentMarker-Regular.ttf');
-}
-
-@font-face{
-    font-family: "Sedgwick Ave Display", cursive;
-    src: url('../fonts/SedgwickAveDisplay-Regular.ttf');
-}
-
-@font-face{
-    font-family: "Rock Salt", cursive;
-    src: url('../fonts/RockSalt-Regular.ttf');
-}
-
-*/
-
 
 * {
     box-sizing: border-box;
@@ -40,6 +19,15 @@ h1 {
     background-color: #006600;
     text-align: center;
     font-size: 4rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    font-family: Garamond;
+    font-style: oblique;
+    font-weight: 900;
+    color: orange;
+    background-color: #006600;
 }
 
 h3 {
@@ -60,13 +48,14 @@ h4 {
 
 h5 {
     /*PALETA COPADA*/
-    background-color: rgb(249, 123, 34);
+  /*  background-color: rgb(249, 123, 34);*/
     /*#F97B22*/
-    background-color: rgb(254, 232, 176);
+    /*background-color: rgb(254, 232, 176);*/
     /*#FEE8B0*/
-    background-color: rgb(124, 144, 112);
+    /*background-color: rgb(124, 144, 112);*/
     /*#9CA777  */
-    background-color: rgb(156, 167, 119);
+    /*background-color: rgb(156, 167, 119);*/
+    background-color: #006600;
     /*#7C9070*/
 }
 
@@ -78,62 +67,6 @@ h6 {
     font-size: 2rem;
 }
 
-/*-------PARA OBRAS HTML-----------*/
-/*
-.contenedor {
-    width: 600px;
-    height: 1200px;
-    background-color: red;
-}
-*/
-.disco_portrait {
-    width: 203px;
-    height: 202px;
-    margin: 5px;
-    border: rgb(249, 123, 34) solid 1.5px;
-    display: inline-block;
-
-    animation-name: ejemplo;
-    animation-duration: 3s;
-    animation-delay: 0.5s;
-    animation-iteration-count: infinite;
-}
-
-/*
-.disco_portrait_single {
-    padding: 0px;
-    margin: 0%;
-    height: auto;
-    width: auto;
-    text-align: left;
-    display: inline-block;
-    border: rgb(156, 167, 119) solid 5px;
-
-}
-*/
-
-
-@keyframes ejemplo {
-
-    /*BUSCAR EJEMPLO Y USAR ESTE FADE */
-    0% {
-        border: rgba(249, 123, 34, 1) solid 1.5px;
-    }
-
-    25% {
-        border: rgba(249, 123, 34, 0.75) solid 1.5px;
-    }
-
-    50% {
-        border: rgba(249, 123, 34, 0.50) solid 1.5px;
-    }
-
-    75% {
-        border: rgba(249, 123, 34, 0.25) solid 1.5px;
-    }
-}
-
-/*-------PARA OBRAS HTML-----^-----*/
 /*--------------------------¬|-------*/
 
 /*-|-----ENLACES---------------------*/
@@ -151,13 +84,10 @@ a:hover {
     /*font-style: oblique;*/
     color: white;
     background-color: #006600;
-/*
+    /*
     animation: tagEffect 3s infinite;
     animation-timing-function: cubic-bezier(1, 0, 0, 1);
 */
-
-
-    
 
     /*padding: 0px;*/
     /*
@@ -218,7 +148,7 @@ a:hover{
 
 header {
     font-family: "Permanent Marker";
-    background-color: #006600;
+    background-color: rgba(0, 102, 0, 1);
     font-size: 5rem;
     text-align: center;
     margin-top: 0%;
@@ -228,7 +158,8 @@ header {
 }
 
 body {
-    font-family: Verdana, arial, Tahoma, sans-serif;
+    font-family: "Permanent Marker";
+    /*Garamond, arial, Tahoma, sans-serif */
     color: orange;
     background-color: #006600;
 }
@@ -266,14 +197,9 @@ main {
     /* padding: 40px;*/
 }
 
+/*--------------------------------*/
 
-/*-- ^   -----ETIQUETAS SEMANTICAS------------*/
-/*-- |  -----ETIQUETAS SEMANTICAS------------*/
-
-/*----------------------------------*/
 /*-------------GRID AREAS------------*/
-/* Definir el tamaño de fuente 62.5%
-en el html */
 html {
     font-size: 62.5%;
     /*10px*/
@@ -311,6 +237,7 @@ html {
     text-align: center;
     font-size: 5rem;
     margin-top: 0%;
+    margin-bottom: 10px;
     padding: 0%;
     /*border: red solid 2px;*/
 }
@@ -358,7 +285,7 @@ html {
 
 .contenedor .bloque2 {
     grid-area: bloque2;
-    background-color: antiquewhite;
+    background-color: #006600;
     color: black;
     height: 15vh;
     border: red solid 2px;
@@ -376,10 +303,6 @@ html {
 }
 
 /*--------------------------------------*/
-/*----CONTENEDOR PARA DISCO INDIVIDUAL*/
-
-
-/*|||||||||||||||||||||||||||||||||||||||||||||||*/
 /*     CONTENEDOR PLAYER*/
 .contenedor .player {
     /*  font-family: "Permanent Marker", cursive;*/
@@ -404,6 +327,7 @@ html {
     align-items: center;
     gap: 0.1%;
 }
+
 /*||||||||||||||||||||||||||||||||||||||||||||||||||*/
 /*--  ^  ------GRID AREAS------------*/
 /*--  |  ------GRID AREAS------------*/
@@ -412,23 +336,9 @@ html {
     background-color: #006600;
     text-align: center;
     /*border: 1px solid rgb(187, 238, 46);*/
-}
-
-/* ----- -----  Mediaqueries ----- ----- */
-@media screen and (max-width: 800px) {
-    .formulario {
-        grid-template-columns: 1fr;
-    }
-
-    .formulario__grupo-terminos,
-    .formulario__mensaje,
-    .formulario__grupo-btn-enviar {
-        grid-column: 1;
-    }
-
-    .formulario__btn {
-        width: 100%;
-    }
+    max-width: 400px;
+    max-height: 400px;
+    
 }
 
 /* -------Selector por ID-------------*/
@@ -500,14 +410,16 @@ img {
     right: 0;
     border-radius: 3px 0 0 3px;
 }
+
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover,
 .next:hover {
     background-color: rgba(0, 0, 0, 0.8);
 }
+
 /* Caption text */
 .text {
-    color: #f2f2f2;
+    color: red;
     font-size: 15px;
     padding: 8px 12px;
     position: absolute;
@@ -515,6 +427,7 @@ img {
     width: 100%;
     text-align: center;
 }
+
 /* Number text (1/3 etc) */
 .numbertext {
     color: #f2f2f2;
@@ -523,6 +436,7 @@ img {
     position: absolute;
     top: 0;
 }
+
 /* The dots/bullets/indicators */
 .dot {
     cursor: pointer;
@@ -534,19 +448,23 @@ img {
     display: inline-block;
     transition: background-color 0.6s ease;
 }
+
 .active,
 .dot:hover {
     background-color: #717171;
 }
+
 /* Fading animation */
 .fade {
     animation-name: fade;
     animation-duration: 1.5s;
 }
+
 @keyframes fade {
     from {
         opacity: .4
     }
+
     to {
         opacity: 1
     }
@@ -679,35 +597,261 @@ img {
 }
 
 @keyframes tagEffect {
+
+    /*
     0% {
         text-shadow:
-        rgba(124, 144, 112, 1) -2px 0px,
-        rgba(124, 144, 112, 1) -4px 0px,
-        rgba(124, 144, 112, 1) -6px 0px,
-        rgba(254, 232, 176, 1) -8px 0px, 
-        rgba(0, 0, 0, 1) -9px 0px;;
+        rgba(255, 255, 255, 1) 1px 0px,
+        rgba(255, 255, 255, 1) 2px 0px,
+        rgba(0, 0, 0, 1) 3px 0px,
+        rgba(0, 0, 0, 1) 4px 0px,
+        rgba(0, 0, 0, 1) 5px 0px,
+        rgba(0, 0, 0, 1) 6px 0px,
+        rgba(0, 0, 0, 1) 7px 0px,
+        rgba(0, 0, 0, 1) 8px 0px,
+        rgba(0, 0, 0, 1) 9px 0px,
+        rgba(0, 0, 0, 1) 10px 0px,
+        rgba(0, 0, 0, 1) 11px 0px,
+        rgba(0, 0, 0, 1) 12px 0px,
+        rgba(0, 0, 0, 1) 13px 0px,
+        rgba(0, 0, 0, 1) 14px 0px,
+        rgba(0, 0, 0, 1) 15px 0px,
+        rgba(0, 0, 0, 1) 16px 0px,
+        rgba(0, 0, 0, 1) 17px 0px,
+        rgba(0, 0, 0, 1) 18px 0px,
+        rgba(0, 0, 0, 1) 19px 0px,
+        rgba(255, 255, 255, 1) 20px 0px,
+        rgba(255, 255, 255, 1) 21px 0px;
     }
+   100% {
+        text-shadow:
+        rgba(255, 255, 255, 1) 1px 0px,
+        rgba(255, 255, 255, 1) 2px 0px,
+        rgba(0, 0, 0, 1) 3px 0px,
+        rgba(0, 0, 0, 1) 4px 0px,
+        rgba(0, 0, 0, 1) 5px 0px,
+        rgba(0, 0, 0, 1) 6px 0px,
+        rgba(0, 0, 0, 1) 7px 0px,
+        rgba(0, 0, 0, 1) 8px 0px,
+        rgba(0, 0, 0, 1) 9px 0px,
+        rgba(0, 0, 0, 1) 10px 0px,
+        rgba(0, 0, 0, 1) 11px 0px,
+        rgba(0, 0, 0, 1) 12px 0px,
+        rgba(0, 0, 0, 1) 13px 0px,
+        rgba(0, 0, 0, 1) 14px 0px,
+        rgba(0, 0, 0, 1) 15px 0px,
+        rgba(0, 0, 0, 1) 16px 0px,
+        rgba(0, 0, 0, 1) 17px 0px,
+        rgba(0, 0, 0, 1) 18px 0px,
+        rgba(0, 0, 0, 1) 19px 0px,
+        rgba(255, 255, 255, 1) 20px 0px,
+        rgba(255, 255, 255, 1) 21px 0px;
+    }
+*/
+    /*
+0%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px 0px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+10%{
+    text-shadow:
+    rgba(255, 255, 255, 1) -15px -0px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+20%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px -10px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+30%{
+    text-shadow:
+    rgba(255, 255, 255, 1) -15px 10px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+40%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px -0px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+50%{
+    text-shadow:
+    rgba(255, 255, 255, 1) -15px -0px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+60%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px -0px
+}
+70%{
+    text-shadow:
+    rgba(255, 255, 255, 1) -15px -0px
+}
+80%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px -0px
+}
+90%{
+    text-shadow:
+    rgba(255, 255, 255, 1) -15px -0px
+}
+100%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px -0px
+    rgba(254, 72, 0, 1) 0px -30px
+}
+   */
+
+    0% {
+        text-shadow:
+
+            rgba(97, 0, 254, 1) -1px -0px 8px,
+            rgba(97, 0, 254, 1) -2px -0px 8px,
+            rgba(254, 72, 0, 1) -15px 0px 100px,
+            rgba(97, 0, 254, 1) -18px -0px 8px,
+            rgba(97, 0, 254, 1) -12px -0px 8px;
+    }
+
     100% {
         text-shadow:
-        rgba(124, 144, 112, 1) -2px 0px,
-        rgba(124, 144, 112, 1) -4px 0px,
-        rgba(124, 144, 112, 1) -6px 0px,
-        rgba(254, 232, 176, 1) -8px 0px,
-        rgba(0, 0, 0, 1) -9px 0px;
+            rgba(97, 0, 254, 1) -1px -0px 8px,
+            rgba(97, 0, 254, 1) -2px -0px 8px,
+
+            rgba(254, 72, 0, 1) -15px 0px 8px,
+            rgba(97, 0, 254, 1) -18px -0px 8px,
+            rgba(97, 0, 254, 1) -12px -0px 8px;
     }
+
+
+
+
 }
 
 @keyframes tagEffectInMotion {
     0% {
         text-shadow:
-            rgba(254, 123, 0, 1) -7px 0px,
-            rgba(0, 0, 255, 1) -10px 3px;
+            rgba(255, 255, 255, 1) 1px 0px,
+            rgba(0, 0, 0, 1) 2px 0px,
+            rgba(0, 0, 0, 1) 3px 0px,
+            rgba(0, 0, 0, 1) 4px 0px,
+            rgba(0, 0, 0, 1) 5px 0px,
+            rgba(0, 0, 0, 1) 6px 0px,
+            rgba(0, 0, 0, 1) 7px 0px,
+            rgba(0, 0, 0, 1) 8px 0px,
+            rgba(0, 0, 0, 1) 9px 0px,
+            rgba(0, 0, 0, 1) 10px 0px,
+            rgba(0, 0, 0, 1) 11px 0px,
+            rgba(0, 0, 0, 1) 12px 0px,
+            rgba(0, 0, 0, 1) 13px 0px,
+            rgba(0, 0, 0, 1) 14px 0px,
+            rgba(0, 0, 0, 1) 15px 0px,
+            rgba(0, 0, 0, 1) 16px 0px,
+            rgba(0, 0, 0, 1) 17px 0px,
+            rgba(0, 0, 0, 1) 18px 0px,
+            rgba(0, 0, 0, 1) 19px 0px,
+            rgba(0, 0, 0, 1) 20px 0px,
+            rgba(255, 255, 255, 1) 21px 0px;
     }
+/*
+    50% {
+        text-shadow:
+            rgba(255, 255, 255, 0) 1px 0px,
+            rgba(0, 0, 0, 0) 2px 0px,
+            rgba(0, 0, 0, 0) 3px 0px,
+            rgba(0, 0, 0, 0) 4px 0px,
+            rgba(0, 0, 0, 0) 5px 0px,
+            rgba(0, 0, 0, 0) 6px 0px,
+            rgba(0, 0, 0, 0) 7px 0px,
+            rgba(0, 0, 0, 0) 8px 0px,
+            rgba(0, 0, 0, 0) 9px 0px,
+            rgba(0, 0, 0, 0) 10px 0px,
+            rgba(0, 0, 0, 0) 11px 0px,
+            rgba(0, 0, 0, 0) 12px 0px,
+            rgba(0, 0, 0, 0) 13px 0px,
+            rgba(0, 0, 0, 0) 14px 0px,
+            rgba(0, 0, 0, 0) 15px 0px,
+            rgba(0, 0, 0, 0) 16px 0px,
+            rgba(0, 0, 0, 0) 17px 0px,
+            rgba(0, 0, 0, 0) 18px 0px,
+            rgba(0, 0, 0, 0) 19px 0px,
+            rgba(0, 0, 0, 0) 20px 0px,
+            rgba(255, 255, 255, 1) 21px 0px;
+    }
+
+    75% {
+        text-shadow:
+            rgba(0, 0, 0, 1) 1px 0px,
+            rgba(0, 0, 0, 1) 2px 0px,
+            rgba(0, 0, 0, 1) 3px 0px,
+            rgba(0, 0, 0, 1) 4px 0px,
+            rgba(0, 0, 0, 1) 5px 0px,
+            rgba(0, 0, 0, 1) 6px 0px,
+            rgba(0, 0, 0, 1) 7px 0px,
+            rgba(0, 0, 0, 1) 8px 0px,
+            rgba(0, 0, 0, 1) 9px 0px,
+            rgba(0, 0, 0, 1) 10px 0px,
+            rgba(0, 0, 0, 1) 11px 0px,
+            rgba(0, 0, 0, 1) 12px 0px,
+            rgba(0, 0, 0, 1) 13px 0px,
+            rgba(0, 0, 0, 1) 14px 0px,
+            rgba(0, 0, 0, 1) 15px 0px,
+            rgba(0, 0, 0, 1) 16px 0px,
+            rgba(0, 0, 0, 1) 17px 0px,
+            rgba(0, 0, 0, 1) 18px 0px,
+            rgba(0, 0, 0, 1) 19px 0px,
+            rgba(0, 0, 0, 1) 20px 0px;
+    }
+
     100% {
         text-shadow:
-            rgba(255, 0, 0, 0.5) -10px 0px,
-            rgba(0, 0, 255, 0.5) -7px 3px;
+            rgba(0, 0, 0, 1) 1px 0px,
+            rgba(0, 0, 0, 1) 2px 0px,
+            rgba(0, 0, 0, 1) 3px 0px,
+            rgba(0, 0, 0, 1) 4px 0px,
+            rgba(0, 0, 0, 1) 5px 0px,
+            rgba(0, 0, 0, 1) 6px 0px,
+            rgba(0, 0, 0, 1) 7px 0px,
+            rgba(0, 0, 0, 1) 8px 0px,
+            rgba(0, 0, 0, 1) 9px 0px,
+            rgba(0, 0, 0, 1) 10px 0px,
+            rgba(0, 0, 0, 1) 11px 0px,
+            rgba(0, 0, 0, 1) 12px 0px,
+            rgba(0, 0, 0, 1) 13px 0px,
+            rgba(0, 0, 0, 1) 14px 0px,
+            rgba(0, 0, 0, 1) 15px 0px,
+            rgba(0, 0, 0, 1) 16px 0px,
+            rgba(0, 0, 0, 1) 17px 0px,
+            rgba(0, 0, 0, 1) 18px 0px,
+            rgba(0, 0, 0, 1) 19px 0px,
+            rgba(0, 0, 0, 1) 20px 0px;
     }
+    */
+    100% {
+        text-shadow:
+            rgba(255, 255, 255, 1) 1px 0px,
+            rgba(0, 0, 0, 1) 2px 0px,
+            rgba(0, 0, 0, 1) 3px 0px,
+            rgba(0, 0, 0, 1) 4px 0px,
+            rgba(0, 0, 0, 1) 5px 0px,
+            rgba(0, 0, 0, 1) 6px 0px,
+            rgba(0, 0, 0, 1) 7px 0px,
+            rgba(0, 0, 0, 1) 8px 0px,
+            rgba(0, 0, 0, 1) 9px 0px,
+            rgba(0, 0, 0, 1) 10px 0px,
+            rgba(0, 0, 0, 1) 11px 0px,
+            rgba(0, 0, 0, 1) 12px 0px,
+            rgba(0, 0, 0, 1) 13px 0px,
+            rgba(0, 0, 0, 1) 14px 0px,
+            rgba(0, 0, 0, 1) 15px 0px,
+            rgba(0, 0, 0, 1) 16px 0px,
+            rgba(0, 0, 0, 1) 17px 0px,
+            rgba(0, 0, 0, 1) 18px 0px,
+            rgba(0, 0, 0, 1) 19px 0px,
+            rgba(0, 0, 0, 1) 20px 0px,
+            rgba(255, 255, 255, 1) 21px 0px;
+    }
+
+
 }
 
 h5 {
@@ -726,31 +870,32 @@ h5 {
 
 /***--------------- FORMULARIO------------------**/
 .container {
-  font-family: "Permanent Marker";
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+    font-family: "Permanent Marker";
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 /*** ! style rules for content section**/
 .content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  background-color: #f2796e;
-  width: 55%;
-  min-height: 100vh;
-  padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #f2796e;
+    width: 55%;
+    min-height: 100vh;
+    padding: 10px 20px;
 }
 
 .image {
-  background-image: url("./images/illustration.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  /* border: 2px solid black; */
-  height: 65%;
+    background-image: url("./images/illustration.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    /* border: 2px solid black; */
+    height: 65%;
 }
+
 /*
 .text {
   text-align: center;
@@ -760,18 +905,18 @@ h5 {
 */
 /**.* ! style rules for form section**/
 .form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 45%;
-  /* max-width: 400px; */
-  padding: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 45%;
+    /* max-width: 400px; */
+    padding: 0px;
 }
 
 .title {
-  font-size: 25px;
-  font-weight: bold;
-  margin-bottom: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .contenedor .main .container {
@@ -780,30 +925,30 @@ h5 {
     padding: 0px;
     border: solid black 0px;
     text-align: left;
-  }
+}
 
 .form div input {
-  /*width: 100%;*/
-  width: 650px;
-  height: 45px;
-  background-color: #fff;
-  border-radius: 3px;
-  outline: none;
-  border: 3px solid transparent;
-  padding: 0 5px;
-  line-height: 45px;
-  transition: .5s ease all;
-  margin: 0px;
-  
+    /*width: 100%;*/
+    width: 650px;
+    height: 45px;
+    background-color: #fff;
+    border-radius: 3px;
+    outline: none;
+    border: 3px solid transparent;
+    padding: 0 5px;
+    line-height: 45px;
+    transition: .5s ease all;
+    margin: 0px;
+
 }
 
 input:focus {
-  border: 3px solid rgb(249, 123, 34);
-  outline: none;
-  box-shadow: 3px 0px 30px rgba(163, 163, 163, 0.4);
+    border: 3px solid rgb(249, 123, 34);
+    outline: none;
+    box-shadow: 3px 0px 30px rgba(163, 163, 163, 1);
 }
 
-.checkbox{
+.checkbox {
     width: 20px;
     height: 45px;
     background-color: #fff;
@@ -813,132 +958,247 @@ input:focus {
     padding: 0px;
     margin: 0px;
     display: inline-block;
-    
-  }
+
+}
 
 label {
-  display: block;
-  font-weight: 700;
-  padding: 0px;
-  cursor: pointer;
+    display: block;
+    font-weight: 700;
+    padding: 0px;
+    cursor: pointer;
 }
 
 .form div {
-  position: relative;
-  margin-bottom: 15px;
+    position: relative;
+    margin-bottom: 15px;
 }
 
 /** .* ! style rules for form icons**/
 .form div i {
-  position: absolute;
-  padding: 10px;
-  margin: 0px;
+    position: absolute;
+    padding: 10px;
+    margin: 0px;
 }
 
 .success-icon,
 .failure-icon {
-  right: 0;
-  opacity: 0;
+    right: 0;
+    opacity: 0;
 }
 
 .failure-icon,
 .error {
-  color: red;
+    color: red;
 }
 
 .success-icon {
-  color: rgb(121, 226, 121);
+    color: rgb(121, 226, 121);
 }
 
 .error {
-  font-size: 0.7rem;
-  margin-top: 5px;
+    font-size: 0.7rem;
+    margin-top: 5px;
 }
 
 /** * ! style rules for button **/
 button {
-  /*  transition: all 0.5s ease;*/
-  font-family: "Permanent Marker", cursive;
-  width: 100%;
-  background-color:  #006600;
-  color: orange;
-  font-weight: bold;
-  font-size: 4vh;
-  border: #006600 solid 4px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: .1s ease all;
-  margin: 0%;
-  padding: 0%;
+    /*  transition: all 0.5s ease;*/
+    font-family: "Permanent Marker", cursive;
+    width: 100%;
+    background-color: #006600;
+    color: orange;
+    font-weight: bold;
+    font-size: 4vh;
+    border: #006600 solid 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .1s ease all;
+    margin: 0%;
+    padding: 0%;
 }
 
 button:hover {
-  box-shadow: 3px 4px 30px orange;
+    box-shadow: 3px 4px 30px orange;
 }
 
-#terminos{
+#terminos {
     height: min-content;
     display: inline-block;
     margin: 0px;
-  }
-#spam{
-    height: min-content;
-    display: inline-block;
-    margin: 0px;
-  }
+}
 
-  
+#spam {
+    height: min-content;
+    display: inline-block;
+    margin: 0px;
+}
+
+
 /** * ! Media Queries are here **/
 @media (max-width: 900px) {
-  .container {
-    flex-direction: column;
-  }
+    .container {
+        flex-direction: column;
+    }
 
-  .form,
-  .content {
-    width: 100%;
-  }
+    .form,
+    .content {
+        width: 100%;
+    }
 
-  .btn {
-    flex-direction: column;
-  }
-  .image {
-    height: 70vh;
-  }
+    .btn {
+        flex-direction: column;
+    }
+
+    .image {
+        height: 70vh;
+    }
 }
 
 @media (max-width: 425px) {
-  .form {
-    padding: 20px;
-  }
+    .form {
+        padding: 20px;
+    }
 }
 
 /* -------Selector por ID-------------*/
 #nombre {
-  color: black;
-  font-weight: 900;
+    color: black;
+    font-weight: 900;
 }
 
 #email {
-  color: black;
-  font-weight: 900;
+    color: black;
+    font-weight: 900;
 }
 
 #asunto {
-  color: black;
-  font-weight: 900;
+    color: black;
+    font-weight: 900;
 }
 
 #comentario {
-  color: black;
-  font-weight: 900;
+    color: black;
+    font-weight: 900;
 }
 
 
-p+h3{
+p+h3 {
     font-family: "Permanent Marker", cursive;
     color: rgba (255, 165, 0, 0.7);
     font-size: 4rem;
     animation: tagEffect 3s infinite;
     animation-timing-function: cubic-bezier(1, 0, 0, 1);
+}
+
+.footer .icono {
+    display: inline-block;
+    margin-left: 60px;
+}
+
+.sidebar_iframe {
+    margin-left: 50px;
+    /*display: inline-block;*/
+}
+
+iframe {
+    height: 400px;
+    width: 446px;
+    margin-left: 150px;
+    /*display: inline-block;*/
+}
+
+
+#contenedor_texto_bio {
+    background-color: blue;
+    color: azure;
+    border: 3px solid pink;
+}
+
+
+.waiting_title {
+    /*background-color: rgba(33, 16, 139, 0.5) !important;*/
+    font-size: 7rem;
+    font-family: "Permanent Marker";
+    text-align: center;
+    margin: 0px;
+    margin-left: 20px;
+    padding: 0px;
+    animation: tagEffectInMotion 3s infinite;
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+}
+/*-----------PLAYER LAND--------- */
+
+.player_btn {
+    display: inline-block;
+}
+/*------------------------------------------------*/
+.body .contenedor_loading {
+    max-width: 16rem;
+    max-height: 9rem;
+    display: grid;
+    padding: 0%;
+    background-color: #006600;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+        "cabeza  cabeza  cabeza  cabeza  cabeza  cabeza  cabeza  cabeza"
+        "main  main    main    main     main    main    main   sidebar"
+        " footer  footer footer  footer   footer  footer  footer  footer";
+    margin-right: 0px;
+    margin-left: 0px;
+    gap: 0.1%;
+}
+
+#myProgress {
+    width: 100%;
+    background-color: white;
+}
+
+#myloading_bar {
+    width: 1%;
+    height: 30px;
+    background-color: #006600;
+    
+}
+
+/*
+Propiedades de ancho y alto:
+● min-height, max-height, min-width y max-width
+*/
+/* ----- -----  Mediaqueries ----- ----- */
+@media all and (max-width: 400px) {
+
+    .main .waiting_title {
+        /*background-color: rgba(33, 16, 139, 0.5) !important;*/
+        font-size: 2rem;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        margin: 0px;
+        margin-left: 20px;
+        padding: 0px;
+        color:blue;
+        /*animation: tagEffectInMotion 3s infinite;
+        animation-timing-function: cubic-bezier(1, 0, 0, 1);
+        */
+    }
+}
+
+
+@media (orientation:landscape) and (max-width:400px){/* , es para OR */
+    .main .waiting_title {
+        font-size: 2rem;
+    }
+}
+
+@media (orientation:portrait){
+    .main .waiting_title {
+        font-size: 2rem;
+    }  
+}
+
+/*--------------------------------*/
+.yt1{
+    width: 400px;
+    height: 350px;
+    margin-left: 200px;
 }

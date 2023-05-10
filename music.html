@@ -6,7 +6,7 @@
   <meta http-equiv="" X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/html.ico">
-  <link rel="STYLESHEET" href="css/estilos.css">
+  <link rel="STYLESHEET" href="css/music.css">
   <title>Music</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
   <div class="contenedor">
     <header class="header"> Producer E87 </header>
     <nav class="nav" id="nav_Menu">
-      <a href="index.html"> Home</a>
+      <a href="index.html"> News</a>
       <a href="bio.html"> Bio</a>
       <a href="music.html"> Music</a>
       <a href="contacto.html"> Contacto</a>
@@ -28,19 +28,19 @@
       <div class="slideshow-container">
         <div class="mySlides fade">
           <div class="numbertext"></div>
-          <img src="img/Pastoral_Tapa.jpg" style="width:100%">
+          <img src="img/piano-svgrepo-com.svg" style="width:100%">
           <div class="text"> </div>
         </div>
 
         <div class="mySlides fade">
           <div class="numbertext"></div>
-          <img src="img/Pastoral_Tapa.jpg" style="width:100%">
+          <img src="img/walkman-svgrepo-com.svg" style="width:100%">
           <div class="text"></div>
         </div>
 
         <div class="mySlides fade">
           <div class="numbertext"></div>
-          <img src="img/Pastoral_Tapa.jpg" style="width:100%">
+          <img src="img/dj-mixer-svgrepo-com.svg" style="width:100%">
           <div class="text"> </div>
         </div>
         <a class="prev" onclick="plusSlides(-1)">❮</a>
@@ -53,51 +53,34 @@
         <span class="dot" onclick="currentSlide(3)"></span>
       </div>
       <script src="js/music.js"></script>
-
-      <!--
-            <script>
-            let slideIndex = 1;
-            showSlides(slideIndex);
-            
-            function plusSlides(n) {
-              showSlides(slideIndex += n);
-            }
-            
-            function currentSlide(n) {
-              showSlides(slideIndex = n);
-            }
-            
-            function showSlides(n) {
-              let i;
-              let slides = document.getElementsByClassName("mySlides");
-              let dots = document.getElementsByClassName("dot");
-              if (n > slides.length) {slideIndex = 1}    
-              if (n < 1) {slideIndex = slides.length}
-              for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";  
-              }
-              for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-              }
-              slides[slideIndex-1].style.display = "block";  
-              dots[slideIndex-1].className += " active";
-            }
-            </script>
-    -->
     </main>
+    <!--
     <div class="bloque1">Bloque1</div>
     <div class="sidebar">Sidebar</div>
+    -->
     <footer class="footer">
+      <div id="icon">
+        <div class="icono">
+          <a href="https://es-la.facebook.com/" target="_blank" title="Ir a Facebook"><img src="img/facebook.svg"
+              alt="facebook" width="50" height="50"> </a>
+        </div>
+        <div class="icono">
+          <a href="https://instagram.com" target="_blank" title="Ir a Instagram"><img src="img/instagram.svg"
+              alt="instagram" width="50" height="50"></a>
 
-      <img src="img/instagram.png" alt"" width="40" height="40">
-      yo soy el footer con todos los iconos de redes sociales
-      <br>
-      <!--
-            WWW.flaticon.es  SACAR DE ESTA WEB LOS ICONOS PARA ESTA SECCION
-            DESCARGAR LA IMAGEN PNG
-            ----COMO METER ICONO DE RED SOCIAL
-            -->
-
+        </div>
+        <div class="icono">
+          <a href="https://twitter.com/home?lang=es" target="_blank" title="Ir a Twitter"><img src="img/twitter.svg"
+              width="50" alt="twitter" height="50"></a>
+        </div>
+        <div class="icono">
+          <a href="https://www.youtube.com/" target="_blank" title="Ir a Youtube"><img src="img/youtube.svg"
+              alt="youtube" width="60" height="60"></a>
+        </div>
+      </div>
+      <div>
+        © Producer E87
+      </div>
     </footer>
   </div>
 </body>
