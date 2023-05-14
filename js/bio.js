@@ -26,14 +26,16 @@ function myFunction(x) {
     document.body.style.backgroundColor = "#006600"; 
     /*alert("es mayor  400px");*/
   }
-
-
-
-
-
-
 }
 
+
+function header_plays(){
+snd_header.play();
+alert("audio sonando");
+  }
+
+  var cabeza = document.getElementById("header");
+  cabeza.addEventListener("hover", header_plays);
 
 const mmObj = window.matchMedia("(max-width: 400px)");
 
@@ -104,3 +106,5 @@ function fnBrowswerDetect() {
   alert("BN: " + browserName);
 
 }
+
+

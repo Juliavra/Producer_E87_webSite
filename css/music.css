@@ -260,6 +260,14 @@ main {
     animation-timing-function: cubic-bezier(1, 0, 0, 1);
 }
 
+
+#snd_header{
+    color: blue;
+    background-color: aqua;
+    text-align: center;
+}
+
+
 @keyframes tagEffectInMotion {
 
     /*
