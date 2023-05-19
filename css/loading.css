@@ -1,0 +1,483 @@
+@font-face {
+    font-family: "Permanent Marker", cursive;
+    src: url('fonts/PermanentMarker-Regular.ttf');
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+:root {
+    font-size: 20px;
+}
+
+h1 {
+    font-family: Verdana, arial, Tahoma, sans-serif;
+    color: orange;
+    background-color: #006600;
+    text-align: center;
+    font-size: 4rem;
+}
+
+h2 {
+    font-size: 1.2rem;
+    font-family: Garamond;
+    font-style: oblique;
+    font-weight: 900;
+    color: orange;
+    background-color: #006600;
+}
+
+h3 {
+    font-family: "Permanent Marker";
+    color: orange;
+    background-color: #006600;
+    text-align: center;
+    font-size: 3rem;
+}
+
+h4 {
+    font-family: "Permanent Marker";
+    color: rgb(254, 232, 176);
+    background-color: #006600;
+    text-align: center;
+    font-size: 4rem;
+}
+
+h5 {
+    /*PALETA COPADA*/
+  /*  background-color: rgb(249, 123, 34);*/
+    /*#F97B22*/
+    /*background-color: rgb(254, 232, 176);*/
+    /*#FEE8B0*/
+    /*background-color: rgb(124, 144, 112);*/
+    /*#9CA777  */
+    /*background-color: rgb(156, 167, 119);*/
+    background-color: #006600;
+    /*#7C9070*/
+}
+
+h6 {
+    font-family: "Permanent Marker";
+    color: orange;
+    background-color: #006600;
+    text-align: center;
+    font-size: 2rem;
+}
+
+/*--------------------------¬|-------*/
+
+/*-|-----ENLACES---------------------*/
+
+div{
+    width: 80px;
+    height: 120px;
+    /*background-color:lightskyblue;*/
+    border: 1px solid aquamarine;
+   /*align-items: baseline;*/
+   /*align-content: flex-start;*/
+   /*align-self: start;*/
+   margin-bottom: 0px;
+    margin: 0;
+    position: relative;
+    display: inline-block;
+}
+
+/*--------ETIQUETAS SEMANTICAS------------*/
+body {
+    font-family: "Permanent Marker";
+    color: orange;
+    background-color: #006600;
+}
+
+/*-------------------------------------*/
+/*----------BOTON ENVIAR---------------*/
+.enviar__btn {
+
+    font-family: "Permanent Marker", cursive;
+    color: orange;
+    background-color: #006600;
+    border: 3px solid #006600;
+    padding: 0%;
+    font-size: 4vh;
+    cursor: pointer;
+}
+
+.enviar__btn:hover {
+    box-shadow: 3px 4px 30px orange;
+
+    /* border-radius: 0px;*/
+    /*    Syntax: <length-percentage>{1,2}*/
+}
+
+/** * ! style rules for button **/
+button {
+    transition: all 0.5s ease;
+  font-family: "Permanent Marker", cursive;
+  width: 100%;
+  background-color: #006600;
+  color: orange;
+  font-weight: bold;
+  font-size: 4vh;
+  border: #006600 solid 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .1s ease all;
+  margin: 0%;
+  padding: 0%;
+}
+
+button:hover {
+  box-shadow: 3px 4px 30px orange;
+}
+
+/*--------------------------------------*/
+
+@keyframes tagEffect {
+
+    /*
+    0% {
+        text-shadow:
+        rgba(255, 255, 255, 1) 1px 0px,
+        rgba(255, 255, 255, 1) 2px 0px,
+        rgba(0, 0, 0, 1) 3px 0px,
+        rgba(0, 0, 0, 1) 4px 0px,
+        rgba(0, 0, 0, 1) 5px 0px,
+        rgba(0, 0, 0, 1) 6px 0px,
+        rgba(0, 0, 0, 1) 7px 0px,
+        rgba(0, 0, 0, 1) 8px 0px,
+        rgba(0, 0, 0, 1) 9px 0px,
+        rgba(0, 0, 0, 1) 10px 0px,
+        rgba(0, 0, 0, 1) 11px 0px,
+        rgba(0, 0, 0, 1) 12px 0px,
+        rgba(0, 0, 0, 1) 13px 0px,
+        rgba(0, 0, 0, 1) 14px 0px,
+        rgba(0, 0, 0, 1) 15px 0px,
+        rgba(0, 0, 0, 1) 16px 0px,
+        rgba(0, 0, 0, 1) 17px 0px,
+        rgba(0, 0, 0, 1) 18px 0px,
+        rgba(0, 0, 0, 1) 19px 0px,
+        rgba(255, 255, 255, 1) 20px 0px,
+        rgba(255, 255, 255, 1) 21px 0px;
+    }
+   100% {
+        text-shadow:
+        rgba(255, 255, 255, 1) 1px 0px,
+        rgba(255, 255, 255, 1) 2px 0px,
+        rgba(0, 0, 0, 1) 3px 0px,
+        rgba(0, 0, 0, 1) 4px 0px,
+        rgba(0, 0, 0, 1) 5px 0px,
+        rgba(0, 0, 0, 1) 6px 0px,
+        rgba(0, 0, 0, 1) 7px 0px,
+        rgba(0, 0, 0, 1) 8px 0px,
+        rgba(0, 0, 0, 1) 9px 0px,
+        rgba(0, 0, 0, 1) 10px 0px,
+        rgba(0, 0, 0, 1) 11px 0px,
+        rgba(0, 0, 0, 1) 12px 0px,
+        rgba(0, 0, 0, 1) 13px 0px,
+        rgba(0, 0, 0, 1) 14px 0px,
+        rgba(0, 0, 0, 1) 15px 0px,
+        rgba(0, 0, 0, 1) 16px 0px,
+        rgba(0, 0, 0, 1) 17px 0px,
+        rgba(0, 0, 0, 1) 18px 0px,
+        rgba(0, 0, 0, 1) 19px 0px,
+        rgba(255, 255, 255, 1) 20px 0px,
+        rgba(255, 255, 255, 1) 21px 0px;
+    }
+*/
+    /*
+0%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px 0px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+10%{
+    text-shadow:
+    rgba(255, 255, 255, 1) -15px -0px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+20%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px -10px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+30%{
+    text-shadow:
+    rgba(255, 255, 255, 1) -15px 10px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+40%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px -0px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+50%{
+    text-shadow:
+    rgba(255, 255, 255, 1) -15px -0px
+    rgba(254, 72, 0, 1) -15px 0px
+}
+60%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px -0px
+}
+70%{
+    text-shadow:
+    rgba(255, 255, 255, 1) -15px -0px
+}
+80%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px -0px
+}
+90%{
+    text-shadow:
+    rgba(255, 255, 255, 1) -15px -0px
+}
+100%{
+    text-shadow:
+    rgba(255, 255, 255, 1) 15px -0px
+    rgba(254, 72, 0, 1) 0px -30px
+}
+   */
+
+    0% {
+        text-shadow:
+
+            rgba(97, 0, 254, 1) -1px -0px 8px,
+            rgba(97, 0, 254, 1) -2px -0px 8px,
+            rgba(254, 72, 0, 1) -15px 0px 100px,
+            rgba(97, 0, 254, 1) -18px -0px 8px,
+            rgba(97, 0, 254, 1) -12px -0px 8px;
+    }
+
+    100% {
+        text-shadow:
+            rgba(97, 0, 254, 1) -1px -0px 8px,
+            rgba(97, 0, 254, 1) -2px -0px 8px,
+
+            rgba(254, 72, 0, 1) -15px 0px 8px,
+            rgba(97, 0, 254, 1) -18px -0px 8px,
+            rgba(97, 0, 254, 1) -12px -0px 8px;
+    }
+
+
+
+
+}
+
+@keyframes tagEffectInMotion {
+    0% {
+        text-shadow:
+            rgba(255, 255, 255, 1) 1px 0px,
+            rgba(0, 0, 0, 1) 2px 0px,
+            rgba(0, 0, 0, 1) 3px 0px,
+            rgba(0, 0, 0, 1) 4px 0px,
+            rgba(0, 0, 0, 1) 5px 0px,
+            rgba(0, 0, 0, 1) 6px 0px,
+            rgba(0, 0, 0, 1) 7px 0px,
+            rgba(0, 0, 0, 1) 8px 0px,
+            rgba(0, 0, 0, 1) 9px 0px,
+            rgba(0, 0, 0, 1) 10px 0px,
+            rgba(0, 0, 0, 1) 11px 0px,
+            rgba(0, 0, 0, 1) 12px 0px,
+            rgba(0, 0, 0, 1) 13px 0px,
+            rgba(0, 0, 0, 1) 14px 0px,
+            rgba(0, 0, 0, 1) 15px 0px,
+            rgba(0, 0, 0, 1) 16px 0px,
+            rgba(0, 0, 0, 1) 17px 0px,
+            rgba(0, 0, 0, 1) 18px 0px,
+            rgba(0, 0, 0, 1) 19px 0px,
+            rgba(0, 0, 0, 1) 20px 0px,
+            rgba(255, 255, 255, 1) 21px 0px;
+    }
+/*
+    50% {
+        text-shadow:
+            rgba(255, 255, 255, 0) 1px 0px,
+            rgba(0, 0, 0, 0) 2px 0px,
+            rgba(0, 0, 0, 0) 3px 0px,
+            rgba(0, 0, 0, 0) 4px 0px,
+            rgba(0, 0, 0, 0) 5px 0px,
+            rgba(0, 0, 0, 0) 6px 0px,
+            rgba(0, 0, 0, 0) 7px 0px,
+            rgba(0, 0, 0, 0) 8px 0px,
+            rgba(0, 0, 0, 0) 9px 0px,
+            rgba(0, 0, 0, 0) 10px 0px,
+            rgba(0, 0, 0, 0) 11px 0px,
+            rgba(0, 0, 0, 0) 12px 0px,
+            rgba(0, 0, 0, 0) 13px 0px,
+            rgba(0, 0, 0, 0) 14px 0px,
+            rgba(0, 0, 0, 0) 15px 0px,
+            rgba(0, 0, 0, 0) 16px 0px,
+            rgba(0, 0, 0, 0) 17px 0px,
+            rgba(0, 0, 0, 0) 18px 0px,
+            rgba(0, 0, 0, 0) 19px 0px,
+            rgba(0, 0, 0, 0) 20px 0px,
+            rgba(255, 255, 255, 1) 21px 0px;
+    }
+
+    75% {
+        text-shadow:
+            rgba(0, 0, 0, 1) 1px 0px,
+            rgba(0, 0, 0, 1) 2px 0px,
+            rgba(0, 0, 0, 1) 3px 0px,
+            rgba(0, 0, 0, 1) 4px 0px,
+            rgba(0, 0, 0, 1) 5px 0px,
+            rgba(0, 0, 0, 1) 6px 0px,
+            rgba(0, 0, 0, 1) 7px 0px,
+            rgba(0, 0, 0, 1) 8px 0px,
+            rgba(0, 0, 0, 1) 9px 0px,
+            rgba(0, 0, 0, 1) 10px 0px,
+            rgba(0, 0, 0, 1) 11px 0px,
+            rgba(0, 0, 0, 1) 12px 0px,
+            rgba(0, 0, 0, 1) 13px 0px,
+            rgba(0, 0, 0, 1) 14px 0px,
+            rgba(0, 0, 0, 1) 15px 0px,
+            rgba(0, 0, 0, 1) 16px 0px,
+            rgba(0, 0, 0, 1) 17px 0px,
+            rgba(0, 0, 0, 1) 18px 0px,
+            rgba(0, 0, 0, 1) 19px 0px,
+            rgba(0, 0, 0, 1) 20px 0px;
+    }
+
+    100% {
+        text-shadow:
+            rgba(0, 0, 0, 1) 1px 0px,
+            rgba(0, 0, 0, 1) 2px 0px,
+            rgba(0, 0, 0, 1) 3px 0px,
+            rgba(0, 0, 0, 1) 4px 0px,
+            rgba(0, 0, 0, 1) 5px 0px,
+            rgba(0, 0, 0, 1) 6px 0px,
+            rgba(0, 0, 0, 1) 7px 0px,
+            rgba(0, 0, 0, 1) 8px 0px,
+            rgba(0, 0, 0, 1) 9px 0px,
+            rgba(0, 0, 0, 1) 10px 0px,
+            rgba(0, 0, 0, 1) 11px 0px,
+            rgba(0, 0, 0, 1) 12px 0px,
+            rgba(0, 0, 0, 1) 13px 0px,
+            rgba(0, 0, 0, 1) 14px 0px,
+            rgba(0, 0, 0, 1) 15px 0px,
+            rgba(0, 0, 0, 1) 16px 0px,
+            rgba(0, 0, 0, 1) 17px 0px,
+            rgba(0, 0, 0, 1) 18px 0px,
+            rgba(0, 0, 0, 1) 19px 0px,
+            rgba(0, 0, 0, 1) 20px 0px;
+    }
+    */
+    100% {
+        text-shadow:
+            rgba(255, 255, 255, 1) 1px 0px,
+            rgba(0, 0, 0, 1) 2px 0px,
+            rgba(0, 0, 0, 1) 3px 0px,
+            rgba(0, 0, 0, 1) 4px 0px,
+            rgba(0, 0, 0, 1) 5px 0px,
+            rgba(0, 0, 0, 1) 6px 0px,
+            rgba(0, 0, 0, 1) 7px 0px,
+            rgba(0, 0, 0, 1) 8px 0px,
+            rgba(0, 0, 0, 1) 9px 0px,
+            rgba(0, 0, 0, 1) 10px 0px,
+            rgba(0, 0, 0, 1) 11px 0px,
+            rgba(0, 0, 0, 1) 12px 0px,
+            rgba(0, 0, 0, 1) 13px 0px,
+            rgba(0, 0, 0, 1) 14px 0px,
+            rgba(0, 0, 0, 1) 15px 0px,
+            rgba(0, 0, 0, 1) 16px 0px,
+            rgba(0, 0, 0, 1) 17px 0px,
+            rgba(0, 0, 0, 1) 18px 0px,
+            rgba(0, 0, 0, 1) 19px 0px,
+            rgba(0, 0, 0, 1) 20px 0px,
+            rgba(255, 255, 255, 1) 21px 0px;
+    }
+
+
+}
+
+h5 {
+    /*PALETA COPADA*/
+    background-color: rgb(249, 123, 34);
+    /*#F97B22*/
+    background-color: rgb(254, 232, 176);
+    /*#FEE8B0*/
+    background-color: rgb(124, 144, 112);
+    /*#9CA777  */
+    background-color: rgb(156, 167, 119);
+    /*#7C9070*/
+}
+
+
+.waiting_title {
+    /*background-color: rgba(33, 16, 139, 0.5) !important;*/
+    font-size: 4rem;
+    font-family: "Permanent Marker";
+    text-align: left;
+    margin: 0px;
+    padding: 0px;
+    animation: tagEffectInMotion 3s infinite;
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+}
+/*------------------------------------------------*/
+.body .contenedor_loading {
+    width: 950px;
+    height: 450px;
+    display: grid;
+    padding: 0%;
+    background-color: #006600;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas:
+        "uno1  uno2  uno3  uno4  uno5  uno6  uno7  uno8"
+        "dos1  dos2  dos3  dos4  dos5  dos6  dos7  dos8";
+    margin: 0px;
+    gap: 0%;
+    border: solid pink 3px;
+}
+
+#empty{
+    grid-area: dos1;
+}
+#P{
+    grid-area: uno1;
+}
+#r1{
+    grid-area: uno2;
+}
+#o{
+    grid-area: uno3;
+}
+#d{
+    grid-area: uno4;
+}
+#u{
+    grid-area: uno5;
+}
+#c{
+    grid-area: uno6;
+}
+#e{
+    grid-area: uno7;
+}
+#r2{
+    grid-area: uno8 ;
+}
+#E{
+    grid-area: dos4;
+}
+#ocho{
+    grid-area: dos5;
+}
+#siete{
+    grid-area: dos6;
+}
+#myProgress {
+    width: 100%;
+    background-color: white;
+}
+
+#myloading_bar {
+    width: 1%;
+    height: 30px;
+    background-color: #006600;
+    
+}
+

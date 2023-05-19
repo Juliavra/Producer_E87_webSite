@@ -1,6 +1,9 @@
 @font-face {
     font-family: "Permanent Marker", cursive;
     src: url('fonts/PermanentMarker-Regular.ttf');
+
+    font-family: "RockSalt-Regular", cursive;
+    src: url(../fonts/RockSalt-Regular.ttf);
 }
 
 * {
