@@ -613,13 +613,17 @@ main {
 }
 
 .audio_controls{
-    display: inline-block;
+    display: inline-flex;
     text-align: center;
     border: solid 3px red;
 
 }
 
 
+/*----------------------------------*/
+#nuevo_player{
+    border:pink solid 3px;
+}
 /* ----- -----  Mediaqueries ----- ----- */
 /*----Landscape (max-width: 650px) and (max-height:400px -----*/
 @media (orientation:landscape) and (max-width: 650px) and (max-height:400px) {
