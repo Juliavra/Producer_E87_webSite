@@ -1,6 +1,28 @@
 //QUE HACE ESTO EXACTAMENTE, NO FUNCIONA SI ESTA ACTIVO
 //document.addEventListener("DOMContentLoaded", load, false);
 
+const array = ["01", "02", "03", "04", "05", "06", "07","08", "09","10"];
+
+for (let i=0;i<array.length;i++){
+  console.log(array[i]);
+}
+
+const array_Objetos=[];
+
+
+
+
+
+var miobjeto = {
+id: "01",
+url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/01 Dark Ringy Short Loop.mp3"
+};
+
+
+
+
+
+
 let context = new AudioContext();
 let source_8 = context.createBufferSource();
 const gainNode_8 = context.createGain();
@@ -31,6 +53,7 @@ starts_noise.addEventListener("onclick", ()=>{
   noise.start();
   noise.connect(context.destination);
 });
+//-----------------------------------------------------
 
 //-------------------------------------------------------
 /*
