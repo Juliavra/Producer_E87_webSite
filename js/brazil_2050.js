@@ -10,6 +10,31 @@ var audio = document.getElementById("myAudio");
 var audio2 = document.getElementById("myAudio2");
 var audio3 = document.getElementById("myAudio3");
 var audio4 = document.getElementById("myAudio4");
+var deposito1 = document.getElementById("deposito_1");
+
+deposito1.addEventListener("dragenter", function (evento) { 
+  evento.preventDefault();
+  
+});
+deposito1.addEventListener("dragover", function (evento) {           
+  evento.preventDefault();
+});
+deposito1.addEventListener("drop", soltar);
+
+
+function soltar(evento) {
+  evento.preventDefault();  //console.log(evento);
+  console.log('typeof:'+typeof(evento));
+
+  var transfer=evento.dataTransfer.getData("deposito_1"); console.log(`transfer: `+`${transfer}`);
+
+var elemento_deposito_1 = getElementById("deposito_1");   console.log(`depo: `+`${elemento_deposito_1}`);
+
+//  console.log('SOY SOLTAR'+this.id);
+  //console.log('SOY SOLTAR TARGET '+`${this.evento}`);
+  //dragged=evento.target;  //  alert(": "+ `${evento.target.url_src}`);
+ //var data_transfer = DataTransfer.getData(evento.target);       alert(`data_transfer: `+ `${data_transfer}`);
+}
 
 var ruta_archivo = document.getElementById("ruta_archivo");
 var ruta_archivo2 = document.getElementById("ruta_archivo2");
@@ -68,7 +93,6 @@ var cancion_8 = {
   id: "08 Digi Noise Reverb Loop",
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/08 Digi Noise Reverb Loop.mp3"
 };
-
 
 var array_Canciones = [];
 array_Canciones.push(cancion_1);
@@ -228,7 +252,25 @@ function muestraLista() {
     */
 }
 
+function muestra_array_Canciones() {
+  array_song_div = [];
+  for (i = 0; i < array_Canciones.length; i++) {
+    var nombre = array_Canciones[i].id;             //alert(`nombre: `+`${nombre}`);  alert(`${array_Canciones[0].id}+ ${array_Canciones[1].id}+ ${array_Canciones[2].id}`);
+    const box = `
+    <div id=${nombre} draggable="true">
+        ${nombre}
+    </div>`;
+    if (nombre != ',') {                                            //alert("ES IGUAL ");
+      array_song_div.push(box);
+    }
+  }
+  bloque1.innerHTML = array_song_div;
+}
 
+
+//-----------------------------------------------
+//ORIGINAL
+/*
 function muestra_array_Canciones() {
   var available_track_list = [];
   var nombre_Cancion;
@@ -237,5 +279,5 @@ function muestra_array_Canciones() {
     available_track_list[i] = `${nombre_Cancion}` + `<br>`;
   }
   bloque1.innerHTML = (`${available_track_list}`);
-
 }
+*/
