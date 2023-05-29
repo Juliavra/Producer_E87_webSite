@@ -203,6 +203,7 @@ main {
 .contenedor .sidebar {
     grid-area: sidebar;
     background-color: #006600;
+    font-size: 1rem;
     color: white;
     border: red solid 2px;
     margin: 0%;
@@ -211,7 +212,7 @@ main {
 
 .contenedor .bloque1 {
     grid-area: bloque1;
-    background-color: white;
+    background-color: #006600;
     color: orange;
     border: red solid 2px;
     margin: 0%;

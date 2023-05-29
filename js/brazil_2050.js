@@ -2,9 +2,10 @@
 //document.addEventListener("DOMContentLoaded", load, false);
 
 //let context = new AudioContext();
-//var lista = " ";
 var lista = [];
+var lista_obj_cancion = [];
 var playlist = document.getElementById("playlist");
+var bloque1 = document.getElementById("playlistfrescos");
 var audio = document.getElementById("myAudio");
 var audio2 = document.getElementById("myAudio2");
 var audio3 = document.getElementById("myAudio3");
@@ -19,9 +20,8 @@ ruta_archivo.addEventListener("change", sourceUpdate);
 ruta_archivo2.addEventListener("change", sourceUpdate2);
 ruta_archivo3.addEventListener("change", sourceUpdate3);
 ruta_archivo4.addEventListener("change", sourceUpdate4);
-
-//---------------------------------------------------------
-
+//----------------------------------------------------------------------
+// CANCION CLASS
 class Cancion {
   constructor(id, url_src) {
     this.id = id;
@@ -29,83 +29,67 @@ class Cancion {
   }
 }
 
-var miobjeto = {
-  id: "01",
+var cancion_1 = {
+  id: "01 Dark Ringy Short Loop",
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/01 Dark Ringy Short Loop.mp3"
 };
 
-var miobjeto2 = {
-  id: "02",
+var cancion_2 = {
+  id: "02 Hard Acople Amb Song",
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/02 Hard Acople Amb Song.mp3"
 };
 
-var miobjeto3 = {
-  id: "03",
+var cancion_3 = {
+  id: "03 Phased Sleppy Noise Loop",
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/03 Phased Sleppy Noise Loop.mp3"
 };
 
-var miobjeto4 = {
-  id: "04",
+var cancion_4 = {
+  id: "04 Ruido Digital Zarpado Loop",
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/04 Ruido Digital Zarpado Loop.mp3"
 };
 
+var cancion_5 = {
+  id: "05 Deep Dark Amb Slow Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/05 Deep Dark Amb Slow Loop.mp3"
+};
 
+var cancion_6 = {
+  id: "06 Ringy Dark Slow Amb Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/06 Ringy Dark Slow Amb Loop.mp3"
+};
+
+var cancion_7 = {
+  id: "07 Calm Mellow Slow Amb Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/07 Calm Mellow Slow Amb Song.mp3"
+};
+
+var cancion_8 = {
+  id: "08 Digi Noise Reverb Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/08 Digi Noise Reverb Loop.mp3"
+};
+
+
+var array_Canciones = [];
+array_Canciones.push(cancion_1);
+array_Canciones.push(cancion_2);
+array_Canciones.push(cancion_3);
+array_Canciones.push(cancion_4);
+array_Canciones.push(cancion_5);
+array_Canciones.push(cancion_6);
+array_Canciones.push(cancion_7);
+array_Canciones.push(cancion_8);
+console.log(`array_Canciones: `);
+for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
 //-------------------------------------------------------
 
-function muestraLista() {
-  console.log(`LISTA: ` + `${lista}`);
-  playlist.innerHTML = `${lista}`;
-}
-/*
-function playlist_bloque1() {
-//  var list_available_tracks = "";
-  const array_Objetos = [];
-  array_Objetos.push(miobjeto, miobjeto2, miobjeto3, miobjeto4);
-
-  for (let j = 0; j < array_Objetos.length; j++) {
-    list_available_tracks = list_available_tracks + `${array_Objetos[j].id}` + '\n';
-    //console.log("array_Objetos[j].id"+ `${array_Objetos[j].id}`);
-    //    bloque1.innerHTML = `${array_Objetos[j].url_src}`; 
-    bloque1.innerHTML = `${list_available_tracks}`;
-    //console.log(`${list_available_tracks}`);
-  }
-  console.log(`${list_available_tracks}`);
 
 
-  class Cancion {
-    constructor(id, url_src) {
-      this.id = id;
-      this.url_src = url_src;
-    }
-  }
+window.addEventListener("load", muestra_array_Canciones);
 
-  var cancion_1 = new Cancion ("02", "https://juliavra.github.io/Producer_E87_webSite/audio/02 Hard Acople Amb Song.mp3" );
-  const array_Canciones = [];
-  array_Canciones.push(cancion_1);
-console.log(`array_Canciones: `+ `${array_Canciones}`);
-*/
-
-
-  /*
-// Clase Perro, con su constructor:
-class Perro {
-constructor( nombre, edad, vivo){
-this.nombre = nombre
-this.edad = edad
-this.vivo = vivo
-}
-}
-
-// Instanciamos dos objetos clase Perro:
-var perro1 = new Perro ("Lola", 4, true)
-var perro2 = new Perro ("Lassie", 10, false)
-// Modificamos alguna de sus PROPIEDADES:
-perro1.nombre = "Toby"
-perro2.edad = 6
-}
-*/
-
-
+//------------------------------------------------------------------------
+/*--------------------------------------------------*/
+/*SOURCE UPDATE 1-4*/
 function sourceUpdate() {
   //('\')<FUCK   yeah!> ('/') 
   //*HTMLAudioElement*/
@@ -116,9 +100,26 @@ function sourceUpdate() {
   stringTestARRAY[0] = track_name.toString();
   document.getElementById("myAudio").src = `${stringTestARRAY[0].toString()}`;
   document.getElementById("myAudio").load();
-  // lista = lista + '\n' + "p_1: " + `${stringTestARRAY[0].toString()}`;
-  lista = lista + "p_1: " + `${stringTestARRAY[0].toString()}`;
-  muestraLista();
+  var test = (`${stringTestARRAY[0].toString()}`);
+  cancion_nombre_last_index = test.lastIndexOf("\\", test.length - 1);                                //  alert(cancion_nombre_last_index);
+  cancion_nombre = test.substr(cancion_nombre_last_index + 1, test.length).trim();                        //  alert(cancion_nombre);
+  cancion_nombre_final_index = cancion_nombre.lastIndexOf(".", cancion_nombre.length - 4);                //    alert(cancion_nombre_final_index);
+  cancion_nombre_final = cancion_nombre.substr(cancion_nombre, cancion_nombre_final_index).trim();//   alert(cancion_nombre_final);
+
+  array_Canciones.forEach(element => {
+    if (element.id == cancion_nombre_final) {
+      alert("SON IGUALES");
+      const index_track = array_Canciones.indexOf(element);                 // alert(`element: ` + `${element.id}`); alert(`index_track: ` + `${index_track}`);
+      if (index_track > -1) {
+        array_Canciones.splice(index_track, 1);
+        for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
+      }
+    }
+  })
+  lista = lista + "p_1: " + `${cancion_nombre_final}` + `<br>`;
+  muestraLista()
+  muestra_array_Canciones()
+
 }
 
 function sourceUpdate2() {
@@ -129,8 +130,25 @@ function sourceUpdate2() {
   stringTestARRAY[0] = track_name.toString();
   document.getElementById("myAudio2").src = `${stringTestARRAY[0].toString()}`;
   document.getElementById("myAudio2").load();
-  lista = lista + '\n' + "p_2: " + `${stringTestARRAY[0].toString()}`;
+  var test = (`${stringTestARRAY[0].toString()}`);
+  cancion_nombre_last_index = test.lastIndexOf("\\", test.length - 1);                                //  alert(cancion_nombre_last_index);
+  cancion_nombre = test.substr(cancion_nombre_last_index + 1, test.length).trim();                        //  alert(cancion_nombre);
+  cancion_nombre_final_index = cancion_nombre.lastIndexOf(".", cancion_nombre.length - 4);                //    alert(cancion_nombre_final_index);
+  cancion_nombre_final = cancion_nombre.substr(cancion_nombre, cancion_nombre_final_index).trim();//   alert(cancion_nombre_final);
+
+  array_Canciones.forEach(element => {
+    if (element.id == cancion_nombre_final) {
+      alert("SON IGUALES");
+      const index_track = array_Canciones.indexOf(element);                 // alert(`element: ` + `${element.id}`); alert(`index_track: ` + `${index_track}`);
+      if (index_track > -1) {
+        array_Canciones.splice(index_track, 1);
+        for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
+      }
+    }
+  })
+  lista = lista + "p_2: " + `${cancion_nombre_final}` + `<br>`;
   muestraLista()
+  muestra_array_Canciones()
 }
 
 function sourceUpdate3() {
@@ -141,8 +159,26 @@ function sourceUpdate3() {
   stringTestARRAY[0] = track_name.toString();
   document.getElementById("myAudio3").src = `${stringTestARRAY[0].toString()}`;
   document.getElementById("myAudio3").load();
-  lista = lista + '\n' + "p_3: " + `${stringTestARRAY[0].toString()}`;
+  var test = (`${stringTestARRAY[0].toString()}`);
+  cancion_nombre_last_index = test.lastIndexOf("\\", test.length - 1);                                //  alert(cancion_nombre_last_index);
+  cancion_nombre = test.substr(cancion_nombre_last_index + 1, test.length).trim();                        //  alert(cancion_nombre);
+  cancion_nombre_final_index = cancion_nombre.lastIndexOf(".", cancion_nombre.length - 4);                //    alert(cancion_nombre_final_index);
+  cancion_nombre_final = cancion_nombre.substr(cancion_nombre, cancion_nombre_final_index).trim();//   alert(cancion_nombre_final);
+
+  array_Canciones.forEach(element => {
+    if (element.id == cancion_nombre_final) {
+      alert("SON IGUALES");
+      const index_track = array_Canciones.indexOf(element);                 // alert(`element: ` + `${element.id}`); alert(`index_track: ` + `${index_track}`);
+      if (index_track > -1) {
+        array_Canciones.splice(index_track, 1);
+        for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
+      }
+    }
+  })
+  lista = lista + "p_3: " + `${cancion_nombre_final}` + `<br>`;
   muestraLista()
+  muestra_array_Canciones()
+
 }
 
 function sourceUpdate4() {
@@ -153,9 +189,53 @@ function sourceUpdate4() {
   stringTestARRAY[0] = track_name.toString();
   document.getElementById("myAudio4").src = `${stringTestARRAY[0].toString()}`;
   document.getElementById("myAudio4").load();
-  lista = lista + '\n' + "p_4: " + `${stringTestARRAY[0].toString()}`;
+  var test = (`${stringTestARRAY[0].toString()}`);
+  cancion_nombre_last_index = test.lastIndexOf("\\", test.length - 1);                                //  alert(cancion_nombre_last_index);
+  cancion_nombre = test.substr(cancion_nombre_last_index + 1, test.length).trim();                        //  alert(cancion_nombre);
+  cancion_nombre_final_index = cancion_nombre.lastIndexOf(".", cancion_nombre.length - 4);                //    alert(cancion_nombre_final_index);
+  cancion_nombre_final = cancion_nombre.substr(cancion_nombre, cancion_nombre_final_index).trim();//   alert(cancion_nombre_final);
+
+  array_Canciones.forEach(element => {
+    if (element.id == cancion_nombre_final) {
+      alert("SON IGUALES");
+      const index_track = array_Canciones.indexOf(element);                 // alert(`element: ` + `${element.id}`); alert(`index_track: ` + `${index_track}`);
+      if (index_track > -1) {
+        array_Canciones.splice(index_track, 1);
+        for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
+      }
+    }
+  })
+  lista = lista + "p_4: " + `${cancion_nombre_final}` + `<br>`;
   muestraLista()
+  muestra_array_Canciones()
+
+}
+//---------------------------------------------------------
+function muestraLista() {
+  console.log(`LISTA: ` + `${lista}`);
+  playlist.innerHTML = (`${lista}`);
+  /*
+    var used_track_list = [];
+    var nombre_Cancion;
+    for (let i = 0; i < lista.length; i++) {
+      nombre_Cancion = lista[i].id;                                                 alert(nombre_Cancion);
+      ruta_index = nombre_Cancion.lastIndexOf("0", nombre_Cancion.length - 1);            alert(`${ruta_index}`);
+      track_name = nombre_Cancion.substr(ruta_index, ruta_index.length).trim();
+      used_track_list[i] = `${track_name}` + `<br>`;
+      
+    }
+    playlist.innerHTML = (`${used_track_list}`);
+    */
 }
 
 
-playlist_bloque1();
+function muestra_array_Canciones() {
+  var available_track_list = [];
+  var nombre_Cancion;
+  for (let i = 0; i < array_Canciones.length; i++) {
+    nombre_Cancion = array_Canciones[i].id;
+    available_track_list[i] = `${nombre_Cancion}` + `<br>`;
+  }
+  bloque1.innerHTML = (`${available_track_list}`);
+
+}
