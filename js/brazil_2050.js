@@ -10,7 +10,14 @@ var audio = document.getElementById("myAudio");
 var audio2 = document.getElementById("myAudio2");
 var audio3 = document.getElementById("myAudio3");
 var audio4 = document.getElementById("myAudio4");
-var deposito1 = document.getElementById("deposito_1");
+var deposito_1 = document.getElementById("deposito_1");
+deposito_1.innerHTML = "Drop Audio Here";
+
+
+
+
+
+
 
 var ruta_archivo = document.getElementById("ruta_archivo");
 var ruta_archivo2 = document.getElementById("ruta_archivo2");
@@ -97,7 +104,6 @@ function sourceUpdate() {
 
   array_Canciones.forEach(element => {
     if (element.id == cancion_nombre_final) {
-      alert("SON IGUALES");
       const index_track = array_Canciones.indexOf(element);    //alert(`element: ` + `${element.id}`); alert(`index_track: ` + `${index_track}`);
       if (index_track > -1) {
         array_Canciones.splice(index_track, 1);
@@ -206,53 +212,137 @@ function muestra_array_Canciones() {
     //DE ESTE MODO BUSCA LOS ARCHIVOS EN GITHUB 
     //var source = array_Canciones[i].url_src;                        // console.log(`source: `+`${source}`)  
     var source = `"audio/${nombre}.mp3"`;  //"audio/03 Phased Sleppy Noise Loop.mp3"
-    const box = `<div class="draggable" id=${nombre} draggable="true">    ${nombre}    </div>`;
+    const box = `<div class="draggable" id=${nombre} draggable="true" ondragstart="cancion_dragstart(event)">    ${nombre}    </div>`;
     const audio = `<audio class="audio" id=${nombre}> <source src="${source}" type="audio/mpeg"></audio>`;
 
     //console.log(`nombre: `+`${nombre}`);
     if (audio != null && box != null && nombre != null && nombre != ',') {
+  
       array_song_div.push(box);                                     //console.log("box: "+`${box}`);
       array_audio_toAppend.push(audio);
     }
   }
   bloque1.innerHTML = array_song_div;
+ // array_song_div.forEach(e=>{
+  //e.addEventListener("dragstart",cancion_dragstart);
+ // console.log("e: "+e);
+  
+//});
+
+  //    box.addEventListener("dragstart", cancion_dragstart)
 }
+
+
+
+
+
+
+
+
 //-------------------------------------------------------------------------
-deposito1.addEventListener("dragenter", function (event) {
+deposito_1.addEventListener("dragenter", function (event) {
+  event.preventDefault();
+  deposito_1.style.background = "rgba(250, 0, 0, .5)";
+});
+deposito_1.addEventListener("dragover", function (event) {
   event.preventDefault();
 });
-deposito1.addEventListener("dragover", function (event) {
-  event.preventDefault();
-});
-deposito1.addEventListener("drop", soltar);
+deposito_1.addEventListener("drop", soltar);
 
 function soltar(event) {
-  event.preventDefault(); console.log(event);
-  //var soy_target = event.target.id; //console.log(`soy_target: `); console.log(`${soy_target}`);
-  //console.log("obj: " + Object.values(event));
+  event.preventDefault();
+  deposito_1.style.background = "#006600";
+  deposito_1.innerHTML = "Drop Audio Here";
+  const link = event.dataTransfer.getData("text");  alert("link:  "+`${link}`); console.log("link: " + link);
+  //var id = this.id; 
+  switch (this.id) {
+    case ("deposito_1"):
+      {
+        console.log("se dropeo en: deposito_1 ");
+        var player_1 = document.getElementById("myAudio");
+        player_1.pause();
+        //player_1.src="https://juliavra.github.io/Producer_E87_webSite/audio/03 Phased Sleppy Noise Loop.mp3";   console.log("src: "+ player_1.src);
+        //player_1.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_1.src);
+        player_1.src=`${link}`;  
+        player_1.load();
+        //player_1.play();      //esto si la gonfig dice si a autoplay snd onDrop
+        break;
+      }
+    default: { break; }
+  }
+    
 }
+
+//------------------------------------------------------------
+//var cancion_draggable = document.getElementById("div_draggable2");
+//cancion_draggable.addEventListener("dragstart", cancion_dragstart);
+//var test2=document.getElementsByClassName(".draggable");
+//test2.addEventListener("dragstart", cancion_dragstart)
+
+
+function cancion_dragstart(event) {
+    //var codigo = ``;       
+    //var test = this.id; console.log("test: " + `${test}`)
+    var target_song = event.target.id; console.log("target_song: " + `${target_song}`)
+    
+    array_Canciones.forEach(element => {
+      if(element.id.includes(target_song))
+      {
+        //alert("INCLUYE");
+        //var codigo = `https://juliavra.github.io/Producer_E87_webSite/audio/02 Hard Acople Amb Song.mp3`;    
+        var codigo = element.url_src;
+        event.dataTransfer.setData("text", codigo);
+        console.log("codigo: "+codigo);
+      }
+
+    });
+    
+}
+//-----------------------------------------------------
+/*
+function agregarelemento() {
+  for (i = 0; i < array_Canciones.length; i++) {
+
+    var elemento = document.createElement("audio");
+    var elementonuevo = document.createElement("p");
+    elementonuevo.innerHTML = `${array_Canciones[i].id}`
+    //elementonuevo.innerHTML = "Este es el nombre del tema";
+    elemento.appendChild(elementonuevo);
+    bloque1.appendChild(elemento);
+  }
+}
+*/
 
 //---------------------------------------------------
 function agregareventos() {
-  var lista = document.querySelectorAll("draggable");
+  //var lista = document.querySelectorAll(".draggable");
+  var lista = document.querySelectorAll(".draggable");
   for (var f = 0; f < lista.length; f++) {
-    var elemento = lista[f]; console.log(`elemento:  ` + `${elemento.id}`);
+    var elemento = lista[f]; 
+    console.log(`lista:  ` + `${lista[f].id}`);
+    console.log(`elemento:  ` + `${elemento.id}`); alert("Soy la alerta interior");
     //elemento.addEventListener("click", cambiarcolor);
   }
+     
 }
-agregareventos();
+
+
+
+
 
 //------------------------------------------------------------------------------------------
-    //for (let key in array_Canciones){
-    //console.log(key);
-    //console.log(array_Canciones[key]);
-    //console.log(Object.entries(array_Canciones[key]));
-    //}
+//for (let key in array_Canciones){
+//console.log(key);
+//console.log(array_Canciones[key]);
+//console.log(Object.entries(array_Canciones[key]));
+//}
 
 
 //console.log(Object.keys(cancion_1));
 //console.log(Object.values(cancion_1));
 
 
-    //const draggable_items = document.querySelector('.draggable');
+//const draggable_items = document.querySelector('.draggable');
 
+agregareventos();
+//agregarelemento();

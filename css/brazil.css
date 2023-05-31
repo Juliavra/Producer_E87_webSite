@@ -1,6 +1,7 @@
 @font-face {
     font-family: "Permanent Marker", cursive;
-    src: url('fonts/PermanentMarker-Regular.ttf');
+    /*src: url('/fonts/PermanentMarker-Regular.ttf');*/
+    src: url('/Users/Juli/My Projects/Producer_E87_webSite/fonts/PermanentMarker-Regular.ttf');
 }
 
 * {
@@ -205,7 +206,7 @@ main {
     background-color: #006600;
     font-size: 1rem;
     color: white;
-    border: red solid 2px;
+    border: blue solid 2px;
     margin: 0%;
     padding: 0%;
 }
@@ -214,7 +215,7 @@ main {
     grid-area: bloque1;
     background-color: #006600;
     color: orange;
-    border: red solid 2px;
+    border: #013801 solid 12px;
     margin: 0%;
     padding: 0%;
 }
@@ -615,8 +616,8 @@ main {
 
 #deposito_1 {
     float: left;
-    width: 100px;
-    height: 75px;
+    width: 60px;
+    height: 88px;
     margin: 10px;
     border: 1px solid #999999;
 }
