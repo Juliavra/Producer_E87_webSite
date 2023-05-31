@@ -38,7 +38,7 @@ var ruta_archivo8 = document.getElementById("ruta_archivo8");
 ruta_archivo8.addEventListener("change", sourceUpdate8);
 
 volume_8 = document.getElementById("volume_8");
-loop_btn_8 = document.getElementById("loop_btn_8")
+loop_btn_8 = document.getElementById("loop_btn_8");
 playRate_8 = document.getElementById("playRate_8");
 volume_8.addEventListener("change", control_8_volume);
 loop_btn_8.addEventListener("ended", control_8_loop);
@@ -65,11 +65,10 @@ document.body.appendChild(h1)
 //currentTarget() //RETORNA EL ELEMENTO DEL CUAL LOS LISTENERS DISPARARON EL EVENTO
 //target() // RETORNA EL ELEMENTO QUE DISPARO EL EVENTO 
 
-function control_8_playRate() {
-source_8.playbackRate.value = playRate.value 
-}
-
 function muestraLista() { alert(`LISTA: ` + `${lista}`); }
+
+function control_8_playRate() {
+source_8.playbackRate.value = playRate.value }
 
 function controls_8_play() { audio8.play(); }
 
@@ -85,7 +84,7 @@ function control_8_volume() {
   /*volume_8.oninput = () => { gainNode_8.value = volume_8.value }*/
 }
 
-function control_8_loop(){
+function controls_8_loop(){
   this.loop=true;
 }
 

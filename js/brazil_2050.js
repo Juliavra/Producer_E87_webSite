@@ -13,10 +13,18 @@ var audio4 = document.getElementById("myAudio4");
 var deposito_1 = document.getElementById("deposito_1");
 deposito_1.innerHTML = "Drop Audio Here";
 
-
-
-
-
+volume_1 = document.getElementById("volume_1");
+loop_btn_1 = document.getElementById("loop_btn_1");
+playRate_1 = document.getElementById("playRate_1");
+volume_1.addEventListener("change",function(e){
+  audio.volume=e.currentTarget.value;
+});
+playRate_1.addEventListener("change", function(e){
+  audio.playbackRate=e.currentTarget.value;
+});
+loop_btn_1.addEventListener("change", function(e){
+  audio.loop=true;
+});
 
 
 var ruta_archivo = document.getElementById("ruta_archivo");
@@ -211,33 +219,26 @@ function muestra_array_Canciones() {
     var nombre = array_Canciones[i].id;                             //console.log(`nombre: `+`${nombre}`)    
     //DE ESTE MODO BUSCA LOS ARCHIVOS EN GITHUB 
     //var source = array_Canciones[i].url_src;                        // console.log(`source: `+`${source}`)  
-    var source = `"audio/${nombre}.mp3"`;  //"audio/03 Phased Sleppy Noise Loop.mp3"
+    var source = `"audio/${nombre}.mp3"`;
     const box = `<div class="draggable" id=${nombre} draggable="true" ondragstart="cancion_dragstart(event)">    ${nombre}    </div>`;
     const audio = `<audio class="audio" id=${nombre}> <source src="${source}" type="audio/mpeg"></audio>`;
 
     //console.log(`nombre: `+`${nombre}`);
     if (audio != null && box != null && nombre != null && nombre != ',') {
-  
+
       array_song_div.push(box);                                     //console.log("box: "+`${box}`);
       array_audio_toAppend.push(audio);
     }
   }
   bloque1.innerHTML = array_song_div;
- // array_song_div.forEach(e=>{
+  // array_song_div.forEach(e=>{
   //e.addEventListener("dragstart",cancion_dragstart);
- // console.log("e: "+e);
-  
-//});
+  // console.log("e: "+e);
+
+  //});
 
   //    box.addEventListener("dragstart", cancion_dragstart)
 }
-
-
-
-
-
-
-
 
 //-------------------------------------------------------------------------
 deposito_1.addEventListener("dragenter", function (event) {
@@ -253,24 +254,24 @@ function soltar(event) {
   event.preventDefault();
   deposito_1.style.background = "#006600";
   deposito_1.innerHTML = "Drop Audio Here";
-  const link = event.dataTransfer.getData("text");  alert("link:  "+`${link}`); console.log("link: " + link);
+  const link = event.dataTransfer.getData("text"); console.log("link: " + link);
   //var id = this.id; 
   switch (this.id) {
     case ("deposito_1"):
       {
         console.log("se dropeo en: deposito_1 ");
         var player_1 = document.getElementById("myAudio");
+        document.getElementById("player_1_label").innerHTML = getsId(link);
         player_1.pause();
-        //player_1.src="https://juliavra.github.io/Producer_E87_webSite/audio/03 Phased Sleppy Noise Loop.mp3";   console.log("src: "+ player_1.src);
         //player_1.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_1.src);
-        player_1.src=`${link}`;  
+        player_1.src = `${link}`;
         player_1.load();
-        //player_1.play();      //esto si la gonfig dice si a autoplay snd onDrop
+        //player_1.play();      //esto si la config dice si a autoplay snd onDrop
         break;
       }
     default: { break; }
   }
-    
+
 }
 
 //------------------------------------------------------------
@@ -281,22 +282,24 @@ function soltar(event) {
 
 
 function cancion_dragstart(event) {
-    //var codigo = ``;       
-    //var test = this.id; console.log("test: " + `${test}`)
-    var target_song = event.target.id; console.log("target_song: " + `${target_song}`)
-    
-    array_Canciones.forEach(element => {
-      if(element.id.includes(target_song))
-      {
-        //alert("INCLUYE");
-        //var codigo = `https://juliavra.github.io/Producer_E87_webSite/audio/02 Hard Acople Amb Song.mp3`;    
-        var codigo = element.url_src;
-        event.dataTransfer.setData("text", codigo);
-        console.log("codigo: "+codigo);
-      }
+  //var codigo = ``;       
+  //var test = this.id; console.log("test: " + `${test}`)
+  var target_song = event.target.id; console.log("target_song: " + `${target_song}`)
 
-    });
-    
+  array_Canciones.forEach(element => {
+    if (element.id.includes(target_song)) {
+      var codigo_local = `C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
+      event.dataTransfer.setData("text", codigo_local);
+      console.log(" codigo_local: " + codigo_local);
+      /*
+      var codigo = element.url_src;
+      event.dataTransfer.setData("text", codigo);
+      console.log("codigo: "+codigo);
+      *///WEB BASED ADDRESSESS
+    }
+
+  });
+
 }
 //-----------------------------------------------------
 /*
@@ -318,17 +321,13 @@ function agregareventos() {
   //var lista = document.querySelectorAll(".draggable");
   var lista = document.querySelectorAll(".draggable");
   for (var f = 0; f < lista.length; f++) {
-    var elemento = lista[f]; 
+    var elemento = lista[f];
     console.log(`lista:  ` + `${lista[f].id}`);
     console.log(`elemento:  ` + `${elemento.id}`); alert("Soy la alerta interior");
     //elemento.addEventListener("click", cambiarcolor);
   }
-     
+
 }
-
-
-
-
 
 //------------------------------------------------------------------------------------------
 //for (let key in array_Canciones){
@@ -336,13 +335,44 @@ function agregareventos() {
 //console.log(array_Canciones[key]);
 //console.log(Object.entries(array_Canciones[key]));
 //}
-
-
 //console.log(Object.keys(cancion_1));
 //console.log(Object.values(cancion_1));
-
-
 //const draggable_items = document.querySelector('.draggable');
 
 agregareventos();
 //agregarelemento();
+
+function getsId(string) {
+  // alert("string: " + string);
+  var string_index = string.lastIndexOf("/", string.length - 1);
+  //alert("string_index: " + string_index);
+  var track_name = string.substr(string_index + 1, string_index.length).trim();
+  var track_index = track_name.lastIndexOf(".", track_name.length);
+  var track_id = track_name.substr(0, track_index).trim();
+  //alert(track_id);
+  return `${track_id}`;
+}
+
+//-----------------------------------------------------------
+//BOTONES DEL PLAYER
+//function controls_1_playRate() { source_1.playbackRate.value = playRate.value }
+function controls_1_play() { audio.play(); }
+function controls_1_stop() { audio.load(); }
+function controls_1_pause() { audio.pause(); }
+/*
+function controls_1_volume() {
+let volume_1 = document.getElementById("volume_1"); 
+console.log ("quien soy: "+ `${volume_1}` );
+}*/
+
+function controls_1_loop() {
+  var estado = document.getElementById("myAudio").loop;
+  if (estado==true)
+  {document.getElementById("myAudio").loop=false;}
+  else
+  {document.getElementById("myAudio").loop=true;}
+  
+  
+  //this.loop = true;
+}
+//---------------------------------------------------

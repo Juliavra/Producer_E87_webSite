@@ -109,7 +109,6 @@ header {
     animation-timing-function: cubic-bezier(1, 0, 0, 1);
 }
 
-
 body {
     font-family: "Permanent Marker";
     /*Garamond, arial, Tahoma, sans-serif */
@@ -606,11 +605,12 @@ main {
 }
 
 .audio_controls {
-    display: grid;
+    display: inline-block;
     text-align: center;
     border: solid 3px rgb(254, 232, 176);
     width: 500px;
     height: 150px;
+    
 
 }
 
@@ -620,6 +620,10 @@ main {
     height: 88px;
     margin: 10px;
     border: 1px solid #999999;
+}
+
+#ruta_archivo{
+    opacity: 0;
 }
 
 
