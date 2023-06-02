@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang=“es”>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="" X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+  -->
+  <link rel="STYLESHEET" href="css/brazil.css">
+  <link rel="icon" href="img/html.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+
+  <title>Brazil 2050</title>
+</head>
+
+<body>
+  <div class="contenedor">
+    <header class="header" id="header"> Producer E87
+    </header>
+
+    <main class="main">
+
+      <div>1 FALTA PROGRESS BAR + CURRENT TIME</div>
+      <div class="audio_controls" id="audio_controls">
+        <div class="deposito" id="deposito_1"> </div>
+        <label for="player_1_label" id="player_1_label"></label>
+       <audio id="myAudio"> <source src="" type="audio/mpeg" id="snd_header"> </audio> 
+        <div>
+          <button id="starts_btn_1" onclick="controls_1_play()">PLAY</button>
+          <button id="stops_btn_1" onclick="controls_1_stop()">STOP</button>
+          <button id="pause_btn_1" onclick="controls_1_pause()">PAUSE</button>
+          <input class="checkbox" type="checkbox" name="loop_checkbox" id="loop_checkbox">
+          <button id="loop_btn_1" onclick="controls_1_loop()">LOOP</button>
+          <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="autoplay_checkbox">AUTOPLAY
+          <label for="volume_1_text" id="volume_1_text"></label>
+          <label for="volume_1_value" id="volume_1_value"></label>
+          <input type='range' min=0 max=1 step='0.01' value=0 id='volume_1' onclick="controls_1_volume()">
+          <br>
+          <label for="play_Rate_1_text" id="play_Rate_1_text"></label>
+          <label for="play_Rate_1_value" id="play_Rate_1_value"></label>
+          <input type='range' min=0 max=1 step='0.01' value=0 id='playRate_1' >
+        </div>
+        <div> <input type="file" id="ruta_archivo"> </div>
+      </div>
+
+      <div>2</div>
+      <div class="audio_controls" id="audio_controls2">
+
+        <div> <input type="file" id="ruta_archivo2"> </div>
+
+        <div>
+          <audio controls id="myAudio2">
+            <source src="" type="audio/mpeg" id="snd_header2">
+          </audio>
+        </div>
+      </div>
+
+      <div>3</div>
+      <div class="audio_controls" id="audio_controls3">
+        <div> <input type="file" id="ruta_archivo3"> </div>
+        <div>
+          <audio controls id="myAudio3">
+            <source src="" type="audio/mpeg" id="snd_header3">
+          </audio>
+        </div>
+      </div>
+
+      <div>4</div>
+      <div class="audio_controls" id="audio_controls4">
+        <div> <input type="file" id="ruta_archivo4"> </div>
+        <div>
+          <audio controls id="myAudio4">
+            <source src="" type="audio/mpeg" id="snd_header4">
+          </audio>
+        </div>
+      </div>
+
+    </main>
+
+    <sidebar class="sidebar" id="sidebar derecha">
+      sidebar derecha
+      <div class="playlist" id="playlist"> </div>
+    </sidebar>
+
+    <bloque1 class="bloque1" id="bloque1">
+      <div class="playlist" id="playlistfrescos"> </div>
+      <div class="tiraloaca" id="appendicitis"></div>
+    </bloque1>
+
+
+    <footer class="footer">
+      <div id="icon">
+        <div class="icono" id="face_icon">
+          <a href="https://es-la.facebook.com/" target="_blank" title="Ir a Facebook"><img src="img/facebook.svg"
+              alt="facebook"> </a>
+        </div>
+        <div class="icono" id="insta_icon">
+          <a href="https://instagram.com" target="_blank" title="Ir a Instagram"><img src="img/instagram.svg"
+              alt="instagram"></a>
+
+        </div>
+        <div class="icono" id="twitter_icon">
+          <a href="https://twitter.com/home?lang=es" target="_blank" title="Ir a Twitter"><img src="img/twitter.svg"
+              alt="twitter"></a>
+        </div>
+        <div class="icono" id="youtube_icon">
+          <a href="https://www.youtube.com/" target="_blank" title="Ir a Youtube"><img src="img/youtube.svg"
+              alt="youtube"></a>
+        </div>
+      </div>
+      <div>
+       
+          © Producer E87
+          <br>Bedbugs(banda)
+          <br>
+          escuchando a un forro (programa de radio).
+        
+      </div>
+    </footer>
+  </div>
+  <script src="js/brazil_2050.js"></script>
+</body>
+
+</html>

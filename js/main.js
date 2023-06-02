@@ -143,25 +143,21 @@ function validateForm() {
   }
   /* alert(mensaje);*/
   if (mensaje == "todoOk") {
-    
+
 
     let form = document.createElement('form');
     form.action = 'https://formspree.io/f/mvondkre';
     form.method = 'POST';
-    
+
     let nombre_inner = `<input name = "nombre" value=${nombre_trim}>`;
     let email_inner = `<input name = "email" value=${email_trim}>`;
     let asunto_inner = `<input name = "asunto" value=${asunto_trim}>`;
     let comentario_inner = `<input name = "comentario" value=${comentario_trim}>`;
     let terminos_inner = `<input name = "terminos" value=${terminos.value}>`;
     let spam_inner = `<input name = "spam" value=${spam.value}>`;
-
-
-    var test_cadena =nombre_inner+ " "+ email_inner+" "+asunto_inner+" "+comentario_inner+" "+terminos_inner+" "+spam_inner; 
-
+    var test_cadena = nombre_inner + " " + email_inner + " " + asunto_inner + " " + comentario_inner + " " + terminos_inner + " " + spam_inner;
     form.innerHTML = test_cadena;
-
-   document.body.append(form);
+    document.body.append(form);
     form.submit();
     alert(`${mensaje} + "Mensaje Enviado"`);
   }

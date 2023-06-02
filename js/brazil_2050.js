@@ -4,6 +4,7 @@
 //let context = new AudioContext();
 var lista = [];
 var lista_obj_cancion = [];
+var autoplay_1=false;
 var playlist = document.getElementById("playlist");
 var bloque1 = document.getElementById("playlistfrescos");
 var audio = document.getElementById("myAudio");
@@ -14,7 +15,9 @@ var deposito_1 = document.getElementById("deposito_1");
 deposito_1.innerHTML = "Drop Audio Here";
 
 volume_1 = document.getElementById("volume_1");
-loop_btn_1 = document.getElementById("loop_btn_1");
+loop_btn_1 = document.getElementById("loop_btn_1"); 
+loop_checkbox = document.getElementById("loop_checkbox"); 
+autoplay_checkbox= document.getElementById("autoplay_checkbox"); 
 playRate_1 = document.getElementById("playRate_1");
 volume_1.addEventListener("change",function(e){
   audio.volume=e.currentTarget.value;
@@ -22,9 +25,28 @@ volume_1.addEventListener("change",function(e){
 playRate_1.addEventListener("change", function(e){
   audio.playbackRate=e.currentTarget.value;
 });
-loop_btn_1.addEventListener("change", function(e){
+loop_btn_1.addEventListener("change", function(){
   audio.loop=true;
 });
+loop_checkbox.addEventListener("change", function(){
+  if(loop_checkbox.checked){audio.loop=true;}
+  else{audio.loop=false;}
+});
+autoplay_checkbox.addEventListener("change", function(){
+  if(autoplay_checkbox.checked){autoplay_1=true;}
+  else{autoplay_1=false;}
+  /*
+  if(autoplay_1==true)        
+  {alert("True");}
+  else
+  {alert("False ");}
+*/
+//alert("autoplay_1: " +autoplay_1);
+});
+
+
+play_Rate_1_text.innerHTML="PLAYRATE";
+volume_1_text.innerHTML="VOLUME";
 
 
 var ruta_archivo = document.getElementById("ruta_archivo");
@@ -77,6 +99,10 @@ var cancion_8 = {
   id: "08 Digi Noise Reverb Loop",
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/08 Digi Noise Reverb Loop.mp3"
 };
+
+
+
+
 var array_Canciones = [];
 array_Canciones.push(cancion_1);
 array_Canciones.push(cancion_2);
@@ -126,7 +152,7 @@ function sourceUpdate() {
 
 }
 function sourceUpdate2() {
-  const stringTestARRAY = [];
+ /* const stringTestARRAY = [];
   const ruta = ruta_archivo2.value.trim();
   ruta_index = ruta.lastIndexOf("\\", ruta.length - 1);
   track_name = "audio" + ruta.substr(ruta_index, ruta_index.length).trim();
@@ -148,7 +174,7 @@ function sourceUpdate2() {
       }
     }
   })
-  lista = lista + "p_2: " + `${cancion_nombre_final}` + `<br>`;
+  lista = lista + "p_2: " + `${cancion_nombre_final}` + `<br>`;*/
   muestraLista();
   muestra_array_Canciones();
 }
@@ -231,13 +257,6 @@ function muestra_array_Canciones() {
     }
   }
   bloque1.innerHTML = array_song_div;
-  // array_song_div.forEach(e=>{
-  //e.addEventListener("dragstart",cancion_dragstart);
-  // console.log("e: "+e);
-
-  //});
-
-  //    box.addEventListener("dragstart", cancion_dragstart)
 }
 
 //-------------------------------------------------------------------------
@@ -254,19 +273,20 @@ function soltar(event) {
   event.preventDefault();
   deposito_1.style.background = "#006600";
   deposito_1.innerHTML = "Drop Audio Here";
-  const link = event.dataTransfer.getData("text"); console.log("link: " + link);
-  //var id = this.id; 
+  const link = event.dataTransfer.getData("text"); 
+  //console.log("link: " + link);
   switch (this.id) {
     case ("deposito_1"):
       {
-        console.log("se dropeo en: deposito_1 ");
+        //console.log("se dropeo en: deposito_1 ");
         var player_1 = document.getElementById("myAudio");
         document.getElementById("player_1_label").innerHTML = getsId(link);
         player_1.pause();
         //player_1.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_1.src);
         player_1.src = `${link}`;
         player_1.load();
-        //player_1.play();      //esto si la config dice si a autoplay snd onDrop
+        if(autoplay_1==true)        
+        {player_1.play();}
         break;
       }
     default: { break; }
@@ -274,23 +294,17 @@ function soltar(event) {
 
 }
 
-//------------------------------------------------------------
-//var cancion_draggable = document.getElementById("div_draggable2");
-//cancion_draggable.addEventListener("dragstart", cancion_dragstart);
-//var test2=document.getElementsByClassName(".draggable");
-//test2.addEventListener("dragstart", cancion_dragstart)
-
-
 function cancion_dragstart(event) {
   //var codigo = ``;       
   //var test = this.id; console.log("test: " + `${test}`)
-  var target_song = event.target.id; console.log("target_song: " + `${target_song}`)
+  var target_song = event.target.id; 
+  //console.log("target_song: " + `${target_song}`)
 
   array_Canciones.forEach(element => {
     if (element.id.includes(target_song)) {
       var codigo_local = `C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
       event.dataTransfer.setData("text", codigo_local);
-      console.log(" codigo_local: " + codigo_local);
+      //console.log(" codigo_local: " + codigo_local);
       /*
       var codigo = element.url_src;
       event.dataTransfer.setData("text", codigo);
@@ -371,8 +385,6 @@ function controls_1_loop() {
   {document.getElementById("myAudio").loop=false;}
   else
   {document.getElementById("myAudio").loop=true;}
-  
-  
-  //this.loop = true;
+ 
 }
 //---------------------------------------------------
