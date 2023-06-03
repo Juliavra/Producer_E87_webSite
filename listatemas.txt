@@ -1,99 +1,89 @@
-02 Hard Acople Amb Song.mp3
-03 Phased Sleppy Noise Loop.mp3
-04 Ruido Digital Zarpado Loop.mp3
-05 Deep Dark Amb Slow Loop.mp3
-06 Ringy Dark Slow Amb Loop.mp3
-07 Calm Mellow Slow Amb Song.mp3
-08 Digi Noise Reverb Loop.mp3
-09 Digi Clippy Slow Loop.mp3
-10 Pulse Burst Revb Slow Song.mp3
-11 Sube Baja Calm Space Loop.mp3
-12 Acople Drone Amb Slo Song.mp3
-13 Amb Revb Tono Mal Loop.mp3
-14 Amb Calm Low Evolve Song.mp3
-15 Low Amb Melo Loop.mp3
-16 Chopped Reverse Calm Bright Loop.mp3
-17 Revb Bouncy Easy Noise Loop.mp3
-18 Noise Gate Sample Song.mp3
-19  Reverse Short Loop.mp3
-20 Dubby Augustus Pablo NR Song.mp3
-21 Weird NR Music Loop.mp3
-22 Choppd Vibrato Bube Baja Loop.mp3
-23 Choppd Vibrato Sube Baja Melo Loop.mp3
-24 Line Noise Clippin Loop.mp3
-25 Sub Noise Ritmo Loop.mp3
-26 Bass Melo Loop.mp3
-27 Line Noise Clippin 2 Loop.mp3
-28 Reverse Metal Low Drum Song.mp3
-29 White Noise Trip Loop Song.mp3
-30 Chopped Tone FX Evolution Song.mp3
-31 Windy Tremolo Tren Clima Loop.mp3
-32 Hiss Ritmico Song.mp3
-33 Bouncing Turbina Slow Song.mp3
-34 NR Digi Reverse Loop.mp3
-35 Grainy Sub Vibrato Soplido Song.mp3
-36 Ringy Pad Slow Melo Loop Song.mp3
-37 Reverse NR Wicked Birds Loop.mp3
-38 Mid Lo Bouncy Choppd Loop.mp3
-39 Sube Baja Ringy Loop Song.mp3
-40 Acople Viaje Hi Eq Loop.mp3
-41 Dark Sub Clips Amb Song.mp3
-42 Low Engine Loop.mp3
-43 Fax Signal Acople Clima Digi Noise Loop.mp3
-44 Caballos  Digi Noise Tempo Song.mp3
-45 Metal NR Talkin Melody Song.mp3
-46 Rain Metal bursts Talkie Loop Song.mp3
-47 Ringy Sub Melody Tempo Song.mp3
-48 Chopped ST Noise Calm Song.mp3
-49 Reverse Weird Music Song.mp3
-50 Ritmo Hit Pila Song.mp3
-51 Low Drone Noise Loop.mp3
-52 Sub Ultra Slow Mzk Song.mp3
-53 Low Digi Vibrato Snaps Loop.mp3
-54 Sub Windy Deep Song.mp3
-55 Ringy Sweepin Howl Song.mp3
-56 Chopped Snappy Melo Song.mp3
-57 Distort Chopped Ring Loop.mp3
-58 Sub Dark Hits Song.mp3
-59 Ringy EG Chopped Amb Song.mp3
-60 Melancholic Song.mp3
-61 Sube Baja Melo Song.mp3
-62 Sub Noise Talkative Loop.mp3
-63 Grainy Dirty Noise Loop.mp3
-64 Clipped Noise Loop.mp3
-65 Acople Hard Crescendo Loop.mp3
-66 Chopped Ptch Dwn Amb Loop.mp3
-67 Low Ocean like Amb Song.mp3
-68 Reverse Deep Dark Loop.mp3
-69 Drone Delay Melo Loop Song.mp3
-70 Chopped Ritmo ST Loop.mp3
-71 Melo Sube Baja Clima Loop.mp3
-72 Choppd fast ST Music Loop.mp3
-73 Trenes al galope Loop.mp3
-74 Drone Hard Noise  Loop Song.mp3
-75 Grainy Windy Dirty Noise Loop.mp3
-76 Sub Dub NR Loop.mp3
-77 Weird EG Vibrato Melo Loop.mp3
-78 Away Revb Industrial Noise Song.mp3
-79 Mellow Strings NR Song.mp3
-80 Phased Orkestra NR Song.mp3
-81 Un Clip Procesado Song.mp3
-82 Reverse Dubby Drum Beat.mp3
-83 Ptch Dwn Drum.mp3
-84 Chopped Dubby Beat Loop.mp3
-85 Sub Vibrato Delay N Gate Drum.mp3
-86 One Drop Distort Sumo Loop.mp3
-87 4 BD Space Dub Loop.mp3
-88 Distort Ptch Dwn Hip Hop Loop.mp3
-89 Distort EQ Hip Hop.mp3
-90 Ultra Slo Dub Trip Hop Loop.mp3
-91 Dub Loop.mp3
-92 Sub Space Tribal Loop.mp3
-93 Autechre Jumpin Loop.mp3
-94 Dirty Trip Hop Loop.mp3
-95 Break Cool Dance Beat Loop.mp3
-96 Clippy Choppd Melo Loop.mp3
-97 Reverse Fast Trance Loop.mp3
-98 All Over T Hop NR loop Song.mp3
-99 Melo Drums Tempo Loop.mp3
-100 B Beat re laburado Loop Song.mp3
+"12 Acople Drone Amb Slo Song.mp3",
+"13 Amb Revb Tono Mal Loop.mp3",
+"14 Amb Calm Low Evolve Song.mp3",
+"15 Low Amb Melo Loop.mp3",
+"16 Chopped Reverse Calm Bright Loop.mp3",
+"17 Revb Bouncy Easy Noise Loop.mp3",
+"18 Noise Gate Sample Song.mp3",
+"19  Reverse Short Loop.mp3",
+"20 Dubby Augustus Pablo NR Song.mp3",
+"21 Weird NR Music Loop.mp3",
+"22 Choppd Vibrato Bube Baja Loop.mp3",
+"23 Choppd Vibrato Sube Baja Melo Loop.mp3",
+"24 Line Noise Clippin Loop.mp3",
+"25 Sub Noise Ritmo Loop.mp3",
+"26 Bass Melo Loop.mp3",
+"27 Line Noise Clippin 2 Loop.mp3",
+"28 Reverse Metal Low Drum Song.mp3",
+"29 White Noise Trip Loop Song.mp3",
+"30 Chopped Tone FX Evolution Song.mp3",
+"31 Windy Tremolo Tren Clima Loop.mp3",
+"32 Hiss Ritmico Song.mp3",
+"33 Bouncing Turbina Slow Song.mp3",
+"34 NR Digi Reverse Loop.mp3",
+"35 Grainy Sub Vibrato Soplido Song.mp3",
+"36 Ringy Pad Slow Melo Loop Song.mp3",
+"37 Reverse NR Wicked Birds Loop.mp3",
+"38 Mid Lo Bouncy Choppd Loop.mp3",
+"39 Sube Baja Ringy Loop Song.mp3",
+"40 Acople Viaje Hi Eq Loop.mp3",
+"41 Dark Sub Clips Amb Song.mp3",
+"42 Low Engine Loop.mp3",
+"43 Fax Signal Acople Clima Digi Noise Loop.mp3",
+"44 Caballos  Digi Noise Tempo Song.mp3",
+"45 Metal NR Talkin Melody Song.mp3",
+"46 Rain Metal bursts Talkie Loop Song.mp3",
+"47 Ringy Sub Melody Tempo Song.mp3",
+"48 Chopped ST Noise Calm Song.mp3",
+"49 Reverse Weird Music Song.mp3",
+"50 Ritmo Hit Pila Song.mp3",
+"51 Low Drone Noise Loop.mp3",
+"52 Sub Ultra Slow Mzk Song.mp3",
+"53 Low Digi Vibrato Snaps Loop.mp3",
+"54 Sub Windy Deep Song.mp3",
+"55 Ringy Sweepin Howl Song.mp3",
+"56 Chopped Snappy Melo Song.mp3",
+"57 Distort Chopped Ring Loop.mp3",
+"58 Sub Dark Hits Song.mp3",
+"59 Ringy EG Chopped Amb Song.mp3",
+"60 Melancholic Song.mp3",
+"61 Sube Baja Melo Song.mp3",
+"62 Sub Noise Talkative Loop.mp3",
+"63 Grainy Dirty Noise Loop.mp3",
+"64 Clipped Noise Loop.mp3",
+"65 Acople Hard Crescendo Loop.mp3",
+"66 Chopped Ptch Dwn Amb Loop.mp3",
+"67 Low Ocean like Amb Song.mp3",
+"68 Reverse Deep Dark Loop.mp3",
+"69 Drone Delay Melo Loop Song.mp3",
+"70 Chopped Ritmo ST Loop.mp3",
+"71 Melo Sube Baja Clima Loop.mp3",
+"72 Choppd fast ST Music Loop.mp3",
+"73 Trenes al galope Loop.mp3",
+"74 Drone Hard Noise  Loop Song.mp3",
+"75 Grainy Windy Dirty Noise Loop.mp3",
+"76 Sub Dub NR Loop.mp3",
+"77 Weird EG Vibrato Melo Loop.mp3",
+"78 Away Revb Industrial Noise Song.mp3",
+"79 Mellow Strings NR Song.mp3",
+"80 Phased Orkestra NR Song.mp3",
+"81 Un Clip Procesado Song.mp3",
+"82 Reverse Dubby Drum Beat.mp3",
+"83 Ptch Dwn Drum.mp3",
+"84 Chopped Dubby Beat Loop.mp3",
+"85 Sub Vibrato Delay N Gate Drum.mp3",
+"86 One Drop Distort Sumo Loop.mp3",
+"87 4 BD Space Dub Loop.mp3",
+"88 Distort Ptch Dwn Hip Hop Loop.mp3",
+"89 Distort EQ Hip Hop.mp3",
+"90 Ultra Slo Dub Trip Hop Loop.mp3",
+"91 Dub Loop.mp3",
+"92 Sub Space Tribal Loop.mp3",
+"93 Autechre Jumpin Loop.mp3",
+"94 Dirty Trip Hop Loop.mp3",
+"95 Break Cool Dance Beat Loop.mp3",
+"96 Clippy Choppd Melo Loop.mp3",
+"97 Reverse Fast Trance Loop.mp3",
+"98 All Over T Hop NR loop Song.mp3",
+"99 Melo Drums Tempo Loop.mp3",
+"100 B Beat re laburado Loop Song.mp3"

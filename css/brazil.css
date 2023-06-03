@@ -217,6 +217,8 @@ main {
     border: #013801 solid 12px;
     margin: 0%;
     padding: 0%;
+    overflow-y: scroll;
+    height: 100vh;
 }
 
 .contenedor .bloque2 {
@@ -614,7 +616,8 @@ main {
 
 }
 
-#deposito_1 {
+#deposito_1,
+#deposito_2 {
     float: left;
     width: 60px;
     height: 88px;
@@ -622,15 +625,18 @@ main {
     border: 1px solid #999999;
 }
 
-#ruta_archivo{
+#ruta_archivo,
+#ruta_archivo2,
+#ruta_archivo3,
+#ruta_archivo4{
     opacity: 0;
 }
 
 
-#starts_btn_1,
-#stops_btn_1,
-#pause_btn_1,
-#loop_btn_1
+#starts_btn_1,#starts_btn_2,
+#stops_btn_1,#stops_btn_2,
+#pause_btn_1, #pause_btn_2,
+#loop_btn_1, #loop_btn_2
 {
     font-family: "Permanent Marker", cursive;
     font-size: 1rem;
@@ -640,11 +646,20 @@ main {
     padding:0px;
 }
 
-#playRate_1,
-#volume_1{
+#playRate_1,#playRate_2,
+#volume_1,#volume_2{
     width: 220px;
 }
 
+#volume_1_text, #volume_2_text
+{
+    font-family: "Permanent Marker", cursive;
+    font-size: 1rem;
+    color: orange;
+    background-color: #006600;
+    border: 0px;
+    padding:0px;
+}
 
 
 
