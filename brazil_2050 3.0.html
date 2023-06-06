@@ -25,6 +25,8 @@
 
     <main class="main">
 
+      <p id="teclaApretada"></p>
+
       <div>1 FALTA PROGRESS BAR + CURRENT TIME</div>
       <div class="audio_controls" id="audio_controls">
         <div class="deposito" id="deposito_1"> </div>
@@ -41,11 +43,16 @@
           <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="autoplay_checkbox">AUTOPLAY
           <p id="volume_1_text"></p>
           <p id="volume_1_value"></p>
-          <input type='range' min=0 max=1 step='0.01' value=0.1 id='volume_1' onclick="controls_1_volume()">
+          <input type='range' min=0 max=1 step='0.01' value=1 id='volume_1' onclick="controls_1_volume()">
           <br>
           <p id="play_Rate_1_text"></p>
           <p id="play_Rate_1_value"></p>
           <input type='range' min=0 max=1 step='0.01' value=1 id='playRate_1'>
+          <p id="currentPosition">Current position </p>
+          <input type='range' min=0 max=1 step='0.01' value=0 id='current_8' onclick="control_8_current()">
+
+          <p id="duracion_1_text"></p>
+          <p id="duracion_1_value"></p>
         </div>
         <!--si saco este input desaparece la lista del array_Canciones a la izquierda-->
         <div> <input type="file" id="ruta_archivo"> </div>
@@ -67,7 +74,7 @@
           <input class="checkbox" type="checkbox" name="autoplay_checkbox2" id="autoplay_checkbox2">AUTOPLAY
           <p id="volume_2_text"></p>
           <p id="volume_2_value"></p>
-          <input type='range' min=0 max=1 step='0.01' value=0.1 id='volume_2' onclick="controls_2_volume()">
+          <input type='range' min=0 max=1 step='0.01' value=1 id='volume_2' onclick="controls_2_volume()">
           <br>
           <p id="play_Rate_2_text"></p>
           <p id="play_Rate_2_value"></p>

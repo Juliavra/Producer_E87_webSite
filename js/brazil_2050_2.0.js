@@ -1,28 +1,14 @@
 //QUE HACE ESTO EXACTAMENTE, NO FUNCIONA SI ESTA ACTIVO
 //document.addEventListener("DOMContentLoaded", load, false);
-
 const array = ["01", "02", "03", "04", "05", "06", "07","08", "09","10"];
-
 for (let i=0;i<array.length;i++){
   console.log(array[i]);
 }
-
 const array_Objetos=[];
-
-
-
-
-
 var miobjeto = {
 id: "01",
 url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/01 Dark Ringy Short Loop.mp3"
 };
-
-
-
-
-
-
 let context = new AudioContext();
 let source_8 = context.createBufferSource();
 const gainNode_8 = context.createGain();
@@ -32,18 +18,28 @@ gainNode_8.connect(context.destination);
 volume_8.oninput = () => { gainNode_8.value = volume_8.value }
 playRate_8.oninput = () => { source_8.playbackRate.value = playRate_8.value }
 
+
+
 var lista = "";
 var audio8 = document.getElementById("myAudio8");
 var ruta_archivo8 = document.getElementById("ruta_archivo8");
 ruta_archivo8.addEventListener("change", sourceUpdate8);
-
 volume_8 = document.getElementById("volume_8");
 loop_btn_8 = document.getElementById("loop_btn_8");
 playRate_8 = document.getElementById("playRate_8");
 volume_8.addEventListener("change", control_8_volume);
-loop_btn_8.addEventListener("ended", control_8_loop);
+loop_btn_8.addEventListener("change", control_8_loop);
 playRate_8.addEventListener("change", () => { source_8.playbackRate.value = playRate_8.value; })
 
+current_8 = document.getElementById("current_8");
+current_8.addEventListener("change",testCurrent);
+
+function testCurrent(){
+  alert("current_8.addEventListener");
+
+}
+
+/*
 starts_noise = document.getElementById("starts_noise");
 starts_noise.addEventListener("onclick", ()=>{
   let noise=context.createBufferSource();
@@ -53,8 +49,7 @@ starts_noise.addEventListener("onclick", ()=>{
   noise.start();
   noise.connect(context.destination);
 });
-//-----------------------------------------------------
-
+*/
 //-------------------------------------------------------
 /*
 const h1 = document.createElement("playList") //Creamos el <h1>
@@ -66,28 +61,18 @@ document.body.appendChild(h1)
 //target() // RETORNA EL ELEMENTO QUE DISPARO EL EVENTO 
 
 function muestraLista() { alert(`LISTA: ` + `${lista}`); }
-
 function control_8_playRate() {
 source_8.playbackRate.value = playRate.value }
-
 function controls_8_play() { audio8.play(); }
-
 function controls_8_stop() { audio8.load(); }
-
 function controls_8_pause() { audio8.pause(); }
-
+function control_8_current(){audio8.currentTime();}
 function control_8_volume() {
-
   alert("vol8:   " + `${volume_8.value}`);
   audio8.volume_8 = volume_8.value;
-
   /*volume_8.oninput = () => { gainNode_8.value = volume_8.value }*/
 }
-
-function controls_8_loop(){
-  this.loop=true;
-}
-
+function controls_8_loop(){  this.loop=true;}
 function sourceUpdate8() {
   const stringTestARRAY = [];
   const ruta = ruta_archivo8.value.trim();

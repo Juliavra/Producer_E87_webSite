@@ -3,6 +3,7 @@
 player_1_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_2_label.innerHTML = "000 Texto de prueba de cancion nombre";
 //let context = new AudioContext();
+var currentAudioControlKeys=0;
 var lista = [];
 var lista_obj_cancion = [];
 var autoplay_1 = false; var autoplay_2 = false;
@@ -12,6 +13,39 @@ var audio = document.getElementById("myAudio");
 var audio2 = document.getElementById("myAudio2");
 var audio3 = document.getElementById("myAudio3");
 var audio4 = document.getElementById("myAudio4");
+
+
+document.onkeydown = function (e) {
+  e = e || window.event;
+  var test_key = e.key;
+  console.log(test_key);
+
+  switch (test_key) {
+    case '1':
+      {
+        currentAudioControlKeys=1; alert("1")
+        break;
+      }
+      case '2':
+      {
+        currentAudioControlKeys=2;
+        break;
+      }
+      case 'q':
+      {
+        audio.volume+=0.05; 
+//        alert("q");
+        break;
+      }
+      case 'a':
+      {
+        audio.volume-=0.05;
+        break;
+      }
+  }
+};
+
+var duration_1_value = document.getElementById("duracion_1_value");
 var deposito_1 = document.getElementById("deposito_1");
 deposito_1.innerHTML = "Drop Audio Here";
 volume_1 = document.getElementById("volume_1");
@@ -20,10 +54,12 @@ loop_checkbox = document.getElementById("loop_checkbox");
 autoplay_checkbox = document.getElementById("autoplay_checkbox");
 playRate_1 = document.getElementById("playRate_1");
 volume_1.addEventListener("change", function (e) {
-  audio.volume = e.currentTarget.value;
+  audio.volume = e.currentTarget.value; 
+  volume_1_value.innerHTML=(e.currentTarget.value*100); 
 });
 playRate_1.addEventListener("change", function (e) {
   audio.playbackRate = e.currentTarget.value;
+  play_Rate_1_value.innerHTML=(e.currentTarget.value*100);
 });
 loop_btn_1.addEventListener("change", function () {
   audio.loop = true;
@@ -36,11 +72,11 @@ autoplay_checkbox.addEventListener("change", function () {
   if (autoplay_checkbox.checked) { autoplay_1 = true; }
   else { autoplay_1 = false; }
 });
+
+
 play_Rate_1_text.innerHTML = "PLAYRATE";
 volume_1_text.innerHTML = "VOLUME";
-
-
-
+duracion_1_text.innerHTML = "DURATION";
 
 var deposito_2 = document.getElementById("deposito_2");
 deposito_2.innerHTML = "Drop Audio Here";
@@ -69,18 +105,6 @@ autoplay_checkbox2.addEventListener("change", function () {
 play_Rate_2_text.innerHTML = "PLAYRATE";
 volume_2_text.innerHTML = "VOLUME";
 
-/*
-var ruta_archivo = document.getElementById("ruta_archivo");
-var ruta_archivo2 = document.getElementById("ruta_archivo2");
-var ruta_archivo3 = document.getElementById("ruta_archivo3");
-var ruta_archivo4 = document.getElementById("ruta_archivo4");
-
-
-ruta_archivo.addEventListener("change", sourceUpdate);
-ruta_archivo2.addEventListener("change", sourceUpdate2);
-ruta_archivo3.addEventListener("change", sourceUpdate3);
-ruta_archivo4.addEventListener("change", sourceUpdate4);
-*/
 //----------------------------------------------------------------------
 // CANCION CLASS
 class Cancion {
@@ -490,10 +514,6 @@ var cancion_100 = {
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/100 B Beat re laburado Loop Song.mp3"
 };
 
-
-
-
-
 var array_Canciones = [];
 array_Canciones.push(cancion_1);
 array_Canciones.push(cancion_2);
@@ -632,94 +652,7 @@ function sourceUpdate() {
   
     muestraLista();
     muestra_array_Canciones();
-  
-  }
-  function sourceUpdate2() {
-    /* const stringTestARRAY = [];
-     const ruta = ruta_archivo2.value.trim();
-     ruta_index = ruta.lastIndexOf("\\", ruta.length - 1);
-     track_name = "audio" + ruta.substr(ruta_index, ruta_index.length).trim();
-     stringTestARRAY[0] = track_name.toString();
-     document.getElementById("myAudio2").src = `${stringTestARRAY[0].toString()}`;
-     document.getElementById("myAudio2").load();
-     var test = (`${stringTestARRAY[0].toString()}`);
-     cancion_nombre_last_index = test.lastIndexOf("\\", test.length - 1);                                //  alert(cancion_nombre_last_index);
-     cancion_nombre = test.substr(cancion_nombre_last_index + 1, test.length).trim();                        //  alert(cancion_nombre);
-     cancion_nombre_final_index = cancion_nombre.lastIndexOf(".", cancion_nombre.length - 4);                //alert(cancion_nombre_final_index);
-     cancion_nombre_final = cancion_nombre.substr(cancion_nombre, cancion_nombre_final_index).trim();//   alert(cancion_nombre_final);
-   
-     array_Canciones.forEach(element => {
-       if (element.id == cancion_nombre_final) {
-         const index_track = array_Canciones.indexOf(element);   // alert(`element: ` + `${element.id}`); alert(`index_track: ` + `${index_track}`);
-         if (index_track > -1) {
-           array_Canciones.splice(index_track, 1);
-           //for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
-         }
-       }
-     })
-     lista = lista + "p_2: " + `${cancion_nombre_final}` + `<br>`;*/
-  muestraLista();
-  muestra_array_Canciones();
-}
-function sourceUpdate3() {
-  /*
-  const stringTestARRAY = [];
-  const ruta = ruta_archivo3.value.trim();
-  ruta_index = ruta.lastIndexOf("\\", ruta.length - 1);
-  track_name = "audio" + ruta.substr(ruta_index, ruta_index.length).trim();
-  stringTestARRAY[0] = track_name.toString();
-  document.getElementById("myAudio3").src = `${stringTestARRAY[0].toString()}`;
-  document.getElementById("myAudio3").load();
-  var test = (`${stringTestARRAY[0].toString()}`);
-  cancion_nombre_last_index = test.lastIndexOf("\\", test.length - 1);                                //alert(cancion_nombre_last_index);
-  cancion_nombre = test.substr(cancion_nombre_last_index + 1, test.length).trim();                    //alert(cancion_nombre);
-  cancion_nombre_final_index = cancion_nombre.lastIndexOf(".", cancion_nombre.length - 4);          //alert(cancion_nombre_final_index);
-  cancion_nombre_final = cancion_nombre.substr(cancion_nombre, cancion_nombre_final_index).trim();//   alert(cancion_nombre_final);
-
-  array_Canciones.forEach(element => {
-    if (element.id == cancion_nombre_final) {
-      const index_track = array_Canciones.indexOf(element);  // alert(`element: ` + `${element.id}`); alert(`index_track: ` + `${index_track}`);
-      if (index_track > -1) {
-        array_Canciones.splice(index_track, 1);
-        //for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
-      }
-    }
-  })
-  lista = lista + "p_3: " + `${cancion_nombre_final}` + `<br>`;
   */
-  muestraLista();
-  muestra_array_Canciones();
-
-}
-function sourceUpdate4() {
-  /*
-  const stringTestARRAY = [];
-  const ruta = ruta_archivo4.value.trim();
-  ruta_index = ruta.lastIndexOf("\\", ruta.length - 1);
-  track_name = "audio" + ruta.substr(ruta_index, ruta_index.length).trim();
-  stringTestARRAY[0] = track_name.toString();
-  document.getElementById("myAudio4").src = `${stringTestARRAY[0].toString()}`;
-  document.getElementById("myAudio4").load();
-  var test = (`${stringTestARRAY[0].toString()}`);
-  cancion_nombre_last_index = test.lastIndexOf("\\", test.length - 1);                                //  alert(cancion_nombre_last_index);
-  cancion_nombre = test.substr(cancion_nombre_last_index + 1, test.length).trim();                        //alert(cancion_nombre);
-  cancion_nombre_final_index = cancion_nombre.lastIndexOf(".", cancion_nombre.length - 4);                //alert(cancion_nombre_final_index);
-  cancion_nombre_final = cancion_nombre.substr(cancion_nombre, cancion_nombre_final_index).trim();//   alert(cancion_nombre_final);
-
-  array_Canciones.forEach(element => {
-    if (element.id == cancion_nombre_final) {
-      const index_track = array_Canciones.indexOf(element);    //alert(`element: ` + `${element.id}`); alert(`index_track: ` + `${index_track}`);
-      if (index_track > -1) {
-        array_Canciones.splice(index_track, 1);
-        //for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
-      }
-    }
-  })
-  lista = lista + "p_4: " + `${cancion_nombre_final}` + `<br>`;
-  */
-  muestraLista();
-  muestra_array_Canciones();
-
 }
 //---------------------------------------------------------
 function muestraLista() {
@@ -738,7 +671,6 @@ function muestra_array_Canciones() {
 
     //console.log(`nombre: `+`${nombre}`);
     if (audio != null && box != null && nombre != null && nombre != ',') {
-
       array_song_div.push(box);                                     //console.log("box: "+`${box}`);
       array_audio_toAppend.push(audio);
     }
@@ -774,13 +706,13 @@ function soltar(event) {
       {
         var player_1 = document.getElementById("myAudio");
         document.getElementById("player_1_label").innerHTML = getsId(link);
+        duracion_1_value.innerHTML = `${audio.duration}`;
         player_1.pause();
         //player_1.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_1.src);
         player_1.src = `${link}`;
         player_1.load();
         if (autoplay_1 == true) {
           player_1.play();
-          //lista = lista + "p_1: " + `${link}` + `<br>`;
           lista = lista + "p_1: " + getsId(link) + `<br>`;
         }
         muestraLista();
@@ -797,7 +729,6 @@ function soltar(event) {
         player_2.load();
         if (autoplay_2 == true) {
           player_2.play();
-          //lista = lista + "p_2: " + `${link}` + `<br>`;
           lista = lista + "p_2: " + getsId(link) + `<br>`;
         }
         muestraLista();
@@ -810,11 +741,8 @@ function soltar(event) {
 }
 
 function cancion_dragstart(event) {
-  //var codigo = ``;       
-  //var test = this.id; console.log("test: " + `${test}`)
   var target_song = event.target.id;
   //console.log("target_song: " + `${target_song}`)
-
   array_Canciones.forEach(element => {
     if (element.id.includes(target_song)) {
       var codigo_local = `C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
@@ -849,15 +777,17 @@ function getsId(string) {
   var track_id_sin_porciento20 = track_id.replaceAll('%20', ' ');
   return `${track_id_sin_porciento20}`;
 }
-
 //-----------------------------------------------------------
 //BOTONES DEL PLAYER
-//function controls_1_playRate() { source_1.playbackRate.value = playRate.value }
 function controls_1_play() {
-  audio.play();
   lista = lista + "p_1: " + getsId(audio.src) + `<br>`;
   muestraLista();
   muestra_array_Canciones();
+  audio.play();
+  console.log("currentTime: " + audio.currentTime);
+  console.log(".progress: " + audio.progress);
+  duration_1_value.innerHTML = `${audio.duration}`;
+
 }
 function controls_1_stop() { audio.load(); }
 function controls_1_pause() { audio.pause(); }
@@ -887,3 +817,12 @@ function controls_2_loop() {
 }
 muestraLista();
 muestra_array_Canciones();
+
+
+
+/*
+progress—Este evento se desencadena periódicamente para ofrecer una actualización
+del progreso de la descarga del medio. A la información se puede acceder a través del
+atributo buffered
+
+*/

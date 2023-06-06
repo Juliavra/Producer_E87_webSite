@@ -208,6 +208,7 @@ main {
     border: blue solid 2px;
     margin: 0%;
     padding: 0%;
+    overflow-y: scroll;
 }
 
 .contenedor .bloque1 {
