@@ -50,7 +50,6 @@
           <input type='range' min=0 max=1 step='0.01' value=1 id='playRate_1'>
           <p id="currentPosition">Current position </p>
           <input type='range' min=0 max=1 step='0.01' value=0 id='current_8' onclick="control_8_current()">
-
           <p id="duracion_1_text"></p>
           <p id="duracion_1_value"></p>
         </div>
@@ -80,21 +79,68 @@
           <p id="play_Rate_2_value"></p>
           <input type='range' min=0 max=1 step='0.01' value=1 id='playRate_2'>
         </div>
+        <p id="currentPosition">Current position </p>
+        <input type='range' min=0 max=1 step='0.01' value=0 id='current_8' onclick="control_8_current()">
+        <p id="duracion_2_text"></p>
+        <p id="duracion_2_value"></p>
         <div> <input type="file" id="ruta_archivo2"> </div>
       </div>
 
       <div>3</div>
-      <div class="audio_controls" id="audio_controls3">
-        <div> <input type="file" id="ruta_archivo3"> </div>
+      <div class="audio_controls" id="audio_controls2">
+        <div class="deposito" id="deposito_3"> </div>
+        <p id="player_3_label"></p>
+        <audio id="myAudio3">
+          <source src="" type="audio/mpeg" id="snd_header">
+        </audio>
         <div>
-          <audio id="myAudio3">
-            <source src="" type="audio/mpeg" id="snd_header3">
-          </audio>
+          <button id="starts_btn_3" onclick="controls_3_play()">PLAY</button>
+          <button id="stops_btn_3" onclick="controls_3_stop()">STOP</button>
+          <button id="pause_btn_3" onclick="controls_3_pause()">PAUSE</button>
+          <input class="checkbox" type="checkbox" name="loop_checkbox3" id="loop_checkbox3">
+          <button id="loop_btn_3" onclick="controls_3_loop()">LOOP</button>
+          <input class="checkbox" type="checkbox" name="autoplay_checkbox3" id="autoplay_checkbox3">AUTOPLAY
+          <p id="volume_3_text"></p>
+          <p id="volume_3_value"></p>
+          <input type='range' min=0 max=1 step='0.01' value=1 id='volume_3' onclick="controls_3_volume()">
+          <br>
+          <p id="play_Rate_3_text"></p>
+          <p id="play_Rate_3_value"></p>
+          <input type='range' min=0 max=1 step='0.01' value=1 id='playRate_3'>
+          <p id="currentPosition">Current position </p>
+          <input type='range' min=0 max=1 step='0.01' value=0 id='current_8' onclick="control_8_current()">
+          <p id="duracion_3_text"></p>
+          <p id="duracion_3_value"></p>
         </div>
+        <div> <input type="file" id="ruta_archivo3"> </div>
       </div>
 
       <div>4</div>
       <div class="audio_controls" id="audio_controls4">
+        <div class="deposito" id="deposito_4"> </div>
+        <p id="player_4_label"></p>
+        <audio id="myAudio4">
+          <source src="" type="audio/mpeg" id="snd_header">
+        </audio>
+        <div>
+          <button id="starts_btn_4" onclick="controls_4_play()">PLAY</button>
+          <button id="stops_btn_4" onclick="controls_4_stop()">STOP</button>
+          <button id="pause_btn_4" onclick="controls_4_pause()">PAUSE</button>
+          <input class="checkbox" type="checkbox" name="loop_checkbox4" id="loop_checkbox4">
+          <button id="loop_btn_4" onclick="controls_4_loop()">LOOP</button>
+          <input class="checkbox" type="checkbox" name="autoplay_checkbox4" id="autoplay_checkbox4">AUTOPLAY
+          <p id="volume_4_text"></p>
+          <p id="volume_4_value"></p>
+          <input type='range' min=0 max=1 step='0.01' value=1 id='volume_4' onclick="controls_4_volume()">
+          <br>
+          <p id="play_Rate_4_text"></p>
+          <p id="play_Rate_4_value"></p>
+          <input type='range' min=0 max=1 step='0.01' value=1 id='playRate_4'>
+          <p id="currentPosition">Current position </p>
+          <input type='range' min=0 max=1 step='0.01' value=0 id='current_8' onclick="control_8_current()">
+          <p id="duracion_4_text"></p>
+          <p id="duracion_4_value"></p>
+        </div>
         <div> <input type="file" id="ruta_archivo4"> </div>
       </div>
 

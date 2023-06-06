@@ -2,11 +2,14 @@
 //document.addEventListener("DOMContentLoaded", load, false);
 player_1_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_2_label.innerHTML = "000 Texto de prueba de cancion nombre";
+player_3_label.innerHTML = "000 Texto de prueba de cancion nombre";
+player_4_label.innerHTML = "000 Texto de prueba de cancion nombre";
 //let context = new AudioContext();
 var currentAudioControlKeys=0;
 var lista = [];
 var lista_obj_cancion = [];
 var autoplay_1 = false; var autoplay_2 = false;
+var autoplay_3 = false; var autoplay_4 = false;
 var playlist = document.getElementById("playlist");
 var bloque1 = document.getElementById("playlistfrescos");
 var audio = document.getElementById("myAudio");
@@ -23,28 +26,81 @@ document.onkeydown = function (e) {
   switch (test_key) {
     case '1':
       {
-        currentAudioControlKeys=1; alert("1")
+        teclaApretada.innerHTML="1";
+        currentAudioControlKeys=1; 
         break;
       }
       case '2':
       {
+        teclaApretada.innerHTML="2";
         currentAudioControlKeys=2;
         break;
       }
+      case '3':
+        {
+          teclaApretada.innerHTML="3";
+          currentAudioControlKeys=3; 
+          break;
+        }
+        case '4':
+        {
+          teclaApretada.innerHTML="4";
+          currentAudioControlKeys=4;
+          break;
+        }
       case 'q':
       {
-        audio.volume+=0.05; 
-//        alert("q");
+        teclaApretada.innerHTML="q";
+        audio.volume=audio.volume+0.05; 
         break;
       }
       case 'a':
       {
+        teclaApretada.innerHTML="a";
         audio.volume-=0.05;
+        break;
+      }
+      case 'w':
+      {
+        teclaApretada.innerHTML="w";
+        audio2.volume-=0.05;
+        break;
+      }
+      case 's':
+      {
+        teclaApretada.innerHTML="s";
+        audio2.volume-=0.05;
+        break;
+      }
+      case 'e':
+      {
+        teclaApretada.innerHTML="e";
+        audio3.volume-=0.05;
+        break;
+      }
+      case 'd':
+      {
+        teclaApretada.innerHTML="d";
+        audio3.volume-=0.05;
+        break;
+      }
+      case 'r':
+      {
+        teclaApretada.innerHTML="r";
+        audio4.volume-=0.05;
+        break;
+      }
+      case 'f':
+      {
+        teclaApretada.innerHTML="f";
+        teclaApretada.innerHTML=("audio4.volume: "+audio4.volume);
+    //    audio4.volume-=0.05;
         break;
       }
   }
 };
-
+//----------------------------------------------------------------
+//PLAYER SETUP
 var duration_1_value = document.getElementById("duracion_1_value");
 var deposito_1 = document.getElementById("deposito_1");
 deposito_1.innerHTML = "Drop Audio Here";
@@ -61,9 +117,6 @@ playRate_1.addEventListener("change", function (e) {
   audio.playbackRate = e.currentTarget.value;
   play_Rate_1_value.innerHTML=(e.currentTarget.value*100);
 });
-loop_btn_1.addEventListener("change", function () {
-  audio.loop = true;
-});
 loop_checkbox.addEventListener("change", function () {
   if (loop_checkbox.checked) { audio.loop = true; }
   else { audio.loop = false; }
@@ -72,12 +125,13 @@ autoplay_checkbox.addEventListener("change", function () {
   if (autoplay_checkbox.checked) { autoplay_1 = true; }
   else { autoplay_1 = false; }
 });
-
-
 play_Rate_1_text.innerHTML = "PLAYRATE";
 volume_1_text.innerHTML = "VOLUME";
 duracion_1_text.innerHTML = "DURATION";
 
+//----------------------------------------------------------------
+//PLAYER SETUP
+var duration_2_value = document.getElementById("duracion_2_value");
 var deposito_2 = document.getElementById("deposito_2");
 deposito_2.innerHTML = "Drop Audio Here";
 volume_2 = document.getElementById("volume_2");
@@ -104,6 +158,69 @@ autoplay_checkbox2.addEventListener("change", function () {
 });
 play_Rate_2_text.innerHTML = "PLAYRATE";
 volume_2_text.innerHTML = "VOLUME";
+duracion_2_text.innerHTML = "DURATION";
+
+//----------------------------------------------------------------
+//PLAYER SETUP
+
+var duration_3_value = document.getElementById("duracion_3_value");
+var deposito_3 = document.getElementById("deposito_3");
+deposito_3.innerHTML = "Drop Audio Here";
+volume_3 = document.getElementById("volume_3");
+loop_btn_3 = document.getElementById("loop_btn_3");
+loop_checkbox = document.getElementById("loop_checkbox");
+autoplay_checkbox3 = document.getElementById("autoplay_checkbox3");
+playRate_3 = document.getElementById("playRate_3");
+volume_3.addEventListener("change", function (e) {
+  audio3.volume = e.currentTarget.value; 
+  volume_3_value.innerHTML=(e.currentTarget.value*100); 
+});
+playRate_3.addEventListener("change", function (e) {
+  audio3.playbackRate = e.currentTarget.value;
+  play_Rate_3_value.innerHTML=(e.currentTarget.value*100);
+});
+loop_checkbox.addEventListener("change", function () {
+  if (loop_checkbox.checked) { audio3.loop = true; }
+  else { audio3.loop = false; }
+});
+autoplay_checkbox3.addEventListener("change", function () {
+  if (autoplay_checkbox3.checked) { autoplay_3 = true; }
+  else { autoplay_3 = false; }
+});
+play_Rate_3_text.innerHTML = "PLAYRATE";
+volume_3_text.innerHTML = "VOLUME";
+duracion_3_text.innerHTML = "DURATION";
+
+//----------------------------------------------------------------
+//PLAYER SETUP
+
+var duration_4_value = document.getElementById("duracion_4_value");
+var deposito_4 = document.getElementById("deposito_4");
+deposito_4.innerHTML = "Drop Audio Here";
+volume_4 = document.getElementById("volume_4");
+loop_btn_4 = document.getElementById("loop_btn_4");
+loop_checkbox = document.getElementById("loop_checkbox");
+autoplay_checkbox4 = document.getElementById("autoplay_checkbox4");
+playRate_4 = document.getElementById("playRate_4");
+volume_4.addEventListener("change", function (e) {
+  audio4.volume = e.currentTarget.value; 
+  volume_4_value.innerHTML=(e.currentTarget.value*100); 
+});
+playRate_4.addEventListener("change", function (e) {
+  audio4.playbackRate = e.currentTarget.value;
+  play_Rate_4_value.innerHTML=(e.currentTarget.value*100);
+});
+loop_checkbox.addEventListener("change", function () {
+  if (loop_checkbox.checked) { audio4.loop = true; }
+  else { audio4.loop = false; }
+});
+autoplay_checkbox4.addEventListener("change", function () {
+  if (autoplay_checkbox4.checked) { autoplay_4 = true; }
+  else { autoplay_4 = false; }
+});
+play_Rate_4_text.innerHTML = "PLAYRATE";
+volume_4_text.innerHTML = "VOLUME";
+duracion_4_text.innerHTML = "DURATION";
 
 //----------------------------------------------------------------------
 // CANCION CLASS
@@ -615,13 +732,11 @@ array_Canciones.push(cancion_97)
 array_Canciones.push(cancion_98)
 array_Canciones.push(cancion_99)
 array_Canciones.push(cancion_100)
-//console.log(`array_Canciones: `);
-//for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
+console.log(`array_Canciones: `);
+for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
 //-------------------------------------------------------
 window.addEventListener("load", muestra_array_Canciones);
 
-//-------------  //*HTMLAudioElement*/--------------------------------
-//---------------------------  //('\')<FUCK   yeah!> ('/') 
 /*--------------------------------------------------*/
 /*SOURCE UPDATE 1-4*/
 function sourceUpdate() {
@@ -679,6 +794,7 @@ function muestra_array_Canciones() {
 }
 
 //-------------------------------------------------------------------------
+//DEPOSITO LISTENERS 
 deposito_1.addEventListener("dragenter", function (event) {
   event.preventDefault();
   deposito_1.style.background = "rgba(250, 0, 0, .5)";
@@ -687,7 +803,8 @@ deposito_1.addEventListener("dragover", function (event) {
   event.preventDefault();
 });
 deposito_1.addEventListener("drop", soltar);
-
+//-------------------------------------------------------------------------
+//DEPOSITO LISTENERS
 deposito_2.addEventListener("dragenter", function (event) {
   event.preventDefault();
   deposito_2.style.background = "rgba(250, 0, 0, .5)";
@@ -735,11 +852,143 @@ function soltar(event) {
         muestra_array_Canciones();
         break;
       }
+      case ("deposito_3"):
+        {
+          var player_3 = document.getElementById("myAudio3");
+          document.getElementById("player_3_label").innerHTML = getsId(link);
+          duracion_3_value.innerHTML = `${audio.duration}`;
+          player_3.pause();
+          //player_3.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_3.src);
+          player_3.src = `${link}`;
+          player_3.load();
+          if (autoplay_3 == true) {
+            player_3.play();
+            lista = lista + "p_3: " + getsId(link) + `<br>`;
+          }
+          muestraLista();
+          muestra_array_Canciones();
+          break;
+        }
+      case ("deposito_2"):
+        {
+          var player_4 = document.getElementById("myAudio4");
+          document.getElementById("player_4_label").innerHTML = getsId(link);
+          player_4.pause();
+          //player_4.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_2.src);
+          player_4.src = `${link}`;
+          player_4.load();
+          if (autoplay_4 == true) {
+            player_4.play();
+            lista = lista + "p_4: " + getsId(link) + `<br>`;
+          }
+          muestraLista();
+          muestra_array_Canciones();
+          break;
+        }
     default: { break; }
   }
-
 }
+//-------------------------------------------------------------------------
+//DEPOSITO LISTENERS
 
+deposito_3.addEventListener("dragenter", function (event) {
+  event.preventDefault();
+  deposito_3.style.background = "rgba(250, 0, 0, .5)";
+});
+deposito_3.addEventListener("dragover", function (event) {
+  event.preventDefault();
+});
+deposito_3.addEventListener("drop", soltar);
+
+//-------------------------------------------------------------------------
+//DEPOSITO LISTENERS
+
+deposito_4.addEventListener("dragenter", function (event) {
+  event.preventDefault();
+  deposito_4.style.background = "rgba(250, 0, 0, .5)";
+});
+deposito_4.addEventListener("dragover", function (event) {
+  event.preventDefault();
+});
+deposito_4.addEventListener("drop", soltar);
+
+//-----------------------------------------------------
+function soltar(event) {
+  event.preventDefault();
+  this.style.background = "#006600";
+  this.innerHTML = "Drop Audio Here";
+  const link = event.dataTransfer.getData("text");
+  switch (this.id) {
+    case ("deposito_1"):
+      {
+        var player_1 = document.getElementById("myAudio");
+        document.getElementById("player_1_label").innerHTML = getsId(link);
+        duracion_1_value.innerHTML = `${audio.duration}`;
+        player_1.pause();
+        //player_1.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_1.src);
+        player_1.src = `${link}`;
+        player_1.load();
+        if (autoplay_1 == true) {
+          player_1.play();
+          lista = lista + "p_1: " + getsId(link) + `<br>`;
+        }
+        muestraLista();
+        muestra_array_Canciones();
+        break;
+      }
+    case ("deposito_2"):
+      {
+        var player_2 = document.getElementById("myAudio2");
+        document.getElementById("player_2_label").innerHTML = getsId(link);
+        player_2.pause();
+        //player_2.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_2.src);
+        player_2.src = `${link}`;
+        player_2.load();
+        if (autoplay_2 == true) {
+          player_2.play();
+          lista = lista + "p_2: " + getsId(link) + `<br>`;
+        }
+        muestraLista();
+        muestra_array_Canciones();
+        break;
+      }
+      case ("deposito_3"):
+      {
+        var player_3 = document.getElementById("myAudio3");
+        document.getElementById("player_3_label").innerHTML = getsId(link);
+        duracion_3_value.innerHTML = `${audio3.duration}`;
+        player_3.pause();
+        //player_3.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_3.src);
+        player_3.src = `${link}`;
+        player_3.load();
+        if (autoplay_3 == true) {
+          player_3.play();
+          lista = lista + "p_3: " + getsId(link) + `<br>`;
+        }
+        muestraLista();
+        muestra_array_Canciones();
+        break;
+      }
+      case ("deposito_4"):
+      {
+        var player_4 = document.getElementById("myAudio4");
+        document.getElementById("player_4_label").innerHTML = getsId(link);
+        duracion_4_value.innerHTML = `${audio4.duration}`;
+        player_4.pause();
+        //player_4.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_4.src);
+        player_4.src = `${link}`;
+        player_4.load();
+        if (autoplay_4 == true) {
+          player_4.play();
+          lista = lista + "p_4: " + getsId(link) + `<br>`;
+        }
+        muestraLista();
+        muestra_array_Canciones();
+        break;
+      }
+    default: { break; }
+  }
+}
 function cancion_dragstart(event) {
   var target_song = event.target.id;
   //console.log("target_song: " + `${target_song}`)
@@ -757,18 +1006,6 @@ function cancion_dragstart(event) {
   });
 
 }
-//-----------------------------------------------------
-//------------------------------------------------------------------------------------------
-//for (let key in array_Canciones){
-//console.log(key);
-//console.log(array_Canciones[key]);
-//console.log(Object.entries(array_Canciones[key]));
-//}
-//console.log(Object.keys(cancion_1));
-//console.log(Object.values(cancion_1));
-//const draggable_items = document.querySelector('.draggable');
-//agregarelemento();
-
 function getsId(string) {
   var string_index = string.lastIndexOf("/", string.length - 1);
   var track_name = string.substr(string_index + 1, string_index.length).trim();
@@ -791,7 +1028,6 @@ function controls_1_play() {
 }
 function controls_1_stop() { audio.load(); }
 function controls_1_pause() { audio.pause(); }
-
 function controls_1_loop() {
   var estado = document.getElementById("myAudio").loop;
   if (estado == true) { document.getElementById("myAudio").loop = false; }
@@ -799,17 +1035,19 @@ function controls_1_loop() {
 }
 muestraLista();
 muestra_array_Canciones();
-
-
+//-----------------------------------------------------------
+//BOTONES DEL PLAYER
 function controls_2_play() {
-  audio2.play();
-  lista = lista + "p_2: " + getsId(link) + `<br>`; alert("AAACCCCAAAAAAA");
+  lista = lista + "p_2: " + getsId(audio2.src) + `<br>`;
   muestraLista();
   muestra_array_Canciones();
+  audio2.play();
+  console.log("currentTime: " + audio2.currentTime);
+  console.log(".progress: " + audio2.progress);
+  duration_2_value.innerHTML = `${audio2.duration}`;
 }
 function controls_2_stop() { audio2.load(); }
 function controls_2_pause() { audio2.pause(); }
-
 function controls_2_loop() {
   var estado = document.getElementById("myAudio2").loop;
   if (estado == true) { document.getElementById("myAudio2").loop = false; }
@@ -817,6 +1055,48 @@ function controls_2_loop() {
 }
 muestraLista();
 muestra_array_Canciones();
+//-----------------------------------------------------------
+//BOTONES DEL PLAYER
+function controls_3_play() {
+  lista = lista + "p_3: " + getsId(audio3.src) + `<br>`;
+  muestraLista();
+  muestra_array_Canciones();
+  audio3.play();
+  console.log("currentTime: " + audio3.currentTime);
+  console.log(".progress: " + audio3.progress);
+  duration_3_value.innerHTML = `${audio3.duration}`;
+}
+function controls_3_stop() { audio3.load(); }
+function controls_3_pause() { audio3.pause(); }
+function controls_3_loop() {
+  var estado = document.getElementById("myAudio3").loop;
+  if (estado == true) { document.getElementById("myAudio3").loop = false; }
+  else { document.getElementById("myAudio3").loop = true; }
+}
+muestraLista();
+muestra_array_Canciones();
+//-----------------------------------------------------------
+//BOTONES DEL PLAYER
+function controls_4_play() {
+  lista = lista + "p_4: " + getsId(audio4.src) + `<br>`;
+  muestraLista();
+  muestra_array_Canciones();
+  audio4.play();
+  console.log("currentTime: " + audio4.currentTime);
+  console.log(".progress: " + audio4.progress);
+  duration_4_value.innerHTML = `${audio4.duration}`;
+}
+function controls_4_stop() { audio4.load(); }
+function controls_4_pause() { audio4.pause(); }
+function controls_4_loop() {
+  var estado = document.getElementById("myAudio4").loop;
+  if (estado == true) { document.getElementById("myAudio4").loop = false; }
+  else { document.getElementById("myAudio4").loop = true; }
+}
+muestraLista();
+muestra_array_Canciones();
+
+
 
 
 
@@ -824,5 +1104,18 @@ muestra_array_Canciones();
 progress—Este evento se desencadena periódicamente para ofrecer una actualización
 del progreso de la descarga del medio. A la información se puede acceder a través del
 atributo buffered
-
 */
+
+//------------------------------------------------------------------------------------------
+//for (let key in array_Canciones){
+//console.log(key);
+//console.log(array_Canciones[key]);
+//console.log(Object.entries(array_Canciones[key]));
+//}
+//console.log(Object.keys(cancion_1));
+//console.log(Object.values(cancion_1));
+//const draggable_items = document.querySelector('.draggable');
+//agregarelemento();
+
+//-------------  //*HTMLAudioElement*/--------------------------------
+//---------------------------  //('\')<FUCK   yeah!> ('/') 

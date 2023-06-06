@@ -618,7 +618,10 @@ main {
 }
 
 #deposito_1,
-#deposito_2 {
+#deposito_2,
+#deposito_3,
+#deposito_4
+ {
     float: left;
     width: 60px;
     height: 88px;
@@ -634,10 +637,10 @@ main {
 }
 
 
-#starts_btn_1,#starts_btn_2,
-#stops_btn_1,#stops_btn_2,
-#pause_btn_1, #pause_btn_2,
-#loop_btn_1, #loop_btn_2
+#starts_btn_1,#starts_btn_2,#starts_btn_3,#starts_btn_4,
+#stops_btn_1,#stops_btn_2,#stops_btn_3,#stops_btn_4,
+#pause_btn_1, #pause_btn_2,#pause_btn_3, #pause_btn_4,
+#loop_btn_1, #loop_btn_2,#loop_btn_3, #loop_btn_4
 {
     font-family: "Permanent Marker", cursive;
     font-size: 1rem;
@@ -647,12 +650,12 @@ main {
     padding:0px;
 }
 
-#playRate_1,#playRate_2,
-#volume_1,#volume_2{
+#playRate_1,#playRate_2,#playRate_3,#playRate_4,
+#volume_1,#volume_2,#volume_3,#volume_4{
     width: 220px;
 }
 
-#volume_1_text, #volume_2_text
+#volume_1_text, #volume_2_text,#volume_3_text, #volume_4_text
 {
     font-family: "Permanent Marker", cursive;
     font-size: 1rem;
