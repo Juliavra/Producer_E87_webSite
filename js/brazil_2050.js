@@ -816,7 +816,7 @@ function muestra_array_Canciones() {
   for (i = 0; i < array_Canciones.length; i++) {
     var nombre = array_Canciones[i].id;                             //console.log(`nombre: `+`${nombre}`)    
     //DE ESTE MODO BUSCA LOS ARCHIVOS EN GITHUB 
-    var source = array_Canciones[i].url_src;                        // console.log(`source: `+`${source}`)  
+    var source = array_Canciones[i].url_src;                         console.log(`source: `+`${source}`)  
     //var source = `"audio/${nombre}.mp3"`;
     const box = `<div class="draggable" id=${nombre} draggable="true" ondragstart="cancion_dragstart(event)">    ${nombre}    </div>`;
     const audio = `<audio class="audio" id=${nombre}> <source src="${source}" type="audio/mpeg"></audio>`;
