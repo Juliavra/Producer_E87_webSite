@@ -5,7 +5,7 @@ player_2_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_3_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_4_label.innerHTML = "000 Texto de prueba de cancion nombre";
 //let context = new AudioContext();
-var currentAudioControlKeys=0;
+var currentAudioControlKeys = 0;
 var lista = [];
 var lista_obj_cancion = [];
 var autoplay_1 = false; var autoplay_2 = false;
@@ -26,77 +26,144 @@ document.onkeydown = function (e) {
   switch (test_key) {
     case '1':
       {
-        teclaApretada.innerHTML="1";
-        currentAudioControlKeys=1; 
+        teclaApretada.innerHTML = "1";
+        currentAudioControlKeys = 1;
         break;
       }
-      case '2':
+    case '2':
       {
-        teclaApretada.innerHTML="2";
-        currentAudioControlKeys=2;
+        teclaApretada.innerHTML = "2";
+        currentAudioControlKeys = 2;
         break;
       }
-      case '3':
-        {
-          teclaApretada.innerHTML="3";
-          currentAudioControlKeys=3; 
-          break;
+    case '3':
+      {
+        teclaApretada.innerHTML = "3";
+        currentAudioControlKeys = 3;
+        break;
+      }
+    case '4':
+      {
+        teclaApretada.innerHTML = "4";
+        currentAudioControlKeys = 4;
+        break;
+      }
+    case 'q':
+      {
+        teclaApretada.innerHTML = "q";
+        if (audio.volume < 0.95) {
+          audio.volume = audio.volume + 0.05;
+          volume_1_value.innerHTML = `${audio.volume*100}`;
+          console.log("audio.volume: " + audio.volume);
         }
-        case '4':
-        {
-          teclaApretada.innerHTML="4";
-          currentAudioControlKeys=4;
-          break;
+        else {
+          audio.volume = 1;
+          volume_1_value.innerHTML = audio.volume;
+          console.log("audio.volume: " + audio.volume);
         }
-      case 'q':
-      {
-        teclaApretada.innerHTML="q";
-        audio.volume=audio.volume+0.05; 
         break;
       }
-      case 'a':
+    case 'a':
       {
-        teclaApretada.innerHTML="a";
-        audio.volume-=0.05;
+        teclaApretada.innerHTML = "a";
+        if (audio.volume > 0.05) {
+          audio.volume -= 0.05;
+          volume_1_value.innerHTML = `${audio.volume}`;
+          console.log("audio.volume: " + audio.volume);
+        }
+        else {
+          audio.volume = 0; console.log("audio.volume: " + audio.volume);
+        }
         break;
       }
       case 'w':
+        {
+          teclaApretada.innerHTML = "w";
+          if (audio2.volume < 0.95) {
+            audio2.volume = audio2.volume + 0.05;
+            volume_2_value.innerHTML = `${audio2.volume}`;
+            console.log("audio2.volume: " + audio2.volume);
+          }
+          else {
+            audio2.volume = 1;
+            volume_2_value.innerHTML = `${audio2.volume}`;
+            console.log("audio2.volume: " + audio2.volume);
+          }
+          break;
+        }
+    case 's':
       {
-        teclaApretada.innerHTML="w";
-        audio2.volume-=0.05;
+        teclaApretada.innerHTML = "s";
+        if (audio2.volume > 0.05) {
+          audio2.volume -= 0.05;
+          volume_2_value.innerHTML = `${audio2.volume}`;
+          console.log("audio2.volume: " + audio2.volume);
+        }
+        else {
+          audio2.volume = 0; console.log("audio.volume: " + audio2.volume);
+        }
         break;
       }
-      case 's':
+    case 'e':
       {
-        teclaApretada.innerHTML="s";
-        audio2.volume-=0.05;
+        teclaApretada.innerHTML = "e";
+        if (audio3.volume < 0.95) {
+          audio3.volume = audio3.volume + 0.05;
+          volume_3_value.innerHTML = `${audio3.volume}`;
+          console.log("audio3.volume: " + audio3.volume);
+        }
+        else {
+          audio3.volume = 1;
+          volume_3_value.innerHTML = `${audio3.volume}`;
+          console.log("audio3.volume: " + audio3.volume);
+        }
         break;
       }
-      case 'e':
+    case 'd':
       {
-        teclaApretada.innerHTML="e";
-        audio3.volume-=0.05;
-        break;
-      }
-      case 'd':
-      {
-        teclaApretada.innerHTML="d";
-        audio3.volume-=0.05;
+        teclaApretada.innerHTML = "d";
+        if (audio3.volume > 0.05) {
+          audio3.volume -= 0.05;
+          volume_3_value.innerHTML = `${audio3.volume}`;
+          console.log("audio3.volume: " + audio3.volume);
+        }
+        else {
+          audio3.volume = 0;
+          volume_3_value.innerHTML = `${audio3.volume}`;
+          console.log("audio3.volume: " + audio3.volume);
+        }
         break;
       }
       case 'r':
-      {
-        teclaApretada.innerHTML="r";
-        audio4.volume-=0.05;
-        break;
-      }
+        {
+          teclaApretada.innerHTML = "r";
+          if (audio4.volume < 0.95) {
+            audio4.volume = audio4.volume + 0.05;
+            volume_4_value.innerHTML = `${audio4.volume}`;
+            console.log("audio4.volume: " + audio4.volume);
+          }
+          else {
+            audio4.volume = 1;
+            volume_4_value.innerHTML = `${audio4.volume}`;
+            console.log("audio4.volume: " + audio4.volume);
+          }
+          break;
+        }
       case 'f':
-      {
-        teclaApretada.innerHTML="f";
-        teclaApretada.innerHTML=("audio4.volume: "+audio4.volume);
-    //    audio4.volume-=0.05;
-        break;
-      }
+        {
+          teclaApretada.innerHTML = "f";
+          if (audio4.volume > 0.05) {
+            audio4.volume -= 0.05;
+            volume_4_value.innerHTML = `${audio4.volume}`;
+            console.log("audio4.volume: " + audio4.volume);
+          }
+          else {
+            audio4.volume = 0;
+            volume_4_value.innerHTML = `${audio4.volume}`;
+            console.log("audio4.volume: " + audio4.volume);
+          }
+          break;
+        }
   }
 };
 //----------------------------------------------------------------
@@ -110,12 +177,12 @@ loop_checkbox = document.getElementById("loop_checkbox");
 autoplay_checkbox = document.getElementById("autoplay_checkbox");
 playRate_1 = document.getElementById("playRate_1");
 volume_1.addEventListener("change", function (e) {
-  audio.volume = e.currentTarget.value; 
-  volume_1_value.innerHTML=(e.currentTarget.value*100); 
+  audio.volume = e.currentTarget.value;
+  volume_1_value.innerHTML = (e.currentTarget.value * 100);
 });
 playRate_1.addEventListener("change", function (e) {
   audio.playbackRate = e.currentTarget.value;
-  play_Rate_1_value.innerHTML=(e.currentTarget.value*100);
+  play_Rate_1_value.innerHTML = (e.currentTarget.value * 100);
 });
 loop_checkbox.addEventListener("change", function () {
   if (loop_checkbox.checked) { audio.loop = true; }
@@ -128,6 +195,7 @@ autoplay_checkbox.addEventListener("change", function () {
 play_Rate_1_text.innerHTML = "PLAYRATE";
 volume_1_text.innerHTML = "VOLUME";
 duracion_1_text.innerHTML = "DURATION";
+autoplay_1_text.innerHTML = "AUTOPLAY";
 
 //----------------------------------------------------------------
 //PLAYER SETUP
@@ -159,6 +227,7 @@ autoplay_checkbox2.addEventListener("change", function () {
 play_Rate_2_text.innerHTML = "PLAYRATE";
 volume_2_text.innerHTML = "VOLUME";
 duracion_2_text.innerHTML = "DURATION";
+autoplay_2_text.innerHTML = "AUTOPLAY";
 
 //----------------------------------------------------------------
 //PLAYER SETUP
@@ -168,19 +237,19 @@ var deposito_3 = document.getElementById("deposito_3");
 deposito_3.innerHTML = "Drop Audio Here";
 volume_3 = document.getElementById("volume_3");
 loop_btn_3 = document.getElementById("loop_btn_3");
-loop_checkbox = document.getElementById("loop_checkbox");
+loop_checkbox3 = document.getElementById("loop_checkbox3");
 autoplay_checkbox3 = document.getElementById("autoplay_checkbox3");
 playRate_3 = document.getElementById("playRate_3");
 volume_3.addEventListener("change", function (e) {
-  audio3.volume = e.currentTarget.value; 
-  volume_3_value.innerHTML=(e.currentTarget.value*100); 
+  audio3.volume = e.currentTarget.value;
+  volume_3_value.innerHTML = (e.currentTarget.value * 100);
 });
 playRate_3.addEventListener("change", function (e) {
   audio3.playbackRate = e.currentTarget.value;
-  play_Rate_3_value.innerHTML=(e.currentTarget.value*100);
+  play_Rate_3_value.innerHTML = (e.currentTarget.value * 100);
 });
-loop_checkbox.addEventListener("change", function () {
-  if (loop_checkbox.checked) { audio3.loop = true; }
+loop_checkbox3.addEventListener("change", function () {
+  if (loop_checkbox3.checked) { audio3.loop = true; }
   else { audio3.loop = false; }
 });
 autoplay_checkbox3.addEventListener("change", function () {
@@ -190,7 +259,7 @@ autoplay_checkbox3.addEventListener("change", function () {
 play_Rate_3_text.innerHTML = "PLAYRATE";
 volume_3_text.innerHTML = "VOLUME";
 duracion_3_text.innerHTML = "DURATION";
-
+autoplay_3_text.innerHTML = "AUTOPLAY";
 //----------------------------------------------------------------
 //PLAYER SETUP
 
@@ -199,19 +268,19 @@ var deposito_4 = document.getElementById("deposito_4");
 deposito_4.innerHTML = "Drop Audio Here";
 volume_4 = document.getElementById("volume_4");
 loop_btn_4 = document.getElementById("loop_btn_4");
-loop_checkbox = document.getElementById("loop_checkbox");
+loop_checkbox4 = document.getElementById("loop_checkbox4");
 autoplay_checkbox4 = document.getElementById("autoplay_checkbox4");
 playRate_4 = document.getElementById("playRate_4");
 volume_4.addEventListener("change", function (e) {
-  audio4.volume = e.currentTarget.value; 
-  volume_4_value.innerHTML=(e.currentTarget.value*100); 
+  audio4.volume = e.currentTarget.value;
+  volume_4_value.innerHTML = (e.currentTarget.value * 100);
 });
 playRate_4.addEventListener("change", function (e) {
   audio4.playbackRate = e.currentTarget.value;
-  play_Rate_4_value.innerHTML=(e.currentTarget.value*100);
+  play_Rate_4_value.innerHTML = (e.currentTarget.value * 100);
 });
-loop_checkbox.addEventListener("change", function () {
-  if (loop_checkbox.checked) { audio4.loop = true; }
+loop_checkbox4.addEventListener("change", function () {
+  if (loop_checkbox4.checked) { audio4.loop = true; }
   else { audio4.loop = false; }
 });
 autoplay_checkbox4.addEventListener("change", function () {
@@ -221,7 +290,7 @@ autoplay_checkbox4.addEventListener("change", function () {
 play_Rate_4_text.innerHTML = "PLAYRATE";
 volume_4_text.innerHTML = "VOLUME";
 duracion_4_text.innerHTML = "DURATION";
-
+autoplay_4_text.innerHTML = "AUTOPLAY";
 //----------------------------------------------------------------------
 // CANCION CLASS
 class Cancion {
@@ -732,14 +801,14 @@ array_Canciones.push(cancion_97)
 array_Canciones.push(cancion_98)
 array_Canciones.push(cancion_99)
 array_Canciones.push(cancion_100)
-console.log(`array_Canciones: `);
-for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
+//console.log(`array_Canciones: `);
+//for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
 //-------------------------------------------------------
 window.addEventListener("load", muestra_array_Canciones);
 
 //---------------------------------------------------------
 function muestraLista() {
-  console.log(`LISTA: ` + `${lista}`);
+  // console.log(`LISTA: ` + `${lista}`);
   playlist.innerHTML = (`${lista}`);
 }
 function muestra_array_Canciones() {
@@ -820,39 +889,39 @@ function soltar(event) {
         muestra_array_Canciones();
         break;
       }
-      case ("deposito_3"):
-        {
-          var player_3 = document.getElementById("myAudio3");
-          document.getElementById("player_3_label").innerHTML = getsId(link);
-          duracion_3_value.innerHTML = `${audio.duration}`;
-          player_3.pause();
-          //player_3.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_3.src);
-          player_3.src = `${link}`;
-          player_3.load();
-          if (autoplay_3 == true) {
-            player_3.play();
-            lista = lista + "p_3: " + getsId(link) + `<br>`;
-          }
-          muestraLista();
-          muestra_array_Canciones();
-          break;
+    case ("deposito_3"):
+      {
+        var player_3 = document.getElementById("myAudio3");
+        document.getElementById("player_3_label").innerHTML = getsId(link);
+        duracion_3_value.innerHTML = `${audio.duration}`;
+        player_3.pause();
+        //player_3.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_3.src);
+        player_3.src = `${link}`;
+        player_3.load();
+        if (autoplay_3 == true) {
+          player_3.play();
+          lista = lista + "p_3: " + getsId(link) + `<br>`;
         }
-      case ("deposito_2"):
-        {
-          var player_4 = document.getElementById("myAudio4");
-          document.getElementById("player_4_label").innerHTML = getsId(link);
-          player_4.pause();
-          //player_4.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_2.src);
-          player_4.src = `${link}`;
-          player_4.load();
-          if (autoplay_4 == true) {
-            player_4.play();
-            lista = lista + "p_4: " + getsId(link) + `<br>`;
-          }
-          muestraLista();
-          muestra_array_Canciones();
-          break;
+        muestraLista();
+        muestra_array_Canciones();
+        break;
+      }
+    case ("deposito_2"):
+      {
+        var player_4 = document.getElementById("myAudio4");
+        document.getElementById("player_4_label").innerHTML = getsId(link);
+        player_4.pause();
+        //player_4.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_2.src);
+        player_4.src = `${link}`;
+        player_4.load();
+        if (autoplay_4 == true) {
+          player_4.play();
+          lista = lista + "p_4: " + getsId(link) + `<br>`;
         }
+        muestraLista();
+        muestra_array_Canciones();
+        break;
+      }
     default: { break; }
   }
 }
@@ -920,7 +989,7 @@ function soltar(event) {
         muestra_array_Canciones();
         break;
       }
-      case ("deposito_3"):
+    case ("deposito_3"):
       {
         var player_3 = document.getElementById("myAudio3");
         document.getElementById("player_3_label").innerHTML = getsId(link);
@@ -937,7 +1006,7 @@ function soltar(event) {
         muestra_array_Canciones();
         break;
       }
-      case ("deposito_4"):
+    case ("deposito_4"):
       {
         var player_4 = document.getElementById("myAudio4");
         document.getElementById("player_4_label").innerHTML = getsId(link);

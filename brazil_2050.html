@@ -29,13 +29,14 @@
         <audio id="myAudio">
           <source src="" type="audio/mpeg" id="snd_header">
         </audio>
-        <div>
+        <div class="controles">
           <button id="starts_btn_1" onclick="controls_1_play()">PLAY</button>
           <button id="stops_btn_1" onclick="controls_1_stop()">STOP</button>
           <button id="pause_btn_1" onclick="controls_1_pause()">PAUSE</button>
           <input class="checkbox" type="checkbox" name="loop_checkbox" id="loop_checkbox">
           <button id="loop_btn_1" onclick="controls_1_loop()">LOOP</button>
-          <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="autoplay_checkbox">AUTOPLAY
+          <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="autoplay_checkbox">
+          <p id="autoplay_1_text"></p>
           <p id="volume_1_text"></p>
           <p id="volume_1_value"></p>
           <input type='range' min=0 max=1 step='0.01' value=1 id='volume_1' onclick="controls_1_volume()">
@@ -43,8 +44,8 @@
           <p id="play_Rate_1_text"></p>
           <p id="play_Rate_1_value"></p>
           <input type='range' min=0 max=1 step='0.01' value=1 id='playRate_1'>
-          <p id="currentPosition">Current position </p>
-          <input type='range' min=0 max=1 step='0.01' value=0 id='current_8' onclick="control_8_current()">
+          <p id="currentPosition_1">Current position </p>
+          <input type='range' min=0 max=1 step='0.01' value=0 id='current_1' onclick="control_1_current()">
           <p id="duracion_1_text"></p>
           <p id="duracion_1_value"></p>
         </div>
@@ -58,13 +59,14 @@
         <audio id="myAudio2">
           <source src="" type="audio/mpeg" id="snd_header">
         </audio>
-        <div>
+        <div class="controles">
           <button id="starts_btn_2" onclick="controls_2_play()">PLAY</button>
           <button id="stops_btn_2" onclick="controls_2_stop()">STOP</button>
           <button id="pause_btn_2" onclick="controls_2_pause()">PAUSE</button>
           <input class="checkbox" type="checkbox" name="loop_checkbox2" id="loop_checkbox2">
           <button id="loop_btn_2" onclick="controls_2_loop()">LOOP</button>
-          <input class="checkbox" type="checkbox" name="autoplay_checkbox2" id="autoplay_checkbox2">AUTOPLAY
+          <input class="checkbox" type="checkbox" name="autoplay_checkbox2" id="autoplay_checkbox2">
+          <p id="autoplay_2_text"></p>
           <p id="volume_2_text"></p>
           <p id="volume_2_value"></p>
           <input type='range' min=0 max=1 step='0.01' value=1 id='volume_2' onclick="controls_2_volume()">
@@ -73,8 +75,8 @@
           <p id="play_Rate_2_value"></p>
           <input type='range' min=0 max=1 step='0.01' value=1 id='playRate_2'>
         </div>
-        <p id="currentPosition">Current position </p>
-        <input type='range' min=0 max=1 step='0.01' value=0 id='current_8' onclick="control_8_current()">
+        <p id="currentPosition_2">Current position </p>
+        <input type='range' min=0 max=1 step='0.01' value=0 id='current_2' onclick="control_2_current()">
         <p id="duracion_2_text"></p>
         <p id="duracion_2_value"></p>
         <div> <input type="file" id="ruta_archivo2"> </div>
@@ -86,13 +88,14 @@
         <audio id="myAudio3">
           <source src="" type="audio/mpeg" id="snd_header">
         </audio>
-        <div>
+        <div class="controles">
           <button id="starts_btn_3" onclick="controls_3_play()">PLAY</button>
           <button id="stops_btn_3" onclick="controls_3_stop()">STOP</button>
           <button id="pause_btn_3" onclick="controls_3_pause()">PAUSE</button>
           <input class="checkbox" type="checkbox" name="loop_checkbox3" id="loop_checkbox3">
           <button id="loop_btn_3" onclick="controls_3_loop()">LOOP</button>
-          <input class="checkbox" type="checkbox" name="autoplay_checkbox3" id="autoplay_checkbox3">AUTOPLAY
+          <input class="checkbox" type="checkbox" name="autoplay_checkbox3" id="autoplay_checkbox3">
+          <p id="autoplay_3_text"></p>
           <p id="volume_3_text"></p>
           <p id="volume_3_value"></p>
           <input type='range' min=0 max=1 step='0.01' value=1 id='volume_3' onclick="controls_3_volume()">
@@ -100,8 +103,8 @@
           <p id="play_Rate_3_text"></p>
           <p id="play_Rate_3_value"></p>
           <input type='range' min=0 max=1 step='0.01' value=1 id='playRate_3'>
-          <p id="currentPosition">Current position </p>
-          <input type='range' min=0 max=1 step='0.01' value=0 id='current_8' onclick="control_8_current()">
+          <p id="currentPosition_3">Current position </p>
+          <input type='range' min=0 max=1 step='0.01' value=0 id='current_3' onclick="control_3_current()">
           <p id="duracion_3_text"></p>
           <p id="duracion_3_value"></p>
         </div>
@@ -114,13 +117,14 @@
         <audio id="myAudio4">
           <source src="" type="audio/mpeg" id="snd_header">
         </audio>
-        <div>
+        <div class="controles">
           <button id="starts_btn_4" onclick="controls_4_play()">PLAY</button>
           <button id="stops_btn_4" onclick="controls_4_stop()">STOP</button>
           <button id="pause_btn_4" onclick="controls_4_pause()">PAUSE</button>
           <input class="checkbox" type="checkbox" name="loop_checkbox4" id="loop_checkbox4">
           <button id="loop_btn_4" onclick="controls_4_loop()">LOOP</button>
-          <input class="checkbox" type="checkbox" name="autoplay_checkbox4" id="autoplay_checkbox4">AUTOPLAY
+          <input class="checkbox" type="checkbox" name="autoplay_checkbox4" id="autoplay_checkbox4">
+          <p id="autoplay_4_text"></p>
           <p id="volume_4_text"></p>
           <p id="volume_4_value"></p>
           <input type='range' min=0 max=1 step='0.01' value=1 id='volume_4' onclick="controls_4_volume()">
@@ -128,8 +132,8 @@
           <p id="play_Rate_4_text"></p>
           <p id="play_Rate_4_value"></p>
           <input type='range' min=0 max=1 step='0.01' value=1 id='playRate_4'>
-          <p id="currentPosition">Current position </p>
-          <input type='range' min=0 max=1 step='0.01' value=0 id='current_8' onclick="control_8_current()">
+          <p id="currentPosition_4">Current position </p>
+          <input type='range' min=0 max=1 step='0.01' value=0 id='current_4' onclick="control_4_current()">
           <p id="duracion_4_text"></p>
           <p id="duracion_4_value"></p>
         </div>

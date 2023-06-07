@@ -505,8 +505,6 @@ main {
             rgba(255, 255, 255, 1) 21px 0px,
             rgba(255, 255, 255, 1) 22px 0px;
     }
-
-
 }
 
 @keyframes tagEffect650x400 {
@@ -525,8 +523,6 @@ main {
             rgba(0, 0, 0, 1) 10px 0px,
             rgba(255, 255, 255, 1) 11px 0px,
             rgba(255, 255, 255, 1) 12px 0px;
-
-
     }
 
     100% {
@@ -544,8 +540,6 @@ main {
             rgba(0, 0, 0, 1) 10px 0px,
             rgba(255, 255, 255, 1) 11px 0px,
             rgba(255, 255, 255, 1) 12px 0px;
-
-
     }
 }
 
@@ -570,8 +564,6 @@ main {
     height: 400px;
     border: 3px solid red;
 }
-
-
 
 #face_icon {
     width: 30px;
@@ -604,27 +596,26 @@ main {
     display: inline-block;
     margin-left: 0px;
     margin-right: 50px;
-
 }
 
 .audio_controls {
     display: inline-block;
     text-align: center;
     border: solid 3px rgb(254, 232, 176);
-    width: 500px;
-    height: 150px;
-    
-
+    width: 50vw;
+    height: 29vh;
 }
 
 #deposito_1,
 #deposito_2,
 #deposito_3,
-#deposito_4
- {
+#deposito_4 {
     float: left;
-    width: 60px;
+    /*    width: 60px;
     height: 88px;
+  */
+    width: 6vw;
+    height: 8.8vh;
     margin: 10px;
     border: 1px solid #999999;
 }
@@ -632,41 +623,56 @@ main {
 #ruta_archivo,
 #ruta_archivo2,
 #ruta_archivo3,
-#ruta_archivo4{
+#ruta_archivo4 {
     opacity: 0;
 }
 
+#starts_btn_1,
+#starts_btn_2,
+#starts_btn_3,
+#starts_btn_4,
+#stops_btn_1,
+#stops_btn_2,
+#stops_btn_3,
+#stops_btn_4,
+#pause_btn_1,
+#pause_btn_2,
+#pause_btn_3,
+#pause_btn_4,
+#loop_btn_1,
+#loop_btn_2,
+#loop_btn_3,
+#loop_btn_4 {
+    font-family: "Permanent Marker", cursive;
+    font-size: 0.7rem;
+    color: orange;
+    background-color: #006600;
+    border: 0px;
+    padding: 0px;
+}
 
-#starts_btn_1,#starts_btn_2,#starts_btn_3,#starts_btn_4,
-#stops_btn_1,#stops_btn_2,#stops_btn_3,#stops_btn_4,
-#pause_btn_1, #pause_btn_2,#pause_btn_3, #pause_btn_4,
-#loop_btn_1, #loop_btn_2,#loop_btn_3, #loop_btn_4
-{
+#playRate_1,
+#playRate_2,
+#playRate_3,
+#playRate_4,
+#volume_1,
+#volume_2,
+#volume_3,
+#volume_4 {
+    width: 120px;
+}
+
+#volume_1_text,
+#volume_2_text,
+#volume_3_text,
+#volume_4_text {
     font-family: "Permanent Marker", cursive;
     font-size: 1rem;
     color: orange;
     background-color: #006600;
     border: 0px;
-    padding:0px;
+    padding: 0px;
 }
-
-#playRate_1,#playRate_2,#playRate_3,#playRate_4,
-#volume_1,#volume_2,#volume_3,#volume_4{
-    width: 220px;
-}
-
-#volume_1_text, #volume_2_text,#volume_3_text, #volume_4_text
-{
-    font-family: "Permanent Marker", cursive;
-    font-size: 1rem;
-    color: orange;
-    background-color: #006600;
-    border: 0px;
-    padding:0px;
-}
-
-
-
 
 /*---------------------------------------------*/
 /* , es para OR */
@@ -685,18 +691,95 @@ main {
 */
 /*--------------------------------*/
 /*MEDIAQUERIES*/
-@media (orientation:landscape) and (max-width:1366px) and (max-height:1024px) {
-
+@media (orientation:landscape) and (max-width:892px) and (max-height:412px) {
     .contenedor .header {
+        text-align: center;
+        height: 18vh;
+        width: 70%;
+        font-size: 3rem;
+        margin-top: 0%;
+        margin-bottom: 10px;
+        padding: 0%;
+        /*border: red solid 2px;*/
+    }
+
+    .contenedor .bloque1 {
+        font-size: 0.7rem;
+    }
+
+    .contenedor .sidebar {
+        font-size: 0.7rem;
+    }
+
+    #volume_1_text,
+    #volume_2_text,
+    #volume_3_text,
+    #volume_4_text {
+        font-size: 0.7rem;
+    }
+
+    #duracion_1_text,
+    #duracion_2_text,
+    #duracion_3_text,
+    #duracion_4_text {
+        font-size: 0.7rem;
+    }
+
+    #play_Rate_1_text,
+    #play_Rate_2_text,
+    #play_Rate_3_text,
+    #play_Rate_4_text {
+        font-size: 0.7rem;
+    }
+
+    #autoplay_checkbox,
+    #autoplay_checkbox2,
+    #autoplay_checkbox3,
+    #autoplay_checkbox4 {
+        font-size: 0.7rem;
+        /*border: red solid 3px;*/
+    }
+
+    #autoplay_1_text,
+    #autoplay_2_text,
+    #autoplay_3_text,
+    #autoplay_4_text {
+        font-size: 0.7rem;
+    }
+
+    #currentPosition_1,
+    #currentPosition_2,
+    #currentPosition_3,
+    #currentPosition_4 {
+        font-size: 0.7rem;
+    }
+
+    #player_1_label,
+    #player_2_label,
+    #player_3_label,
+    #player_4_label {
+        font-size: 0.7rem;
         text-align: left;
     }
 
-    /* .audio_controls{
-            display:inline;
-         }
-*/
+    #deposito_1,
+    #deposito_2,
+    #deposito_3,
+    #deposito_4 {
+        float: left;
+        /*    width: 60px;
+    height: 88px;
+  */
+        width: 6vw;
+        height: 8.8vh;
+        margin: 10px;
+        border: 1px solid #999999;
+        font-size: 0.7rem;
+    }
 }
 
+.controles{
+    display: inline-block;
+}
 
-
-
+/*CLOSES MEDIA QUERIES */
