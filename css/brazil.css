@@ -776,10 +776,102 @@ main {
         border: 1px solid #999999;
         font-size: 0.7rem;
     }
+
+    .controles{
+        display: inline-block;
+    }
 }
 
-.controles{
-    display: inline-block;
+@media (orientation:portrait) and (max-width:412px) and (max-height:892px) {
+    .contenedor .header {
+        text-align: center;
+        height: 6vh;
+        width: 70%;
+        font-size: 2.2rem;
+        margin-top: 0%;
+        margin-bottom: 10px;
+        padding: 0%;
+        /*border: red solid 2px;*/
+    }
+
+    .contenedor .bloque1 {
+        font-size: 0.7rem;
+    }
+
+    .contenedor .sidebar {
+        font-size: 0.7rem;
+    }
+
+    #volume_1_text,
+    #volume_2_text,
+    #volume_3_text,
+    #volume_4_text {
+        font-size: 0.7rem;
+    }
+
+    #duracion_1_text,
+    #duracion_2_text,
+    #duracion_3_text,
+    #duracion_4_text {
+        font-size: 0.7rem;
+    }
+
+    #play_Rate_1_text,
+    #play_Rate_2_text,
+    #play_Rate_3_text,
+    #play_Rate_4_text {
+        font-size: 0.7rem;
+    }
+
+    #autoplay_checkbox,
+    #autoplay_checkbox2,
+    #autoplay_checkbox3,
+    #autoplay_checkbox4 {
+        font-size: 0.7rem;
+        /*border: red solid 3px;*/
+    }
+
+    #autoplay_1_text,
+    #autoplay_2_text,
+    #autoplay_3_text,
+    #autoplay_4_text {
+        font-size: 0.7rem;
+    }
+
+    #currentPosition_1,
+    #currentPosition_2,
+    #currentPosition_3,
+    #currentPosition_4 {
+        font-size: 0.7rem;
+    }
+
+    #player_1_label,
+    #player_2_label,
+    #player_3_label,
+    #player_4_label {
+        font-size: 0.7rem;
+        text-align: left;
+    }
+
+    #deposito_1,
+    #deposito_2,
+    #deposito_3,
+    #deposito_4 {
+        float: left;
+        /*    width: 60px;
+    height: 88px;
+  */
+        width: 6vw;
+        height: 8.8vh;
+        margin: 10px;
+        border: 1px solid #999999;
+        font-size: 0.7rem;
+    }
+
+    .controles{
+        display: inline;
+    }
 }
+
 
 /*CLOSES MEDIA QUERIES */

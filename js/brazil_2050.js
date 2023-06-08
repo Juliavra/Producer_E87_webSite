@@ -59,12 +59,10 @@ document.onkeydown = function (e) {
         if (audio.volume < 0.95) {
           audio.volume = audio.volume + 0.05;
           volume_1_value.innerHTML = `${audio.volume * 100}`;
-      //    console.log("audio.volume: " + audio.volume);
         }
         else {
           audio.volume = 1;
           volume_1_value.innerHTML = audio.volume;
-         // console.log("audio.volume: " + audio.volume);
         }
         break;
       }
@@ -74,11 +72,10 @@ document.onkeydown = function (e) {
         if (audio.volume > 0.05) {
           audio.volume -= 0.05;
           volume_1_value.innerHTML = `${audio.volume}`;
-      //    console.log("audio.volume: " + audio.volume);
         }
         else {
           audio.volume = 0;
-          // console.log("audio.volume: " + audio.volume);
+          volume_1_value.innerHTML = `${audio.volume}`;
         }
         break;
       }
@@ -88,12 +85,10 @@ document.onkeydown = function (e) {
         if (audio2.volume < 0.95) {
           audio2.volume = audio2.volume + 0.05;
           volume_2_value.innerHTML = `${audio2.volume}`;
-        //  console.log("audio2.volume: " + audio2.volume);
         }
         else {
           audio2.volume = 1;
           volume_2_value.innerHTML = `${audio2.volume}`;
-        //  console.log("audio2.volume: " + audio2.volume);
         }
         break;
       }
@@ -103,11 +98,10 @@ document.onkeydown = function (e) {
         if (audio2.volume > 0.05) {
           audio2.volume -= 0.05;
           volume_2_value.innerHTML = `${audio2.volume}`;
-         // console.log("audio2.volume: " + audio2.volume);
         }
         else {
           audio2.volume = 0;
-          // console.log("audio.volume: " + audio2.volume);
+          volume_2_value.innerHTML = `${audio2.volume}`;
         }
         break;
       }
@@ -117,12 +111,10 @@ document.onkeydown = function (e) {
         if (audio3.volume < 0.95) {
           audio3.volume = audio3.volume + 0.05;
           volume_3_value.innerHTML = `${audio3.volume}`;
-        //  console.log("audio3.volume: " + audio3.volume);
         }
         else {
           audio3.volume = 1;
           volume_3_value.innerHTML = `${audio3.volume}`;
-        //  console.log("audio3.volume: " + audio3.volume);
         }
         break;
       }
@@ -132,12 +124,10 @@ document.onkeydown = function (e) {
         if (audio3.volume > 0.05) {
           audio3.volume -= 0.05;
           volume_3_value.innerHTML = `${audio3.volume}`;
-        //  console.log("audio3.volume: " + audio3.volume);
         }
         else {
           audio3.volume = 0;
           volume_3_value.innerHTML = `${audio3.volume}`;
-        //  console.log("audio3.volume: " + audio3.volume);
         }
         break;
       }
@@ -147,12 +137,10 @@ document.onkeydown = function (e) {
         if (audio4.volume < 0.95) {
           audio4.volume = audio4.volume + 0.05;
           volume_4_value.innerHTML = `${audio4.volume}`;
-        //  console.log("audio4.volume: " + audio4.volume);
         }
         else {
           audio4.volume = 1;
           volume_4_value.innerHTML = `${audio4.volume}`;
-        //  console.log("audio4.volume: " + audio4.volume);
         }
         break;
       }
@@ -162,12 +150,10 @@ document.onkeydown = function (e) {
         if (audio4.volume > 0.05) {
           audio4.volume -= 0.05;
           volume_4_value.innerHTML = `${audio4.volume}`;
-         // console.log("audio4.volume: " + audio4.volume);
         }
         else {
           audio4.volume = 0;
           volume_4_value.innerHTML = `${audio4.volume}`;
-         // console.log("audio4.volume: " + audio4.volume);
         }
         break;
       }
@@ -830,7 +816,8 @@ function muestra_array_Canciones() {
       array_audio_toAppend.push(audio);
     }
     else {
-      source = array_Canciones[i].url_src; //console.log(`source: ` + `${source}`);
+      source = array_Canciones[i].url_src;
+      //console.log(`source: ` + `${source}`);
       const box = `<div class="draggable" id=${nombre} draggable="true" ondragstart="cancion_dragstart(event)">    ${nombre}    </div>`;
       const audio = `<audio class="audio" id=${nombre}> <source src="${source}" type="audio/mpeg"></audio>`;
       array_song_div.push(box);                                     //console.log("box: "+`${box}`);
@@ -869,82 +856,6 @@ deposito_2.addEventListener("dragover", function (event) {
   event.preventDefault();
 });
 deposito_2.addEventListener("drop", soltar);
-/*
-function soltar(event) {
-  event.preventDefault();
-  this.style.background = "#006600";
-  this.innerHTML = "Drop Audio Here";
-  const link = event.dataTransfer.getData("text");
-  switch (this.id) {
-    case ("deposito_1"):
-      {
-        var player_1 = document.getElementById("myAudio");
-        document.getElementById("player_1_label").innerHTML = getsId(link);
-        duracion_1_value.innerHTML = `${audio.duration}`;
-        player_1.pause();
-        //player_1.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_1.src);
-        player_1.src = `${link}`;
-        player_1.load();
-        if (autoplay_1 == true) {
-          player_1.play();
-          lista = lista + "p_1: " + getsId(link) + `<br>`;
-        }
-        muestraLista();
-        muestra_array_Canciones();
-        break;
-      }
-    case ("deposito_2"):
-      {
-        var player_2 = document.getElementById("myAudio2");
-        document.getElementById("player_2_label").innerHTML = getsId(link);
-        player_2.pause();
-        //player_2.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_2.src);
-        player_2.src = `${link}`;
-        player_2.load();
-        if (autoplay_2 == true) {
-          player_2.play();
-          lista = lista + "p_2: " + getsId(link) + `<br>`;
-        }
-        muestraLista();
-        muestra_array_Canciones();
-        break;
-      }
-    case ("deposito_3"):
-      {
-        var player_3 = document.getElementById("myAudio3");
-        document.getElementById("player_3_label").innerHTML = getsId(link);
-        duracion_3_value.innerHTML = `${audio.duration}`;
-        player_3.pause();
-        //player_3.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_3.src);
-        player_3.src = `${link}`;
-        player_3.load();
-        if (autoplay_3 == true) {
-          player_3.play();
-          lista = lista + "p_3: " + getsId(link) + `<br>`;
-        }
-        muestraLista();
-        muestra_array_Canciones();
-        break;
-      }
-    case ("deposito_2"):
-      {
-        var player_4 = document.getElementById("myAudio4");
-        document.getElementById("player_4_label").innerHTML = getsId(link);
-        player_4.pause();
-        //player_4.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_2.src);
-        player_4.src = `${link}`;
-        player_4.load();
-        if (autoplay_4 == true) {
-          player_4.play();
-          lista = lista + "p_4: " + getsId(link) + `<br>`;
-        }
-        muestraLista();
-        muestra_array_Canciones();
-        break;
-      }
-    default: { break; }
-  }
-}*/
 //-------------------------------------------------------------------------
 //DEPOSITO LISTENERS
 
@@ -983,14 +894,13 @@ function soltar(event) {
         duracion_1_value.innerHTML = `${audio.duration}`;
         player_1.pause();
         if (local == true) {
-//          player_1.src = `${link}`;
+          //          player_1.src = `${link}`;
           player_1.src = getsId(link);
           console.log("local == true.src: " + player_1.src);
         }
         else {
           player_1.src = `${link}`; console.log("local == flase.src: " + `${link}`);
         }
-        //player_1.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_1.src);
         //        player_1.src = `${link}`;
         player_1.load();
         if (autoplay_1 == true) {
@@ -1005,9 +915,16 @@ function soltar(event) {
       {
         var player_2 = document.getElementById("myAudio2");
         document.getElementById("player_2_label").innerHTML = getsId(link);
+        duracion_2_value.innerHTML = `${audio2.duration}`;
         player_2.pause();
-        //player_2.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_2.src);
-        player_2.src = `${link}`;
+        if (local == true) {
+          //          player_1.src = `${link}`;
+          player_2.src = getsId(link);
+          console.log("local == true.src: " + player_2.src);
+        }
+        else {
+          player_2.src = `${link}`; console.log("local == flase.src: " + `${link}`);
+        }
         player_2.load();
         if (autoplay_2 == true) {
           player_2.play();
@@ -1023,8 +940,15 @@ function soltar(event) {
         document.getElementById("player_3_label").innerHTML = getsId(link);
         duracion_3_value.innerHTML = `${audio3.duration}`;
         player_3.pause();
-        //player_3.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_3.src);
-        player_3.src = `${link}`;
+        if (local == true) {
+          //          player_3.src = `${link}`;
+          player_3.src = getsId(link);
+          console.log("local == true.src: " + player_3.src);
+        }
+        else {
+          player_3.src = `${link}`; console.log("local == flase.src: " + `${link}`);
+        }
+        //        player_3.src = `${link}`;
         player_3.load();
         if (autoplay_3 == true) {
           player_3.play();
@@ -1040,8 +964,13 @@ function soltar(event) {
         document.getElementById("player_4_label").innerHTML = getsId(link);
         duracion_4_value.innerHTML = `${audio4.duration}`;
         player_4.pause();
-        //player_4.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_4.src);
-        player_4.src = `${link}`;
+        if (local == true) {
+          player_4.src = getsId(link);
+          console.log("local == true.src: " + player_4.src);
+        }
+        else {
+          player_4.src = `${link}`; console.log("local == flase.src: " + `${link}`);
+        }
         player_4.load();
         if (autoplay_4 == true) {
           player_4.play();
@@ -1051,6 +980,7 @@ function soltar(event) {
         muestra_array_Canciones();
         break;
       }
+
     default: { break; }
   }
 }
