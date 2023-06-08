@@ -6,6 +6,7 @@ player_3_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_4_label.innerHTML = "000 Texto de prueba de cancion nombre";
 //let context = new AudioContext();
 var currentAudioControlKeys = 0;
+var local = false;
 var lista = [];
 var lista_obj_cancion = [];
 var autoplay_1 = false; var autoplay_2 = false;
@@ -16,7 +17,11 @@ var audio = document.getElementById("myAudio");
 var audio2 = document.getElementById("myAudio2");
 var audio3 = document.getElementById("myAudio3");
 var audio4 = document.getElementById("myAudio4");
-
+var local_or_web = document.getElementById("local_checkbox");
+local_or_web.addEventListener("change", function () {
+  if (local_or_web.checked) { local = true; }
+  else { local = false; }
+});
 
 document.onkeydown = function (e) {
   e = e || window.event;
@@ -53,7 +58,7 @@ document.onkeydown = function (e) {
         teclaApretada.innerHTML = "q";
         if (audio.volume < 0.95) {
           audio.volume = audio.volume + 0.05;
-          volume_1_value.innerHTML = `${audio.volume*100}`;
+          volume_1_value.innerHTML = `${audio.volume * 100}`;
           console.log("audio.volume: " + audio.volume);
         }
         else {
@@ -76,21 +81,21 @@ document.onkeydown = function (e) {
         }
         break;
       }
-      case 'w':
-        {
-          teclaApretada.innerHTML = "w";
-          if (audio2.volume < 0.95) {
-            audio2.volume = audio2.volume + 0.05;
-            volume_2_value.innerHTML = `${audio2.volume}`;
-            console.log("audio2.volume: " + audio2.volume);
-          }
-          else {
-            audio2.volume = 1;
-            volume_2_value.innerHTML = `${audio2.volume}`;
-            console.log("audio2.volume: " + audio2.volume);
-          }
-          break;
+    case 'w':
+      {
+        teclaApretada.innerHTML = "w";
+        if (audio2.volume < 0.95) {
+          audio2.volume = audio2.volume + 0.05;
+          volume_2_value.innerHTML = `${audio2.volume}`;
+          console.log("audio2.volume: " + audio2.volume);
         }
+        else {
+          audio2.volume = 1;
+          volume_2_value.innerHTML = `${audio2.volume}`;
+          console.log("audio2.volume: " + audio2.volume);
+        }
+        break;
+      }
     case 's':
       {
         teclaApretada.innerHTML = "s";
@@ -134,36 +139,36 @@ document.onkeydown = function (e) {
         }
         break;
       }
-      case 'r':
-        {
-          teclaApretada.innerHTML = "r";
-          if (audio4.volume < 0.95) {
-            audio4.volume = audio4.volume + 0.05;
-            volume_4_value.innerHTML = `${audio4.volume}`;
-            console.log("audio4.volume: " + audio4.volume);
-          }
-          else {
-            audio4.volume = 1;
-            volume_4_value.innerHTML = `${audio4.volume}`;
-            console.log("audio4.volume: " + audio4.volume);
-          }
-          break;
+    case 'r':
+      {
+        teclaApretada.innerHTML = "r";
+        if (audio4.volume < 0.95) {
+          audio4.volume = audio4.volume + 0.05;
+          volume_4_value.innerHTML = `${audio4.volume}`;
+          console.log("audio4.volume: " + audio4.volume);
         }
-      case 'f':
-        {
-          teclaApretada.innerHTML = "f";
-          if (audio4.volume > 0.05) {
-            audio4.volume -= 0.05;
-            volume_4_value.innerHTML = `${audio4.volume}`;
-            console.log("audio4.volume: " + audio4.volume);
-          }
-          else {
-            audio4.volume = 0;
-            volume_4_value.innerHTML = `${audio4.volume}`;
-            console.log("audio4.volume: " + audio4.volume);
-          }
-          break;
+        else {
+          audio4.volume = 1;
+          volume_4_value.innerHTML = `${audio4.volume}`;
+          console.log("audio4.volume: " + audio4.volume);
         }
+        break;
+      }
+    case 'f':
+      {
+        teclaApretada.innerHTML = "f";
+        if (audio4.volume > 0.05) {
+          audio4.volume -= 0.05;
+          volume_4_value.innerHTML = `${audio4.volume}`;
+          console.log("audio4.volume: " + audio4.volume);
+        }
+        else {
+          audio4.volume = 0;
+          volume_4_value.innerHTML = `${audio4.volume}`;
+          console.log("audio4.volume: " + audio4.volume);
+        }
+        break;
+      }
   }
 };
 //----------------------------------------------------------------
@@ -262,7 +267,6 @@ duracion_3_text.innerHTML = "DURATION";
 autoplay_3_text.innerHTML = "AUTOPLAY";
 //----------------------------------------------------------------
 //PLAYER SETUP
-
 var duration_4_value = document.getElementById("duracion_4_value");
 var deposito_4 = document.getElementById("deposito_4");
 deposito_4.innerHTML = "Drop Audio Here";
@@ -812,20 +816,33 @@ function muestraLista() {
   playlist.innerHTML = (`${lista}`);
 }
 function muestra_array_Canciones() {
+  var source;
   array_song_div = []; array_audio_toAppend = [];
   for (i = 0; i < array_Canciones.length; i++) {
-    var nombre = array_Canciones[i].id;                             //console.log(`nombre: `+`${nombre}`)    
-    //DE ESTE MODO BUSCA LOS ARCHIVOS EN GITHUB 
-    var source = array_Canciones[i].url_src;                         console.log(`source: `+`${source}`)  
-    //var source = `"audio/${nombre}.mp3"`;
-    const box = `<div class="draggable" id=${nombre} draggable="true" ondragstart="cancion_dragstart(event)">    ${nombre}    </div>`;
-    const audio = `<audio class="audio" id=${nombre}> <source src="${source}" type="audio/mpeg"></audio>`;
-
-    //console.log(`nombre: `+`${nombre}`);
-    if (audio != null && box != null && nombre != null && nombre != ',') {
+    var nombre = array_Canciones[i].id;
+    if (local == true) {
+      source = `"audio/${nombre}.mp3"`;
+      const box = `<div class="draggable" id=${nombre} draggable="true" ondragstart="cancion_dragstart(event)">    ${nombre}    </div>`;
+      const audio = `<audio class="audio" id=${nombre}> <source src="${source}" type="audio/mpeg"></audio>`;
       array_song_div.push(box);                                     //console.log("box: "+`${box}`);
       array_audio_toAppend.push(audio);
     }
+    else {
+      source = array_Canciones[i].url_src; //console.log(`source: ` + `${source}`);
+      const box = `<div class="draggable" id=${nombre} draggable="true" ondragstart="cancion_dragstart(event)">    ${nombre}    </div>`;
+      const audio = `<audio class="audio" id=${nombre}> <source src="${source}" type="audio/mpeg"></audio>`;
+      array_song_div.push(box);                                     //console.log("box: "+`${box}`);
+      array_audio_toAppend.push(audio);
+    }
+    //console.log(`nombre: `+`${nombre}`)    
+    //DE ESTE MODO BUSCA LOS ARCHIVOS EN GITHUB 
+    //var source = array_Canciones[i].url_src; console.log(`source: ` + `${source}`)
+
+    //console.log(`nombre: `+`${nombre}`);
+    /*if (audio != null && box != null && nombre != null && nombre != ',') {
+      array_song_div.push(box);                                     //console.log("box: "+`${box}`);
+      array_audio_toAppend.push(audio);
+    }*/
   }
   bloque1.innerHTML = array_song_div;
 }
@@ -850,6 +867,7 @@ deposito_2.addEventListener("dragover", function (event) {
   event.preventDefault();
 });
 deposito_2.addEventListener("drop", soltar);
+/*
 function soltar(event) {
   event.preventDefault();
   this.style.background = "#006600";
@@ -924,7 +942,7 @@ function soltar(event) {
       }
     default: { break; }
   }
-}
+}*/
 //-------------------------------------------------------------------------
 //DEPOSITO LISTENERS
 
@@ -962,8 +980,16 @@ function soltar(event) {
         document.getElementById("player_1_label").innerHTML = getsId(link);
         duracion_1_value.innerHTML = `${audio.duration}`;
         player_1.pause();
+        if (local == true) {
+//          player_1.src = `${link}`;
+          player_1.src = getsId(link);
+          console.log("local == true.src: " + player_1.src);
+        }
+        else {
+          player_1.src = `${link}`; console.log("local == flase.src: " + `${link}`);
+        }
         //player_1.src="C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/03%20Phased%20Sleppy%20Noise%20Loop.mp3";   console.log("src: "+ player_1.src);
-        player_1.src = `${link}`;
+        //        player_1.src = `${link}`;
         player_1.load();
         if (autoplay_1 == true) {
           player_1.play();
@@ -1031,18 +1057,22 @@ function cancion_dragstart(event) {
   //console.log("target_song: " + `${target_song}`)
   array_Canciones.forEach(element => {
     if (element.id.includes(target_song)) {
-      var codigo_local = `C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
-      event.dataTransfer.setData("text", codigo_local);
-      //console.log(" codigo_local: " + codigo_local);
-      /*
-      var codigo = element.url_src;
-      event.dataTransfer.setData("text", codigo);
-      console.log("codigo: "+codigo);
-      *///WEB BASED ADDRESSESS
+
+      if (local == true) {
+        var codigo_local = `C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
+        event.dataTransfer.setData("text", codigo_local);
+        console.log(" codigo_local: " + codigo_local);
+      }
+      else {
+        var codigo = element.url_src;
+        event.dataTransfer.setData("text", codigo);
+        console.log("codigo: " + codigo);
+        //WEB BASED ADDRESSESS
+      }
     }
   });
-
 }
+
 function getsId(string) {
   var string_index = string.lastIndexOf("/", string.length - 1);
   var track_name = string.substr(string_index + 1, string_index.length).trim();
@@ -1061,7 +1091,6 @@ function controls_1_play() {
   console.log("currentTime: " + audio.currentTime);
   console.log(".progress: " + audio.progress);
   duration_1_value.innerHTML = `${audio.duration}`;
-
 }
 function controls_1_stop() { audio.load(); }
 function controls_1_pause() { audio.pause(); }
