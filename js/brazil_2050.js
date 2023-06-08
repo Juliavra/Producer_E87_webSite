@@ -59,12 +59,12 @@ document.onkeydown = function (e) {
         if (audio.volume < 0.95) {
           audio.volume = audio.volume + 0.05;
           volume_1_value.innerHTML = `${audio.volume * 100}`;
-          console.log("audio.volume: " + audio.volume);
+      //    console.log("audio.volume: " + audio.volume);
         }
         else {
           audio.volume = 1;
           volume_1_value.innerHTML = audio.volume;
-          console.log("audio.volume: " + audio.volume);
+         // console.log("audio.volume: " + audio.volume);
         }
         break;
       }
@@ -74,10 +74,11 @@ document.onkeydown = function (e) {
         if (audio.volume > 0.05) {
           audio.volume -= 0.05;
           volume_1_value.innerHTML = `${audio.volume}`;
-          console.log("audio.volume: " + audio.volume);
+      //    console.log("audio.volume: " + audio.volume);
         }
         else {
-          audio.volume = 0; console.log("audio.volume: " + audio.volume);
+          audio.volume = 0;
+          // console.log("audio.volume: " + audio.volume);
         }
         break;
       }
@@ -87,12 +88,12 @@ document.onkeydown = function (e) {
         if (audio2.volume < 0.95) {
           audio2.volume = audio2.volume + 0.05;
           volume_2_value.innerHTML = `${audio2.volume}`;
-          console.log("audio2.volume: " + audio2.volume);
+        //  console.log("audio2.volume: " + audio2.volume);
         }
         else {
           audio2.volume = 1;
           volume_2_value.innerHTML = `${audio2.volume}`;
-          console.log("audio2.volume: " + audio2.volume);
+        //  console.log("audio2.volume: " + audio2.volume);
         }
         break;
       }
@@ -102,10 +103,11 @@ document.onkeydown = function (e) {
         if (audio2.volume > 0.05) {
           audio2.volume -= 0.05;
           volume_2_value.innerHTML = `${audio2.volume}`;
-          console.log("audio2.volume: " + audio2.volume);
+         // console.log("audio2.volume: " + audio2.volume);
         }
         else {
-          audio2.volume = 0; console.log("audio.volume: " + audio2.volume);
+          audio2.volume = 0;
+          // console.log("audio.volume: " + audio2.volume);
         }
         break;
       }
@@ -115,12 +117,12 @@ document.onkeydown = function (e) {
         if (audio3.volume < 0.95) {
           audio3.volume = audio3.volume + 0.05;
           volume_3_value.innerHTML = `${audio3.volume}`;
-          console.log("audio3.volume: " + audio3.volume);
+        //  console.log("audio3.volume: " + audio3.volume);
         }
         else {
           audio3.volume = 1;
           volume_3_value.innerHTML = `${audio3.volume}`;
-          console.log("audio3.volume: " + audio3.volume);
+        //  console.log("audio3.volume: " + audio3.volume);
         }
         break;
       }
@@ -130,12 +132,12 @@ document.onkeydown = function (e) {
         if (audio3.volume > 0.05) {
           audio3.volume -= 0.05;
           volume_3_value.innerHTML = `${audio3.volume}`;
-          console.log("audio3.volume: " + audio3.volume);
+        //  console.log("audio3.volume: " + audio3.volume);
         }
         else {
           audio3.volume = 0;
           volume_3_value.innerHTML = `${audio3.volume}`;
-          console.log("audio3.volume: " + audio3.volume);
+        //  console.log("audio3.volume: " + audio3.volume);
         }
         break;
       }
@@ -145,12 +147,12 @@ document.onkeydown = function (e) {
         if (audio4.volume < 0.95) {
           audio4.volume = audio4.volume + 0.05;
           volume_4_value.innerHTML = `${audio4.volume}`;
-          console.log("audio4.volume: " + audio4.volume);
+        //  console.log("audio4.volume: " + audio4.volume);
         }
         else {
           audio4.volume = 1;
           volume_4_value.innerHTML = `${audio4.volume}`;
-          console.log("audio4.volume: " + audio4.volume);
+        //  console.log("audio4.volume: " + audio4.volume);
         }
         break;
       }
@@ -160,12 +162,12 @@ document.onkeydown = function (e) {
         if (audio4.volume > 0.05) {
           audio4.volume -= 0.05;
           volume_4_value.innerHTML = `${audio4.volume}`;
-          console.log("audio4.volume: " + audio4.volume);
+         // console.log("audio4.volume: " + audio4.volume);
         }
         else {
           audio4.volume = 0;
           volume_4_value.innerHTML = `${audio4.volume}`;
-          console.log("audio4.volume: " + audio4.volume);
+         // console.log("audio4.volume: " + audio4.volume);
         }
         break;
       }
