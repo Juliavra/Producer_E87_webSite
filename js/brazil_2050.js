@@ -1094,10 +1094,6 @@ function controls_4_loop() {
 muestraLista();
 muestra_array_Canciones();
 
-
-
-
-
 /*
 progress—Este evento se desencadena periódicamente para ofrecer una actualización
 del progreso de la descarga del medio. A la información se puede acceder a través del

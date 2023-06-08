@@ -151,11 +151,11 @@ main {
     grid-template-rows: repeat(6, auto);
     grid-template-areas:
         "cabeza   cabeza   cabeza cabeza"
-        "nav       nav      nav     nav"
-        "bloque1   main    main   sidebar"
-        "bloque1   main    main   sidebar"
-        "bloque1  main  main   sidebar"
-        "footer   footer    footer footer";
+        "bloque1   main    main   main"
+        "bloque1   main    main   main"
+        "bloque1   main    main   main"
+        "bloque1   main    main   main"
+        "footer    footer  footer footer";
     margin-right: auto;
     margin-left: auto;
     gap: 0.1%;
@@ -242,6 +242,7 @@ main {
     padding: 0px;
     display: inline-block;
     margin-left: 0px;
+    overflow-y: scroll;
 }
 
 .header:hover {
