@@ -1117,36 +1117,3 @@ atributo buffered
 
 //-------------  //*HTMLAudioElement*/--------------------------------
 //---------------------------  //('\')<FUCK   yeah!> ('/') 
-
-/*--------------------------------------------------*/
-/*SOURCE UPDATE 1-4*/
-function sourceUpdate() {
-  /*
-    const stringTestARRAY = [];
-    const ruta = ruta_archivo.value.trim();
-    ruta_index = ruta.lastIndexOf("\\", ruta.length - 1);
-    track_name = "audio" + ruta.substr(ruta_index, ruta_index.length).trim();
-    stringTestARRAY[0] = track_name.toString();
-    document.getElementById("myAudio").src = `${stringTestARRAY[0].toString()}`;
-    document.getElementById("myAudio").load();
-    var test = (`${stringTestARRAY[0].toString()}`);
-    cancion_nombre_last_index = test.lastIndexOf("\\", test.length - 1);                                //  alert(cancion_nombre_last_index);
-    cancion_nombre = test.substr(cancion_nombre_last_index + 1, test.length).trim();                        //  alert(cancion_nombre);
-    cancion_nombre_final_index = cancion_nombre.lastIndexOf(".", cancion_nombre.length - 4);                //alert(cancion_nombre_final_index);
-    cancion_nombre_final = cancion_nombre.substr(cancion_nombre, cancion_nombre_final_index).trim();        //alert(cancion_nombre_final);
-  
-    array_Canciones.forEach(element => {
-      if (element.id == cancion_nombre_final) {
-        const index_track = array_Canciones.indexOf(element);    //alert(`element: ` + `${element.id}`); alert(`index_track: ` + `${index_track}`);
-        if (index_track > -1) {
-          array_Canciones.splice(index_track, 1);
-          //for (i = 0; i < array_Canciones.length; i++) { console.log(`${array_Canciones[i].id}`); }
-        }
-      }
-    })
-    lista = lista + "p_1: " + `${cancion_nombre_final}` + `<br>`;
-  
-    muestraLista();
-    muestra_array_Canciones();
-  */
-}
