@@ -18,6 +18,7 @@ var audio2 = document.getElementById("myAudio2");
 var audio3 = document.getElementById("myAudio3");
 var audio4 = document.getElementById("myAudio4");
 var local_or_web = document.getElementById("local_checkbox");
+//local_or_web.checked=true;
 local_or_web.addEventListener("change", function () {
   if (local_or_web.checked) { local = true; }
   else { local = false; }
@@ -26,7 +27,7 @@ local_or_web.addEventListener("change", function () {
 document.onkeydown = function (e) {
   e = e || window.event;
   var test_key = e.key;
-  console.log(test_key);
+  //console.log(test_key);
 
   switch (test_key) {
     case '1':
@@ -53,107 +54,223 @@ document.onkeydown = function (e) {
         currentAudioControlKeys = 4;
         break;
       }
+
+      case 'l':
+        case 'L':
+          {
+            teclaApretada.innerHTML = "L l ";
+            if (currentAudioControlKeys == 1) {
+              audio.loop=(!audio.loop);  
+              loop_checkbox.checked=(!loop_checkbox.checked);
+            }
+            else if (currentAudioControlKeys == 2) {
+              audio2.loop=(!audio.loop);  
+              loop_checkbox2.checked=(!loop_checkbox2.checked);
+            }
+            else if (currentAudioControlKeys == 3) {
+              audio3.loop=(!audio3.loop);  
+              loop_checkbox3.checked=(!loop_checkbox3.checked);
+            }
+            else if (currentAudioControlKeys == 4) {
+              audio4.loop=(!audio4.loop);  
+              loop_checkbox4.checked=(!loop_checkbox4.checked);
+            }
+            break;
+          }
+
+          case 'k':
+            case 'K':
+              {
+                teclaApretada.innerHTML = "K k ";
+                if (currentAudioControlKeys == 1) {
+                  autoplay_1=(!autoplay_1);  
+                  autoplay_checkbox.checked=(!autoplay_checkbox.checked);
+                }
+                else if (currentAudioControlKeys == 2) {
+                  autoplay_2=(!autoplay_2);  
+                  autoplay_checkbox2.checked=(!autoplay_checkbox.checked);
+    
+                }
+                else if (currentAudioControlKeys == 3) {
+                  autoplay_3=(!autoplay_3);  
+                  autoplay_checkbox3.checked=(!autoplay_checkbox.checked);
+    
+                }
+                else if (currentAudioControlKeys == 4) {
+                  autoplay_4=(!autoplay_4);    
+                  autoplay_checkbox4.checked=(!autoplay_checkbox.checked);
+    
+                }
+                break;
+              }
+      case 'p':
+    case 'P':
+      {
+        teclaApretada.innerHTML = "p";
+        if (currentAudioControlKeys == 1) {
+          if (audio.currentTime > 0 && audio.paused == false && audio.ended == false) {
+            audio.pause();
+          }
+          else { audio.play(); }
+        }
+        else if (currentAudioControlKeys == 2) {
+          if (audio2.currentTime > 0 && audio2.paused == false && audio2.ended == false) {
+            audio2.pause();
+          }
+          else { audio2.play(); }
+        }
+        else if (currentAudioControlKeys == 3) {
+          if (audio3.currentTime > 0 && audio3.paused == false && audio3.ended == false) {
+            audio3.pause();
+          }
+          else { audio3.play(); }
+        }
+        else if (currentAudioControlKeys == 4) {
+          if (audio4.currentTime > 0 && audio4.paused == false && audio4.ended == false) {
+            audio4.pause();
+          }
+          else { audio4.play(); }
+        }
+        else {
+
+        }
+        break;
+      }
+    case 'o':
+    case 'O':
+      {
+        teclaApretada.innerHTML = "o";
+        if (currentAudioControlKeys == 1) { audio.load(); }
+        else if (currentAudioControlKeys == 2) { audio2.load(); }
+        else if (currentAudioControlKeys == 3) { audio3.load(); }
+        else if (currentAudioControlKeys == 4) { audio4.load(); }
+        break;
+      }
+    case 'Q':
     case 'q':
       {
         teclaApretada.innerHTML = "q";
-        if (audio.volume < 0.95) {
-          audio.volume = audio.volume + 0.05;
+        if (audio.volume < 0.97) {
+          audio.volume = audio.volume + 0.03;
           volume_1_value.innerHTML = `${audio.volume * 100}`;
+          volume_1.value=audio.volume;
         }
         else {
           audio.volume = 1;
           volume_1_value.innerHTML = audio.volume;
+          volume_1.value=audio.volume;
         }
         break;
       }
+    case 'A':
     case 'a':
       {
         teclaApretada.innerHTML = "a";
-        if (audio.volume > 0.05) {
-          audio.volume -= 0.05;
+        if (audio.volume > 0.03) {
+          audio.volume -= 0.03;
           volume_1_value.innerHTML = `${audio.volume}`;
+          volume_1.value=audio.volume;
         }
         else {
           audio.volume = 0;
           volume_1_value.innerHTML = `${audio.volume}`;
+          volume_1.value=audio.volume;
         }
         break;
       }
+    case 'W':
     case 'w':
       {
         teclaApretada.innerHTML = "w";
-        if (audio2.volume < 0.95) {
-          audio2.volume = audio2.volume + 0.05;
+        if (audio2.volume < 0.97) {
+          audio2.volume = audio2.volume + 0.03;
           volume_2_value.innerHTML = `${audio2.volume}`;
+          volume_2.value=audio2.volume;
         }
         else {
           audio2.volume = 1;
           volume_2_value.innerHTML = `${audio2.volume}`;
+          volume_2.value=audio2.volume;
         }
         break;
       }
     case 's':
+    case 'S':
       {
         teclaApretada.innerHTML = "s";
-        if (audio2.volume > 0.05) {
-          audio2.volume -= 0.05;
+        if (audio2.volume > 0.03) {
+          audio2.volume -= 0.03;
           volume_2_value.innerHTML = `${audio2.volume}`;
+          volume_2.value=audio2.volume;
         }
         else {
           audio2.volume = 0;
           volume_2_value.innerHTML = `${audio2.volume}`;
+          volume_2.value=audio2.volume;
         }
         break;
       }
     case 'e':
+    case 'E':
       {
         teclaApretada.innerHTML = "e";
-        if (audio3.volume < 0.95) {
-          audio3.volume = audio3.volume + 0.05;
+        if (audio3.volume < 0.97) {
+          audio3.volume = audio3.volume + 0.03;
           volume_3_value.innerHTML = `${audio3.volume}`;
+          volume_3.value=audio3.volume;
         }
         else {
           audio3.volume = 1;
           volume_3_value.innerHTML = `${audio3.volume}`;
+          volume_3.value=audio3.volume;
         }
         break;
       }
     case 'd':
+    case 'D':
       {
         teclaApretada.innerHTML = "d";
-        if (audio3.volume > 0.05) {
-          audio3.volume -= 0.05;
+        if (audio3.volume > 0.03) {
+          audio3.volume -= 0.03;
           volume_3_value.innerHTML = `${audio3.volume}`;
+          volume_3.value=audio3.volume;
         }
         else {
           audio3.volume = 0;
           volume_3_value.innerHTML = `${audio3.volume}`;
+          volume_3.value=audio3.volume;
         }
         break;
       }
     case 'r':
+    case 'R':
       {
         teclaApretada.innerHTML = "r";
-        if (audio4.volume < 0.95) {
-          audio4.volume = audio4.volume + 0.05;
+        if (audio4.volume < 0.97) {
+          audio4.volume = audio4.volume + 0.03;
           volume_4_value.innerHTML = `${audio4.volume}`;
+          volume_4.value=audio4.volume;
         }
         else {
           audio4.volume = 1;
           volume_4_value.innerHTML = `${audio4.volume}`;
+          volume_4.value=audio4.volume;
         }
         break;
       }
     case 'f':
+    case 'F':
       {
         teclaApretada.innerHTML = "f";
-        if (audio4.volume > 0.05) {
-          audio4.volume -= 0.05;
+        if (audio4.volume > 0.03) {
+          audio4.volume -= 0.03;
           volume_4_value.innerHTML = `${audio4.volume}`;
+          volume_4.value=audio4.volume;
         }
         else {
           audio4.volume = 0;
           volume_4_value.innerHTML = `${audio4.volume}`;
+          volume_4.value=audio4.volume;
         }
         break;
       }
@@ -164,18 +281,21 @@ document.onkeydown = function (e) {
 var duration_1_value = document.getElementById("duracion_1_value");
 var deposito_1 = document.getElementById("deposito_1");
 deposito_1.innerHTML = "Drop Audio Here";
-volume_1 = document.getElementById("volume_1");
+volume_1 = document.getElementById("volume_1"); 
 loop_btn_1 = document.getElementById("loop_btn_1");
 loop_checkbox = document.getElementById("loop_checkbox");
 autoplay_checkbox = document.getElementById("autoplay_checkbox");
 playRate_1 = document.getElementById("playRate_1");
+current_1 = document.getElementById("current_1");
 volume_1.addEventListener("change", function (e) {
   audio.volume = e.currentTarget.value;
   volume_1_value.innerHTML = (e.currentTarget.value * 100);
+  volume_1.value=(e.currentTarget.value);
 });
 playRate_1.addEventListener("change", function (e) {
   audio.playbackRate = e.currentTarget.value;
   play_Rate_1_value.innerHTML = (e.currentTarget.value * 100);
+  play_Rate_1.value=(e.currentTarget.value);
 });
 loop_checkbox.addEventListener("change", function () {
   if (loop_checkbox.checked) { audio.loop = true; }
@@ -185,6 +305,12 @@ autoplay_checkbox.addEventListener("change", function () {
   if (autoplay_checkbox.checked) { autoplay_1 = true; }
   else { autoplay_1 = false; }
 });
+current_1.addEventListener("change",function(){
+  
+});
+
+
+
 play_Rate_1_text.innerHTML = "PLAYRATE";
 volume_1_text.innerHTML = "VOLUME";
 duracion_1_text.innerHTML = "DURATION";
@@ -809,7 +935,7 @@ function muestra_array_Canciones() {
   for (i = 0; i < array_Canciones.length; i++) {
     var nombre = array_Canciones[i].id;
     if (local == true) {
-      source = `"audio/${nombre}.mp3"`;
+      source = `"audio/${nombre}.mp3"`;  //console.log(`source: ` + `${source}`);
       const box = `<div class="draggable" id=${nombre} draggable="true" ondragstart="cancion_dragstart(event)">    ${nombre}    </div>`;
       const audio = `<audio class="audio" id=${nombre}> <source src="${source}" type="audio/mpeg"></audio>`;
       array_song_div.push(box);                                     //console.log("box: "+`${box}`);
@@ -823,15 +949,6 @@ function muestra_array_Canciones() {
       array_song_div.push(box);                                     //console.log("box: "+`${box}`);
       array_audio_toAppend.push(audio);
     }
-    //console.log(`nombre: `+`${nombre}`)    
-    //DE ESTE MODO BUSCA LOS ARCHIVOS EN GITHUB 
-    //var source = array_Canciones[i].url_src; console.log(`source: ` + `${source}`)
-
-    //console.log(`nombre: `+`${nombre}`);
-    /*if (audio != null && box != null && nombre != null && nombre != ',') {
-      array_song_div.push(box);                                     //console.log("box: "+`${box}`);
-      array_audio_toAppend.push(audio);
-    }*/
   }
   bloque1.innerHTML = array_song_div;
 }
@@ -894,14 +1011,12 @@ function soltar(event) {
         duracion_1_value.innerHTML = `${audio.duration}`;
         player_1.pause();
         if (local == true) {
-          //          player_1.src = `${link}`;
-          player_1.src = getsId(link);
-          console.log("local == true.src: " + player_1.src);
+          player_1.src = `${link}`;
         }
         else {
-          player_1.src = `${link}`; console.log("local == flase.src: " + `${link}`);
+          player_1.src = `${link}`;
+          console.log("local == flase.src: " + `${link}`);
         }
-        //        player_1.src = `${link}`;
         player_1.load();
         if (autoplay_1 == true) {
           player_1.play();
@@ -918,12 +1033,10 @@ function soltar(event) {
         duracion_2_value.innerHTML = `${audio2.duration}`;
         player_2.pause();
         if (local == true) {
-          //          player_1.src = `${link}`;
-          player_2.src = getsId(link);
-          console.log("local == true.src: " + player_2.src);
+          player_2.src = `${link}`;
         }
         else {
-          player_2.src = `${link}`; console.log("local == flase.src: " + `${link}`);
+          player_2.src = `${link}`; 
         }
         player_2.load();
         if (autoplay_2 == true) {
@@ -941,14 +1054,11 @@ function soltar(event) {
         duracion_3_value.innerHTML = `${audio3.duration}`;
         player_3.pause();
         if (local == true) {
-          //          player_3.src = `${link}`;
-          player_3.src = getsId(link);
-          console.log("local == true.src: " + player_3.src);
+          player_3.src = `${link}`;
         }
         else {
-          player_3.src = `${link}`; console.log("local == flase.src: " + `${link}`);
+          player_3.src = `${link}`;
         }
-        //        player_3.src = `${link}`;
         player_3.load();
         if (autoplay_3 == true) {
           player_3.play();
@@ -965,11 +1075,10 @@ function soltar(event) {
         duracion_4_value.innerHTML = `${audio4.duration}`;
         player_4.pause();
         if (local == true) {
-          player_4.src = getsId(link);
-          console.log("local == true.src: " + player_4.src);
+          player_4.src = `${link}`;
         }
         else {
-          player_4.src = `${link}`; console.log("local == flase.src: " + `${link}`);
+          player_4.src = `${link}`;
         }
         player_4.load();
         if (autoplay_4 == true) {
@@ -986,19 +1095,18 @@ function soltar(event) {
 }
 function cancion_dragstart(event) {
   var target_song = event.target.id;
-  //console.log("target_song: " + `${target_song}`)
   array_Canciones.forEach(element => {
     if (element.id.includes(target_song)) {
 
       if (local == true) {
         var codigo_local = `C:/Users/Juli/My%20Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
         event.dataTransfer.setData("text", codigo_local);
-        console.log(" codigo_local: " + codigo_local);
+        //console.log(" codigo_local: " + codigo_local);
       }
       else {
         var codigo = element.url_src;
         event.dataTransfer.setData("text", codigo);
-        console.log("codigo: " + codigo);
+        //console.log("codigo: " + codigo);
         //WEB BASED ADDRESSESS
       }
     }
@@ -1007,10 +1115,10 @@ function cancion_dragstart(event) {
 
 function getsId(string) {
   var string_index = string.lastIndexOf("/", string.length - 1);
-  var track_name = string.substr(string_index + 1, string_index.length).trim();
+  var track_name = string.substr(string_index + 1, string_index.length).trim();        //   console.log(`track_name: ` + `${track_name}`);
   var track_index = track_name.lastIndexOf(".", track_name.length);
-  var track_id = track_name.substr(0, track_index).trim();
-  var track_id_sin_porciento20 = track_id.replaceAll('%20', ' ');
+  var track_id = track_name.substr(0, track_index).trim();                               // console.log(`track_id: ` + `${track_id}`);
+  var track_id_sin_porciento20 = track_id.replaceAll('%20', ' ');                       //  console.log(`track_id_sin_porciento20: ` + `${track_id_sin_porciento20}`);
   return `${track_id_sin_porciento20}`;
 }
 //-----------------------------------------------------------
@@ -1021,7 +1129,7 @@ function controls_1_play() {
   muestra_array_Canciones();
   audio.play();
   console.log("currentTime: " + audio.currentTime);
-  console.log(".progress: " + audio.progress);
+  //console.log(".progress: " + audio.progress);
   duration_1_value.innerHTML = `${audio.duration}`;
 }
 function controls_1_stop() { audio.load(); }
@@ -1040,8 +1148,8 @@ function controls_2_play() {
   muestraLista();
   muestra_array_Canciones();
   audio2.play();
-  console.log("currentTime: " + audio2.currentTime);
-  console.log(".progress: " + audio2.progress);
+  //console.log("currentTime: " + audio2.currentTime);
+  //console.log(".progress: " + audio2.progress);
   duration_2_value.innerHTML = `${audio2.duration}`;
 }
 function controls_2_stop() { audio2.load(); }
@@ -1060,8 +1168,8 @@ function controls_3_play() {
   muestraLista();
   muestra_array_Canciones();
   audio3.play();
-  console.log("currentTime: " + audio3.currentTime);
-  console.log(".progress: " + audio3.progress);
+  // console.log("currentTime: " + audio3.currentTime);
+  // console.log(".progress: " + audio3.progress);
   duration_3_value.innerHTML = `${audio3.duration}`;
 }
 function controls_3_stop() { audio3.load(); }
@@ -1080,8 +1188,8 @@ function controls_4_play() {
   muestraLista();
   muestra_array_Canciones();
   audio4.play();
-  console.log("currentTime: " + audio4.currentTime);
-  console.log(".progress: " + audio4.progress);
+  // console.log("currentTime: " + audio4.currentTime);
+  // console.log(".progress: " + audio4.progress);
   duration_4_value.innerHTML = `${audio4.duration}`;
 }
 function controls_4_stop() { audio4.load(); }
@@ -1093,6 +1201,7 @@ function controls_4_loop() {
 }
 muestraLista();
 muestra_array_Canciones();
+
 
 /*
 progress—Este evento se desencadena periódicamente para ofrecer una actualización
