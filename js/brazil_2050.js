@@ -5,7 +5,7 @@ player_2_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_3_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_4_label.innerHTML = "000 Texto de prueba de cancion nombre";
 //let context = new AudioContext();
-var currentAudioControlKeys = 0;
+var currentAudioControlKeys = 1;
 var local = false;
 var lista = [];
 var lista_obj_cancion = [];
@@ -23,6 +23,14 @@ local_or_web.addEventListener("change", function () {
   if (local_or_web.checked) { local = true; }
   else { local = false; }
 });
+
+
+audio.addEventListener("timeupdate",function(){
+audio.currentTime
+});
+
+
+
 
 document.onkeydown = function (e) {
   e = e || window.event;
