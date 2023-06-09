@@ -24,9 +24,19 @@ local_or_web.addEventListener("change", function () {
   else { local = false; }
 });
 
+var actual_Position_text=document.getElementById("actual_Position_text");
+
 
 audio.addEventListener("timeupdate",function(){
-audio.currentTime
+  //alert("dura: "+audio.duration);
+  //alert("current: "+audio.currentTime);
+  var step = audio.duration/100; console. log("step: "+step);
+  var test = (audio.duration -(audio.duration-audio.currentTime))/100;
+  var position = test/step;
+  //alert("restante: "+test);
+  current_1.value=position;
+  actual_Position_text.innerHTML=audio.currentTime;
+
 });
 
 
