@@ -136,7 +136,7 @@ main {
     max-width: 800px;
     width: 90%;
     margin: auto;
-    /* padding: 40px;*/
+    /*border: blue solid 3px;*/
 }
 
 /*-------------GRID AREAS------------*/
@@ -150,16 +150,14 @@ main {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(6, auto);
     grid-template-areas:
+        "fixed    fixed    fixed  fixed"
         "cabeza   cabeza   cabeza cabeza"
-        "bloque1   main    main   main"
-        "bloque1   main    main   main"
-        "bloque1   main    main   main"
-        "bloque1   main    main   main"
-        "footer    footer  footer footer";
+        "bloque1  main     main   main"
+        "bloque1  main     main   main"
+        "bloque1  main     main   main"
+        "footer   footer  footer footer";
     margin-right: auto;
     margin-left: auto;
-    gap: 0.1%;
-
 }
 
 .contenedor .header {
@@ -603,7 +601,7 @@ main {
     display: inline-block;
     text-align: center;
     border: solid 3px rgb(254, 232, 176);
-    width: 50vw;
+    width: 40vw;
     height: 29vh;
 }
 
@@ -673,6 +671,28 @@ main {
     background-color: #006600;
     border: 0px;
     padding: 0px;
+}
+
+#progress_1 {
+    width: 100%;
+    background-color: grey;
+}
+
+#progress_1_bar {
+    width: 1%;
+    height: 30px;
+    background-color: #013801;
+}
+
+.contenedor #fixed{
+    position: fixed;
+    background-color: #006600;
+    width: 50%;
+    height: 8%;
+    border: cyan solid 3px;
+    display: inline-flex;
+    margin: 0%;
+    
 }
 
 /*---------------------------------------------*/
@@ -778,7 +798,7 @@ main {
         font-size: 0.7rem;
     }
 
-    .controles{
+    .controles {
         display: inline-block;
     }
 }
@@ -846,14 +866,6 @@ main {
         font-size: 0.7rem;
     }
 
-    #player_1_label,
-    #player_2_label,
-    #player_3_label,
-    #player_4_label {
-        font-size: 0.7rem;
-        text-align: left;
-    }
-
     #deposito_1,
     #deposito_2,
     #deposito_3,
@@ -869,7 +881,7 @@ main {
         font-size: 0.7rem;
     }
 
-    .controles{
+    .controles {
         display: inline;
     }
 }
