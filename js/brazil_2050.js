@@ -6,7 +6,7 @@ player_3_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_4_label.innerHTML = "000 Texto de prueba de cancion nombre";
 //let context = new AudioContext();
 var currentAudioControlKeys = 1;
-var local = false;
+var local = true; //LOGICA CAMBIADA ANTES ERA: var local = false;
 var lista = [];
 var lista_obj_cancion = [];
 var autoplay_1 = false; var autoplay_2 = false;
@@ -18,7 +18,7 @@ var audio2 = document.getElementById("myAudio2");
 var audio3 = document.getElementById("myAudio3");
 var audio4 = document.getElementById("myAudio4");
 var local_or_web = document.getElementById("local_checkbox");
-//local_or_web.checked=true;
+local_or_web.checked=true;  //BORRAR ESTO PARA LA LOGICA ANTERIOR
 local_or_web.addEventListener("change", function () {
   if (local_or_web.checked) { local = true; }
   else { local = false; }
