@@ -24,15 +24,14 @@ local_or_web.addEventListener("change", function () {
   else { local = false; }
 });
 
-fixed_volume_1_text.innerHTML = `Volume 1:`;
-fixed_volume_2_text.innerHTML = `Volume 2:`;
-fixed_volume_3_text.innerHTML = `Volume 3:`;
-fixed_volume_4_text.innerHTML = `Volume 4:`;
-fixed_volume_1_value.innerHTML = audio.volume.value;
-fixed_volume_2_value.innerHTML = audio2.volume.value;
-fixed_volume_3_value.innerHTML = audio3.volume.value;
-fixed_volume_4_value.innerHTML = audio4.volume.value;
-
+fixed_volume_1_text.innerHTML = `Vol 1:`;
+fixed_volume_2_text.innerHTML = `Vol 2:`;
+fixed_volume_3_text.innerHTML = `Vol 3:`;
+fixed_volume_4_text.innerHTML = `Vol 4:`;
+fixed_volume_1_value.innerHTML = `${audio.volume * 100}`;
+fixed_volume_2_value.innerHTML = `${audio2.volume * 100}`;
+fixed_volume_3_value.innerHTML = `${audio3.volume * 100}`;
+fixed_volume_4_value.innerHTML = `${audio4.volume * 100}`;
 
 var actual_Position_text = document.getElementById("actual_Position_text");
 
@@ -89,12 +88,12 @@ document.onkeydown = function (e) {
                           player_1.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
                         }
                         else { player_1.src = element.url_src; }
-                        duration_1_value.innerHTML = `${audio.duration}`;
+                        duration_1_value.innerHTML = Math.round(`${audio.duration}`); 
                         player_1.load();
                         currentAudioControlKeys = 1;
                         if (autoplay_1 == true) {
                           player_1.play();
-                          lista = lista + "p_1: " + getsId(player_1.src) + `<br>`;     
+                          lista = lista + "p_1: " + getsId(player_1.src) + `<br>`;
                           muestraLista();
                         }
                       }
@@ -117,7 +116,7 @@ document.onkeydown = function (e) {
                           player_2.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
                         }
                         else { player_2.src = element.url_src; }
-                        duration_2_value.innerHTML = `${audio2.duration}`;
+                        duration_2_value.innerHTML = Math.round(`${audio2.duration}`);
                         player_2.load();
                         currentAudioControlKeys = 2;
                         if (autoplay_2 == true) {
@@ -145,7 +144,7 @@ document.onkeydown = function (e) {
                           player_3.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
                         }
                         else { player_3.src = element.url_src; }
-                        duration_3_value.innerHTML = `${audio3.duration}`;
+                        duration_3_value.innerHTML = Math.round(`${audio3.duration}`);
                         player_3.load();
                         currentAudioControlKeys = 3;
                         if (autoplay_3 == true) {
@@ -173,7 +172,7 @@ document.onkeydown = function (e) {
                           player_4.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
                         }
                         else { player_4.src = element.url_src; }
-                        duration_4_value.innerHTML = `${audio4.duration}`;
+                        duration_4_value.innerHTML = Math.round(`${audio4.duration}`);
                         player_4.load();
                         currentAudioControlKeys = 4;
                         if (autoplay_4 == true) {
@@ -256,8 +255,8 @@ document.onkeydown = function (e) {
           }
           else {
             audio.play();
-            duration_1_value.innerHTML = `${audio.duration}`;
-            lista = lista + "p_1: " + getsId(audio.src) + `<br>`;     
+            duration_1_value.innerHTML = Math.round(`${audio.duration}`);
+            lista = lista + "p_1: " + getsId(audio.src) + `<br>`;
             muestraLista();
             muestra_array_Canciones();
           }
@@ -266,22 +265,22 @@ document.onkeydown = function (e) {
           if (audio2.currentTime > 0 && audio2.paused == false && audio2.ended == false) {
             audio2.pause();
           }
-          else { 
+          else {
             audio2.play();
-             duration_2_value.innerHTML = `${audio2.duration}`;
-             lista = lista + "p_2: " + getsId(audio2.src) + `<br>`;     
-             muestraLista();
-             muestra_array_Canciones();
-            }
+            duration_2_value.innerHTML = Math.round(`${audio2.duration}`);
+            lista = lista + "p_2: " + getsId(audio2.src) + `<br>`;
+            muestraLista();
+            muestra_array_Canciones();
+          }
         }
         else if (currentAudioControlKeys == 3) {
           if (audio3.currentTime > 0 && audio3.paused == false && audio3.ended == false) {
             audio3.pause();
           }
-          else { 
-            audio3.play(); 
-            duration_3_value.innerHTML = `${audio3.duration}`;
-            lista = lista + "p_3: " + getsId(audio3.src) + `<br>`;     
+          else {
+            audio3.play();
+            duration_3_value.innerHTML = Math.round(`${audio3.duration}`);
+            lista = lista + "p_3: " + getsId(audio3.src) + `<br>`;
             muestraLista();
             muestra_array_Canciones();
           }
@@ -291,12 +290,12 @@ document.onkeydown = function (e) {
             audio4.pause();
           }
           else {
-             audio4.play();
-             duration_4_value.innerHTML = `${audio4.duration}`;
-             lista = lista + "p_4: " + getsId(audio4.src) + `<br>`;     
-             muestraLista();
-             muestra_array_Canciones(); 
-            }
+            audio4.play();
+            duration_4_value.innerHTML = Math.round(`${audio4.duration}`);
+            lista = lista + "p_4: " + getsId(audio4.src) + `<br>`;
+            muestraLista();
+            muestra_array_Canciones();
+          }
         }
         else {
 
@@ -319,13 +318,15 @@ document.onkeydown = function (e) {
         teclaApretada.innerHTML = "q";
         if (audio.volume < 0.97) {
           audio.volume = audio.volume + 0.03;
-          volume_1_value.innerHTML = `${audio.volume * 100}`;
+          volume_1_value.innerHTML = Math.round(`${audio.volume * 100}`);
+          fixed_volume_1_value.innerHTML = Math.round(`${audio.volume * 100}`);
           volume_1.value = audio.volume;
         }
         else {
           audio.volume = 1;
-          volume_1_value.innerHTML = audio.volume;
+          volume_1_value.innerHTML = Math.round(`${audio.volume * 100}`);
           volume_1.value = audio.volume;
+          fixed_volume_1_value.innerHTML = Math.round(`${audio.volume * 100}`);
         }
         break;
       }
@@ -335,12 +336,12 @@ document.onkeydown = function (e) {
         teclaApretada.innerHTML = "a";
         if (audio.volume > 0.03) {
           audio.volume -= 0.03;
-          volume_1_value.innerHTML = `${audio.volume}`;
+          fixed_volume_1_value.innerHTML = volume_1_value.innerHTML = Math.round(`${audio.volume * 100}`);
           volume_1.value = audio.volume;
         }
         else {
           audio.volume = 0;
-          volume_1_value.innerHTML = `${audio.volume}`;
+          fixed_volume_1_value.innerHTML = volume_1_value.innerHTML = Math.round(`${audio.volume * 100}`);
           volume_1.value = audio.volume;
         }
         break;
@@ -351,12 +352,12 @@ document.onkeydown = function (e) {
         teclaApretada.innerHTML = "w";
         if (audio2.volume < 0.97) {
           audio2.volume = audio2.volume + 0.03;
-          volume_2_value.innerHTML = `${audio2.volume}`;
+          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
           volume_2.value = audio2.volume;
         }
         else {
           audio2.volume = 1;
-          volume_2_value.innerHTML = `${audio2.volume}`;
+          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
           volume_2.value = audio2.volume;
         }
         break;
@@ -367,13 +368,14 @@ document.onkeydown = function (e) {
         teclaApretada.innerHTML = "s";
         if (audio2.volume > 0.03) {
           audio2.volume -= 0.03;
-          volume_2_value.innerHTML = `${audio2.volume}`;
+          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
           volume_2.value = audio2.volume;
         }
         else {
           audio2.volume = 0;
-          volume_2_value.innerHTML = `${audio2.volume}`;
+          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
           volume_2.value = audio2.volume;
+          Math.round(`${audio2.volume * 100}`);
         }
         break;
       }
@@ -383,12 +385,12 @@ document.onkeydown = function (e) {
         teclaApretada.innerHTML = "e";
         if (audio3.volume < 0.97) {
           audio3.volume = audio3.volume + 0.03;
-          volume_3_value.innerHTML = `${audio3.volume}`;
+          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
           volume_3.value = audio3.volume;
         }
         else {
           audio3.volume = 1;
-          volume_3_value.innerHTML = `${audio3.volume}`;
+          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
           volume_3.value = audio3.volume;
         }
         break;
@@ -399,12 +401,12 @@ document.onkeydown = function (e) {
         teclaApretada.innerHTML = "d";
         if (audio3.volume > 0.03) {
           audio3.volume -= 0.03;
-          volume_3_value.innerHTML = `${audio3.volume}`;
+          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
           volume_3.value = audio3.volume;
         }
         else {
           audio3.volume = 0;
-          volume_3_value.innerHTML = `${audio3.volume}`;
+          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
           volume_3.value = audio3.volume;
         }
         break;
@@ -415,12 +417,12 @@ document.onkeydown = function (e) {
         teclaApretada.innerHTML = "r";
         if (audio4.volume < 0.97) {
           audio4.volume = audio4.volume + 0.03;
-          volume_4_value.innerHTML = `${audio4.volume}`;
+          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
           volume_4.value = audio4.volume;
         }
         else {
           audio4.volume = 1;
-          volume_4_value.innerHTML = `${audio4.volume}`;
+          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
           volume_4.value = audio4.volume;
         }
         break;
@@ -431,12 +433,12 @@ document.onkeydown = function (e) {
         teclaApretada.innerHTML = "f";
         if (audio4.volume > 0.03) {
           audio4.volume -= 0.03;
-          volume_4_value.innerHTML = `${audio4.volume}`;
+          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
           volume_4.value = audio4.volume;
         }
         else {
           audio4.volume = 0;
-          volume_4_value.innerHTML = `${audio4.volume}`;
+          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
           volume_4.value = audio4.volume;
         }
         break;
@@ -477,7 +479,7 @@ audio.addEventListener("timeupdate", function () {
   var test = (audio.duration - (audio.duration - audio.currentTime)) / 100;
   var position = test / step;
   current_1.value = position;
-  actual_Position_text_1.innerHTML = audio.currentTime;
+  actual_Position_text_1.innerHTML = Math.round(`${audio.currentTime}`);
 });
 play_Rate_1_text.innerHTML = "PLAYRATE";
 volume_1_text.innerHTML = "VOLUME";
@@ -517,7 +519,7 @@ audio2.addEventListener("timeupdate", function () {
   var test = (audio2.duration - (audio2.duration - audio2.currentTime)) / 100;
   var position = test / step;
   current_2.value = position;
-  actual_Position_text_2.innerHTML = audio2.currentTime;
+  actual_Position_text_2.innerHTML = Math.round(`${audio2.currentTime}`);
 });
 play_Rate_2_text.innerHTML = "PLAYRATE";
 volume_2_text.innerHTML = "VOLUME";
@@ -557,7 +559,7 @@ audio3.addEventListener("timeupdate", function () {
   var test = (audio3.duration - (audio3.duration - audio3.currentTime)) / 100;
   var position = test / step;
   current_3.value = position;
-  actual_Position_text_3.innerHTML = audio3.currentTime;
+  actual_Position_text_3.innerHTML = Math.round(`${audio3.currentTime}`);
 });
 play_Rate_3_text.innerHTML = "PLAYRATE";
 volume_3_text.innerHTML = "VOLUME";
@@ -595,7 +597,7 @@ audio4.addEventListener("timeupdate", function () {
   var test = (audio4.duration - (audio4.duration - audio4.currentTime)) / 100;
   var position = test / step;
   current_4.value = position;
-  actual_Position_text_4.innerHTML = audio4.currentTime;
+  actual_Position_text_4.innerHTML = Math.round(`${audio4.currentTime}`);
 });
 
 play_Rate_4_text.innerHTML = "PLAYRATE";
@@ -1201,7 +1203,7 @@ function soltar(event) {
       {
         var player_1 = document.getElementById("myAudio");
         document.getElementById("player_1_label").innerHTML = getsId(link);
-        duration_1_value.innerHTML = `${audio.duration}`;
+        duration_1_value.innerHTML = Math.round(`${audio.duration}`);
         player_1.pause();
         if (local == true) {
           player_1.src = `${link}`;
@@ -1223,7 +1225,7 @@ function soltar(event) {
       {
         var player_2 = document.getElementById("myAudio2");
         document.getElementById("player_2_label").innerHTML = getsId(link);
-        duration_2_value.innerHTML = `${audio2.duration}`;
+        duration_2_value.innerHTML = Math.round(`${audio2.duration}`);
         player_2.pause();
         if (local == true) {
           player_2.src = `${link}`;
@@ -1245,7 +1247,7 @@ function soltar(event) {
       {
         var player_3 = document.getElementById("myAudio3");
         document.getElementById("player_3_label").innerHTML = getsId(link);
-        duration_3_value.innerHTML = `${audio3.duration}`;
+        duration_3_value.innerHTML = Math.round(`${audio3.duration}`);
         player_3.pause();
         if (local == true) {
           player_3.src = `${link}`;
@@ -1267,7 +1269,7 @@ function soltar(event) {
       {
         var player_4 = document.getElementById("myAudio4");
         document.getElementById("player_4_label").innerHTML = getsId(link);
-        duration_4_value.innerHTML = `${audio4.duration}`;
+        duration_4_value.innerHTML = Math.round(`${audio4.duration}`);
         player_4.pause();
         if (local == true) {
           player_4.src = `${link}`;
@@ -1307,10 +1309,10 @@ function cancion_dragstart(event) {
 
 function getsId(string) {
   var string_index = string.lastIndexOf("/", string.length - 1);
-  var track_name = string.substr(string_index + 1, string_index.length).trim();           console.log(`track_name: ` + `${track_name}`);
+  var track_name = string.substr(string_index + 1, string_index.length).trim();           //console.log(`track_name: ` + `${track_name}`);
   var track_index = track_name.lastIndexOf(".", track_name.length);
-  var track_id = track_name.substr(0, track_index).trim();                                console.log(`track_id: ` + `${track_id}`);
-  var track_id_sin_porciento20 = track_id.replaceAll('%20', ' ');                         console.log(`track_id_sin_porciento20: ` + `${track_id_sin_porciento20}`);
+  var track_id = track_name.substr(0, track_index).trim();                                //console.log(`track_id: ` + `${track_id}`);
+  var track_id_sin_porciento20 = track_id.replaceAll('%20', ' ');                        // console.log(`track_id_sin_porciento20: ` + `${track_id_sin_porciento20}`);
   return `${track_id_sin_porciento20}`;
 }
 //-----------------------------------------------------------
@@ -1320,7 +1322,7 @@ function controls_1_play() {
   muestraLista();
   muestra_array_Canciones();
   audio.play();
-  duration_1_value.innerHTML = `${audio.duration}`;
+  duration_1_value.innerHTML = Math.round(`${audio.duration}`);
 }
 function controls_1_stop() { audio.load(); }
 function controls_1_pause() { audio.pause(); }
@@ -1338,7 +1340,7 @@ function controls_2_play() {
   muestraLista();
   muestra_array_Canciones();
   audio2.play();
-  duration_2_value.innerHTML = `${audio2.duration}`;
+  duration_2_value.innerHTML = Math.round(`${audio2.duration}`);
 }
 function controls_2_stop() { audio2.load(); }
 function controls_2_pause() { audio2.pause(); }
@@ -1356,7 +1358,7 @@ function controls_3_play() {
   muestraLista();
   muestra_array_Canciones();
   audio3.play();
-  duration_3_value.innerHTML = `${audio3.duration}`;
+  duration_3_value.innerHTML = Math.round(`${audio3.duration}`);
 }
 function controls_3_stop() { audio3.load(); }
 function controls_3_pause() { audio3.pause(); }
@@ -1374,7 +1376,7 @@ function controls_4_play() {
   muestraLista();
   muestra_array_Canciones();
   audio4.play();
-  duration_4_value.innerHTML = `${audio4.duration}`;
+  duration_4_value.innerHTML = Math.round(`${audio4.duration}`);
 }
 function controls_4_stop() { audio4.load(); }
 function controls_4_pause() { audio4.pause(); }
