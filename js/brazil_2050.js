@@ -458,8 +458,9 @@ playRate_1 = document.getElementById("playRate_1");
 current_1 = document.getElementById("current_1");
 volume_1.addEventListener("change", function (e) {
   audio.volume = e.currentTarget.value;
-  volume_1_value.innerHTML = (e.currentTarget.value * 100);
   volume_1.value = (e.currentTarget.value);
+  fixed_volume_1_value.innerHTML = volume_1_value.innerHTML = Math.round(`${e.currentTarget.value * 100}`);
+  
 });
 playRate_1.addEventListener("change", function (e) {
   audio.playbackRate = e.currentTarget.value;
@@ -499,6 +500,7 @@ playRate_2 = document.getElementById("playRate_2");
 current_2 = document.getElementById("current_2");
 volume_2.addEventListener("change", function (e) {
   audio2.volume = e.currentTarget.value;
+  fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${e.currentTarget.value * 100}`);
 });
 playRate_2.addEventListener("change", function (e) {
   audio2.playbackRate = e.currentTarget.value;
@@ -540,7 +542,8 @@ playRate_3 = document.getElementById("playRate_3");
 current_3 = document.getElementById("current_3");
 volume_3.addEventListener("change", function (e) {
   audio3.volume = e.currentTarget.value;
-  volume_3_value.innerHTML = (e.currentTarget.value * 100);
+  fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = (e.currentTarget.value * 100);
+  
 });
 playRate_3.addEventListener("change", function (e) {
   audio3.playbackRate = e.currentTarget.value;
@@ -578,7 +581,7 @@ playRate_4 = document.getElementById("playRate_4");
 current_4 = document.getElementById("current_4");
 volume_4.addEventListener("change", function (e) {
   audio4.volume = e.currentTarget.value;
-  volume_4_value.innerHTML = (e.currentTarget.value * 100);
+  fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = (e.currentTarget.value * 100);
 });
 playRate_4.addEventListener("change", function (e) {
   audio4.playbackRate = e.currentTarget.value;
