@@ -12,7 +12,8 @@
  -->
   <link rel="STYLESHEET" href="css/brazil.css">
   <link rel="icon" href="img/html.ico">
-<!--  -->  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!--  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
   <title>Brazil 2050</title>
@@ -23,22 +24,43 @@
     <header class="header" id="header"> Producer E87
     </header>
     <fixed id="fixed">
-      <p id="fixed_volume_1_text"></p>
-      <p id="fixed_volume_1_value"></p>
-      <p id="fixed_volume_2_text"></p>
-      <p id="fixed_volume_2_value"></p>
-      <p id="fixed_volume_3_text"></p>
-      <p id="fixed_volume_3_value"></p>
-      <p id="fixed_volume_4_text"></p>
-      <p id="fixed_volume_4_value"></p>
+      <span id="info_1">
+        <p id="fixed_song_1_name"></p>
+        <p id="fixed_volume_1_text"></p>
+        <p id="fixed_volume_1_value"></p>
+      </span>
+
+      <div>
+        <p id="fixed_song_2_name"></p>
+        <p id="fixed_volume_2_text"></p>
+        <p id="fixed_volume_2_value"></p>
+
+      </div>
+
+      <div>
+        <p id="fixed_song_3_name"></p>
+        <p id="fixed_volume_3_text"></p>
+        <p id="fixed_volume_3_value"></p>
+      </div>
+
+      <div>
+        <p id="fixed_song_4_name"></p>
+        <p id="fixed_volume_4_text"></p>
+        <p id="fixed_volume_4_value"></p>
+      </div>
+
     </fixed>
     <main class="main">
       <input class="checkbox" type="checkbox" name="local_checkbox" id="local_checkbox">
       Local
       <p id="teclaApretada"></p>
+      <a name="uno">1</a>
       <div>1 FALTA: Load PROGRESS BAR// CHANGE POSITION WHEN USING SLIDER </div>
       <div class="audio_controls" id="audio_controls">
-        <div class="deposito" id="deposito_1"><div>progress_1 <div>progress_1_bar</div></div> </div>
+        <div class="deposito" id="deposito_1">
+          <div>progress_1 <div>progress_1_bar</div>
+          </div>
+        </div>
         <p id="player_1_label"></p>
         <audio id="myAudio">
           <source src="" type="audio/mpeg" id="snd_header">

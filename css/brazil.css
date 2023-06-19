@@ -687,14 +687,21 @@ main {
 .contenedor #fixed{
     position: fixed;
     background-color: #006600;
-    width: 50%;
-    height: 8%;
-    border: cyan solid 3px;
+    width: 94%;
+    height: 12%;
+    border: rgb(6, 125, 10) solid 3px;
     display: inline-flex;
     margin: 0%;
-    
 }
 
+.contenedor #fixed #info_1{
+background-color: red;
+display: inline;
+}
+
+span{
+    background-color: aquamarine;
+}
 /*---------------------------------------------*/
 /* , es para OR */
 /*

@@ -4,6 +4,10 @@ player_1_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_2_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_3_label.innerHTML = "000 Texto de prueba de cancion nombre";
 player_4_label.innerHTML = "000 Texto de prueba de cancion nombre";
+fixed_song_1_name.innerHTML = " cancion nombre";
+fixed_song_2_name.innerHTML = " cancion nombre";
+fixed_song_3_name.innerHTML = " cancion nombre";
+fixed_song_4_name.innerHTML = " cancion nombre";
 //let context = new AudioContext();
 var currentAudioControlKeys = 1;
 var local = true; //LOGICA CAMBIADA ANTES ERA: var local = false;
@@ -83,7 +87,7 @@ document.onkeydown = function (e) {
                       if (element.id.includes(value_track)) {
                         var player_1 = document.getElementById("myAudio");
                         //console.log("element.url_src: "+element.url_src)
-                        document.getElementById("player_1_label").innerHTML = element.id;
+                        fixed_song_1_name.innerHTML = document.getElementById("player_1_label").innerHTML = element.id;
                         if (local == true) {
                           player_1.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
                         }
@@ -94,6 +98,7 @@ document.onkeydown = function (e) {
                         if (autoplay_1 == true) {
                           player_1.play();
                           lista = lista + "p_1: " + getsId(player_1.src) + `<br>`;
+                          
                           muestraLista();
                         }
                       }
@@ -111,7 +116,7 @@ document.onkeydown = function (e) {
                       if (element.id.includes(value_track)) {
                         var player_2 = document.getElementById("myAudio2");
                         //console.log("element.url_src: "+element.url_src)
-                        document.getElementById("player_2_label").innerHTML = element.id;
+                        fixed_song_2_name.innerHTML = document.getElementById("player_2_label").innerHTML = element.id;
                         if (local == true) {
                           player_2.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
                         }
@@ -139,7 +144,7 @@ document.onkeydown = function (e) {
                       if (element.id.includes(value_track)) {
                         var player_3 = document.getElementById("myAudio3");
                         //console.log("element.url_src: "+element.url_src)
-                        document.getElementById("player_3_label").innerHTML = element.id;
+                        fixed_song_3_name.innerHTML = document.getElementById("player_3_label").innerHTML = element.id;
                         if (local == true) {
                           player_3.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
                         }
@@ -167,7 +172,7 @@ document.onkeydown = function (e) {
                       if (element.id.includes(value_track)) {
                         var player_4 = document.getElementById("myAudio4");
                         //console.log("element.url_src: "+element.url_src)
-                        document.getElementById("player_4_label").innerHTML = element.id;
+                        fixed_song_4_name.innerHTML = document.getElementById("player_4_label").innerHTML = element.id;
                         if (local == true) {
                           player_4.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
                         }
@@ -1205,7 +1210,7 @@ function soltar(event) {
     case ("deposito_1"):
       {
         var player_1 = document.getElementById("myAudio");
-        document.getElementById("player_1_label").innerHTML = getsId(link);
+        fixed_song_1_name.innerHTML = document.getElementById("player_1_label").innerHTML = getsId(link);
         duration_1_value.innerHTML = Math.round(`${audio.duration}`);
         player_1.pause();
         if (local == true) {
@@ -1219,6 +1224,7 @@ function soltar(event) {
         currentAudioControlKeys = 1;
         if (autoplay_1 == true) {
           player_1.play();
+
         }
         muestraLista();
         muestra_array_Canciones();
@@ -1227,7 +1233,7 @@ function soltar(event) {
     case ("deposito_2"):
       {
         var player_2 = document.getElementById("myAudio2");
-        document.getElementById("player_2_label").innerHTML = getsId(link);
+        fixed_song_2_name.innerHTML = document.getElementById("player_2_label").innerHTML = getsId(link);
         duration_2_value.innerHTML = Math.round(`${audio2.duration}`);
         player_2.pause();
         if (local == true) {
@@ -1249,7 +1255,7 @@ function soltar(event) {
     case ("deposito_3"):
       {
         var player_3 = document.getElementById("myAudio3");
-        document.getElementById("player_3_label").innerHTML = getsId(link);
+        fixed_song_3_name.innerHTML = document.getElementById("player_3_label").innerHTML = getsId(link);
         duration_3_value.innerHTML = Math.round(`${audio3.duration}`);
         player_3.pause();
         if (local == true) {
@@ -1271,7 +1277,7 @@ function soltar(event) {
     case ("deposito_4"):
       {
         var player_4 = document.getElementById("myAudio4");
-        document.getElementById("player_4_label").innerHTML = getsId(link);
+        fixed_song_4_name.innerHTML = document.getElementById("player_4_label").innerHTML = getsId(link);
         duration_4_value.innerHTML = Math.round(`${audio4.duration}`);
         player_4.pause();
         if (local == true) {
