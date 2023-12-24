@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reproductor de MP3</title>
+</head>
+<body>
+
+  <input type="file" id="fileInput" accept=".mp3">
+  <audio controls id="audioPlayer">
+    Tu navegador no soporta la etiqueta de audio.
+  </audio>
+
+  <script>
+    document.getElementById('fileInput').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+
+      if (file) {
+        const audioPlayer = document.getElementById('audioPlayer');
+        const source = document.createElement('source');
+
+        source.src = URL.createObjectURL(file);
+        source.type = 'audio/mp3';
+
+        audioPlayer.innerHTML = ''; // Limpiar fuentes anteriores
+        audioPlayer.appendChild(source);
+
+        // Para reproducir automáticamente
+        // audioPlayer.play();
+      }
+    });
+  </script>
+
+</body>
+</html>
