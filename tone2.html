@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Audio API Example</title>
+
+</head>
+
+<body>
+    
+<h1>Tone.js Test</h1>
+
+
+    <label for="volume">Volume:</label>
+
+    <input type="range" id="volume" min="0" max="1" step="0.01" value="1">
+
+
+    <label for="playbackRate">Playback Rate:</label>
+    
+    <input type="range" id="playbackRate" min="0.5" max="2" step="0.1" value="1">
+
+
+    <label for="pan">Pan:</label>
+    
+<input type="range" id="pan" min="-1" max="1" step="0.01" value="0">
+
+
+<button id="playButton">Play</button>
+    <button onclick="startsSong()">Iniciar </button>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js" integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="js/tone5.js"></script>
+    
+<!--
+    <script src="https://unpkg.com/tone"></script>
+    -->
+
+</body>
+
+</html>

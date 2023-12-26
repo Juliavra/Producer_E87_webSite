@@ -1,0 +1,65 @@
+ 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 OSC</title>
+</head>
+<body>
+
+  <h1>2 OSC</h1>
+  <br>
+
+  <label for="bpm">BPM</label>
+  <input type="range" id="bpm" min="10" max="240" step="1" value="120">
+  <span id="bpmValue">120</span>
+  <br>
+  <label for="redonda">redonda: </label>
+  <span id="valorRedonda">0</span>
+  <br>
+  <label for="blanca">blanca: </label>
+  <span id="valorBlanca">0</span>
+  <br>
+  <label for="negra">negra: </label>
+  <span id="valorNegra">0</span>
+  <br>
+  <label for="corchea">corchea: </label>
+  <span id="valorCorchea">0</span>
+  <br>
+  <label for="semiCorchea">Semicorchea: </label>
+  <span id="valorSemiCorchea">0</span>
+  <br>
+  <label for="fusa">Fusa: </label>
+  <span id="valorFusa">0</span>
+  <br>
+  <label for="semiFusa">semiFusa: </label>
+  <span id="valorSemiFusa">0</span>
+
+
+  <br><br>
+
+  <label for="volume">Volumen:</label>
+  <input type="range" id="volume" min="0" max="100" step="1" value="50">
+  <span id="volumeValue">50</span>
+
+
+  <label for="volume_osc1">Volumen OSC 1:</label>
+  <input type="range" id="volume_osc1" min="0" max="100" step="1" value="50">
+  <span id="volumeValue_osc1">50</span>
+
+
+
+  <br>
+  <button onclick="startsSong()">Iniciar </button>
+  <br>
+
+  <br>
+ 
+  <br>
+
+  <script src="js/2oscSTPanned.js">    </script>
+
+</body>
+</html>
+
