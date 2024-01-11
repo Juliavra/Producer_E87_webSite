@@ -622,7 +622,7 @@ class Cancion {
 }
 var cancion_1 = {
   id: "01 Dark Ringy Short Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/01 Dark Ringy Short Loop.mp3"
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/01%20Dark%20Ringy%20Short%20Loop.mp3"
 };
 var cancion_2 = {
   id: "02 Hard Acople Amb Song",
