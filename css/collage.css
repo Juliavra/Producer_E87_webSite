@@ -162,13 +162,12 @@ main {
     padding: 0%;
     background-color: #006600;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(6, auto);
+    grid-template-rows: repeat(5, auto);
     grid-template-areas:
         "cabeza   cabeza   cabeza cabeza"
-        "nav       nav      nav     nav"
-        "bloque1   main    main   sidebar"
-        "bloque1   main    main   sidebar"
-        "bloque1  main  main   sidebar"
+        "main   main    main   main"
+        "main   main    main   main"
+        "main  main  main   main"
         "footer   footer    footer footer";
     margin-right: auto;
     margin-left: auto;
