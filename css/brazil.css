@@ -168,7 +168,7 @@ main {
     height: 12vh;
     width: 70%;
     text-align: center;
-    font-size: 5rem;
+    font-size: 8rem;
     margin-top: 0%;
     margin-bottom: 10px;
     padding: 0%;
@@ -601,7 +601,7 @@ main {
     display: inline-block;
     text-align: center;
     border: solid 3px rgb(254, 232, 176);
-    width: 40vw;
+    width: 20vw;
     height: 29vh;
 }
 
@@ -623,7 +623,7 @@ main {
 #ruta_archivo2,
 #ruta_archivo3,
 #ruta_archivo4 {
-    opacity: 0;
+    opacity: 100;
 }
 
 #starts_btn_1,
@@ -641,7 +641,11 @@ main {
 #loop_btn_1,
 #loop_btn_2,
 #loop_btn_3,
-#loop_btn_4 {
+#loop_btn_4,
+#autoplay_btn_1,
+#autoplay_btn_2,
+#autoplay_btn_3,
+#autoplay_btn_4 {
     font-family: "Permanent Marker", cursive;
     font-size: 0.7rem;
     color: orange;
@@ -695,7 +699,7 @@ main {
 }
 
 .contenedor #fixed #info_1{
-background-color: red;
+background-color:#006600;
 display: inline;
 }
 
@@ -806,7 +810,7 @@ span{
     }
 
     .controles {
-        display: inline-block;
+        display: inline-flex;
     }
 }
 

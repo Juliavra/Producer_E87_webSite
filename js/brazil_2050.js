@@ -28,10 +28,10 @@ local_or_web.addEventListener("change", function () {
   else { local = false; }
 });
 
-fixed_volume_1_text.innerHTML = `Vol 1:`;
-fixed_volume_2_text.innerHTML = `Vol 2:`;
-fixed_volume_3_text.innerHTML = `Vol 3:`;
-fixed_volume_4_text.innerHTML = `Vol 4:`;
+fixed_volume_1_text.innerHTML = `1:`;
+fixed_volume_2_text.innerHTML = `2:`;
+fixed_volume_3_text.innerHTML = `3:`;
+fixed_volume_4_text.innerHTML = `4:`;
 fixed_volume_1_value.innerHTML = `${audio.volume * 100}`;
 fixed_volume_2_value.innerHTML = `${audio2.volume * 100}`;
 fixed_volume_3_value.innerHTML = `${audio3.volume * 100}`;
@@ -98,7 +98,6 @@ document.onkeydown = function (e) {
                         if (autoplay_1 == true) {
                           player_1.play();
                           lista = lista + "p_1: " + getsId(player_1.src) + `<br>`;
-                          
                           muestraLista();
                         }
                       }
@@ -321,8 +320,8 @@ document.onkeydown = function (e) {
     case 'q':
       {
         teclaApretada.innerHTML = "q";
-        if (audio.volume < 0.97) {
-          audio.volume = audio.volume + 0.03;
+        if (audio.volume < 0.99) {
+          audio.volume = audio.volume + 0.01;
           volume_1_value.innerHTML = Math.round(`${audio.volume * 100}`);
           fixed_volume_1_value.innerHTML = Math.round(`${audio.volume * 100}`);
           volume_1.value = audio.volume;
@@ -339,8 +338,8 @@ document.onkeydown = function (e) {
     case 'a':
       {
         teclaApretada.innerHTML = "a";
-        if (audio.volume > 0.03) {
-          audio.volume -= 0.03;
+        if (audio.volume > 0.01) {
+          audio.volume -= 0.01;
           fixed_volume_1_value.innerHTML = volume_1_value.innerHTML = Math.round(`${audio.volume * 100}`);
           volume_1.value = audio.volume;
         }
@@ -355,8 +354,8 @@ document.onkeydown = function (e) {
     case 'w':
       {
         teclaApretada.innerHTML = "w";
-        if (audio2.volume < 0.97) {
-          audio2.volume = audio2.volume + 0.03;
+        if (audio2.volume < 0.99) {
+          audio2.volume = audio2.volume + 0.01;
           fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
           volume_2.value = audio2.volume;
         }
@@ -371,8 +370,8 @@ document.onkeydown = function (e) {
     case 'S':
       {
         teclaApretada.innerHTML = "s";
-        if (audio2.volume > 0.03) {
-          audio2.volume -= 0.03;
+        if (audio2.volume > 0.01) {
+          audio2.volume -= 0.01;
           fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
           volume_2.value = audio2.volume;
         }
@@ -388,8 +387,8 @@ document.onkeydown = function (e) {
     case 'E':
       {
         teclaApretada.innerHTML = "e";
-        if (audio3.volume < 0.97) {
-          audio3.volume = audio3.volume + 0.03;
+        if (audio3.volume < 0.99) {
+          audio3.volume = audio3.volume + 0.01;
           fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
           volume_3.value = audio3.volume;
         }
@@ -404,8 +403,8 @@ document.onkeydown = function (e) {
     case 'D':
       {
         teclaApretada.innerHTML = "d";
-        if (audio3.volume > 0.03) {
-          audio3.volume -= 0.03;
+        if (audio3.volume > 0.01) {
+          audio3.volume -= 0.01;
           fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
           volume_3.value = audio3.volume;
         }
@@ -420,8 +419,8 @@ document.onkeydown = function (e) {
     case 'R':
       {
         teclaApretada.innerHTML = "r";
-        if (audio4.volume < 0.97) {
-          audio4.volume = audio4.volume + 0.03;
+        if (audio4.volume < 0.99) {
+          audio4.volume = audio4.volume + 0.01;
           fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
           volume_4.value = audio4.volume;
         }
@@ -436,8 +435,8 @@ document.onkeydown = function (e) {
     case 'F':
       {
         teclaApretada.innerHTML = "f";
-        if (audio4.volume > 0.03) {
-          audio4.volume -= 0.03;
+        if (audio4.volume > 0.01) {
+          audio4.volume -= 0.01;
           fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
           volume_4.value = audio4.volume;
         }
@@ -487,13 +486,44 @@ audio.addEventListener("timeupdate", function () {
   current_1.value = position;
   actual_Position_text_1.innerHTML = Math.round(`${audio.currentTime}`);
 });
+
+
+ruta_archivo.addEventListener("change", function(e) {
+ // console.log("se cargo cancion abajo");
+
+  var target = e.currentTarget;
+ var file = target.files[0];
+ var reader = new FileReader();
+ 
+//var $audio = $('#myAudio');
+//$('input').on('change', function(e) {
+  
+var audio = document.getElementById("myAudio");
+var atributo = element.getAttribute(audio);
+console.log("atributo: " + atributo);
+  //console.log($audio[0]);
+   if (target.files && file) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            //$audio.attr('src', e.target.result);
+            audio.attr('src', e.target.result);
+            //$audio.play();
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+
+
+
+
 play_Rate_1_text.innerHTML = "PLAYRATE";
 volume_1_text.innerHTML = "VOLUME";
 duration_1_text.innerHTML = "DURATION";
 autoplay_1_text.innerHTML = "AUTOPLAY";
 
 //----------------------------------------------------------------
-//PLAYER SETUP
+//PLAYER 2 SETUP
 var duration_2_value = document.getElementById("duration_2_value");
 var deposito_2 = document.getElementById("deposito_2");
 deposito_2.innerHTML = "Drop Audio Here";
@@ -1224,7 +1254,6 @@ function soltar(event) {
         currentAudioControlKeys = 1;
         if (autoplay_1 == true) {
           player_1.play();
-
         }
         muestraLista();
         muestra_array_Canciones();
@@ -1394,8 +1423,8 @@ function controls_4_loop() {
   if (estado == true) { document.getElementById("myAudio4").loop = false; }
   else { document.getElementById("myAudio4").loop = true; }
 }
-//muestraLista();
-//muestra_array_Canciones();
+muestraLista();
+muestra_array_Canciones();
 
 
 
