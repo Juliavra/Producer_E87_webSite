@@ -162,9 +162,10 @@ main {
     padding: 0%;
     background-color: #006600;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, auto);
+    grid-template-rows: repeat(6, auto);
     grid-template-areas:
         "cabeza   cabeza   cabeza cabeza"
+        "nav     nav      nav     nav"
         "main   main    main   main"
         "main   main    main   main"
         "main  main  main   main"
@@ -825,7 +826,8 @@ img {
         text-align: center;
         margin-top: 0%;
         margin-left: 0px;
-        /*border: blue solid 1px;*/
+      /*  border: blue solid 1px;*/
+        
     }
 
     a {
@@ -849,6 +851,19 @@ img {
         /*overflow: scroll;*/
         margin-bottom: 0px;
     }
+
+    .contenedor .main .imagenes {
+        grid-area: main;
+        background-color: #006600;
+        color: orange;
+        height: 78vh;
+        margin-top: 1vh;
+        border: cyan solid 2px;
+        padding: 0%;
+        /*overflow: scroll;*/
+        margin-bottom: 0px;
+    }
+
 
     .contenedor .sidebar {
         grid-area: sidebar;
