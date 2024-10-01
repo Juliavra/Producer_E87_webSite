@@ -212,6 +212,19 @@ main {
    /* border: red solid 1px;*/
 }
 
+.contenedor .main .imagenes{
+    font-family: "Permanent Marker", cursive;
+   /* grid-area: nav;*/
+    background-color: #006600;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: 0%;
+    font-size: 1rem;
+    
+}
+
+
+
 .contenedor .main {
     grid-area: main;
     background-color: #006600;
