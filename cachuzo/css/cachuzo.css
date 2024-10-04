@@ -181,7 +181,7 @@ main {
     background-color: #006600;
     color: white;
     height: 6vh;
-    width: 100vh;
+    width: 110vh;
     text-align: center;
     margin-top: 0%;
     /*border: red solid 1px;*/
@@ -202,7 +202,6 @@ main {
     background-color: #006600;
     color: orange;
     display: inline;
-    /*position: fixed;*/
     height: 78vh;
     margin-top: 1vh;
     /*border: cyan solid 2px;*/
@@ -656,6 +655,7 @@ main {
         margin-top: 0%;
         margin-left: 0px;
       /*  border: blue solid 1px;*/
+      
         
     }
 
