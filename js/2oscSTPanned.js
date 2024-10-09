@@ -13,13 +13,6 @@ const valorFusa = document.getElementById('valorFusa');
 const valorSemiFusa = document.getElementById('valorSemiFusa');
 //---------------xxxxxxx-------------------
 
-volumeSlider.addEventListener('input', () => {
-    gainNode1ro.gain.value = volumeSlider.value;
-    volumeValue.textContent = volumeSlider.value;
-});
-
-
-
 bpmSlider.addEventListener('input', () => {
     bpmValue.textContent = bpmSlider.value;
     bpm.value = bpmSlider.value;
@@ -101,12 +94,12 @@ class simplePiano {
         panNode.pan.value = 0; // 1 es completamente a la derecha
         gainNode.gain.value = 0.14;
         oscillator.start(audioContext.currentTime + inicio);
-        console.log("inicio: "+ inicio); let notaTest=(notaMusical.duration*1000);
+        console.log("inicio: " + inicio); let notaTest = (notaMusical.duration * 1000);
         oscillator.stop(audioContext.currentTime + inicio + notaTest);
-        console.log("fin: "+ (audioContext.currentTime + inicio + notaTest));
+        console.log("fin: " + (audioContext.currentTime + inicio + notaTest));
         //gainNode.gain.linearRampToValueAtTime();
         //gainNode.gain.exponentialRampToValueAtTime();
-        oscillator.onended=function(){window.alert("Terminose");};
+        oscillator.onended = function () { window.alert("Terminose"); };
     }
 }
 function creaInstrumento(instrumentoNombre) {
@@ -271,6 +264,8 @@ var semiFusa = new notaMusical("semiFusa", 1, 0.0625, "none");
 //-----------------------------
 
 
+
+
 function startsSong() {
 
     // Obtén el contexto de audio
@@ -292,7 +287,16 @@ function startsSong() {
         gainNode1ro.gain.value = volumeSlider_osc1.value;
         volumeValue_osc1.textContent = volumeSlider_osc1.value;
     });
-    
+
+    volumeSlider.addEventListener('input', () => {
+        gainNode1ro.gain.value = volumeSlider.value;
+        volumeValue.textContent = volumeSlider.value;
+
+    });
+
+
+
+
     const oscillator2do = audioContext.createOscillator();
     oscillator2do.frequency.setValueAtTime(80, audioContext.currentTime);
     oscillator2do.type = 'sine';
@@ -350,106 +354,15 @@ function startsSong() {
 
     // Inicia el oscilador
     function startOscillator() {
-          oscillator1ro.start();
-        oscillator2do.start();
-                oscillator3ro.start();
-               oscillator4to.start();
-                 oscillator5to.start();
+        oscillator1ro.start();
+        gainNode1ro.gain.value = 0.2;
 
-    }
-    /*
-      //FALTA CALCULAR LOS VALORES CON PUNTILLO
-      //(agrega la mitad del valor)
-      //-----------------------------
-      //window.alert("ARRANCA MELODIA");
-      playsANote(E3);
 
-      */
-    //var array_Melodia = [C3];
-    var array_Melodia = [E3, E3, E3, negra, E3, E3, E3, negra, E3, G3, D3, E3, negra, F3, F3, F3, F3, redonda, F3, E3, E3, E3, redonda, E3, D3, D3, E3, D3];
-    // var array_Melodia = [Hz1,Hz1,Hz1,Hz1,Hz1,Hz1,Hz1,Hz1,Hz1,Hz2,Hz2,Hz2,Hz2,Hz2,Hz3,Hz3,Hz3,Hz3,Hz3,Hz5,Hz5,Hz5,Hz5,Hz5,Hz5,Hz5,Hz5,Hz5,Hz5, Hz12,Hz12,Hz12,Hz12,Hz12   ]
-    //------------
-    // console.log(array_Melodia);
-    var snd = new notaMusical("snd", 120, 0.25, "none");
-    let pianoTest = new simplePiano();
-      pianoTest.creaSimplePiano(snd);
-
-        (array_Melodia);
-    // HAY QUE CONSTRUIR UN STEP BY STEP QUE USE EL BPM PARA PASAR 
-    // AL SIGUIENTE TIEMPO / NEGRA
-
-    function Sequencer(array_Melodia) {
-        var currentTime = audioContext.currentTime;
-        var pastTime = 0;
-    //    console.log("currentTime Sequencer: " + currentTime);
-        if (array_Melodia != null) {
-            pastTime = currentTime;
-      //         console.log("array_Melodia.length ->" + array_Melodia.length);
-            for (i = 0; i < array_Melodia.length; i++) {
-                // console.log("nomb " + array_Melodia[i].name);
-                //playsANote(array_Melodia[i]);
-                simplePiano.creaSimplePiano(array_Melodia[i], pastTime);
-                //        var nextNota = array_Melodia[i]; //console.log("nextNota: " + nextNota.name);console.log("duration: " + nextNota.duration);
-                //setTimeout(() => { }, nextNota.duration*1000);    
-                //                 window.alert("STOP");
-                //  setTimeout(() => { playsANote(nextNota); }, array_Melodia[i].duration*1000);
-                // setTimeout(() => {}, array_Melodia[i].duration*1000);    console.log("pastTime " + pastTime);
-                pastTime = pastTime + (array_Melodia[i].duration * 1000);
-                console.log("aca " + array_Melodia[i].name);
-            }
-        }
-    }
-
-    function playsANote(nota) {
-        if (nota != null) {
-
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const panNode = audioContext.createStereoPanner();
-            const gainNode = audioContext.createGain();
-            oscillator.connect(panNode);
-            panNode.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            oscillator.frequency.setValueAtTime(60, audioContext.currentTime);
-            oscillator.type = 'square';
-            panNode.pan.value = 0; // 1 es completamente a la derecha
-            gainNode.gain.value = 0.09;
-            oscillator.start();
-            oscillator.stop(audioContext.currentTime + (nota.duration * 1000));
-            console.log("joris")
-            /*
-            var pastTime = 0;
-            var currentTime = audioContext.currentTime;
-            //  console.log("currentTime: " + currentTime);
-           // pastTime = currentTime + (nota.duration * 1000);
-            console.log("pastTime: " + pastTime);
-            console.log("nota.duration: " + nota.duration);
-            // console.log("nota a tocar: " + nota.name);
-            // console.log("nota a tocar: " + nota.frequency);
-            const oscillator6 = audioContext.createOscillator();
-            oscillator6.type = 'sine';
-            oscillator6.frequency.value = nota.frequency;
-            const panNode6 = audioContext.createStereoPanner();
-            panNode6.pan.value = 0; // 1 es completamente a la derecha
-            oscillator6.connect(panNode6);
-            panNode6.connect(audioContext.destination);
-            const gainNode6 = audioContext.createGain();
-            gainNode6.gain.value = 0.4;
-            panNode6.connect(gainNode6);
-            gainNode6.connect(audioContext.destination);
-            oscillator6.start();
-            oscillator6.stop(currentTime + (nota.duration * 1000));
-    console.log("nota.duration: "+ nota.duration);
-
-            //var testTime = nota.duration * 1000;
-          //  pastTime = pastTime + (nota.duration * 1000);
-            // oscillator6.stop(audioContext.currentTime + testTime);
-            //window.alert("STOP");
-            // console.log("testTime: "+testTime);
-            //console.log("pastTime: " + pastTime);
-            */
-        }
-        else { oscillator6.disconnect(); console.log("Desconectado nota != null else") }
+       
+        //    oscillator2do.start();
+        //          oscillator3ro.start();
+        //       oscillator4to.start();
+        //       oscillator5to.start();
     }
 }//CIERRA CODIGO
 
@@ -457,42 +370,8 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
-
-function calculatesRoundDuration(bpm) {
-    console.log("Redonda= " + ((60000 / bpm) * 4));
-    return (60000 / bpm) * 4;
-}
-function calculatesWhiteDuration(bpm) {
-    console.log("blanca= " + ((60000 / bpm) * 2));
-    return ((60000 / bpm) * 2);
-}
-function calculatesBlackDuration(bpm) {
-    console.log("negra= " + (60000 / bpm));
-    return 60000 / bpm;
-}
-function calculatesCorcheaDuration(bpm) {
-    console.log("corchea= " + (60000 / bpm) / 2);
-    return (60000 / bpm) / 2;
-}
-function calculatesSemiCorcheaDuration(bpm) {
-    console.log("semi corchea= " + (60000 / bpm) / 4);
-    return (60000 / bpm) / 4;
-}
-function calculatesFusaDuration(bpm) {
-    console.log("fusa= " + (60000 / bpm) / 8);
-    return (60000 / bpm) / 8;
-}
-function calculatesSemiFusaDuration(bpm) {
-    console.log("semi fusa= " + (60000 / bpm) / 16);
-    return (60000 / bpm) / 16;
-}
-//window.addEventListener("load", muestra_array_Canciones);
-//player_1_label.innerHTML = "000 Texto de prueba de cancion nombre";
-/*
 function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
 }
-*/
