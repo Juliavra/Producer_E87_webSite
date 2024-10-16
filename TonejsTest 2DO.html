@@ -27,13 +27,17 @@
         <button id="starts_context" onclick="startOscillator()">START</button>
         <button id="stopsOscillator" onclick="stopsOscillator()">STOP</button>
         vol 1
-        <input type="range" id="volume1" min="0" max="2" value="1" step="0.01" />
+        <input type="range" id="volume1" min="0" max="2" value="0" step="0.01" />
         pan 1
         <input type="range" id="panner1" min="-1" max="1" value="0" step="0.01" />
         vol 2
-        <input type="range" id="volume2" min="0" max="2" value="1" step="0.01" />
+        <input type="range" id="volume2" min="0" max="2" value="0" step="0.01" />
         pan 2
         <input type="range" id="panner2" min="-1" max="1" value="0" step="0.01" />
+        eq1 frec
+        <input type="range" id="eq1" min="0" max="3000" value="0" step="1" />
+        eq1 Q
+        <input type="range" id="eq1Q" min="0" max="1000" value="0" step="1" />
     </main>
     <script src="js/ToneTest2do.js"></script>
 </body>

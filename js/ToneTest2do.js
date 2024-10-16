@@ -13,31 +13,56 @@ oscillator1ro.connect(panNode1ro);
 const gainNode1ro = audioContext.createGain();
 gainNode1ro.gain.value = -1;
 panNode1ro.connect(gainNode1ro);
-gainNode1ro.connect(audioContext.destination);
+//gainNode1ro.connect(audioContext.destination);
 
-const eq1=audioContext.createBiquadFilter();
-eq1.type = "peaking";
-eq1.frequency.value = 1000;
-eq1.gain.value = 25;
+const eq1 = audioContext.createBiquadFilter();
+eq1.type = "bandpass";
+eq1.frequency.value = 100;
+eq1.gain.value = -2;
 eq1.Q.value = 100;
+eq1.detune.value = 10; 
+//eq1.getFrequencyResponse();
 
+
+
+const eq1freq = document.querySelector("#eq1");
+eq1freq.addEventListener(
+  "input",
+  () => {
+    eq1.frequency.value = eq1freq.value;
+    console.log("eq1 freq: " + eq1.frequency.value);
+  },
+  false
+);
+
+const eq1Q = document.querySelector("#eq1Q");
+eq1Q.addEventListener(
+  "input",
+  () => {
+    eq1.Q.value = eq1Q.value;
+    console.log("eq1 Q: " + eq1.Q.value);
+  },
+  false
+);
+gainNode1ro.connect(eq1);
+eq1.connect(audioContext.destination);
 
 const volumeControl1 = document.querySelector("#volume1");
 volumeControl1.addEventListener(
-"input",
-() => {
-  gainNode1ro.gain.value = volumeControl1.value;
-},
-false
+  "input",
+  () => {
+    gainNode1ro.gain.value = volumeControl1.value;
+  },
+  false
 );
 
 const panControl1 = document.querySelector("#panner1");
 panControl1.addEventListener(
-"input",
-() => {
-  panNode1ro.pan.value = panControl1.value;
-},
-false
+  "input",
+  () => {
+    panNode1ro.pan.value = panControl1.value;
+  },
+  false
 );
 
 // Crea el oscilador 2do 
@@ -55,40 +80,41 @@ gainNode2do.gain.value = -1;
 
 const volumeControl2 = document.querySelector("#volume2");
 volumeControl2.addEventListener(
-"input",
-() => {
-  gainNode2do.gain.value = volumeControl2.value;
-},
-false
+  "input",
+  () => {
+    gainNode2do.gain.value = volumeControl2.value;
+  },
+  false
 );
 
 const panControl2 = document.querySelector("#panner2");
 panControl2.addEventListener(
-"input",
-() => {
-  panNode2do.pan.value = panControl2.value;
-},
-false
+  "input",
+  () => {
+    panNode2do.pan.value = panControl2.value;
+  },
+  false
 );
 
 
-startOscillator();
+//startOscillator();
 
 //stopsOscillator();
 
 
 // Inicia el oscilador
 function startOscillator() {
-  oscillator1ro.start();
-  oscillator2do.start();
   gainNode2do.gain.value = -1;
   gainNode1ro.gain.value = -1;
+  oscillator1ro.start();
+  //oscillator2do.start();
+
 }
 
 function stopsOscillator() {
   //console.log("stopsOscillator");
   oscillator1ro.stop();
-  oscillator2do.stop();
+  //oscillator2do.stop();
 }
 
 
