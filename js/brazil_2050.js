@@ -490,8 +490,7 @@ audio.addEventListener("timeupdate", function () {
 
 ruta_archivo.addEventListener("change", function(e) {
  // console.log("se cargo cancion abajo");
-
-  var target = e.currentTarget;
+ var target = e.currentTarget;
  var file = target.files[0];
  var reader = new FileReader();
  
