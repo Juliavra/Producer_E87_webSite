@@ -1,10 +1,23 @@
 
+var audio = document.getElementById("myAudio");
+audio.src ="https://juliavra.github.io/Producer_E87_webSite/audio/03 Phased Sleppy Noise Loop.mp3";
+
+
+
+/*
+var cancion_3 = {
+  id: "03 Phased Sleppy Noise Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/03 Phased Sleppy Noise Loop.mp3"
+};
+*/
+
+
 console.log("ARRANCA");
 // Obtén el contexto de audio
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 // Crea el oscilador 1ro 
 const oscillator1ro = audioContext.createOscillator();
-oscillator1ro.frequency.setValueAtTime(79, audioContext.currentTime);
+oscillator1ro.frequency.setValueAtTime(80, audioContext.currentTime);
 oscillator1ro.type = 'sine';
 const panNode1ro = audioContext.createStereoPanner();
 panNode1ro.pan.value = 0; // 1 es completamente a la derecha
@@ -15,16 +28,15 @@ gainNode1ro.gain.value = -1;
 panNode1ro.connect(gainNode1ro);
 //gainNode1ro.connect(audioContext.destination);
 
+// Crea el eq1 
 const eq1 = audioContext.createBiquadFilter();
 eq1.type = "bandpass";
-eq1.frequency.value = 100;
-eq1.gain.value = -2;
-eq1.Q.value = 100;
-eq1.detune.value = 10; 
+eq1.frequency.value = 1000;
+eq1.gain.value = 1;
+eq1.Q.value = 1;
+eq1.detune.value = 0; 
 //eq1.getFrequencyResponse();
-
-
-
+// Crea control frec para el eq1 
 const eq1freq = document.querySelector("#eq1");
 eq1freq.addEventListener(
   "input",
@@ -34,7 +46,7 @@ eq1freq.addEventListener(
   },
   false
 );
-
+// Crea control Q para el eq1 
 const eq1Q = document.querySelector("#eq1Q");
 eq1Q.addEventListener(
   "input",
@@ -44,9 +56,24 @@ eq1Q.addEventListener(
   },
   false
 );
-gainNode1ro.connect(eq1);
-eq1.connect(audioContext.destination);
 
+
+
+
+const dly = audioContext.createDelay(5.0);
+
+
+
+
+
+
+
+// Conecta gain1 al eq1 
+gainNode1ro.connect(eq1);
+eq1.connect(dly);
+dly.connect(audioContext.destination);
+
+// Crea control volumen para el osc1 
 const volumeControl1 = document.querySelector("#volume1");
 volumeControl1.addEventListener(
   "input",
@@ -55,7 +82,7 @@ volumeControl1.addEventListener(
   },
   false
 );
-
+// Crea control paneo para el osc1 
 const panControl1 = document.querySelector("#panner1");
 panControl1.addEventListener(
   "input",
@@ -77,7 +104,7 @@ const gainNode2do = audioContext.createGain();
 panNode2do.connect(gainNode2do);
 gainNode2do.connect(audioContext.destination);
 gainNode2do.gain.value = -1;
-
+// Crea control volumen para el osc2 
 const volumeControl2 = document.querySelector("#volume2");
 volumeControl2.addEventListener(
   "input",
@@ -86,7 +113,7 @@ volumeControl2.addEventListener(
   },
   false
 );
-
+// Crea control paneo para el osc2
 const panControl2 = document.querySelector("#panner2");
 panControl2.addEventListener(
   "input",
@@ -96,7 +123,8 @@ panControl2.addEventListener(
   false
 );
 
-
+audio.load();
+audio.play();
 //startOscillator();
 
 //stopsOscillator();
@@ -107,8 +135,9 @@ function startOscillator() {
   gainNode2do.gain.value = -1;
   gainNode1ro.gain.value = -1;
   oscillator1ro.start();
+ // repeatedGreetings();
+  //oscillator1ro.stop();
   //oscillator2do.start();
-
 }
 
 function stopsOscillator() {
@@ -116,6 +145,60 @@ function stopsOscillator() {
   oscillator1ro.stop();
   //oscillator2do.stop();
 }
+
+
+
+
+//---------------------------------------------
+//------------------------------------------------
+//----------------------------------------------------
+//----------------------------------------------------
+
+
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+const repeatedGreetings = async () => {
+  await sleep(1000)
+  console.log("First")
+//  await sleep(2000)
+ // console.log("Second")
+//  await sleep(3000)
+ // console.log("Third")
+}
+
+repeatedGreetings()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
