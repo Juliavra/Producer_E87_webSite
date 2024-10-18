@@ -61,7 +61,7 @@ eq1Q.addEventListener(
 
 
 const dly = audioContext.createDelay(5.0);
-
+dly.delayTime = 2;
 
 
 

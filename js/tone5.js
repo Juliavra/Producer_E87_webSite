@@ -20,19 +20,19 @@ document.getElementById("playButton").addEventListener("click", function() {
   }
 });
 */
-/*
+
 //--------------------
 // Crea control volumen para el osc1 
 const volumeControl1 = document.querySelector("#volume1");
 volumeControl1.addEventListener(
   "input",
   () => {
-   synth.volume = volumeControl1.value;
+   synth1.volume = volumeControl1.value;
   },
   false
 );
 //-----------------
-*/
+/**/
 
 /*
 //const player = new Tone.Player("https://tonejs.github.io/audio/drum-samples/conga-rhythm.mp3");
@@ -101,7 +101,7 @@ synth1.triggerRelease(now + 4 + 2.9);
 */
 
 const seq = new Tone.Sequence((time, note) => {
-//	synth1.triggerAttackRelease(note, 2, time);
+	synth1.triggerAttackRelease(note, 2, time);
 	// subdivisions are given as subarrays
 }, ["C4", ["E4", "D4"], "E4", "G5",["G6", "A6"],"E2","E2","E2","E1","E1","E0","E2","G2","A2"]).start(0);
 //}, ["C4", "E4", "C4", "D4",[["G4"], "G4"], "A4", "G4"]).start(0);
@@ -112,8 +112,9 @@ const volumeControl2 = document.querySelector("#volume2");
 volumeControl2.addEventListener(
   "input",
   () => {
- //   synth1.volume = volumeControl2.value;
-   console.log("volumeControl2.value:" + volumeControl2.value);
+    synth2.volume.value = volumeControl2.value;
+    console.log("synth2.volume:" + synth2.volume.value);
+    console.log("volumeControl2.value:" + volumeControl2.value);
   },
   false
 );
@@ -129,8 +130,8 @@ const synth2 = new Tone.Synth({
 
 
 const seq2 = new Tone.Sequence((time, note) => {
-//	synth2.triggerAttackRelease(note, "8n", time);
- }, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],"E2",[[["E2"]]],"E2","E1","E1","E0","E2","G2","A2"]).start(0);
+	synth2.triggerAttackRelease(note, "8n", time);
+ }, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],"E2","E2","E2","E1","E1","E0","E2","G2","A2"]).start(0);
 
 const synth3 = new Tone.Synth({
   oscillator : {
@@ -142,7 +143,7 @@ const synth3 = new Tone.Synth({
 }).toDestination();
 
 const seq3 = new Tone.Sequence((time, note) => {
-//	synth3.triggerAttackRelease(note, "32n", time);
+	synth3.triggerAttackRelease(note, "32n", time);
 }, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],"E2","E2","E2","E1","E1","E0","E2","G2","A2"]).start(0);
 
 const synth4 = new Tone.Synth({
@@ -171,7 +172,7 @@ Tone.Transport.start();
 Tone.Transport.bpm.value = 120;
 
 
-
+ 
 
 
 /*
