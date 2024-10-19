@@ -1247,7 +1247,7 @@ function soltar(event) {
         }
         else {
           player_1.src = `${link}`;
-          console.log("local == flase.src: " + `${link}`);
+          console.log("local == false.src: " + `${link}`);
         }
         player_1.load();
         currentAudioControlKeys = 1;

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tone November</title>
+
+</head>
+
+<body>
+
+    <h1>Tone.js Test November</h1>
+    <br><br>
+    <audio id="myAudio"></audio>
+
+    <label for="volume">Synth Volume1:</label>
+
+    <input type="range" id="volumeA" min="-10" max="0" step="1" value="-24">
+    <br><br>
+    Synth1 Volume2
+    <input type="range" id="volumeB" min="-10" max="0" step="1" value="-24">
+
+    <button id="playButton" onclick="startsSong()">Play</button>
+    <button id="stopButton" onclick="stopsSong()">Stop</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
+        integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!--<script src="js/toneNovember.js"></script> -->
+    <script src="js/tone7.js"></script>
+    <!--
+    <script src="https://unpkg.com/tone"></script>
+    -->
+
+</body>
+
+</html>
