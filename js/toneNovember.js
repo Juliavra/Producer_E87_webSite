@@ -1,11 +1,7 @@
-﻿  //CREAR AUDIO CONTEXT
-  const now = Tone.now();
-  Tone.Transport.start();
+﻿  const now = Tone.now();
   Tone.Transport.bpm.value = 120;
-
   var player_1 = document.getElementById("myAudio");
   player_1.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/03 Phased Sleppy Noise Loop.mp3`;
-    
   const synthFM = new Tone.FMSynth().toDestination();
   const synthAM = new Tone.AMSynth().toDestination();
 
