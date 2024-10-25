@@ -1,13 +1,3 @@
-const volumeSlider_osc1 = document.getElementById('volume_osc1');
-const volumeValue1 = document.getElementById('volumeValue_osc1');
-
-const volumeSlider_osc2 = document.getElementById('volume_osc2');
-const volumeValue2 = document.getElementById('volumeValue_osc2');
-//---------------xxxxxxx-------------------
-
-
-//--------------------xxxx-------------------
-// CANCION CLASS
 class notaMusical {
     constructor(name, frequency, duration, instrument) {
         this.name = name;
@@ -30,24 +20,7 @@ class simplePiano {
         this.tipo = tipo; //"viento", "cuerda", "percusion", "electricos", "sintesis"
 
     }
-    static creaSimplePiano() {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const panNode = audioContext.createStereoPanner();
-        const gainNode = audioContext.createGain();
-        oscillator.connect(panNode);
-        panNode.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        oscillator.frequency.setValueAtTime(60, audioContext.currentTime);
-        oscillator.type = 'square';
-        panNode.pan.value = 0; // 1 es completamente a la derecha
-        gainNode.gain.value = 0.14;
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 3);
-        window.alert("YO");
-
-    }
-    static creaSimplePiano(notaMusical) {
+    creaSimplePiano(notaMusical) {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const oscillator = audioContext.createOscillator();
         const panNode = audioContext.createStereoPanner();
@@ -59,8 +32,14 @@ class simplePiano {
         oscillator.type = 'square';
         panNode.pan.value = 0; // 1 es completamente a la derecha
         gainNode.gain.value = 0.14;
-        oscillator.start(audioContext.currentTime + 2);
-        oscillator.stop(audioContext.currentTime + 2 + notaMusical.duration);
+        oscillator.start(audioContext.currentTime);
+        var duracion = calculatesNoteDuration(notaMusical.duration, bpmSlider.value);
+        //oscillator.stop(audioContext.currentTime + (notaMusical.duration));
+        console.log(" duracion: " + duracion);
+        console.log("currentTime + duracion: " + (audioContext.currentTime + duracion));
+        oscillator.stop(audioContext.currentTime + duracion);
+        //   console.log(" currentTime + duracion: " + (audioContext.currentTime + duracion))
+        oscillator.onended = function () { console.log("terminó: " + (audioContext.currentTime + duracion)); };
     }
     static creaSimplePiano(notaMusical, inicio) {//Inicio = cantidad de ms transcurridos de la cancion
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -84,10 +63,8 @@ class simplePiano {
     }
 }
 function creaInstrumento(instrumentoNombre) {
-
     if (instrumentoNombre != null) {
         if (instrumentoNombre === "simplePiano") {
-
         }
     }
     else { console.log("instrumentoNombre ES NULO"); }
@@ -243,44 +220,177 @@ var semiCorchea = new notaMusical("semiCorchea", 0, 0.25, "none");
 var fusa = new notaMusical("fusa", 1, 1 / 0.125, "none");
 var semiFusa = new notaMusical("semiFusa", 1, 0.0625, "none");
 //-----------------------------
+//DOM
+const volumeSlider_osc1 = document.getElementById('volume_osc1');
+const volumeValue_osc1 = document.getElementById('volumeValue_osc1');
+const bpmSlider = document.getElementById('bpm');
+const bpmValue = document.getElementById('bpmValue');
+const valorRedonda = document.getElementById('valorRedonda');
+const valorBlanca = document.getElementById('valorBlanca');
+const valorNegra = document.getElementById('valorNegra');
+const valorCorchea = document.getElementById('valorCorchea');
+const valorSemiCorchea = document.getElementById('valorSemiCorchea');
+const valorFusa = document.getElementById('valorFusa');
+const valorSemiFusa = document.getElementById('valorSemiFusa');
+//---------------xxxxxxx-------------------
+bpmSlider.addEventListener('input', () => {
+    bpmValue.textContent = bpmSlider.value;
+    bpm.value = bpmSlider.value;
+    valorRedonda.textContent = calculatesNoteDuration(4, bpm.value);
+    valorBlanca.textContent = calculatesNoteDuration(2, bpm.value);
+    valorNegra.textContent = calculatesNoteDuration(1, bpm.value);
+    valorCorchea.textContent = calculatesNoteDuration(0.5, bpm.value);
+    valorSemiCorchea.textContent = calculatesNoteDuration(0.25, bpm.value);
+    valorFusa.textContent = calculatesNoteDuration(0.125, bpm.value);
+    valorSemiFusa.textContent = calculatesNoteDuration(0.0625, bpm.value);
+});
+volumeSlider_osc1.addEventListener('input', () => {
+    volumeValue_osc1.textContent = volumeSlider_osc1.value;
+});
 
 function startsSong() {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
+    volumeSlider_osc1.addEventListener('input', () => {
+        gainNode1ro.gain.value = volumeSlider_osc1.value;
+ //       volumeValue_osc1.textContent = volumeSlider_osc1.value;
+    });
+    //--------------------xxxx-------------------
+    // Crea el oscilador 1ro 
     const oscillator1ro = audioContext.createOscillator();
     oscillator1ro.frequency.setValueAtTime(79, audioContext.currentTime);
     oscillator1ro.type = 'sine';
-    oscillator1ro.gain = -100;
     const panNode1ro = audioContext.createStereoPanner();
-    panNode1ro.pan.value = 1; // 1 es completamente a la derecha
+    panNode1ro.pan.value = -1; // 1 es completamente a la derecha
     oscillator1ro.connect(panNode1ro);
     panNode1ro.connect(audioContext.destination);
     const gainNode1ro = audioContext.createGain();
-    gainNode1ro.gain.value = -100;
+  //  gainNode1ro.gain.value = 0;
     panNode1ro.connect(gainNode1ro);
     gainNode1ro.connect(audioContext.destination);
 
     const oscillator2do = audioContext.createOscillator();
     oscillator2do.frequency.setValueAtTime(80, audioContext.currentTime);
     oscillator2do.type = 'sine';
-    oscillator2do.gain = -100;
     const panNode2do = audioContext.createStereoPanner();
     panNode2do.pan.value = -1; // 1 es completamente a la derecha
     oscillator2do.connect(panNode2do);
     panNode2do.connect(audioContext.destination);
     const gainNode2do = audioContext.createGain();
-    gainNode2do.gain.value = -100;
+    gainNode2do.gain.value = 0;
     panNode2do.connect(gainNode2do);
     gainNode2do.connect(audioContext.destination)
+
+    const oscillator3ro = audioContext.createOscillator();
+    oscillator3ro.frequency.setValueAtTime(100, audioContext.currentTime);
+    oscillator3ro.type = 'sine';
+    const panNode3ro = audioContext.createStereoPanner();
+    panNode3ro.pan.value = 1; // 1 es completamente a la derecha
+    oscillator3ro.connect(panNode3ro);
+    panNode3ro.connect(audioContext.destination);
+    const gainNode3ro = audioContext.createGain();
+    gainNode3ro.gain.value = 0;
+    panNode3ro.connect(gainNode3ro);
+    gainNode3ro.connect(audioContext.destination);
+
+    const oscillator4to = audioContext.createOscillator();
+    oscillator4to.frequency.setValueAtTime(102, audioContext.currentTime);
+    oscillator4to.type = 'sine';
+    const panNode4to = audioContext.createStereoPanner();
+    panNode4to.pan.value = 1; // 1 es completamente a la derecha
+    oscillator4to.connect(panNode4to);
+    panNode4to.connect(audioContext.destination);
+    const gainNode4to = audioContext.createGain();
+    gainNode4to.gain.value = 0;
+    panNode4to.connect(gainNode4to);
+    gainNode4to.connect(audioContext.destination);
+
+    const oscillator5to = audioContext.createOscillator();
+    oscillator5to.frequency.setValueAtTime(60, audioContext.currentTime);
+    oscillator5to.type = 'sine';
+    const panNode5to = audioContext.createStereoPanner();
+    panNode5to.pan.value = 0; // 1 es completamente a la derecha
+    oscillator5to.connect(panNode5to);
+    panNode5to.connect(audioContext.destination);
+    const gainNode5to = audioContext.createGain();
+    gainNode5to.gain.value = 0.5;
+    panNode5to.connect(gainNode5to);
+    gainNode5to.connect(audioContext.destination);
+
+    const oscillator6 = audioContext.createOscillator();
+    oscillator6.type = 'sine';
+
     //----xxx-----
 
     startOscillator();
 
     // Inicia el oscilador
     function startOscillator() {
-        oscillator1ro.start();
-        //gainNode1ro.gain.value = 0.2;
-        //gainNode2do.gain.value = 0.2;
-        oscillator2do.start();
+            oscillator1ro.start();
+        //oscillator2do.start();
+        //        oscillator3ro.start();
+        //       oscillator4to.start();
+        //        oscillator5to.start();
+
     }
+    /*
+      //FALTA CALCULAR LOS VALORES CON PUNTILLO
+      //(agrega la mitad del valor)
+      //-----------------------------
+      //window.alert("ARRANCA MELODIA");
+      playsANote(E3);
+
+      */
+    // var array_Melodia = [Hz1];
+    var array_Melodia = [E3, E3, E3, negra, E3, E3, E3, negra, E3, G3, D3, E3, negra, F3, F3, F3, F3, redonda, F3, E3, E3, E3, redonda, E3, D3, D3, E3, D3];
+    // var array_Melodia = [Hz1,Hz1,Hz1,Hz1,Hz1,Hz1,Hz1,Hz1,Hz1,Hz2,Hz2,Hz2,Hz2,Hz2,Hz3,Hz3,Hz3,Hz3,Hz3,Hz5,Hz5,Hz5,Hz5,Hz5,Hz5,Hz5,Hz5,Hz5,Hz5, Hz12,Hz12,Hz12,Hz12,Hz12   ]
+    //------------
+    // console.log(array_Melodia);
+    var snd = new notaMusical("snd", 120, 1, "none");
+    var silence = new notaMusical("silence", 0, 1, "none");
+    let pianoTest = new simplePiano();
+ //   pianoTest.creaSimplePiano(snd);
+
+
+
+
+
+
+    //Sequencer(array_Melodia);
+    // HAY QUE CONSTRUIR UN STEP BY STEP QUE USE EL BPM PARA PASAR 
+    // AL SIGUIENTE TIEMPO / NEGRA
+
+    function Sequencer(array_Melodia) {
+        var currentTime = audioContext.currentTime;
+        var pastTime = 0;
+        if (array_Melodia != null) {
+            pastTime = currentTime;
+            for (i = 0; i < array_Melodia.length; i++) {
+                simplePiano.creaSimplePiano(array_Melodia[i], currentTime);
+                //simplePiano.creaSimplePiano(array_Melodia[i], pastTime);
+
+                pastTime = pastTime + (array_Melodia[i].duration * 1000);
+                console.log("aca " + array_Melodia[i].name);
+                console.log("audioContext.currentTime " + audioContext.currentTime);
+            }
+        }
+    }
+
 }//CIERRA CODIGO
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+function calculatesNoteDuration(notaDuration, bpm) {
+    return (60000 / bpm) * notaDuration;
+}
+
+//window.addEventListener("load", muestra_array_Canciones);
+//player_1_label.innerHTML = "000 Texto de prueba de cancion nombre";
+/*
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}
+*/

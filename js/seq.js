@@ -9,6 +9,7 @@ function createOscillator(freq) {
   oscillator.type = 'sine';
   oscillator.frequency.setValueAtTime(freq, audioContext.currentTime);
   oscillator.connect(audioContext.destination);
+  //oscillator.gain = -32;
   return oscillator;
 }
 
@@ -18,7 +19,7 @@ function playSound(freq, startTime, duration) {
   const gainNode = audioContext.createGain();
   oscillator.connect(gainNode);
   gainNode.connect(audioContext.destination);
-  gainNode.gain.value = -0.1;
+  gainNode.gain.value = -0.95;
   oscillator.start(startTime);
   oscillator.stop(startTime + duration);
 }
@@ -73,12 +74,6 @@ function startSequencer() {
       }
     }
   }
-
-
-
-
-
-
 
 }
 
