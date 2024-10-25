@@ -1,30 +1,11 @@
-const volumeSlider = document.getElementById('volume');
-const volumeValue = document.getElementById('volumeValue');
 const volumeSlider_osc1 = document.getElementById('volume_osc1');
-const volumeValue_osc1 = document.getElementById('volumeValue_osc1');
-const bpmSlider = document.getElementById('bpm');
-const bpmValue = document.getElementById('bpmValue');
-const valorRedonda = document.getElementById('valorRedonda');
-const valorBlanca = document.getElementById('valorBlanca');
-const valorNegra = document.getElementById('valorNegra');
-const valorCorchea = document.getElementById('valorCorchea');
-const valorSemiCorchea = document.getElementById('valorSemiCorchea');
-const valorFusa = document.getElementById('valorFusa');
-const valorSemiFusa = document.getElementById('valorSemiFusa');
+const volumeValue1 = document.getElementById('volumeValue_osc1');
+
+const volumeSlider_osc2 = document.getElementById('volume_osc2');
+const volumeValue2 = document.getElementById('volumeValue_osc2');
 //---------------xxxxxxx-------------------
 
-bpmSlider.addEventListener('input', () => {
-    bpmValue.textContent = bpmSlider.value;
-    bpm.value = bpmSlider.value;
-    valorRedonda.textContent = calculatesRoundDuration(bpm.value);
-    valorBlanca.textContent = calculatesWhiteDuration(bpm.value);
-    valorNegra.textContent = calculatesBlackDuration(bpm.value);
-    valorCorchea.textContent = calculatesCorcheaDuration(bpm.value);
-    valorSemiCorchea.textContent = calculatesSemiCorcheaDuration(bpm.value);
-    valorFusa.textContent = calculatesFusaDuration(bpm.value);
-    valorSemiFusa.textContent = calculatesSemiFusaDuration(bpm.value);
 
-});
 //--------------------xxxx-------------------
 // CANCION CLASS
 class notaMusical {
@@ -263,9 +244,6 @@ var fusa = new notaMusical("fusa", 1, 1 / 0.125, "none");
 var semiFusa = new notaMusical("semiFusa", 1, 0.0625, "none");
 //-----------------------------
 
-
-
-
 function startsSong() {
 
     // Obtén el contexto de audio
@@ -275,7 +253,7 @@ function startsSong() {
     oscillator1ro.frequency.setValueAtTime(79, audioContext.currentTime);
     oscillator1ro.type = 'sine';
     const panNode1ro = audioContext.createStereoPanner();
-    panNode1ro.pan.value = -1; // 1 es completamente a la derecha
+    panNode1ro.pan.value = 1; // 1 es completamente a la derecha
     oscillator1ro.connect(panNode1ro);
     panNode1ro.connect(audioContext.destination);
     const gainNode1ro = audioContext.createGain();
@@ -286,14 +264,8 @@ function startsSong() {
     volumeSlider_osc1.addEventListener('input', () => {
         gainNode1ro.gain.value = volumeSlider_osc1.value;
         volumeValue_osc1.textContent = volumeSlider_osc1.value;
+        console.log("volumeSlider_osc1.value: " + volumeSlider_osc1.value);
     });
-
-    volumeSlider.addEventListener('input', () => {
-        gainNode1ro.gain.value = volumeSlider.value;
-        volumeValue.textContent = volumeSlider.value;
-
-    });
-
 
 
 
@@ -308,6 +280,16 @@ function startsSong() {
     gainNode2do.gain.value = 0;
     panNode2do.connect(gainNode2do);
     gainNode2do.connect(audioContext.destination)
+
+    volumeSlider_osc2.addEventListener('input', () => {
+        gainNode1ro.gain.value = volumeSlider_osc2.value;
+        volumeValue_osc1.textContent = volumeSlider_osc2.value;
+        console.log("volumeSlider_osc2.value: " + volumeSlider_osc2.value);
+    });
+
+
+
+
 
     const oscillator3ro = audioContext.createOscillator();
     oscillator3ro.frequency.setValueAtTime(100, audioContext.currentTime);
@@ -356,13 +338,14 @@ function startsSong() {
     function startOscillator() {
         oscillator1ro.start();
         gainNode1ro.gain.value = 0.2;
-
-
-       
-        //    oscillator2do.start();
-        //          oscillator3ro.start();
-        //       oscillator4to.start();
-        //       oscillator5to.start();
+        gainNode2do.gain.value = 0.2;
+        gainNode3ro.gain.value = 0.2;
+        gainNode4to.gain.value = 0.2;
+        gainNode5to.gain.value = 0.2;
+        oscillator2do.start();
+      //  oscillator3ro.start();
+     //   oscillator4to.start();
+    //    oscillator5to.start();
     }
 }//CIERRA CODIGO
 /*

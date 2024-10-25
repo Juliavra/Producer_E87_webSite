@@ -1,30 +1,8 @@
 ﻿
 function startsSong() {
 
-	const player = new Tone.Player("https://tonejs.github.io/audio/berklee/gong_1.mp3").toDestination();
-	const player2 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/01%20Dark%20Ringy%20Short%20Loop.mp3").toDestination();
 
-	Tone.loaded().then(() => {
-		player.start();
-		player2.start();
-	});
-
-	//https://juliavra.github.io/Producer_E87_webSite/TonejsTest.html
-
-	
-
-	/*
-const synth=new Tone.AMSynth().toDestination();
-synth.detune.value =1200;
-synth.harmonicity.value=1.5;
-
-//synth.triggerAttackRelease("C4","2n");
-
-const now = Tone.now();
-synth.triggerAttack("C4", now);
-synth.triggerRelease(now + 2);
-*/
-	/*
+/*
 	const sampler = new Tone.Sampler({
 		urls: {
 			"01": "01 Dark Ringy Short Loop.mp3",
@@ -44,16 +22,14 @@ synth.triggerRelease(now + 2);
 	})
 	
 	*/
-
-
-
-	/*
+	
 	Tone.Transport.bpm.value = 120;
-	
-	
+	/*
 	// create two monophonic synths
 	const synthA = new Tone.FMSynth().toDestination();
 	const synthB = new Tone.AMSynth().toDestination();
+	synthA.volume.value = -15;
+	synthB.volume.value = -15;
 	//play a note every quarter-note
 	const loopA = new Tone.Loop(time => {
 		synthA.triggerAttackRelease("C2", "8n", time);
@@ -63,26 +39,17 @@ synth.triggerRelease(now + 2);
 		synthB.triggerAttackRelease("C4", "8n", time);
 	}, "4n").start("8n");
 	// the loops start when the Transport is started
-	Tone.Transport.start()
+	Tone.Transport.start().stop(8);
 	// ramp up to 800 bpm over 10 seconds
-	Tone.Transport.bpm.rampTo(800, 10);
+	Tone.Transport.bpm.rampTo(200, 7);
 	
-	const PolySynth= new Tone.PolySynth(Tone.Synth).toDestination();
-	const nowPoly = Tone.now()
-	PolySynth.triggerAttack("D4", nowPoly);
-	PolySynth.triggerAttack("F4", nowPoly + 0.5);
-	PolySynth.triggerAttack("A4", nowPoly + 1);
-	PolySynth.triggerAttack("C5", nowPoly + 1.5);
-	PolySynth.triggerAttack("E5", nowPoly + 2);
-	PolySynth.triggerRelease(["D4", "F4", "A4", "C5", "E5"], nowPoly + 4);
+	*/
 	
-	
-	const player = new Tone.Player("https://tonejs.github.io/audio/berklee/gong_1.mp3").toDestination();
-	Tone.loaded().then(() => {
-		player.start();
-	});
-	
-	
+
+//------------------------------------------------------
+//------------------------------------------------------
+//SAMPLER
+/*		
 	const sampler = new Tone.Sampler({
 		urls: {
 			"C4": "C4.mp3",
@@ -97,18 +64,9 @@ synth.triggerRelease(now + 2);
 	Tone.loaded().then(() => {
 		sampler.triggerAttackRelease(["Eb4", "G4", "Bb4"], 4);
 	})
-	
-	
-	const player2 = new Tone.Player({
-		url: "https://tonejs.github.io/audio/berklee/gurgling_theremin_1.mp3",
-		loop: true,
-		autostart: true,
-	})
-	//create a distortion effect
-	const distortion = new Tone.Distortion(0.4).toDestination();
-	//connect a player to the distortion
-	player.connect(distortion);
-	
+	//------------------------------------------------------
+	//------------------------------------------------------
+
 	
 	const player3 = new Tone.Player({
 		url: "https://tonejs.github.io/audio/drum-samples/loops/ominous.mp3",
@@ -121,13 +79,18 @@ synth.triggerRelease(now + 2);
 	player3.connect(filter);
 	player3.connect(feedbackDelay);
 	
-	
+	*/
 	const osc = new Tone.Oscillator().toDestination();
 	// start at "C4"
-	osc.frequency.value = "C4";
+	osc.frequency.value = "C0";
+	osc.volume.value = -18;
 	// ramp to "C2" over 2 seconds
-	osc.frequency.rampTo("C2", 2);
+	osc.frequency.rampTo("C7", 5);
 	// start the oscillator for 2 seconds
-	osc.start().stop("+3");
-	*/
+	osc.start().stop("+5.1");
+	
+	osc.frequency.value = "C5";
+	osc.frequency.rampTo("C-2", 5);
+	// start the oscillator for 2 seconds
+	osc.start(5.1).stop("+5.1");
 }

@@ -1,4 +1,27 @@
 ﻿function startsSong() {
+
+
+  setInterval(() => {
+    console.log(Tone.immediate());
+  }, 5000);
+
+  
+
+/*
+  const delay = new Tone.Delay().toDestination();
+  delay.volume = -15;
+  const delayLFO = new Tone.LFO(0.5, 0.1, 1).connect(delay.delayTime);
+  delayLFO.volume = -35;
+//  delayLFO.start();
+  const pulse = new Tone.PulseOscillator().connect(delay);
+  pulse.volume = -35;
+ // pulse.start();
+
+  // the change in delayTime causes the pitch to go up and down
+
+*/
+
+
   //SUB LOW INTRO
   const bassline = [
     { 'time': 0, 'note': 'A1', 'duration': '0:2' },
@@ -45,7 +68,7 @@
     { 'time': '5:3', 'note': 'C3', 'duration': '0:0:1' },
     { 'time': '6:3', 'note': 'C3', 'duration': '0:0:1' },
     { 'time': '7:3', 'note': 'C3', 'duration': '0:0:1' },
-    { 'time': '10:0:1', 'note': 'D3', 'duration': '0:0:1' },
+    { 'time': '10:1', 'note': 'D3', 'duration': '0:0:1' },
     { 'time': '11:1', 'note': 'D3', 'duration': '0:0:1' },
     { 'time': '12:1', 'note': 'D3', 'duration': '0:0:1' },
     { 'time': '13:1', 'note': 'D3', 'duration': '0:0:1' },
@@ -67,7 +90,7 @@
 
   const keyPart = new Tone.Part(function (time, note) {
     key1.triggerAttackRelease(note.note, note.duration, time);
-  }, keyline).start(23).stop(60);
+  }, keyline).start(23).stop(45);
 
   const keyline2 = [
     { 'time': '0:3', 'note': 'F3', 'duration': '0:0:1' },
@@ -78,7 +101,7 @@
     { 'time': '5:3', 'note': 'C#3', 'duration': '0:0:1' },
     { 'time': '6:3', 'note': 'C#3', 'duration': '0:0:1' },
     { 'time': '7:3', 'note': 'C#3', 'duration': '0:0:1' },
-    { 'time': '10:0:1', 'note': 'F3', 'duration': '0:0:1' },
+    { 'time': '10:1', 'note': 'F3', 'duration': '0:0:1' },
     { 'time': '11:1', 'note': 'F3', 'duration': '0:0:1' },
     { 'time': '12:1', 'note': 'F3', 'duration': '0:0:1' },
     { 'time': '13:1', 'note': 'F3', 'duration': '0:0:1' },
@@ -100,7 +123,7 @@
 
   const keyPart2 = new Tone.Part(function (time, note) {
     key2.triggerAttackRelease(note.note, note.duration, time);
-  }, keyline2).start(23).stop(60);
+  }, keyline2).start(23).stop(45);
 
   const keyline3 = [
     { 'time': '0:3', 'note': 'A3', 'duration': '0:0:1' },
@@ -113,7 +136,7 @@
     { 'time': '7:3', 'note': 'G3', 'duration': '0:0:1' },
   //  { 'time': '8:3', 'note': 'A3', 'duration': '0:0:1' },
    // { 'time': '9:3', 'note': 'A3', 'duration': '0:0:1' },
-    { 'time': '10:0:1', 'note': 'A3', 'duration': '0:0:1' },
+    { 'time': '10:1', 'note': 'A3', 'duration': '0:0:1' },
     { 'time': '11:1', 'note': 'A3', 'duration': '0:0:1' },
     { 'time': '12:1', 'note': 'A3', 'duration': '0:0:1' },
     { 'time': '13:1', 'note': 'G3', 'duration': '0:0:1' },
@@ -135,7 +158,7 @@
 
   const keyPart3 = new Tone.Part(function (time, note) {
     key3.triggerAttackRelease(note.note, note.duration, time);
-  }, keyline3).start(23).stop(60);
+  }, keyline3).start(23).stop(45);
 
   //-----------------------------------
   //-----------------------------------
@@ -151,7 +174,7 @@
 
   const seq4 = new Tone.Sequence((time, note) => {
     synth4.triggerAttackRelease(note, "2n", time);
-  }, ["A1", "F1", "D1", "F1"]).start(8).stop(60);
+  }, ["A1", "F1", "D1", "F1"]).start(8).stop(45);
   //-----------------------------------
   //-----------------------------------
   //BD
@@ -308,17 +331,17 @@
 
   const hhPatternPart = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
-  }, hhPattern).start(15).stop(60);
+  }, hhPattern).start(15).stop(45);
   const hhPatternPart_1_copia = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
-  }, hhPattern).start(22).stop(60);
+  }, hhPattern).start(22).stop(45);
   const hhPatternPart_1_copia2 = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
-  }, hhPattern).start(29).stop(60);
+  }, hhPattern).start(29).stop(45);
 
   const hhPatternPart2 = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
-  }, hhPattern2).start(8).stop(60);
+  }, hhPattern2).start(8).stop(45);
 
   //----------xxxx---------------
 
@@ -352,7 +375,8 @@
       type : "fatsawtooth"
     }
   }).toDestination();
-  
+  console.log("bass:" );
+  console.log(bass.get());
 
    Tone.Transport.start();
   Tone.Transport.bpm.value = 180;
