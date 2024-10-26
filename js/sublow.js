@@ -2,14 +2,42 @@
   setInterval(() => {
     console.log(Tone.immediate());
   }, 5000);
-  const pingPong = new Tone.PingPongDelay("4n", 0.2).toDestination();
+ // const pingPong = new Tone.PingPongDelay("4n", 0.2).toDestination();
   const feedbackDelay = new Tone.FeedbackDelay("2n.", 0.13).toDestination();
   feedbackDelay.volume = -9;
+
+
+	const pingPong = new Tone.PingPongDelay({
+    delayTime: "4n",
+    feedback: 0.2,
+    wet: 0.5,
+  }).toDestination();
+
+
+
+
 
   const pingPong_HH = new Tone.PingPongDelay("2n", 0.092).toDestination();
   const feedbackDelay_HH = new Tone.FeedbackDelay("2n.", 0.43).connect(pingPong_HH);
   feedbackDelay.volume = -9;
 
+  console.log(Tone.Transport.sampleTime);
+
+//--------------------------------
+/*const vol = new Tone.Volume(-6).toDestination();
+const osc = new Tone.Oscillator().connect(vol).start();
+vol.volume.value = -20;
+// mute the output
+vol.mute = true;
+*/
+//-------------------------------------------
+const toneMeter = new Tone.Meter({ channelCount: 2 });
+feedbackDelay.connect(toneMeter);
+
+meter({
+  tone: toneMeter,
+  parent: document.querySelector("#content"),
+});
 
 
 
