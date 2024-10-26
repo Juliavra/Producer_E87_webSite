@@ -1,11 +1,17 @@
 ﻿function startsSong() {
-
-
   setInterval(() => {
     console.log(Tone.immediate());
   }, 5000);
+  const pingPong = new Tone.PingPongDelay("4n", 0.2).toDestination();
+  const feedbackDelay = new Tone.FeedbackDelay("2n.", 0.13).toDestination();
+  feedbackDelay.volume = -9;
 
-  
+  const pingPong_HH = new Tone.PingPongDelay("2n", 0.092).toDestination();
+  const feedbackDelay_HH = new Tone.FeedbackDelay("2n.", 0.43).connect(pingPong_HH);
+  feedbackDelay.volume = -9;
+
+
+
 
 /*
   const delay = new Tone.Delay().toDestination();
@@ -18,10 +24,7 @@
  // pulse.start();
 
   // the change in delayTime causes the pitch to go up and down
-
 */
-
-
   //SUB LOW INTRO
   const bassline = [
     { 'time': 0, 'note': 'A1', 'duration': '0:2' },
@@ -35,6 +38,24 @@
   const bassline2 = [
     { 'time': 0, 'note': 'A1', 'duration': '0:2' },
     { 'time': '0:2', 'note': 'F1', 'duration': '0:2' },
+    { 'time': '1:2', 'note': 'D1', 'duration': '1:1' },
+    { 'time': '2:1', 'note': 'D0', 'duration': '0:1:0' },
+    { 'time': '2:2', 'note': 'D0', 'duration': '1:0' },
+    { 'time': '2:3', 'note': 'F1', 'duration': '1:0' },
+
+  ];
+  const bassline3 = [
+    { 'time': '0:0', 'note': 'A1', 'duration': '0:1' },
+    { 'time': '0:2', 'note': 'F1', 'duration': '0:1' },
+    { 'time': '1:2', 'note': 'D1', 'duration': '1:1' },
+    { 'time': '2:1', 'note': 'D0', 'duration': '0:1:0' },
+    { 'time': '2:2', 'note': 'D0', 'duration': '1:0' },
+    { 'time': '2:3', 'note': 'F1', 'duration': '1:0' },
+
+  ];
+  const bassline4 = [
+    { 'time': '0:0', 'note': 'A1', 'duration': '0:3' },
+    { 'time': '0:4', 'note': 'F1', 'duration': '0:1' },
     { 'time': '1:2', 'note': 'D1', 'duration': '1:1' },
     { 'time': '2:1', 'note': 'D0', 'duration': '0:1:0' },
     { 'time': '2:2', 'note': 'D0', 'duration': '1:0' },
@@ -58,6 +79,27 @@
   const bassPart2 = new Tone.Part(function (time, note) {
     bass.triggerAttackRelease(note.note, note.duration, time);
   }, bassline2).start(10);
+  
+  const bassPart3 = new Tone.Part(function (time, note) {
+    bass.triggerAttackRelease(note.note, note.duration, time);
+  }, bassline3).start(20);
+  const bassPart4 = new Tone.Part(function (time, note) {
+    bass.triggerAttackRelease(note.note, note.duration, time);
+  }, bassline4).start(30);
+
+  const bassPart5 = new Tone.Part(function (time, note) {
+    bass.triggerAttackRelease(note.note, note.duration, time);
+  }, bassline).start(40);
+
+  const bassPart6 = new Tone.Part(function (time, note) {
+    bass.triggerAttackRelease(note.note, note.duration, time);
+  }, bassline2).start(50);
+  const bassPart7 = new Tone.Part(function (time, note) {
+    bass.triggerAttackRelease(note.note, note.duration, time);
+  }, bassline3).start(60);
+  const bassPart8 = new Tone.Part(function (time, note) {
+    bass.triggerAttackRelease(note.note, note.duration, time);
+  }, bassline4).start(70);
 
   const keyline = [
     { 'time': '0:3', 'note': 'D3', 'duration': '0:0:1' },
@@ -76,6 +118,14 @@
     { 'time': '15:1', 'note': 'C3', 'duration': '0:0:1' },
     { 'time': '16:1', 'note': 'C3', 'duration': '0:0:1' },
     { 'time': '17:1', 'note': 'C3', 'duration': '0:0:1' },
+    { 'time': '18:1', 'note': 'D3', 'duration': '0:0:1' },
+    { 'time': '19:1', 'note': 'D3', 'duration': '0:0:1' },
+    { 'time': '20:1', 'note': 'D3', 'duration': '0:0:1' },
+    { 'time': '21:1', 'note': 'D3', 'duration': '0:0:1' },
+    { 'time': '22:1', 'note': 'C3', 'duration': '0:0:1' },
+    { 'time': '23:1', 'note': 'C3', 'duration': '0:0:1' },
+    { 'time': '24:1', 'note': 'C3', 'duration': '0:0:1' },
+    { 'time': '25:1', 'note': 'C3', 'duration': '0:0:1' },
     
   ];
 
@@ -86,11 +136,11 @@
       spread: 40,
       type: "sine"
     }
-  }).toDestination();
+  }).connect(pingPong);
 
   const keyPart = new Tone.Part(function (time, note) {
     key1.triggerAttackRelease(note.note, note.duration, time);
-  }, keyline).start(23).stop(45);
+  }, keyline).start(23).stop(90);
 
   const keyline2 = [
     { 'time': '0:3', 'note': 'F3', 'duration': '0:0:1' },
@@ -109,6 +159,14 @@
     { 'time': '15:1', 'note': 'C#3', 'duration': '0:0:1' },
     { 'time': '16:1', 'note': 'C#3', 'duration': '0:0:1' },
     { 'time': '17:1', 'note': 'C#3', 'duration': '0:0:1' },
+    { 'time': '18:1', 'note': 'F3', 'duration': '0:0:1' },
+    { 'time': '19:1', 'note': 'F3', 'duration': '0:0:1' },
+    { 'time': '20:1', 'note': 'F3', 'duration': '0:0:1' },
+    { 'time': '21:1', 'note': 'F3', 'duration': '0:0:1' },
+    { 'time': '22:1', 'note': 'C#3', 'duration': '0:0:1' },
+    { 'time': '23:1', 'note': 'C#3', 'duration': '0:0:1' },
+    { 'time': '24:1', 'note': 'C#3', 'duration': '0:0:1' },
+    { 'time': '25:1', 'note': 'C#3', 'duration': '0:0:1' },
 
   ];
 
@@ -119,11 +177,11 @@
       spread: 40,
       type: "sine"
     }
-  }).toDestination();
+  }).connect(pingPong);
 
   const keyPart2 = new Tone.Part(function (time, note) {
     key2.triggerAttackRelease(note.note, note.duration, time);
-  }, keyline2).start(23).stop(45);
+  }, keyline2).start(23).stop(90);
 
   const keyline3 = [
     { 'time': '0:3', 'note': 'A3', 'duration': '0:0:1' },
@@ -134,8 +192,6 @@
     { 'time': '5:3', 'note': 'G3', 'duration': '0:0:1' },
     { 'time': '6:3', 'note': 'G3', 'duration': '0:0:1' },
     { 'time': '7:3', 'note': 'G3', 'duration': '0:0:1' },
-  //  { 'time': '8:3', 'note': 'A3', 'duration': '0:0:1' },
-   // { 'time': '9:3', 'note': 'A3', 'duration': '0:0:1' },
     { 'time': '10:1', 'note': 'A3', 'duration': '0:0:1' },
     { 'time': '11:1', 'note': 'A3', 'duration': '0:0:1' },
     { 'time': '12:1', 'note': 'A3', 'duration': '0:0:1' },
@@ -144,6 +200,14 @@
     { 'time': '15:1', 'note': 'G3', 'duration': '0:0:1' },
     { 'time': '16:1', 'note': 'G3', 'duration': '0:0:1' },
     { 'time': '17:1', 'note': 'G3', 'duration': '0:0:1' },
+    { 'time': '18:1', 'note': 'A3', 'duration': '0:0:1' },
+    { 'time': '19:1', 'note': 'A3', 'duration': '0:0:1' },
+    { 'time': '20:1', 'note': 'A3', 'duration': '0:0:1' },
+    { 'time': '21:1', 'note': 'G3', 'duration': '0:0:1' },
+    { 'time': '22:1', 'note': 'G3', 'duration': '0:0:1' },
+    { 'time': '23:1', 'note': 'G3', 'duration': '0:0:1' },
+    { 'time': '24:1', 'note': 'G3', 'duration': '0:0:1' },
+    { 'time': '25:1', 'note': 'G3', 'duration': '0:0:1' },
 
   ];
 
@@ -154,11 +218,11 @@
       spread: 40,
       type: "sine"
     }
-  }).toDestination();
+  }).connect(pingPong);
 
   const keyPart3 = new Tone.Part(function (time, note) {
     key3.triggerAttackRelease(note.note, note.duration, time);
-  }, keyline3).start(23).stop(45);
+  }, keyline3).start(23).stop(90);
 
   //-----------------------------------
   //-----------------------------------
@@ -174,7 +238,7 @@
 
   const seq4 = new Tone.Sequence((time, note) => {
     synth4.triggerAttackRelease(note, "2n", time);
-  }, ["A1", "F1", "D1", "F1"]).start(8).stop(45);
+  }, ["A1", "F1", "D1", "F1"]).start(8).stop(80);
   //-----------------------------------
   //-----------------------------------
   //BD
@@ -231,7 +295,7 @@
 
   const lowPass = new Tone.Filter({
     frequency: 4000,
-  }).toDestination();
+  }).connect(feedbackDelay);
 
   const snareDrum = new Tone.NoiseSynth({
     volume: -24,
@@ -287,21 +351,36 @@
 //HH
 
   const hhPattern = [
-    { 'duration': '2n', 'time': '0:0' },
-    { 'duration': '2n.', 'time': '0:1' },
-    { 'duration': '2n.', 'time': '0:2' },
-    { 'duration': '2n.', 'time': '0:2:1' },
-    { 'duration': '2n.', 'time': '0:2:2' },
-    { 'duration': '2n.', 'time': '0:2:3' },
-    { 'duration': '2n.', 'time': '0:3' },
-    { 'duration': '2n', 'time': '1:0' },
-    { 'duration': '2n.', 'time': '1:1' },
-    { 'duration': '2n.', 'time': '1:2' },
-    { 'duration': '2n.', 'time': '1:2:1' },
-    { 'duration': '2n.', 'time': '1:2:2' },
-    { 'duration': '2n.', 'time': '1:2:3' },
-    { 'duration': '2n.', 'time': '1:3' },
-    { 'duration': '2n.', 'time': '1:4:2' },
+    { 'duration': '0:0:1', 'time': '0:0' },
+    { 'duration': '0:0:1', 'time': '0:1' },
+    { 'duration': '0:0:1', 'time': '0:2' },
+    { 'duration': '0:0:1', 'time': '0:2:1' },
+    { 'duration': '0:0:1', 'time': '0:2:2' },
+    { 'duration': '0:0:1', 'time': '0:2:3' },
+    { 'duration': '0:0:1', 'time': '0:3' },
+    { 'duration': '0:0:1', 'time': '1:0' },
+    { 'duration': '0:0:1', 'time': '1:1' },
+    { 'duration': '0:0:1', 'time': '1:2' },
+    { 'duration': '0:0:1', 'time': '1:2:1' },
+    { 'duration': '0:0:1', 'time': '1:2:2' },
+    { 'duration': '0:0:1', 'time': '1:2:3' },
+    { 'duration': '0:0:1', 'time': '1:3' },
+    { 'duration': '0:0:1', 'time': '1:4:2' },
+    { 'duration': '0:0:1', 'time': '2:0' },
+    { 'duration': '0:0:1', 'time': '2:1' },
+    { 'duration': '0:0:1', 'time': '2:2' },
+    { 'duration': '0:0:1', 'time': '2:2:1' },
+    { 'duration': '0:0:1', 'time': '2:2:2' },
+    { 'duration': '0:0:1', 'time': '2:2:3' },
+    { 'duration': '0:0:1', 'time': '2:3' },
+    { 'duration': '0:0:1', 'time': '3:0' },
+    { 'duration': '0:0:1', 'time': '3:1' },
+    { 'duration': '0:0:1', 'time': '3:2' },
+    { 'duration': '0:0:1', 'time': '3:2:1' },
+    { 'duration': '0:0:1', 'time': '3:2:2' },
+    { 'duration': '0:0:1', 'time': '3:2:3' },
+    { 'duration': '0:0:1', 'time': '3:3' },
+    { 'duration': '0:0:1', 'time': '3:4:2' },
   ];
 
   const hhPattern2 = [
@@ -323,26 +402,58 @@
     { 'duration': '2n.', 'time': '1:2:3' },
     { 'duration': '2n.', 'time': '1:3' },
     { 'duration': '2n.', 'time': '1:4' },
+    {'duration': '2n.', 'time': '2:0' },
+    { 'duration': '2n.', 'time': '2:1:1' },
+    { 'duration': '2n.', 'time': '2:1:2' },
+    { 'duration': '2n.', 'time': '2:1:3' },
+    { 'duration': '2n.', 'time': '2:1:4' },
+    { 'duration': '2n.', 'time': '2:2' },
+    { 'duration': '2n.', 'time': '2:2:1' },
+    { 'duration': '2n.', 'time': '2:2:2' },
+    { 'duration': '2n.', 'time': '2:2:3' },
+    { 'duration': '2n.', 'time': '2:3' },
+    { 'duration': '2n', 'time': '3:0' },
+    { 'duration': '2n.', 'time': '3:1' },
+    { 'duration': '2n.', 'time': '3:2' },
+    { 'duration': '2n.', 'time': '3:2:1' },
+    { 'duration': '2n.', 'time': '3:2:2' },
+    { 'duration': '2n.', 'time': '3:2:3' },
+    { 'duration': '2n.', 'time': '3:3' },
+    { 'duration': '2n.', 'time': '3:4' },
     /**/
   ];
-
-  const noiseSynth = new Tone.NoiseSynth().toDestination();
-  noiseSynth.volume.value = -24;
+  const HH_Pass = new Tone.Filter({
+    frequency: 12000,
+  }).connect(feedbackDelay_HH);
+  const noiseSynth = new Tone.NoiseSynth().connect(HH_Pass);
+  noiseSynth.volume.value = -40;
 
   const hhPatternPart = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
-  }, hhPattern).start(15).stop(45);
+  }, hhPattern).start(15).stop(90);
   const hhPatternPart_1_copia = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
-  }, hhPattern).start(22).stop(45);
+  }, hhPattern).start(22).stop(90);
   const hhPatternPart_1_copia2 = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
-  }, hhPattern).start(29).stop(45);
+  }, hhPattern).start(29).stop(90);
 
   const hhPatternPart2 = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
-  }, hhPattern2).start(8).stop(45);
+  }, hhPattern2).start(8).stop(90);
 
+  const hhPatternPart2_2 = new Tone.Part(function (time, note) {
+    noiseSynth.triggerAttackRelease(note.duration, time);
+  }, hhPattern2).start(36).stop(90);
+  const hhPatternPart2_3 = new Tone.Part(function (time, note) {
+    noiseSynth.triggerAttackRelease(note.duration, time);
+  }, hhPattern2).start(43).stop(90);
+  const hhPatternPart2_4 = new Tone.Part(function (time, note) {
+    noiseSynth.triggerAttackRelease(note.duration, time);
+  }, hhPattern2).start(50).stop(90);
+  const hhPatternPart2_5 = new Tone.Part(function (time, note) {
+    noiseSynth.triggerAttackRelease(note.duration, time);
+  }, hhPattern).start(57).stop(90);
   //----------xxxx---------------
 
   document.getElementById("playButton").addEventListener("click", function () {

@@ -7,9 +7,8 @@ function startsSong() {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
     const oscillator1ro = audioContext.createOscillator();
-    oscillator1ro.frequency.setValueAtTime(79, audioContext.currentTime);
+    oscillator1ro.frequency.setValueAtTime(20, audioContext.currentTime);
     oscillator1ro.type = 'sine';
-    //oscillator1ro.gain = -100;
     const panNode1ro = audioContext.createStereoPanner();
     panNode1ro.pan.value = 1; // 1 es completamente a la derecha
     oscillator1ro.connect(panNode1ro);
@@ -20,7 +19,7 @@ function startsSong() {
     gainNode1ro.connect(audioContext.destination);
 
     const oscillator2do = audioContext.createOscillator();
-    oscillator2do.frequency.setValueAtTime(80, audioContext.currentTime);
+    oscillator2do.frequency.setValueAtTime(20, audioContext.currentTime);
     oscillator2do.type = 'sine';
     const panNode2do = audioContext.createStereoPanner();
     panNode2do.pan.value = -1; // 1 es completamente a la derecha
@@ -29,11 +28,11 @@ function startsSong() {
     const gainNode2do = audioContext.createGain();
     panNode2do.connect(gainNode2do);
     gainNode2do.connect(audioContext.destination)
-    gainNode2do.gain.value = -0.11;
+    gainNode2do.gain.value = -0.31;
     startOscillator();
 
     function startOscillator() {
         oscillator1ro.start();
-        oscillator2do.start();
+        oscillator2do.start(1);
     }
 }//CIERRA CODIGO

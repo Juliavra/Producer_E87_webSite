@@ -1,21 +1,4 @@
 ﻿function startsSong() {
-  
- /*
-  const osc = new Tone.Oscillator().toDestination();
-  osc.volume.value = -32;
-	// start at "C4"
-	osc.frequency.value = "C2";
-	// ramp to "C2" over 2 seconds
-	osc.frequency.rampTo("C-2", 4);
-	// start the oscillator for 2 seconds
-	osc.start(0).stop("+3");
-*/
-
-
-	
-
-
-
   setInterval(() => {
     console.log(Tone.immediate());
   }, 1000);
