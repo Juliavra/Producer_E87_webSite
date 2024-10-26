@@ -350,14 +350,6 @@
   //-----------------------------------
   //HH
 
-  const hiPass = new Tone.Filter({
-    frequency: 8000,
-    type: "highpass"
-  }).connect(feedbackDelay);
-
-
-
-
   const hhPattern = [
     { 'duration': '0:0:1', 'time': '0:0' },
     { 'duration': '0:0:1', 'time': '0:1' },
@@ -434,6 +426,10 @@
     frequency: 12000,
     type: "highpass"
   }).connect(feedbackDelay_HH);
+
+console.log("SETEAR  const HH_Pass highpass");
+
+
   const noiseSynth = new Tone.NoiseSynth().connect(HH_Pass);
   noiseSynth.volume.value = -21;
 
@@ -502,7 +498,7 @@
   console.log(lowPass.get());
 
   console.log("hiPass:");
-  console.log(hiPass.get());
+  console.log(HH_Pass.get());
 
   Tone.Transport.start();
   Tone.Transport.bpm.value = 180;
