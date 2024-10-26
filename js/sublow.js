@@ -13,21 +13,21 @@
 
 
 
-/*
-  const delay = new Tone.Delay().toDestination();
-  delay.volume = -15;
-  const delayLFO = new Tone.LFO(0.5, 0.1, 1).connect(delay.delayTime);
-  delayLFO.volume = -35;
-//  delayLFO.start();
-  const pulse = new Tone.PulseOscillator().connect(delay);
-  pulse.volume = -35;
- // pulse.start();
-
-  // the change in delayTime causes the pitch to go up and down
-*/
+  /*
+    const delay = new Tone.Delay().toDestination();
+    delay.volume = -15;
+    const delayLFO = new Tone.LFO(0.5, 0.1, 1).connect(delay.delayTime);
+    delayLFO.volume = -35;
+  //  delayLFO.start();
+    const pulse = new Tone.PulseOscillator().connect(delay);
+    pulse.volume = -35;
+   // pulse.start();
+  
+    // the change in delayTime causes the pitch to go up and down
+  */
   //SUB LOW INTRO
   const bassline = [
-    { 'time': 0, 'note': 'A1', 'duration': '0:2' },
+    { 'time': '0:0', 'note': 'A1', 'duration': '0:2' },
     { 'time': '0:2', 'note': 'F1', 'duration': '0:2' },
     { 'time': '1:2', 'note': 'D1', 'duration': '1:1' },
     { 'time': '2:1', 'note': 'D0', 'duration': '0:0:1' },
@@ -36,7 +36,7 @@
 
   ];
   const bassline2 = [
-    { 'time': 0, 'note': 'A1', 'duration': '0:2' },
+    { 'time': '0:0', 'note': 'A1', 'duration': '0:2' },
     { 'time': '0:2', 'note': 'F1', 'duration': '0:2' },
     { 'time': '1:2', 'note': 'D1', 'duration': '1:1' },
     { 'time': '2:1', 'note': 'D0', 'duration': '0:1:0' },
@@ -79,7 +79,7 @@
   const bassPart2 = new Tone.Part(function (time, note) {
     bass.triggerAttackRelease(note.note, note.duration, time);
   }, bassline2).start(10);
-  
+
   const bassPart3 = new Tone.Part(function (time, note) {
     bass.triggerAttackRelease(note.note, note.duration, time);
   }, bassline3).start(20);
@@ -126,7 +126,7 @@
     { 'time': '23:1', 'note': 'C3', 'duration': '0:0:1' },
     { 'time': '24:1', 'note': 'C3', 'duration': '0:0:1' },
     { 'time': '25:1', 'note': 'C3', 'duration': '0:0:1' },
-    
+
   ];
 
   const key1 = new Tone.Synth({
@@ -289,9 +289,9 @@
     kickDrum.triggerAttackRelease('C1', '8n', time)
   }, kicks).start(0);
 
-//-----------------------------------
-//-----------------------------------
-//SD
+  //-----------------------------------
+  //-----------------------------------
+  //SD
 
   const lowPass = new Tone.Filter({
     frequency: 4000,
@@ -346,9 +346,17 @@
     snareDrum.triggerAttackRelease('4n', time)
   }, snares).start(0);
 
-//-----------------------------------
-//-----------------------------------
-//HH
+  //-----------------------------------
+  //-----------------------------------
+  //HH
+
+  const hiPass = new Tone.Filter({
+    frequency: 8000,
+    type: "highpass"
+  }).connect(feedbackDelay);
+
+
+
 
   const hhPattern = [
     { 'duration': '0:0:1', 'time': '0:0' },
@@ -402,7 +410,7 @@
     { 'duration': '2n.', 'time': '1:2:3' },
     { 'duration': '2n.', 'time': '1:3' },
     { 'duration': '2n.', 'time': '1:4' },
-    {'duration': '2n.', 'time': '2:0' },
+    { 'duration': '2n.', 'time': '2:0' },
     { 'duration': '2n.', 'time': '2:1:1' },
     { 'duration': '2n.', 'time': '2:1:2' },
     { 'duration': '2n.', 'time': '2:1:3' },
@@ -424,9 +432,10 @@
   ];
   const HH_Pass = new Tone.Filter({
     frequency: 12000,
+    type: "highpass"
   }).connect(feedbackDelay_HH);
   const noiseSynth = new Tone.NoiseSynth().connect(HH_Pass);
-  noiseSynth.volume.value = -40;
+  noiseSynth.volume.value = -21;
 
   const hhPatternPart = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
@@ -479,16 +488,30 @@
   */
 
   const synth2 = new Tone.Synth({
-    oscillator : {
+    oscillator: {
       volume: -27,
       count: 3,
       spread: 70,
-      type : "fatsawtooth"
+      type: "fatsawtooth"
     }
   }).toDestination();
-  console.log("bass:" );
+  console.log("bass:");
   console.log(bass.get());
 
-   Tone.Transport.start();
+  console.log("lowpass:");
+  console.log(lowPass.get());
+
+  console.log("hiPass:");
+  console.log(hiPass.get());
+
+  Tone.Transport.start();
   Tone.Transport.bpm.value = 180;
 }
+
+
+/*
+BiquadFilterType[] = ["lowpass", "highpass", "bandpass",
+			"lowshelf", "highshelf", "notch", "allpass", "peaking"];
+		assert(types.indexOf(type) !== -1, `Invalid filter type: ${type}`);
+		this._filter.type = type;
+*/
