@@ -33,12 +33,12 @@ vol.mute = true;
 //-------------------------------------------
 const toneMeter = new Tone.Meter({ channelCount: 2 });
 feedbackDelay.connect(toneMeter);
-
+/*
 meter({
   tone: toneMeter,
   parent: document.querySelector("#content"),
 });
-
+*/
 
 
   /*
@@ -125,10 +125,10 @@ meter({
   const bassPart7 = new Tone.Part(function (time, note) {
     bass.triggerAttackRelease(note.note, note.duration, time);
   }, bassline3).start(60);
-  const bassPart8 = new Tone.Part(function (time, note) {
+ /* const bassPart8 = new Tone.Part(function (time, note) {
     bass.triggerAttackRelease(note.note, note.duration, time);
   }, bassline4).start(70);
-
+*/
   const keyline = [
     { 'time': '0:3', 'note': 'D3', 'duration': '0:0:1' },
     { 'time': '1:3', 'note': 'D3', 'duration': '0:0:1' },
@@ -266,7 +266,7 @@ meter({
 
   const seq4 = new Tone.Sequence((time, note) => {
     synth4.triggerAttackRelease(note, "2n", time);
-  }, ["A1", "F1", "D1", "F1"]).start(8).stop(80);
+  }, ["A1", "F1", "D1", "F1"]).start(8).stop(76);
   //-----------------------------------
   //-----------------------------------
   //BD
@@ -487,6 +487,9 @@ console.log("SETEAR  const HH_Pass highpass");
   const hhPatternPart2_5 = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
   }, hhPattern).start(57).stop(90);
+  const hhPatternPart2_6 = new Tone.Part(function (time, note) {
+    noiseSynth.triggerAttackRelease(note.duration, time);
+  }, hhPattern).start(64).stop(90);
   //----------xxxx---------------
 
   document.getElementById("playButton").addEventListener("click", function () {
