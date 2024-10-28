@@ -1,12 +1,21 @@
 ﻿function startsSong() {
-  setInterval(() => {
+    setInterval(() => {
     console.log(Tone.immediate());
   }, 1000);
 
   const feedbackDelay = new Tone.FeedbackDelay("8n", 0.3).toDestination();
   feedbackDelay.volume = -9;
   const pingPong = new Tone.PingPongDelay("4n", 0.2).toDestination();
-/*
+
+// Crear un efecto de reverb
+const reverb = new Tone.Reverb({
+  decay:4,
+  wet: 0.4 // Nivel de mezcla del efecto
+}).toDestination(); // Conectar a la salida de audio
+reverb.generate();
+
+
+  /*
     const tomline = [
     { 'time': '0:0', 'note': 'A3', 'duration': '0:2' },
     { 'time': '0:2', 'note': 'F3', 'duration': '0:2' },
@@ -183,7 +192,10 @@
   ]
   const lowPass = new Tone.Filter({
     frequency: 4000,
-  }).connect(feedbackDelay);
+  }).connect(reverb);
+
+
+
 
   const snareDrum = new Tone.NoiseSynth({
     volume: -24,
