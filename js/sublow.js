@@ -13,10 +13,6 @@
     wet: 0.5,
   }).toDestination();
 
-
-
-
-
   const pingPong_HH = new Tone.PingPongDelay("2n", 0.092).toDestination();
   const feedbackDelay_HH = new Tone.FeedbackDelay("2n.", 0.43).connect(pingPong_HH);
   feedbackDelay.volume = -9;

@@ -157,13 +157,13 @@
  
   const synthBass = new Tone.Synth({
     oscillator: {
-      volume: -51,
+      volume: -31,
       count: 1,
       spread: 1,
       type: "sine"
     }
   }).toDestination();
-/*
+
   const bassC2_2 = [
     { 'time': '0:0', 'note': 'A2', 'duration': '1:2' },
     { 'time': '1:2', 'note': 'F2', 'duration': '0:2' },
@@ -176,16 +176,31 @@
   const bassC2Part1 = new Tone.Part(function (time, note) {
     bass.triggerAttackRelease(note.note, note.duration, time);
   }, bassC2_2).start(0);
-*/
 
-synthBass.triggerAttackRelease("C4", "2n.");
-//synthBass.frequency.value = 200;
-synthBass.frequency.rampTo("C7",9);
+  
+
   //-----------------------------------
   //-----------------------------------
   //-----------------------------------
   //-----------------------------------
   
+  const keyline = [
+    { 'time': '0:0', 'note': 'C4', 'duration': '16:0:0' },
+ 
+  ];
+
+  const key1 = new Tone.Synth({
+    oscillator: {
+      volume: -2,
+      count: 30,
+      spread: 100,
+      type: "square"
+    }
+  }).connect(pingPong);
+
+  const keyPart = new Tone.Part(function (time, note) {
+    key1.triggerAttackRelease(note.note, note.duration, time);
+  }, keyline).start(0).stop(16);
 
   //-----------------------------------
   //-----------------------------------
@@ -211,5 +226,5 @@ synthBass.frequency.rampTo("C7",9);
 
   Tone.Transport.start().stop(17);
   Tone.Transport.bpm.value = 120;
-  //Tone.Transport.bpm.rampTo(440, 3);
+  //Tone.Transport.bpm.rampTo(140, 3);
 }
