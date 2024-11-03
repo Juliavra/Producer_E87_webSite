@@ -10,7 +10,7 @@
 	const pingPong = new Tone.PingPongDelay({
     delayTime: "4n",
     feedback: 0.2,
-    wet: 0.5,
+    wet: 1,
   }).toDestination();
 
   const pingPong_HH = new Tone.PingPongDelay("2n", 0.092).toDestination();
