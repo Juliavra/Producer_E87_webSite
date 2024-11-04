@@ -4,6 +4,7 @@
   }, 1000);
 
   var volumen_directo_key = document.getElementById("volume_key");
+  var volume_key_text = document.getElementById("volume_key_text");
   const feedbackDelay = new Tone.FeedbackDelay("2n", 0.6).toDestination();
   feedbackDelay.volume = -9;
   /* const pingPong = new Tone.PingPongDelay("4n", 0.2).toDestination();
@@ -35,41 +36,55 @@
     pitchDecay: 7.1,
     volume: -9
   }).connect(tom_vol);
-
+/*
   const tomPart = new Tone.Part(function (time, note) {
     tom.triggerAttackRelease(note.duration, time);
     console.log("sd original:  ");
   }, tomline).start(0);
-
-  tom.fan(tom_vol_fxSend, tom_vol, reverb);
+/**/
+  tom.fan(tom_vol_fxSend, tom_vol);
 
   const keyline = [
     { 'time': '0:0', 'note': 'D3', 'duration': '14:0' },
 
   ];
 
+  const key1_vol = new Tone.Volume(-12).toDestination();
+  key1_vol.mute=true;
+  
   const key1 = new Tone.Synth({
     oscillator: {
-      volume: -21,
+      volume: -3,
       count: 3,
       spread: 40,
       type: "sine"
     }
-  }).toDestination();
+  }).connect(key1_vol);
 
   const keyPart = new Tone.Part(function (time, note) {
     key1.triggerAttackRelease(note.note, note.duration, time);
   }, keyline).start(0);
 
-  const key1_vol = new Tone.Volume(-12).toDestination();
-
+  volume_key_text.innerHTML=(`Volumen Key 1`);
 
   volumen_directo_key.addEventListener("change", function (e) {
-    key1_vol.volume = e.currentTarget.value;
-    volumen_directo_key.value = (e.currentTarget.value);
-    volume_key_value.innerHTML = volume_key_value.innerHTML = Math.round(`${e.currentTarget.value * 100}`);
-
+    key1_vol.volume.value = e.currentTarget.value;
+     volume_key_value.innerHTML = volume_key_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+console.log("key1_vol: " + key1_vol.volume.value);
   });
+
+
+/*
+  volume_1.addEventListener("change", function (e) {
+    audio.volume = e.currentTarget.value;
+    volume_1.value = (e.currentTarget.value);
+    volume_1_value.innerHTML = Math.round(`${e.currentTarget.value * 100}`);
+    
+  });
+*/
+
+
+
 
 
   Tone.Transport.start().stop(30);

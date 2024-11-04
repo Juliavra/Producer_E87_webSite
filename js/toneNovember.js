@@ -2,16 +2,21 @@
   Tone.Transport.bpm.value = 120;
   var player_1 = document.getElementById("myAudio");
   player_1.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/03 Phased Sleppy Noise Loop.mp3`;
-  const synthFM = new Tone.FMSynth().toDestination();
-  const synthAM = new Tone.AMSynth().toDestination();
-
+  const synthFM_vol = new Tone.Volume(-12).toDestination();
+  const synthAM_vol = new Tone.Volume(-12).toDestination();
+  const synthFM = new Tone.FMSynth().connect(synthFM_vol);
+  const synthAM = new Tone.AMSynth().connect(synthAM_vol);
+  synthAM_vol.mute = true;
+  synthFM_vol.mute = true;
+  /*
   const loopFM = new Tone.Loop((time) => {
     synthFM.triggerAttackRelease("A-2", "64n", time);
   }, "2n").start(0.315).stop("+8.25");
+*/
 
   const osc = new Tone.Oscillator().toDestination();
   osc.frequency.value = "C2";
-  osc.volume.value = -18;                     // start at "C4"
+  osc.volume.value = -68;                     // start at "C4"
   //osc.frequency.rampTo("C0",1 );                  // ramp to "C2" over 2 seconds
 
   osc.start().stop("+0.065");                        // start the oscillator for 2 seconds
@@ -58,14 +63,18 @@
   const distortion = new Tone.Distortion(0.7).toDestination();
   osc.connect(distortion);
   synthAM.connect(distortion);
+  synthAM.volume=-38;
+
+
 
   const loopB = new Tone.Loop((time) => {
     synthAM.triggerAttackRelease("C1", "16n", time);
   }, "32n").start(2).stop("+6");
   console.log("FIN: loopB");
 
-  const snareDrum = new Tone.NoiseSynth({
-    volume: -18,
+
+const snareDrum = new Tone.NoiseSynth({
+    volume: -32,
     noise: {
       type: 'white',
       playbackRate: 3,
@@ -105,5 +114,6 @@
 
 function startsSong() {
   Tone.Transport.start();
+  player_1.volume=0.325;
   player_1.play();
 }
