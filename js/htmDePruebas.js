@@ -11,9 +11,22 @@
   var fxreturn_key_text = document.getElementById("fxreturn_key_text");
   var fxreturn_key_value = document.getElementById("fxreturn_key_value");
   var fxreturn_key = document.getElementById("fxreturn_key");
+  var volume_bd = document.getElementById("volume_bd");
+  var volume_bd_text = document.getElementById("volume_bd_text");
+  var volume_bd_value = document.getElementById("volume_bd_value");
+  var fxsend_bd_text = document.getElementById("fxsend_bd_text");
+  var fxsend_bd_value = document.getElementById("fxsend_bd_value");
+  var fxsend_bd = document.getElementById("fxsend_bd");
+  var fxreturn_bd_text = document.getElementById("fxreturn_bd_text");
+  var fxreturn_bd_value = document.getElementById("fxreturn_bd_value");
+  var fxreturn_bd = document.getElementById("fxreturn_bd");
+
 
   const fxReturn_key1_vol = new Tone.Volume(-60).toDestination();
+  const fxReturn_bd2_vol = new Tone.Volume(-60).toDestination();
+  const bd2_vol = new Tone.Volume(-60).toDestination();
   const pingPong = new Tone.PingPongDelay("16n.", 0.7).connect(fxReturn_key1_vol);
+  const pingPong_bd2 = new Tone.PingPongDelay("4n.", 0.9).connect(fxReturn_bd2_vol);
   const distortion = new Tone.Distortion(0.7).toDestination();
   const keyline = [
     { 'time': '0:1', 'note': 'A3', 'duration': '0:1' },
@@ -57,10 +70,9 @@
     { 'time': '0:39', 'note': 'D3', 'duration': '0:3' },
     { 'time': '0:40', 'note': 'D3', 'duration': '0:1' },
   ];
-
   const key1_vol = new Tone.Volume(-60).toDestination();
   const fxSend_key1_vol = new Tone.Volume(-60).connect(pingPong);
-
+  const fxSend_bd2_vol = new Tone.Volume(-60).toDestination(pingPong_bd2);
   key1_vol.mute = true;
 
   const key1 = new Tone.Synth({
@@ -78,36 +90,59 @@
     key1.triggerAttackRelease(note.note, note.duration, time);
   }, keyline).start(0);
 
-  volume_key_text.innerHTML = (`Volumen Key 1`);
+  volume_key_text.innerHTML = (`Volume Key 1`);
+  volume_key_value.innerHTML = (`-60`);
   fxsend_key_text.innerHTML = (`FX Send Key 1`);
-  fxreturn_key_text.innerHTML = (`FX Return Key 1`);
+  fxSend_key_value.innerHTML = (`-60`);
+  fxreturn_key_text.innerHTML = (`FX Rtrn Key 1`);
+  fxreturn_key_value = (`-60`);
+  volume_bd_text.innerHTML = (`Volume Bd 2`);
+  volume_bd_value.innerHTML = (`-60`);
+  fxsend_bd_text.innerHTML = (`FXSend BD`);
+  fxsend_bd_value.innerHTML = (`-60`);
+  fxreturn_bd_text.innerHTML = (`FXRtrn BD`);
+  fxreturn_bd_value.innerHTML = (`-60`);
 
   volumen_directo_key.addEventListener("change", function (e) {
     key1_vol.volume.value = e.currentTarget.value;
     volume_key_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    //  console.log("key1_vol: " + key1_vol.volume.value);
   });
 
   fxSend_key.addEventListener("change", function (e) {
     fxSend_key1_vol.volume.value = e.currentTarget.value;
     fxSend_key_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    //console.log("fxSend_key1_vol: " + fxSend_key1_vol.volume.value);
   });
 
   fxreturn_key.addEventListener("change", function (e) {
     fxReturn_key1_vol.volume.value = e.currentTarget.value;
     fxreturn_key_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    console.log("fxreturn_key: " + fxReturn_key1_vol.volume.value);
   });
-  
-//-----------------------------------
+
+  volume_bd.addEventListener("change", function (e) {
+    bd2_vol.volume.value = e.currentTarget.value;
+    volume_bd_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  });
+
+  fxsend_bd.addEventListener("change", function (e) {
+    fxSend_bd2_vol.volume.value = e.currentTarget.value;
+    fxsend_bd_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  });
+
+  fxreturn_bd.addEventListener("change", function (e) {
+    fxReturn_bd2_vol.volume.value = e.currentTarget.value;
+    fxreturn_bd_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    console.log("fxReturn_bd2_vol: " + fxReturn_bd2_vol);
+  });
+
+  //-----------------------------------
   //-----------------------------------
   //BD
   const kickDrum = new Tone.MembraneSynth({
     volume: -18,
-  }).toDestination();
+  }).connect(bd2_vol);
 
   const kicks = [
+    { time: '0:0' },
     { time: '1:0' },
     { time: '2:0' },
     { time: '3:0' },
@@ -137,15 +172,101 @@
     { time: '27:0' },
     { time: '28:0' },
     { time: '29:0' },
+    { time: '30:0' },
+    { time: '31:0' },
+    { time: '32:0' },
+    { time: '33:0' },
+    { time: '34:0' },
+    { time: '35:0' },
+    { time: '36:0' },
+    { time: '37:0' },
+    { time: '38:0' },
+    { time: '39:0' },
+    { time: '40:0' },
+    { time: '41:0' },
+    { time: '42:0' },
+    { time: '43:0' },
+    { time: '44:0' },
+    { time: '45:0' },
+    { time: '46:0' },
+    { time: '47:0' },
+    { time: '48:0' },
+    { time: '49:0' },
+    { time: '50:0' },
+    { time: '51:0' },
+    { time: '52:0' },
+    { time: '53:0' },
+    { time: '54:0' },
+    { time: '55:0' },
+    { time: '56:0' },
+    { time: '57:0' },
+    { time: '58:0' },
+    { time: '59:0' },
+    { time: '60:0' },
+    { time: '61:0' },
+    { time: '62:0' },
+    { time: '63:0' },
+    { time: '64:0' },
+    { time: '65:0' },
+    { time: '66:0' },
+    { time: '67:0' },
+    { time: '68:0' },
+    { time: '69:0' },
+    { time: '70:0' },
+    { time: '71:0' },
+    { time: '72:0' },
+    { time: '73:0' },
+    { time: '74:0' },
+    { time: '75:0' },
+    { time: '76:0' },
+    { time: '77:0' },
+    { time: '78:0' },
+    { time: '79:0' },
+    { time: '80:0' },
+    { time: '81:0' },
+    { time: '82:0' },
+    { time: '83:0' },
+    { time: '84:0' },
+    { time: '85:0' },
+    { time: '86:0' },
+    { time: '87:0' },
+    { time: '88:0' },
+    { time: '89:0' },
+    { time: '90:0' },
+    { time: '91:0' },
+    { time: '92:0' },
+    { time: '93:0' },
+    { time: '94:0' },
+    { time: '95:0' },
+    { time: '96:0' },
+    { time: '97:0' },
+    { time: '98:0' },
+    { time: '99:0' },
+    { time: '100:0' },
+    { time: '101:0' },
+    { time: '102:0' },
+    { time: '103:0' },
+    { time: '104:0' },
+    { time: '105:0' },
+    { time: '106:0' },
+    { time: '107:0' },
+    { time: '108:0' },
+    { time: '109:0' },
+
+
+
   ];
+
+  kickDrum.fan(bd2_vol, fxSend_bd2_vol);
 
   const kickPart = new Tone.Part(function (time) {
     kickDrum.triggerAttackRelease('C1', '8n', time)
-  }, kicks).start(0);
+    console.log("Bd hit");
+  }, kicks).start(0).stop(90);
 
   //-----------------------------------
   //-----------------------------------
-  
+
 
 
   Tone.Transport.start().stop(30);
