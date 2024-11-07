@@ -21,13 +21,15 @@
   var fxreturn_bd_value = document.getElementById("fxreturn_bd_value");
   var fxreturn_bd = document.getElementById("fxreturn_bd");
 
+  const feedbackDelay = new Tone.FeedbackDelay("8n", 0.53).toDestination();
+  const feedbackDelay_bd2 = new Tone.FeedbackDelay("2n.", 0.43).toDestination();
 
   const fxReturn_key1_vol = new Tone.Volume(-60).toDestination();
-  const fxReturn_bd2_vol = new Tone.Volume(-60).toDestination();
+  const fxReturn_bd2_vol = new Tone.Volume(-10).toDestination();
   const bd2_vol = new Tone.Volume(-60).toDestination();
   const pingPong = new Tone.PingPongDelay("16n.", 0.7).connect(fxReturn_key1_vol);
   const pingPong_bd2 = new Tone.PingPongDelay("4n.", 0.9).connect(fxReturn_bd2_vol);
-  const distortion = new Tone.Distortion(0.7).toDestination();
+  const distortion = new Tone.Distortion(1).connect(fxReturn_bd2_vol);
   const keyline = [
     { 'time': '0:1', 'note': 'A3', 'duration': '0:1' },
     { 'time': '0:2', 'note': 'D#3', 'duration': '0:1' },
@@ -72,7 +74,7 @@
   ];
   const key1_vol = new Tone.Volume(-60).toDestination();
   const fxSend_key1_vol = new Tone.Volume(-60).connect(pingPong);
-  const fxSend_bd2_vol = new Tone.Volume(-60).toDestination(pingPong_bd2);
+  const fxSend_bd2_vol = new Tone.Volume(-10).connect(pingPong_bd2);
   key1_vol.mute = true;
 
   const key1 = new Tone.Synth({
@@ -90,6 +92,10 @@
     key1.triggerAttackRelease(note.note, note.duration, time);
   }, keyline).start(0);
 
+  const keyPart2 = new Tone.Part(function (time, note) {
+    key1.triggerAttackRelease(note.note, note.duration, time);
+  }, keyline).start(15);
+
   volume_key_text.innerHTML = (`Volume Key 1`);
   volume_key_value.innerHTML = (`-60`);
   fxsend_key_text.innerHTML = (`FX Send Key 1`);
@@ -99,9 +105,9 @@
   volume_bd_text.innerHTML = (`Volume Bd 2`);
   volume_bd_value.innerHTML = (`-60`);
   fxsend_bd_text.innerHTML = (`FXSend BD`);
-  fxsend_bd_value.innerHTML = (`-60`);
+  fxsend_bd_value.innerHTML = (`-10`);
   fxreturn_bd_text.innerHTML = (`FXRtrn BD`);
-  fxreturn_bd_value.innerHTML = (`-60`);
+  fxreturn_bd_value.innerHTML = (`-10`);
 
   volumen_directo_key.addEventListener("change", function (e) {
     key1_vol.volume.value = e.currentTarget.value;
@@ -131,7 +137,7 @@
   fxreturn_bd.addEventListener("change", function (e) {
     fxReturn_bd2_vol.volume.value = e.currentTarget.value;
     fxreturn_bd_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    console.log("fxReturn_bd2_vol: " + fxReturn_bd2_vol);
+    console.log("fxReturn_bd2_vol: " + fxReturn_bd2_vol.volume.value);
   });
 
   //-----------------------------------
@@ -257,18 +263,111 @@
 
   ];
 
-  kickDrum.fan(bd2_vol, fxSend_bd2_vol);
+  kickDrum.fan(bd2_vol, fxSend_bd2_vol, feedbackDelay_bd2);
 
   const kickPart = new Tone.Part(function (time) {
     kickDrum.triggerAttackRelease('C1', '8n', time)
     console.log("Bd hit");
   }, kicks).start(0).stop(90);
+  const kickPart2 = new Tone.Part(function (time) {
+    kickDrum.triggerAttackRelease('C1', '8n', time)
+  }, kicks).start(15).stop(90);
+
 
   //-----------------------------------
   //-----------------------------------
+  //-----------------------------------
+  //-----------------------------------
+  //SD
+
+  const lowPass = new Tone.Filter({
+    frequency: 12000,
+  }).connect(feedbackDelay);
+
+  const snareDrum = new Tone.NoiseSynth({
+    volume: -24,
+    noise: {
+      type: 'pink',
+      playbackRate: 3,
+    },
+    envelope: {
+      attack: 0.001,
+      decay: 0.80,
+      sustain: 0.05,
+      release: 0.23,
+    },
+  }).connect(lowPass);
+
+  const snares = [
+    { time: '0:2' },
+    { time: '1:2' },
+    { time: '2:2' },
+    { time: '3:2' },
+    { time: '4:2' },
+    { time: '5:2' },
+    { time: '6:2' },
+    { time: '7:2' },
+    { time: '8:2' },
+    { time: '9:2' },
+    { time: '10:2' },
+    { time: '11:2' },
+    { time: '12:2' },
+    { time: '13:2' },
+    { time: '14:2' },
+    { time: '15:2' },
+    { time: '16:2' },
+    { time: '17:2' },
+    { time: '18:2' },
+    { time: '19:2' },
+    { time: '20:0' },
+    { time: '24:2' },
+    { time: '25:2' },
+    { time: '26:2' },
+    { time: '27:2' },
+    { time: '28:2' },
+    { time: '29:2' },
+
+  ]
+
+  const snarePart = new Tone.Part(function (time) {
+    snareDrum.triggerAttackRelease('4n', time)
+  }, snares).start(0);
+  const snarePart2 = new Tone.Part(function (time) {
+    snareDrum.triggerAttackRelease('4n', time)
+  }, snares).start(15);
+  
+  snareDrum.fan(pingPong, feedbackDelay);
+  
+  
+  //-----------------------------------
+  //-----------------------------------
+
+  const bassline = [
+    { 'time': '0:0', 'note': 'A2', 'duration': '0:2' },
+    { 'time': '0:2', 'note': 'F2', 'duration': '0:2' },
+    { 'time': '1:2', 'note': 'F2', 'duration': '0:2' },
+    { 'time': '2:0', 'note': 'D2', 'duration': '1:0' },
+
+  ];
 
 
 
+  const bass = new Tone.Synth({
+    oscillator: {
+      volume: -3,
+      count: 3,
+      spread: 100,
+      type: "sine"
+    }
+  }).toDestination();
+
+  const bassPart = new Tone.Part(function (time, note) {
+    bass.triggerAttackRelease(note.note, note.duration, time);
+  }, bassline).start(0);
+
+
+//-------------------------------------------
+//-------------------------------------------
   Tone.Transport.start().stop(30);
   Tone.Transport.bpm.value = 120;
   //Tone.Transport.bpm.rampTo(440, 3);
