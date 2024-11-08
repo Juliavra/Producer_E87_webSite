@@ -264,7 +264,7 @@
   ];
 
   kickDrum.fan(bd2_vol, fxSend_bd2_vol, feedbackDelay_bd2);
-
+/*
   const kickPart = new Tone.Part(function (time) {
     kickDrum.triggerAttackRelease('C1', '8n', time)
     console.log("Bd hit");
@@ -272,7 +272,7 @@
   const kickPart2 = new Tone.Part(function (time) {
     kickDrum.triggerAttackRelease('C1', '8n', time)
   }, kicks).start(15).stop(90);
-
+/**/ 
 
   //-----------------------------------
   //-----------------------------------
@@ -328,46 +328,61 @@
     { time: '29:2' },
 
   ]
+  /*
+    const snarePart = new Tone.Part(function (time) {
+      snareDrum.triggerAttackRelease('4n', time)
+    }, snares).start(0);
+    const snarePart2 = new Tone.Part(function (time) {
+      snareDrum.triggerAttackRelease('4n', time)
+    }, snares).start(15);
+    /**/
 
-  const snarePart = new Tone.Part(function (time) {
-    snareDrum.triggerAttackRelease('4n', time)
-  }, snares).start(0);
-  const snarePart2 = new Tone.Part(function (time) {
-    snareDrum.triggerAttackRelease('4n', time)
-  }, snares).start(15);
-  
   snareDrum.fan(pingPong, feedbackDelay);
-  
-  
+
+
   //-----------------------------------
   //-----------------------------------
 
   const bassline = [
-    { 'time': '0:0', 'note': 'A2', 'duration': '0:2' },
-    { 'time': '0:2', 'note': 'F2', 'duration': '0:2' },
-    { 'time': '1:2', 'note': 'F2', 'duration': '0:2' },
-    { 'time': '2:0', 'note': 'D2', 'duration': '1:0' },
+    { 'time': '0:0', 'note': 'E4', 'duration': '0:0:3' },
+    { 'time': '0:2', 'note': 'E4', 'duration': '0:0:3' },
+    { 'time': '0:4', 'note': 'F#4', 'duration': '0:0:3' },
+    { 'time': '1:2', 'note': 'F#4', 'duration': '0:0:3' },
+    { 'time': '1:4', 'note': 'E4', 'duration': '0:0:3' },
+    { 'time': '2:2', 'note': 'E4', 'duration': '0:0:3' },
+    { 'time': '2:4', 'note': 'G#4', 'duration': '0:0:3' },
+    { 'time': '3:2', 'note': 'G#4', 'duration': '0:0:3' },
+    { 'time': '4:0', 'note': 'E2', 'duration': '0:0:3' },
+    { 'time': '4:2', 'note': 'E2', 'duration': '0:0:3' },
+    { 'time': '4:4', 'note': 'F#2', 'duration': '0:0:3' },
+    { 'time': '5:2', 'note': 'F#2', 'duration': '0:0:3' },
+    { 'time': '5:4', 'note': 'E2', 'duration': '0:0:3' },
+    { 'time': '6:2', 'note': 'E2', 'duration': '0:0:3' },
+    { 'time': '6:4', 'note': 'G#2', 'duration': '0:0:3' },
+    { 'time': '7:2', 'note': 'G#2', 'duration': '0:0:3' },
 
   ];
 
-
+  const lowPass_Bass = new Tone.Filter({
+    frequency: 2000,
+  }).toDestination();
 
   const bass = new Tone.Synth({
     oscillator: {
-      volume: -3,
+      volume: -12,
       count: 3,
-      spread: 100,
+      spread: 10,
       type: "sine"
     }
-  }).toDestination();
+  }).connect(lowPass_Bass);
 
   const bassPart = new Tone.Part(function (time, note) {
     bass.triggerAttackRelease(note.note, note.duration, time);
   }, bassline).start(0);
 
 
-//-------------------------------------------
-//-------------------------------------------
+  //-------------------------------------------
+  //-------------------------------------------
   Tone.Transport.start().stop(30);
   Tone.Transport.bpm.value = 120;
   //Tone.Transport.bpm.rampTo(440, 3);
