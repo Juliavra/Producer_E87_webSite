@@ -4108,6 +4108,572 @@ unsync
 start
 */
 
+//Tone.Oscillator ↳ EXTENDS Tone.Source
+/*Tone.Oscillator supports a number of features including phase rotation, multiple oscillator types (see Tone.Oscillator.type), and Transport syncing (see Tone.Oscillator.syncFrequency).
 
+CONSTRUCTOR
+new Tone.Oscillator ( [ frequency ] , [ type ] )
+frequency:	Starting frequency
+type: Frequency
+optional
+
+type: The oscillator type. Read more about type below.
+type: string
+optional
+
+DEFAULTS
+{
+type : sine ,
+frequency : 440 ,
+detune : 0 ,
+phase : 0 ,
+partials : [] ,
+partialCount : 0
+}
+
+EXAMPLE
+//make and start a 440hz sine tone
+var osc = new Tone.Oscillator(440, "sine").toMaster().start();
+
+MEMBERS
+partials
+phase
+type
+baseType
+detune
+frequency
+partialCount
+channelCountMode
+context
+numberOfOutputs
+channelInterpretation
+numberOfInputs
+channelCount
+volume
+fadeIn
+fadeOut
+mute
+state
+
+METHODS
+get
+restart
+unsyncFrequency
+syncFrequency
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+stop
+start
+unsync
+sync
+*/
+
+//Tone.OscillatorNode ↳ EXTENDS Tone.AudioNode
+/*Wrapper around the native fire - and - forget 
+OscillatorNode.Adds the ability to reschedule the stop method.
+Tone.Oscillator is better for most use - cases
+
+CONSTRUCTOR
+new Tone.OscillatorNode(buffer, onload)
+buffer:	The buffer to play
+type: AudioBuffer or Tone.Buffer
+
+onload:	The callback to invoke when the buffer is done playing.
+type: function
+
+DEFAULTS
+{
+  frequency: 440,
+    detune : 0,
+      type : sine,
+        onended : Tone.noOp
+}
+
+MEMBERS
+type
+detune
+frequency
+onended
+state
+channelCount
+numberOfInputs
+channelCountMode
+channelInterpretation
+context
+numberOfOutputs
+
+METHODS
+getStateAtTime
+setPeriodicWave
+start
+stop
+cancelStop
+dispose
+toMaster
+chain
+connect
+disconnect
+fan
+*/
+
+//Tone.PWMOscillator ↳ EXTENDS Tone.Source
+/*Tone.PWMOscillator modulates the width of a 
+Tone.PulseOscillator at the modulationFrequency.
+This has the effect of continuously changing the timbre
+of the oscillator by altering the harmonics generated.
+
+CONSTRUCTOR
+new Tone.PWMOscillator(frequency, modulationFrequency)
+frequency: The starting frequency of the oscillator.
+type: Frequency
+
+modulationFrequency:	The modulation frequency of the width
+of the pulse.
+type: Frequency
+
+DEFAULTS
+{
+  frequency: 440,
+    detune : 0,
+      phase : 0,
+        modulationFrequency : 0.4
+}
+
+EXAMPLE
+var pwm = new Tone.PWMOscillator("Ab3", 0.3).toMaster().start();
+
+MEMBERS
+baseType
+detune
+frequency
+modulationFrequency
+phase
+type
+numberOfOutputs
+numberOfInputs
+channelCount
+channelCountMode
+channelInterpretation
+context
+fadeOut
+volume
+state
+mute
+fadeIn
+
+METHODS
+dispose
+disconnect
+toMaster
+chain
+fan
+connect
+unsync
+start
+stop
+sync
+  */
+
+//Tone.Player ↳ EXTENDS Tone.Source
+/*Tone.Player is an audio file player with start, loop, and 
+stop functions.
+
+CONSTRUCTOR
+new Tone.Player(url, [onload])
+url:	Either the AudioBuffer or the url from which to load
+the AudioBuffer
+type: string or AudioBuffer
+
+onload: The function to invoke when the buffer is loaded.
+Recommended to use Tone.Buffer.on(‘load’) instead.
+type: function
+optional
+
+DEFAULTS
+{
+  onload: Tone.noOp,
+    playbackRate : 1,
+      loop : false,
+        autostart : false,
+          loopStart : 0,
+            loopEnd : 0,
+              reverse : false,
+                fadeIn : 0,
+                  fadeOut : 0
+}
+
+EXAMPLE
+var player = new Tone.Player("./path/to/sample.mp3").toMaster();
+//play as soon as the buffer is loaded
+player.autostart = true;
+
+MEMBERS
+autostart
+buffer
+fadeIn
+fadeOut
+loaded
+loop
+loopEnd
+loopStart
+playbackRate
+reverse
+numberOfOutputs
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+mute
+state
+volume
+
+METHODS
+restart
+seek
+setLoopPoints
+start
+dispose
+load
+chain
+connect
+disconnect
+fan
+toMaster
+sync
+unsync
+stop
+  */
+
+//Tone.Players ↳ EXTENDS Tone.AudioNode
+/*Tone.Players combines multiple Tone.Player objects.
+
+CONSTRUCTOR
+new Tone.Players ( urls , [ onload ] )
+urls: An object mapping a name to a url.
+type: Object
+
+onload:	The function to invoke when all buffers are loaded.
+type: function
+optional
+
+DEFAULTS
+{
+volume : 0 ,
+mute : false ,
+onload : Tone.noOp ,
+fadeIn : 0 ,
+fadeOut : 0
+}
+
+MEMBERS
+volume
+loaded
+state
+context
+channelCount
+numberOfInputs
+numberOfOutputs
+channelCountMode
+channelInterpretation
+
+METHODS
+dispose
+get
+has
+stopAll
+add
+toMaster
+chain
+connect
+disconnect
+fan
+*/
+
+//Tone.PulseOscillator ↳ EXTENDS Tone.Source
+/*Tone.PulseOscillator is a pulse oscillator with control
+over pulse width, also known as the duty cycle.
+At 50 % duty cycle(width = 0.5) the wave is a square
+and only odd - numbered harmonics are present. 
+At all other widths even - numbered harmonics are present.
+
+CONSTRUCTOR
+new Tone.PulseOscillator([frequency], [width])
+frequency:	The frequency of the oscillator
+type: Frequency
+optional
+
+width: The width of the pulse
+type: NormalRange
+optional
+
+DEFAULTS
+{
+  frequency: 440,
+    detune : 0,
+      phase : 0,
+        width : 0.2
+}
+
+EXAMPLE
+var pulse = new Tone.PulseOscillator("E5", 0.4).toMaster().start();
+
+MEMBERS
+width
+detune
+frequency
+phase
+type
+baseType
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+volume
+fadeOut
+state
+mute
+fadeIn
+
+METHODS
+dispose
+disconnect
+toMaster
+chain
+fan
+connect
+unsync
+start
+stop
+sync
+  */
+
+//Tone.Source ↳ EXTENDS Tone.AudioNode
+/*Base class for sources.Sources have start / stop methods 
+and the ability to be synced to the start / stop of 
+Tone.Transport.
+
+CONSTRUCTOR
+new Tone.Source()
+
+DEFAULTS
+{
+  volume: 0,
+    mute : false
+}
+
+EXAMPLE
+//Multiple state change events can be chained together,
+//but must be set in the correct order and with ascending times
+
+// OK
+state.start().stop("+0.2");
+// AND
+state.start().stop("+0.2").start("+0.4").stop("+0.7")
+
+// BAD
+state.stop("+0.2").start();
+// OR
+state.start("+0.3").stop("+0.2");
+
+MEMBERS
+volume
+fadeIn
+fadeOut
+mute
+mute
+state
+numberOfOutputs
+channelCountMode
+channelInterpretation
+context
+channelCount
+numberOfInputs
+
+METHODS
+unsync
+dispose
+start
+stop
+sync
+chain
+connect
+disconnect
+toMaster
+fan
+  */
+
+//Tone.TickSource ↳ EXTENDS Tone
+/*Uses Tone.TickSignal to track elapsed ticks with complex
+automation curves.
+
+CONSTRUCTOR
+new Tone.TickSource(frequency, [param])
+frequency:	The initial frequency that the signal ticks at
+type: Frequency
+
+param: A parameter to control(such as playbackRate)
+type: Tone.Param
+optional
+
+DEFAULTS
+{
+  frequency: 1
+}
+
+MEMBERS
+frequency
+seconds
+state
+ticks
+
+METHODS
+stop
+dispose
+forEachTickBetween
+getSecondsAtTime
+getStateAtTime
+getTicksAtTime
+getTimeOfTick
+pause
+setTicksAtTime
+start
+cancel
+*/
+
+//Tone.UserMedia ↳ EXTENDS Tone.AudioNode
+/*Tone.UserMedia uses MediaDevices.getUserMedia to open up 
+and external microphone or audio input.
+Check MediaDevices API Support to see which browsers
+are supported.Access to an external input is limited 
+to secure(HTTPS) connections.
+
+CONSTRUCTOR
+new Tone.UserMedia([volume])
+volume: The level of the input
+type: Decibels
+optional
+
+DEFAULTS
+{
+  volume: 0,
+  mute : false
+}
+EXAMPLE
+//list the inputs and open the third one
+var motu = new Tone.UserMedia();
+
+//opening the input asks the user to activate their mic
+motu.open().then(function () {
+  //promise resolves when input is available
+});
+
+MEMBERS
+volume
+deviceId
+groupId
+groupId
+mute
+state
+supported
+channelCountMode
+channelInterpretation
+context
+channelCount
+numberOfInputs
+numberOfOutputs
+
+METHODS
+close
+open
+dispose
+chain
+toMaster
+connect
+disconnect
+fan
+
+STATIC METHODS
+enumerateDevices
+  */
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//EFFECT
+
+//Tone.AutoFilter ↳ EXTENDS Tone.Effect
+/*Tone.AutoFilter is a Tone.Filter with a Tone.LFO connected 
+to the filter cutoff frequency.Setting the LFO rate 
+and depth allows for control over the filter modulation rate 
+and depth.
+
+CONSTRUCTOR
+new Tone.AutoFilter([frequency], [baseFrequency], [octaves])
+frequency:	The rate of the LFO.
+  type: Time or Object
+optional
+
+baseFrequency:	The lower value of the LFOs oscillation
+type: Frequency
+optional
+
+octaves: The number of octaves above the baseFrequency
+type: Frequency
+optional
+
+DEFAULTS
+{
+  frequency: 1,
+    type : sine,
+      depth : 1,
+        baseFrequency : 200,
+          octaves : 2.6,
+            filter : {
+    type: lowpass,
+      rolloff : -12,
+        Q : 1
+  }
+}
+
+EXAMPLE
+//create an autofilter and start it's LFO
+var autoFilter = new Tone.AutoFilter("4n").toMaster().start();
+//route an oscillator through the filter and start it
+var oscillator = new Tone.Oscillator().connect(autoFilter).start();
+
+MEMBERS
+baseFrequency
+depth
+filter
+frequency
+octaves
+type
+type
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+wet
+
+METHODS
+unsync
+dispose
+start
+stop
+sync
+chain
+connect
+disconnect
+toMaster
+fan
+  */
 
 
