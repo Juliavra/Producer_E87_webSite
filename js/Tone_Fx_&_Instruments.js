@@ -9,8 +9,6 @@
 }
 
 
-
-
 //MIDI JSON
 /*
 {
@@ -2072,7 +2070,6 @@ setInterval(() => {
   console.log(Tone.immediate());
 }, 1000);
 
-
 //------------------------------------------------------------------
 //------------------------------------------------------------------
 //CORE
@@ -2172,7 +2169,6 @@ var buffers = new Tone.Buffers(urls, {
   "baseUrl" : "../path/to/audio/"
 })
 */
-
 
 //Tone.Clock ↳ EXTENDS Tone.Emitter
 /*A sample accurate clock which provides a callback
@@ -2432,7 +2428,7 @@ EXAMPLE
 //the audio will go from the oscillator to the speakers
 oscillator.connect(Tone.Master);
 //a convenience for connecting to the master output is also provided:
-oscillator.toMaster();
+oscillator.toDestination();
 //the above two examples are equivalent.
 DEPRECATED
 */
@@ -2534,9 +2530,8 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
-
 
 //Tone.Timeline ↳ EXTENDS Tone
 /*A Timeline class for scheduling and maintaining state
@@ -2857,7 +2852,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var duoSynth = new Tone.DuoSynth().toMaster();
+var duoSynth = new Tone.DuoSynth().toDestination();
 duoSynth.triggerAttackRelease("C4", "2n");
 
 MEMBERS
@@ -2880,7 +2875,7 @@ METHODS
 dispose
 getLevelAtTime
 connect
-toMaster
+toDestination
 disconnect
 fan
 chain
@@ -2931,7 +2926,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var fmSynth = new Tone.FMSynth().toMaster();
+var fmSynth = new Tone.FMSynth().toDestination();
 fmSynth.triggerAttackRelease("C5", "4n");
 
 MEMBERS
@@ -2954,7 +2949,7 @@ portamento
 
 METHODS
 dispose
-toMaster
+toDestination
 connect
 disconnect
 fan
@@ -2993,7 +2988,7 @@ sync
 dispose
 triggerAttackRelease
 unsync
-toMaster
+toDestination
 fan
 connect
 disconnect
@@ -3032,7 +3027,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var synth = new Tone.MembraneSynth().toMaster();
+var synth = new Tone.MembraneSynth().toDestination();
 synth.triggerAttackRelease("C2", "8n");
 
 MEMBERS
@@ -3053,7 +3048,7 @@ dispose
 triggerRelease
 triggerAttack
 connect
-toMaster
+toDestination
 fan
 chain
 disconnect
@@ -3114,7 +3109,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 unsync
 */
 
@@ -3167,7 +3162,7 @@ var synth = new Tone.MonoSynth({
   "envelope": {
     "attack": 0.1
   }
-}).toMaster();
+}).toDestination();
 synth.triggerAttackRelease("C4", "8n");
 
 MEMBERS
@@ -3188,7 +3183,7 @@ portamento
 
 METHODS
 dispose
-toMaster
+toDestination
 connect
 disconnect
 fan
@@ -3230,7 +3225,7 @@ getLevelAtTime
 setNote
 triggerAttack
 triggerRelease
-toMaster
+toDestination
 chain
 connect
 disconnect
@@ -3266,7 +3261,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var noiseSynth = new Tone.NoiseSynth().toMaster();
+var noiseSynth = new Tone.NoiseSynth().toDestination();
 noiseSynth.triggerAttackRelease("8n");
 
 MEMBERS
@@ -3290,7 +3285,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 unsync
 */
 
@@ -3313,7 +3308,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var plucky = new Tone.PluckSynth().toMaster();
+var plucky = new Tone.PluckSynth().toDestination();
 plucky.triggerAttack("C4");
 
 MEMBERS
@@ -3333,7 +3328,7 @@ triggerAttack
 dispose
 disconnect
 fan
-toMaster
+toDestination
 chain
 connect
 sync
@@ -3374,7 +3369,7 @@ var synth = new Tone.PolySynth(6, Tone.Synth, {
   oscillator: {
     type: "square"
   }
-}).toMaster();
+}).toDestination();
 //set the attributes using the set interface
 synth.set("detune", -1200);
 //play a chord
@@ -3404,7 +3399,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 unsync
 */
 
@@ -3479,7 +3474,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 unsync
 */
 
@@ -3507,7 +3502,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var synth = new Tone.Synth().toMaster();
+var synth = new Tone.Synth().toDestination();
 synth.triggerAttackRelease("C4", "8n");
 
 MEMBERS
@@ -3526,7 +3521,7 @@ portamento
 
 METHODS
 dispose
-toMaster
+toDestination
 connect
 disconnect
 fan
@@ -3570,7 +3565,7 @@ DEFAULTS
 
 EXAMPLE
 //a sine oscillator frequency-modulated by a square wave
-var fmOsc = new Tone.AMOscillator("Ab3", "sine", "square").toMaster().start();
+var fmOsc = new Tone.AMOscillator("Ab3", "sine", "square").toDestination().start();
 
 MEMBERS
 baseType
@@ -3596,7 +3591,7 @@ fadeIn
 
 METHODS
 dispose
-toMaster
+toDestination
 connect
 disconnect
 fan
@@ -3657,7 +3652,7 @@ getStateAtTime
 start
 stop
 cancelStop
-toMaster
+toDestination
 chain
 connect
 disconnect
@@ -3690,7 +3685,7 @@ harmonicity : 1
 
 EXAMPLE
 //a sine oscillator frequency-modulated by a square wave
-var fmOsc = new Tone.FMOscillator("Ab3", "sine", "square").toMaster().start();
+var fmOsc = new Tone.FMOscillator("Ab3", "sine", "square").toDestination().start();
 
 MEMBERS
 baseType
@@ -3718,7 +3713,7 @@ volume
 METHODS
 dispose
 disconnect
-toMaster
+toDestination
 chain
 fan
 connect
@@ -3756,7 +3751,7 @@ partialCount : 0
 }
 
 EXAMPLE
-var fatOsc = new Tone.FatOscillator("Ab3", "sine", 40).toMaster().start();
+var fatOsc = new Tone.FatOscillator("Ab3", "sine", 40).toDestination().start();
 
 MEMBERS
 phase
@@ -3783,7 +3778,7 @@ state
 METHODS
 dispose
 disconnect
-toMaster
+toDestination
 chain
 fan
 connect
@@ -3852,7 +3847,7 @@ disconnect
 fan
 chain
 connect
-toMaster
+toDestination
 sync
 unsync
 stop
@@ -3913,7 +3908,7 @@ disconnect
 fan
 chain
 connect
-toMaster
+toDestination
 stop
 sync
 unsync
@@ -3988,7 +3983,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 stop
 sync
 unsync
@@ -4020,7 +4015,7 @@ partialCount : 0
 
 EXAMPLE
 //make and start a 440hz sine tone
-var osc = new Tone.Oscillator(440, "sine").toMaster().start();
+var osc = new Tone.Oscillator(440, "sine").toDestination().start();
 
 MEMBERS
 partials
@@ -4052,7 +4047,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 stop
 start
 unsync
@@ -4100,7 +4095,7 @@ start
 stop
 cancelStop
 dispose
-toMaster
+toDestination
 chain
 connect
 disconnect
@@ -4131,7 +4126,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var pwm = new Tone.PWMOscillator("Ab3", 0.3).toMaster().start();
+var pwm = new Tone.PWMOscillator("Ab3", 0.3).toDestination().start();
 
 MEMBERS
 baseType
@@ -4155,7 +4150,7 @@ fadeIn
 METHODS
 dispose
 disconnect
-toMaster
+toDestination
 chain
 fan
 connect
@@ -4194,7 +4189,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var player = new Tone.Player("./path/to/sample.mp3").toMaster();
+var player = new Tone.Player("./path/to/sample.mp3").toDestination();
 //play as soon as the buffer is loaded
 player.autostart = true;
 
@@ -4230,7 +4225,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 sync
 unsync
 stop
@@ -4274,7 +4269,7 @@ get
 has
 stopAll
 add
-toMaster
+toDestination
 chain
 connect
 disconnect
@@ -4307,7 +4302,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var pulse = new Tone.PulseOscillator("E5", 0.4).toMaster().start();
+var pulse = new Tone.PulseOscillator("E5", 0.4).toDestination().start();
 
 MEMBERS
 width
@@ -4331,7 +4326,7 @@ fadeIn
 METHODS
 dispose
 disconnect
-toMaster
+toDestination
 chain
 fan
 connect
@@ -4392,7 +4387,7 @@ sync
 chain
 connect
 disconnect
-toMaster
+toDestination
 fan
   */
 
@@ -4481,7 +4476,7 @@ close
 open
 dispose
 chain
-toMaster
+toDestination
 connect
 disconnect
 fan
@@ -4530,7 +4525,7 @@ DEFAULTS
 
 EXAMPLE
 //create an autofilter and start it's LFO
-var autoFilter = new Tone.AutoFilter("4n").toMaster().start();
+var autoFilter = new Tone.AutoFilter("4n").toDestination().start();
 //route an oscillator through the filter and start it
 var oscillator = new Tone.Oscillator().connect(autoFilter).start();
 
@@ -4559,7 +4554,7 @@ sync
 chain
 connect
 disconnect
-toMaster
+toDestination
 fan
   */
 
@@ -4582,7 +4577,7 @@ DEFAULTS
 
 EXAMPLE
 //create an autopanner and start it's LFO
-var autoPanner = new Tone.AutoPanner("4n").toMaster().start();
+var autoPanner = new Tone.AutoPanner("4n").toDestination().start();
 //route an oscillator through the panner and start it
 var oscillator = new Tone.Oscillator().connect(autoPanner).start();
 
@@ -4606,7 +4601,7 @@ sync
 chain
 connect
 disconnect
-toMaster
+toDestination
 fan
   */
 
@@ -4647,7 +4642,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var autoWah = new Tone.AutoWah(50, 6, -30).toMaster();
+var autoWah = new Tone.AutoWah(50, 6, -30).toDestination();
 //initialize the synth and connect to autowah
 var synth = new Synth.connect(autoWah);
 //Q value influences the effect of the wah - default is 2
@@ -4675,7 +4670,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
   */
 
 //Tone.BitCrusher ↳ EXTENDS Tone.Effect
@@ -4696,7 +4691,7 @@ DEFAULTS
 
 EXAMPLE
 //initialize crusher and route a synth through it
-var crusher = new Tone.BitCrusher(4).toMaster();
+var crusher = new Tone.BitCrusher(4).toDestination();
 var synth = new Tone.MonoSynth().connect(crusher);
 
 MEMBERS
@@ -4715,7 +4710,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
   */
 
 //Tone.Chebyshev ↳ EXTENDS Tone.Effect
@@ -4760,7 +4755,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Chorus ↳ EXTENDS Tone.StereoEffect
@@ -4817,7 +4812,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
   */
 
 //Tone.Convolver ↳ EXTENDS Tone.Effect
@@ -4845,7 +4840,7 @@ optional
 
 EXAMPLE
 //initializing the convolver with an impulse response
-var convolver = new Tone.Convolver("./path/to/ir.wav").toMaster();
+var convolver = new Tone.Convolver("./path/to/ir.wav").toDestination();
 
 MEMBERS
 buffer
@@ -4865,7 +4860,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Distortion ↳ EXTENDS Tone.Effect
@@ -4885,7 +4880,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var dist = new Tone.Distortion(0.8).toMaster();
+var dist = new Tone.Distortion(0.8).toDestination();
 var fm = new Tone.SimpleFM().connect(dist);
 //this sounds good on bass notes
 fm.triggerAttackRelease("A1", "8n");
@@ -4907,7 +4902,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
   */
 
 //Tone.Effect ↳ EXTENDS Tone.AudioNode
@@ -4942,7 +4937,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
   */
 
 //Tone.FeedbackDelay ↳ EXTENDS Tone.FeedbackEffect
@@ -4967,7 +4962,7 @@ DEFAULTS
 }
 
 EXAMPLE
-var feedbackDelay = new Tone.FeedbackDelay("8n", 0.5).toMaster();
+var feedbackDelay = new Tone.FeedbackDelay("8n", 0.5).toDestination();
 var tom = new Tone.MembraneSynth({
   "octaves": 4,
   "pitchDecay": 0.1
@@ -4991,7 +4986,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
   */
 
 //Tone.FeedbackEffect ↳ EXTENDS Tone.Effect
@@ -5025,7 +5020,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
   */
 
 //Tone.Freeverb ↳ EXTENDS Tone.Effect
@@ -5050,7 +5045,7 @@ dampening : 3000
 }
 
 EXAMPLE
-var freeverb = new Tone.Freeverb().toMaster();
+var freeverb = new Tone.Freeverb().toDestination();
 freeverb.dampening.value = 1000;
 //routing synth through the reverb
 var synth = new Tone.AMSynth().connect(freeverb);
@@ -5072,7 +5067,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.JCReverb ↳ EXTENDS Tone.Effect
@@ -5114,7 +5109,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.MidSideEffect ↳ EXTENDS Tone.Effect
@@ -5145,7 +5140,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Phaser ↳ EXTENDS Tone.StereoEffect
@@ -5183,7 +5178,7 @@ var phaser = new Tone.Phaser({
 	"frequency" : 15,
 	"octaves" : 5,
 	"baseFrequency" : 1000
-}).toMaster();
+}).toDestination();
 var synth = new Tone.FMSynth().connect(phaser);
 synth.triggerAttackRelease("E3", "2n");
 
@@ -5206,7 +5201,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.PingPongDelay ↳ EXTENDS Tone.StereoXFeedbackEffect
@@ -5236,7 +5231,7 @@ maxDelayTime : 1
 }
 
 EXAMPLE
-var pingPong = new Tone.PingPongDelay("4n", 0.2).toMaster();
+var pingPong = new Tone.PingPongDelay("4n", 0.2).toDestination();
 var drum = new Tone.MembraneSynth().connect(pingPong);
 drum.triggerAttackRelease("C4", "32n");
 
@@ -5257,7 +5252,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.PitchShift ↳ EXTENDS Tone.FeedbackEffect
@@ -5300,7 +5295,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Reverb ↳ EXTENDS Tone.Convolver
@@ -5341,7 +5336,7 @@ dispose
 generate
 disconnect
 fan
-toMaster
+toDestination
 connect
 chain
 load
@@ -5369,7 +5364,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.StereoFeedbackEffect ↳ EXTENDS Tone.StereoEffect
@@ -5395,7 +5390,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.StereoWidener ↳ EXTENDS Tone.MidSideEffect
@@ -5434,7 +5429,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.StereoXFeedbackEffect ↳ EXTENDS Tone.StereoEffect
@@ -5461,7 +5456,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Tremolo ↳ EXTENDS Tone.StereoEffect
@@ -5489,7 +5484,7 @@ spread : 180
 
 EXAMPLE
 //create a tremolo and start it's LFO
-var tremolo = new Tone.Tremolo(9, 0.75).toMaster().start();
+var tremolo = new Tone.Tremolo(9, 0.75).toDestination().start();
 //route an oscillator through the tremolo and start it
 var oscillator = new Tone.Oscillator().connect(tremolo).start();
 
@@ -5515,7 +5510,7 @@ sync
 chain
 connect
 disconnect
-toMaster
+toDestination
 fan
 */
 
@@ -5558,7 +5553,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //------------------------------------------------------------------
@@ -5601,7 +5596,7 @@ var ampEnv = new Tone.AmplitudeEnvelope({
 	"decay": 0.2,
 	"sustain": 1.0,
 	"release": 0.8
-}).toMaster();
+}).toDestination();
 //create an oscillator and connect it
 var osc = new Tone.Oscillator().connect(ampEnv).start();
 //trigger the envelopes attack and release "8t" apart
@@ -5626,7 +5621,7 @@ releaseCurve
 METHODS
 dispose
 chain
-toMaster
+toDestination
 disconnect
 fan
 triggerRelease
@@ -5677,7 +5672,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Channel ↳ EXTENDS Tone.AudioNode
@@ -5723,7 +5718,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Compressor ↳ EXTENDS Tone.AudioNode
@@ -5775,7 +5770,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.CrossFade ↳ EXTENDS Tone.AudioNode
@@ -5820,7 +5815,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.EQ3 ↳ EXTENDS Tone.AudioNode
@@ -5873,7 +5868,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Envelope ↳ EXTENDS Tone.AudioNode
@@ -5946,7 +5941,7 @@ cancel
 dispose
 chain
 disconnect
-toMaster
+toDestination
 fan
 */
 
@@ -5982,7 +5977,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.FeedbackCombFilter ↳ EXTENDS Tone.AudioNode
@@ -6021,7 +6016,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Filter ↳ EXTENDS Tone.AudioNode
@@ -6078,7 +6073,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Follower ↳ EXTENDS Tone.AudioNode
@@ -6115,7 +6110,7 @@ dispose
 chain
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.FrequencyEnvelope ↳ EXTENDS Tone.Envelope
@@ -6177,7 +6172,7 @@ attack
 METHODS
 dispose
 chain
-toMaster
+toDestination
 disconnect
 fan
 triggerRelease
@@ -6211,7 +6206,7 @@ threshold : -40
 }
 
 EXAMPLE
-var gate = new Tone.Gate(-30, 0.2, 0.3).toMaster();
+var gate = new Tone.Gate(-30, 0.2, 0.3).toDestination();
 var mic = new Tone.UserMedia().connect(gate);
 //the gate will only pass through the incoming
 //signal when it's louder than -30db
@@ -6232,7 +6227,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.LFO ↳ EXTENDS Tone.AudioNode
@@ -6297,7 +6292,7 @@ start
 stop
 sync
 disconnect
-toMaster
+toDestination
 fan
 chain
 */
@@ -6338,7 +6333,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.LowpassCombFilter ↳ EXTENDS Tone.AudioNode
@@ -6384,7 +6379,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Merge ↳ EXTENDS Tone.AudioNode
@@ -6398,7 +6393,7 @@ type: number
 default: 2
 
 EXAMPLE
-var merge = new Tone.Merge().toMaster();
+var merge = new Tone.Merge().toDestination();
 //routing a sine tone in the left channel
 //and noise in the right channel
 var osc = new Tone.Oscillator().connect(merge.left);
@@ -6423,7 +6418,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Meter ↳ EXTENDS Tone.AudioNode
@@ -6463,7 +6458,7 @@ getValue
 dispose
 fan
 chain
-toMaster
+toDestination
 connect
 disconnect
 */
@@ -6511,7 +6506,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.MidSideMerge ↳ EXTENDS Tone.AudioNode
@@ -6545,7 +6540,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.MidSideSplit ↳ EXTENDS Tone.AudioNode
@@ -6577,7 +6572,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Mono ↳ EXTENDS Tone.AudioNode
@@ -6602,10 +6597,100 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
-//FALTAN 2 MULTIBAN COMPRESSOR
+//Tone.MultibandCompressor ↳ EXTENDS Tone.AudioNode
+/*A compressor with seperate controls over low/mid/high dynamics
+
+CONSTRUCTOR
+new Tone.MultibandCompressor ( options )
+options:	The low/mid/high compressor settings.
+type: Object
+
+DEFAULTS
+{
+low : Tone.Compressor.defaults ,
+mid : Tone.Compressor.defaults ,
+high : Tone.Compressor.defaults ,
+lowFrequency : 250 ,
+highFrequency : 2000
+}
+
+EXAMPLE
+var multiband = new Tone.MultibandCompressor({
+ 	"lowFrequency" : 200,
+ 	"highFrequency" : 1300
+ 	"low" : {
+ 		"threshold" : -12
+ 	}
+ })
+
+ MEMBERS
+low
+lowFrequency
+mid
+high
+highFrequency
+channelCount
+numberOfOutputs
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toDestination
+*/
+
+//Tone.MultibandSplit ↳ EXTENDS Tone.AudioNode
+/*Split the incoming signal into three bands (low, mid, high) 
+with two crossover frequency controls.
+
+CONSTRUCTOR
+new Tone.MultibandSplit ( [ lowFrequency ] , [ highFrequency ] )
+lowFrequency:	the low/mid crossover frequency
+type: Frequency or Object
+optional
+
+highFrequency:	the mid/high crossover frequency
+type: Frequency
+optional
+
+DEFAULTS
+{
+lowFrequency : 400 ,
+highFrequency : 2500 ,
+Q : 1
+}
+
+MEMBERS
+Q
+high
+highFrequency
+low
+lowFrequency
+mid
+numberOfInputs
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfOutputs
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toDestination
+*/
 
 //Tone.PanVol ↳ EXTENDS Tone.AudioNode
 /*Tone.PanVol is a Tone.Panner and Tone.Volume in one.
@@ -6646,7 +6731,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Panner ↳ EXTENDS Tone.AudioNode
@@ -6684,7 +6769,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 Members
 */
 
@@ -6750,7 +6835,7 @@ setPosition
 dispose
 fan
 chain
-toMaster
+toDestination
 connect
 disconnect
 */
@@ -6816,7 +6901,7 @@ attack
 METHODS
 dispose
 chain
-toMaster
+toDestination
 disconnect
 fan
 triggerRelease
@@ -6862,7 +6947,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Split ↳ EXTENDS Tone.AudioNode
@@ -6895,7 +6980,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Volume ↳ EXTENDS Tone.AudioNode
@@ -6934,7 +7019,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //Tone.Waveform ↳ EXTENDS Tone.AudioNode
@@ -6968,7 +7053,7 @@ chain
 connect
 disconnect
 fan
-toMaster
+toDestination
 */
 
 //------------------------------------------------------------------
@@ -7513,7 +7598,7 @@ dispose
 connect
 disconnect
 fan
-toMaster
+toDestination
 chain
 linearRampToValueAtTime
 rampTo
@@ -7608,7 +7693,7 @@ dispose
 connect
 disconnect
 fan
-toMaster
+toDestination
 chain
 linearRampToValueAtTime
 rampTo
@@ -7707,7 +7792,7 @@ dispose
 connect
 disconnect
 fan
-toMaster
+toDestination
 chain
 linearRampToValueAtTime
 rampTo
@@ -7898,7 +7983,7 @@ getValueAtTime
 dispose
 connect
 disconnect
-toMaster
+toDestination
 chain
 fan
 exponentialApproachValueAtTime
@@ -7968,7 +8053,7 @@ dispose
 connect
 disconnect
 fan
-toMaster
+toDestination
 chain
 linearRampToValueAtTime
 rampTo
@@ -8019,7 +8104,7 @@ getDurationOfTicks
 getTicksAtTime
 ticksToTime
 setTargetAtTime
-toMaster
+toDestination
 chain
 connect
 disconnect
@@ -8069,7 +8154,7 @@ setTargetAtTime
 setValueAtTime
 setValueCurveAtTime
 fan
-toMaster
+toDestination
 chain
 connect
 disconnect
