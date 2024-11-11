@@ -3116,8 +3116,8 @@ disconnect
 /*Tone.MembraneSynth makes kick and tom sounds using a single
 oscillator with an amplitude envelope and frequency ramp.
 A Tone.OmniOscillator is routed through a Tone.AmplitudeEnvelope
-to the output.The drum quality of the sound comes from 
-The frequency envelope applied during 
+to the output.The drum quality of the sound comes from
+The frequency envelope applied during
 Tone.MembraneSynth.triggerAttack(note).
 The frequency envelope starts at note * .octaves and ramps to
 note over the duration of.pitchDecay.
@@ -3233,7 +3233,7 @@ unsync
 
 //Tone.MonoSynth ↳ EXTENDS Tone.Monophonic
 /*Tone.MonoSynth is composed of one oscillator, one filter,
-and two envelopes.The amplitude of the Tone.Oscillator 
+and two envelopes.The amplitude of the Tone.Oscillator
 and the cutoff frequency of the Tone.Filter are controlled
 by Tone.Envelopes.
 
@@ -3409,7 +3409,7 @@ unsync
 
 //Tone.PluckSynth ↳ EXTENDS Tone.Instrument
 /*Karplus - String string synthesis.Often out of tune.
-Will change when the AudioWorkerNode is available 
+Will change when the AudioWorkerNode is available
 across browsers.
 
 CONSTRUCTOR
@@ -3597,7 +3597,7 @@ unsync
 */
 
 //Tone.Synth ↳ EXTENDS Tone.Monophonic
-/*Tone.Synth is composed simply of a Tone.OmniOscillator 
+/*Tone.Synth is composed simply of a Tone.OmniOscillator
 routed through a Tone.AmplitudeEnvelope.
 
 CONSTRUCTOR
@@ -4173,7 +4173,7 @@ sync
 */
 
 //Tone.OscillatorNode ↳ EXTENDS Tone.AudioNode
-/*Wrapper around the native fire - and - forget 
+/*Wrapper around the native fire - and - forget
 OscillatorNode.Adds the ability to reschedule the stop method.
 Tone.Oscillator is better for most use - cases
 
@@ -4221,7 +4221,7 @@ fan
 */
 
 //Tone.PWMOscillator ↳ EXTENDS Tone.Source
-/*Tone.PWMOscillator modulates the width of a 
+/*Tone.PWMOscillator modulates the width of a
 Tone.PulseOscillator at the modulationFrequency.
 This has the effect of continuously changing the timbre
 of the oscillator by altering the harmonics generated.
@@ -4279,7 +4279,7 @@ sync
   */
 
 //Tone.Player ↳ EXTENDS Tone.Source
-/*Tone.Player is an audio file player with start, loop, and 
+/*Tone.Player is an audio file player with start, loop, and
 stop functions.
 
 CONSTRUCTOR
@@ -4398,7 +4398,7 @@ fan
 /*Tone.PulseOscillator is a pulse oscillator with control
 over pulse width, also known as the duty cycle.
 At 50 % duty cycle(width = 0.5) the wave is a square
-and only odd - numbered harmonics are present. 
+and only odd - numbered harmonics are present.
 At all other widths even - numbered harmonics are present.
 
 CONSTRUCTOR
@@ -4455,8 +4455,8 @@ sync
   */
 
 //Tone.Source ↳ EXTENDS Tone.AudioNode
-/*Base class for sources.Sources have start / stop methods 
-and the ability to be synced to the start / stop of 
+/*Base class for sources.Sources have start / stop methods
+and the ability to be synced to the start / stop of
 Tone.Transport.
 
 CONSTRUCTOR
@@ -4548,10 +4548,10 @@ cancel
 */
 
 //Tone.UserMedia ↳ EXTENDS Tone.AudioNode
-/*Tone.UserMedia uses MediaDevices.getUserMedia to open up 
+/*Tone.UserMedia uses MediaDevices.getUserMedia to open up
 and external microphone or audio input.
 Check MediaDevices API Support to see which browsers
-are supported.Access to an external input is limited 
+are supported.Access to an external input is limited
 to secure(HTTPS) connections.
 
 CONSTRUCTOR
@@ -4608,9 +4608,9 @@ enumerateDevices
 //EFFECT
 
 //Tone.AutoFilter ↳ EXTENDS Tone.Effect
-/*Tone.AutoFilter is a Tone.Filter with a Tone.LFO connected 
-to the filter cutoff frequency.Setting the LFO rate 
-and depth allows for control over the filter modulation rate 
+/*Tone.AutoFilter is a Tone.Filter with a Tone.LFO connected
+to the filter cutoff frequency.Setting the LFO rate
+and depth allows for control over the filter modulation rate
 and depth.
 
 CONSTRUCTOR
@@ -4675,5 +4675,2067 @@ disconnect
 toMaster
 fan
   */
+
+//Tone.AutoPanner ↳ EXTENDS Tone.Effect
+/*Tone.AutoPanner is a Tone.Panner with an LFO connected 
+to the pan amount.More on using autopanners here.
+
+CONSTRUCTOR
+new Tone.AutoPanner([frequency])
+frequency:	Rate of left - right oscillation.
+  type: Frequency or Object
+optional
+
+DEFAULTS
+{
+  frequency: 1,
+    type : sine,
+      depth : 1
+}
+
+EXAMPLE
+//create an autopanner and start it's LFO
+var autoPanner = new Tone.AutoPanner("4n").toMaster().start();
+//route an oscillator through the panner and start it
+var oscillator = new Tone.Oscillator().connect(autoPanner).start();
+
+MEMBERS
+depth
+frequency
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+channelCountMode
+wet
+
+METHODS
+unsync
+dispose
+start
+stop
+sync
+chain
+connect
+disconnect
+toMaster
+fan
+  */
+
+//Tone.AutoWah ↳ EXTENDS Tone.Effect
+/*Tone.AutoWah connects a Tone.Follower to a bandpass
+filter(Tone.Filter).The frequency of the filter is 
+adjusted proportionally to the incoming signal’s 
+amplitude.Inspiration from Tuna.js.
+
+CONSTRUCTOR
+new Tone.AutoWah([baseFrequency], [octaves], [sensitivity])
+baseFrequency: The frequency the filter is set to at the 
+low point of the wah
+type: Frequency or Object
+optional
+
+octaves:	The number of octaves above the baseFrequency 
+the filter will sweep to when fully open
+type: Positive
+optional
+
+sensitivity:	The decibel threshold sensitivity for 
+the incoming signal.Normal range of - 40 to 0.
+type: Decibels
+optional
+
+DEFAULTS
+{
+  baseFrequency: 100,
+    octaves : 6,
+      sensitivity : 0,
+        Q : 2,
+          gain : 2,
+            follower : {
+    attack: 0.3,
+      release : 0.5
+  }
+}
+
+EXAMPLE
+var autoWah = new Tone.AutoWah(50, 6, -30).toMaster();
+//initialize the synth and connect to autowah
+var synth = new Synth.connect(autoWah);
+//Q value influences the effect of the wah - default is 2
+autoWah.Q.value = 6;
+//more audible on higher notes
+synth.triggerAttackRelease("C4", "8n")
+
+MEMBERS
+Q
+baseFrequency
+gain
+octaves
+sensitivity
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+channelCountMode
+channelInterpretation
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+  */
+
+//Tone.BitCrusher ↳ EXTENDS Tone.Effect
+/*Tone.Bitcrusher downsamples the incoming signal to a 
+different bitdepth.Lowering the bitdepth of the signal
+creates distortion.Read more about Bitcrushing on Wikipedia.
+
+CONSTRUCTOR
+new Tone.BitCrusher(bits)
+bits: The number of bits to downsample the signal.
+Nominal range of 1 to 8.
+
+type: Number
+DEFAULTS
+{
+  bits: 4
+}
+
+EXAMPLE
+//initialize crusher and route a synth through it
+var crusher = new Tone.BitCrusher(4).toMaster();
+var synth = new Tone.MonoSynth().connect(crusher);
+
+MEMBERS
+bits
+channelCount
+channelCountMode
+channelInterpretation
+numberOfInputs
+numberOfOutputs
+context
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+  */
+
+//Tone.Chebyshev ↳ EXTENDS Tone.Effect
+/*Tone.ChebyShev is a Chebyshev waveshaper, an effect which
+is good for making different types of distortion sounds.
+Note that odd orders sound very different from even ones,
+and order = 1 is no change.Read more at music.columbia.edu.
+
+CONSTRUCTOR
+new Tone.Chebyshev([order])
+order: The order of the chebyshev polynomial.Normal range
+between 1 - 100.
+type: Positive or Object
+optional
+
+DEFAULTS
+{
+  order: 1,
+    oversample : none
+}
+
+EXAMPLE
+//create a new cheby
+var cheby = new Tone.Chebyshev(50);
+//create a monosynth connected to our cheby
+synth = new Tone.MonoSynth().connect(cheby);
+
+MEMBERS
+order
+oversample
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+channelCountMode
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Chorus ↳ EXTENDS Tone.StereoEffect
+/*Tone.Chorus is a stereo chorus effect composed of a left 
+and right delay with a Tone.LFO applied to the delayTime 
+of each channel.Inspiration from Tuna.js.
+Read more on the chorus effect on SoundOnSound.
+
+CONSTRUCTOR
+new Tone.Chorus([frequency], [delayTime], [depth])
+frequency: The frequency of the LFO.
+type: Frequency or Object
+optional
+
+delayTime:	The delay of the chorus effect in ms.
+type: Milliseconds
+optional
+
+depth:	The depth of the chorus.
+type: NormalRange
+optional
+
+DEFAULTS
+{
+  frequency: 1.5,
+    delayTime : 3.5,
+      depth : 0.7,
+        type : sine,
+          spread : 180
+}
+
+EXAMPLE
+var chorus = new Tone.Chorus(4, 2.5, 0.5);
+var synth = new Tone.PolySynth(4, Tone.MonoSynth).connect(chorus);
+synth.triggerAttackRelease(["C3", "E3", "G3"], "8n");
+
+MEMBERS
+frequency
+delayTime
+depth
+spread
+type
+numberOfOutputs
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+  */
+
+//Tone.Convolver ↳ EXTENDS Tone.Effect
+/*Tone.Convolver is a wrapper around the Native Web 
+Audio ConvolverNode.Convolution is useful for reverb and
+filter emulation.
+Read more about convolution reverb on Wikipedia.
+
+CONSTRUCTOR
+new Tone.Convolver([url], [onload])
+url:	The URL of the impulse response or the Tone.Buffer 
+contianing the impulse response.
+type: string or Tone.Buffer or Object
+optional
+
+onload: The callback to invoke when the url is loaded.
+type: function
+optional
+
+  DEFAULTS
+{
+  onload: Tone.noOp,
+    normalize : true
+}
+
+EXAMPLE
+//initializing the convolver with an impulse response
+var convolver = new Tone.Convolver("./path/to/ir.wav").toMaster();
+
+MEMBERS
+buffer
+normalize
+channelCountMode
+channelInterpretation
+numberOfInputs
+numberOfOutputs
+context
+channelCount
+wet
+
+METHODS
+dispose
+load
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Distortion ↳ EXTENDS Tone.Effect
+/*Tone.Distortion is a simple distortion effect using 
+Tone.WaveShaper.Algorithm from a stackoverflow answer.
+
+CONSTRUCTOR
+new Tone.Distortion([distortion])
+distortion:	The amount of distortion(nominal range of 0 - 1)
+type: Number or Object
+optional
+
+DEFAULTS
+{
+  distortion: 0.4,
+    oversample : none
+}
+
+EXAMPLE
+var dist = new Tone.Distortion(0.8).toMaster();
+var fm = new Tone.SimpleFM().connect(dist);
+//this sounds good on bass notes
+fm.triggerAttackRelease("A1", "8n");
+
+MEMBERS
+distortion
+oversample
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+channelCountMode
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+  */
+
+//Tone.Effect ↳ EXTENDS Tone.AudioNode
+/*Tone.Effect is the base class for effects.
+Connect the effect between the effectSend and effectReturn
+GainNodes, then control the amount of effect which goes 
+to the output using the wet control.
+
+CONSTRUCTOR
+new Tone.Effect([wet])
+wet:	The starting wet value.
+type: NormalRange or Object
+optional
+
+DEFAULTS
+{
+  wet: 1
+}
+
+MEMBERS
+wet
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+  */
+
+//Tone.FeedbackDelay ↳ EXTENDS Tone.FeedbackEffect
+/*Tone.FeedbackDelay is a DelayNode in which part of output 
+signal is fed back into the delay.
+
+CONSTRUCTOR
+new Tone.FeedbackDelay([delayTime], [feedback])
+delayTime:	The delay applied to the incoming signal.
+type: Time or Object
+optional
+
+feedback: The amount of the effected signal which is fed 
+back through the delay.
+type: NormalRange
+optional
+
+DEFAULTS
+{
+  delayTime: 0.25,
+    maxDelay : 1
+}
+
+EXAMPLE
+var feedbackDelay = new Tone.FeedbackDelay("8n", 0.5).toMaster();
+var tom = new Tone.MembraneSynth({
+  "octaves": 4,
+  "pitchDecay": 0.1
+}).connect(feedbackDelay);
+tom.triggerAttackRelease("A2", "32n");
+
+MEMBERS
+delayTime
+channelCountMode
+channelInterpretation
+context
+channelCount
+numberOfInputs
+numberOfOutputs
+wet
+feedback
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+  */
+
+//Tone.FeedbackEffect ↳ EXTENDS Tone.Effect
+/*Tone.FeedbackEffect provides a loop between an audio source 
+and its own output.This is a base - class for feedback effects.
+
+CONSTRUCTOR
+new Tone.FeedbackEffect([feedback])
+feedback: The initial feedback value.
+type: NormalRange or Object
+optional
+
+DEFAULTS
+{
+  feedback: 0.125
+}
+
+MEMBERS
+feedback
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+  */
+
+//Tone.Freeverb ↳ EXTENDS Tone.Effect
+/*Tone.Freeverb is a reverb based on Freeverb.
+Read more on reverb on Sound On Sound.
+
+CONSTRUCTOR
+new Tone.Freeverb ( [ roomSize ] , [ dampening ] )
+roomSize: Correlated to the decay time.
+type: NormalRange or Object
+optional
+
+dampening: The cutoff frequency of a lowpass filter as 
+part of the reverb.
+type: Frequency
+optional
+
+DEFAULTS
+{
+roomSize : 0.7 ,
+dampening : 3000
+}
+
+EXAMPLE
+var freeverb = new Tone.Freeverb().toMaster();
+freeverb.dampening.value = 1000;
+//routing synth through the reverb
+var synth = new Tone.AMSynth().connect(freeverb);
+
+MEMBERS
+dampening
+roomSize
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+channelCountMode
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.JCReverb ↳ EXTENDS Tone.Effect
+/*Tone.JCReverb is a simple Schroeder Reverberator tuned
+by John Chowning in 1970. It is made up of three allpass
+filters and four Tone.FeedbackCombFilter.
+
+CONSTRUCTOR
+new Tone.JCReverb ( [ roomSize ] )
+roomSize: Coorelates to the decay time.
+type: NormalRange or Object
+optional
+
+DEFAULTS
+{
+roomSize : 0.5
+}
+
+EXAMPLE
+var reverb = new Tone.JCReverb(0.4).connect(Tone.Master);
+var delay = new Tone.FeedbackDelay(0.5);
+//connecting the synth to reverb through delay
+var synth = new Tone.DuoSynth().chain(delay, reverb);
+synth.triggerAttackRelease("A4","8n");
+MEMBERS
+
+roomSize
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.MidSideEffect ↳ EXTENDS Tone.Effect
+/*Mid/Side processing separates the the ‘mid’ signal 
+(which comes out of both the left and the right channel) 
+and the ‘side’ (which only comes out of the the side channels)
+and effects them separately before being recombined.
+Applies a Mid/Side seperation and recombination. 
+Algorithm found in kvraudio forums.
+
+This is a base-class for Mid/Side Effects.
+
+CONSTRUCTOR
+new Tone.MidSideEffect ( )
+
+MEMBERS
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Phaser ↳ EXTENDS Tone.StereoEffect
+/*Tone.Phaser is a phaser effect. 
+Phasers work by changing the phase of different frequency 
+components of an incoming signal. 
+Read more on Wikipedia. Inspiration for this phaser 
+comes from Tuna.js.
+
+CONSTRUCTOR
+new Tone.Phaser ( [ frequency ] , [ octaves ] , [ baseFrequency ] )
+frequency:	The speed of the phasing.
+type: Frequency or Object
+optional
+
+octaves: The octaves of the effect.
+type: number
+optional
+
+baseFrequency:	The base frequency of the filters.
+type: Frequency
+optional
+
+DEFAULTS
+{
+frequency : 0.5 ,
+octaves : 3 ,
+stages : 10 ,
+Q : 10 ,
+baseFrequency : 350
+}
+
+EXAMPLE
+var phaser = new Tone.Phaser({
+	"frequency" : 15,
+	"octaves" : 5,
+	"baseFrequency" : 1000
+}).toMaster();
+var synth = new Tone.FMSynth().connect(phaser);
+synth.triggerAttackRelease("E3", "2n");
+
+MEMBERS
+frequency
+baseFrequency
+Q
+octaves
+numberOfInputs
+numberOfOutputs
+context
+channelCount
+channelCountMode
+channelInterpretation
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.PingPongDelay ↳ EXTENDS Tone.StereoXFeedbackEffect
+/*Tone.PingPongDelay is a feedback delay effect where 
+the echo is heard first in one channel and next in the 
+opposite channel. In a stereo system these are the right 
+and left channels. PingPongDelay in more simplified terms 
+is two Tone.FeedbackDelays with independent delay values. 
+Each delay is routed to one channel (left or right), 
+and the channel triggered second will always trigger 
+at the same interval after the first.
+
+CONSTRUCTOR
+new Tone.PingPongDelay ( [ delayTime ] , [ feedback ] )
+delayTime:	The delayTime between consecutive echos.
+type: Time or Object
+optional
+
+feedback:	The amount of the effected signal which is fed back through the delay.
+type: NormalRange
+optional
+
+DEFAULTS
+{
+delayTime : 0.25 ,
+maxDelayTime : 1
+}
+
+EXAMPLE
+var pingPong = new Tone.PingPongDelay("4n", 0.2).toMaster();
+var drum = new Tone.MembraneSynth().connect(pingPong);
+drum.triggerAttackRelease("C4", "32n");
+
+MEMBERS
+delayTime
+channelCountMode
+channelInterpretation
+context
+channelCount
+numberOfInputs
+numberOfOutputs
+wet
+feedback
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.PitchShift ↳ EXTENDS Tone.FeedbackEffect
+/*Tone.PitchShift does near-realtime pitch shifting to the
+incoming signal. The effect is achieved by speeding up or 
+slowing down the delayTime of a DelayNode using a 
+sawtooth wave. Algorithm found in this pdf. 
+Additional reference by Miller Pucket.
+
+CONSTRUCTOR
+new Tone.PitchShift ( [ pitch ] )
+pitch:	The interval to transpose the incoming signal by.
+type: Interval
+optional
+
+DEFAULTS
+{
+pitch : 0 ,
+windowSize : 0.1 ,
+delayTime : 0 ,
+feedback : 0
+}
+
+MEMBERS
+delayTime
+windowSize
+pitch
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+channelCountMode
+channelInterpretation
+wet
+feedback
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Reverb ↳ EXTENDS Tone.Convolver
+/*Simple convolution created with decaying noise. 
+Generates an Impulse Response Buffer with Tone.Offline 
+then feeds the IR into ConvolverNode. 
+Note: the Reverb will not make any sound until generate
+has been invoked and resolved.
+Inspiration from ReverbGen. Copyright (c) 2014 Alan deLespinasse Apache 2.0 License.
+
+CONSTRUCTOR
+new Tone.Reverb ( [ decay ] )
+decay:	The amount of time it will reverberate for.
+type: Time
+optional
+
+DEFAULTS
+{
+decay : 1.5 ,
+preDelay : 0.01
+}
+
+MEMBERS
+preDelay
+decay
+channelInterpretation
+context
+channelCount
+numberOfOutputs
+numberOfInputs
+channelCountMode
+buffer
+normalize
+wet
+
+METHODS
+dispose
+generate
+disconnect
+fan
+toMaster
+connect
+chain
+load
+*/
+
+//Tone.StereoEffect ↳ EXTENDS Tone.Effect
+/*Base class for Stereo effects. 
+Provides effectSendL/R and effectReturnL/R.
+
+CONSTRUCTOR
+new Tone.StereoEffect ( )
+
+MEMBERS
+wet
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.StereoFeedbackEffect ↳ EXTENDS Tone.StereoEffect
+/*Base class for stereo feedback effects where the 
+effectReturn is fed back into the same channel.
+
+CONSTRUCTOR
+new Tone.StereoFeedbackEffect ( )
+
+MEMBERS
+feedback
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.StereoWidener ↳ EXTENDS Tone.MidSideEffect
+/*Applies a width factor to the mid/side seperation.
+0 is all mid and 1 is all side. Algorithm found in
+kvraudio forums.
+
+Mid *= 2*(1-width)
+Side *= 2*width
+
+CONSTRUCTOR
+new Tone.StereoWidener ( [ width ] )
+width:	The stereo width. A width of 0 is mono and 1 is stereo.
+0.5 is no change.
+type: NormalRange or Object
+optional
+
+DEFAULTS
+{
+width : 0.5
+}
+
+MEMBERS
+width
+channelCountMode
+channelInterpretation
+context
+channelCount
+numberOfOutputs
+numberOfInputs
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.StereoXFeedbackEffect ↳ EXTENDS Tone.StereoEffect
+/*Just like a stereo feedback effect, but the feedback 
+is routed from left to right and right to left instead
+of on the same channel.
+
+CONSTRUCTOR
+new Tone.StereoXFeedbackEffect ( )
+
+MEMBERS
+feedback
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Tremolo ↳ EXTENDS Tone.StereoEffect
+/*Tone.Tremolo modulates the amplitude of an incoming signal 
+using a Tone.LFO. The type, frequency, and depth of the 
+LFO is controllable.
+
+CONSTRUCTOR
+new Tone.Tremolo ( [ frequency ] , [ depth ] )
+frequency:	The rate of the effect.
+type: Frequency
+optional
+
+depth:	The depth of the effect.
+type: NormalRange
+optional
+
+DEFAULTS
+{
+frequency : 10 ,
+type : sine ,
+depth : 0.5 ,
+spread : 180
+}
+
+EXAMPLE
+//create a tremolo and start it's LFO
+var tremolo = new Tone.Tremolo(9, 0.75).toMaster().start();
+//route an oscillator through the tremolo and start it
+var oscillator = new Tone.Oscillator().connect(tremolo).start();
+
+MEMBERS
+depth
+frequency
+spread
+type
+numberOfInputs
+numberOfOutputs
+channelCount
+channelCountMode
+channelInterpretation
+context
+wet
+
+METHODS
+unsync
+dispose
+start
+stop
+sync
+chain
+connect
+disconnect
+toMaster
+fan
+*/
+
+//Tone.Vibrato ↳ EXTENDS Tone.Effect
+/*A Vibrato effect composed of a Tone.Delay and a
+Tone.LFO. The LFO modulates the delayTime of the delay, 
+causing the pitch to rise and fall.
+
+CONSTRUCTOR
+new Tone.Vibrato ( frequency , depth )
+frequency:	The frequency of the vibrato.
+type: Frequency
+
+depth:	The amount the pitch is modulated.
+type: NormalRange
+
+DEFAULTS
+{
+maxDelay : 0.005 ,
+frequency : 5 ,
+depth : 0.1 ,
+type : sine
+}
+
+MEMBERS
+depth
+frequency
+type
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+channelCountMode
+channelInterpretation
+wet
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//------------------------------------------------------------------
+//------------------------------------------------------------------
+//COMPONENT
+
+//Tone.AmplitudeEnvelope ↳ EXTENDS Tone.Envelope
+/*Tone.AmplitudeEnvelope is a Tone.Envelope connected to 
+a gain node. Unlike Tone.Envelope, which outputs the 
+envelope’s value, Tone.AmplitudeEnvelope accepts an 
+audio signal as the input and will apply the envelope 
+to the amplitude of the signal. Read more about ADSR 
+Envelopes on Wikipedia.
+
+CONSTRUCTOR
+new Tone.AmplitudeEnvelope ( [ attack ] , [ decay ] , [ sustain ] , [ release ] )
+attack:	The amount of time it takes for the envelope 
+to go from 0 to it’s maximum value.
+type: Time or Object
+optional
+
+decay:	The period of time after the attack that it takes 
+for the envelope to fall to the sustain value.
+type: Time
+optional
+
+sustain:	The percent of the maximum value that the envelope
+rests at until the release is triggered.
+type: NormalRange
+optional
+
+release:	The amount of time after the release is triggered 
+it takes to reach 0.
+type: Time
+optional
+
+EXAMPLE
+var ampEnv = new Tone.AmplitudeEnvelope({
+	"attack": 0.1,
+	"decay": 0.2,
+	"sustain": 1.0,
+	"release": 0.8
+}).toMaster();
+//create an oscillator and connect it
+var osc = new Tone.Oscillator().connect(ampEnv).start();
+//trigger the envelopes attack and release "8t" apart
+ampEnv.triggerAttackRelease("8t");
+
+MEMBERS
+numberOfInputs
+numberOfOutputs
+channelInterpretation
+context
+channelCount
+channelCountMode
+sustain
+attack
+value
+attackCurve
+decay
+decayCurve
+release
+releaseCurve
+
+METHODS
+dispose
+chain
+toMaster
+disconnect
+fan
+triggerRelease
+getValueAtTime
+triggerAttack
+triggerAttackRelease
+cancel
+*/
+
+//Tone.Analyser ↳ EXTENDS Tone.AudioNode
+/*Wrapper around the native Web Audio’s AnalyserNode.
+Extracts FFT or Waveform data from the incoming signal.
+
+CONSTRUCTOR
+new Tone.Analyser ( [ type ] , [ size ] )
+type:	The return type of the analysis, either “fft”,
+ or “waveform”.
+type: String
+optional
+
+size:	The size of the FFT. Value must be a power of two 
+in the range 16 to 16384.
+type: Number
+optional
+
+DEFAULTS
+{
+size : 1024 ,
+type : fft ,
+smoothing : 0.8
+}
+
+MEMBERS
+size
+smoothing
+type
+context
+channelCount
+numberOfOutputs
+numberOfInputs
+channelCountMode
+channelInterpretation
+
+METHODS
+dispose
+getValue
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Channel ↳ EXTENDS Tone.AudioNode
+/*Tone.Channel provides a channel strip interface with volume,
+pan, solo and mute controls.
+
+CONSTRUCTOR
+new Tone.Channel ( volume , pan )
+volume:	The output volume.
+type: Decibels
+
+pan: the initial pan
+type: AudioRange
+
+DEFAULTS
+{
+pan : 0 ,
+volume : 0 ,
+mute : false ,
+solo : false
+}
+
+EXAMPLE
+//pan the incoming signal left and drop the volume
+var channel = new Tone.Channel(-0.25, -12);
+
+MEMBERS
+volume
+mute
+muted
+pan
+solo
+channelCount
+numberOfInputs
+channelCountMode
+channelInterpretation
+context
+numberOfOutputs
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Compressor ↳ EXTENDS Tone.AudioNode
+/*Tone.Compressor is a thin wrapper around the Web 
+Audio DynamicsCompressorNode. Compression reduces the volume 
+of loud sounds or amplifies quiet sounds by narrowing or 
+“compressing” an audio signal’s dynamic range. 
+Read more on Wikipedia.
+
+CONSTRUCTOR
+new Tone.Compressor ( [ threshold ] , [ ratio ] )
+threshold:	The value above which the compression starts
+to be applied.
+type: Decibels or Object
+optional
+
+ratio:	The gain reduction ratio.
+type: Positive
+optional
+
+DEFAULTS
+{
+ratio : 12 ,
+threshold : -24 ,
+release : 0.25 ,
+attack : 0.003 ,
+knee : 30
+}
+
+EXAMPLE
+var comp = new Tone.Compressor(-30, 3);
+
+MEMBERS
+threshold
+knee
+ratio
+release
+attack
+numberOfOutputs
+numberOfInputs
+channelCount
+channelCountMode
+channelInterpretation
+context
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.CrossFade ↳ EXTENDS Tone.AudioNode
+/*Tone.Crossfade provides equal power fading between two inputs. 
+More on crossfading technique here.
+
+CONSTRUCTOR
+new Tone.CrossFade ( [ initialFade = 0.5 ] )
+initialFade	
+type: NormalRange
+default: 0.5
+
+EXAMPLE
+var crossFade = new Tone.CrossFade(0.5);
+//connect effect A to crossfade from
+//effect output 0 to crossfade input 0
+effectA.connect(crossFade, 0, 0);
+//connect effect B to crossfade from
+//effect output 0 to crossfade input 1
+effectB.connect(crossFade, 0, 1);
+crossFade.fade.value = 0;
+// ^ only effectA is output
+crossFade.fade.value = 1;
+// ^ only effectB is output
+crossFade.fade.value = 0.5;
+// ^ the two signals are mixed equally.
+
+MEMBERS
+fade
+b
+a
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+channelCount
+channelCountMode
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.EQ3 ↳ EXTENDS Tone.AudioNode
+/*Tone.EQ3 is a three band EQ with control over low, mid,
+and high gain as well as the low and high crossover frequencies.
+
+CONSTRUCTOR
+new Tone.EQ3 ( [ lowLevel ] , [ midLevel ] , [ highLevel ] )
+lowLevel:	The gain applied to the lows.
+type: Decibels or Object
+optional
+
+midLevel:	The gain applied to the mid.
+type: Decibels
+optional
+
+highLevel: The gain applied to the high.
+type: Decibels
+optional
+
+DEFAULTS
+{
+low : 0 ,
+mid : 0 ,
+high : 0 ,
+lowFrequency : 400 ,
+highFrequency : 2500
+}
+
+EXAMPLE
+var eq = new Tone.EQ3(-10, 3, -20);
+
+MEMBERS
+Q
+high
+highFrequency
+low
+lowFrequency
+mid
+numberOfInputs
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfOutputs
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Envelope ↳ EXTENDS Tone.AudioNode
+/*Tone.Envelope is an ADSR envelope generator.
+Tone.Envelope outputs a signal which can be connected 
+to an AudioParam or Tone.Signal.
+
+CONSTRUCTOR
+new Tone.Envelope ( [ attack ] , [ decay ] , [ sustain ] , [ release ] )
+attack:	The amount of time it takes for the envelope to go from 0 to it’s maximum value.
+type: Time
+optional
+
+decay: The period of time after the attack that it takes for the envelope to fall to the sustain value. Value must be greater than 0.
+type: Time
+optional
+
+sustain:	The percent of the maximum value that the envelope rests at until the release is triggered.
+type: NormalRange
+optional
+
+release:	The amount of time after the release is triggered it takes to reach 0. Value must be greater than 0.
+type: Time
+optional
+
+DEFAULTS
+{
+attack : 0.01 ,
+decay : 0.1 ,
+sustain : 0.5 ,
+release : 1 ,
+attackCurve : linear ,
+decayCurve : exponential ,
+releaseCurve : exponential
+}
+
+EXAMPLE
+//an amplitude envelope
+var gainNode = Tone.context.createGain();
+var env = new Tone.Envelope({
+	"attack" : 0.1,
+	"decay" : 0.2,
+	"sustain" : 1,
+	"release" : 0.8,
+});
+env.connect(gainNode.gain);
+
+MEMBERS
+value
+attackCurve
+decay
+decayCurve
+release
+releaseCurve
+sustain
+attack
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+
+METHODS
+triggerRelease
+getValueAtTime
+triggerAttack
+triggerAttackRelease
+cancel
+dispose
+chain
+disconnect
+toMaster
+fan
+*/
+
+//Tone.FFT ↳ EXTENDS Tone.AudioNode
+/*Get the current frequency data of the connected 
+audio source using a fast Fourier transform.
+
+CONSTRUCTOR
+new Tone.FFT ( [ size ] )
+size: The size of the FFT. Value must be a power of two 
+in the range 16 to 16384.
+type: Number
+optional
+
+DEFAULTS
+{
+size : 1024
+}
+
+MEMBERS
+size
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+
+METHODS
+dispose
+getValue
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.FeedbackCombFilter ↳ EXTENDS Tone.AudioNode
+/*Comb filters are basic building blocks for physical modeling. 
+Read more about comb filters on CCRMA’s website.
+
+CONSTRUCTOR
+new Tone.FeedbackCombFilter ( [ delayTime ] , [ resonance ] )
+delayTime:	The delay time of the filter.
+type: Time or Object
+optional
+
+resonance:	The amount of feedback the filter has.
+type: NormalRange
+optional
+
+DEFAULTS
+{
+delayTime : 0.1 ,
+resonance : 0.5
+}
+
+MEMBERS
+resonance
+delayTime
+channelInterpretation
+context
+channelCount
+numberOfInputs
+numberOfOutputs
+channelCountMode
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Filter ↳ EXTENDS Tone.AudioNode
+/*Tone.Filter is a filter which allows for all of the same
+native methods as the BiquadFilterNode. Tone.Filter 
+has the added ability to set the filter rolloff at -12 
+(default), -24 and -48.
+
+CONSTRUCTOR
+new Tone.Filter ( [ frequency ] , [ type ] , [ rolloff ] )
+frequency:	The cutoff frequency of the filter.
+type: Frequency or Object
+optional
+
+type:	The type of filter.
+type: string
+optional
+
+rolloff:	The drop in decibels per octave after 
+the cutoff frequency. 3 choices: -12, -24, and -48
+type: number
+optional
+
+DEFAULTS
+{
+type : lowpass ,
+frequency : 350 ,
+rolloff : -12 ,
+Q : 1 ,
+gain : 0
+}
+
+EXAMPLE
+var filter = new Tone.Filter(200, "highpass");
+
+MEMBERS
+type
+detune
+frequency
+gain
+rolloff
+Q
+numberOfInputs
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfOutputs
+
+METHODS
+dispose
+getFrequencyResponse
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Follower ↳ EXTENDS Tone.AudioNode
+/*Tone.Follower is a crude envelope follower which 
+will follow the amplitude of an incoming signal. 
+Read more about envelope followers (also known as envelope detectors) on Wikipedia.
+
+CONSTRUCTOR
+new Tone.Follower ( [ smoothing = 0.05 ] )
+smoothing:	The rate of change of the follower.
+type: Time
+default: 0.05
+
+DEFAULTS
+{
+smoothing : 0.05
+}
+
+EXAMPLE
+var follower = new Tone.Follower(0.3);
+
+MEMBERS
+smoothing
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+
+METHODS
+connect
+dispose
+chain
+disconnect
+fan
+toMaster
+*/
+
+//Tone.FrequencyEnvelope ↳ EXTENDS Tone.Envelope
+/*Tone.FrequencyEnvelope is a Tone.ScaledEnvelope, 
+but instead of min and max it’s got a baseFrequency 
+and octaves parameter.
+
+CONSTRUCTOR
+new Tone.FrequencyEnvelope ( [ attack ] , [ decay ] , [ sustain ] , [ release ] )
+attack: the attack time in seconds
+type: Time or Object
+optional
+decay:	the decay time in seconds
+type: Time
+optional
+
+sustain:	a percentage (0-1) of the full amplitude
+type: number
+optional
+
+release: the release time in seconds
+type: Time
+optional
+
+DEFAULTS
+{
+baseFrequency : 200 ,
+octaves : 4 ,
+exponent : 1
+}
+
+EXAMPLE
+var freqEnv = new Tone.FrequencyEnvelope({
+ 	"attack" : 0.2,
+ 	"baseFrequency" : "C2",
+ 	"octaves" : 4
+ });
+ freqEnv.connect(oscillator.frequency);
+
+ MEMBERS
+octaves
+baseFrequency
+exponent
+channelCountMode
+channelInterpretation
+context
+channelCount
+numberOfInputs
+numberOfOutputs
+value
+attackCurve
+decay
+decayCurve
+release
+releaseCurve
+sustain
+attack
+
+METHODS
+dispose
+chain
+toMaster
+disconnect
+fan
+triggerRelease
+getValueAtTime
+triggerAttack
+triggerAttackRelease
+cancel
+*/
+
+//Tone.Gate ↳ EXTENDS Tone.AudioNode
+/*Tone.Gate only passes a signal through when 
+the incoming signal exceeds a specified threshold. 
+To do this, Gate uses a Tone.Follower to follow 
+the amplitude of the incoming signal. 
+A common implementation of this class is a Noise Gate.
+
+CONSTRUCTOR
+new Tone.Gate ( [ threshold ] , [ smoothing ] )
+threshold:	The threshold above which the gate will open.
+type: Decibels or Object
+optional
+
+smoothing:	The follower’s smoothing time
+type: Time
+optional
+
+DEFAULTS
+{
+smoothing : 0.1 ,
+threshold : -40
+}
+
+EXAMPLE
+var gate = new Tone.Gate(-30, 0.2, 0.3).toMaster();
+var mic = new Tone.UserMedia().connect(gate);
+//the gate will only pass through the incoming
+//signal when it's louder than -30db
+
+MEMBERS
+smoothing
+threshold
+channelInterpretation
+context
+channelCount
+numberOfOutputs
+numberOfInputs
+channelCountMode
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.LFO ↳ EXTENDS Tone.AudioNode
+/*LFO stands for low frequency oscillator. 
+Tone.LFO produces an output signal which can be attached
+to an AudioParam or Tone.Signal in order to modulate 
+that parameter with an oscillator. The LFO can also be 
+synced to the transport to start/stop and change when
+the tempo changes.
+
+CONSTRUCTOR
+new Tone.LFO ( [ frequency ] , [ min ] , [ max ] )
+frequency:	The frequency of the oscillation. 
+Typically, LFOs will be in the frequency range of 0.1 
+to 10 hertz.
+type: Frequency or Object
+optional
+
+min:	The minimum output value of the LFO.
+type: number
+optional
+
+max: The maximum value of the LFO.
+type: number
+optional
+
+DEFAULTS
+{
+type : sine ,
+min : 0 ,
+max : 1 ,
+phase : 0 ,
+frequency : 4n ,
+amplitude : 1 ,
+units : Tone.Type.Default
+}
+
+EXAMPLE
+var lfo = new Tone.LFO("4n", 400, 4000);
+lfo.connect(filter.frequency);
+
+MEMBERS
+units
+max
+min
+phase
+state
+type
+amplitude
+frequency
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfOutputs
+numberOfInputs
+
+METHODS
+unsync
+dispose
+start
+stop
+sync
+disconnect
+toMaster
+fan
+chain
+*/
+
+//Tone.Limiter ↳ EXTENDS Tone.AudioNode
+/*Tone.Limiter will limit the loudness of an incoming signal. 
+It is composed of a Tone.Compressor with a fast attack 
+and release. Limiters are commonly used to safeguard 
+against signal clipping. Unlike a compressor, 
+limiters do not provide smooth gain reduction and almost 
+completely prevent additional gain above the threshold.
+
+CONSTRUCTOR
+new Tone.Limiter ( threshold )
+threshold:	The theshold above which the limiting is applied.
+type: number
+
+DEFAULTS
+{
+threshold : -12
+}
+
+EXAMPLE
+var limiter = new Tone.Limiter(-6);
+
+MEMBERS
+threshold
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.LowpassCombFilter ↳ EXTENDS Tone.AudioNode
+/*Tone.Lowpass is a lowpass feedback comb filter. 
+It is similar to Tone.FeedbackCombFilter, 
+but includes a lowpass filter.
+
+CONSTRUCTOR
+new Tone.LowpassCombFilter ( [ delayTime ] , [ resonance ] , [ dampening ] )
+delayTime:	The delay time of the comb filter
+type: Time or Object
+optional
+
+resonance:	The resonance (feedback) of the comb filter
+type: NormalRange
+optional
+
+dampening:	The cutoff of the lowpass filter dampens the signal as it is fedback.
+type: Frequency
+optional
+
+DEFAULTS
+{
+delayTime : 0.1 ,
+resonance : 0.5 ,
+dampening : 3000
+}
+
+MEMBERS
+resonance
+dampening
+delayTime
+context
+numberOfOutputs
+channelCount
+numberOfInputs
+channelCountMode
+channelInterpretation
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Merge ↳ EXTENDS Tone.AudioNode
+/*Tone.Merge brings two signals into the left and right 
+channels of a single stereo channel.
+
+CONSTRUCTOR
+new Tone.Merge ( [ channels = 2 ] )
+channels:	The number of channels to merge.
+type: number
+default: 2
+
+EXAMPLE
+var merge = new Tone.Merge().toMaster();
+//routing a sine tone in the left channel
+//and noise in the right channel
+var osc = new Tone.Oscillator().connect(merge.left);
+var noise = new Tone.Noise().connect(merge.right);
+//starting our oscillators
+noise.start();
+osc.start();
+
+MEMBERS
+right
+left
+channelInterpretation
+context
+channelCount
+numberOfInputs
+numberOfOutputs
+channelCountMode
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Meter ↳ EXTENDS Tone.AudioNode
+/*Tone.Meter gets the RMS of an input signal. 
+It can also get the raw value of the input signal.
+
+CONSTRUCTOR
+new Tone.Meter ( smoothing )
+smoothing:	The amount of smoothing applied between frames.
+type: Number
+
+DEFAULTS
+{
+smoothing : 0.8
+}
+
+EXAMPLE
+var meter = new Tone.Meter();
+var mic = new Tone.UserMedia().open();
+//connect mic to the meter
+mic.connect(meter);
+//the current level of the mic input in decibels
+var level = meter.getLevel();
+
+MEMBERS
+smoothing
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+
+METHODS
+getLevel
+getValue
+dispose
+fan
+chain
+toMaster
+connect
+disconnect
+*/
+
+//Tone.MidSideCompressor ↳ EXTENDS Tone.AudioNode
+/*Tone.MidSideCompressor applies two different compressors 
+to the mid and side signal components. See Tone.MidSideSplit.
+
+CONSTRUCTOR
+new Tone.MidSideCompressor ( options )
+options:	The options that are passed to the mid and side compressors.
+type: Object
+
+DEFAULTS
+{
+mid : {
+ratio : 3 ,
+threshold : -24 ,
+release : 0.03 ,
+attack : 0.02 ,
+knee : 16
+} ,
+side : {
+ratio : 6 ,
+threshold : -30 ,
+release : 0.25 ,
+attack : 0.03 ,
+knee : 10
+}
+}
+
+MEMBERS
+side
+mid
+channelInterpretation
+context
+channelCount
+numberOfInputs
+numberOfOutputs
+channelCountMode
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.MidSideMerge ↳ EXTENDS Tone.AudioNode
+/*Mid/Side processing separates the the ‘mid’ signal 
+(which comes out of both the left and the right channel) 
+and the ‘side’ (which only comes out of the the side channels). 
+MidSideMerge merges the mid and side signal after they’ve 
+been seperated by Tone.MidSideSplit.
+
+Left = (Mid+Side)/sqrt(2); // obtain left signal from mid and side
+Right = (Mid-Side)/sqrt(2); // obtain right signal from mid and side
+
+CONSTRUCTOR
+new Tone.MidSideMerge ( )
+
+MEMBERS
+_timesTwoLeft
+_timesTwoRight
+mid
+side
+channelInterpretation
+context
+numberOfOutputs
+numberOfInputs
+channelCount
+channelCountMode
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.MidSideSplit ↳ EXTENDS Tone.AudioNode
+/*Mid/Side processing separates the the ‘mid’ signal 
+(which comes out of both the left and the right channel) 
+and the ‘side’ (which only comes out of the the side channels).
+
+Mid = (Left+Right)/sqrt(2); // obtain mid-signal from left and right
+Side = (Left-Right)/sqrt(2); // obtain side-signal from left and righ
+
+CONSTRUCTOR
+new Tone.MidSideSplit ( )
+MEMBERS
+
+_midAdd
+_sideSubtract
+mid
+side
+channelInterpretation
+context
+numberOfOutputs
+numberOfInputs
+channelCount
+channelCountMode
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+//Tone.Mono ↳ EXTENDS Tone.AudioNode
+/*Tone.Mono coerces the incoming mono or stereo signal 
+into a mono signal where both left and right channels 
+have the same value. This can be useful for stereo imaging.
+
+CONSTRUCTOR
+new Tone.Mono ( )
+
+MEMBERS
+channelCount
+channelCountMode
+channelInterpretation
+context
+numberOfInputs
+numberOfOutputs
+
+METHODS
+dispose
+chain
+connect
+disconnect
+fan
+toMaster
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
