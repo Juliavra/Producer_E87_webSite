@@ -2806,60 +2806,6 @@ Tone.Transport.schedule(function(time){
 }, "16:0:0");
 */
 
-//Tone.TransportEvent ↳ EXTENDS Tone
-/*Tone.TransportEvent is an internal class used by
-(Tone.Transport)[Transport] to schedule events.
-Do no invoke this class directly,
-it is handled from within Tone.Transport.
-
-CONSTRUCTOR
-new Tone.TransportEvent ( options )
-options
-type: Object
-
-DEFAULTS
-{
-once : false ,
-callback : Tone.noOp
-}
-
-MEMBERS
-Transport
-callback
-id
-time
-
-METHODS
-dispose
-invoke
-*/
-
-//Tone.TransportRepeatEvent ↳ EXTENDS Tone.TransportEvent
-/*Tone.TransportRepeatEvent is an internal class
-used by Tone.Transport to schedule repeat events.
-This class should not be instantiated directly.
-
-CONSTRUCTOR
-new Tone.TransportRepeatEvent ( options )
-options
-type: Object
-
-DEFAULTS
-{
-duration : Infinity ,
-interval : 1
-}
-
-MEMBERS
-Transport
-callback
-id
-time
-
-METHODS
-dispose
-invoke
-*/
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
