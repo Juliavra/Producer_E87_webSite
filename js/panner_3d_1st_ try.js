@@ -1,12 +1,123 @@
-﻿function startsSong() {
+﻿function createsContext() {
+
+  const contextButton = document.querySelector("#contextButton");
+
   setInterval(() => {
     console.log(Tone.immediate());
-  }, 1000);
-
+  }, 500);
   Tone.Transport.start().stop(90);
   Tone.Transport.bpm.value = 120;
-  //Tone.Transport.bpm.rampTo(440, 90);
-}
+  Tone.Transport.swing.value = 90;
+  Tone.Transport.swingSubdivision.value = "8n.";
+  Tone.Transport.loopStart = 0;
+  Tone.Transport.loopEnd.value = 1;
+
+  //--------------------
+  /*
+  // Crea control volumen para el osc1 
+  const volumeControl1 = document.querySelector("#volume1");
+  volumeControl1.addEventListener(
+    "input",
+    () => {
+      synth1.volume = volumeControl1.value;
+    },
+    false
+  );
+*/
+  //--------------------
+  // synth 1 
+  const synth1 = new Tone.Synth({
+    oscillator: {
+      volume: -9,
+      count: 3,
+      spread: 90,
+      type: "triangle"
+    }
+  }).toDestination();
+/*
+  {
+    bpm : 120 ,
+    swing : 0 ,
+    swingSubdivision : 8n ,
+    timeSignature : 4 ,
+    loopStart : 0 ,
+    loopEnd : 4m ,
+    PPQ : 192
+    }
+*/
+
+
+
+}//CIERRA createsContext
+
+
+function startsSong() {
+  //--------------------
+  // synth 1 
+  const synth1 = new Tone.Synth({
+    oscillator: {
+      volume: -12,
+      count: 3,
+      spread: 90,
+      type: "triangle"
+    }
+  }).toDestination();
+
+  const seq = new Tone.Sequence((time, note) => {
+    synth1.triggerAttackRelease(note, 2, time);
+    // subdivisions are given as subarrays
+  }, ["C4", ["E4", "D4"], "E4", "G5", ["G6", "A6"], "E2", "E2", "E2", "E1", "E1", "E0", "E2", "G2", "A2"]).start(0);
+
+/*
+  const synth2 = new Tone.Synth({
+    oscillator: {
+      volume: -24,
+      count: 3,
+      spread: 70,
+      type: "fatsawtooth"
+    }
+  }).toDestination();
+  
+  
+  const seq2 = new Tone.Sequence((time, note) => {
+    synth2.triggerAttackRelease(note, "8n", time);
+  }, ["C4", "E4", "D4", "E4", "G5", ["G6", "A6"], "E2", "E2", "E2", "E1", "E1", "E0", "E2", "G2", "A2"]).start(0);
+  
+  const synth3 = new Tone.Synth({
+    oscillator : {
+      volume: -15,
+      count: 3,
+      spread: 100,
+      type : "sawtooth"
+    }
+  }).toDestination();
+  
+  const seq3 = new Tone.Sequence((time, note) => {
+    synth3.triggerAttackRelease(note, "32n", time);
+  }, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],"E2","E2","E2","E1","E1","E0","E2","G2","A2"]).start(0);
+  
+  const synth4 = new Tone.Synth({
+    oscillator : {
+      volume: -12,
+      count: 3,
+      spread: 50,
+      type : "sine"
+    }
+  }).toDestination();
+  
+  const seq4 = new Tone.Sequence((time, note) => {
+  //	synth4.triggerAttackRelease(note, '2n', time);
+  //}, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],"E2","E2","E2","E1","E1","E0","E2","G2","A2"]).start(0);
+  //}, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],]).start(0);
+  //}, ["C0", "C0", "A1", "C0"]).start(0);
+  //}, ["E1", "C0", "A1", "C0"]).start(0);
+  //}, ["E1", "E1", "A1", "C0"]).start(0)
+  }, ["E1", "E1", "A1", "C0","D1", "C0", "A1", "C0",
+    "C0", "D0", "A1", "C0","G1", "E0", "A1", "C0"]).start(0)
+/**/
+}// CLOSES startsSong
+
+
 
 
 //MIDI JSON
@@ -4558,7 +4669,7 @@ fan
   */
 
 //Tone.AutoPanner ↳ EXTENDS Tone.Effect
-/*Tone.AutoPanner is a Tone.Panner with an LFO connected 
+/*Tone.AutoPanner is a Tone.Panner with an LFO connected
 to the pan amount.More on using autopanners here.
 
 CONSTRUCTOR
@@ -4606,23 +4717,23 @@ fan
 
 //Tone.AutoWah ↳ EXTENDS Tone.Effect
 /*Tone.AutoWah connects a Tone.Follower to a bandpass
-filter(Tone.Filter).The frequency of the filter is 
-adjusted proportionally to the incoming signal’s 
+filter(Tone.Filter).The frequency of the filter is
+adjusted proportionally to the incoming signal’s
 amplitude.Inspiration from Tuna.js.
 
 CONSTRUCTOR
 new Tone.AutoWah([baseFrequency], [octaves], [sensitivity])
-baseFrequency: The frequency the filter is set to at the 
+baseFrequency: The frequency the filter is set to at the
 low point of the wah
 type: Frequency or Object
 optional
 
-octaves:	The number of octaves above the baseFrequency 
+octaves:	The number of octaves above the baseFrequency
 the filter will sweep to when fully open
 type: Positive
 optional
 
-sensitivity:	The decibel threshold sensitivity for 
+sensitivity:	The decibel threshold sensitivity for
 the incoming signal.Normal range of - 40 to 0.
 type: Decibels
 optional
@@ -4673,7 +4784,7 @@ toDestination
   */
 
 //Tone.BitCrusher ↳ EXTENDS Tone.Effect
-/*Tone.Bitcrusher downsamples the incoming signal to a 
+/*Tone.Bitcrusher downsamples the incoming signal to a
 different bitdepth.Lowering the bitdepth of the signal
 creates distortion.Read more about Bitcrushing on Wikipedia.
 
@@ -4758,8 +4869,8 @@ toDestination
 */
 
 //Tone.Chorus ↳ EXTENDS Tone.StereoEffect
-/*Tone.Chorus is a stereo chorus effect composed of a left 
-and right delay with a Tone.LFO applied to the delayTime 
+/*Tone.Chorus is a stereo chorus effect composed of a left
+and right delay with a Tone.LFO applied to the delayTime
 of each channel.Inspiration from Tuna.js.
 Read more on the chorus effect on SoundOnSound.
 
@@ -4815,14 +4926,14 @@ toDestination
   */
 
 //Tone.Convolver ↳ EXTENDS Tone.Effect
-/*Tone.Convolver is a wrapper around the Native Web 
+/*Tone.Convolver is a wrapper around the Native Web
 Audio ConvolverNode.Convolution is useful for reverb and
 filter emulation.
 Read more about convolution reverb on Wikipedia.
 
 CONSTRUCTOR
 new Tone.Convolver([url], [onload])
-url:	The URL of the impulse response or the Tone.Buffer 
+url:	The URL of the impulse response or the Tone.Buffer
 contianing the impulse response.
 type: string or Tone.Buffer or Object
 optional
@@ -4863,7 +4974,7 @@ toDestination
 */
 
 //Tone.Distortion ↳ EXTENDS Tone.Effect
-/*Tone.Distortion is a simple distortion effect using 
+/*Tone.Distortion is a simple distortion effect using
 Tone.WaveShaper.Algorithm from a stackoverflow answer.
 
 CONSTRUCTOR
@@ -4907,7 +5018,7 @@ toDestination
 //Tone.Effect ↳ EXTENDS Tone.AudioNode
 /*Tone.Effect is the base class for effects.
 Connect the effect between the effectSend and effectReturn
-GainNodes, then control the amount of effect which goes 
+GainNodes, then control the amount of effect which goes
 to the output using the wet control.
 
 CONSTRUCTOR
@@ -4940,7 +5051,7 @@ toDestination
   */
 
 //Tone.FeedbackDelay ↳ EXTENDS Tone.FeedbackEffect
-/*Tone.FeedbackDelay is a DelayNode in which part of output 
+/*Tone.FeedbackDelay is a DelayNode in which part of output
 signal is fed back into the delay.
 
 CONSTRUCTOR
@@ -4949,7 +5060,7 @@ delayTime:	The delay applied to the incoming signal.
 type: Time or Object
 optional
 
-feedback: The amount of the effected signal which is fed 
+feedback: The amount of the effected signal which is fed
 back through the delay.
 type: NormalRange
 optional
@@ -4989,7 +5100,7 @@ toDestination
   */
 
 //Tone.FeedbackEffect ↳ EXTENDS Tone.Effect
-/*Tone.FeedbackEffect provides a loop between an audio source 
+/*Tone.FeedbackEffect provides a loop between an audio source
 and its own output.This is a base - class for feedback effects.
 
 CONSTRUCTOR
@@ -5032,7 +5143,7 @@ roomSize: Correlated to the decay time.
 type: NormalRange or Object
 optional
 
-dampening: The cutoff frequency of a lowpass filter as 
+dampening: The cutoff frequency of a lowpass filter as
 part of the reverb.
 type: Frequency
 optional
@@ -5112,11 +5223,11 @@ toDestination
 */
 
 //Tone.MidSideEffect ↳ EXTENDS Tone.Effect
-/*Mid/Side processing separates the the ‘mid’ signal 
-(which comes out of both the left and the right channel) 
+/*Mid/Side processing separates the the ‘mid’ signal
+(which comes out of both the left and the right channel)
 and the ‘side’ (which only comes out of the the side channels)
 and effects them separately before being recombined.
-Applies a Mid/Side seperation and recombination. 
+Applies a Mid/Side seperation and recombination.
 Algorithm found in kvraudio forums.
 
 This is a base-class for Mid/Side Effects.
@@ -5143,10 +5254,10 @@ toDestination
 */
 
 //Tone.Phaser ↳ EXTENDS Tone.StereoEffect
-/*Tone.Phaser is a phaser effect. 
-Phasers work by changing the phase of different frequency 
-components of an incoming signal. 
-Read more on Wikipedia. Inspiration for this phaser 
+/*Tone.Phaser is a phaser effect.
+Phasers work by changing the phase of different frequency
+components of an incoming signal.
+Read more on Wikipedia. Inspiration for this phaser
 comes from Tuna.js.
 
 CONSTRUCTOR
@@ -5174,9 +5285,9 @@ baseFrequency : 350
 
 EXAMPLE
 var phaser = new Tone.Phaser({
-	"frequency" : 15,
-	"octaves" : 5,
-	"baseFrequency" : 1000
+  "frequency" : 15,
+  "octaves" : 5,
+  "baseFrequency" : 1000
 }).toDestination();
 var synth = new Tone.FMSynth().connect(phaser);
 synth.triggerAttackRelease("E3", "2n");
@@ -5204,13 +5315,13 @@ toDestination
 */
 
 //Tone.PingPongDelay ↳ EXTENDS Tone.StereoXFeedbackEffect
-/*Tone.PingPongDelay is a feedback delay effect where 
-the echo is heard first in one channel and next in the 
-opposite channel. In a stereo system these are the right 
-and left channels. PingPongDelay in more simplified terms 
-is two Tone.FeedbackDelays with independent delay values. 
-Each delay is routed to one channel (left or right), 
-and the channel triggered second will always trigger 
+/*Tone.PingPongDelay is a feedback delay effect where
+the echo is heard first in one channel and next in the
+opposite channel. In a stereo system these are the right
+and left channels. PingPongDelay in more simplified terms
+is two Tone.FeedbackDelays with independent delay values.
+Each delay is routed to one channel (left or right),
+and the channel triggered second will always trigger
 at the same interval after the first.
 
 CONSTRUCTOR
@@ -5256,9 +5367,9 @@ toDestination
 
 //Tone.PitchShift ↳ EXTENDS Tone.FeedbackEffect
 /*Tone.PitchShift does near-realtime pitch shifting to the
-incoming signal. The effect is achieved by speeding up or 
-slowing down the delayTime of a DelayNode using a 
-sawtooth wave. Algorithm found in this pdf. 
+incoming signal. The effect is achieved by speeding up or
+slowing down the delayTime of a DelayNode using a
+sawtooth wave. Algorithm found in this pdf.
 Additional reference by Miller Pucket.
 
 CONSTRUCTOR
@@ -5298,9 +5409,9 @@ toDestination
 */
 
 //Tone.Reverb ↳ EXTENDS Tone.Convolver
-/*Simple convolution created with decaying noise. 
-Generates an Impulse Response Buffer with Tone.Offline 
-then feeds the IR into ConvolverNode. 
+/*Simple convolution created with decaying noise.
+Generates an Impulse Response Buffer with Tone.Offline
+then feeds the IR into ConvolverNode.
 Note: the Reverb will not make any sound until generate
 has been invoked and resolved.
 Inspiration from ReverbGen. Copyright (c) 2014 Alan deLespinasse Apache 2.0 License.
@@ -5342,7 +5453,7 @@ load
 */
 
 //Tone.StereoEffect ↳ EXTENDS Tone.Effect
-/*Base class for Stereo effects. 
+/*Base class for Stereo effects.
 Provides effectSendL/R and effectReturnL/R.
 
 CONSTRUCTOR
@@ -5367,7 +5478,7 @@ toDestination
 */
 
 //Tone.StereoFeedbackEffect ↳ EXTENDS Tone.StereoEffect
-/*Base class for stereo feedback effects where the 
+/*Base class for stereo feedback effects where the
 effectReturn is fed back into the same channel.
 
 CONSTRUCTOR
@@ -5432,7 +5543,7 @@ toDestination
 */
 
 //Tone.StereoXFeedbackEffect ↳ EXTENDS Tone.StereoEffect
-/*Just like a stereo feedback effect, but the feedback 
+/*Just like a stereo feedback effect, but the feedback
 is routed from left to right and right to left instead
 of on the same channel.
 
@@ -5459,8 +5570,8 @@ toDestination
 */
 
 //Tone.Tremolo ↳ EXTENDS Tone.StereoEffect
-/*Tone.Tremolo modulates the amplitude of an incoming signal 
-using a Tone.LFO. The type, frequency, and depth of the 
+/*Tone.Tremolo modulates the amplitude of an incoming signal
+using a Tone.LFO. The type, frequency, and depth of the
 LFO is controllable.
 
 CONSTRUCTOR
@@ -5515,7 +5626,7 @@ fan
 
 //Tone.Vibrato ↳ EXTENDS Tone.Effect
 /*A Vibrato effect composed of a Tone.Delay and a
-Tone.LFO. The LFO modulates the delayTime of the delay, 
+Tone.LFO. The LFO modulates the delayTime of the delay,
 causing the pitch to rise and fall.
 
 CONSTRUCTOR
@@ -5560,21 +5671,21 @@ toDestination
 //COMPONENT
 
 //Tone.AmplitudeEnvelope ↳ EXTENDS Tone.Envelope
-/*Tone.AmplitudeEnvelope is a Tone.Envelope connected to 
-a gain node. Unlike Tone.Envelope, which outputs the 
-envelope’s value, Tone.AmplitudeEnvelope accepts an 
-audio signal as the input and will apply the envelope 
-to the amplitude of the signal. Read more about ADSR 
+/*Tone.AmplitudeEnvelope is a Tone.Envelope connected to
+a gain node. Unlike Tone.Envelope, which outputs the
+envelope’s value, Tone.AmplitudeEnvelope accepts an
+audio signal as the input and will apply the envelope
+to the amplitude of the signal. Read more about ADSR
 Envelopes on Wikipedia.
 
 CONSTRUCTOR
 new Tone.AmplitudeEnvelope ( [ attack ] , [ decay ] , [ sustain ] , [ release ] )
-attack:	The amount of time it takes for the envelope 
+attack:	The amount of time it takes for the envelope
 to go from 0 to it’s maximum value.
 type: Time or Object
 optional
 
-decay:	The period of time after the attack that it takes 
+decay:	The period of time after the attack that it takes
 for the envelope to fall to the sustain value.
 type: Time
 optional
@@ -5584,17 +5695,17 @@ rests at until the release is triggered.
 type: NormalRange
 optional
 
-release:	The amount of time after the release is triggered 
+release:	The amount of time after the release is triggered
 it takes to reach 0.
 type: Time
 optional
 
 EXAMPLE
 var ampEnv = new Tone.AmplitudeEnvelope({
-	"attack": 0.1,
-	"decay": 0.2,
-	"sustain": 1.0,
-	"release": 0.8
+  "attack": 0.1,
+  "decay": 0.2,
+  "sustain": 1.0,
+  "release": 0.8
 }).toDestination();
 //create an oscillator and connect it
 var osc = new Tone.Oscillator().connect(ampEnv).start();
@@ -5641,7 +5752,7 @@ type:	The return type of the analysis, either “fft”,
 type: String
 optional
 
-size:	The size of the FFT. Value must be a power of two 
+size:	The size of the FFT. Value must be a power of two
 in the range 16 to 16384.
 type: Number
 optional
@@ -5721,10 +5832,10 @@ toDestination
 */
 
 //Tone.Compressor ↳ EXTENDS Tone.AudioNode
-/*Tone.Compressor is a thin wrapper around the Web 
-Audio DynamicsCompressorNode. Compression reduces the volume 
-of loud sounds or amplifies quiet sounds by narrowing or 
-“compressing” an audio signal’s dynamic range. 
+/*Tone.Compressor is a thin wrapper around the Web
+Audio DynamicsCompressorNode. Compression reduces the volume
+of loud sounds or amplifies quiet sounds by narrowing or
+“compressing” an audio signal’s dynamic range.
 Read more on Wikipedia.
 
 CONSTRUCTOR
@@ -5773,12 +5884,12 @@ toDestination
 */
 
 //Tone.CrossFade ↳ EXTENDS Tone.AudioNode
-/*Tone.Crossfade provides equal power fading between two inputs. 
+/*Tone.Crossfade provides equal power fading between two inputs.
 More on crossfading technique here.
 
 CONSTRUCTOR
 new Tone.CrossFade ( [ initialFade = 0.5 ] )
-initialFade	
+initialFade
 type: NormalRange
 default: 0.5
 
@@ -5872,7 +5983,7 @@ toDestination
 
 //Tone.Envelope ↳ EXTENDS Tone.AudioNode
 /*Tone.Envelope is an ADSR envelope generator.
-Tone.Envelope outputs a signal which can be connected 
+Tone.Envelope outputs a signal which can be connected
 to an AudioParam or Tone.Signal.
 
 CONSTRUCTOR
@@ -5908,10 +6019,10 @@ EXAMPLE
 //an amplitude envelope
 var gainNode = Tone.context.createGain();
 var env = new Tone.Envelope({
-	"attack" : 0.1,
-	"decay" : 0.2,
-	"sustain" : 1,
-	"release" : 0.8,
+  "attack" : 0.1,
+  "decay" : 0.2,
+  "sustain" : 1,
+  "release" : 0.8,
 });
 env.connect(gainNode.gain);
 
@@ -5945,12 +6056,12 @@ fan
 */
 
 //Tone.FFT ↳ EXTENDS Tone.AudioNode
-/*Get the current frequency data of the connected 
+/*Get the current frequency data of the connected
 audio source using a fast Fourier transform.
 
 CONSTRUCTOR
 new Tone.FFT ( [ size ] )
-size: The size of the FFT. Value must be a power of two 
+size: The size of the FFT. Value must be a power of two
 in the range 16 to 16384.
 type: Number
 optional
@@ -5980,7 +6091,7 @@ toDestination
 */
 
 //Tone.FeedbackCombFilter ↳ EXTENDS Tone.AudioNode
-/*Comb filters are basic building blocks for physical modeling. 
+/*Comb filters are basic building blocks for physical modeling.
 Read more about comb filters on CCRMA’s website.
 
 CONSTRUCTOR
@@ -6020,8 +6131,8 @@ toDestination
 
 //Tone.Filter ↳ EXTENDS Tone.AudioNode
 /*Tone.Filter is a filter which allows for all of the same
-native methods as the BiquadFilterNode. Tone.Filter 
-has the added ability to set the filter rolloff at -12 
+native methods as the BiquadFilterNode. Tone.Filter
+has the added ability to set the filter rolloff at -12
 (default), -24 and -48.
 
 CONSTRUCTOR
@@ -6034,7 +6145,7 @@ type:	The type of filter.
 type: string
 optional
 
-rolloff:	The drop in decibels per octave after 
+rolloff:	The drop in decibels per octave after
 the cutoff frequency. 3 choices: -12, -24, and -48
 type: number
 optional
@@ -6076,8 +6187,8 @@ toDestination
 */
 
 //Tone.Follower ↳ EXTENDS Tone.AudioNode
-/*Tone.Follower is a crude envelope follower which 
-will follow the amplitude of an incoming signal. 
+/*Tone.Follower is a crude envelope follower which
+will follow the amplitude of an incoming signal.
 Read more about envelope followers (also known as envelope detectors) on Wikipedia.
 
 CONSTRUCTOR
@@ -6113,8 +6224,8 @@ toDestination
 */
 
 //Tone.FrequencyEnvelope ↳ EXTENDS Tone.Envelope
-/*Tone.FrequencyEnvelope is a Tone.ScaledEnvelope, 
-but instead of min and max it’s got a baseFrequency 
+/*Tone.FrequencyEnvelope is a Tone.ScaledEnvelope,
+but instead of min and max it’s got a baseFrequency
 and octaves parameter.
 
 CONSTRUCTOR
@@ -6143,9 +6254,9 @@ exponent : 1
 
 EXAMPLE
 var freqEnv = new Tone.FrequencyEnvelope({
- 	"attack" : 0.2,
- 	"baseFrequency" : "C2",
- 	"octaves" : 4
+    "attack" : 0.2,
+    "baseFrequency" : "C2",
+    "octaves" : 4
  });
  freqEnv.connect(oscillator.frequency);
 
@@ -6182,10 +6293,10 @@ cancel
 */
 
 //Tone.Gate ↳ EXTENDS Tone.AudioNode
-/*Tone.Gate only passes a signal through when 
-the incoming signal exceeds a specified threshold. 
-To do this, Gate uses a Tone.Follower to follow 
-the amplitude of the incoming signal. 
+/*Tone.Gate only passes a signal through when
+the incoming signal exceeds a specified threshold.
+To do this, Gate uses a Tone.Follower to follow
+the amplitude of the incoming signal.
 A common implementation of this class is a Noise Gate.
 
 CONSTRUCTOR
@@ -6230,17 +6341,17 @@ toDestination
 */
 
 //Tone.LFO ↳ EXTENDS Tone.AudioNode
-/*LFO stands for low frequency oscillator. 
+/*LFO stands for low frequency oscillator.
 Tone.LFO produces an output signal which can be attached
-to an AudioParam or Tone.Signal in order to modulate 
-that parameter with an oscillator. The LFO can also be 
+to an AudioParam or Tone.Signal in order to modulate
+that parameter with an oscillator. The LFO can also be
 synced to the transport to start/stop and change when
 the tempo changes.
 
 CONSTRUCTOR
 new Tone.LFO ( [ frequency ] , [ min ] , [ max ] )
-frequency:	The frequency of the oscillation. 
-Typically, LFOs will be in the frequency range of 0.1 
+frequency:	The frequency of the oscillation.
+Typically, LFOs will be in the frequency range of 0.1
 to 10 hertz.
 type: Frequency or Object
 optional
@@ -6297,11 +6408,11 @@ chain
 */
 
 //Tone.Limiter ↳ EXTENDS Tone.AudioNode
-/*Tone.Limiter will limit the loudness of an incoming signal. 
-It is composed of a Tone.Compressor with a fast attack 
-and release. Limiters are commonly used to safeguard 
-against signal clipping. Unlike a compressor, 
-limiters do not provide smooth gain reduction and almost 
+/*Tone.Limiter will limit the loudness of an incoming signal.
+It is composed of a Tone.Compressor with a fast attack
+and release. Limiters are commonly used to safeguard
+against signal clipping. Unlike a compressor,
+limiters do not provide smooth gain reduction and almost
 completely prevent additional gain above the threshold.
 
 CONSTRUCTOR
@@ -6336,8 +6447,8 @@ toDestination
 */
 
 //Tone.LowpassCombFilter ↳ EXTENDS Tone.AudioNode
-/*Tone.Lowpass is a lowpass feedback comb filter. 
-It is similar to Tone.FeedbackCombFilter, 
+/*Tone.Lowpass is a lowpass feedback comb filter.
+It is similar to Tone.FeedbackCombFilter,
 but includes a lowpass filter.
 
 CONSTRUCTOR
@@ -6382,7 +6493,7 @@ toDestination
 */
 
 //Tone.Merge ↳ EXTENDS Tone.AudioNode
-/*Tone.Merge brings two signals into the left and right 
+/*Tone.Merge brings two signals into the left and right
 channels of a single stereo channel.
 
 CONSTRUCTOR
@@ -6421,7 +6532,7 @@ toDestination
 */
 
 //Tone.Meter ↳ EXTENDS Tone.AudioNode
-/*Tone.Meter gets the RMS of an input signal. 
+/*Tone.Meter gets the RMS of an input signal.
 It can also get the raw value of the input signal.
 
 CONSTRUCTOR
@@ -6463,7 +6574,7 @@ disconnect
 */
 
 //Tone.MidSideCompressor ↳ EXTENDS Tone.AudioNode
-/*Tone.MidSideCompressor applies two different compressors 
+/*Tone.MidSideCompressor applies two different compressors
 to the mid and side signal components. See Tone.MidSideSplit.
 
 CONSTRUCTOR
@@ -6509,10 +6620,10 @@ toDestination
 */
 
 //Tone.MidSideMerge ↳ EXTENDS Tone.AudioNode
-/*Mid/Side processing separates the the ‘mid’ signal 
-(which comes out of both the left and the right channel) 
-and the ‘side’ (which only comes out of the the side channels). 
-MidSideMerge merges the mid and side signal after they’ve 
+/*Mid/Side processing separates the the ‘mid’ signal
+(which comes out of both the left and the right channel)
+and the ‘side’ (which only comes out of the the side channels).
+MidSideMerge merges the mid and side signal after they’ve
 been seperated by Tone.MidSideSplit.
 
 Left = (Mid+Side)/sqrt(2); // obtain left signal from mid and side
@@ -6543,8 +6654,8 @@ toDestination
 */
 
 //Tone.MidSideSplit ↳ EXTENDS Tone.AudioNode
-/*Mid/Side processing separates the the ‘mid’ signal 
-(which comes out of both the left and the right channel) 
+/*Mid/Side processing separates the the ‘mid’ signal
+(which comes out of both the left and the right channel)
 and the ‘side’ (which only comes out of the the side channels).
 
 Mid = (Left+Right)/sqrt(2); // obtain mid-signal from left and right
@@ -6575,8 +6686,8 @@ toDestination
 */
 
 //Tone.Mono ↳ EXTENDS Tone.AudioNode
-/*Tone.Mono coerces the incoming mono or stereo signal 
-into a mono signal where both left and right channels 
+/*Tone.Mono coerces the incoming mono or stereo signal
+into a mono signal where both left and right channels
 have the same value. This can be useful for stereo imaging.
 
 CONSTRUCTOR
@@ -6618,11 +6729,11 @@ highFrequency : 2000
 
 EXAMPLE
 var multiband = new Tone.MultibandCompressor({
- 	"lowFrequency" : 200,
- 	"highFrequency" : 1300
- 	"low" : {
- 		"threshold" : -12
- 	}
+    "lowFrequency" : 200,
+    "highFrequency" : 1300
+    "low" : {
+      "threshold" : -12
+    }
  })
 
  MEMBERS
@@ -6648,7 +6759,7 @@ toDestination
 */
 
 //Tone.MultibandSplit ↳ EXTENDS Tone.AudioNode
-/*Split the incoming signal into three bands (low, mid, high) 
+/*Split the incoming signal into three bands (low, mid, high)
 with two crossover frequency controls.
 
 CONSTRUCTOR
@@ -6734,8 +6845,8 @@ toDestination
 */
 
 //Tone.Panner ↳ EXTENDS Tone.AudioNode
-/*Tone.Panner is an equal power Left/Right Panner 
-and does not support 3D. Panner uses the 
+/*Tone.Panner is an equal power Left/Right Panner
+and does not support 3D. Panner uses the
 StereoPannerNode when available.
 
 CONSTRUCTOR
@@ -6773,8 +6884,8 @@ Members
 */
 
 //Tone.Panner3D ↳ EXTENDS Tone.AudioNode
-/*A spatialized panner node which supports equalpower 
-or HRTF panning. Tries to normalize the API across 
+/*A spatialized panner node which supports equalpower
+or HRTF panning. Tries to normalize the API across
 various browsers. See Tone.Listener
 
 CONSTRUCTOR
@@ -6841,8 +6952,8 @@ disconnect
 
 
 //Tone.ScaledEnvelope ↳ EXTENDS Tone.Envelope
-/*Tone.ScaledEnvelop is an envelope which can be scaled 
-to any range. It’s useful for applying an envelope to 
+/*Tone.ScaledEnvelop is an envelope which can be scaled
+to any range. It’s useful for applying an envelope to
 a frequency or any other non-NormalRange signal parameter.
 
 CONSTRUCTOR
@@ -6872,9 +6983,9 @@ exponent : 1
 
 EXAMPLE
 var scaledEnv = new Tone.ScaledEnvelope({
- 	"attack" : 0.2,
- 	"min" : 200,
- 	"max" : 2000
+    "attack" : 0.2,
+    "min" : 200,
+    "max" : 2000
  });
  scaledEnv.connect(oscillator.frequency);
 
@@ -6911,8 +7022,8 @@ cancel
 */
 
 //Tone.Solo ↳ EXTENDS Tone.AudioNode
-/*Tone.Solo lets you isolate a specific audio stream. 
-When an instance is set to solo=true, it will mute all other 
+/*Tone.Solo lets you isolate a specific audio stream.
+When an instance is set to solo=true, it will mute all other
 instances.
 
 CONSTRUCTOR
@@ -6983,7 +7094,7 @@ toDestination
 */
 
 //Tone.Volume ↳ EXTENDS Tone.AudioNode
-/*Tone.Volume is a simple volume node, useful for creating 
+/*Tone.Volume is a simple volume node, useful for creating
 a volume fader.
 
 CONSTRUCTOR
@@ -7026,7 +7137,7 @@ toDestination
 
 CONSTRUCTOR
 new Tone.Waveform ( [ size ] )
-size:	The size of the FFT. Value must be a power of two 
+size:	The size of the FFT. Value must be a power of two
 in the range 32 to 32768.
 type: Number
 optional
@@ -7060,8 +7171,8 @@ toDestination
 //TYPE
 
 //Tone.Frequency ↳ EXTENDS Tone.TimeBase
-/*Tone.Frequency is a primitive type for encoding Frequency values. 
-Eventually all time values are evaluated to hertz 
+/*Tone.Frequency is a primitive type for encoding Frequency values.
+Eventually all time values are evaluated to hertz
 using the eval method.
 
 CONSTRUCTOR
@@ -7097,9 +7208,9 @@ ftom
 */
 
 //Tone.Midi ↳ EXTENDS Tone.Frequency
-/*Tone.Midi is a primitive type for encoding Time values. 
-Tone.Midi can be constructed with or without the new keyword. 
-Tone.Midi can be passed into the parameter of any method which 
+/*Tone.Midi is a primitive type for encoding Time values.
+Tone.Midi can be constructed with or without the new keyword.
+Tone.Midi can be passed into the parameter of any method which
 takes time as an argument.
 
 CONSTRUCTOR
@@ -7129,9 +7240,9 @@ dispose
 */
 
 //Tone.Ticks ↳ EXTENDS Tone.TransportTime
-/*Tone.Ticks is a primitive type for encoding Time values. 
-Tone.Ticks can be constructed with or without the new keyword. 
-Tone.Ticks can be passed into the parameter of any method which 
+/*Tone.Ticks is a primitive type for encoding Time values.
+Tone.Ticks can be constructed with or without the new keyword.
+Tone.Ticks can be passed into the parameter of any method which
 takes time as an argument.
 
 CONSTRUCTOR
@@ -7161,9 +7272,9 @@ dispose
 */
 
 //Tone.Time ↳ EXTENDS Tone.TimeBase
-/*Tone.Time is a primitive type for encoding Time values. 
-Tone.Time can be constructed with or without the new keyword. 
-Tone.Time can be passed into the parameter of any method which 
+/*Tone.Time is a primitive type for encoding Time values.
+Tone.Time can be constructed with or without the new keyword.
+Tone.Time can be passed into the parameter of any method which
 takes time as an argument.
 
 CONSTRUCTOR
@@ -7193,7 +7304,7 @@ dispose
 */
 
 //Tone.TimeBase ↳ EXTENDS Tone
-/*Tone.TimeBase is a flexible encoding of time which 
+/*Tone.TimeBase is a flexible encoding of time which
 can be evaluated to and from a string.
 
 CONSTRUCTOR
@@ -7223,8 +7334,8 @@ valueOf
 
 //Tone.TransportTime ↳ EXTENDS Tone.Time
 /*Tone.TransportTime is a the time along the Transport’s timeline.
-It is similar to Tone.Time, but instead of evaluating 
-against the AudioContext’s clock, it is evaluated against 
+It is similar to Tone.Time, but instead of evaluating
+against the AudioContext’s clock, it is evaluated against
 the Transport’s position. See TransportTime wiki.
 
 CONSTRUCTOR
@@ -7255,8 +7366,8 @@ dispose
 //EVENT
 
 //Tone.Event ↳ EXTENDS Tone
-/*Tone.Event abstracts away Tone.Transport.schedule and 
-provides a schedulable callback for a single or repeatable 
+/*Tone.Event abstracts away Tone.Transport.schedule and
+provides a schedulable callback for a single or repeatable
 events along the timeline.
 
 CONSTRUCTOR
@@ -7264,7 +7375,7 @@ new Tone.Event ( callback , value )
 callback:	The callback to invoke at the time.
 type: function
 
-value:	The value or values which should be passed 
+value:	The value or values which should be passed
 to the callback function on invocation.
 type: *
 
@@ -7283,8 +7394,8 @@ humanize : false
 
 EXAMPLE
 var chord = new Tone.Event(function(time, chord){
-	//the chord as well as the exact time of the event
-	//are passed in as arguments to the callback function
+  //the chord as well as the exact time of the event
+  //are passed in as arguments to the callback function
 }, ["D4", "E4", "F4"]);
 //start the chord at the beginning of the transport timeline
 chord.start();
@@ -7312,8 +7423,8 @@ stop
 */
 
 //Tone.Loop ↳ EXTENDS Tone
-/*Tone.Loop creates a looped callback at the specified interval. 
-The callback can be started, stopped and scheduled along the 
+/*Tone.Loop creates a looped callback at the specified interval.
+The callback can be started, stopped and scheduled along the
 Transport’s timeline.
 
 CONSTRUCTOR
@@ -7336,11 +7447,11 @@ mute : false
 
 EXAMPLE
 var loop = new Tone.Loop(function(time){
-	//triggered every eighth note. 
-	console.log(time);
+  //triggered every eighth note.
+  console.log(time);
 }, "8n").start(0);
 Tone.Transport.start();
- 
+
 MEMBERS
 state
 humanize
@@ -7360,7 +7471,7 @@ stop
 */
 
 //Tone.Part ↳ EXTENDS Tone.Event
-/*Tone.Part is a collection Tone.Events which can be 
+/*Tone.Part is a collection Tone.Events which can be
 started/stopped and looped as a single unit.
 
 CONSTRUCTOR
@@ -7386,18 +7497,18 @@ events : []
 
 EXAMPLE
 var part = new Tone.Part(function(time, note){
-	//the notes given as the second element in the array
-	//will be passed in as the second argument
-	synth.triggerAttackRelease(note, "8n", time);
+  //the notes given as the second element in the array
+  //will be passed in as the second argument
+  synth.triggerAttackRelease(note, "8n", time);
 }, [[0, "C2"], ["0:2", "C3"], ["0:3:2", "G2"]]);
- 
+
 EXAMPLE
 //use an array of objects as long as the object has a "time" attribute
 var part = new Tone.Part(function(time, value){
-	//the value is an object which contains both the note and the velocity
-	synth.triggerAttackRelease(value.note, "8n", time, value.velocity);
+  //the value is an object which contains both the note and the velocity
+  synth.triggerAttackRelease(value.note, "8n", time, value.velocity);
 }, [{"time" : 0, "note" : "C3", "velocity": 0.9},
-	   {"time" : "0:2", "note" : "C4", "velocity": 0.5}
+     {"time" : "0:2", "note" : "C4", "velocity": 0.5}
 ]).start(0);
 
 MEMBERS
@@ -7425,8 +7536,8 @@ add
 */
 
 //Tone.Pattern ↳ EXTENDS Tone.Loop
-/*Tone.Pattern arpeggiates between the given notes in a 
-number of patterns. See Tone.CtrlPattern for a full list 
+/*Tone.Pattern arpeggiates between the given notes in a
+number of patterns. See Tone.CtrlPattern for a full list
 of patterns.
 
 CONSTRUCTOR
@@ -7448,7 +7559,7 @@ EXAMPLE
 var pattern = new Tone.Pattern(function(time, note){
   //the order of the notes passed in depends on the pattern
 }, ["C2", "D4", "E5", "A6"], "upDown");
- 
+
 MEMBERS
 values
 index
@@ -7472,11 +7583,11 @@ stop
 */
 
 //Tone.Sequence ↳ EXTENDS Tone.Part
-/*A sequence is an alternate notation of a part. 
-Instead of passing in an array of [time, event] pairs, 
-pass in an array of events which will be spaced at 
-the given subdivision. Sub-arrays will subdivide 
-that beat by the number of items are in the array. 
+/*A sequence is an alternate notation of a part.
+Instead of passing in an array of [time, event] pairs,
+pass in an array of events which will be spaced at
+the given subdivision. Sub-arrays will subdivide
+that beat by the number of items are in the array.
 Sequence notation inspiration from Tidal
 
 CONSTRUCTOR
@@ -7497,13 +7608,13 @@ subdivision : 4n
 
 EXAMPLE
 var seq = new Tone.Sequence(function(time, note){
-	console.log(note);
+  console.log(note);
 //straight quater notes
 }, ["C4", "E4", "G4", "A4"], "4n");
- 
+
 EXAMPLE
 var seq = new Tone.Sequence(function(time, note){
-	console.log(note);
+  console.log(note);
 //subdivisions are given as subarrays
 }, ["C4", ["E4", "D4", "E4"], "G4", ["A4", "G4"]]);
 
@@ -7554,15 +7665,15 @@ connect
 */
 
 //Tone.Add ↳ EXTENDS Tone.Signal
-/*Add a signal and a number or two signals. 
-When no value is passed into the constructor, 
-Tone.Add will sum input[0] and input[1]. 
-If a value is passed into the constructor, 
+/*Add a signal and a number or two signals.
+When no value is passed into the constructor,
+Tone.Add will sum input[0] and input[1].
+If a value is passed into the constructor,
 the it will be added to the input.
 
 CONSTRUCTOR
 new Tone.Add ( [ value ] )
-value:	If no value is provided, Tone.Add will sum 
+value:	If no value is provided, Tone.Add will sum
 the first and second inputs.
 type: number
 optional
@@ -7572,14 +7683,14 @@ var signal = new Tone.Signal(2);
 var add = new Tone.Add(2);
 signal.connect(add);
 //the output of add equals 4
- 
+
 EXAMPLE
 //if constructed with no arguments
 //it will add the first and second inputs
 var add = new Tone.Add();
 var sig0 = new Tone.Signal(3).connect(add, 0, 0);
 var sig1 = new Tone.Signal(4).connect(add, 0, 1);
-//the output of add equals 7. 
+//the output of add equals 7.
 
 MEMBERS
 numberOfOutputs
@@ -7616,7 +7727,7 @@ getValueAtTime
 */
 
 //Tone.AudioToGain ↳ EXTENDS Tone.SignalBase
-/*AudioToGain converts an input in AudioRange [-1,1] 
+/*AudioToGain converts an input in AudioRange [-1,1]
 to NormalRange [0,1]. See Tone.GainToAudio.
 
 CONSTRUCTOR
@@ -7631,7 +7742,7 @@ connect
 */
 
 //Tone.EqualPowerGain ↳ EXTENDS Tone.SignalBase
-/*Convert an incoming signal between 0, 1 to 
+/*Convert an incoming signal between 0, 1 to
 an equal power gain scale.
 
 CONSTRUCTOR
@@ -7646,7 +7757,7 @@ connect
 */
 
 //Tone.GainToAudio ↳ EXTENDS Tone.SignalBase
-/*Maps a NormalRange [0, 1] to an AudioRange [-1, 1]. 
+/*Maps a NormalRange [0, 1] to an AudioRange [-1, 1].
 See also Tone.AudioToGain.
 
 CONSTRUCTOR
@@ -7661,8 +7772,8 @@ connect
 */
 
 //Tone.GreaterThan ↳ EXTENDS Tone.Signal
-/*Output 1 if the signal is greater than the value, 
-otherwise outputs 0. can compare two signals or a 
+/*Output 1 if the signal is greater than the value,
+otherwise outputs 0. can compare two signals or a
 signal and a number.
 
 CONSTRUCTOR
@@ -7711,7 +7822,7 @@ getValueAtTime
 */
 
 //Tone.GreaterThanZero ↳ EXTENDS Tone.SignalBase
-/*GreaterThanZero outputs 1 when the input is strictly 
+/*GreaterThanZero outputs 1 when the input is strictly
 greater than zero
 
 CONSTRUCTOR
@@ -7730,7 +7841,7 @@ connect
 */
 
 //Tone.Modulo ↳ EXTENDS Tone.SignalBase
-/*Signal-rate modulo operator. Only works in AudioRange [-1, 1] 
+/*Signal-rate modulo operator. Only works in AudioRange [-1, 1]
 and for modulus values in the NormalRange.
 
 CONSTRUCTOR
@@ -7757,7 +7868,7 @@ constructor, multiplies the incoming signal by that value.
 
 CONSTRUCTOR
 new Tone.Multiply ( [ value ] )
-value:	Constant value to multiple. If no value is provided, 
+value:	Constant value to multiple. If no value is provided,
 it will return the product of the first and second inputs
 type: number
 optional
@@ -7769,7 +7880,7 @@ var sigB = new Tone.Signal(4);
 sigA.connect(mult, 0, 0);
 sigB.connect(mult, 0, 1);
 //output of mult is 12.
- 
+
 EXAMPLE
 var mult = new Tone.Multiply(10);
 var sig = new Tone.Signal(2).connect(mult);
@@ -7810,7 +7921,7 @@ getValueAtTime
 */
 
 //Tone.Negate ↳ EXTENDS Tone.SignalBase
-/*Negate the incoming signal. i.e. an input signal of 10 
+/*Negate the incoming signal. i.e. an input signal of 10
 will output -10
 
 CONSTRUCTOR
@@ -7819,7 +7930,7 @@ new Tone.Negate ( )
 EXAMPLE
 var neg = new Tone.Negate();
 var sig = new Tone.Signal(-2).connect(neg);
-//output of neg is positive 2. 
+//output of neg is positive 2.
 
 METHODS
 dispose
@@ -7827,7 +7938,7 @@ connect
 */
 
 //Tone.Normalize ↳ EXTENDS Tone.SignalBase
-/*Normalize takes an input min and max and maps it linearly 
+/*Normalize takes an input min and max and maps it linearly
 to NormalRange [0,1]
 
 CONSTRUCTOR
@@ -7841,7 +7952,7 @@ type: number
 EXAMPLE
 var norm = new Tone.Normalize(2, 4);
 var sig = new Tone.Signal(3).connect(norm);
-//output of norm is 0.5. 
+//output of norm is 0.5.
 
 MEMBERS
 max
@@ -7853,19 +7964,19 @@ connect
 */
 
 //Tone.Pow ↳ EXTENDS Tone.SignalBase
-/*Pow applies an exponent to the incoming signal. 
+/*Pow applies an exponent to the incoming signal.
 The incoming signal must be AudioRange.
 
 CONSTRUCTOR
 new Tone.Pow ( exp )
-exp: The exponent to apply to the incoming signal, 
+exp: The exponent to apply to the incoming signal,
 must be at least 2.
 type: Positive
 
 EXAMPLE
 var pow = new Tone.Pow(2);
 var sig = new Tone.Signal(0.5).connect(pow);
-//output of pow is 0.25. 
+//output of pow is 0.25.
 
 MEMBERS
 value
@@ -7876,7 +7987,7 @@ connect
 */
 
 //Tone.Scale ↳ EXTENDS Tone.SignalBase
-/*Performs a linear scaling on an input signal. 
+/*Performs a linear scaling on an input signal.
 Scales a NormalRange input to between outputMin and outputMax.
 
 CONSTRUCTOR
@@ -7904,8 +8015,8 @@ connect
 */
 
 //Tone.ScaleExp ↳ EXTENDS Tone.SignalBase
-/*Performs an exponential scaling on an input signal. 
-Scales a NormalRange value [0,1] exponentially 
+/*Performs an exponential scaling on an input signal.
+Scales a NormalRange value [0,1] exponentially
 to the output range of outputMin to outputMax.
 
 CONSTRUCTOR
@@ -7937,17 +8048,17 @@ connect
 */
 
 //Tone.Signal ↳ EXTENDS Tone.Param
-/*A signal is an audio-rate value. 
-Tone.Signal is a core component of the library. 
-Unlike a number, Signals can be scheduled with 
-sample-level accuracy. Tone.Signal has all of the 
-methods available to native Web Audio AudioParam 
-as well as additional conveniences. 
+/*A signal is an audio-rate value.
+Tone.Signal is a core component of the library.
+Unlike a number, Signals can be scheduled with
+sample-level accuracy. Tone.Signal has all of the
+methods available to native Web Audio AudioParam
+as well as additional conveniences.
 Read more about working with signals here.
 
 CONSTRUCTOR
 new Tone.Signal ( [ value ] , [ units = Number ] )
-value: Initial value of the signal. 
+value: Initial value of the signal.
 If an AudioParam is passed in, that parameter will be wrapped and controlled by the Signal.
 type: Number or AudioParam
 optional
@@ -8011,15 +8122,15 @@ connect
 */
 
 //Tone.Subtract ↳ EXTENDS Tone.Signal
-/*Subtract the signal connected to input[1] from the signal 
-connected to input[0]. If an argument is provided in the 
-constructor, the signals .value will be subtracted from 
+/*Subtract the signal connected to input[1] from the signal
+connected to input[0]. If an argument is provided in the
+constructor, the signals .value will be subtracted from
 the incoming signal.
 
 CONSTRUCTOR
 new Tone.Subtract ( [ value ] )
-value:	The value to subtract from the incoming signal. 
-If the value is omitted, it will subtract the second signal 
+value:	The value to subtract from the incoming signal.
+If the value is omitted, it will subtract the second signal
 from the first.
 type: number
 optional
@@ -8027,8 +8138,8 @@ optional
 EXAMPLE
 var sub = new Tone.Subtract(1);
 var sig = new Tone.Signal(4).connect(sub);
-//the output of sub is 3. 
- 
+//the output of sub is 3.
+
 EXAMPLE
 var sub = new Tone.Subtract();
 var sigA = new Tone.Signal(10);
@@ -8071,12 +8182,12 @@ getValueAtTime
 */
 
 //Tone.TickSignal ↳ EXTENDS Tone.Signal
-/*Tone.TickSignal extends Tone.Signal, 
-but adds the capability to calculate 
-the number of elapsed ticks. exponential 
-and target curves are approximated with multiple linear ramps. 
-Thank you Bruno Dias, H. Sofia Pinto, and David M. Matos, 
-for your WAC paper describing integrating timing functions 
+/*Tone.TickSignal extends Tone.Signal,
+but adds the capability to calculate
+the number of elapsed ticks. exponential
+and target curves are approximated with multiple linear ramps.
+Thank you Bruno Dias, H. Sofia Pinto, and David M. Matos,
+for your WAC paper describing integrating timing functions
 for tempo calculations.
 
 CONSTRUCTOR
@@ -8124,8 +8235,8 @@ dispose
 */
 
 //Tone.TransportTimelineSignal ↳ EXTENDS Tone.Signal
-/*Tone.TransportTimelineSignal extends Tone.Signal, 
-but adds the ability to synchronize the signal 
+/*Tone.TransportTimelineSignal extends Tone.Signal,
+but adds the ability to synchronize the signal
 to the signal to the Tone.Transport
 
 CONSTRUCTOR
@@ -8179,9 +8290,9 @@ default: 1024
 
 EXAMPLE
 var timesTwo = new Tone.WaveShaper(function(val){
-	return val * 2;
+  return val * 2;
 }, 2048);
- 
+
 EXAMPLE
 //a waveshaper can also be constructed with an array of values
 var invert = new Tone.WaveShaper([1, -1]);
@@ -8197,9 +8308,9 @@ connect
 */
 
 //Tone.Zero ↳ EXTENDS Tone.SignalBase
-/*Tone.Zero outputs 0’s at audio-rate. 
-The reason this has to be it’s own class 
-is that many browsers optimize out Tone.Signal with a value 
+/*Tone.Zero outputs 0’s at audio-rate.
+The reason this has to be it’s own class
+is that many browsers optimize out Tone.Signal with a value
 of 0 and will not process nodes further down the graph.
 
 CONSTRUCTOR
@@ -8215,11 +8326,11 @@ connect
 //CONTROL
 
 //Tone.CtrlInterpolate ↳ EXTENDS Tone
-/*Tone.CtrlInterpolate will interpolate between given 
-values based on the “index” property. 
-Passing in an array or object literal will interpolate 
-each of the parameters. Note (i.e. “C3”) 
-and Time (i.e. “4n + 2”) can be interpolated. 
+/*Tone.CtrlInterpolate will interpolate between given
+values based on the “index” property.
+Passing in an array or object literal will interpolate
+each of the parameters. Note (i.e. “C3”)
+and Time (i.e. “4n + 2”) can be interpolated.
 All other values are assumed to be numbers.
 
 CONSTRUCTOR
@@ -8243,8 +8354,8 @@ interp.value; //returns 1.5
 
 EXAMPLE
 var interp = new Tone.CtrlInterpolate([
-	[2, 4, 5],
-	[9, 3, 2],
+  [2, 4, 5],
+  [9, 3, 2],
 ]);
 
 MEMBERS
@@ -8257,39 +8368,39 @@ dispose
 */
 
 //Tone.CtrlMarkov ↳ EXTENDS Tone
-/*Tone.CtrlMarkov represents a Markov Chain where 
-each call to Tone.CtrlMarkov.next will move to the next state. 
-If the next state choice is an array, the next state is chosen 
-randomly with even probability for all of the choices. 
-For a weighted probability of the next choices, 
-pass in an object with “state” and “probability” attributes. 
-The probabilities will be normalized and then chosen. 
-If no next options are given for the current state, 
+/*Tone.CtrlMarkov represents a Markov Chain where
+each call to Tone.CtrlMarkov.next will move to the next state.
+If the next state choice is an array, the next state is chosen
+randomly with even probability for all of the choices.
+For a weighted probability of the next choices,
+pass in an object with “state” and “probability” attributes.
+The probabilities will be normalized and then chosen.
+If no next options are given for the current state,
 the state will stay there.
 
 CONSTRUCTOR
 new Tone.CtrlMarkov ( values )
-values: An object with the state names as the keys 
+values: An object with the state names as the keys
 and the next state(s) as the values.
 type: Object
 
 EXAMPLE
 var chain = new Tone.CtrlMarkov({
-	"beginning" : ["end", "middle"],
-	"middle" : "end"
+  "beginning" : ["end", "middle"],
+  "middle" : "end"
 });
 chain.value = "beginning";
 chain.next(); //returns "end" or "middle" with 50% probability
- 
+
 EXAMPLE
 var chain = new Tone.CtrlMarkov({
-	"beginning" : [{"value" : "end", "probability" : 0.8}, 
-					{"value" : "middle", "probability" : 0.2}],
-	"middle" : "end"
+  "beginning" : [{"value" : "end", "probability" : 0.8},
+          {"value" : "middle", "probability" : 0.2}],
+  "middle" : "end"
 });
 chain.value = "beginning";
 chain.next(); //returns "end" with 80% probability or "middle" with 20%.
- 
+
 MEMBERS
 value
 values
@@ -8300,18 +8411,18 @@ next
 */
 
 //Tone.CtrlPattern ↳ EXTENDS Tone
-/*Generate patterns from an array of values. 
-Has a number of arpeggiation and randomized selection patterns. 
-<ul> <li>“up” - cycles upward</li> 
-<li>“down” - cycles downward</li> 
-<li>“upDown” - up then and down</li> 
-<li>“downUp” - cycles down then and up</li> 
-<li>“alternateUp” - jump up two and down one</li> 
-<li>“alternateDown” - jump down two and up one</li> 
-<li>“random” - randomly select an index</li> 
-<li>“randomWalk” - randomly moves one index away from 
-the current position</li> 
-<li>“randomOnce” - randomly select an index without 
+/*Generate patterns from an array of values.
+Has a number of arpeggiation and randomized selection patterns.
+<ul> <li>“up” - cycles upward</li>
+<li>“down” - cycles downward</li>
+<li>“upDown” - up then and down</li>
+<li>“downUp” - cycles down then and up</li>
+<li>“alternateUp” - jump up two and down one</li>
+<li>“alternateDown” - jump down two and up one</li>
+<li>“random” - randomly select an index</li>
+<li>“randomWalk” - randomly moves one index away from
+the current position</li>
+<li>“randomOnce” - randomly select an index without
 repeating until all values have been chosen.</li> </ul>
 
 CONSTRUCTOR
@@ -8360,9 +8471,9 @@ integer : false
 
 EXAMPLE
 var randomWalk = new Tone.CtrlRandom({
-	"min" : 0,
-	"max" : 10,
-	"integer" : true
+  "min" : 0,
+  "max" : 10,
+  "integer" : true
 });
 randomWalk.eval();
  

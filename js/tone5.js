@@ -2,25 +2,7 @@
 function startsSong() {
 //CREAR AUDIO CONTEXT
 const now = Tone.now();
-/*
-<script src="https://unpkg.com/tone"></script>
-<button id="play-button">Play/Pause</button>
-<script src="music.js"></script>
-*/
 //----------xxxx---------------
-/*
-const synth = new Tone.Synth().toMaster()
-synth.triggerAttackRelease('C4', '8n')
-
-document.getElementById("playButton").addEventListener("click", function() {
-  if (Tone.Transport.state !== 'started') {
-    Tone.Transport.start();
-  } else {
-    Tone.Transport.stop();
-  }
-});
-*/
-
 //--------------------
 // Crea control volumen para el osc1 
 const volumeControl1 = document.querySelector("#volume1");
