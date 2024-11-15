@@ -1,4 +1,27 @@
-﻿function createsContext() {
+﻿
+function createPanner(positionX, positionY, positionZ) {
+  const panner = new Tone.Panner3D({
+    panningModel: "HRTF",
+    positionX,
+    positionY,
+    positionZ,
+  }).toDestination();
+
+  const synth1 = new Tone.Synth({
+    oscillator: {
+      volume: -21,
+      count: 3,
+      spread: 90,
+      type: "triangle"
+    }
+  }).connect(panner)
+
+
+}
+
+
+
+function createsContext() {
 
   const contextButton = document.querySelector("#contextButton");
 
@@ -12,39 +35,61 @@
   Tone.Transport.loopStart = 0;
   Tone.Transport.loopEnd.value = 1;
 
-  //--------------------
-  /*
-  // Crea control volumen para el osc1 
-  const volumeControl1 = document.querySelector("#volume1");
-  volumeControl1.addEventListener(
-    "input",
-    () => {
-      synth1.volume = volumeControl1.value;
-    },
-    false
-  );
-*/
-  //--------------------
-  // synth 1 
-  const synth1 = new Tone.Synth({
-    oscillator: {
-      volume: -9,
-      count: 3,
-      spread: 90,
-      type: "triangle"
-    }
-  }).toDestination();
+
+  function createPlayerPlusPanner(url, positionX, positionY, positionZ) {
+    const panner = new Tone.Panner3D({
+      panningModel: "HRTF",
+      positionX,
+      positionY,
+      positionZ,
+    }).toDestination();
+
+    const player = new Tone.Player({
+      url,
+      loop: true,
+    }).connect(panner).sync().start(0);
+  }
+ /* createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/taps_1c.mp3", 2, 0, 0);
+  createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/tinkle3.mp3", 0, 0, 2);
+  createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/tapping1.mp3", -2, 0, 2);
+  createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/thump1.mp3", -2, 0, -2);
+
+  document.querySelector("tone-play-toggle").addEventListener("start", () => Tone.Transport.start());
+  document.querySelector("tone-play-toggle").addEventListener("stop", () => Tone.Transport.stop());
+  */
+  function setRotation(angle) {
+    Tone.Listener.forwardX.value = Math.sin(angle);
+    Tone.Listener.forwardY.value = 0;
+    Tone.Listener.forwardZ.value = -Math.cos(angle);
+  }
 /*
-  {
-    bpm : 120 ,
-    swing : 0 ,
-    swingSubdivision : 8n ,
-    timeSignature : 4 ,
-    loopStart : 0 ,
-    loopEnd : 4m ,
-    PPQ : 192
-    }
+  document.querySelector("#xSlider").addEventListener("input", (e) => Tone.Listener.positionX.value = parseFloat(e.target.value));
+  document.querySelector("#zSlider").addEventListener("input", (e) => Tone.Listener.positionY.value = parseFloat(e.target.value));
+  document.querySelector("#rotation").addEventListener("input", (e) => setRotation(parseFloat(e.target.value)));
 */
+
+
+  /*
+ .setOrientation ( ) #
+x	type: Number
+y	type: Number
+z	type: Number
+↪ returns Tone.Panner3D	
+this
+
+Sets the orientation of the source in 3d space.
+
+.setPosition ( ) #
+x type: Number
+y	type: Number
+z	type: Number
+↪ returns Tone.Panner3D	
+this
+
+Sets the position of the source in 3d space.
+/**/
+
+
 
 
 
@@ -56,7 +101,7 @@ function startsSong() {
   // synth 1 
   const synth1 = new Tone.Synth({
     oscillator: {
-      volume: -12,
+      volume: -21,
       count: 3,
       spread: 90,
       type: "triangle"
@@ -68,53 +113,55 @@ function startsSong() {
     // subdivisions are given as subarrays
   }, ["C4", ["E4", "D4"], "E4", "G5", ["G6", "A6"], "E2", "E2", "E2", "E1", "E1", "E0", "E2", "G2", "A2"]).start(0);
 
-/*
-  const synth2 = new Tone.Synth({
-    oscillator: {
-      volume: -24,
-      count: 3,
-      spread: 70,
-      type: "fatsawtooth"
-    }
-  }).toDestination();
-  
-  
-  const seq2 = new Tone.Sequence((time, note) => {
-    synth2.triggerAttackRelease(note, "8n", time);
-  }, ["C4", "E4", "D4", "E4", "G5", ["G6", "A6"], "E2", "E2", "E2", "E1", "E1", "E0", "E2", "G2", "A2"]).start(0);
-  
-  const synth3 = new Tone.Synth({
-    oscillator : {
-      volume: -15,
-      count: 3,
-      spread: 100,
-      type : "sawtooth"
-    }
-  }).toDestination();
-  
-  const seq3 = new Tone.Sequence((time, note) => {
-    synth3.triggerAttackRelease(note, "32n", time);
-  }, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],"E2","E2","E2","E1","E1","E0","E2","G2","A2"]).start(0);
-  
-  const synth4 = new Tone.Synth({
-    oscillator : {
-      volume: -12,
-      count: 3,
-      spread: 50,
-      type : "sine"
-    }
-  }).toDestination();
-  
-  const seq4 = new Tone.Sequence((time, note) => {
-  //	synth4.triggerAttackRelease(note, '2n', time);
-  //}, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],"E2","E2","E2","E1","E1","E0","E2","G2","A2"]).start(0);
-  //}, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],]).start(0);
-  //}, ["C0", "C0", "A1", "C0"]).start(0);
-  //}, ["E1", "C0", "A1", "C0"]).start(0);
-  //}, ["E1", "E1", "A1", "C0"]).start(0)
-  }, ["E1", "E1", "A1", "C0","D1", "C0", "A1", "C0",
-    "C0", "D0", "A1", "C0","G1", "E0", "A1", "C0"]).start(0)
-/**/
+  createPanner(2, 0, 0);
+
+  /*
+    const synth2 = new Tone.Synth({
+      oscillator: {
+        volume: -24,
+        count: 3,
+        spread: 70,
+        type: "fatsawtooth"
+      }
+    }).toDestination();
+    
+    
+    const seq2 = new Tone.Sequence((time, note) => {
+      synth2.triggerAttackRelease(note, "8n", time);
+    }, ["C4", "E4", "D4", "E4", "G5", ["G6", "A6"], "E2", "E2", "E2", "E1", "E1", "E0", "E2", "G2", "A2"]).start(0);
+    
+    const synth3 = new Tone.Synth({
+      oscillator : {
+        volume: -15,
+        count: 3,
+        spread: 100,
+        type : "sawtooth"
+      }
+    }).toDestination();
+    
+    const seq3 = new Tone.Sequence((time, note) => {
+      synth3.triggerAttackRelease(note, "32n", time);
+    }, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],"E2","E2","E2","E1","E1","E0","E2","G2","A2"]).start(0);
+    
+    const synth4 = new Tone.Synth({
+      oscillator : {
+        volume: -12,
+        count: 3,
+        spread: 50,
+        type : "sine"
+      }
+    }).toDestination();
+    
+    const seq4 = new Tone.Sequence((time, note) => {
+    //	synth4.triggerAttackRelease(note, '2n', time);
+    //}, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],"E2","E2","E2","E1","E1","E0","E2","G2","A2"]).start(0);
+    //}, ["C4", "E4", "D4", "E4", "G5",["G6", "A6"],]).start(0);
+    //}, ["C0", "C0", "A1", "C0"]).start(0);
+    //}, ["E1", "C0", "A1", "C0"]).start(0);
+    //}, ["E1", "E1", "A1", "C0"]).start(0)
+    }, ["E1", "E1", "A1", "C0","D1", "C0", "A1", "C0",
+      "C0", "D0", "A1", "C0","G1", "E0", "A1", "C0"]).start(0)
+  /**/
 }// CLOSES startsSong
 
 
@@ -2197,7 +2244,6 @@ optional
 
 //Tone.Buffer ↳ EXTENDS Tone
 /*Buffer loading and storage. Tone.Buffer is used internally
-
 by all classes that make requests for audio files
 such as Tone.Player, Tone.Sampler and Tone.Convolver.
 Aside from load callbacks from individual buffers,
@@ -2278,37 +2324,6 @@ var buffers = new Tone.Buffers(urls, {
   "onload" : callback,
   "baseUrl" : "../path/to/audio/"
 })
-*/
-
-//Tone.Clock ↳ EXTENDS Tone.Emitter
-/*A sample accurate clock which provides a callback
-at the given rate. While the callback is not sample-accurate
-(it is still susceptible to loose JS timing),
-the time passed in as the argument to the callback is precise.
-For most applications, it is better to use Tone.Transport
-instead of the Clock by itself since you can
-synchronize multiple callbacks.
-
-CONSTRUCTOR
-new Tone.Clock ( callback , frequency )
-callback: The callback to be invoked with the time of the audio event
-type: function
-
-frequency:	The rate of the callback
-type: Frequency
-
-DEFAULTS
-{
-callback : Tone.noOp ,
-frequency : 1
-}
-
-EXAMPLE
-//the callback will be invoked approximately once a second
-//and will print the time exactly once a second apart.
-var clock = new Tone.Clock(function(time){
-  console.log(time);
-}, 1);
 */
 
 //Tone.Context ↳ EXTENDS Tone.Emitter
@@ -2514,35 +2529,6 @@ setOrientation
 setPosition
 */
 
-//Tone.Master ↳ EXTENDS Tone SINGLETON
-/*A single master output which is connected to the
-AudioDestinationNode (aka your speakers).
-It provides useful conveniences such as
-the ability to set the volume and mute the entire application.
-It also gives you the ability to apply master effects
-to your application.
-Like Tone.Transport, A single Tone.Master is created
-on initialization and you do not need to explicitly construct
-one.
-
-CONSTRUCTOR
-new Tone.Master ( )
-
-DEFAULTS
-{
-volume : 0 ,
-mute : false
-}
-
-EXAMPLE
-//the audio will go from the oscillator to the speakers
-oscillator.connect(Tone.Master);
-//a convenience for connecting to the master output is also provided:
-oscillator.toDestination();
-//the above two examples are equivalent.
-DEPRECATED
-*/
-
 //Tone.OfflineContext ↳ EXTENDS Tone.Context
 /*Wrapper around the OfflineAudioContext
 
@@ -2718,52 +2704,6 @@ shift
 cancel
 cancelBefore
 dispose
-*/
-
-//Tone
-/*Tone is the base class of all other classes.
-
-CONSTRUCTOR
-new Tone ( )
-
-MEMBERS
-context
-
-METHODS
-toTicks
-receive
-send
-toFrequency
-toSeconds
-
-STATIC METHODS
-connect
-connectSeries
-dbToGain
-defaultArg
-defaults
-disconnect
-equalPowerScale
-extend
-gainToDb
-getContext
-immediate
-intervalToFrequencyRatio
-isArray
-isBoolean
-isDefined
-isFunction
-isNote
-isNumber
-isObject
-isString
-isUndef
-loaded
-noOp
-now
-setContext
-start
-Offline
 */
 
 //Tone.Transport ↳ EXTENDS Tone.Emitter SINGLETON
@@ -3019,37 +2959,6 @@ triggerRelease
 setNote
 */
 
-//Tone.Instrument ↳ EXTENDS Tone.AudioNode
-/*Base - class for all instruments
-
-CONSTRUCTOR
-new Tone.Instrument()
-
-DEFAULTS
-{
-  volume: 0
-}
-
-MEMBERS
-volume
-channelCount
-channelCountMode
-channelInterpretation
-context
-numberOfInputs
-numberOfOutputs
-
-METHODS
-sync
-dispose
-triggerAttackRelease
-unsync
-toDestination
-fan
-connect
-disconnect
-*/
-
 //Tone.MembraneSynth ↳ EXTENDS Tone.Instrument
 /*Tone.MembraneSynth makes kick and tom sounds using a single
 oscillator with an amplitude envelope and frequency ramp.
@@ -3251,45 +3160,6 @@ triggerAttack
 getLevelAtTime
 triggerRelease
 setNote
-*/
-
-//Tone.Monophonic ↳ EXTENDS Tone.Instrument
-/*This is an abstract base class for other monophonic instruments
-to extend.IMPORTANT: It does not make any sound on its own
-and shouldn’t be directly instantiated.
-
-CONSTRUCTOR
-new Tone.Monophonic()
-
-DEFAULTS
-{
-  portamento: 0
-}
-
-MEMBERS
-portamento
-channelCountMode
-channelInterpretation
-context
-numberOfInputs
-numberOfOutputs
-channelCount
-volume
-
-METHODS
-getLevelAtTime
-setNote
-triggerAttack
-triggerRelease
-toDestination
-chain
-connect
-disconnect
-fan
-sync
-triggerAttackRelease
-dispose
-unsync
 */
 
 //Tone.NoiseSynth ↳ EXTENDS Tone.Instrument

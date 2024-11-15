@@ -454,22 +454,14 @@ const hhPattern = [
     { 'duration': '0:0:1', 'time': '0:8:0:1' },
     { 'duration': '0:0:1', 'time': '0:8:0:2' },
     { 'duration': '0:0:1', 'time': '0:8:0:3' },
-    { 'duration': '0:0:1', 'time': '0:8:1:0' },
-    { 'duration': '0:0:1', 'time': '0:8:1:1' },
-    { 'duration': '0:0:1', 'time': '0:8:1:2' },
-    { 'duration': '0:0:1', 'time': '0:8:1:3' },
-    { 'duration': '0:0:1', 'time': '0:8:2:0' },
-    { 'duration': '0:0:1', 'time': '0:8:2:1' },
-    { 'duration': '0:0:1', 'time': '0:8:2:2' },
-    { 'duration': '0:0:1', 'time': '0:8:2:3' },
-    { 'duration': '0:0:1', 'time': '0:8:3:0' },
-    { 'duration': '0:0:1', 'time': '0:8:3:1' },
-    { 'duration': '0:0:1', 'time': '0:8:3:2' },
-    { 'duration': '0:0:1', 'time': '0:8:3:3' },
-
-
-
     { 'duration': '0:0:1', 'time': '0:9:0' },
+
+
+
+    { 'duration': '0:0:1', 'time': '0:9:1' },
+    { 'duration': '0:0:1', 'time': '0:9:2' },
+    { 'duration': '0:0:1', 'time': '0:9:3' },
+    { 'duration': '0:0:1', 'time': '0:9:4' },
     { 'duration': '0:0:1', 'time': '0:10:0' },
     { 'duration': '0:0:1', 'time': '0:11:0' },
     { 'duration': '0:0:1', 'time': '0:12:0' },
