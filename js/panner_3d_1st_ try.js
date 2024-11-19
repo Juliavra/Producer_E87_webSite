@@ -1,12 +1,11 @@
-﻿
-function createPanner(positionX, positionY, positionZ) {
+﻿function createPanner(positionX, positionY, positionZ) {
   const panner = new Tone.Panner3D({
     panningModel: "HRTF",
     positionX,
     positionY,
     positionZ,
   }).toDestination();
-
+/*
   const synth1 = new Tone.Synth({
     oscillator: {
       volume: -21,
@@ -15,7 +14,7 @@ function createPanner(positionX, positionY, positionZ) {
       type: "triangle"
     }
   }).connect(panner)
-
+*/
 
 }
 
@@ -35,7 +34,7 @@ function createsContext() {
   Tone.Transport.loopStart = 0;
   Tone.Transport.loopEnd.value = 1;
 
-
+/*
   function createPlayerPlusPanner(url, positionX, positionY, positionZ) {
     const panner = new Tone.Panner3D({
       panningModel: "HRTF",
@@ -49,25 +48,27 @@ function createsContext() {
       loop: true,
     }).connect(panner).sync().start(0);
   }
- /* createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/taps_1c.mp3", 2, 0, 0);
-  createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/tinkle3.mp3", 0, 0, 2);
-  createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/tapping1.mp3", -2, 0, 2);
-  createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/thump1.mp3", -2, 0, -2);
-
-  document.querySelector("tone-play-toggle").addEventListener("start", () => Tone.Transport.start());
-  document.querySelector("tone-play-toggle").addEventListener("stop", () => Tone.Transport.stop());
   */
-  function setRotation(angle) {
+  /* createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/taps_1c.mp3", 2, 0, 0);
+   createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/tinkle3.mp3", 0, 0, 2);
+   createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/tapping1.mp3", -2, 0, 2);
+   createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/thump1.mp3", -2, 0, -2);
+ 
+   document.querySelector("tone-play-toggle").addEventListener("start", () => Tone.Transport.start());
+   document.querySelector("tone-play-toggle").addEventListener("stop", () => Tone.Transport.stop());
+   */
+  /*
+   function setRotation(angle) {
     Tone.Listener.forwardX.value = Math.sin(angle);
     Tone.Listener.forwardY.value = 0;
     Tone.Listener.forwardZ.value = -Math.cos(angle);
   }
-/*
-  document.querySelector("#xSlider").addEventListener("input", (e) => Tone.Listener.positionX.value = parseFloat(e.target.value));
-  document.querySelector("#zSlider").addEventListener("input", (e) => Tone.Listener.positionY.value = parseFloat(e.target.value));
-  document.querySelector("#rotation").addEventListener("input", (e) => setRotation(parseFloat(e.target.value)));
-*/
-
+  */
+  /*
+    document.querySelector("#xSlider").addEventListener("input", (e) => Tone.Listener.positionX.value = parseFloat(e.target.value));
+    document.querySelector("#zSlider").addEventListener("input", (e) => Tone.Listener.positionY.value = parseFloat(e.target.value));
+    document.querySelector("#rotation").addEventListener("input", (e) => setRotation(parseFloat(e.target.value)));
+  */
 
   /*
  .setOrientation ( ) #
@@ -91,8 +92,8 @@ Sets the position of the source in 3d space.
 
 
 
-
-
+var panner3d = new PannerNode();
+//panner3d.setOrientation(1,1,1); 
 }//CIERRA createsContext
 
 
@@ -114,7 +115,7 @@ function startsSong() {
   }, ["C4", ["E4", "D4"], "E4", "G5", ["G6", "A6"], "E2", "E2", "E2", "E1", "E1", "E0", "E2", "G2", "A2"]).start(0);
 
   createPanner(2, 0, 0);
-
+  
   /*
     const synth2 = new Tone.Synth({
       oscillator: {
