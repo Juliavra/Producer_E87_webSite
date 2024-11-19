@@ -5,20 +5,7 @@
     positionY,
     positionZ,
   }).toDestination();
-/*
-  const synth1 = new Tone.Synth({
-    oscillator: {
-      volume: -21,
-      count: 3,
-      spread: 90,
-      type: "triangle"
-    }
-  }).connect(panner)
-*/
-
 }
-
-
 
 function createsContext() {
 
@@ -26,7 +13,7 @@ function createsContext() {
 
   setInterval(() => {
     console.log(Tone.immediate());
-  }, 500);
+  }, 1000);
   Tone.Transport.start().stop(90);
   Tone.Transport.bpm.value = 120;
   Tone.Transport.swing.value = 90;
@@ -34,21 +21,28 @@ function createsContext() {
   Tone.Transport.loopStart = 0;
   Tone.Transport.loopEnd.value = 1;
 
-/*
-  function createPlayerPlusPanner(url, positionX, positionY, positionZ) {
-    const panner = new Tone.Panner3D({
-      panningModel: "HRTF",
-      positionX,
-      positionY,
-      positionZ,
-    }).toDestination();
+//new Panner3D(positionX, positionY, positionZ): Panner3D
 
-    const player = new Tone.Player({
-      url,
-      loop: true,
-    }).connect(panner).sync().start(0);
-  }
-  */
+  //const listener = audioCtx.listener;
+
+
+
+
+  /*
+    function createPlayerPlusPanner(url, positionX, positionY, positionZ) {
+      const panner = new Tone.Panner3D({
+        panningModel: "HRTF",
+        positionX,
+        positionY,
+        positionZ,
+      }).toDestination();
+  
+      const player = new Tone.Player({
+        url,
+        loop: true,
+      }).connect(panner).sync().start(0);
+    }
+    */
   /* createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/taps_1c.mp3", 2, 0, 0);
    createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/tinkle3.mp3", 0, 0, 2);
    createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/tapping1.mp3", -2, 0, 2);
@@ -90,10 +84,8 @@ this
 Sets the position of the source in 3d space.
 /**/
 
-
-
-var panner3d = new PannerNode();
-//panner3d.setOrientation(1,1,1); 
+  //var panner3d = new PannerNode();
+  //panner3d.setOrientation(1,1,1); 
 }//CIERRA createsContext
 
 
@@ -115,7 +107,7 @@ function startsSong() {
   }, ["C4", ["E4", "D4"], "E4", "G5", ["G6", "A6"], "E2", "E2", "E2", "E1", "E1", "E0", "E2", "G2", "A2"]).start(0);
 
   createPanner(2, 0, 0);
-  
+
   /*
     const synth2 = new Tone.Synth({
       oscillator: {
