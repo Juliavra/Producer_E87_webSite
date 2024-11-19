@@ -6,29 +6,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/noads.css">
+    <!--
     <link rel="icon" href="img/html.ico" type="image/x-icon">
+    -->
     <title>Inicio</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <!--
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    -->
 </head>
 
 <body>
     <div class="contenedor">
-        <header class="header"></header>
-        <main class="main">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jetz1kdT-O4?si=cvxqYIl2e3J-0Zxl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        <header class="header">
+            <input type='text' id='carpeta' name="nombre" placeholder="Paste iframe here" size="25" />
+            <button id="play_btn" onclick="cargarLink()">Aceptar</button>
 
-<p>            </p>
-            <div>
-            </div>
+        </header>
+        <main class="main">
+            <iframe id="frame" width="560" height="315" title="YouTube video player" frameborder="4"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </main>
     </div>
 
     <script src="js/index.js"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://unpkg.com/vue@3"></script>
+
 
 </body>
 
