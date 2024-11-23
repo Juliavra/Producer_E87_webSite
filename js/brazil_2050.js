@@ -1170,7 +1170,9 @@ function muestra_array_Canciones() {
       source = `"audio/${nombre}.mp3"`;  //console.log(`source: ` + `${source}`);
       const box = `<div class="draggable" id=${nombre} draggable="true" ondragstart="cancion_dragstart(event)">    ${nombre}    </div>`;
       const audio = `<audio class="audio" id=${nombre}> <source src="${source}" type="audio/mpeg"></audio>`;
-      array_song_div.push(box);                                     //console.log("box: "+`${box}`);
+      array_song_div.push(box);       
+      console.log("box: "+`${box}`);
+      alert("");
       array_audio_toAppend.push(audio);
     }
     else {
