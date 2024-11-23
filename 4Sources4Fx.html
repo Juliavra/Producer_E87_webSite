@@ -10,24 +10,55 @@
 
 <body>
 
+    <main class="main">
+        <div class="container">
+            <form action="js/4Sources4Fx.js" class="form" id="formulario">
+                <div>
+                    <label for="song">Song</label>
+                    <select name="song" id="song">
+                        <option name="01" id="01" value="01 Dark Ringy Short Loop">01 Dark Ringy Short Loop</option>
+                        <option name="02" id="02" value="02 Hard Acople Amb Song">02 Hard Acople Amb Song</option>
+                        <option name="03" id="03" value="03 Phased Sleppy Noise Loop">03 Phased Sleppy Noise Loop</option>
+                        <option name="04" id="04" value="04 Ruido Digital Zarpado Loop">04 Ruido Digital Zarpado Loop</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="player">Player</label>
+                    <select name="player" id="player">
+                        <option name="1" id="1" value="1">1</option>
+                        <option name="2" id="2" value="2">2</option>
+                        <option name="3" id="3" value="3">3</option>
+                        <option name="4" id="4" value="4">4</option>
+
+                    </select>
+                    <!--    
+                    <input type="number" name="player" id="player" />
+                -->
+                </div>
+                <!-- /** ! Boton Enviar**/ -->
+                <div>
+                    <button onclick="" name="submit" id="submit" class="_btn">Enviar</button>
+                    <!--
+<button type="submit" id="submit" class="_btn">Enviar</button>                    
+-->
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!--
     <div class="dropdown">
-        <button onclick="cargarLink()" class="dropbtn">Songs</button>
+        <button onclick="cargarLink()" class="dropbtn"> Load Songs</button>
         <div id="myDropdown" class="dropdown-content">
-<button value="https://juliavra.github.io/Producer_E87_webSite/audio/01%20Dark%20Ringy%20Short%20Loop.mp3" onclick="cargarLink(this)"></button>
-
-
+<button value="https://juliavra.github.io/Producer_E87_webSite/audio/01%20Dark%20Ringy%20Short%20Loop.mp3" onclick="cargarLink()"></button>
 
         </div>
     </div>
 
-
-
-
-
+-->
+    <!--
     <select name="cancion">
-        <option id="01">01 Dark Ringy Short Loop</option>
-        <option id="02">02 Hard Acople Amb Song</option>
-        <option id="03">03 Phased Sleppy Noise Loop</option>
+         <option name="01" id="01" value="01 Dark Ringy Short Loop">01 Dark Ringy Short Loop</option>
         <option id="04">04 Ruido Digital Zarpado Loop</option>
         <option id="05">05 Deep Dark Amb Slow Loop</option>
         <option id="06">06 Ringy Dark Slow Amb Loop</option>
@@ -65,9 +96,69 @@
         <option>38 Mid Lo Bouncy Choppd Loop</option>
         <option>39 Sube Baja Ringy Loop Song</option>
         <option>40 Acople Viaje Hi Eq Loop</option>
-
+          41 Dark Sub Clips Amb Song
+  42 Low Engine Loop
+  43 Fax Signal Acople Clima Digi Noise Loop
+  44 Caballos Digi Noise Tempo Song
+  45 Metal NR Talkin Melody Song
+  46 Rain Metal bursts Talkie Loop Song
+  47 Ringy Sub Melody Tempo Song
+  48 Chopped ST Noise Calm Song
+  49 Reverse Weird Music Song
+  50 Ritmo Hit Pila Song
+  51 Low Drone Noise Loop
+  52 Sub Ultra Slow Mzk Song
+  53 Low Digi Vibrato Snaps Loop
+  54 Sub Windy Deep Song
+  55 Ringy Sweepin Howl Song
+  56 Chopped Snappy Melo Song
+  57 Distort Chopped Ring Loop
+  58 Sub Dark Hits Song
+  59 Ringy EG Chopped Amb Song
+  60 Melancholic Song
+  61 Sube Baja Melo Song
+  62 Sub Noise Talkative Loop
+  63 Grainy Dirty Noise Loop
+  64 Clipped Noise Loop
+  65 Acople Hard Crescendo Loop
+  66 Chopped Ptch Dwn Amb Loop
+  67 Low Ocean like Amb Song
+  68 Reverse Deep Dark Loop
+  69 Drone Delay Melo Loop Song
+  70 Chopped Ritmo ST Loop
+  71 Melo Sube Baja Clima Loop
+  72 Choppd fast ST Music Loop
+  73 Trenes al galope Loop
+  74 Drone Hard Noise Loop Song
+  75 Grainy Windy Dirty Noise Loop
+  76 Sub Dub NR Loop
+  77 Weird EG Vibrato Melo Loop
+  78 Away Revb Industrial Noise Song
+  79 Mellow Strings NR Song
+  80 Phased Orkestra NR Song
+  81 Un Clip Procesado Song
+  82 Reverse Dubby Drum Beat
+  83 Ptch Dwn Drum
+  84 Chopped Dubby Beat Loop
+  85 Sub Vibrato Delay N Gate Drum
+  86 One Drop Distort Sumo Loop
+  87 4 BD Space Dub Loop
+  88 Distort Ptch Dwn Hip Hop Loop
+  89 Distort EQ Hip Hop
+  90 Ultra Slo Dub Trip Hop Loop
+  91 Dub Loop
+  92 Sub Space Tribal Loop
+  93 Autechre Jumpin Loop
+  94 Dirty Trip Hop Loop
+  95 Break Cool Dance Beat Loop
+  96 Clippy Choppd Melo Loop
+  97 Reverse Fast Trance Loop
+  98 All Over T Hop NR loop Song
+  99 Melo Drums Tempo Loop
+  100 B Beat re laburado Loop Song
 
     </select>
+-->
     <!--<button id="play_btn" onclick="cargarLink()">Aceptar</button>
 -->
 
@@ -75,8 +166,9 @@
 
     <button id="contextButton" onclick="createsContext()">Iniciar CONTEXT </button>
     <button id="playButton" onclick="startsSong()">Iniciar SONG </button>
+    <!--
     <button id="recordButton" onclick="recordear()">recordear </button>
-
+-->
     <p id="volume_key_text"></p>
     <p id="volume_key_value"></p>
     <input type='range' min=-60 max=0 step='1' value=-60 id='volume_key'>
@@ -102,6 +194,9 @@
     <input type='range' min=-60 max=0 step='1' value=-10 id='fxreturn_bd'>
     <br>
 
+    <bloque1 class="bloque1" id="bloque1">
+        <div class="playlist" id="playlistfrescos"> </div>
+    </bloque1>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
         integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
