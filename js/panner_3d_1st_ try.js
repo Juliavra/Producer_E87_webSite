@@ -1,95 +1,68 @@
-﻿function createPanner(positionX, positionY, positionZ) {
-  const panner = new Tone.Panner3D({
-    panningModel: "HRTF",
-    positionX,
-    positionY,
-    positionZ,
-  }).toDestination();
-}
-
-function createsContext() {
-
-  const contextButton = document.querySelector("#contextButton");
-
+﻿function createsContext() {
   setInterval(() => {
     console.log(Tone.immediate());
   }, 1000);
   Tone.Transport.start().stop(90);
   Tone.Transport.bpm.value = 120;
   Tone.Transport.swing.value = 90;
-  Tone.Transport.swingSubdivision.value = "8n.";
-  Tone.Transport.loopStart = 0;
-  Tone.Transport.loopEnd.value = 1;
+  //Tone.Transport.swingSubdivision.value = "8n.";
+  //Tone.Transport.loopStart = 0;
+  //Tone.Transport.loopEnd.value = 1;
 
-//new Panner3D(positionX, positionY, positionZ): Panner3D
+  Tone.Listener.positionX = 0;
+  Tone.Listener.positionY = 0;
+  Tone.Listener.positionZ = 0;
+  Tone.Listener.forwardX = 0;
+  Tone.Listener.forwardY = 0;
+  Tone.Listener.forwardZ = 1;
+  Tone.Listener.upX = 0;
+  Tone.Listener.upY = 1;
+  Tone.Listener.upZ = 0;
 
-  //const listener = audioCtx.listener;
-
-
-
-
-  /*
-    function createPlayerPlusPanner(url, positionX, positionY, positionZ) {
-      const panner = new Tone.Panner3D({
-        panningModel: "HRTF",
-        positionX,
-        positionY,
-        positionZ,
-      }).toDestination();
-  
-      const player = new Tone.Player({
-        url,
-        loop: true,
-      }).connect(panner).sync().start(0);
-    }
-    */
-  /* createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/taps_1c.mp3", 2, 0, 0);
-   createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/tinkle3.mp3", 0, 0, 2);
-   createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/tapping1.mp3", -2, 0, 2);
-   createPlayerPlusPanner("https://tonejs.github.io/audio/berklee/thump1.mp3", -2, 0, -2);
- 
-   document.querySelector("tone-play-toggle").addEventListener("start", () => Tone.Transport.start());
-   document.querySelector("tone-play-toggle").addEventListener("stop", () => Tone.Transport.stop());
-   */
-  /*
-   function setRotation(angle) {
-    Tone.Listener.forwardX.value = Math.sin(angle);
-    Tone.Listener.forwardY.value = 0;
-    Tone.Listener.forwardZ.value = -Math.cos(angle);
-  }
-  */
-  /*
-    document.querySelector("#xSlider").addEventListener("input", (e) => Tone.Listener.positionX.value = parseFloat(e.target.value));
-    document.querySelector("#zSlider").addEventListener("input", (e) => Tone.Listener.positionY.value = parseFloat(e.target.value));
-    document.querySelector("#rotation").addEventListener("input", (e) => setRotation(parseFloat(e.target.value)));
-  */
-
-  /*
- .setOrientation ( ) #
-x	type: Number
-y	type: Number
-z	type: Number
-↪ returns Tone.Panner3D	
-this
-
-Sets the orientation of the source in 3d space.
-
-.setPosition ( ) #
-x type: Number
-y	type: Number
-z	type: Number
-↪ returns Tone.Panner3D	
-this
-
-Sets the position of the source in 3d space.
-/**/
-
-  //var panner3d = new PannerNode();
-  //panner3d.setOrientation(1,1,1); 
 }//CIERRA createsContext
 
+function setRotation(angle) {
+  Tone.Listener.forwardX.value = Math.sin(angle);
+  Tone.Listener.forwardY.value = 0;
+  Tone.Listener.forwardZ.value = -Math.cos(angle);
+}
 
 function startsSong() {
+  const recorder = new Tone.Recorder();
+  recorder.debug = "true";
+  //alert(recorder.supported);
+
+  const panner = new Tone.Panner3D({
+    //panningModel: "HRTF",
+    panningModel: "equalpower",
+    positionX: 0,
+    positionY: 0,
+    positionZ: 0,
+    orientationX: 0,
+    orientationY: 0,
+    orientationZ: 0,
+    maxDistance: 10000,
+    distanceModel: "inverse",
+    coneOuterGain: 0.5,
+    coneOuterAngle: 360,
+    coneInnerAngle: 360,
+    refDistance: 1,
+    rolloffFactor: 1
+  }).toDestination();
+panner.fan(recorder );
+
+  //}).toDestination();
+  /*
+    Tone.Listener.positionX = 1;
+    Tone.Listener.positionY = 1;
+    Tone.Listener.positionZ = 1;
+    Tone.Listener.forwardX = 0;
+    Tone.Listener.forwardY = 0;
+    Tone.Listener.forwardZ = 1;
+    Tone.Listener.upX = 0;
+    Tone.Listener.upY = 1;
+    Tone.Listener.upZ = 0;
+  /**/
   //--------------------
   // synth 1 
   const synth1 = new Tone.Synth({
@@ -99,14 +72,29 @@ function startsSong() {
       spread: 90,
       type: "triangle"
     }
-  }).toDestination();
+  }).connect(panner);
+  ///GRABADORA
+  recorder.start();
 
   const seq = new Tone.Sequence((time, note) => {
     synth1.triggerAttackRelease(note, 2, time);
     // subdivisions are given as subarrays
-  }, ["C4", ["E4", "D4"], "E4", "G5", ["G6", "A6"], "E2", "E2", "E2", "E1", "E1", "E0", "E2", "G2", "A2"]).start(0);
+  }, ["C4", ["E4", "D4"], "E4", "G5", ["G6", "A6"],
+    "E2", "E2", "E2", "E1", "E1", "E0", "E2", "G2", "A2"]).start(0);
 
-  createPanner(2, 0, 0);
+//PERTENECE A LA GRABADORA
+  setTimeout(async () => {
+    // the recorded audio is returned as a blob
+    const recording = await recorder.stop();
+    // download the recording by creating an anchor element 
+    //and blob url
+    const url = URL.createObjectURL(recording);
+    const anchor = document.createElement("a");
+    anchor.download = "recording.webm";
+    anchor.href = url;
+    anchor.click();
+  }, 10000); //<-- TIEMPO QUE DURA LA GRABACION -1 SEGUNDO
+
 
   /*
     const synth2 = new Tone.Synth({
@@ -156,9 +144,6 @@ function startsSong() {
       "C0", "D0", "A1", "C0","G1", "E0", "A1", "C0"]).start(0)
   /**/
 }// CLOSES startsSong
-
-
-
 
 //MIDI JSON
 /*
@@ -2220,6 +2205,30 @@ function startsSong() {
 setInterval(() => {
   console.log(Tone.immediate());
 }, 1000);
+
+/*
+function recordear() {
+  const recorder = new Tone.Recorder();
+  const synth = new Tone.Synth().connect(recorder);
+  // start recording
+  recorder.start();
+  // generate a few notes
+  synth.triggerAttackRelease("C3", 0.5);
+  synth.triggerAttackRelease("C4", 0.5, "+1");
+  synth.triggerAttackRelease("C5", 0.5, "+2");
+  // wait for the notes to end and stop the recording
+  setTimeout(async () => {
+    // the recorded audio is returned as a blob
+    const recording = await recorder.stop();
+    // download the recording by creating an anchor element and blob url
+    const url = URL.createObjectURL(recording);
+    const anchor = document.createElement("a");
+    anchor.download = "recording.webm";
+    anchor.href = url;
+    anchor.click();
+  }, 4000);
+}
+/**/
 
 //------------------------------------------------------------------
 //------------------------------------------------------------------
