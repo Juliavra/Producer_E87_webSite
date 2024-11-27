@@ -708,31 +708,26 @@ function validateForm() {
   var formulario = new Object();
   formulario.song = document.getElementById("song");    //alert("formulario.song: " + formulario.song.value);
   formulario.player = document.getElementById("player");  //alert("formulario.player: " + formulario.player.value + "   " + "formulario.song: " + formulario.song.value);
-  //formulario.validate = document.getElementById("validate");
   let player_trim = player.value.trim();
   let song_trim = song.value.trim();    
-  //alert("song_trim: " + `${song_trim}`);
   let mensaje = "Error inicial";
   if (song_trim != "") {
     if (song_trim.length >= 3 && song_trim.value != "undefined") {
       if (player_trim.value != "" && player_trim.value != "undefined") {
         mensaje = "todoOk";
       }
-      else { mensaje = "PLayer ERROR"; }
+      else { mensaje = "if (player_trim.value !=vacio && player_trim.value != undefined)  ERROR"}
     }
-    else { mensaje = "SONG ERROR"; }
+    else { mensaje = "song_trim.length >= 3 && song_trim.value != undefined" }
   }
-  else { mensaje = "SONG TRIM"; }
+  else { mensaje = "SONG TRIM no es !="}
 
   if (mensaje == "todoOk") {
     let song_Node = "https://juliavra.github.io/Producer_E87_webSite/audio/" + song_trim + ".mp3";
-    alert("ACA song_Node: " + `${song_Node}`);
-    alert("song_Node.value: " + `${song_Node}`);
-    //const buffer1_next = new Tone.Buffer(`${song_Node}`);
-    const buffer2_next = new Tone.Buffer(`${song_Node}`);
-    //alert("buffer1_next: " + `${buffer1_next}` + "    " + "buffer2_next: " + `${buffer2_next}`);
-    alert("buffer2_next: " + `${buffer2_next}`);
-    let form = document.createElement('form');
+    const buffer_next = new Tone.Buffer();
+    buffer_next.url_src=`${song_Node}`; alert("buffer1_next: "+ buffer_next.url_src);
+   // buffer_next.url_src=
+    //let form = document.createElement('form');
     //form.action = 'https://formspree.io/f/mvondkre';
     //  form.method = 'POST';
     //let song_inner = `<input name = "song" value=${song_trim}>`;
