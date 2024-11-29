@@ -38,13 +38,13 @@ const panner_hh = new Tone.Panner(0).toDestination();
 
   const key1 = new Tone.Synth({
     oscillator: {
-      volume: -10,
+      volume: -24,
       count: 3,
       spread: 40,
       type: "sine"
     }
   }).connect(panner_key1);
-/*
+
   const keyPart = new Tone.Part(function (time, note) {
     key1.triggerAttackRelease(note.note, note.duration, time);
   }, keyline).start(0).stop(90);
@@ -56,13 +56,13 @@ const panner_hh = new Tone.Panner(0).toDestination();
 
   const key2 = new Tone.Synth({
     oscillator: {
-      volume: -21,
+      volume: -24,
       count: 3,
       spread: 40,
       type: "sine"
     }
   }).connect(panner_key2);
-/*
+
   const keyPart2 = new Tone.Part(function (time, note) {
     key2.triggerAttackRelease(note.note, note.duration, time);
   }, keyline2).start(0).stop(90);
@@ -74,18 +74,18 @@ const panner_hh = new Tone.Panner(0).toDestination();
 
   const key3 = new Tone.Synth({
     oscillator: {
-      volume: -21,
+      volume: -24,
       count: 3,
       spread: 40,
       type: "sine"
     }
   }).connect(panner_key3);
-/*
+
   const keyPart3 = new Tone.Part(function (time, note) {
     key3.triggerAttackRelease(note.note, note.duration, time);
   }, keyline3).start(0).stop(90);
 /**/
-/*
+
     const tomline = [
       { 'time': '0:0', 'note': 'A3', 'duration': '0:2' },
       { 'time': '0:2', 'note': 'F3', 'duration': '0:2' },
@@ -105,7 +105,7 @@ const panner_hh = new Tone.Panner(0).toDestination();
     const tomPart = new Tone.Part(function (time, note) {
       tom.triggerAttackRelease(note.note, note.duration, time);
     }, tomline).start(0);
-   /*
+  
     const tomPart_2 = new Tone.Part(function (time, note) {
       tom.triggerAttackRelease(note.note, note.duration, time);
     }, tomline).start(10);
@@ -117,11 +117,11 @@ const panner_hh = new Tone.Panner(0).toDestination();
     const tomPart_4 = new Tone.Part(function (time, note) {
       tom.triggerAttackRelease(note.note, note.duration, time);
     }, tomline).start(30);
-    */
+    /**/
   //-----------------------------------
   //-----------------------------------
   //SUB LOW INTRO
-  /*
+  
   const bassline = [
     { 'time': '0:0', 'note': 'A1', 'duration': '0:2' },
     { 'time': '0:2', 'note': 'F1', 'duration': '0:2' },
@@ -187,7 +187,7 @@ const panner_hh = new Tone.Panner(0).toDestination();
   //-----------------------------------
   //-----------------------------------
   //LOW ATMOSPHERE INTRO
-  /*
+ 
   const synth4 = new Tone.Synth({
     oscillator: {
       volume: -18,
@@ -206,7 +206,7 @@ const panner_hh = new Tone.Panner(0).toDestination();
   //-----------------------------------
   //-----------------------------------
   //C2 Bass line
-  /*
+
   const basslineC2 = [
     { 'time': '0:0', 'note': 'A2', 'duration': '0:2' },
     { 'time': '0:2', 'note': 'F2', 'duration': '0:2' },
@@ -244,7 +244,7 @@ const panner_hh = new Tone.Panner(0).toDestination();
 
   ];
 
-  const bassC2 = new Tone.Synth({
+  const basslineC3 = new Tone.Synth({
     oscillator: {
       volume: -90,
       count: 3,
@@ -271,7 +271,7 @@ const panner_hh = new Tone.Panner(0).toDestination();
    */
   //-----------------------------------
   //-----------------------------------
-  /*  
+    
     const synthBass = new Tone.Synth({
       oscillator: {
         volume: -11,
@@ -297,7 +297,7 @@ const panner_hh = new Tone.Panner(0).toDestination();
     const seq5 = new Tone.Sequence((time, note) => {
        synth4.triggerAttackRelease(note, "4n", time);
      }, ["A2", "A2", "F2", "F2", "D2","D2", "F2", "F2"]).start(8).stop(12);
-     /*
+    
      const seq6 = new Tone.Sequence((time, note) => {
        synth4.triggerAttackRelease(note, "8n", time);
      }, ["A2", "A2", "F2", "F2", "D2","D2", "F2", "F2"]).start(14).stop(20);
@@ -311,23 +311,23 @@ const panner_hh = new Tone.Panner(0).toDestination();
   }).connect(panner_bd);
 
   const kicks = [
-    { time: '0:4' },
-    { time: '1:4' },
-    { time: '2:4' },
-    { time: '3:4' },
-    { time: '4:4' },
-    { time: '5:4' },
-    { time: '6:4' },
-    { time: '7:4' },
-    { time: '8:4' },
-    { time: '9:4' },
-    { time: '10:4:' },
-    { time: '11:4:' },
-    { time: '12:4:' },
-    { time: '13:4:' },
-    { time: '14:4:' },
-    { time: '15:4:' },
-    { time: '16:4:' },
+    { time: '0:2' },
+    { time: '1:2' },
+    { time: '2:2' },
+    { time: '3:2' },
+    { time: '4:2' },
+    { time: '5:2' },
+    { time: '6:2' },
+    { time: '7:2' },
+    { time: '8:2' },
+    { time: '9:2' },
+    { time: '10:2:' },
+    { time: '11:2:' },
+    { time: '12:2:' },
+    { time: '13:2:' },
+    { time: '12:2:' },
+    { time: '15:2:' },
+    { time: '16:2:' },
 
 
   ];
@@ -365,9 +365,7 @@ const panner_hh = new Tone.Panner(0).toDestination();
     { time: '21:4' },
     { time: '22:4' },
     { time: '23:4' },
-    { time: '24:4' },
-    { time: '25:4' },
-    { time: '26:4' },
+
 
   ]
   const lowPass = new Tone.Filter({
@@ -587,15 +585,15 @@ const hhPattern = [
     noiseSynth.triggerAttackRelease(note.duration, time);
   }, hhPattern).start(0).stop(40);
 
- /* const hhPatternPartCOPIA = new Tone.Part(function (time, note) {
+  const hhPatternPartCOPIA = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
   }, hhPattern2).start(0.032).stop(40);
-*/
+/**/
   const pitchShift = new Tone.PitchShift(-7).connect(pingPong);
   const filter = new Tone.Filter("C4").toDestination();
   noiseSynth.fan(filter);
 pitchShift.volume = -92;
- /* const hhPatternPart_1_copia = new Tone.Part(function (time, note) {
+  const hhPatternPart_1_copia = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
   }, hhPattern).start(22).stop(45);
   
@@ -603,8 +601,8 @@ pitchShift.volume = -92;
   const hhPatternPart_1_copia2 = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
   }, hhPattern).start(29).stop(45);
-*/
-/*  const hhPatternPart2 = new Tone.Part(function (time, note) {
+/**/
+  const hhPatternPart2 = new Tone.Part(function (time, note) {
     noiseSynth.triggerAttackRelease(note.duration, time);
   }, hhPattern2).start(8).stop(45);
 /**/
