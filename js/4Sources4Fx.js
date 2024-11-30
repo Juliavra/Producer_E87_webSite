@@ -220,7 +220,10 @@ function validateForm() {
 //    const buffer_next = new Tone.Buffer();
 //    buffer_next.url_src = `${song_Node}`;                  //         alert("buffer1_next: " + buffer_next.url_src);
 
-    const player = new Tone.Player(song_Node).toDestination();
+
+
+
+    const player = new Tone.Player(`${song_Node}`).toDestination();
     // play as soon as the buffer is loaded
     player.autostart = true;
   }
@@ -236,7 +239,7 @@ function recieves_Number_Returns_url(song){
 var cancion_1 = {
   id: 1,
   title: "01 Dark Ringy Short Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/01%20Dark%20Ringy%20Short%20Loop.mp3"
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/01_Dark_Ringy_Short_Loop.mp3"
 };
 var cancion_2 = {
   id: 2,
