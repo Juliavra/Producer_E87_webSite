@@ -217,8 +217,8 @@ function validateForm() {
   if (mensaje == "todoOk") {
     //let song_Node = `${array_Canciones[song_trim-1].url_src}`;        //alert("song_Node: " + song_Node);
     let song_Node = recieves_Number_Returns_url(song_trim-1);            alert("song_Node: " + song_Node);
-    const buffer_next = new Tone.Buffer();
-    buffer_next.url_src = `${song_Node}`;                  //         alert("buffer1_next: " + buffer_next.url_src);
+//    const buffer_next = new Tone.Buffer();
+//    buffer_next.url_src = `${song_Node}`;                  //         alert("buffer1_next: " + buffer_next.url_src);
 
     const player = new Tone.Player(`${song_Node}`).toDestination();
     // play as soon as the buffer is loaded
@@ -760,11 +760,7 @@ array_Canciones.push(cancion_97)
 array_Canciones.push(cancion_98)
 array_Canciones.push(cancion_99)
 array_Canciones.push(cancion_100)
-
-
-alert(`${array_Canciones[song].url_src}`);
-
-return 
+return `${array_Canciones[song].url_src}`;
 }//CLOSES recieves_Number_Returns_url
 
 
