@@ -1171,7 +1171,7 @@ function muestra_array_Canciones() {
       const audio = `<audio class="audio" id=${nombre}> <source src="${source}" type="audio/mpeg"></audio>`;
       array_song_div.push(box);       
       console.log("box: "+`${box}`);
-      alert("");
+      //alert("");
       array_audio_toAppend.push(audio);
     }
     else {

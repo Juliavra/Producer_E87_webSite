@@ -2,13 +2,13 @@
 var pan_1 = document.getElementById("pan_1");
 var muteButton = document.getElementById("muteButton");
 var soloButton = document.getElementById("soloButton");
-const player1_vol = new Tone.Volume(-60).toDestination();
-const player1_pan = new Tone.Panner(1).connect(player1_vol);
-const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/01_Dark_Ringy_Short_Loop.mp3").connect(player1_pan);
+const player1_vol = new Tone.Volume(-100).toDestination();
+const player1_pan = new Tone.Panner(-1).connect(player1_vol);
+const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/100 B Beat re laburado Loop Song.mp3").connect(player1_pan);
 
 volume_1.addEventListener("change", function (e) {
-    player1_vol.volume.value = e.currentTarget.value;
-    volume_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    player1_vol.volume.value = e.currentTarget.value;   console.log("e.currentTarget.value: "+e.currentTarget.value);
+    volume_1_value.innerHTML = Math.round(`${e.currentTarget.value-100}`);
   });
 
   pan_1.addEventListener("change", function (e) {
@@ -18,34 +18,10 @@ volume_1.addEventListener("change", function (e) {
     
   });
 
-
-
-/*
-  volume_1.addEventListener("change", function (e) {
-    channel_1.volume.value = e.currentTarget.value;     
-    console.log("channel_1.volume.value: " + channel_1.volume.value)
-    volume_1_value.innerHTML = Math.round(`${e.currentTarget.value * 100}`);
-    
-  });
-/**/
   volume_1_text.innerHTML = "VOLUME";
   volume_1_value.innerHTML = "0";
-/*
-  pan_1.addEventListener("change", function (e) {
-    channel_1.pan.value = e.currentTarget.value;     
-    console.log("channel_1.pan.value: " + channel_1.pan.value)
-    pan_1_value.innerHTML = Math.round(`${e.currentTarget.value * 100}`);
-    
-  });
-/**/
   pan_1_text.innerHTML = "PAN";
   pan_1_value.innerHTML = "0";
-
-
-  
-
-
-
 
   function start(){
     console.log("START");
