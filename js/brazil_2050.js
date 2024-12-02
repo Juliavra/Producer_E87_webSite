@@ -8,7 +8,6 @@ fixed_song_1_name.innerHTML = " cancion nombre";
 fixed_song_2_name.innerHTML = " cancion nombre";
 fixed_song_3_name.innerHTML = " cancion nombre";
 fixed_song_4_name.innerHTML = " cancion nombre";
-//let context = new AudioContext();
 var currentAudioControlKeys = 1;
 var local = true; //LOGICA CAMBIADA ANTES ERA: var local = false;
 var lista = [];
@@ -22,7 +21,7 @@ var audio2 = document.getElementById("myAudio2");
 var audio3 = document.getElementById("myAudio3");
 var audio4 = document.getElementById("myAudio4");
 var local_or_web = document.getElementById("local_checkbox");
-local_or_web.checked=true;  //BORRAR ESTO PARA LA LOGICA ANTERIOR
+local_or_web.checked=false;  //BORRAR ESTO PARA LA LOGICA ANTERIOR
 local_or_web.addEventListener("change", function () {
   if (local_or_web.checked) { local = true; }
   else { local = false; }
@@ -1427,16 +1426,11 @@ function controls_4_loop() {
 muestraLista();
 muestra_array_Canciones();
 
-
-
-
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min) + min);
 }
-
-
 
 /*
 progress—Este evento se desencadena periódicamente para ofrecer una actualización
