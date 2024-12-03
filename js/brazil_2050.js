@@ -658,11 +658,11 @@ var cancion_2 = {
 };
 var cancion_3 = {
   id: "03 Phased Sleppy Noise Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/03 Phased Sleppy Noise Loop.mp3"
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3"
 };
 var cancion_4 = {
   id: "04 Ruido Digital Zarpado Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/04 Ruido Digital Zarpado Loop.mp3"
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/04_Ruido_Digital_Zarpado_Loop.mp3"
 };
 var cancion_5 = {
   id: "05 Deep Dark Amb Slow Loop",

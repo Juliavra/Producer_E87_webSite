@@ -1,41 +1,60 @@
-﻿var volume_1 = document.getElementById("volume_1");
-var pan_1 = document.getElementById("pan_1");
-var muteButton = document.getElementById("muteButton");
-var soloButton = document.getElementById("soloButton");
-const player1_vol = new Tone.Volume(-100).toDestination();
-const player1_pan = new Tone.Panner(-1).connect(player1_vol);
-const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/100 B Beat re laburado Loop Song.mp3").connect(player1_pan);
+﻿const volume_1 = document.getElementById("volume_1");
+const pan_1 = document.getElementById("pan_1");
+const muteButton = document.getElementById("muteButton");
+const soloButton = document.getElementById("soloButton");
+const playback_rate_1 = document.getElementById("playback_rate_1");
+const loop_checkbox = document.getElementById("loop_checkbox");
+const player1_vol = new Tone.Volume(-40).toDestination();
+const player1_pan = new Tone.Panner(0).connect(player1_vol);
+const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3").connect(player1_pan);
+//https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3
+//https://juliavra.github.io/Producer_E87_webSite/audio/100_B_Beat_re_laburado_Loop_Song.mp3
+player1.playbackRate.value = -20;
 
 volume_1.addEventListener("change", function (e) {
-    player1_vol.volume.value = e.currentTarget.value;   console.log("e.currentTarget.value: "+e.currentTarget.value);
-    volume_1_value.innerHTML = Math.round(`${e.currentTarget.value-100}`);
+    player1_vol.volume.value = e.currentTarget.value;   //console.log("e.currentTarget.value: "+e.currentTarget.value);
+    volume_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   });
 
   pan_1.addEventListener("change", function (e) {
-    player1_pan.value = e.currentTarget.value;     
-    console.log("channel_1.pan.value: " + player1_pan.pan.value)
-    pan1_value.innerHTML = Math.round(`${e.currentTarget.value * 100}`);
+    player1_pan.pan.value = e.currentTarget.value;     //console.log("channel_1.pan.value: " + player1_pan.pan.value)
+    pan_1_value.innerHTML = Math.round(`${e.currentTarget.value }`);
     
   });
+
+  playback_rate_1.addEventListener("change", function (e) {
+    player1.playbackRate = `${e.currentTarget.value }`;     console.log("player1.playbackRate.value: " + player1.playbackRate.value)
+    playback_rate_1_value.innerHTML = Math.round(`${e.currentTarget.value }` * 100);
+    
+  });
+
+  loop_checkbox.addEventListener("change", function () {
+    if (loop_checkbox.checked) { player1.loop = true; }
+    else { player1.loop = false; }
+  });
+
+
+
+
 
   volume_1_text.innerHTML = "VOLUME";
   volume_1_value.innerHTML = "0";
   pan_1_text.innerHTML = "PAN";
   pan_1_value.innerHTML = "0";
-
-  function start(){
-    console.log("START");
-  }
-
+  playback_rate_1_text.innerHTML = "PLAYBACK RATE"
+  playback_rate_1_value.innerHTML = "0";
+  
+  
 
 function mute1(){
-  channel_1.mute = !channel_1.mute ;
-  //alert("channel_1.mute: "+ channel_1.mute);
+  player1_vol.mute = !player1_vol.mute ;
+  //alert("player1_vol.mute: "+ player1_vol.mute);
 }
  
 function solo1(){
-  channel_1.solo = !channel_1.solo ;
-  alert("channel_1.solo: "+ channel_1.solo);
+  player1_vol.solo = !player1_vol.solo ;
+  player1.load ("https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3"); 
+  alert("player1_vol.solo: "+ player1_vol.solo);
 }
 
 function play1(){
