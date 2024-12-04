@@ -149,284 +149,354 @@ var cancion_30 = {
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/30_Chopped_Tone_FX_Evolution_Song.mp3"
 };
 var cancion_31 = {
-  id: "31 Windy Tremolo Tren Clima Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/31 Windy Tremolo Tren Clima Loop.mp3"
+  id: 31,
+  title: "31 Windy Tremolo Tren Clima Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/31_Windy_Tremolo_Tren_Clima_Loop.mp3"
 };
 var cancion_32 = {
-  id: "32 Hiss Ritmico Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/32 Hiss Ritmico Song.mp3"
+  id: 32,
+  title: "32 Hiss Ritmico Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/32_Hiss_Ritmico_Song.mp3"
 };
 var cancion_33 = {
-  id: "33 Bouncing Turbina Slow Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/33 Bouncing Turbina Slow Song.mp3"
+  id: 33,
+  title: "33 Bouncing Turbina Slow Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/33_Bouncing_Turbina_Slow_Song.mp3"
 };
 var cancion_34 = {
-  id: "34 NR Digi Reverse Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/34 NR Digi Reverse Loop.mp3"
+  id: 34,
+  title: "34 NR Digi Reverse Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/34_NR_Digi_Reverse_Loop.mp3"
 };
 var cancion_35 = {
-  id: "35 Grainy Sub Vibrato Soplido Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/35 Grainy Sub Vibrato Soplido Song.mp3"
+  id: 35,
+  title: "35 Grainy Sub Vibrato Soplido Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/35_Grainy_Sub_Vibrato_Soplido_Song.mp3"
 };
 var cancion_36 = {
-  id: "36 Ringy Pad Slow Melo Loop Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/36 Ringy Pad Slow Melo Loop Song.mp3"
+  id: 36,
+  title: "36 Ringy Pad Slow Melo Loop Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/36_Ringy_Pad_Slow_Melo_Loop_Song.mp3"
 };
 var cancion_37 = {
-  id: "37 Reverse NR Wicked Birds Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/37 Reverse NR Wicked Birds Loop.mp3"
+  id: 37,
+  title: "37 Reverse NR Wicked Birds Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/37_Reverse_NR_Wicked_Birds_Loop.mp3"
 };
 var cancion_38 = {
-  id: "38 Mid Lo Bouncy Choppd Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/38 Mid Lo Bouncy Choppd Loop.mp3"
+  id: 38,
+  title: "38 Mid Lo Bouncy Choppd Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/38_Mid_Lo_Bouncy_Choppd_Loop.mp3"
 };
 var cancion_39 = {
-  id: "39 Sube Baja Ringy Loop Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/39 Sube Baja Ringy Loop Song.mp3"
+  id: 39,
+  title: "39 Sube Baja Ringy Loop Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/39_Sube_Baja_Ringy_Loop_Song.mp3"
 };
 var cancion_40 = {
-  id: "40 Acople Viaje Hi Eq Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/40 Acople Viaje Hi Eq Loop.mp3"
+  id: 40,
+  title: "40 Acople Viaje Hi Eq Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/40_Acople_Viaje_Hi_Eq_Loop.mp3"
 };
 var cancion_41 = {
-  id: "41 Dark Sub Clips Amb Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/41 Dark Sub Clips Amb Song.mp3"
+  id: 41,
+  title: "41 Dark Sub Clips Amb Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/41_Dark_Sub_Clips_Amb_Song.mp3"
 };
 var cancion_42 = {
-  id: "42 Low Engine Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/42 Low Engine Loop.mp3"
+  id: 42,
+  title: "42 Low Engine Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/42_Low_Engine_Loop.mp3"
 };
 var cancion_43 = {
-  id: "43 Fax Signal Acople Clima Digi Noise Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/43 Fax Signal Acople Clima Digi Noise Loop.mp3"
+  id: 43,
+  title: "43 Fax Signal Acople Clima Digi Noise Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/43_Fax_Signal_Acople_Clima_Digi_Noise_Loop.mp3"
 };
 var cancion_44 = {
-  id: "44 Caballos Digi Noise Tempo Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/44 Caballos Digi Noise Tempo Song.mp3"
+  id: 44,
+  title: "44 Caballos Digi Noise Tempo Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/44_Caballos_Digi_Noise_Tempo_Song.mp3"
 };
 var cancion_45 = {
-  id: "45 Metal NR Talkin Melody Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/45 Metal NR Talkin Melody Song"
+  id: 45,
+  title: "45 Metal NR Talkin Melody Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/45_Metal_NR_Talkin_Melody_Song"
 };
 var cancion_46 = {
-  id: "46 Rain Metal bursts Talkie Loop Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/46 Rain Metal bursts Talkie Loop Song.mp3"
+  id: 46,
+  title: "46 Rain Metal bursts Talkie Loop Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/46_Rain_Metal_bursts_Talkie_Loop_Song.mp3"
 };
 var cancion_47 = {
-  id: "47 Ringy Sub Melody Tempo Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/47 Ringy Sub Melody Tempo Song.mp3"
+  id: 47,
+  title: "47 Ringy Sub Melody Tempo Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/47_Ringy_Sub_Melody_Tempo_Song.mp3"
 };
 var cancion_48 = {
-  id: "48 Chopped ST Noise Calm Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/48 Chopped ST Noise Calm Song.mp3"
+  id: 48,
+  title: "48 Chopped ST Noise Calm Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/48_Chopped_ST_Noise_Calm_Song.mp3"
 };
 var cancion_49 = {
-  id: "49 Reverse Weird Music Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/49 Reverse Weird Music Song.mp3"
+  id: 49,
+  title: "49 Reverse Weird Music Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/49_Reverse_Weird_Music_Song.mp3"
 };
 var cancion_50 = {
-  id: "50 Ritmo Hit Pila Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/50 Ritmo Hit Pila Song.mp3"
+  id: 50,
+  title: "50 Ritmo Hit Pila Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/50_Ritmo_Hit_Pila_Song.mp3"
 };
 var cancion_51 = {
-  id: "51 Low Drone Noise Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/51 Low Drone Noise Loop.mp3"
+  id: 51,
+  title: "51 Low Drone Noise Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/51_Low_Drone_Noise_Loop.mp3"
 };
 var cancion_52 = {
-  id: "52 Sub Ultra Slow Mzk Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/52 Sub Ultra Slow Mzk Song.mp3"
+  id: 52,
+  title: "52 Sub Ultra Slow Mzk Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/52_Sub_Ultra_Slow_Mzk_Song.mp3"
 };
 var cancion_53 = {
-  id: "53 Low Digi Vibrato Snaps Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/53 Low Digi Vibrato Snaps Loop.mp3"
+  id: 53,
+  title: "53 Low Digi Vibrato Snaps Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/53_Low_Digi_Vibrato_Snaps_Loop.mp3"
 };
 var cancion_54 = {
-  id: "54 Sub Windy Deep Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/54 Sub Windy Deep Song.mp3"
+  id: 54,
+  title: "54 Sub Windy Deep Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/54_Sub_Windy_Deep_Song.mp3"
 };
 var cancion_55 = {
-  id: "55 Ringy Sweepin Howl Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/55 Ringy Sweepin Howl Song.mp3"
+  id: 55,
+  title: "55 Ringy Sweepin Howl Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/55_Ringy_Sweepin_Howl_Song.mp3"
 };
 var cancion_56 = {
-  id: "56 Chopped Snappy Melo Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/56 Chopped Snappy Melo Song.mp3"
+  id: 56,
+  title: "56 Chopped Snappy Melo Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/56_Chopped_Snappy_Melo_Song.mp3"
 };
 var cancion_57 = {
-  id: "57 Distort Chopped Ring Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/57 Distort Chopped Ring Loop.mp3"
+  id: 57,
+  title: "57 Distort Chopped Ring Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/57_Distort_Chopped_Ring_Loop.mp3"
 };
 var cancion_58 = {
-  id: "58 Sub Dark Hits Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/58 Sub Dark Hits Song.mp3"
+  id: 58,
+  title: "58 Sub Dark Hits Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/58_Sub_Dark_Hits_Song.mp3"
 };
 var cancion_59 = {
-  id: "59 Ringy EG Chopped Amb Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/59 Ringy EG Chopped Amb Song.mp3"
+  id: 59,
+  title: "59 Ringy EG Chopped Amb Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/59_Ringy_EG_Chopped_Amb_Song.mp3"
 };
 var cancion_60 = {
-  id: "60 Melancholic Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/60 Melancholic Song.mp3"
+  id: 60,
+  title: "60 Melancholic Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/60_Melancholic_Song.mp3"
 };
 var cancion_61 = {
-  id: "61 Sube Baja Melo Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/61 Sube Baja Melo Song.mp3"
+  id: 61,
+  title: "61 Sube Baja Melo Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/61_Sube_Baja_Melo_Song.mp3"
 };
 var cancion_62 = {
-  id: "62 Sub Noise Talkative Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/62 Sub Noise Talkative Loop.mp3"
+  id: 62,
+  title: "62 Sub Noise Talkative Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/62_Sub_Noise_Talkative_Loop.mp3"
 };
 var cancion_63 = {
-  id: "63 Grainy Dirty Noise Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/63 Grainy Dirty Noise Loop.mp3"
+  id: 63,
+  title: "63 Grainy Dirty Noise Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/63_Grainy_Dirty_Noise_Loop.mp3"
 };
 var cancion_64 = {
-  id: "64 Clipped Noise Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/64 Clipped Noise Loop.mp3"
+  id: 64,
+  title: "64 Clipped Noise Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/64_Clipped_Noise_Loop.mp3"
 };
 var cancion_65 = {
-  id: "65 Acople Hard Crescendo Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/65 Acople Hard Crescendo Loop.mp3"
+  id: 65,
+  title: "65 Acople Hard Crescendo Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/65_Acople_Hard_Crescendo_Loop.mp3"
 };
 var cancion_66 = {
-  id: "66 Chopped Ptch Dwn Amb Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/66 Chopped Ptch Dwn Amb Loop.mp3"
+  id: 66,
+  title: "66 Chopped Ptch Dwn Amb Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/66_Chopped_Ptch_Dwn_Amb_Loop.mp3"
 };
 var cancion_67 = {
-  id: "67 Low Ocean like Amb Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/67 Low Ocean like Amb Song.mp3"
+  id: 67,
+  title: "67 Low Ocean like Amb Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/67_Low_Ocean_like_Amb_Song.mp3"
 };
 var cancion_68 = {
-  id: "68 Reverse Deep Dark Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/68 Reverse Deep Dark Loop.mp3"
+  id: 68,
+  title: "68 Reverse Deep Dark Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/68_Reverse_Deep_Dark_Loop.mp3"
 };
 var cancion_69 = {
-  id: "69 Drone Delay Melo Loop Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/69 Drone Delay Melo Loop Song.mp3"
+  id: 69,
+  title: "69 Drone Delay Melo Loop Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/69_Drone_Delay_Melo_Loop_Song.mp3"
 };
 var cancion_70 = {
-  id: "70 Chopped Ritmo ST Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/70 Chopped Ritmo ST Loop.mp3"
+  id: 70,
+  title: "70 Chopped Ritmo ST Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/70_Chopped_Ritmo_ST_Loop.mp3"
 };
 var cancion_71 = {
-  id: "71 Melo Sube Baja Clima Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/71 Melo Sube Baja Clima Loop.mp3"
+  id: 71,
+  title: "71 Melo Sube Baja Clima Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/71_Melo_Sube_Baja_Clima_Loop.mp3"
 };
 var cancion_72 = {
-  id: "72 Choppd fast ST Music Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/72 Choppd fast ST Music Loop.mp3"
+  id: 72,
+  title: "72 Choppd fast ST Music Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/72_Choppd_fast_ST_Music_Loop.mp3"
 };
 var cancion_73 = {
-  id: "73 Trenes al galope Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/73 Trenes al galope Loop.mp3"
+  id: 73,
+  title: "73 Trenes al galope Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/73_Trenes_al_galope_Loop.mp3"
 };
 var cancion_74 = {
-  id: "74 Drone Hard Noise Loop Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/74 Drone Hard Noise Loop Song.mp3"
+  id: 74,
+  title: "74 Drone Hard Noise Loop Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/74_Drone_Hard_Noise_Loop_Song.mp3"
 };
 var cancion_75 = {
-  id: "75 Grainy Windy Dirty Noise Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/75 Grainy Windy Dirty Noise Loop.mp3"
+  id: 75,
+  title: "75 Grainy Windy Dirty Noise Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/75_Grainy_Windy_Dirty_Noise_Loop.mp3"
 };
 var cancion_76 = {
-  id: "76 Sub Dub NR Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/76 Sub Dub NR Loop.mp3"
+  id: 76,
+  title: "76 Sub Dub NR Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/76_Sub_Dub_NR_Loop.mp3"
 };
 var cancion_77 = {
-  id: "77 Weird EG Vibrato Melo Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/77 Weird EG Vibrato Melo Loop.mp3"
+  id: 77,
+  title: "77 Weird EG Vibrato Melo Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/77_Weird_EG_Vibrato_Melo_Loop.mp3"
 };
 var cancion_78 = {
-  id: "78 Away Revb Industrial Noise Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/78 Away Revb Industrial Noise Song.mp3"
+  id: 78,
+  title: "78 Away Revb Industrial Noise Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/78_Away_Revb_Industrial_Noise_Song.mp3"
 };
 var cancion_79 = {
-  id: "79 Mellow Strings NR Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/79 Mellow Strings NR Song.mp3"
+  id: 79,
+  title: "79 Mellow Strings NR Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/79_Mellow_Strings_NR_Song.mp3"
 };
 var cancion_80 = {
-  id: "80 Phased Orkestra NR Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/80 Phased Orkestra NR Song.mp3"
+  id: 80,
+  title: "80 Phased Orkestra NR Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/80_Phased_Orkestra_NR_Song.mp3"
 };
 var cancion_81 = {
-  id: "81 Un Clip Procesado Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/81 Un Clip Procesado Song.mp3"
+  id: 81,
+  title: "81 Un Clip Procesado Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/81_Un_Clip_Procesado_Song.mp3"
 };
 var cancion_82 = {
-  id: "82 Reverse Dubby Drum Beat",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/82 Reverse Dubby Drum Beat.mp3"
+  id: 82,
+  title: "82 Reverse Dubby Drum Beat",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/82_Reverse_Dubby_Drum_Beat.mp3"
 };
 var cancion_83 = {
-  id: "83 Ptch Dwn Drum",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/83 Ptch Dwn Drum.mp3"
+  id: 83,
+  title: "83 Ptch Dwn Drum",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/83_Ptch_Dwn_Drum.mp3"
 };
 var cancion_84 = {
-  id: "84 Chopped Dubby Beat Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/84 Chopped Dubby Beat Loop.mp3"
+  id: 84,
+  title: "84 Chopped Dubby Beat Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/84_Chopped_Dubby_Beat_Loop.mp3"
 };
 var cancion_85 = {
-  id: "85 Sub Vibrato Delay N Gate Drum",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/85 Sub Vibrato Delay N Gate Drum.mp3"
+  id: 85,
+  title: "85 Sub Vibrato Delay N Gate Drum",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/85_Sub_Vibrato_Delay_N_Gate_Drum.mp3"
 };
 var cancion_86 = {
-  id: "86 One Drop Distort Sumo Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/86 One Drop Distort Sumo Loop.mp3"
+  id: 86,
+  title: "86 One Drop Distort Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/86_One_Drop_Distort_Loop.mp3"
 };
 var cancion_87 = {
-  id: "87 4 BD Space Dub Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/87 4 BD Space Dub Loop.mp3"
+  id: 87,
+  title: "87 4 BD Space Dub Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/87_4_BD_Space_Dub_Loop.mp3"
 };
 var cancion_88 = {
-  id: "88 Distort Ptch Dwn Hip Hop Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/88 Distort Ptch Dwn Hip Hop Loop.mp3"
+  id: 88,
+  title: "88 Distort Ptch Dwn Hip Hop Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/88_Distort_Ptch_Dwn_Hip_Hop_Loop.mp3"
 };
 var cancion_89 = {
-  id: "89 Distort EQ Hip Hop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/89 Distort EQ Hip Hop.mp3"
+  id: 89,
+  title: "89 Distort EQ Hip Hop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/89_Distort_EQ_Hip_Hop.mp3"
 };
 var cancion_90 = {
-  id: "90 Ultra Slo Dub Trip Hop Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/90 Ultra Slo Dub Trip Hop Loop.mp3"
+  id: 90,
+  title: "90 Ultra Slo Dub Trip Hop Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/90_Ultra_Slo_Dub_Trip_Hop_Loop.mp3"
 };
 var cancion_91 = {
-  id: "91 Dub Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/91 Dub Loop.mp3"
+  id: 91,
+  title: "91 Dub Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/91_Dub_Loop.mp3"
 };
 var cancion_92 = {
-  id: "92 Sub Space Tribal Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/92 Sub Space Tribal Loop.mp3"
+  id: 92,
+  title: "92 Sub Space Tribal Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/92_Sub_Space_Tribal_Loop.mp3"
 };
 var cancion_93 = {
-  id: "93 Autechre Jumpin Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/93 Autechre Jumpin Loop.mp3"
+  id: 93,
+  title: "93 Autechre Jumpin Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/93_Autechre_Jumpin_Loop.mp3"
 };
 var cancion_94 = {
-  id: "94 Dirty Trip Hop Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/94 Dirty Trip Hop Loop.mp3"
+  id: 94,
+  title: "94 Dirty Trip Hop Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/94_Dirty_Trip_Hop_Loop.mp3"
 };
 var cancion_95 = {
-  id: "95 Break Cool Dance Beat Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/95 Break Cool Dance Beat Loop.mp3"
+  id: 95,
+  title: "95 Break Cool Dance Beat Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/95_Break_Cool_Dance_Beat_Loop.mp3"
 };
 var cancion_96 = {
-  id: "96 Clippy Choppd Melo Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/96 Clippy Choppd Melo Loop.mp3"
+  id: 96,
+  title: "96 Clippy Choppd Melo Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/96_Clippy_Choppd_Melo_Loop.mp3"
 };
 var cancion_97 = {
-  id: "97 Reverse Fast Trance Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/97 Reverse Fast Trance Loop.mp3"
+  id: 97,
+  title: "97 Reverse Fast Trance Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/97_Reverse_Fast_Trance_Loop.mp3"
 };
 var cancion_98 = {
-  id: "98 All Over T Hop NR loop Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/98 All Over T Hop NR loop Song.mp3"
+  id: 98,
+  title: "98 All Over T Hop NR loop Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/98_All_Over_T_Hop_NR_loop_Song.mp3"
 };
 var cancion_99 = {
-  id: "99 Melo Drums Tempo Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/99 Melo Drums Tempo Loop.mp3"
+  id: 99,
+  title: "99 Melo Drums Tempo Loop",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/99_Melo_Drums_Tempo_Loop.mp3"
 };
 var cancion_100 = {
-  id: "100 B Beat re laburado Loop Song",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/100 B Beat re laburado Loop Song.mp3"
+  id: 100,
+  title: "100 B Beat re laburado Loop Song",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/100_B_Beat_re_laburado_Loop_Song.mp3"
 };
 
 var array_Canciones = [];
@@ -476,63 +546,60 @@ array_Canciones.push(cancion_43);
 array_Canciones.push(cancion_44);
 array_Canciones.push(cancion_45);
 array_Canciones.push(cancion_46);
-array_Canciones.push(cancion_47)
-array_Canciones.push(cancion_48)
-array_Canciones.push(cancion_49)
-array_Canciones.push(cancion_50)
-array_Canciones.push(cancion_51)
-array_Canciones.push(cancion_52)
-array_Canciones.push(cancion_53)
-array_Canciones.push(cancion_54)
-array_Canciones.push(cancion_55)
-array_Canciones.push(cancion_56)
-array_Canciones.push(cancion_57)
-array_Canciones.push(cancion_58)
-array_Canciones.push(cancion_59)
-array_Canciones.push(cancion_60)
-array_Canciones.push(cancion_61)
-array_Canciones.push(cancion_62)
-array_Canciones.push(cancion_63)
-array_Canciones.push(cancion_64)
-array_Canciones.push(cancion_65)
-array_Canciones.push(cancion_66)
-array_Canciones.push(cancion_67)
-array_Canciones.push(cancion_68)
-array_Canciones.push(cancion_69)
-array_Canciones.push(cancion_70)
-array_Canciones.push(cancion_71)
-array_Canciones.push(cancion_72)
-array_Canciones.push(cancion_73)
-array_Canciones.push(cancion_74)
-array_Canciones.push(cancion_75)
-array_Canciones.push(cancion_76)
-array_Canciones.push(cancion_77)
-array_Canciones.push(cancion_78)
-array_Canciones.push(cancion_79)
-array_Canciones.push(cancion_80)
-array_Canciones.push(cancion_81)
-array_Canciones.push(cancion_82)
-array_Canciones.push(cancion_83)
-array_Canciones.push(cancion_84)
-array_Canciones.push(cancion_85)
-array_Canciones.push(cancion_86)
-array_Canciones.push(cancion_87)
-array_Canciones.push(cancion_88)
-array_Canciones.push(cancion_89)
-array_Canciones.push(cancion_90)
-array_Canciones.push(cancion_91)
-array_Canciones.push(cancion_92)
-array_Canciones.push(cancion_93)
-array_Canciones.push(cancion_94)
-array_Canciones.push(cancion_95)
-array_Canciones.push(cancion_96)
-array_Canciones.push(cancion_97)
-array_Canciones.push(cancion_98)
-array_Canciones.push(cancion_99)
-array_Canciones.push(cancion_100)
-
-
-
+array_Canciones.push(cancion_47);
+array_Canciones.push(cancion_48);
+array_Canciones.push(cancion_49);
+array_Canciones.push(cancion_50);
+array_Canciones.push(cancion_51);
+array_Canciones.push(cancion_52);
+array_Canciones.push(cancion_53);
+array_Canciones.push(cancion_54);
+array_Canciones.push(cancion_55);
+array_Canciones.push(cancion_56);
+array_Canciones.push(cancion_57);
+array_Canciones.push(cancion_58);
+array_Canciones.push(cancion_59);
+array_Canciones.push(cancion_60);
+array_Canciones.push(cancion_61);
+array_Canciones.push(cancion_62);
+array_Canciones.push(cancion_63);
+array_Canciones.push(cancion_64);
+array_Canciones.push(cancion_65);
+array_Canciones.push(cancion_66);
+array_Canciones.push(cancion_67);
+array_Canciones.push(cancion_68);
+array_Canciones.push(cancion_69);
+array_Canciones.push(cancion_70);
+array_Canciones.push(cancion_71);
+array_Canciones.push(cancion_72);
+array_Canciones.push(cancion_73);
+array_Canciones.push(cancion_74);
+array_Canciones.push(cancion_75);
+array_Canciones.push(cancion_76);
+array_Canciones.push(cancion_77);
+array_Canciones.push(cancion_78);
+array_Canciones.push(cancion_79);
+array_Canciones.push(cancion_80);
+array_Canciones.push(cancion_81);
+array_Canciones.push(cancion_82);
+array_Canciones.push(cancion_83);
+array_Canciones.push(cancion_84);
+array_Canciones.push(cancion_85);
+array_Canciones.push(cancion_86);
+array_Canciones.push(cancion_87);
+array_Canciones.push(cancion_88);
+array_Canciones.push(cancion_89);
+array_Canciones.push(cancion_90);
+array_Canciones.push(cancion_91);
+array_Canciones.push(cancion_92);
+array_Canciones.push(cancion_93);
+array_Canciones.push(cancion_94);
+array_Canciones.push(cancion_95);
+array_Canciones.push(cancion_96);
+array_Canciones.push(cancion_97);
+array_Canciones.push(cancion_98);
+array_Canciones.push(cancion_99);
+array_Canciones.push(cancion_100);
 
 const volume_1 = document.getElementById("volume_1");
 const pan_1 = document.getElementById("pan_1");
@@ -560,12 +627,12 @@ function player1_onLoad() {
 player1.onstop(sarasa());
 
 function sarasa() {
-/*
-  console.log("SARASA");
-  console.log(array_Canciones[0].id.toString());
-  console.log(array_Canciones[0].title.toString());
-  console.log(array_Canciones[0].url_src.toString());
-*/
+  /*
+    console.log("SARASA");
+    console.log(array_Canciones[0].id.toString());
+    console.log(array_Canciones[0].title.toString());
+    console.log(array_Canciones[0].url_src.toString());
+  */
 }
 
 volume_1.addEventListener("change", function (e) {
@@ -634,7 +701,7 @@ function solo1() {
 function play1() {
   if (!player1.loaded) {
     player1.autostart = true;
-//    console.log("IF");
+    //    console.log("IF");
   }
   else {
     player1.start();
@@ -655,7 +722,55 @@ function play1() {
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
   let cadena = validateForm();
+  var doesItInclude = cadena.includes("-", 0);
+  if (doesItInclude) {
+    var indexCadena = cadena.indexOf("-", 0);             //console.log("validateForm indexCadena:     " + indexCadena);
+    let songNumber = "", playerNumber = "";
+    for (i = 0; i < indexCadena; i++) {
+      songNumber = songNumber + cadena[i];                      //console.log("validateForm songNumber:     " + songNumber);
+    }
+    for (j = indexCadena + 1; j < cadena.length; j++) {
+      playerNumber = playerNumber + cadena[j];                      //console.log("validateForm playerNumber:     " + playerNumber);
+    }
+
+
+
+
+
+
+    
+
+  }
+  else {console.log("La cadena no incluye un -"); }
+
+
+
+
+
+
   console.log("validateForm cadena:     " + cadena);
+
+
+
+  /*
+  Includes(buscar, posición)—Este método busca el valor del atributo buscar dentro de
+  la cadena y devuelve true o false de acuerdo con el resultado. El atributo buscar es el
+  texto que queremos buscar, y el atributo posición determina el índice en el que queremos
+  comenzar la búsqueda. Si el atributo posición no se especifica, la búsqueda comienza
+  desde el inicio de la cadena.
+  
+  indexOf(valor, posición)—Este método devuelve el índice en el que el texto
+  especificado por el atributo valor se encuentra por primera vez. El atributo posición
+  determina el índice en el que queremos comenzar la búsqueda. Si el atributo posición no
+  se especifica, la búsqueda comienza desde el inicio de la cadena. El método devuelve el
+  valor -1 si ninguna coincidencia es encontrada.
+  
+  
+  
+  
+  */
+
+
 });
 //---------------------------------------------------------
 //*************************************************
