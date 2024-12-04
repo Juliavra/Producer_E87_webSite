@@ -40,22 +40,6 @@ function createsContext() {
   //Player2.url = ("https://juliavra.github.io/Producer_E87_webSite/audio/03 Phased Sleppy Noise Loop.mp3");
   //Player1.start();
 
-  //const buffer1_actual = new Tone.Buffer();
-  //const buffer1_next = new Tone.Buffer();
-  //const Player1 = new Tone.Player();
-  //"https://juliavra.github.io/Producer_E87_webSite/audio/05 Deep Dark Amb Slow Loop.mp3"
-
-  /*
-    const player = new Tone.Player("https://tonejs.github.io/audio/berklee/gong_1.mp3").toDestination();
-    // play as soon as the buffer is loaded
-    player.autostart = true;
-  /**/
-  /*
-    const player = new Tone.Player("https://tonejs.github.io/audio/berklee/gong_1.mp3").toDestination();
-    // play as soon as the buffer is loaded
-    player.autostart = true;
-  */
-
 }//CIERRA createsContext
 
 
@@ -767,15 +751,3 @@ array_Canciones.push(cancion_100)
 return `${array_Canciones[song].url_src}`;
 }//CLOSES recieves_Number_Returns_url
 
-
-
-
-
-//************************************************************************
-/*
-There is an example in the Tone.js documentation that shows how this is done,
-var player = new Tone.Player(buffers[i]).toMaster();
-Tone.loaded().then(() => {
-    player.start();
-});
-/**/
