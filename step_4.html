@@ -7,20 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/html.ico">
   <link rel="STYLESHEET" href="css/steps.css">
-  <title>Step 3</title>
+  <title>Step 4</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <h1>Step 3 Player + Vol + Pan (w/commands)</h1>
-  <h1> https://www.drumha.us/?preset=q6nR9mIInuW</h1>
+  <h1>Step 4 </h1>
   <br>
 
   <main class="main">
     <div class="container">
-      <form action="js/step_3.js" class="form" id="formulario">
+      <form action="js/step_4.js" class="form" id="formulario">
         <div>
 
           <label for="song">Song</label>
@@ -134,16 +133,10 @@
             <option name="3" id="3" value="3">3</option>
             <option name="4" id="4" value="4">4</option>
           </select>
-<!--
-          <button onclick="submitButton" name="submit" id="submitButton" class="_btn">Enviar</button>
-    -->    
+          <button onclick="" name="submit" id="submit" class="_btn">Enviar</button>
         </div>
         <div>
-          <p id="song_title"></p> 
-          <br> 
-          <p id="duration_1_text"> </p>
-          <p id="duration_1_value"></p>
-        
+          <p id="song_title"></p>
         </div>
 
 <div>
@@ -151,13 +144,19 @@
   <button id="soloButton" onclick="solo1()">solo1 </button>
   <button id="playButton" onclick="play1()">play1 </button>
 </div>
+
+
       </form>
     </div>
   </main>
+
  
   <p id="volume_1_text"></p>
   <input type='range' min=-40 max=12 step='1' value="0" id='volume_1'>
   <p id="volume_1_value"></p>
+
+  <p id="duration_1_value"></p>
+  <p id="duration_1_text"> </p>
   <p id="pan_1_text"></p>
   <input type='range' min=-1 max=1 step='0.02' value=0 id='pan_1'>
   <p id="pan_1_value"></p>
@@ -189,7 +188,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
     integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="js/step_3.js"></script>
+  <script src="js/step_4.js"></script>
   <!--
     <script src="https://unpkg.com/tone"></script>
     -->

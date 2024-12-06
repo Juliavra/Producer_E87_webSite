@@ -610,14 +610,8 @@ const loop_1_checkbox = document.getElementById("loop_1_checkbox");
 const autoplay_1_checkbox = document.getElementById("autoplay_1_checkbox");
 const reverse_1_checkbox = document.getElementById("reverse_1_checkbox");
 const songName = document.getElementById("song_title");
-const duration_1_value = document.getElementById("duration_1_value");
-const duration_1_text = document.getElementById("duration_1_text");
-
-
-
 const player1_vol = new Tone.Volume(-40).toDestination();
 const player1_pan = new Tone.Panner(0).connect(player1_vol);
-
 const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3", player1_onLoad()).connect(player1_pan);
 //const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3", player1_onLoad()).connect(player1_pan);
 //const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/100_B_Beat_re_laburado_Loop_Song.mp3", player1_onLoad()).connect(player1_pan);
@@ -625,11 +619,11 @@ const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite
 //player1.setLoopPoints(0, 1.345);
 //player1.fadeIn = 2;
 //player1.fadeOut = 3;
-//player1.debug = true;
+player1.debug = true;
 
 function player1_onLoad() {
   //cambio visible que indique su carga
-  //console.log("LOADED");
+  console.log("LOADED");
 }
 
 player1.onstop(sarasa());
@@ -696,10 +690,6 @@ fadeIn_1_value.innerHTML = `${player1.fadeIn}`;
 fadeOut_1_text.innerHTML = `fadeOut`;
 fadeOut_1_value.innerHTML = `${player1.fadeOut}`;
 songName.innerHTML = `No Song Loaded`;
-duration_1_text.innerHTML = "Duration";
-duration_1_value.innerHTML = "0";
-
-
 function mute1() {
   player1_vol.mute = !player1_vol.mute;
   //alert("player1_vol.mute: "+ player1_vol.mute);
@@ -712,23 +702,23 @@ function solo1() {
 
 function play1() {
   if (!player1.loaded) {
-    duration_1_value.innerHTML = "loading";
     player1.autostart = true;
+    //    console.log("IF");
   }
   else {
-    var duration = player1.buffer.duration;
-    duration_1_value.innerHTML = Math.round(`${duration}`);
     player1.start();
+    console.log("player1.state: " + player1.state);
+    var duration = player1.buffer.duration;
     console.log("duration: " + `${duration}`);
     //SET LOOP POINTS MENU GOES HERE
 
   }
 
-  // console.log(player1.get());
+  console.log(player1.get());
 
   setInterval(() => {
     console.log(Tone.immediate());
-  }, 3000);
+  }, 1000);
 }
 
 formulario.addEventListener("submit", (e) => {
@@ -744,13 +734,15 @@ formulario.addEventListener("submit", (e) => {
     for (j = indexCadena + 1; j < cadena.length; j++) {
       playerNumber = playerNumber + cadena[j];                      //console.log("validateForm playerNumber:     " + playerNumber);
     }
-    player1.load(`${array_Canciones[songNumber - 1].url_src}`);
-    songName.innerHTML = array_Canciones[songNumber - 1].title;
-    //player1.start();
+
+    var newBufer = array_Canciones[songNumber - 1].url_src; console.log("newBufer:     " + `${newBufer}`);
+    player1.load(`${newBufer}`);
+songName.innerHTML = array_Canciones[songNumber - 1].title;
+    player1.start();
     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   }
   else { console.log("La cadena no incluye un -"); }
-  // console.log("validateForm cadena:     " + cadena);
+ // console.log("validateForm cadena:     " + cadena);
 
 });
 //---------------------------------------------------------
@@ -775,6 +767,7 @@ function validateForm() {
   else { mensaje = "SONG TRIM no es !=" }
 
   if (mensaje == "todoOk") {
+    let song_Node = recieves_Number_Returns_url(song_trim - 1).toString();                //alert("song_Node: " + song_Node);
     var cadena = (song_trim + "-" + player_trim).toString();                             //alert("cadena: " + cadena);
   }
   else { alert("else mensaje == todoOk: " + mensaje); }

@@ -1,4 +1,5 @@
 function cargarLink() {
+    var playlist = document.getElementById("playlist");
     var carpeta = document.getElementById("carpeta");
     var frame = document.getElementById("frame");
     var carpeta_trim = carpeta.value.trim();
@@ -22,4 +23,11 @@ function cargarLink() {
     }
     frame.src = `${mensaje}`;
     //console.log("FRAME: " + frame.src);
-}
+    muestraLista();
+}//CLOSES cargarLink
+
+function muestraLista() {
+    // console.log(`LISTA: ` + `${lista}`);
+    //playlist.innerHTML = (`${lista}`);
+    playlist.innerHTML = `lista`;
+  }

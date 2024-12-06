@@ -16,18 +16,30 @@
         <header class="header">
             <input type='text' id='carpeta' name="nombre" placeholder="Paste iframe here" size="25" />
             <button id="play_btn" onclick="cargarLink()">Aceptar</button>
-
         </header>
         <main class="main">
-            <iframe id="frame" width="560" height="315" title="YouTube video player" frameborder="4"
+            <br>CREAR LISTA DE LINKS PROPIA <br>
+            <iframe id="frame" width="260" height="115" title="YouTube video player" frameborder="4"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+
+                <sidebar class="sidebar" id="sidebar derecha">
+                    Links
+                    <div class="playlist" id="playlist"> </div>
+                  </sidebar>
+
+
+
         </main>
+    
+
+      
+
     </div>
 
+
     <script src="js/index.js"></script>
-
-
 </body>
 
 </html>
