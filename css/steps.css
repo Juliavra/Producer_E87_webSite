@@ -269,6 +269,8 @@ html {
     /*overflow:scroll;*/
 }
 
+
+
 .contenedor .sidebar {
     grid-area: sidebar;
     background-color: #006600;
