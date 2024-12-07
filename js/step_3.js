@@ -629,7 +629,7 @@ const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite
 
 function player1_onLoad() {
   //cambio visible que indique su carga
-  //console.log("LOADED");
+  console.log("LOADED");
 }
 
 player1.onstop(sarasa());
