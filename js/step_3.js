@@ -613,13 +613,10 @@ const songName = document.getElementById("song_title");
 const duration_1_value = document.getElementById("duration_1_value");
 const duration_1_text = document.getElementById("duration_1_text");
 
-
-
 const player1_vol = new Tone.Volume(-40).toDestination();
 const player1_pan = new Tone.Panner(0).connect(player1_vol);
 
 const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3", player1_onLoad()).connect(player1_pan);
-//const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3", player1_onLoad()).connect(player1_pan);
 //const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/100_B_Beat_re_laburado_Loop_Song.mp3", player1_onLoad()).connect(player1_pan);
 //player1.loop = "true"; loop_1_checkbox.checked = true;
 //player1.setLoopPoints(0, 1.345);
@@ -629,7 +626,9 @@ const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite
 
 function player1_onLoad() {
   //cambio visible que indique su carga
+ // console.log("player1: " + formulario.song);
   console.log("LOADED");
+
 }
 
 player1.onstop(sarasa());
@@ -719,7 +718,6 @@ function play1() {
     var duration = player1.buffer.duration;
     duration_1_value.innerHTML = Math.round(`${duration}`);
     player1.start();
-    console.log("duration: " + `${duration}`);
     //SET LOOP POINTS MENU GOES HERE
 
   }
@@ -744,10 +742,11 @@ formulario.addEventListener("submit", (e) => {
     for (j = indexCadena + 1; j < cadena.length; j++) {
       playerNumber = playerNumber + cadena[j];                      //console.log("validateForm playerNumber:     " + playerNumber);
     }
-    player1.load(`${array_Canciones[songNumber - 1].url_src}`);
+    player1.load(`${array_Canciones[songNumber - 1].url_src}`);  
+    //HAY QUE USAR SET??
     songName.innerHTML = array_Canciones[songNumber - 1].title;
     //player1.start();
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    console.log("Salida");
   }
   else { console.log("La cadena no incluye un -"); }
   // console.log("validateForm cadena:     " + cadena);

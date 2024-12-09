@@ -5,6 +5,7 @@ function cargarLink() {
     var carpeta_trim = carpeta.value.trim();
     var mensaje = "";
     var carpeta_replace = "";
+    var lista=[];
     //console.log("carpeta_trim  " + carpeta_trim);
     if (carpeta_trim.includes("https://youtu.be", 0)) {
         carpeta_replace = carpeta_trim.replace("https://youtu.be", "https://www.youtube.com/embed");
@@ -18,16 +19,24 @@ function cargarLink() {
                 mensaje = mensaje.trim();
                 //console.log(mensaje);
             }
-            else { break; }
+            else {console("ERROR EN LINK"); break; }
         }
     }
-    frame.src = `${mensaje}`;
+
+mensaje = `https://www.youtube.com/playlist?list=PLzKOn4-bkF7q549Ln8_JpZ3ZLZcgxyTph`
+console.log("mensaje  " + mensaje);
+    frame.src = `${mensaje}`;          console.log("frame.src  " + mensaje);
+    lista.push( `${mensaje}`);
     //console.log("FRAME: " + frame.src);
     muestraLista();
 }//CLOSES cargarLink
 
 function muestraLista() {
-    // console.log(`LISTA: ` + `${lista}`);
+    // console.log(`LISTA: ` + `${lista}`);|
     //playlist.innerHTML = (`${lista}`);
-    playlist.innerHTML = `lista`;
+    playlist.innerHTML = `${lista}`;
+    
   }
+
+
+  
