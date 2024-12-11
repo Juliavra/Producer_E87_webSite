@@ -609,7 +609,7 @@ const playback_rate_1 = document.getElementById("playback_rate_1");
 const loop_1_checkbox = document.getElementById("loop_1_checkbox");
 const autoplay_1_checkbox = document.getElementById("autoplay_1_checkbox");
 const reverse_1_checkbox = document.getElementById("reverse_1_checkbox");
-const songName = document.getElementById("song_title");
+const songName1 = document.getElementById("song_title");
 const duration_1_value = document.getElementById("duration_1_value");
 const duration_1_text = document.getElementById("duration_1_text");
 
@@ -624,23 +624,7 @@ const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite
 //player1.fadeOut = 3;
 //player1.debug = true;
 
-function player1_onLoad() {
-  //cambio visible que indique su carga
- // console.log("player1: " + formulario.song);
-  console.log("LOADED");
-
-}
-
-player1.onstop(sarasa());
-
-function sarasa() {
-  /*
-    console.log("SARASA");
-    console.log(array_Canciones[0].id.toString());
-    console.log(array_Canciones[0].title.toString());
-    console.log(array_Canciones[0].url_src.toString());
-  */
-}
+//player1.onstop(sarasa());
 
 volume_1.addEventListener("change", function (e) {
   player1_vol.volume.value = e.currentTarget.value;   //console.log("e.currentTarget.value: "+e.currentTarget.value);
@@ -676,7 +660,6 @@ reverse_1_checkbox.addEventListener("change", function () {
   console.log("reverse_1_checkbox: " + reverse_1_checkbox.checked);
 });
 
-//player_1_label.innerHTML = `${player1.title}`;
 volume_1_text.innerHTML = "VOLUME";
 volume_1_value.innerHTML = "0";
 pan_1_text.innerHTML = "PAN";
@@ -694,7 +677,7 @@ fadeIn_1_text.innerHTML = `fadeIn: `;
 fadeIn_1_value.innerHTML = `${player1.fadeIn}`;
 fadeOut_1_text.innerHTML = `fadeOut`;
 fadeOut_1_value.innerHTML = `${player1.fadeOut}`;
-songName.innerHTML = `No Song Loaded`;
+songName1.innerHTML = `No Song Loaded`;
 duration_1_text.innerHTML = "Duration";
 duration_1_value.innerHTML = "0";
 
@@ -714,7 +697,8 @@ function play1() {
     duration_1_value.innerHTML = "loading";
     player1.autostart = true;
   }
-  else {
+  else {   
+     duration_1_value.innerHTML = "loaded";
     var duration = player1.buffer.duration;
     duration_1_value.innerHTML = Math.round(`${duration}`);
     player1.start();
@@ -742,11 +726,12 @@ formulario.addEventListener("submit", (e) => {
     for (j = indexCadena + 1; j < cadena.length; j++) {
       playerNumber = playerNumber + cadena[j];                      //console.log("validateForm playerNumber:     " + playerNumber);
     }
-    player1.load(`${array_Canciones[songNumber - 1].url_src}`);  
+    player1.load(`${array_Canciones[songNumber - 1].url_src}`);       console.log("apa: " + `${array_Canciones[songNumber - 1].url_src}`);     
     //HAY QUE USAR SET??
-    songName.innerHTML = array_Canciones[songNumber - 1].title;
-    //player1.start();
-    console.log("Salida");
+    player1.buffer.set(`${array_Canciones[songNumber - 1].url_src}`);  
+    songName1.innerHTML = array_Canciones[songNumber - 1].title;
+    player1.start();
+    console.log("addEventListener Salida");
   }
   else { console.log("La cadena no incluye un -"); }
   // console.log("validateForm cadena:     " + cadena);
@@ -787,3 +772,24 @@ function validateForm() {
 function recieves_Number_Returns_url(song) {
   return `${array_Canciones[song].url_src}`;
 }//CLOSES recieves_Number_Returns_url
+
+//************************************************************************
+//************************************************************************
+
+function player1_onLoad() {
+  //cambio visible que indique su carga
+ // console.log("player1: " + formulario.song);
+  console.log("ON LOAD");
+}
+
+//************************************************************************
+//************************************************************************
+
+function sarasa() {
+  
+    console.log("SARASA");
+  /*  console.log(array_Canciones[0].id.toString());
+    console.log(array_Canciones[0].title.toString());
+    console.log(array_Canciones[0].url_src.toString());
+  */
+}
