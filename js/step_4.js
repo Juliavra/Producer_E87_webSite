@@ -615,10 +615,70 @@ const songName1 = document.getElementById("song_title");
 const duration_1_value = document.getElementById("duration_1_value");
 const duration_1_text = document.getElementById("duration_1_text");
 
-const player1_vol = new Tone.Volume(-40).toDestination();
+const recorder = new Tone.Recorder();
+const mixer_Merger = new Tone.Merge().toDestination();
+
+const player1_vol = new Tone.Volume(-40).toDestination();       //
 const player1_pan = new Tone.Panner(0).connect(player1_vol);
 
-const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3").connect(player1_pan);
+
+recorder.debug = "true";
+//alert(recorder.supported);
+recorder.start(0);
+
+player1_vol.connect(mixer_Merger);
+mixer_Merger.fan(recorder);
+
+console.log("BLOCK: "+Tone.Destination.blockTime);
+
+
+/* CHEQUEAR ESTO Y USAR LO QUE SIRVA
+// wait for the notes to end and stop the recording
+setTimeout(async () => {
+    // the recorded audio is returned as a blob
+    const recording = new Blob(await recorder.stop(), {type:'audio/mpeg-3'});
+    // download the recording by creating an anchor element and blob url
+    const url = URL.createObjectURL(recording);
+    const anchor = document.createElement("a");
+    anchor.download = "recording.mp3";
+    anchor.href = url;
+    anchor.click();
+}, 4000);
+
+/**/
+
+/*
+	 * Get the playback state of the Recorder, either "started", "stopped" or "paused"
+	 */
+  /*
+get state(): PlaybackState {
+  if (this._recorder.state === "inactive") {
+    return "stopped";
+  } else if (this._recorder.state === "paused") {
+    return "paused";
+  } else {
+    return "started";
+  }
+}
+
+this._recorder.pause();
+
+/**/
+  //PERTENECE A LA GRABADORA
+  setTimeout(async () => {
+    // the recorded audio is returned as a blob
+    const recording = await recorder.stop();
+    // download the recording by creating an anchor element 
+    //and blob url
+    const url = URL.createObjectURL(recording);
+    const anchor = document.createElement("a");
+    anchor.download = "recording.webm";
+    anchor.href = url;
+    anchor.click();
+  }, 10000); //<-- TIEMPO QUE DURA LA GRABACION -1 SEGUNDO
+
+  const player1 = new Tone.Player("").connect(player1_pan);
+//const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3").connect(player1_pan);
 //const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/100_B_Beat_re_laburado_Loop_Song.mp3").connect(player1_pan);
 //player1.loop = "true"; loop_1_checkbox.checked = true;
 //player1.setLoopPoints(0, 1.345);
@@ -659,7 +719,10 @@ reverse_1_checkbox.addEventListener("change", function () {
   console.log("reverse_1_checkbox: " + reverse_1_checkbox.checked);
 });
 
-volume_1_text.innerHTML = "VOLUME";
+
+//console.log(recorder.get());
+
+ volume_1_text.innerHTML = "VOLUME";
 volume_1_value.innerHTML = "0";
 pan_1_text.innerHTML = "PAN";
 pan_1_value.innerHTML = "0";
@@ -678,7 +741,7 @@ fadeOut_1_text.innerHTML = `fadeOut`;
 fadeOut_1_value.innerHTML = `${player1.fadeOut}`;
 songName1.innerHTML = `No Song Loaded`;
 duration_1_text.innerHTML = "Duration";
-duration_1_value.innerHTML = "0";
+duration_1_value.innerHTML = "Unknown";
 
 
 function mute1() {
@@ -706,9 +769,9 @@ function play1() {
     player1.start();
     //SET LOOP POINTS MENU GOES HERE
   }
-  duration_1_value.innerHTML = "loaded";
-  var duration = player1.buffer.duration;  //console.log("player1.buffer.duration:     " + player1.buffer.duration);
-  duration_1_value.innerHTML = Math.round(`${duration}`);
+  //duration_1_value.innerHTML = "loaded";
+  //var duration = player1.buffer.duration;  //console.log("player1.buffer.duration:     " + player1.buffer.duration);
+  //duration_1_value.innerHTML = Math.round(`${duration}`);
   // console.log(player1.get());
   /*
     setInterval(() => {
@@ -718,6 +781,8 @@ function play1() {
 }
 
 function busca1() {
+  duration_1_value.innerHTML = "Unknown";
+  songName1.innerHTML = `No Song Loaded`; 
   let songNumber = "", playerNumber = "";
   let cadena = validateForm();                           // console.log("validateForm cadena:     " + cadena);
   var doesItInclude = cadena.includes("-", 0);
@@ -737,11 +802,10 @@ function busca1() {
     case "1":
       {
         if (player1.state != "started") {
-          songName1.innerHTML = "Loa ding"; alert("");
+          //songName1.innerHTML = "Loa ding"; 
           player1.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber));  console.log("songNumber: " + songNumber);     //console.log("apa: " + `${array_Canciones[songNumber - 1].url_src}`);     
         //player1.buffer.set(`${array_Canciones[songNumber - 1].url_src}`);
        //   songName1.innerHTML = array_Canciones[songNumber - 1].title;
-       
         }
         else {
           alert("ELSE: deten la reproduccion");
@@ -818,5 +882,7 @@ function sarasa() {
 function callbackLoaded(songNumber){
 //console.log("call back SONG LOADED J QUERY PLAY");
 songName1.innerHTML = array_Canciones[songNumber - 1].title;
-
+player1.buffer.set();
+var duration = player1.buffer.duration;                                     //console.log("else  player1.buffer.duration:     " + player1.buffer.duration);
+duration_1_value.innerHTML = Math.round(`${duration}`);
 }
