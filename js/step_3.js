@@ -605,6 +605,8 @@ const volume_1 = document.getElementById("volume_1");
 const pan_1 = document.getElementById("pan_1");
 const muteButton = document.getElementById("muteButton");
 const soloButton = document.getElementById("soloButton");
+const stopButton = document.getElementById("stopButton");
+const buscaButton = document.getElementById("buscaButton");
 const playback_rate_1 = document.getElementById("playback_rate_1");
 const loop_1_checkbox = document.getElementById("loop_1_checkbox");
 const autoplay_1_checkbox = document.getElementById("autoplay_1_checkbox");
@@ -616,25 +618,22 @@ const duration_1_text = document.getElementById("duration_1_text");
 const player1_vol = new Tone.Volume(-40).toDestination();
 const player1_pan = new Tone.Panner(0).connect(player1_vol);
 
-const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3", player1_onLoad()).connect(player1_pan);
-//const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/100_B_Beat_re_laburado_Loop_Song.mp3", player1_onLoad()).connect(player1_pan);
+const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3").connect(player1_pan);
+//const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/100_B_Beat_re_laburado_Loop_Song.mp3").connect(player1_pan);
 //player1.loop = "true"; loop_1_checkbox.checked = true;
 //player1.setLoopPoints(0, 1.345);
 //player1.fadeIn = 2;
 //player1.fadeOut = 3;
 //player1.debug = true;
 
-//player1.onstop(sarasa());
-
 volume_1.addEventListener("change", function (e) {
-  player1_vol.volume.value = e.currentTarget.value;   //console.log("e.currentTarget.value: "+e.currentTarget.value);
+  player1_vol.volume.value = e.currentTarget.value; console.log("e.currentTarget.value: " + e.currentTarget.value);
   volume_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 pan_1.addEventListener("change", function (e) {
-  player1_pan.pan.value = e.currentTarget.value;     //console.log("channel_1.pan.value: " + player1_pan.pan.value)
+  player1_pan.pan.value = e.currentTarget.value; console.log("channel_1.pan.value: " + player1_pan.pan.value)
   pan_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-
 });
 
 playback_rate_1.addEventListener("change", function (e) {
@@ -692,52 +691,87 @@ function solo1() {
   alert("player1_vol.solo: " + player1_vol.solo);
 }
 
+function stop1() {
+  player1.stop();
+}
+
 function play1() {
   if (!player1.loaded) {
     duration_1_value.innerHTML = "loading";
     player1.autostart = true;
   }
-  else {   
-     duration_1_value.innerHTML = "loaded";
-    var duration = player1.buffer.duration;
+  else {
+    var duration = player1.buffer.duration;                                     //console.log("else  player1.buffer.duration:     " + player1.buffer.duration);
     duration_1_value.innerHTML = Math.round(`${duration}`);
     player1.start();
     //SET LOOP POINTS MENU GOES HERE
-
   }
-
+  duration_1_value.innerHTML = "loaded";
+  var duration = player1.buffer.duration;  //console.log("player1.buffer.duration:     " + player1.buffer.duration);
+  duration_1_value.innerHTML = Math.round(`${duration}`);
   // console.log(player1.get());
-
-  setInterval(() => {
-    console.log(Tone.immediate());
-  }, 3000);
+  /*
+    setInterval(() => {
+      console.log(Tone.immediate());
+    }, 3000);
+    /**/
 }
 
-formulario.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let cadena = validateForm();
+function busca1() {
+  let songNumber = "", playerNumber = "";
+  let cadena = validateForm();                           // console.log("validateForm cadena:     " + cadena);
   var doesItInclude = cadena.includes("-", 0);
   if (doesItInclude) {
     var indexCadena = cadena.indexOf("-", 0);             //console.log("validateForm indexCadena:     " + indexCadena);
-    let songNumber = "", playerNumber = "";
+    //let songNumber = "", playerNumber = "";
     for (i = 0; i < indexCadena; i++) {
-      songNumber = songNumber + cadena[i];                      //console.log("validateForm songNumber:     " + songNumber);
+      songNumber = songNumber + cadena[i];                //console.log("validateForm songNumber:     " + songNumber);
     }
     for (j = indexCadena + 1; j < cadena.length; j++) {
       playerNumber = playerNumber + cadena[j];                      //console.log("validateForm playerNumber:     " + playerNumber);
     }
-    player1.load(`${array_Canciones[songNumber - 1].url_src}`);       console.log("apa: " + `${array_Canciones[songNumber - 1].url_src}`);     
-    //HAY QUE USAR SET??
-    player1.buffer.set(`${array_Canciones[songNumber - 1].url_src}`);  
-    songName1.innerHTML = array_Canciones[songNumber - 1].title;
-    player1.start();
-    console.log("addEventListener Salida");
   }
   else { console.log("La cadena no incluye un -"); }
-  // console.log("validateForm cadena:     " + cadena);
+  //console.log("playerNumber: " + playerNumber);
+  switch (playerNumber) {
+    case "1":
+      {
+        if (player1.state != "started") {
+          songName1.innerHTML = "Loa ding"; alert("");
+          player1.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber));  console.log("songNumber: " + songNumber);     //console.log("apa: " + `${array_Canciones[songNumber - 1].url_src}`);     
+        //player1.buffer.set(`${array_Canciones[songNumber - 1].url_src}`);
+       //   songName1.innerHTML = array_Canciones[songNumber - 1].title;
+       
+        }
+        else {
+          alert("ELSE: deten la reproduccion");
+        }
+        break;
+      }
+    default:
+      {console.log("DEFAULT");}
+  }
+}// CLOSES busca1
 
+
+
+/*
+    var link = `${array_Canciones[songNumber - 1].url_src}`; console.log("link: " + link);
+    //    var audio_buffer = new Tone.ToneAudioBuffer(`${array_Canciones[songNumber - 1].url_src}`);
+    var audio_buffer = new Tone.ToneAudioBuffer(`${link}`);
+    console.log("audio_buffer: " + audio_buffer.get());
+    console.log(`${array_Canciones[songNumber - 1].url_src}`);
+    /*
+  }
+}
+/**/
+
+
+
+formulario.addEventListener("submit", (e) => {
+    e.preventDefault();
 });
-//---------------------------------------------------------
+/**/
 //*************************************************
 //*********************************************** 
 function validateForm() {
@@ -776,20 +810,17 @@ function recieves_Number_Returns_url(song) {
 //************************************************************************
 //************************************************************************
 
-function player1_onLoad() {
-  //cambio visible que indique su carga
- // console.log("player1: " + formulario.song);
-  console.log("ON LOAD");
-}
-
-//************************************************************************
-//************************************************************************
-
 function sarasa() {
-  
-    console.log("SARASA");
+
+  console.log("SARASA");
   /*  console.log(array_Canciones[0].id.toString());
     console.log(array_Canciones[0].title.toString());
     console.log(array_Canciones[0].url_src.toString());
   */
+}
+
+function callbackLoaded(songNumber){
+//console.log("call back SONG LOADED J QUERY PLAY");
+songName1.innerHTML = array_Canciones[songNumber - 1].title;
+
 }

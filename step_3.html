@@ -16,7 +16,7 @@
 <body>
   <h1>Step 3 Player + Vol + Pan (w/commands)</h1>
   <h1> https://www.drumha.us/?preset=q6nR9mIInuW</h1>
-  <h1> war is good for th economy</h1>
+  <h1> war is good for the economy</h1>
   <br>
 
   <main class="main">
@@ -135,9 +135,21 @@
             <option name="3" id="3" value="3">3</option>
             <option name="4" id="4" value="4">4</option>
           </select>
-          <!--
-          <button onclick="submitButton" name="submit" id="submitButton" class="_btn">Enviar</button>
-    -->
+      <!--
+          <button onclick="submit" name="submit" id="submit" class="_btn">Enviar</button>
+-->    
+          <button id="buscaButton" onclick="busca1()">Buscar </button>
+
+
+
+    <!--
+          <div>
+            <button type="submit" id="submit" class="_btn">Enviar</button>
+        </div>
+-->
+
+
+
         </div>
         <div>
           <p id="song_title"></p>
@@ -151,6 +163,7 @@
           <button id="muteButton" onclick="mute1()">Mute </button>
           <button id="soloButton" onclick="solo1()">Solo </button>
           <button id="playButton" onclick="play1()">Play </button>
+          <button id="stopButton" onclick="stop1()">Stop </button>
         </div>
 
       </form>

@@ -7,19 +7,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/html.ico">
   <link rel="STYLESHEET" href="css/steps.css">
-  <title>Step 4</title>
+  <title>Step 3</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <h1>Step 4 </h1>
+  <h1>Step 3 Player + Vol + Pan (w/commands)</h1>
+  <h1> https://www.drumha.us/?preset=q6nR9mIInuW</h1>
+  <h1> war is good for the economy</h1>
   <br>
 
   <main class="main">
     <div class="container">
-      <form action="js/step_4.js" class="form" id="formulario">
+      <form action="js/step_3.js" class="form" id="formulario">
         <div>
 
           <label for="song">Song</label>
@@ -133,57 +135,75 @@
             <option name="3" id="3" value="3">3</option>
             <option name="4" id="4" value="4">4</option>
           </select>
-          <button onclick="" name="submit" id="submit" class="_btn">Enviar</button>
+      <!--
+          <button onclick="submit" name="submit" id="submit" class="_btn">Enviar</button>
+-->    
+          <button id="buscaButton" onclick="busca1()">Buscar </button>
+    <!--
+          <div>
+            <button type="submit" id="submit" class="_btn">Enviar</button>
+        </div>
+-->
         </div>
         <div>
           <p id="song_title"></p>
+          <br>
+          <p id="duration_1_text"> </p>
+          <p id="duration_1_value"></p>
+
         </div>
 
-<div>
-  <button id="muteButton" onclick="mute1()">mute1 </button>
-  <button id="soloButton" onclick="solo1()">solo1 </button>
-  <button id="playButton" onclick="play1()">play1 </button>
-</div>
-
+        <div>
+          <button id="muteButton" onclick="mute1()">Mute </button>
+          <button id="soloButton" onclick="solo1()">Solo </button>
+          <button id="playButton" onclick="play1()">Play </button>
+          <button id="stopButton" onclick="stop1()">Stop </button>
+        </div>
 
       </form>
     </div>
   </main>
 
- 
-  <p id="volume_1_text"></p>
-  <input type='range' min=-40 max=12 step='1' value="0" id='volume_1'>
-  <p id="volume_1_value"></p>
+  <div id="volume_1_div">
+    <p id="volume_1_text"></p>
+    <input type='range' min=-40 max=12 step='1' value="0" id='volume_1'>
+    <p id="volume_1_value"></p>
+  </div>
+  <div>
+    <p id="pan_1_text"></p>
+    <input type='range' min=-1 max=1 step='0.02' value=0 id='pan_1'>
+    <p id="pan_1_value"></p>
+  </div>
+  <div>
+    <p id="playback_rate_1_text"></p>
+    <input type='range' min=0.1 max=1 step='0.01' value=1 id='playback_rate_1'>
+    <p id="playback_rate_1_value"></p>
+  </div>
+  <div>
+    <input class="checkbox" type="checkbox" name="loop_1_checkbox" id="loop_1_checkbox">
+    <p id="loop_checkbox_text"></p>
+    <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="autoplay_1_checkbox">
+    <p id="autoplay_1_text"></p>
+    <input class="checkbox" type="checkbox" name="reverse_1_checkbox" id="reverse_1_checkbox">
+    <p id="reverse_1_text"></p>
+  </div>
 
-  <p id="duration_1_value"></p>
-  <p id="duration_1_text"> </p>
-  <p id="pan_1_text"></p>
-  <input type='range' min=-1 max=1 step='0.02' value=0 id='pan_1'>
-  <p id="pan_1_value"></p>
-  <p id="playback_rate_1_text"></p>
-  <input type='range' min=0.1 max=1 step='0.01' value=1 id='playback_rate_1'>
-  <p id="playback_rate_1_value"></p>
-  <br>
-  <input class="checkbox" type="checkbox" name="loop_1_checkbox" id="loop_1_checkbox">
-  <p id="loop_checkbox_text"></p>
-  <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="autoplay_1_checkbox">
-  <p id="autoplay_1_text"></p>
-  <input class="checkbox" type="checkbox" name="reverse_1_checkbox" id="reverse_1_checkbox">
-  <p id="reverse_1_text"></p>
-  <br><br>
+<div>
   <p id="loop_start_1_text"></p>
   <p id="loop_start_1_time"></p>
-  <br>
+</div>
+<div>
   <p id="loop_end_1_text"></p>
   <p id="loop_end_1_time"></p>
-  <br>
+</div>
+<div>
   <p id="fadeIn_1_text"></p>
   <p id="fadeIn_1_value"></p>
-  <br>
+</div>
+<div>
   <p id="fadeOut_1_text"></p>
   <p id="fadeOut_1_value"></p>
-
-  <br> <br>
+</div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
     integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
