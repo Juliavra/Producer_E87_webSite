@@ -621,22 +621,58 @@ const reverse_1_checkbox = document.getElementById("reverse_1_checkbox");
 const songName1 = document.getElementById("song_title");
 const duration_1_value = document.getElementById("duration_1_value");
 const duration_1_text = document.getElementById("duration_1_text");
+const frequency_1 = document.getElementById("frequency_1");
+const Q_1 = document.getElementById("Q_1");
+const detune_1 = document.getElementById("detune_1");
+
 
 const recorder = new Tone.Recorder();
 const masterVolume = new Tone.Volume(-3).toDestination();       
 const player1_vol = new Tone.Volume(-40).connect(masterVolume);       //
 const player1_pan = new Tone.Panner(0).connect(player1_vol);
 masterVolume.fan(recorder);
+                                                                              //The type of the filter. Types: "lowpass", "highpass", "bandpass", "lowshelf", "highshelf", "notch", "allpass", or "peaking".
+const filter_1 = new Tone.Filter().connect(player1_pan);
 
-recorder.debug = "true";
-//alert(recorder.supported); TRY CATCH
+filter_1.set({
+	frequency: 1000,
+	type: "notch",
+  Q: 1,
+  gain: 20
+  
 
+})
+
+/*
+filter_1.frequency.rampTo(2000, 10);
+filter_1.debug = true;
+filter_1.detune = 0;
+filter_1.frequency = 1000;
+filter_1.gain = -3;
+filter_1.input = 0;
+filter_1.output = 0;
+filter_1.Q = 1;
+filter_1.FilterRollOff = -24;              //type FilterRollOff = -12 | -24 | -48 | -96
+filter_1.type = "bandpass";
+//filter_1.getFrequencyResponse
+*/
+
+/*
+const filter = new Tone.Filter();
+// set values using an object
+filter.set({
+	frequency: 300,
+	type: "highpass"
+});
+/**/
+
+
+recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
 //PERTENECE A LA GRABADORA
 setTimeout(async () => {
   // the recorded audio is returned as a blob
   const recording = await recorder.stop();
-  // download the recording by creating an anchor element 
-  //and blob url
+  // download the recording by creating an anchor element and blob url
   const url = URL.createObjectURL(recording);
   const anchor = document.createElement("a");
   anchor.download = "recording.webm";
@@ -644,12 +680,22 @@ setTimeout(async () => {
   anchor.click();
 }, 100000); //<-- TIEMPO QUE DURA LA GRABACION -1 SEGUNDO
 
-const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(player1_pan);
+const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(player1_vol);
 //player1.loop = "true"; loop_1_checkbox.checked = true;
 //player1.setLoopPoints(0, 1.345);
 //player1.fadeIn = 2;
 //player1.fadeOut = 3;
 //player1.debug = true;
+
+
+//****************************************************************************** */
+//AAAAAAAAAAAAAAAAAAAAAACCCCCCCCCCCCCCCCCCCCCCCAAAAAAAAAAAAAAAAAAAA
+
+player1.fan(filter_1);
+
+console.log ("filter_1 In: " + filter_1.numberOfInputs);
+//console.log("filter 1: " + filter_1.get());
+
 
 volume_1.addEventListener("change", function (e) {
   player1_vol.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
@@ -657,7 +703,7 @@ volume_1.addEventListener("change", function (e) {
 });
 
 pan_1.addEventListener("change", function (e) {
-  player1_pan.pan.value = e.currentTarget.value; console.log("channel_1.pan.value: " + player1_pan.pan.value)
+  player1_pan.pan.value = e.currentTarget.value; console.log("channel_1.pan: " + player1_pan.pan.value)
   pan_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -684,6 +730,25 @@ reverse_1_checkbox.addEventListener("change", function () {
   console.log("reverse_1_checkbox: " + reverse_1_checkbox.checked);
 });
 
+frequency_1.addEventListener("change", function (e) {
+  filter_1.frequency.value = e.currentTarget.value; console.log("filter_1.frequency: " + filter_1.frequency.value);
+  frequency_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+Q_1.addEventListener("change", function (e) {
+  filter_1.Q.value = e.currentTarget.value; console.log("filter_1.q: " + e.currentTarget.value);
+  Q_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+detune_1.addEventListener("change", function (e) {
+  filter_1.detune.value = e.currentTarget.value; console.log("filter_1.detune: " + e.currentTarget.value);
+  detune_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+
+
+
+
 //console.log(recorder.get());
 
 volume_1_text.innerHTML = "VOLUME";
@@ -706,7 +771,9 @@ fadeOut_1_value.innerHTML = `${player1.fadeOut}`;
 songName1.innerHTML = `No Song Loaded`;
 duration_1_text.innerHTML = "Duration";
 duration_1_value.innerHTML = "Unknown";
-
+frequency_1_value.innerHTML = "20";
+Q_1_value.innerHTML = "0";
+detune_1_value.innerHTML ="0";
 
 function mute1() {
   player1_vol.mute = !player1_vol.mute;

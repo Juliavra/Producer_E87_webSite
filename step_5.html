@@ -7,19 +7,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/html.ico">
   <link rel="STYLESHEET" href="css/steps.css">
-  <title>Step 4</title>
+  <title>Step 5 </title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <h1>Step 4 Player + Vol + Pan + Recorder</h1>
+  <h1>Step 5 Player + Vol + Pan + Recorder + EQ</h1>
   <br>
 
   <main class="main">
     <div class="container">
-      <form action="js/step_4.js" class="form" id="formulario">
+      <form action="js/step_5.js" class="form" id="formulario">
         <div>
 
           <div>
@@ -139,7 +139,7 @@
             <option name="3" id="3" value="3">3</option>
             <option name="4" id="4" value="4">4</option>
           </select>
-     
+
           <button id="buscaButton" onclick="busca1()">Buscar </button>
 
         </div>
@@ -160,53 +160,91 @@
 
       </form>
     </div>
+
+    <div id="volume_1_div">
+      <p id="volume_1_text"></p>
+      <input type='range' min=-40 max=12 step='1' value="0" id='volume_1'>
+      <p id="volume_1_value"></p>
+    </div>
+    <div>
+      <p id="pan_1_text"></p>
+      <input type='range' min=-1 max=1 step='0.02' value=0 id='pan_1'>
+      <p id="pan_1_value"></p>
+    </div>
+    <div>
+      <p id="playback_rate_1_text"></p>
+      <input type='range' min=0.1 max=1 step='0.01' value=1 id='playback_rate_1'>
+      <p id="playback_rate_1_value"></p>
+    </div>
+    <div>
+      <input class="checkbox" type="checkbox" name="loop_1_checkbox" id="loop_1_checkbox">
+      <p id="loop_checkbox_text"></p>
+      <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="autoplay_1_checkbox">
+      <p id="autoplay_1_text"></p>
+      <input class="checkbox" type="checkbox" name="reverse_1_checkbox" id="reverse_1_checkbox">
+      <p id="reverse_1_text"></p>
+    </div>
+
+    <div>
+      <p id="loop_start_1_text"></p>
+      <p id="loop_start_1_time"></p>
+    </div>
+    <div>
+      <p id="loop_end_1_text"></p>
+      <p id="loop_end_1_time"></p>
+    </div>
+    <div>
+      <p id="fadeIn_1_text"></p>
+      <p id="fadeIn_1_value"></p>
+    </div>
+    <div>
+      <p id="fadeOut_1_text"></p>
+      <p id="fadeOut_1_value"></p>
+    </div>
+
+
+    <form action="js/step_5.js" class="form" id="form_EQ">
+      <div>
+        <label for="eq1">EQ</label>
+        <div>
+          <select name="filter_1" id="filter_1">
+            <option name="lowpass" id="lowpass" value="lowpass">Lowpass</option>
+            <option name="highpass" id="highpass" value="highpass">highpass</option>
+            <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
+            <option name="lowshelf" id="lowshelf" value="lowshelf">lowshelf</option>
+            <option name="highshelf" id="highshelf" value="highshelf">highshelf</option>
+            <option name="notch" id="notch" value="notch">notch</option>
+            <option name="allpass" id="allpass" value="allpass">allpass</option>
+            <option name="peaking" id="peaking" value="peaking">peaking</option>
+          </select>
+          <br>
+          <p id="frequency_1_text">Frequency</p>
+          <input type='range' min=20 max=20000 step='1' value="0" id='frequency_1'>
+          <p id="frequency_1_value"></p>
+<!--
+          <p id="Q_1_text">Q</p>
+          <input type='range' min=20 max=20000 step='1' id='Q_1'>
+          <p id="Q_1_value"></p>
+-->
+
+          <p id="Q_1_text">Q  <input type='range' min=0 max=10 step='1' value="0" id='Q_1'> <p id="Q_1_value"></p> </p>
+
+          <br>
+          <p id="detune_1_text">detune</p>
+          <input type='range' min=0 max=100 step='1' value="0" id='detune_1'>
+          <p id="detune_1_value"></p>
+        </div>
+
+      </div>
+      </div>
   </main>
 
-  <div id="volume_1_div">
-    <p id="volume_1_text"></p>
-    <input type='range' min=-40 max=12 step='1' value="0" id='volume_1'>
-    <p id="volume_1_value"></p>
-  </div>
-  <div>
-    <p id="pan_1_text"></p>
-    <input type='range' min=-1 max=1 step='0.02' value=0 id='pan_1'>
-    <p id="pan_1_value"></p>
-  </div>
-  <div>
-    <p id="playback_rate_1_text"></p>
-    <input type='range' min=0.1 max=1 step='0.01' value=1 id='playback_rate_1'>
-    <p id="playback_rate_1_value"></p>
-  </div>
-  <div>
-    <input class="checkbox" type="checkbox" name="loop_1_checkbox" id="loop_1_checkbox">
-    <p id="loop_checkbox_text"></p>
-    <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="autoplay_1_checkbox">
-    <p id="autoplay_1_text"></p>
-    <input class="checkbox" type="checkbox" name="reverse_1_checkbox" id="reverse_1_checkbox">
-    <p id="reverse_1_text"></p>
-  </div>
 
-<div>
-  <p id="loop_start_1_text"></p>
-  <p id="loop_start_1_time"></p>
-</div>
-<div>
-  <p id="loop_end_1_text"></p>
-  <p id="loop_end_1_time"></p>
-</div>
-<div>
-  <p id="fadeIn_1_text"></p>
-  <p id="fadeIn_1_value"></p>
-</div>
-<div>
-  <p id="fadeOut_1_text"></p>
-  <p id="fadeOut_1_value"></p>
-</div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
     integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="js/step_4.js"></script>
+  <script src="js/step_5.js"></script>
   <!--
     <script src="https://unpkg.com/tone"></script>
     -->
