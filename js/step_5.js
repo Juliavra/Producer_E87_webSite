@@ -625,20 +625,24 @@ const frequency_1 = document.getElementById("frequency_1");
 const Q_1 = document.getElementById("Q_1");
 const detune_1 = document.getElementById("detune_1");
 const gain_1 = document.getElementById("gain_1");
+var isFilter_1_On = true;        // PARA APAGAR EQ Y CAMBIAR CONNECT DE PLAYER 1 
+const eq_On_Off_Button_1 = document.getElementById("eq_On_Off_Button_1");
+
+
 
 
 
 const recorder = new Tone.Recorder();
-const masterVolume = new Tone.Volume(-3).toDestination();       
+const masterVolume = new Tone.Volume(-3).toDestination();
 const player1_vol = new Tone.Volume(-40).connect(masterVolume);       //
 const player1_vol_2 = new Tone.Volume(-100).connect(masterVolume);       //AGREGADO PAERA ENVIAR EL PLAYER ACA CUANDO ESTA EL EQ
 const player1_pan = new Tone.Panner(0).connect(player1_vol);
 masterVolume.fan(recorder);
-                                                                              //The type of the filter. Types: "lowpass", "highpass", "bandpass", "lowshelf", "highshelf", "notch", "allpass", or "peaking".
+//The type of the filter. Types: "lowpass", "highpass", "bandpass", "lowshelf", "highshelf", "notch", "allpass", or "peaking".
 const filter_1 = new Tone.Filter().connect(player1_pan);
 filter_1.set({
-	frequency: 1000,
-	type: "bandpass",
+  frequency: 1000,
+  type: "bandpass",
   Q: 1,
   gain: 12,
   rolloff: -96,
@@ -664,8 +668,8 @@ filter_1.type = "bandpass";
 const filter = new Tone.Filter();
 // set values using an object
 filter.set({
-	frequency: 300,
-	type: "highpass"
+  frequency: 300,
+  type: "highpass"
 });
 /**/
 
@@ -696,7 +700,7 @@ const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite
 
 player1.fan(filter_1);
 
-console.log ("filter_1 In: " + filter_1.numberOfInputs);
+console.log("filter_1 In: " + filter_1.numberOfInputs);
 //console.log("filter 1: " + filter_1.get());
 
 
@@ -711,7 +715,7 @@ pan_1.addEventListener("change", function (e) {
 });
 
 playback_rate_1.addEventListener("change", function (e) {
-  player1.playbackRate = `${e.currentTarget.value}`; 
+  player1.playbackRate = `${e.currentTarget.value}`;
   playback_rate_1_value.innerHTML = Math.round(`${e.currentTarget.value}` * 100);
 
 });
@@ -755,85 +759,68 @@ gain_1.addEventListener("change", function (e) {
 
 filter_1_select.addEventListener("change", function (e) {
   filter_1.type = e.currentTarget.value; console.log("filter_1.value: " + e.currentTarget.value);
-filter_1.frequency = 0;
-filter_1.Q = 0;
-filter_1.gain = 0;
-filter_1.rolloff = -12;
+  filter_1.frequency = 0;
+  filter_1.Q = 0;
+  filter_1.gain = 0;
+  filter_1.rolloff = -12;
 });
 
+console.log("filter: " + filter_1.get());
 
 
 
 
 /*
-type
-Description
-frequency
-Q
-gain
-lowpass
-	Standard second-order resonant lowpass filter with 12dB/octave rolloff. Frequencies below the cutoff pass through; frequencies above it are attenuated.	
-  The cutoff frequency.	
-  Indicates how peaked the frequency is around the cutoff. The greater the value is, the greater is the peak.	
-  Not used
 
-  highpass
-	Standard second-order resonant highpass filter with 12dB/octave rolloff. Frequencies below the cutoff are attenuated; frequencies above it pass through.	
-  The cutoff frequency.	
-  Indicates how peaked the frequency is around the cutoff. The greater the value, the greater the peak.	
-  Not used
+type lowpass
+Description Standard second-order resonant lowpass filter with 12dB/octave rolloff. Frequencies below the cutoff pass through; frequencies above it are attenuated.	
+frequency The cutoff frequency.	
+Indicates how peaked the frequency is around the cutoff. The greater the value is, the greater is the peak.	
+gain Not used
 
-  bandpass
-	Standard second-order bandpass filter. Frequencies outside the given range of frequencies are attenuated; the frequencies inside it pass through.	
-  The center of the range of frequencies.	
-  Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.
-  Not used
+type highpass
+Description Standard second-order resonant highpass filter with 12dB/octave rolloff. Frequencies below the cutoff are attenuated; frequencies above it pass through.	
+frequency The cutoff frequency.	
+Q Indicates how peaked the frequency is around the cutoff. The greater the value, the greater the peak.	
+gain Not used
 
-  lowshelf
-	Standard second-order lowshelf filter. Frequencies lower than the frequency get a boost, or an attenuation; frequencies over it are unchanged.	
-  The upper limit of the frequencies getting a boost or an attenuation.	
-  Not used	
-  The boost, in dB, to be applied; if negative, it will be an attenuation.
+type bandpass
+Description Standard second-order bandpass filter. Frequencies outside the given range of frequencies are attenuated; the frequencies inside it pass through.	
+frequency The center of the range of frequencies.	
+Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.
+gain  Not used
 
-  highshelf
-	Standard second-order highshelf filter. Frequencies higher than the frequency get a boost or an attenuation; frequencies lower than it are unchanged.	
-  The lower limit of the frequencies getting a boost or an attenuation.	
-  Not used
-  The boost, in dB, to be applied; if negative, it will be an attenuation.
+type lowshelf
+Description Standard second-order lowshelf filter. Frequencies lower than the frequency get a boost, or an attenuation; frequencies over it are unchanged.	
+frequency  The upper limit of the frequencies getting a boost or an attenuation.	
+Q Not used	
+gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
 
-  peaking
-	Frequencies inside the range get a boost or an attenuation; frequencies outside it are unchanged.	
-  The middle of the frequency range getting a boost or an attenuation.	
-  Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.	
-  The boost, in dB, to be applied; if negative, it will be an attenuation.
+type highshelf
+Description Standard second-order highshelf filter. Frequencies higher than the frequency get a boost or an attenuation; frequencies lower than it are unchanged.	
+frequency  The lower limit of the frequencies getting a boost or an attenuation.	
+Q Not used
+gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
 
-  notch
-	Standard notch filter, also called a band-stop or band-rejection filter. It is the opposite of a bandpass filter: frequencies outside the give range of frequencies pass through; frequencies inside it are attenuated.	
-  The center of the range of frequencies.	
-  Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.	
-  Not used
+type peaking
+Description Frequencies inside the range get a boost or an attenuation; frequencies outside it are unchanged.	
+frequency The middle of the frequency range getting a boost or an attenuation.	
+Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.	
+gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
 
-  allpass
-	Standard second-order allpass filter. It lets all frequencies through, but changes the phase-relationship between the various frequencies.	
-  The frequency with the maximal group delay, that is, the frequency where the center of the phase transition occurs.	
-  Controls how sharp the transition is at the medium frequency. The larger this parameter is, the sharper and larger the transition will be.	
-  Not used
+type notch
+Description Standard notch filter, also called a band-stop or band-rejection filter. It is the opposite of a bandpass filter: frequencies outside the give range of frequencies pass through; frequencies inside it are attenuated.	
+frequency The center of the range of frequencies.	
+Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.	
+gain  Not used
+
+type allpass
+Description Standard second-order allpass filter. It lets all frequencies through, but changes the phase-relationship between the various frequencies.	
+frequency The frequency with the maximal group delay, that is, the frequency where the center of the phase transition occurs.	
+Q Controls how sharp the transition is at the medium frequency. The larger this parameter is, the sharper and larger the transition will be.	
+gain  Not used
 
 /**/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -862,8 +849,8 @@ duration_1_text.innerHTML = "Duration";
 duration_1_value.innerHTML = "Unknown";
 frequency_1_value.innerHTML = "20";
 Q_1_value.innerHTML = "0";
-detune_1_value.innerHTML ="0";
-gain_1_value.innerHTML= "0";
+detune_1_value.innerHTML = "0";
+gain_1_value.innerHTML = "0";
 
 
 function mute1() {
@@ -954,7 +941,7 @@ function validateForm() {
   else { mensaje = "SONG TRIM no es !=" }
 
   if (mensaje == "todoOk") {
-    var cadena = (song_trim + "-" + player_trim).toString();                             
+    var cadena = (song_trim + "-" + player_trim).toString();
   }
   else { alert("else mensaje == todoOk: " + mensaje); }
 
@@ -970,22 +957,22 @@ function recieves_Number_Returns_url(song) {
 
 //************************************************************************
 //************************************************************************
-function rec(){
+function rec() {
   recorder.start();
   setInterval(() => {
     console.log(Tone.immediate());
   }, 3000);
 }
 
-function recPause(){
-  recorder.pause();       console.log("Pausa Grabacion");
+function recPause() {
+  recorder.pause(); console.log("Pausa Grabacion");
 }
 
-function recStop(){
-  recorder.stop();    console.log("Detiene Grabacion");
+function recStop() {
+  recorder.stop(); console.log("Detiene Grabacion");
 }
 
-function sarasa() { 
+function sarasa() {
   console.log("SARASA");
 }
 
@@ -993,6 +980,22 @@ function callbackLoaded(songNumber) {
   //console.log("call back SONG LOADED J QUERY PLAY");
   songName1.innerHTML = array_Canciones[songNumber - 1].title;
 }
+
+function eqOnOff1() {
+  isFilter_1_On = !isFilter_1_On;
+  if (eq_On_Off_Button_1.innerText === "On") {
+    eq_On_Off_Button_1.innerText = "Off";       //conecta el player a destination
+    player1.connect(player1_pan);
+    filter_1.disconnect();
+
+  }
+  else {
+    eq_On_Off_Button_1.innerText = "On";      //conecta el player al filter y este a destination
+    player1.connect(filter_1);
+    filter_1.connect(player1_pan);
+  }
+}
+
 
 //************************************************************************
 //************************************************************************

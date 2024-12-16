@@ -8,6 +8,13 @@ var filter_1 = new Tone.Filter().connect(player1_vol);
 var filter_2 = new Tone.Filter().connect(player1_vol);
 var filter_3 = new Tone.Filter().connect(player1_vol);
 console.log("player1_vol in; " + player1_vol.numberOfInputs);
+
+
+const playButton = document.getElementById("playButton");
+playButton.innerText = "papa";
+
+
+
 /*
 filter_1.set({
 	frequency: 1000,
