@@ -205,9 +205,9 @@
 
     <form action="js/step_5.js" class="form" id="form_EQ">
       <div>
-        <label for="eq1">EQ</label>
+        <label for="filter_1_label">EQ</label>
         <div>
-          <select name="filter_1" id="filter_1">
+          <select name="filter_1" id="filter_1_select">
             <option name="lowpass" id="lowpass" value="lowpass">Lowpass</option>
             <option name="highpass" id="highpass" value="highpass">highpass</option>
             <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
@@ -221,13 +221,10 @@
           <p id="frequency_1_text">Frequency</p>
           <input type='range' min=20 max=20000 step='1' value="0" id='frequency_1'>
           <p id="frequency_1_value"></p>
-<!--
-          <p id="Q_1_text">Q</p>
-          <input type='range' min=20 max=20000 step='1' id='Q_1'>
-          <p id="Q_1_value"></p>
--->
 
           <p id="Q_1_text">Q  <input type='range' min=0 max=10 step='1' value="0" id='Q_1'> <p id="Q_1_value"></p> </p>
+
+          <p id="gain_1_text">Gain  <input type='range' min=-30 max=12 step='1' value="-30" id='gain_1'> <p id="gain_1_value"></p> </p>
 
           <br>
           <p id="detune_1_text">detune</p>
