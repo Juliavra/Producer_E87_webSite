@@ -628,10 +628,6 @@ const gain_1 = document.getElementById("gain_1");
 var isFilter_1_On = true;        // PARA APAGAR EQ Y CAMBIAR CONNECT DE PLAYER 1 
 const eq_On_Off_Button_1 = document.getElementById("eq_On_Off_Button_1");
 
-
-
-
-
 const recorder = new Tone.Recorder();
 const masterVolume = new Tone.Volume(-3).toDestination();
 const player1_vol = new Tone.Volume(-40).connect(masterVolume);       //
@@ -700,10 +696,6 @@ const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite
 
 player1.fan(filter_1);
 
-console.log("filter_1 In: " + filter_1.numberOfInputs);
-//console.log("filter 1: " + filter_1.get());
-
-
 volume_1.addEventListener("change", function (e) {
   player1_vol.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
   volume_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
@@ -764,10 +756,6 @@ filter_1_select.addEventListener("change", function (e) {
   filter_1.gain = 0;
   filter_1.rolloff = -12;
 });
-
-console.log("filter: " + filter_1.get());
-
-
 
 
 /*
@@ -986,7 +974,7 @@ function eqOnOff1() {
   if (eq_On_Off_Button_1.innerText === "On") {
     eq_On_Off_Button_1.innerText = "Off";       //conecta el player a destination
     player1.connect(player1_pan);
-    filter_1.disconnect();
+    //filter_1.disconnect(player1_pan);
 
   }
   else {
@@ -995,7 +983,6 @@ function eqOnOff1() {
     filter_1.connect(player1_pan);
   }
 }
-
 
 //************************************************************************
 //************************************************************************
