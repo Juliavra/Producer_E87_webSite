@@ -5,6 +5,10 @@
   /**/
 
 
+//************************************************************************* */
+//************************************************************************* */
+//ARRAY SONG DATA ADD DURATION 
+
 var cancion_1 = {
   id: 1,
   title: "01 Dark Ringy Short Loop",
@@ -608,6 +612,10 @@ array_Canciones.push(cancion_98);
 array_Canciones.push(cancion_99);
 array_Canciones.push(cancion_100);
 
+//************************************************************************* */
+//************************************************************************* */
+//DOM ACQUISITIONS
+
 const volume_1 = document.getElementById("volume_1");
 const pan_1 = document.getElementById("pan_1");
 const muteButton = document.getElementById("muteButton");
@@ -627,17 +635,19 @@ const detune_1 = document.getElementById("detune_1");
 const gain_1 = document.getElementById("gain_1");
 var isFilter_1_On = true;        // PARA APAGAR EQ Y CAMBIAR CONNECT DE PLAYER 1 
 const eq_On_Off_Button_1 = document.getElementById("eq_On_Off_Button_1");
+const player1_fxSend_1 = document.getElementById("player1_fxSend_1");
+const player1_fxSend_1_value = document.getElementById("player1_fxSend_1_value");
 
 
-
+//********************************************************** */
+//************************************************************ */
+//NODE CONSTRUCTION
 
 const recorder = new Tone.Recorder();
 const masterVolume = new Tone.Volume(-3).toDestination();
 const player1_vol = new Tone.Volume(-40).connect(masterVolume);       //
-const player1_vol_2 = new Tone.Volume(-100).connect(masterVolume);       //AGREGADO PAERA ENVIAR EL PLAYER ACA CUANDO ESTA EL EQ
 const player1_pan = new Tone.Panner(0).connect(player1_vol);
 masterVolume.fan(recorder);
-//The type of the filter. Types: "lowpass", "highpass", "bandpass", "lowshelf", "highshelf", "notch", "allpass", or "peaking".
 const filter_1 = new Tone.Filter().connect(player1_pan);
 filter_1.set({
   frequency: 1000,
@@ -649,9 +659,16 @@ filter_1.set({
 filter_1.debug = true;
 /*
 filter_1.frequency.rampTo(2000, 7);
-filter_1.FilterRollOff = -24;              //type FilterRollOff = -12 | -24 | -48 | -96
 //filter_1.getFrequencyResponse
 */
+
+
+
+const player_1_fx_1_delay = new Tone.PingPongDelay("4n", 0.2).toDestination();  //CAMBIAR A VOL 
+const player1_fxSend_1_fader = new Tone.Volume(-40).connect(player_1_fx_1_delay);
+
+
+
 
 recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
 //PERTENECE A LA GRABADORA
@@ -668,11 +685,12 @@ setTimeout(async () => {
 
 const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
 player1.debug = true;
-player1.fan(filter_1);
+player1.fan(filter_1, player1_fxSend_1_fader);
 //player1.setLoopPoints(0, 1.345);
 //player1.fadeIn = 2;
 //player1.fadeOut = 3;
 
+//************************************************************************* */
 //*****************************************************************************************
 // ALL ADDEVENTLISTENERS
 //  */
@@ -736,6 +754,14 @@ filter_1_select.addEventListener("change", function (e) {
   filter_1.rolloff = -12;
 });
 
+player1_fxSend_1.addEventListener("change", function (e) {
+  player1_fxSend_1_fader.volume.value = e.currentTarget.value;        console.log("volumen: " + e.currentTarget.value);
+  player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+
+
+
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
 });
@@ -743,6 +769,10 @@ formulario.addEventListener("submit", (e) => {
 form_EQ.addEventListener("submit", (e) => {
   e.preventDefault();
 });
+
+//************************************************************************* */
+//************************************************************** */
+//INNERHTML
 
 volume_1_text.innerHTML = "VOLUME";
 volume_1_value.innerHTML = "0";
@@ -768,7 +798,9 @@ frequency_1_value.innerHTML = "20";
 Q_1_value.innerHTML = "0";
 detune_1_value.innerHTML = "0";
 gain_1_value.innerHTML = "0";
+player1_fxSend_1_value.innerHTML = "0";
 
+//************************************************************************* */
 //************************************************************************* */
 //FUNCTIONS 
 
@@ -858,6 +890,7 @@ function recieves_Number_Returns_url(song) {
   return `${array_Canciones[song].url_src}`;
 }//CLOSES recieves_Number_Returns_url
 
+//************************************************************************* */
 //************************************************************************
 //GRABADORA
 function rec() {
@@ -883,6 +916,8 @@ function callbackLoaded(songNumber) {
   //console.log("call back SONG LOADED J QUERY PLAY");
   songName1.innerHTML = array_Canciones[songNumber - 1].title;
 }
+
+//************************************************************************* */
 //********************************************************************* */
 //EQ
 function eqOnOff1() {
