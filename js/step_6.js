@@ -4,6 +4,7 @@
   }, 3000);
   /**/
 
+  console.clear();
 
 //************************************************************************* */
 //************************************************************************* */
@@ -644,6 +645,7 @@ const player1_fxSend_2_value = document.getElementById("player1_fxSend_2_value")
 const player1_fxSend_3_value = document.getElementById("player1_fxSend_3_value");
 const player1_fxSend_4_value = document.getElementById("player1_fxSend_4_value");
 
+
 //********************************************************** */
 //************************************************************ */
 //NODE CONSTRUCTION
@@ -660,7 +662,7 @@ filter_1.set({
   Q: 1,
   gain: 12,
   rolloff: -96,
-});
+}); 
 filter_1.debug = true;
 /*
 filter_1.frequency.rampTo(2000, 7);
@@ -683,19 +685,13 @@ const player_1_fx_3_phaser = new Tone.Phaser({
 }).toDestination();
 
 
-const player_1_fx_4_vibrato = new Tone.PitchShift(-14).toDestination();
+const player_1_fx_4_pitchShift = new Tone.PitchShift(-14).toDestination();
 
-/*
-player_1_fx_4_vibrato.maxDelay = 0.005;
-player_1_fx_4_vibrato.frequency = 5;
-player_1_fx_4_vibrato.depth = 0,01;
-player_1_fx_4_vibrato.type = "sine";
-/**/
 
 const player1_fxSend_1_fader = new Tone.Volume(-40).connect(player_1_fx_1_delay);
 const player1_fxSend_2_fader = new Tone.Volume(-40).connect(player_1_fx_2_reverb);
 const player1_fxSend_3_fader = new Tone.Volume(-40).connect(player_1_fx_3_phaser);
-const player1_fxSend_4_fader = new Tone.Volume(-40).connect(player_1_fx_4_vibrato);
+const player1_fxSend_4_fader = new Tone.Volume(-40).connect(player_1_fx_4_pitchShift);
 
 
 recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
