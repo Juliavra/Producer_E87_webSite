@@ -262,7 +262,6 @@
     { time: '15:1:' },
     { time: '16:1:' },
 
-
   ];
 
   const kickPart = new Tone.Part(function (time) {
@@ -295,9 +294,6 @@
   const lowPass = new Tone.Filter({
     frequency: 4000,
   }).connect(reverb);
-
-
-
 
   const snareDrum = new Tone.NoiseSynth({
     volume: -24,

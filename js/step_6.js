@@ -636,8 +636,13 @@ const gain_1 = document.getElementById("gain_1");
 var isFilter_1_On = true;        // PARA APAGAR EQ Y CAMBIAR CONNECT DE PLAYER 1 
 const eq_On_Off_Button_1 = document.getElementById("eq_On_Off_Button_1");
 const player1_fxSend_1 = document.getElementById("player1_fxSend_1");
+const player1_fxSend_2 = document.getElementById("player1_fxSend_2");
+const player1_fxSend_3 = document.getElementById("player1_fxSend_3");
+const player1_fxSend_4 = document.getElementById("player1_fxSend_4");
 const player1_fxSend_1_value = document.getElementById("player1_fxSend_1_value");
-
+const player1_fxSend_2_value = document.getElementById("player1_fxSend_2_value");
+const player1_fxSend_3_value = document.getElementById("player1_fxSend_3_value");
+const player1_fxSend_4_value = document.getElementById("player1_fxSend_4_value");
 
 //********************************************************** */
 //************************************************************ */
@@ -662,12 +667,35 @@ filter_1.frequency.rampTo(2000, 7);
 //filter_1.getFrequencyResponse
 */
 
-
-
 const player_1_fx_1_delay = new Tone.PingPongDelay("4n", 0.2).toDestination();  //CAMBIAR A VOL 
+const player_1_fx_2_reverb = new Tone.Reverb({
+  decay: 4,
+  wet: 0.4 // Nivel de mezcla del efecto
+}).toDestination(); // Conectar a la salida de audio
+player_1_fx_2_reverb.generate();
+
+const player_1_fx_3_phaser = new Tone.Phaser({
+  "frequency": 15,
+  "octaves": 5,
+  stages: 10,
+  Q: 10,
+  baseFrequency: 350
+}).toDestination();
+
+
+const player_1_fx_4_vibrato = new Tone.PitchShift(-14).toDestination();
+
+/*
+player_1_fx_4_vibrato.maxDelay = 0.005;
+player_1_fx_4_vibrato.frequency = 5;
+player_1_fx_4_vibrato.depth = 0,01;
+player_1_fx_4_vibrato.type = "sine";
+/**/
+
 const player1_fxSend_1_fader = new Tone.Volume(-40).connect(player_1_fx_1_delay);
-
-
+const player1_fxSend_2_fader = new Tone.Volume(-40).connect(player_1_fx_2_reverb);
+const player1_fxSend_3_fader = new Tone.Volume(-40).connect(player_1_fx_3_phaser);
+const player1_fxSend_4_fader = new Tone.Volume(-40).connect(player_1_fx_4_vibrato);
 
 
 recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
@@ -685,7 +713,7 @@ setTimeout(async () => {
 
 const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
 player1.debug = true;
-player1.fan(filter_1, player1_fxSend_1_fader);
+player1.fan(filter_1, player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
 //player1.setLoopPoints(0, 1.345);
 //player1.fadeIn = 2;
 //player1.fadeOut = 3;
@@ -755,12 +783,24 @@ filter_1_select.addEventListener("change", function (e) {
 });
 
 player1_fxSend_1.addEventListener("change", function (e) {
-  player1_fxSend_1_fader.volume.value = e.currentTarget.value;        console.log("volumen: " + e.currentTarget.value);
+  player1_fxSend_1_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
   player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
+player1_fxSend_2.addEventListener("change", function (e) {
+  player1_fxSend_2_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+  player1_fxSend_2_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
 
+player1_fxSend_3.addEventListener("change", function (e) {
+  player1_fxSend_3_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+  player1_fxSend_3_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
 
+player1_fxSend_4.addEventListener("change", function (e) {
+  player1_fxSend_4_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+  player1_fxSend_4_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
 
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -799,6 +839,9 @@ Q_1_value.innerHTML = "0";
 detune_1_value.innerHTML = "0";
 gain_1_value.innerHTML = "0";
 player1_fxSend_1_value.innerHTML = "0";
+player1_fxSend_2_value.innerHTML = "0";
+player1_fxSend_3_value.innerHTML = "0";
+player1_fxSend_4_value.innerHTML = "0";
 
 //************************************************************************* */
 //************************************************************************* */
@@ -955,51 +998,51 @@ function in_outs(element, text) {
 
 /*
 type lowpass
-Description Standard second-order resonant lowpass filter with 12dB/octave rolloff. Frequencies below the cutoff pass through; frequencies above it are attenuated.	
-frequency The cutoff frequency.	
-Indicates how peaked the frequency is around the cutoff. The greater the value is, the greater is the peak.	
+Description Standard second-order resonant lowpass filter with 12dB/octave rolloff. Frequencies below the cutoff pass through; frequencies above it are attenuated.
+frequency The cutoff frequency.
+Indicates how peaked the frequency is around the cutoff. The greater the value is, the greater is the peak.
 gain Not used
 
 type highpass
-Description Standard second-order resonant highpass filter with 12dB/octave rolloff. Frequencies below the cutoff are attenuated; frequencies above it pass through.	
-frequency The cutoff frequency.	
-Q Indicates how peaked the frequency is around the cutoff. The greater the value, the greater the peak.	
+Description Standard second-order resonant highpass filter with 12dB/octave rolloff. Frequencies below the cutoff are attenuated; frequencies above it pass through.
+frequency The cutoff frequency.
+Q Indicates how peaked the frequency is around the cutoff. The greater the value, the greater the peak.
 gain Not used
 
 type bandpass
-Description Standard second-order bandpass filter. Frequencies outside the given range of frequencies are attenuated; the frequencies inside it pass through.	
-frequency The center of the range of frequencies.	
+Description Standard second-order bandpass filter. Frequencies outside the given range of frequencies are attenuated; the frequencies inside it pass through.
+frequency The center of the range of frequencies.
 Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.
 gain  Not used
 
 type lowshelf
-Description Standard second-order lowshelf filter. Frequencies lower than the frequency get a boost, or an attenuation; frequencies over it are unchanged.	
-frequency  The upper limit of the frequencies getting a boost or an attenuation.	
-Q Not used	
+Description Standard second-order lowshelf filter. Frequencies lower than the frequency get a boost, or an attenuation; frequencies over it are unchanged.
+frequency  The upper limit of the frequencies getting a boost or an attenuation.
+Q Not used
 gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
 
 type highshelf
-Description Standard second-order highshelf filter. Frequencies higher than the frequency get a boost or an attenuation; frequencies lower than it are unchanged.	
-frequency  The lower limit of the frequencies getting a boost or an attenuation.	
+Description Standard second-order highshelf filter. Frequencies higher than the frequency get a boost or an attenuation; frequencies lower than it are unchanged.
+frequency  The lower limit of the frequencies getting a boost or an attenuation.
 Q Not used
 gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
 
 type peaking
-Description Frequencies inside the range get a boost or an attenuation; frequencies outside it are unchanged.	
-frequency The middle of the frequency range getting a boost or an attenuation.	
-Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.	
+Description Frequencies inside the range get a boost or an attenuation; frequencies outside it are unchanged.
+frequency The middle of the frequency range getting a boost or an attenuation.
+Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.
 gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
 
 type notch
-Description Standard notch filter, also called a band-stop or band-rejection filter. It is the opposite of a bandpass filter: frequencies outside the give range of frequencies pass through; frequencies inside it are attenuated.	
-frequency The center of the range of frequencies.	
-Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.	
+Description Standard notch filter, also called a band-stop or band-rejection filter. It is the opposite of a bandpass filter: frequencies outside the give range of frequencies pass through; frequencies inside it are attenuated.
+frequency The center of the range of frequencies.
+Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.
 gain  Not used
 
 type allpass
-Description Standard second-order allpass filter. It lets all frequencies through, but changes the phase-relationship between the various frequencies.	
-frequency The frequency with the maximal group delay, that is, the frequency where the center of the phase transition occurs.	
-Q Controls how sharp the transition is at the medium frequency. The larger this parameter is, the sharper and larger the transition will be.	
+Description Standard second-order allpass filter. It lets all frequencies through, but changes the phase-relationship between the various frequencies.
+frequency The frequency with the maximal group delay, that is, the frequency where the center of the phase transition occurs.
+Q Controls how sharp the transition is at the medium frequency. The larger this parameter is, the sharper and larger the transition will be.
 gain  Not used
 
 /**/
