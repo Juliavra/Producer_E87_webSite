@@ -14,14 +14,15 @@
 }
 
 h1 {
-    font-family: Verdana, arial, Tahoma, sans-serif;
+    font-family: "Permanent Marker", cursive;
     color: orange;
     background-color: #006600;
-    text-align: center;
+    text-align: left;
     font-size: 1rem;
 }
 
 h2 {
+    font-family: "Permanent Marker", cursive;
     font-size: 1.2rem;
     font-family: Garamond;
     font-style: oblique;
@@ -31,7 +32,7 @@ h2 {
 }
 
 h3 {
-    font-family: "Permanent Marker";
+    font-family: "Permanent Marker", cursive;
     color: orange;
     background-color: #006600;
     text-align: center;
@@ -39,7 +40,7 @@ h3 {
 }
 
 h4 {
-    font-family: "Permanent Marker";
+    font-family: "Permanent Marker", cursive;
     color: rgb(254, 232, 176);
     background-color: #006600;
     text-align: center;
@@ -60,14 +61,12 @@ h5 {
 }
 
 h6 {
-    font-family: "Permanent Marker";
+    font-family: "Permanent Marker", cursive;
     color: orange;
     background-color: #006600;
     text-align: center;
     font-size: 2rem;
 }
-
-/*--------------------------¬|-------*/
 
 /*-|-----ENLACES---------------------*/
 a {
@@ -208,7 +207,7 @@ html {
     font-size: 62.5%;
     /*10px*/
 }
-
+/*
 .contenedor {
     font-family: "Permanent Marker", cursive;
     max-width: 90rem;
@@ -228,7 +227,28 @@ html {
     margin-right: auto;
     margin-left: auto;
     gap: 0.1%;
+}
+/**/
 
+.contenedor {
+    font-family: "Permanent Marker", cursive;
+    max-width: 90rem;
+    max-height: 180rem;
+    display: grid;
+    padding: 0%;
+    background-color: #006600;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, auto);
+    grid-template-areas:
+        "cabeza   cabeza   cabeza cabeza"
+        "nav       nav      nav     nav"
+        "caja1   caja2    caja3   caja4"
+        "caja1   caja2    caja3   caja4"
+        "caja1   caja2    caja3   caja4"
+        "footer   footer    footer footer";
+    margin-right: auto;
+    margin-left: auto;
+    gap: 0.1%;
 }
 
 .contenedor .header {
@@ -269,34 +289,6 @@ html {
     /*overflow:scroll;*/
 }
 
-
-
-.contenedor .sidebar {
-    grid-area: sidebar;
-    background-color: #006600;
-    color: white;
-    border: red solid 2px;
-    margin: 0%;
-    padding: 0%;
-}
-
-.contenedor .bloque1 {
-    grid-area: bloque1;
-    background-color: #006600;
-    color: white;
-    border: red solid 2px;
-    margin: 0%;
-    padding: 0%;
-}
-
-.contenedor .bloque2 {
-    grid-area: bloque2;
-    background-color: #006600;
-    color: black;
-    height: 15vh;
-    border: red solid 2px;
-}
-
 .contenedor .footer {
     grid-area: footer;
     background-color: #006600;
@@ -309,51 +301,6 @@ html {
 }
 
 /*--------------------------------------*/
-/*     CONTENEDOR PLAYER*/
-.contenedor .player {
-    /*  font-family: "Permanent Marker", cursive;*/
-    /*max-width: 120rem;*/
-    max-width: 18rem;
-    max-height: 9rem;
-    display: grid;
-    padding: 0%;
-    /*  background-color: #bed1f3;*/
-    background-color: #006600;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(6, auto);
-    grid-template-areas:
-        "cabeza   cabeza   cabeza cabeza"
-        "nav       nav      nav     nav"
-        "bloque1   main    main   sidebar"
-        "bloque1   main    main   sidebar"
-        "bloque1  main  main   sidebar"
-        "footer   footer    footer footer";
-    margin-right: auto;
-    margin-left: auto;
-    align-items: center;
-    gap: 0.1%;
-}
-
-/*-------------------------------------*/
-/*----------BOTON ENVIAR---------------*/
-.enviar__btn {
-
-    font-family: "Permanent Marker", cursive;
-    color: orange;
-    background-color: #006600;
-    border: 3px solid #006600;
-    padding: 0%;
-    font-size: 4vh;
-    cursor: pointer;
-}
-
-.enviar__btn:hover {
-    box-shadow: 3px 4px 30px orange;
-
-    /* border-radius: 0px;*/
-    /*    Syntax: <length-percentage>{1,2}*/
-}
-
 /*--------------------------------------*/
 .header:hover {
 
@@ -620,19 +567,6 @@ html {
 
 }
 
-h5 {
-    /*PALETA COPADA*/
-    background-color: rgb(249, 123, 34);
-    /*#F97B22*/
-    background-color: rgb(254, 232, 176);
-    /*#FEE8B0*/
-    background-color: rgb(124, 144, 112);
-    /*#9CA777  */
-    background-color: rgb(156, 167, 119);
-    /*#7C9070*/
-}
-
-
 
 /***--------------- FORMULARIO------------------**/
 .container {
@@ -653,14 +587,7 @@ h5 {
     padding: 10px 20px;
 }
 
-.image {
-    background-image: url("./images/illustration.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    /* border: 2px solid black; */
-    height: 65%;
-}
+
 
 /*
 .text {
@@ -803,42 +730,6 @@ p+h3 {
     animation-timing-function: cubic-bezier(1, 0, 0, 1);
 }
 
-
-.waiting_title {
-    /*background-color: rgba(33, 16, 139, 0.5) !important;*/
-    font-size: 8rem;
-    font-family: "Permanent Marker";
-    text-align: center;
-    margin: 0px;
-    margin-left: 20px;
-    padding: 0px;
-    animation: tagEffectInMotion 3s infinite;
-    animation-timing-function: cubic-bezier(1, 0, 0, 1);
-}
-
-
-.ProducerE87_Tag {
-    /*background-color: rgba(33, 16, 139, 0.5) !important;*/
-    font-size: 4rem;
-    font-family: "Permanent Marker";
-    text-align: center;
-    margin: 0px;
-    margin-left: 20px;
-    padding: 0px;
-    animation: tagEffectInMotion 3s infinite;
-    animation-timing-function: cubic-bezier(1, 0, 0, 1);
-    
-}
-
-
-/*-----------PLAYER LAND--------- */
-
-.player_btn {
-    display: inline-block;
-}
-/*------------------------------------------------*/
-
-
 /*
 Propiedades de ancho y alto:
 ● min-height, max-height, min-width y max-width
@@ -870,11 +761,4 @@ Propiedades de ancho y alto:
     .main .waiting_title {
         font-size: 2rem;
     }  
-}
-
-/*--------------------------------*/
-.yt1{
-    width: 400px;
-    height: 350px;
-    margin-left: 200px;
 }

@@ -676,12 +676,10 @@ const player_1_fx_2_reverb = new Tone.Reverb({
 }).toDestination(); // Conectar a la salida de audio
 player_1_fx_2_reverb.generate();
 
-const player_1_fx_3_phaser = new Tone.Phaser({
-  "frequency": 15,
-  "octaves": 5,
-  stages: 10,
-  Q: 10,
-  baseFrequency: 350
+const player_1_fx_3_fbDelay = new Tone.FeedbackDelay({
+  delayTime: 1.5,
+  feedback: 1,
+  maxDelay: 10,
 }).toDestination();
 
 
@@ -690,7 +688,7 @@ const player_1_fx_4_pitchShift = new Tone.PitchShift(-14).toDestination();
 
 const player1_fxSend_1_fader = new Tone.Volume(-40).connect(player_1_fx_1_delay);
 const player1_fxSend_2_fader = new Tone.Volume(-40).connect(player_1_fx_2_reverb);
-const player1_fxSend_3_fader = new Tone.Volume(-40).connect(player_1_fx_3_phaser);
+const player1_fxSend_3_fader = new Tone.Volume(-40).connect(player_1_fx_3_fbDelay);
 const player1_fxSend_4_fader = new Tone.Volume(-40).connect(player_1_fx_4_pitchShift);
 
 
