@@ -649,6 +649,11 @@ const player1_fxSend_3_value = document.getElementById("player1_fxSend_3_value")
 const player1_fxSend_4_value = document.getElementById("player1_fxSend_4_value");
 
 
+const loop_start_1 = document.getElementById("loop_start_1");
+const loop_end_1 = document.getElementById("loop_end_1");
+
+
+
 const volume_fx1 = document.getElementById("volume_fx1");
 const volume_fx1_value = document.getElementById("volume_fx1_value");
 const pan_fx1_fader = document.getElementById("pan_fx1_fader");
@@ -813,7 +818,6 @@ player1_fxSend_2.addEventListener("change", function (e) {
   }
 });
 
-
 player1_fxSend_3.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     player1_fxSend_3_fader.volume.value = -100;
@@ -836,6 +840,29 @@ player1_fxSend_4.addEventListener("change", function (e) {
   }
 });
 
+loop_start_1.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
+    player1.loopStart = e.currentTarget.value;
+    console.log("player1.loopStart = " + e.currentTarget.value);
+  }
+else {
+  alert("errororororor player1.loopStart");
+}  
+});
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccccccccccccccccccccccaaaaaaaaaaaaaaaaaa
+loop_end_1.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234 && e.currentTarget.value> player1.loopStart) {
+    player1.loopEnd = e.currentTarget.value;
+    console.log("player1.loopend = " + e.currentTarget.value);
+  }
+else {
+  alert("errororororor player1.loopEnd");
+}  
+});
+
+
+
+
 
 volume_fx1.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
@@ -856,6 +883,16 @@ pan_fx1_fader.addEventListener("change", function (e) {
   pan_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
+
+
+
+
+
+
+
+
+
+
 //************************************************************************* */
 //************************************************************** */
 //INNERHTML
@@ -867,9 +904,9 @@ loop_checkbox_text.innerHTML = "Loop";
 autoplay_1_text.innerHTML = "AutoPLAY";
 reverse_1_text.innerHTML = "Reverse";
 loop_start_1_text.innerHTML = "Loop Start: ";
-loop_start_1_time.innerHTML = `${player1.loopStart}`;
+//loop_start_1_time.innerHTML = `${player1.loopStart}`;
 loop_end_1_text.innerHTML = "Loop End: ";
-loop_end_1_time.innerHTML = `${player1.loopEnd}`;
+//loop_end_1_time.innerHTML = `${player1.loopEnd}`;
 fadeIn_1_text.innerHTML = `fadeIn: `;
 fadeIn_1_value.innerHTML = `${player1.fadeIn}`;
 fadeOut_1_text.innerHTML = `fadeOut`;
