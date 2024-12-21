@@ -68,81 +68,6 @@ h6 {
     font-size: 2rem;
 }
 
-/*-|-----ENLACES---------------------*/
-a {
-    font-family: "Permanent Marker", cursive;
-    text-decoration: none;
-    color: rgb(254, 232, 176);
-    /*background-color: #006600;*/
-    text-align: center;
-    font-size: 2.3rem;
-    margin-right: 5px;
-}
-
-a:hover {
-    /*font-style: oblique;*/
-    color: white;
-    background-color: #006600;
-    /*
-    animation: tagEffect 3s infinite;
-    animation-timing-function: cubic-bezier(1, 0, 0, 1);
-*/
-
-    /*padding: 0px;*/
-    /*
-    transition-property: all;
-    transition-duration: 0.3s;
-    transition-timing-function: ease-in;
-*/
-}
-
-a:link {
-    color: red;
-    background-color: #006600;
-}
-
-a:active {
-    background-color: #006600;
-}
-
-a:visited {
-    color: rgb(254, 232, 176);
-}
-
-
-/*
-div{
-    width: 100px;
-    height: 100px;
-    background-color:lightskyblue;
-    border: 1px solid black;
-    margin-bottom: 50px;
-
-    transition-property: width;
-    transition-duration: 5s;
-    transition-delay: 1s;
-    transition-timing-function: ease-in;
-
-    transition-property: color;
-    transition-duration: 5s;
-    transition-delay: 0.5s;
-    transition-timing-function: ease-in;
-
-}
-
-div:hover{
-    width: 500px;
-}
-
-
-a:hover{
-    background-color: brown;
-    padding: 50px;
-    transition-property: all;
-    transition-duration: 4s;
-    transition-timing-function: ease-in;
-}
-*/
 /*--------ETIQUETAS SEMANTICAS------------*/
 
 header {
@@ -163,29 +88,12 @@ body {
     background-color: #006600;
 }
 
-.nav__btn {
-    color: rgb(254, 232, 176);
-    background-color: #006600;
-    text-align: center;
-    font-size: 2rem;
-}
-
  #label{
     font-family: "Permanent Marker";
     color: rgb(255, 165, 0);
     background-color: #006600;
     text-align: center;
     font-size: 3rem;
-}
-
-
-.nav__btn:hover {
-    color: rgb(122, 197, 246);
-    background-color: #006600;
-    text-align: center;
-    font-size: 2rem;
-    animation: tagEffect 3s infinite;
-    animation-timing-function: cubic-bezier(1, 0, 0, 1);
 }
 
 main {
@@ -195,12 +103,9 @@ main {
     /* padding: 40px;*/
 }
 
-
 p {
     display: inline-block;
 }
-
-/*--------------------------------*/
 
 /*-------------GRID AREAS------------*/
 html {
@@ -238,10 +143,9 @@ html {
     padding: 0%;
     background-color: #006600;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(6, auto);
+    grid-template-rows: repeat(5, auto);
     grid-template-areas:
         "cabeza   cabeza   cabeza cabeza"
-        "nav       nav      nav     nav"
         "caja1   caja2    caja3   caja4"
         "caja1   caja2    caja3   caja4"
         "caja1   caja2    caja3   caja4"
@@ -263,19 +167,7 @@ html {
     margin-top: 0%;
     margin-bottom: 10px;
     padding: 0%;
-    /*border: red solid 2px;*/
-}
-
-.contenedor .nav {
-    font-family: "Permanent Marker", cursive;
-    grid-area: nav;
-    background-color: #006600;
-    color: white;
-    height: 6vh;
-    width: 100vh;
-    text-align: center;
-    margin-top: 0%;
-    /*border: red solid 1px;*/
+    border: red solid 12px;
 }
 
 .contenedor .main {
@@ -298,6 +190,32 @@ html {
     margin-top: 0%;
     border: red solid 2px;
     text-align: center;
+}
+/*
+.main .container .form .caja1 {
+    background-color: #006600;
+    color: orange;
+    height: 78vh;
+    margin-top: 0vh;
+    border: rgb(151, 12, 243) solid 12px;
+    padding: 0%;
+    box-align: left;
+  
+}
+*/
+  /*overflow:scroll;*/
+#recButton
+#pauseButton
+#recStopButton
+{
+    /*grid-area: caja1;*/
+    background-color: #006600;
+    color: orange;
+    height: 78vh;
+    margin-top: 1vh;
+    /*border: cyan solid 20px;*/
+    padding: 0%;
+    /*overflow:scroll;*/
 }
 
 /*--------------------------------------*/
@@ -575,6 +493,16 @@ html {
     flex-direction: row;
     justify-content: space-around;
 }
+
+.container {
+    grid-area: caja1;
+    font-family: "Permanent Marker";
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
 
 /*** ! style rules for content section**/
 .content {

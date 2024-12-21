@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4 Columns and 2 Rows Layout</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      /* 4 equal-width columns */
+      grid-template-rows: repeat(2, auto);
+      /* 2 rows */
+      gap: 10px;
+      padding: 20px;
+    }
+
+    header {
+      grid-column: span 4;
+      /* Header spans across all 4 columns */
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .column {
+      padding: 20px;
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+    }
+
+    .column:nth-child(odd) {
+      background-color: #e9e9e9;
+    }
+
+    p {
+      display: inline-flex;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns on smaller screens */
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Step 6 Player + Vol + Pan + Recorder + EQ + FX</h1>
+    <button id="recButton" onclick="rec()">Rec </button>
+    <button id="pauseButton" onclick="recPause()">Pause </button>
+    <button id="recStopButton" onclick="recStop()">Stop </button>
+
+    <label for="song">Song</label>
+    <select name="song" id="song">
+      <option name="01" id="01" value="1">01 Dark Ringy Short Loop</option>
+      <option name="02" id="02" value="2">02 Hard Acople Amb Song</option>
+      <option name="03" id="03" value="3">03 Phased Sleppy Noise Loop</option>
+      <option name="04" id="04" value="4">04 Ruido Digital Zarpado Loop</option>
+      <option name="05" id="05" value="5">05 Deep Dark Amb Slow Loop</option>
+      <option name="06" id="06" value="6">06 Ringy Dark Slow Amb Loop</option>
+      <option name="07" id="07" value="7">07 Calm Mellow Slow Amb Song</option>
+      <option name="08" id="08" value="8">08 Digi Noise Reverb Loop</option>
+      <option name="09" id="09" value="9">09 Digi Clippy Slow Loop</option>
+      <option name="10" id="10" value="10">10 Pulse Burst Revb Slow Song</option>
+      <option name="11" id="11" value="11">11 Sube Baja Calm Space Loop</option>
+      <option name="12" id="12" value="12">12 Acople Drone Amb Slo Song</option>
+      <option name="13" id="13" value="13">13 Amb Revb Tono Mal Loop</option>
+      <option name="14" id="14" value="14">14 Amb Calm Low Evolve Song</option>
+      <option name="15" id="15" value="15">15 Low Amb Melo Loop</option>
+      <option name="16" id="16" value="16">16 Chopped Reverse Calm Bright Loop </option>
+      <option name="17" id="17" value="17">17 Revb Bouncy Easy Noise Loop </option>
+      <option name="18" id="18" value="18">18 Noise Gate Sample Song </option>
+      <option name="19" id="19" value="19">19 Reverse Short Loop </option>
+      <option name="20" id="20" value="20">20 Dubby NR Song </option>
+      <option name="21" id="21" value="21">21 Weird NR Music Loop</option>
+      <option name="22" id="22" value="22">22 Choppd Vibrato Bube Baja Loop </option>
+      <option name="23" id="23" value="23">23 Choppd Vibrato Sube Baja Melo Loop </option>
+      <option name="24" id="24" value="24">24 Line Noise Clippin Loop </option>
+      <option name="25" id="25" value="25">25 Sub Noise Ritmo Loop </option>
+      <option name="26" id="26" value="26">26 Bass Melo Loop </option>
+      <option name="27" id="27" value="27">27 Line Noise Clippin 2 Loop </option>
+      <option name="28" id="28" value="28">28 Reverse Metal Low Drum Song </option>
+      <option name="29" id="29" value="29">29 White Noise Trip Loop Song </option>
+      <option name="30" id="30" value="30">30 Chopped Tone FX Evolution Song </option>
+      <option name="31" id="31" value="31">31 Windy Tremolo Tren Clima Loop </option>
+      <option name="32" id="32" value="32">32 Hiss Ritmico Song </option>
+      <option name="33" id="33" value="33">33 Bouncing Turbina Slow Song </option>
+      <option name="34" id="34" value="34">34 NR Digi Reverse Loop </option>
+      <option name="35" id="35" value="35">35 Grainy Sub Vibrato Soplido Song </option>
+      <option name="36" id="36" value="36">36 Ringy Pad Slow Melo Loop Song </option>
+      <option name="37" id="37" value="37">37 Reverse NR Wicked Birds Loop </option>
+      <option name="38" id="38" value="38">38 Mid Lo Bouncy Choppd Loop </option>
+      <option name="39" id="39" value="39">39 Sube Baja Ringy Loop Son </option>
+      <option name="40" id="40" value="40">40 Acople Viaje Hi Eq Loop </option>
+      <option name="41" id="41" value="41">41 Dark Sub Clips Amb Song </option>
+      <option name="42" id="42" value="42">42 Low Engine Loop</option>
+      <option name="43" id="43" value="43">43 Fax Signal Acople Clima Digi Noise Loop </option>
+      <option name="44" id="44" value="44">44 Caballos Digi Noise Tempo Song </option>
+      <option name="45" id="45" value="45">45 Metal NR Talkin Melody Song </option>
+      <option name="46" id="46" value="46">46 Rain Metal bursts Talkie Loop Song </option>
+      <option name="47" id="47" value="47">47 Ringy Sub Melody Tempo Song </option>
+      <option name="48" id="48" value="48">48 Chopped ST Noise Calm Song </option>
+      <option name="49" id="49" value="49">49 Reverse Weird Music Song </option>
+      <option name="50" id="50" value="50">50 Ritmo Hit Pila Song </option>
+      <option name="51" id="51" value="51">51 Low Drone Noise Loop </option>
+      <option name="52" id="52" value="52">52 Sub Ultra Slow Mzk Song </option>
+      <option name="53" id="53" value="53">53 Low Digi Vibrato Snaps Loop </option>
+      <option name="54" id="54" value="54">54 Sub Windy Deep Song </option>
+      <option name="55" id="55" value="55">55 Ringy Sweepin Howl Song </option>
+      <option name="56" id="56" value="56">56 Chopped Snappy Melo Song </option>
+      <option name="57" id="57" value="57">57 Distort Chopped Ring Loop </option>
+      <option name="58" id="58" value="58">58 Sub Dark Hits Song </option>
+      <option name="59" id="59" value="59">59 Ringy EG Chopped Amb Song </option>
+      <option name="60" id="60" value="60">60 Melancholic Song </option>
+      <option name="61" id="61" value="61">61 Sube Baja Melo Song </option>
+      <option name="62" id="62" value="62">62 Sub Noise Talkative Loop </option>
+      <option name="63" id="63" value="63">63 Grainy Dirty Noise Loop </option>
+      <option name="64" id="64" value="64">64 Clipped Noise Loop </option>
+      <option name="65" id="65" value="65">65 Acople Hard Crescendo Loop </option>
+      <option name="66" id="66" value="66">66 Chopped Ptch Dwn Amb Loop </option>
+      <option name="67" id="67" value="67">67 Low Ocean like Amb Song </option>
+      <option name="68" id="68" value="68">68 Reverse Deep Dark Loop </option>
+      <option name="69" id="69" value="69">69 Drone Delay Melo Loop Song</option>
+      <option name="70" id="70" value="70">70 Chopped Ritmo ST Loop </option>
+      <option name="71" id="71" value="71">71 Melo Sube Baja Clima Loop </option>
+      <option name="72" id="72" value="72">72 Choppd fast ST Music Loop </option>
+      <option name="73" id="73" value="73">73 Trenes al galope Loop </option>
+      <option name="74" id="74" value="74">74 Drone Hard Noise Loop Song </option>
+      <option name="75" id="75" value="75">75 Grainy Windy Dirty Noise Loop </option>
+      <option name="76" id="76" value="76">76 Sub Dub NR Loop </option>
+      <option name="77" id="77" value="77">77 Weird EG Vibrato Melo Loop </option>
+      <option name="78" id="78" value="78">78 Away Revb Industrial Noise Song </option>
+      <option name="79" id="79" value="79">79 Mellow Strings NR Song </option>
+      <option name="80" id="80" value="80">80 Phased Orkestra NR Song </option>
+      <option name="81" id="81" value="81">81 Un Clip Procesado Song </option>
+      <option name="82" id="82" value="82">82 Reverse Dubby Drum Beat </option>
+      <option name="83" id="83" value="83">83 Ptch Dwn Drum </option>
+      <option name="84" id="84" value="84">84 Chopped Dubby Beat Loop </option>
+      <option name="85" id="85" value="85">85 Sub Vibrato Delay N Gate Drum</option>
+      <option name="86" id="86" value="86">86 One Drop Distort Loop </option>
+      <option name="87" id="87" value="87">87 4 BD Space Dub Loop </option>
+      <option name="88" id="88" value="88">88 Distort Ptch Dwn Hip Hop Loop </option>
+      <option name="89" id="89" value="89">89 Distort EQ Hip Hop </option>
+      <option name="90" id="90" value="90">90 Ultra Slo Dub Trip Hop Loop </option>
+      <option name="91" id="91" value="91">91 Dub Loop </option>
+      <option name="92" id="92" value="92">92 Sub Space Tribal Loop </option>
+      <option name="93" id="93" value="93">93 Autechre Jumpin Loop </option>
+      <option name="94" id="94" value="94">94 Dirty Trip Hop Loop </option>
+      <option name="95" id="95" value="95">95 Break Cool Dance Beat Loop </option>
+      <option name="96" id="96" value="96">96 Clippy Choppd Melo Loop </option>
+      <option name="97" id="97" value="97">97 Reverse Fast Trance Loop </option>
+      <option name="98" id="98" value="98">98 All Over T Hop NR loop Song </option>
+      <option name="99" id="99" value="99">99 Melo Drums Tempo Loop </option>
+      <option name="100" id="100" value="100">100 B Beat re laburado Loop Song </option>
+    </select>
+
+    <label for="player">Player</label>
+    <select name="player" id="player">
+      <option name="1" id="1" value="1">1</option>
+      <option name="2" id="2" value="2">2</option>
+      <option name="3" id="3" value="3">3</option>
+      <option name="4" id="4" value="4">4</option>
+    </select>
+
+    <button id="buscaButton" onclick="busca1()">Buscar </button>
+  </header>
+
+  <div class="column">
+    <h2>1</h2>
+    <p id="song_title"></p>
+    <p id="duration_1_text"> </p>
+    <p id="duration_1_value"></p>
+
+    <div>
+      <button id="playButton" onclick="play1()">Play </button>
+      <button id="stopButton" onclick="stop1()">Stop </button>
+      <button id="muteButton" onclick="mute1()">Mute </button>
+      <button id="soloButton" onclick="solo1()">Solo </button>
+    </div>
+
+    <p id="volume_1_text">Vol</p>
+    <input type='range' min=-41 max=12 step='1' value="-40" id='volume_1'>
+    <p id="volume_1_value"> </p>
+    <br>
+    <p id="pan_1_text">Pan
+      <input type='range' min=-1 max=1 step='0.02' value=0 id='pan_1'>
+    </p>
+    <p id="pan_1_value"></p>
+    <br>
+    <p id="playback_rate_1_text">Rate
+      <input type='range' min=0.1 max=1 step='0.01' value=1 id='playback_rate_1'>
+    </p>
+    <p id="playback_rate_1_value"></p>
+    <br>
+    <input class="checkbox" type="checkbox" name="loop_1_checkbox" id="loop_1_checkbox">
+    <p id="loop_checkbox_text">Loop</p>
+    <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="autoplay_1_checkbox">
+    <p id="autoplay_1_text">Autoplay</p>
+    <input class="checkbox" type="checkbox" name="reverse_1_checkbox" id="reverse_1_checkbox">
+    <p id="reverse_1_text">Reverse</p>
+    <br>
+    <p id="loop_start_1_text">loop start</p>
+    <p id="loop_start_1_time"></p>
+    <br>
+    <p id="loop_end_1_text">loop end</p>
+    <p id="loop_end_1_time"></p>
+    <br>
+    <p id="fadeIn_1_text">fadeIn</p>
+    <p id="fadeIn_1_value"></p>
+    <br>
+    <p id="fadeOut_1_text">fadeOut</p>
+    <p id="fadeOut_1_value"></p>
+
+    <label for="filter_1_label">
+      <h1>EQ</h1>
+    </label> <button id="eq_On_Off_Button_1" onclick="eqOnOff1()">On </button>
+    <select name="filter_1" id="filter_1_select">
+      <option name="lowpass" id="lowpass" value="lowpass">Lowpass</option>
+      <option name="highpass" id="highpass" value="highpass">highpass</option>
+      <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
+      <option name="lowshelf" id="lowshelf" value="lowshelf">lowshelf</option>
+      <option name="highshelf" id="highshelf" value="highshelf">highshelf</option>
+      <option name="notch" id="notch" value="notch">notch</option>
+      <option name="allpass" id="allpass" value="allpass">allpass</option>
+      <option name="peaking" id="peaking" value="peaking">peaking</option>
+    </select>
+    <br>
+    <p id="frequency_1_text">Frequency </p>
+    <input type='range' min=20 max=20000 step='1' value="0" id='frequency_1'>
+    <p id="frequency_1_value"></p>
+    <br>
+    <p id="Q_1_text">Q </p>
+    <input type='range' min=0 max=2 step=0.1 value="0" id='Q_1'>
+    <p id="Q_1_value"></p>
+    <br>
+    <p id="gain_1_text">Gain </p>
+    <input type='range' min=-30 max=12 step='1' value="-30" id='gain_1'>
+    <p id="gain_1_value"></p>
+    <br>
+    <p id="detune_1_text">Detune </p>
+    <input type='range' min=0 max=100 step='1' value="0" id='detune_1'>
+    <p id="detune_1_value"></p>
+
+    <h1>FX</h1>
+
+    <p id="player1_fxSend_1_text">FX 1 Delay <button id="player1_fxSend_1_On_Off_Button" onclick="fxSend_1_OnOff1()">On
+      </button>
+    </p>
+    <br>
+    Send
+    <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_1'>
+    <p id="player1_fxSend_1_value"></p>
+    <br><br>
+
+    <p id="player1_fxSend_2_text"> FX 2 Reverb
+      <button id="player1_fxSend_2_On_Off_Button" onclick="fxSend_2_OnOff1()">On </button>
+    </p>
+    <br>
+    Send
+    <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_2'>
+    <p id="player1_fxSend_2_value"></p>
+    <br><br>
+    <p id="player1_fxSend_3_text"> FX 3 Phaser
+      <button id="player1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
+    </p>
+    <br>
+    Send
+    <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_3'>
+    <p id="player1_fxSend_3_value"></p>
+
+    <br><br>
+    <p id="player1_fxSend_4_text"> FX 4 PitchShift
+      <button id="player1_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">On </button>
+    </p>
+    <br>
+    Send
+    <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_4'>
+    <p id="player1_fxSend_4_value"></p>
+
+  </div> <!--cierra columna-->
+  <div class="column">
+    <h2> 2</h2>
+    <p>This is the content of the second column.</p>
+  </div>
+  <div class="column">
+    <h2> 3</h2>
+    <p>This is the content of the third column.</p>
+  </div>
+  <div class="column">
+    <h2> 4</h2>
+    <p>This is the content of the fourth column.</p>
+  </div>
+  <div class="column">
+    <h2>FX 1</h2>
+    <div>
+      <p id="volume_fx1_text">Vol<input type='range' min=-41 max=12 step='1' value="0" id='volume_fx1'>
+      <p id="volume_fx1_value"></p>
+      </p>
+      <br>
+      <p id="pan_fx1_text">Pan</p>
+      <input type='range' min=-1 max=1 step='0.02' value=0 id='pan_fx1_fader'>
+      <p id="pan_fx1_value"></p>
+    </div>
+
+    <label for="filter_fx1_label">
+      <h1>EQ</h1>
+    </label> <button id="eq_On_Off_Button_fx1" onclick="eqOnOff1()">On </button>
+    <select name="filter_fx1" id="filter_fx1_select">
+      <option name="lowpass" id="lowpass" value="lowpass">Lowpass</option>
+      <option name="highpass" id="highpass" value="highpass">highpass</option>
+      <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
+      <option name="lowshelf" id="lowshelf" value="lowshelf">lowshelf</option>
+      <option name="highshelf" id="highshelf" value="highshelf">highshelf</option>
+      <option name="notch" id="notch" value="notch">notch</option>
+      <option name="allpass" id="allpass" value="allpass">allpass</option>
+      <option name="peaking" id="peaking" value="peaking">peaking</option>
+    </select>
+    <br>
+    <p id="frequency_fx1_text">Frequency </p>
+    <input type='range' min=20 max=20000 step='1' value="0" id='frequency_fx1'>
+    <p id="frequency_fx1_value"></p>
+    <br>
+    <p id="Q_fx1_text">Q </p>
+    <input type='range' min=0 max=2 step=0.1 value="0" id='Q_fx1'>
+    <p id="Q_fx1_value"></p>
+    <br>
+    <p id="gain_fx1_text">Gain </p>
+    <input type='range' min=-30 max=12 step='1' value="-30" id='gain_fx1'>
+    <p id="gain_fx1_value"></p>
+    <br>
+    <p id="detune_fx1_text">Detune </p>
+    <input type='range' min=0 max=100 step='1' value="0" id='detune_fx1'>
+    <p id="detune_fx1_value"></p>
+
+
+
+
+
+
+
+
+
+
+  </div>
+  <div class="column">
+    <h2>FX 2</h2>
+    <p>This is the content of the fourth column.</p>
+  </div>
+  <div class="column">
+    <h2>FX 3</h2>
+    <p>This is the content of the fourth column.</p>
+  </div>
+  <div class="column">
+    <h2>FX 4</h2>
+    <p>This is the content of the fourth column.</p>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
+  integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/step_6.js"></script>
+
+</html>

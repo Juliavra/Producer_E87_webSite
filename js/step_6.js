@@ -4,7 +4,7 @@
   }, 3000);
   /**/
 
-  console.clear();
+console.clear();
 
 //************************************************************************* */
 //************************************************************************* */
@@ -618,12 +618,15 @@ array_Canciones.push(cancion_100);
 //DOM ACQUISITIONS
 
 const volume_1 = document.getElementById("volume_1");
+const volume_1_value = document.getElementById("volume_1_value");
 const pan_1 = document.getElementById("pan_1");
+const pan_1_value = document.getElementById("pan_1_value");
 const muteButton = document.getElementById("muteButton");
 const soloButton = document.getElementById("soloButton");
 const stopButton = document.getElementById("stopButton");
 const buscaButton = document.getElementById("buscaButton");
 const playback_rate_1 = document.getElementById("playback_rate_1");
+const playback_rate_1_value = document.getElementById("playback_rate_1_value");
 const loop_1_checkbox = document.getElementById("loop_1_checkbox");
 const autoplay_1_checkbox = document.getElementById("autoplay_1_checkbox");
 const reverse_1_checkbox = document.getElementById("reverse_1_checkbox");
@@ -646,6 +649,11 @@ const player1_fxSend_3_value = document.getElementById("player1_fxSend_3_value")
 const player1_fxSend_4_value = document.getElementById("player1_fxSend_4_value");
 
 
+const volume_fx1 = document.getElementById("volume_fx1");
+const volume_fx1_value = document.getElementById("volume_fx1_value");
+const pan_fx1_fader = document.getElementById("pan_fx1_fader");
+const pan_fx1_value = document.getElementById("pan_fx1_value");
+
 //********************************************************** */
 //************************************************************ */
 //NODE CONSTRUCTION
@@ -662,14 +670,14 @@ filter_1.set({
   Q: 1,
   gain: 12,
   rolloff: -96,
-}); 
+});
 filter_1.debug = true;
 /*
 filter_1.frequency.rampTo(2000, 7);
 //filter_1.getFrequencyResponse
 */
 
-const player_1_fx_1_delay = new Tone.PingPongDelay("4n", 0.2).toDestination();  //CAMBIAR A VOL 
+const player_1_fx_1_delay = new Tone.PingPongDelay("4n", 0.2);
 const player_1_fx_2_reverb = new Tone.Reverb({
   decay: 4,
   wet: 0.4 // Nivel de mezcla del efecto
@@ -678,32 +686,33 @@ player_1_fx_2_reverb.generate();
 
 const player_1_fx_3_fbDelay = new Tone.FeedbackDelay({
   delayTime: 1.5,
-  feedback: 1,
+  feedback: 0.67,
   maxDelay: 10,
 }).toDestination();
 
 
 const player_1_fx_4_pitchShift = new Tone.PitchShift(-14).toDestination();
 
+const player1_fxSend_1_fader = new Tone.Volume(-100).connect(player_1_fx_1_delay);
+const player1_fxSend_2_fader = new Tone.Volume(-100).connect(player_1_fx_2_reverb);
+const player1_fxSend_3_fader = new Tone.Volume(-100).connect(player_1_fx_3_fbDelay);
+const player1_fxSend_4_fader = new Tone.Volume(-100).connect(player_1_fx_4_pitchShift);
 
-const player1_fxSend_1_fader = new Tone.Volume(-40).connect(player_1_fx_1_delay);
-const player1_fxSend_2_fader = new Tone.Volume(-40).connect(player_1_fx_2_reverb);
-const player1_fxSend_3_fader = new Tone.Volume(-40).connect(player_1_fx_3_fbDelay);
-const player1_fxSend_4_fader = new Tone.Volume(-40).connect(player_1_fx_4_pitchShift);
+const player1_fxReturn_1_fader = new Tone.Volume(-100)
+const player1_fxReturn_2_fader = new Tone.Volume(-100).toDestination();
+const player1_fxReturn_3_fader = new Tone.Volume(-100).toDestination();
+const player1_fxReturn_4_fader = new Tone.Volume(-100).toDestination();
 
+const fx1_pan = new Tone.Panner(0).toDestination();
+
+player_1_fx_1_delay.connect(player1_fxReturn_1_fader);
+player_1_fx_2_reverb.connect(player1_fxReturn_2_fader);
+player_1_fx_3_fbDelay.connect(player1_fxReturn_3_fader);
+player_1_fx_4_pitchShift.connect(player1_fxReturn_4_fader);
+
+player1_fxReturn_1_fader.connect(fx1_pan);    ///PAN VA ANTES DEL FADER CHEKAR CUANTO AFECTA A CADA FX 
 
 recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
-//PERTENECE A LA GRABADORA
-setTimeout(async () => {
-  // the recorded audio is returned as a blob
-  const recording = await recorder.stop();
-  // download the recording by creating an anchor element and blob url
-  const url = URL.createObjectURL(recording);
-  const anchor = document.createElement("a");
-  anchor.download = "recording.webm";
-  anchor.href = url;
-  anchor.click();
-}, 100000); //<-- TIEMPO QUE DURA LA GRABACION -1 SEGUNDO
 
 const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
 player1.debug = true;
@@ -717,8 +726,14 @@ player1.fan(filter_1, player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fx
 // ALL ADDEVENTLISTENERS
 //  */
 volume_1.addEventListener("change", function (e) {
-  player1_vol.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-  volume_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  if (e.currentTarget.value <= -40) {
+    player1_vol.volume.value = -100;
+    volume_1_value.innerHTML = -100;
+  }
+  else {
+    player1_vol.volume.value = e.currentTarget.value; console.log("volumen>NN: " + e.currentTarget.value);
+    volume_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
 });
 
 pan_1.addEventListener("change", function (e) {
@@ -777,45 +792,79 @@ filter_1_select.addEventListener("change", function (e) {
 });
 
 player1_fxSend_1.addEventListener("change", function (e) {
-  player1_fxSend_1_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-  player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  if (e.currentTarget.value <= -40) {
+    player1_fxSend_1_fader.volume.value = -100;
+    player1_fxSend_1_value.innerHTML = -100;
+  }
+  else {
+    player1_fxSend_1_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
 });
 
 player1_fxSend_2.addEventListener("change", function (e) {
-  player1_fxSend_2_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-  player1_fxSend_2_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  if (e.currentTarget.value <= -40) {
+    player1_fxSend_2_fader.volume.value = -100;
+    player1_fxSend_2_value.innerHTML = -100;
+  }
+  else {
+    player1_fxSend_2_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player1_fxSend_2_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
 });
 
+
 player1_fxSend_3.addEventListener("change", function (e) {
-  player1_fxSend_3_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-  player1_fxSend_3_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  if (e.currentTarget.value <= -40) {
+    player1_fxSend_3_fader.volume.value = -100;
+    player1_fxSend_3_value.innerHTML = -100;
+  }
+  else {
+    player1_fxSend_3_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player1_fxSend_3_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
 });
 
 player1_fxSend_4.addEventListener("change", function (e) {
-  player1_fxSend_4_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-  player1_fxSend_4_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  if (e.currentTarget.value <= -40) {
+    player1_fxSend_4_fader.volume.value = -100;
+    player1_fxSend_4_value.innerHTML = -100;
+  }
+  else {
+    player1_fxSend_4_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player1_fxSend_4_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
 });
 
-formulario.addEventListener("submit", (e) => {
-  e.preventDefault();
+
+volume_fx1.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player1_fxReturn_1_fader.volume.value = -100;
+    volume_fx1_value.innerHTML = -100;
+  }
+  else {
+    player1_fxReturn_1_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    volume_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
 });
 
-form_EQ.addEventListener("submit", (e) => {
-  e.preventDefault();
+
+pan_fx1_fader.addEventListener("change", function (e) {
+  //alert("");
+  fx1_pan.pan.value = e.currentTarget.value;
+  //console.log("fx1_pan.pan: " + fx1_pan.pan.value)
+  pan_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 //************************************************************************* */
 //************************************************************** */
 //INNERHTML
 
-volume_1_text.innerHTML = "VOLUME";
-volume_1_value.innerHTML = "0";
-pan_1_text.innerHTML = "PAN";
+volume_1_value.innerHTML = "-40";
 pan_1_value.innerHTML = "0";
-playback_rate_1_text.innerHTML = "PLAYBACK RATE"
-playback_rate_1_value.innerHTML = "0";
-loop_checkbox_text.innerHTML = "LOOP";
-autoplay_1_text.innerHTML = "AUTOPLAY";
+playback_rate_1_value.innerHTML = "100";
+loop_checkbox_text.innerHTML = "Loop";
+autoplay_1_text.innerHTML = "AutoPLAY";
 reverse_1_text.innerHTML = "Reverse";
 loop_start_1_text.innerHTML = "Loop Start: ";
 loop_start_1_time.innerHTML = `${player1.loopStart}`;
@@ -931,10 +980,23 @@ function recieves_Number_Returns_url(song) {
 //************************************************************************
 //GRABADORA
 function rec() {
+  setTimeout(async () => {
+    // the recorded audio is returned as a blob
+    const recording = await recorder.stop();
+    // download the recording by creating an anchor element and blob url
+    const url = URL.createObjectURL(recording);
+    const anchor = document.createElement("a");
+    anchor.download = "recording.webm";
+    anchor.href = url;
+    anchor.click();
+  }, 100000); //<-- TIEMPO QUE DURA LA GRABACION -1 SEGUNDO
+  console.log("Rec started");
   recorder.start();
   setInterval(() => {
     console.log(Tone.immediate());
   }, 3000);
+  console.log("Rec finished");
+
 }
 
 function recPause() {
