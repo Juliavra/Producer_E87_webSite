@@ -637,7 +637,6 @@ const frequency_1 = document.getElementById("frequency_1");
 const Q_1 = document.getElementById("Q_1");
 const detune_1 = document.getElementById("detune_1");
 const gain_1 = document.getElementById("gain_1");
-var isFilter_1_On = true;        // PARA APAGAR EQ Y CAMBIAR CONNECT DE PLAYER 1 
 const eq_On_Off_Button_1 = document.getElementById("eq_On_Off_Button_1");
 const player1_fxSend_1 = document.getElementById("player1_fxSend_1");
 const player1_fxSend_2 = document.getElementById("player1_fxSend_2");
@@ -648,16 +647,28 @@ const player1_fxSend_2_value = document.getElementById("player1_fxSend_2_value")
 const player1_fxSend_3_value = document.getElementById("player1_fxSend_3_value");
 const player1_fxSend_4_value = document.getElementById("player1_fxSend_4_value");
 
-
 const loop_start_1 = document.getElementById("loop_start_1");
 const loop_end_1 = document.getElementById("loop_end_1");
-
-
+const fadeIn_1 = document.getElementById("fadeIn_1");
+const fadeOut_1 = document.getElementById("fadeOut_1");
 
 const volume_fx1 = document.getElementById("volume_fx1");
 const volume_fx1_value = document.getElementById("volume_fx1_value");
 const pan_fx1_fader = document.getElementById("pan_fx1_fader");
 const pan_fx1_value = document.getElementById("pan_fx1_value");
+
+const frequency_fx1 = document.getElementById("frequency_fx1");
+const Q_fx1 = document.getElementById("Q_fx1");
+const detune_fx1 = document.getElementById("detune_fx1");
+const gain_fx1 = document.getElementById("gain_fx1");
+const eq_On_Off_Button_fx1 = document.getElementById("eq_On_Off_Button_fx1");
+
+
+var isFilter_1_On = true;         
+var isFilter_fx1_On = true;        
+
+var loop_1_min = 0;
+var loop_1_max = 0;
 
 //********************************************************** */
 //************************************************************ */
@@ -682,6 +693,16 @@ filter_1.frequency.rampTo(2000, 7);
 //filter_1.getFrequencyResponse
 */
 
+const filter_fx1 = new Tone.Filter().connect(player1_pan);
+filter_fx1.set({
+  frequency: 1000,
+  type: "lowpass",
+  Q: 1,
+  gain: 12,
+  rolloff: -96,
+});
+filter_fx1.debug = true;
+
 const player_1_fx_1_delay = new Tone.PingPongDelay("4n", 0.2);
 const player_1_fx_2_reverb = new Tone.Reverb({
   decay: 4,
@@ -703,10 +724,10 @@ const player1_fxSend_2_fader = new Tone.Volume(-100).connect(player_1_fx_2_rever
 const player1_fxSend_3_fader = new Tone.Volume(-100).connect(player_1_fx_3_fbDelay);
 const player1_fxSend_4_fader = new Tone.Volume(-100).connect(player_1_fx_4_pitchShift);
 
-const player1_fxReturn_1_fader = new Tone.Volume(-100)
-const player1_fxReturn_2_fader = new Tone.Volume(-100).toDestination();
-const player1_fxReturn_3_fader = new Tone.Volume(-100).toDestination();
-const player1_fxReturn_4_fader = new Tone.Volume(-100).toDestination();
+const player1_fxReturn_1_fader = new Tone.Volume(-100);
+const player1_fxReturn_2_fader = new Tone.Volume(-100);
+const player1_fxReturn_3_fader = new Tone.Volume(-100);
+const player1_fxReturn_4_fader = new Tone.Volume(-100);
 
 const fx1_pan = new Tone.Panner(0).toDestination();
 
@@ -722,9 +743,6 @@ recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
 const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
 player1.debug = true;
 player1.fan(filter_1, player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
-//player1.setLoopPoints(0, 1.345);
-//player1.fadeIn = 2;
-//player1.fadeOut = 3;
 
 //************************************************************************* */
 //*****************************************************************************************
@@ -849,7 +867,7 @@ else {
   alert("errororororor player1.loopStart");
 }  
 });
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaccccccccccccccccccccccaaaaaaaaaaaaaaaaaa
+
 loop_end_1.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234 && e.currentTarget.value> player1.loopStart) {
     player1.loopEnd = e.currentTarget.value;
@@ -860,9 +878,25 @@ else {
 }  
 });
 
+fadeIn_1.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
+    player1.fadeIn_1 = e.currentTarget.value;
+    console.log("player1.fadeIn_1 = " + e.currentTarget.value);
+  }
+else {
+  alert("errororororor player1.fadeIn_1");
+}  
+});
 
-
-
+fadeOut_1.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
+    player1.fadeOut_1 = e.currentTarget.value;
+    console.log("player1.fadeOut_1 = " + e.currentTarget.value);
+  }
+else {
+  alert("errororororor player1.fadeOut_1");
+}  
+});
 
 volume_fx1.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
@@ -875,7 +909,6 @@ volume_fx1.addEventListener("change", function (e) {
   }
 });
 
-
 pan_fx1_fader.addEventListener("change", function (e) {
   //alert("");
   fx1_pan.pan.value = e.currentTarget.value;
@@ -883,14 +916,30 @@ pan_fx1_fader.addEventListener("change", function (e) {
   pan_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
+//-------------------
+//EQ FX 1
 
+frequency_fx1.addEventListener("change", function (e) {
+  filter_1.frequency.value = e.currentTarget.value; console.log("filter_1.frequency: " + filter_1.frequency.value);
+  frequency_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
 
+Q_fx1.addEventListener("change", function (e) {
+  filter_1.Q.value = e.currentTarget.value; console.log("filter_1.q: " + e.currentTarget.value);
+  Q_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
 
+detune_fx1.addEventListener("change", function (e) {
+  filter_1.detune.value = e.currentTarget.value; console.log("filter_1.detune: " + e.currentTarget.value);
+  detune_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
 
+gain_fx1.addEventListener("change", function (e) {
+  filter_1.gain.value = e.currentTarget.value; console.log("filter_1.gain: " + e.currentTarget.value);
+  gain_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
 
-
-
-
+//-------------
 
 
 //************************************************************************* */
@@ -922,6 +971,13 @@ player1_fxSend_1_value.innerHTML = "0";
 player1_fxSend_2_value.innerHTML = "0";
 player1_fxSend_3_value.innerHTML = "0";
 player1_fxSend_4_value.innerHTML = "0";
+
+
+frequency_fx1_value.innerHTML = "20";
+Q_fx1_value.innerHTML = "0";
+detune_fx1_value.innerHTML = "0";
+gain_fx1_value.innerHTML = "0";
+
 
 //************************************************************************* */
 //************************************************************************* */
@@ -1044,15 +1100,6 @@ function recStop() {
   recorder.stop(); console.log("Detiene Grabacion");
 }
 
-function sarasa() {
-  console.log("SARASA");
-}
-
-function callbackLoaded(songNumber) {
-  //console.log("call back SONG LOADED J QUERY PLAY");
-  songName1.innerHTML = array_Canciones[songNumber - 1].title;
-}
-
 //************************************************************************* */
 //********************************************************************* */
 //EQ
@@ -1063,20 +1110,36 @@ function eqOnOff1() {
     filter_1.disconnect(player1_pan);
     player1.disconnect(filter_1);
     player1.connect(player1_pan);
-    in_outs(player1, "player1 if");             //
-    in_outs(filter_1, "filter_1 if");           //
-    console.log("playr1" + " output: " + player1.volume.output);
   }
   else {
     eq_On_Off_Button_1.innerText = "On";      //conecta el player al filter y este a destination
     player1.disconnect(player1_pan);
     player1.connect(filter_1);
     filter_1.connect(player1_pan);
-    in_outs(player1, "player1 else");
-    in_outs(filter_1, "filter_1 else");
   }
 }
 
+//-----------------------------------------
+//EQ FX 1
+
+function eqOnOff_fx1() {
+  isFilter_fx1_On = !isFilter_fx1_On; console.log("isFilter_fx1_On: " + isFilter_fx1_On);
+  if (eq_On_Off_Button_fx1.innerText === "On") {
+    eq_On_Off_Button_fx1.innerText = "Off";       //conecta el player a destination
+  //  filter_1.disconnect(player1_pan);
+ //   player1.disconnect(filter_1);
+  //  player1.connect(player1_pan);
+  }
+  else {
+    eq_On_Off_Button_fx1.innerText = "On";      //conecta el player al filter y este a destination
+//    player1.disconnect(player1_pan);
+//    player1.connect(filter_1);
+ //   filter_1.connect(player1_pan);
+  }
+}
+
+//************************************************************************* */
+//********************************************************************* */
 function in_outs(element, text) {
   console.log(text);
   console.log(text + " in: " + element.numberOfInputs);
@@ -1084,7 +1147,13 @@ function in_outs(element, text) {
   console.log(text + " output: " + element.output);
 }
 
+function sarasa() {
+  console.log("SARASA");
+}
 
+function callbackLoaded(songNumber) {
+  songName1.innerHTML = array_Canciones[songNumber - 1].title;
+}
 
 //************************************************************************
 //************************************************************************
