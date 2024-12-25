@@ -676,7 +676,7 @@ var loop_1_max = 0;
 
 const recorder = new Tone.Recorder();
 const masterVolume = new Tone.Volume(-3).toDestination();
-const player1_vol = new Tone.Volume(-40).connect(masterVolume);       //
+const player1_vol = new Tone.Volume(-40).connect(masterVolume);      
 const player1_pan = new Tone.Panner(0).connect(player1_vol);
 masterVolume.fan(recorder);
 const filter_1 = new Tone.Filter().connect(player1_pan);
@@ -693,7 +693,7 @@ filter_1.frequency.rampTo(2000, 7);
 //filter_1.getFrequencyResponse
 */
 
-const filter_fx1 = new Tone.Filter().connect(player1_pan);
+const filter_fx1 = new Tone.Filter();
 filter_fx1.set({
   frequency: 1000,
   type: "lowpass",
@@ -716,7 +716,6 @@ const player_1_fx_3_fbDelay = new Tone.FeedbackDelay({
   maxDelay: 10,
 }).toDestination();
 
-
 const player_1_fx_4_pitchShift = new Tone.PitchShift(-14).toDestination();
 
 const player1_fxSend_1_fader = new Tone.Volume(-100).connect(player_1_fx_1_delay);
@@ -724,12 +723,19 @@ const player1_fxSend_2_fader = new Tone.Volume(-100).connect(player_1_fx_2_rever
 const player1_fxSend_3_fader = new Tone.Volume(-100).connect(player_1_fx_3_fbDelay);
 const player1_fxSend_4_fader = new Tone.Volume(-100).connect(player_1_fx_4_pitchShift);
 
+const fx1_fxSend_1_fader = new Tone.Volume(-100).connect(player_1_fx_1_delay);
+const fx1_fxSend_2_fader = new Tone.Volume(-100).connect(player_1_fx_2_reverb);
+const fx1_fxSend_3_fader = new Tone.Volume(-100).connect(player_1_fx_3_fbDelay);
+const fx1_fxSend_4_fader = new Tone.Volume(-100).connect(player_1_fx_4_pitchShift);
+
 const player1_fxReturn_1_fader = new Tone.Volume(-100);
 const player1_fxReturn_2_fader = new Tone.Volume(-100);
 const player1_fxReturn_3_fader = new Tone.Volume(-100);
 const player1_fxReturn_4_fader = new Tone.Volume(-100);
 
-const fx1_pan = new Tone.Panner(0).toDestination();
+const fx1_pan = new Tone.Panner(0).connect(filter_fx1);
+filter_fx1.connect(fx1_fxSend_1_fader);  
+
 
 player_1_fx_1_delay.connect(player1_fxReturn_1_fader);
 player_1_fx_2_reverb.connect(player1_fxReturn_2_fader);
