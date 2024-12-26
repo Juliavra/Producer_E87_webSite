@@ -634,9 +634,13 @@ const songName1 = document.getElementById("song_title");
 const duration_1_value = document.getElementById("duration_1_value");
 const duration_1_text = document.getElementById("duration_1_text");
 const frequency_1 = document.getElementById("frequency_1");
+const frequency_1_value = document.getElementById("frequency_1_value");
 const Q_1 = document.getElementById("Q_1");
+const Q_1_value = document.getElementById("Q_1_value");
 const detune_1 = document.getElementById("detune_1");
+const detune_1_value = document.getElementById("detune_1_value");
 const gain_1 = document.getElementById("gain_1");
+const gain_1_value = document.getElementById("gain_1_value");
 const eq_On_Off_Button_1 = document.getElementById("eq_On_Off_Button_1");
 const player1_fxSend_1 = document.getElementById("player1_fxSend_1");
 const player1_fxSend_2 = document.getElementById("player1_fxSend_2");
@@ -663,11 +667,15 @@ const fx1_Q_value = document.getElementById("fx1_Q_value");
 const fx1_gain = document.getElementById("fx1_gain");
 const fx1_gain_value = document.getElementById("fx1_gain_value");
 const fx1_detune = document.getElementById("fx1_detune");
+const fx1_detune_value = document.getElementById("fx1_detune_value");
 const eq_On_Off_Button_fx1 = document.getElementById("eq_On_Off_Button_fx1");
+
+//********************************************************** */
+//************************************************************ */
+//VAR DECLARATION
 
 var isFilter_1_On = true;         
 var isFilter_fx1_On = true;        
-
 var loop_1_min = 0;
 var loop_1_max = 0;
 
@@ -695,7 +703,7 @@ filter_1.frequency.rampTo(2000, 7);
 */
 
 
-const filter_fx1 = new Tone.Filter().toDestination();
+const filter_fx1 = new Tone.Filter();
 filter_fx1.set({
   frequency: 1000,
   type: "lowpass",
@@ -709,16 +717,16 @@ const fx_1_delay = new Tone.PingPongDelay("4n", 0.2);
 const fx_2_reverb = new Tone.Reverb({
   decay: 4,
   wet: 0.4 // Nivel de mezcla del efecto
-}).toDestination(); // Conectar a la salida de audio
+}); // Conectar a la salida de audio
 fx_2_reverb.generate();
 
 const fx_3_fbDelay = new Tone.FeedbackDelay({
   delayTime: 1.5,
   feedback: 0.67,
   maxDelay: 10,
-}).toDestination();
+});
 
-const fx_4_pitchShift = new Tone.PitchShift(-14).toDestination();
+const fx_4_pitchShift = new Tone.PitchShift(-14);
 
 const player1_fxSend_1_fader = new Tone.Volume(-100).connect(fx_1_delay);
 const player1_fxSend_2_fader = new Tone.Volume(-100).connect(fx_2_reverb);
@@ -729,46 +737,35 @@ const fx1_fxSend_1_fader = new Tone.Volume(-100).connect(fx_1_delay);
 const fx1_fxSend_2_fader = new Tone.Volume(-100).connect(fx_2_reverb);
 const fx1_fxSend_3_fader = new Tone.Volume(-100).connect(fx_3_fbDelay);
 const fx1_fxSend_4_fader = new Tone.Volume(-100).connect(fx_4_pitchShift);
-/**/
-const fxReturn_1_fader = new Tone.Volume(-100);
-const player1_fxReturn_2_fader = new Tone.Volume(-100);
-const player1_fxReturn_3_fader = new Tone.Volume(-100);
-const player1_fxReturn_4_fader = new Tone.Volume(-100);
 
-filter_fx1.fan(fx1_fxSend_1_fader);  
+const fxReturn_1_fader = new Tone.Volume(-100);
+const fxReturn_2_fader = new Tone.Volume(-100);
+const fxReturn_3_fader = new Tone.Volume(-100);
+const fxReturn_4_fader = new Tone.Volume(-100);
+
+//filter_fx1.fan(fx1_fxSend_1_fader);  
 const fx1_pan = new Tone.Panner(0).connect(filter_fx1);
 
 
 fx_1_delay.connect(fxReturn_1_fader);
-fx_2_reverb.connect(player1_fxReturn_2_fader);
-fx_3_fbDelay.connect(player1_fxReturn_3_fader);
-fx_4_pitchShift.connect(player1_fxReturn_4_fader);
+fx_2_reverb.connect(fxReturn_2_fader);
+fx_3_fbDelay.connect(fxReturn_3_fader);
+fx_4_pitchShift.connect(fxReturn_4_fader);
 
-fxReturn_1_fader.connect(fx1_pan);    ///PAN VA ANTES DEL FADER CHEKAR CUANTO AFECTA A CADA FX 
+
+fxReturn_1_fader.toDestination();
+fxReturn_2_fader.toDestination();
+fxReturn_3_fader.toDestination();
+fxReturn_4_fader.toDestination();
+
+
+//fxReturn_1_fader.connect(fx1_pan);    ///PAN VA ANTES DEL FADER CHEKAR CUANTO AFECTA A CADA FX 
 
 recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
 
 const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
 player1.debug = true;
 player1.fan(filter_1, player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
-
-/*
-in_outs(player1, "player1");
-in_outs(filter_1, "filter_1");
-in_outs(player1_pan, "player1_pan");
-in_outs(player1_vol, "player1_vol");
-in_outs(masterVolume, "masterVolume");
-in_outs(recorder, "recorder");
-in_outs(fx_1_delay, "fx_1_delay");
-in_outs(fx_2_reverb, "fx_2_reverb");
-in_outs(fx_3_fbDelay, "fx_3_fbDelay");
-in_outs(fx_4_pitchShift, "fx_4_pitchShift");
-in_outs();
-in_outs();
-in_outs();
-in_outs();
-*/
-
 
 //************************************************************************* */
 //*****************************************************************************************
@@ -935,34 +932,34 @@ fx1_volume.addEventListener("change", function (e) {
   }
 });
 
-pan_fx1_fader.addEventListener("change", function (e) {
+fx1_pan_fader.addEventListener("change", function (e) {
   //alert("");
   fx1_pan.pan.value = e.currentTarget.value;
-  //console.log("fx1_pan.pan: " + fx1_pan.pan.value)
-  pan_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  console.log("fx1_pan.pan: " + fx1_pan.pan.value)
+  fx1_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 //-------------------
 //EQ FX 1
 
 fx1_frequency.addEventListener("change", function (e) {
-  filter_1.frequency.value = e.currentTarget.value; console.log("filter_1.frequency: " + filter_1.frequency.value);
+  filter_fx1.frequency.value = e.currentTarget.value; console.log("fx_1.frequency: " + filter_fx1.frequency.value);
   fx1_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 fx1_Q.addEventListener("change", function (e) {
-  filter_1.Q.value = e.currentTarget.value; console.log("filter_1.q: " + e.currentTarget.value);
+  filter_fx1.Q.value = e.currentTarget.value; console.log("fx_1.q: " + e.currentTarget.value);
   fx1_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-detune_fx1.addEventListener("change", function (e) {
-  filter_1.detune.value = e.currentTarget.value; console.log("filter_1.detune: " + e.currentTarget.value);
-  detune_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+fx1_detune.addEventListener("change", function (e) {
+  filter_fx1.detune.value = e.currentTarget.value; console.log("fx_1.detune: " + e.currentTarget.value);
+  fx1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-gain_fx1.addEventListener("change", function (e) {
-  filter_1.gain.value = e.currentTarget.value; console.log("filter_1.gain: " + e.currentTarget.value);
-  gain_fx1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+fx1_gain.addEventListener("change", function (e) {
+  filter_fx1.gain.value = e.currentTarget.value; console.log("fx_1.gain: " + e.currentTarget.value);
+  fx1_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 //-------------
@@ -997,12 +994,6 @@ player1_fxSend_1_value.innerHTML = "0";
 player1_fxSend_2_value.innerHTML = "0";
 player1_fxSend_3_value.innerHTML = "0";
 player1_fxSend_4_value.innerHTML = "0";
-
-
-fx1_frequency_value.innerHTML = "20";
-fx1_Q_value.innerHTML = "0";
-detune_fx1_value.innerHTML = "0";
-gain_fx1_value.innerHTML = "0";
 
 
 //************************************************************************* */
@@ -1147,21 +1138,9 @@ function eqOnOff1() {
 
 //-----------------------------------------
 //EQ FX 1
-/*
-function eqOnOff_fx1() {
-  isFilter_fx1_On = !isFilter_fx1_On; console.log("isFilter_fx1_On: " + isFilter_fx1_On);
-  if (eq_On_Off_Button_fx1.innerText === "On") {
-    eq_On_Off_Button_fx1.innerText = "Off";       //conecta el player a destination
-    filter_fx1.disconnect(fx1_fxSend_1_fader);
-  pan_fx1_fader.connect(fx1_fxSend_1_fader);
-  }
-  else {
-    eq_On_Off_Button_fx1.innerText = "On";      //conecta el player al filter y este a destination
-    filter_fx1.connect(fx1_fxSend_1_fader);
-    pan_fx1_fader.disconnect(fx1_fxSend_1_fader);
-  }
-}
-*/
+
+
+
 //************************************************************************* */
 //********************************************************************* */
 function in_outs(element, text) {
@@ -1181,85 +1160,3 @@ function callbackLoaded(songNumber) {
 
 //************************************************************************
 //************************************************************************
-
-/*
-type lowpass
-Description Standard second-order resonant lowpass filter with 12dB/octave rolloff. Frequencies below the cutoff pass through; frequencies above it are attenuated.
-frequency The cutoff frequency.
-Indicates how peaked the frequency is around the cutoff. The greater the value is, the greater is the peak.
-gain Not used
-
-type highpass
-Description Standard second-order resonant highpass filter with 12dB/octave rolloff. Frequencies below the cutoff are attenuated; frequencies above it pass through.
-frequency The cutoff frequency.
-Q Indicates how peaked the frequency is around the cutoff. The greater the value, the greater the peak.
-gain Not used
-
-type bandpass
-Description Standard second-order bandpass filter. Frequencies outside the given range of frequencies are attenuated; the frequencies inside it pass through.
-frequency The center of the range of frequencies.
-Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.
-gain  Not used
-
-type lowshelf
-Description Standard second-order lowshelf filter. Frequencies lower than the frequency get a boost, or an attenuation; frequencies over it are unchanged.
-frequency  The upper limit of the frequencies getting a boost or an attenuation.
-Q Not used
-gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
-
-type highshelf
-Description Standard second-order highshelf filter. Frequencies higher than the frequency get a boost or an attenuation; frequencies lower than it are unchanged.
-frequency  The lower limit of the frequencies getting a boost or an attenuation.
-Q Not used
-gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
-
-type peaking
-Description Frequencies inside the range get a boost or an attenuation; frequencies outside it are unchanged.
-frequency The middle of the frequency range getting a boost or an attenuation.
-Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.
-gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
-
-type notch
-Description Standard notch filter, also called a band-stop or band-rejection filter. It is the opposite of a bandpass filter: frequencies outside the give range of frequencies pass through; frequencies inside it are attenuated.
-frequency The center of the range of frequencies.
-Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.
-gain  Not used
-
-type allpass
-Description Standard second-order allpass filter. It lets all frequencies through, but changes the phase-relationship between the various frequencies.
-frequency The frequency with the maximal group delay, that is, the frequency where the center of the phase transition occurs.
-Q Controls how sharp the transition is at the medium frequency. The larger this parameter is, the sharper and larger the transition will be.
-gain  Not used
-
-/**/
-//console.log(recorder.get());
-
-// connect a node to the filter, volume and then to the master output
-//osc.chain(filter, volume, Destination);
-
-/*
-const osc = new Oscillator().toDestination();
-// sync the source so that it plays between 0 and 0.3 on the Transport's timeline
-osc.sync().start(0).stop(0.3);
-// start the transport.
-Transport.start();
-// set it to loop once a second
-Transport.loop = true;
-Transport.loopEnd = 1;
-/**/
-
-/*
-   * Get the playback state of the Recorder, either "started", "stopped" or "paused"
-   */
-/*
-get state(): PlaybackState {
-if (this._recorder.state === "inactive") {
-  return "stopped";
-} else if (this._recorder.state === "paused") {
-  return "paused";
-} else {
-  return "started";
-}
-}
-/**/
-
