@@ -688,6 +688,7 @@ const masterVolume = new Tone.Volume(-3).toDestination();
 const player1_vol = new Tone.Volume(-40).connect(masterVolume);      
 const player1_pan = new Tone.Panner(0).connect(player1_vol);
 masterVolume.fan(recorder);
+recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
 const filter_1 = new Tone.Filter().connect(player1_pan);
 filter_1.set({
   frequency: 1000,
@@ -701,18 +702,15 @@ filter_1.debug = true;
 filter_1.frequency.rampTo(2000, 7);
 //filter_1.getFrequencyResponse
 */
-
-
-const filter_fx1 = new Tone.Filter();
-filter_fx1.set({
+const fx1_filter = new Tone.Filter();
+fx1_filter.set({
   frequency: 1000,
   type: "lowpass",
   Q: 1,
   gain: 12,
   rolloff: -96,
 });
-filter_fx1.debug = true;
-
+fx1_filter.debug = true;
 const fx_1_delay = new Tone.PingPongDelay("4n", 0.2);
 const fx_2_reverb = new Tone.Reverb({
   decay: 4,
@@ -732,38 +730,32 @@ const player1_fxSend_1_fader = new Tone.Volume(-100).connect(fx_1_delay);
 const player1_fxSend_2_fader = new Tone.Volume(-100).connect(fx_2_reverb);
 const player1_fxSend_3_fader = new Tone.Volume(-100).connect(fx_3_fbDelay);
 const player1_fxSend_4_fader = new Tone.Volume(-100).connect(fx_4_pitchShift);
+//LOS EFECTOS TIENEN QUE ESTAR FANEADOS A LOS DEND Y AL MASTERFADER
 
-const fx1_fxSend_1_fader = new Tone.Volume(-100).connect(fx_1_delay);
+//const fx1_fxSend_1_fader = new Tone.Volume(-100).connect(fx_1_delay);
 const fx1_fxSend_2_fader = new Tone.Volume(-100).connect(fx_2_reverb);
 const fx1_fxSend_3_fader = new Tone.Volume(-100).connect(fx_3_fbDelay);
 const fx1_fxSend_4_fader = new Tone.Volume(-100).connect(fx_4_pitchShift);
 
-const fxReturn_1_fader = new Tone.Volume(-100);
-const fxReturn_2_fader = new Tone.Volume(-100);
-const fxReturn_3_fader = new Tone.Volume(-100);
-const fxReturn_4_fader = new Tone.Volume(-100);
+const fx1_pan = new Tone.Panner(0).connect(fx1_filter);
 
-//filter_fx1.fan(fx1_fxSend_1_fader);  
-const fx1_pan = new Tone.Panner(0).connect(filter_fx1);
 
+//********************************
+// CAMBIAR EL TO DESTINATION POR EL NODO DE PANEO DE CADA CANAL
+//  */
+
+const fxReturn_1_fader = new Tone.Volume(-100).connect(fx1_pan);
+const fxReturn_2_fader = new Tone.Volume(-10).toDestination();
+const fxReturn_3_fader = new Tone.Volume(-10).toDestination();
+const fxReturn_4_fader = new Tone.Volume(-10).toDestination();
+//********************************
 
 fx_1_delay.connect(fxReturn_1_fader);
 fx_2_reverb.connect(fxReturn_2_fader);
 fx_3_fbDelay.connect(fxReturn_3_fader);
 fx_4_pitchShift.connect(fxReturn_4_fader);
 
-
-fxReturn_1_fader.toDestination();
-fxReturn_2_fader.toDestination();
-fxReturn_3_fader.toDestination();
-fxReturn_4_fader.toDestination();
-
-
-//fxReturn_1_fader.connect(fx1_pan);    ///PAN VA ANTES DEL FADER CHEKAR CUANTO AFECTA A CADA FX 
-
-recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
-
-const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
+const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1); //VOLVER A PONER filter_1
 player1.debug = true;
 player1.fan(filter_1, player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
 
@@ -933,7 +925,6 @@ fx1_volume.addEventListener("change", function (e) {
 });
 
 fx1_pan_fader.addEventListener("change", function (e) {
-  //alert("");
   fx1_pan.pan.value = e.currentTarget.value;
   console.log("fx1_pan.pan: " + fx1_pan.pan.value)
   fx1_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
@@ -943,22 +934,22 @@ fx1_pan_fader.addEventListener("change", function (e) {
 //EQ FX 1
 
 fx1_frequency.addEventListener("change", function (e) {
-  filter_fx1.frequency.value = e.currentTarget.value; console.log("fx_1.frequency: " + filter_fx1.frequency.value);
+  fx1_filter.frequency.value = e.currentTarget.value; console.log("fx_1.frequency: " + fx1_filter.frequency.value);
   fx1_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 fx1_Q.addEventListener("change", function (e) {
-  filter_fx1.Q.value = e.currentTarget.value; console.log("fx_1.q: " + e.currentTarget.value);
+  fx1_filter.Q.value = e.currentTarget.value; console.log("fx_1.q: " + e.currentTarget.value);
   fx1_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 fx1_detune.addEventListener("change", function (e) {
-  filter_fx1.detune.value = e.currentTarget.value; console.log("fx_1.detune: " + e.currentTarget.value);
+  fx1_filter.detune.value = e.currentTarget.value; console.log("fx_1.detune: " + e.currentTarget.value);
   fx1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 fx1_gain.addEventListener("change", function (e) {
-  filter_fx1.gain.value = e.currentTarget.value; console.log("fx_1.gain: " + e.currentTarget.value);
+  fx1_filter.gain.value = e.currentTarget.value; console.log("fx_1.gain: " + e.currentTarget.value);
   fx1_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -1134,10 +1125,25 @@ function eqOnOff1() {
     player1.connect(filter_1);
     filter_1.connect(player1_pan);
   }
-}
+} 
 
 //-----------------------------------------
 //EQ FX 1
+function fx1_eqOnOff() {
+  isFilter_fx1_On = !isFilter_fx1_On; console.log("isFilter_fx1_On: " + isFilter_fx1_On);
+  if (fx1_Eq_On_Off_Button.innerText === "On") {
+    fx1_Eq_On_Off_Button.innerText = "Off";       //conecta el player a destination
+  //  filter_1.disconnect(player1_pan);
+  //  player1.disconnect(filter_1);
+  //  player1.connect(player1_pan);
+  }
+  else {
+    fx1_Eq_On_Off_Button.innerText = "On";      //conecta el player al filter y este a destination
+    //player1.disconnect(player1_pan);
+    //player1.connect(filter_1);
+    //filter_1.connect(player1_pan);
+  }
+}
 
 
 

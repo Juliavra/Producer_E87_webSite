@@ -54,6 +54,7 @@
 <body>
   <header>
     <h1>Step 6 Player + Vol + Pan + Recorder + EQ + FX</h1>
+    <h1>Jugamos como nunca, perdimos como siempre</h1>
     <button id="recButton" onclick="rec()">Rec </button>
     <button id="pauseButton" onclick="recPause()">Pause </button>
     <button id="recStopButton" onclick="recStop()">Stop </button>
@@ -314,10 +315,10 @@
       <p id="fx1_pan_value"></p>
     </div>
 
-    <label for="filter_fx1_label">
+    <label for="fx1_filter_label">
       <h1>EQ</h1>
-    </label> <button id="eq_On_Off_Button_fx1" onclick="eqOnOff_fx1()">On </button>
-    <select name="filter_fx1" id="filter_fx1_select">
+    </label> <button id="fx1_Eq_On_Off_Button" onclick="fx1_eqOnOff()">On </button>
+    <select name="fx1_filter" id="fx1_filter_select">
       <option name="lowpass" id="lowpass" value="lowpass">Lowpass</option>
       <option name="highpass" id="highpass" value="highpass">highpass</option>
       <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
@@ -347,15 +348,39 @@
   </div>
   <div class="column">
     <h2>FX 2</h2>
-    <p>This is the content of the fourth column.</p>
+    <div>
+      <p id="fx2_volume_text"> </p>
+        Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx2_volume'>
+      <p id="fx2_volume_value"></p>
+      <br>
+      <p id="pan_fx2_text">Pan</p>
+      <input type='range' min=-1 max=1 step='0.02' value=0 id='fx2_pan_fader'>
+      <p id="fx2_pan_value"></p>
+    </div>
   </div>
   <div class="column">
     <h2>FX 3</h2>
-    <p>This is the content of the fourth column.</p>
+    <div>
+      <p id="fx3_volume_text"> </p>
+        Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx3_volume'>
+      <p id="fx3_volume_value"></p>
+      <br>
+      <p id="pan_fx3_text">Pan</p>
+      <input type='range' min=-1 max=1 step='0.02' value=0 id='fx3_pan_fader'>
+      <p id="fx3_pan_value"></p>
+    </div>
   </div>
   <div class="column">
     <h2>FX 4</h2>
-    <p>This is the content of the fourth column.</p>
+    <div>
+      <p id="fx4_volume_text"> </p>
+        Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx4_volume'>
+      <p id="fx4_volume_value"></p>
+      <br>
+      <p id="pan_fx4_text">Pan</p>
+      <input type='range' min=-1 max=1 step='0.02' value=0 id='fx4_pan_fader'>
+      <p id="fx4_pan_value"></p>
+    </div>
   </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
