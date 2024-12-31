@@ -1,4 +1,7 @@
-﻿/*
+﻿//player.chain(filter, distortion, Tone.Destination);
+
+
+/*
   setInterval(() => {
     console.log(Tone.immediate());
   }, 3000);
@@ -635,12 +638,16 @@ const duration_1_value = document.getElementById("duration_1_value");
 const duration_1_text = document.getElementById("duration_1_text");
 const frequency_1 = document.getElementById("frequency_1");
 const frequency_1_value = document.getElementById("frequency_1_value");
+const frequency_1_text = document.getElementById("frequency_1_text");
 const Q_1 = document.getElementById("Q_1");
 const Q_1_value = document.getElementById("Q_1_value");
+const Q_1_text = document.getElementById("Q_1_text");
 const detune_1 = document.getElementById("detune_1");
 const detune_1_value = document.getElementById("detune_1_value");
+const detune_1_text = document.getElementById("detune_1_text");
 const gain_1 = document.getElementById("gain_1");
 const gain_1_value = document.getElementById("gain_1_value");
+const gain_1_text = document.getElementById("gain_1_text");
 const eq_On_Off_Button_1 = document.getElementById("eq_On_Off_Button_1");
 const player1_fxSend_1 = document.getElementById("player1_fxSend_1");
 const player1_fxSend_2 = document.getElementById("player1_fxSend_2");
@@ -657,25 +664,28 @@ const fadeIn_1 = document.getElementById("fadeIn_1");
 const fadeOut_1 = document.getElementById("fadeOut_1");
 
 const fx1_volume = document.getElementById("fx1_volume");
+const fx2_volume = document.getElementById("fx2_volume");
+const fx3_volume = document.getElementById("fx3_volume");
+const fx4_volume = document.getElementById("fx4_volume");
 const fx1_volume_value = document.getElementById("fx1_volume_value");
+const fx2_volume_value = document.getElementById("fx2_volume_value");
+const fx3_volume_value = document.getElementById("fx3_volume_value");
+const fx4_volume_value = document.getElementById("fx4_volume_value");
 const fx1_pan_fader = document.getElementById("fx1_pan_fader");
+const fx2_pan_fader = document.getElementById("fx2_pan_fader");
+const fx3_pan_fader = document.getElementById("fx3_pan_fader");
+const fx4_pan_fader = document.getElementById("fx4_pan_fader");
 const fx1_pan_value = document.getElementById("fx1_pan_value");
-const fx1_frequency = document.getElementById("fx1_frequency");
-const fx1_frequency_value = document.getElementById("fx1_frequency_value");
-const fx1_Q = document.getElementById("fx1_Q");
-const fx1_Q_value = document.getElementById("fx1_Q_value");
-const fx1_gain = document.getElementById("fx1_gain");
-const fx1_gain_value = document.getElementById("fx1_gain_value");
-const fx1_detune = document.getElementById("fx1_detune");
-const fx1_detune_value = document.getElementById("fx1_detune_value");
-const eq_On_Off_Button_fx1 = document.getElementById("eq_On_Off_Button_fx1");
+const fx2_pan_value = document.getElementById("fx2_pan_value");
+const fx3_pan_value = document.getElementById("fx3_pan_value");
+const fx4_pan_value = document.getElementById("fx4_pan_value");
 
 //********************************************************** */
 //************************************************************ */
 //VAR DECLARATION
 
-var isFilter_1_On = true;         
-var isFilter_fx1_On = true;        
+var isFilter_1_On = true;
+var isFilter_fx1_On = true;
 var loop_1_min = 0;
 var loop_1_max = 0;
 
@@ -685,11 +695,12 @@ var loop_1_max = 0;
 
 const recorder = new Tone.Recorder();
 const masterVolume = new Tone.Volume(-3).toDestination();
-const player1_vol = new Tone.Volume(-40).connect(masterVolume);      
+const player1_vol = new Tone.Volume(-40).connect(masterVolume);
 const player1_pan = new Tone.Panner(0).connect(player1_vol);
 masterVolume.fan(recorder);
 recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
 const filter_1 = new Tone.Filter().connect(player1_pan);
+/*
 filter_1.set({
   frequency: 1000,
   type: "lowpass",
@@ -697,65 +708,54 @@ filter_1.set({
   gain: 12,
   rolloff: -96,
 });
+*/
 filter_1.debug = true;
 /*
 filter_1.frequency.rampTo(2000, 7);
 //filter_1.getFrequencyResponse
 */
-const fx1_filter = new Tone.Filter();
-fx1_filter.set({
-  frequency: 1000,
-  type: "lowpass",
-  Q: 1,
-  gain: 12,
-  rolloff: -96,
-});
-fx1_filter.debug = true;
+
 const fx_1_delay = new Tone.PingPongDelay("4n", 0.2);
 const fx_2_reverb = new Tone.Reverb({
   decay: 4,
   wet: 0.4 // Nivel de mezcla del efecto
 }); // Conectar a la salida de audio
 fx_2_reverb.generate();
-
 const fx_3_fbDelay = new Tone.FeedbackDelay({
   delayTime: 1.5,
   feedback: 0.67,
   maxDelay: 10,
 });
-
 const fx_4_pitchShift = new Tone.PitchShift(-14);
 
 const player1_fxSend_1_fader = new Tone.Volume(-100).connect(fx_1_delay);
 const player1_fxSend_2_fader = new Tone.Volume(-100).connect(fx_2_reverb);
 const player1_fxSend_3_fader = new Tone.Volume(-100).connect(fx_3_fbDelay);
 const player1_fxSend_4_fader = new Tone.Volume(-100).connect(fx_4_pitchShift);
-//LOS EFECTOS TIENEN QUE ESTAR FANEADOS A LOS DEND Y AL MASTERFADER
 
 //const fx1_fxSend_1_fader = new Tone.Volume(-100).connect(fx_1_delay);
 const fx1_fxSend_2_fader = new Tone.Volume(-100).connect(fx_2_reverb);
 const fx1_fxSend_3_fader = new Tone.Volume(-100).connect(fx_3_fbDelay);
 const fx1_fxSend_4_fader = new Tone.Volume(-100).connect(fx_4_pitchShift);
 
-const fx1_pan = new Tone.Panner(0).connect(fx1_filter);
-
+const fx1_pan = new Tone.Panner(0).toDestination();
+const fx2_pan = new Tone.Panner(0).toDestination();
+const fx3_pan = new Tone.Panner(0).toDestination();
+const fx4_pan = new Tone.Panner(0).toDestination();
 
 //********************************
-// CAMBIAR EL TO DESTINATION POR EL NODO DE PANEO DE CADA CANAL
-//  */
-
 const fxReturn_1_fader = new Tone.Volume(-100).connect(fx1_pan);
-const fxReturn_2_fader = new Tone.Volume(-10).toDestination();
-const fxReturn_3_fader = new Tone.Volume(-10).toDestination();
-const fxReturn_4_fader = new Tone.Volume(-10).toDestination();
+const fxReturn_2_fader = new Tone.Volume(-10).connect(fx2_pan);
+const fxReturn_3_fader = new Tone.Volume(-10).connect(fx3_pan);
+const fxReturn_4_fader = new Tone.Volume(-10).connect(fx4_pan);
 //********************************
-
+//LOS EFECTOS TIENEN QUE ESTAR FANEADOS A LOS SEND Y AL MASTERFADER
 fx_1_delay.connect(fxReturn_1_fader);
 fx_2_reverb.connect(fxReturn_2_fader);
 fx_3_fbDelay.connect(fxReturn_3_fader);
 fx_4_pitchShift.connect(fxReturn_4_fader);
 
-const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1); //VOLVER A PONER filter_1
+const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
 player1.debug = true;
 player1.fan(filter_1, player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
 
@@ -823,10 +823,64 @@ gain_1.addEventListener("change", function (e) {
 
 filter_1_select.addEventListener("change", function (e) {
   filter_1.type = e.currentTarget.value; console.log("filter_1.value: " + e.currentTarget.value);
-  filter_1.frequency = 20;
+  hides_All_EQ1_Faders();
+  switch (e.currentTarget.value) {
+    case "lowpass":
+    case "highpass":
+    case "bandpass":
+    case "notch":
+    case "allpass":
+      {
+        frequency_1.style.opacity = "1";
+        frequency_1_value.style.opacity = "1";
+        frequency_1_text.style.opacity = "1";
+        Q_1.style.opacity = "1";
+        Q_1_value.style.opacity = "1";
+        Q_1_text.style.opacity = "1";
+        detune_1.style.opacity = "1";
+        detune_1_value.style.opacity = "1";
+        detune_1_text.style.opacity = "1";
+        break;
+      }
+    case "lowshelf":
+    case "highshelf":
+      {
+        frequency_1.style.opacity = "1";
+        frequency_1_value.style.opacity = "1";
+        frequency_1_text.style.opacity = "1";
+        gain_1.style.opacity = "1";
+        gain_1_value.style.opacity = "1";
+        gain_1_text.style.opacity = "1";
+        detune_1.style.opacity = "1";
+        detune_1_value.style.opacity = "1";
+        detune_1_text.style.opacity = "1";
+        break;
+      }
+    case "peaking":
+      {
+        frequency_1.style.opacity = "1";
+        frequency_1_value.style.opacity = "1";
+        frequency_1_text.style.opacity = "1";
+        Q_1.style.opacity = "1";
+        Q_1_value.style.opacity = "1";
+        Q_1_text.style.opacity = "1";
+        gain_1.style.opacity = "1";
+        gain_1_value.style.opacity = "1";
+        gain_1_text.style.opacity = "1";
+        detune_1.style.opacity = "1";
+        detune_1_value.style.opacity = "1";
+        detune_1_text.style.opacity = "1";
+        break;
+      }
+    default:
+      { console.log(" EQ1 DEFAULT"); }
+  }
+
+  /*filter_1.frequency = 2000;
   filter_1.Q = 0;   //ES PREFERIBLE ESTE RESETEO QUE USAR LOS VALORES DE LAS PERILLAS AL MOMENTO DE HACER SELECT???
   filter_1.gain = 0;
   filter_1.rolloff = -12;
+  /**/
 });
 
 player1_fxSend_1.addEventListener("change", function (e) {
@@ -878,19 +932,19 @@ loop_start_1.addEventListener("change", function (e) {
     player1.loopStart = e.currentTarget.value;
     console.log("player1.loopStart = " + e.currentTarget.value);
   }
-else {
-  alert("errororororor player1.loopStart");
-}  
+  else {
+    alert("errororororor player1.loopStart");
+  }
 });
 
 loop_end_1.addEventListener("change", function (e) {
-  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234 && e.currentTarget.value> player1.loopStart) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234 && e.currentTarget.value > player1.loopStart) {
     player1.loopEnd = e.currentTarget.value;
     console.log("player1.loopend = " + e.currentTarget.value);
   }
-else {
-  alert("errororororor player1.loopEnd");
-}  
+  else {
+    alert("errororororor player1.loopEnd");
+  }
 });
 
 fadeIn_1.addEventListener("change", function (e) {
@@ -898,9 +952,9 @@ fadeIn_1.addEventListener("change", function (e) {
     player1.fadeIn_1 = e.currentTarget.value;
     console.log("player1.fadeIn_1 = " + e.currentTarget.value);
   }
-else {
-  alert("errororororor player1.fadeIn_1");
-}  
+  else {
+    alert("errororororor player1.fadeIn_1");
+  }
 });
 
 fadeOut_1.addEventListener("change", function (e) {
@@ -908,9 +962,9 @@ fadeOut_1.addEventListener("change", function (e) {
     player1.fadeOut_1 = e.currentTarget.value;
     console.log("player1.fadeOut_1 = " + e.currentTarget.value);
   }
-else {
-  alert("errororororor player1.fadeOut_1");
-}  
+  else {
+    alert("errororororor player1.fadeOut_1");
+  }
 });
 
 fx1_volume.addEventListener("change", function (e) {
@@ -930,31 +984,58 @@ fx1_pan_fader.addEventListener("change", function (e) {
   fx1_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-//-------------------
-//EQ FX 1
-
-fx1_frequency.addEventListener("change", function (e) {
-  fx1_filter.frequency.value = e.currentTarget.value; console.log("fx_1.frequency: " + fx1_filter.frequency.value);
-  fx1_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+//------------------------------------------
+fx2_volume.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    fxReturn_2_fader.volume.value = -100;
+    fx2_volume_value.innerHTML = -100;
+  }
+  else {
+    fxReturn_2_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    fx2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
 });
 
-fx1_Q.addEventListener("change", function (e) {
-  fx1_filter.Q.value = e.currentTarget.value; console.log("fx_1.q: " + e.currentTarget.value);
-  fx1_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+fx2_pan_fader.addEventListener("change", function (e) {
+  fx2_pan.pan.value = e.currentTarget.value; console.log("fx2_pan.pan: " + fx2_pan.pan.value)
+  fx2_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-fx1_detune.addEventListener("change", function (e) {
-  fx1_filter.detune.value = e.currentTarget.value; console.log("fx_1.detune: " + e.currentTarget.value);
-  fx1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+//------------------------------------------
+fx3_volume.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    fxReturn_3_fader.volume.value = -100;
+    fx3_volume_value.innerHTML = -100;
+  }
+  else {
+    fxReturn_3_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    fx3_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
 });
 
-fx1_gain.addEventListener("change", function (e) {
-  fx1_filter.gain.value = e.currentTarget.value; console.log("fx_1.gain: " + e.currentTarget.value);
-  fx1_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+fx3_pan_fader.addEventListener("change", function (e) {
+  fx3_pan.pan.value = e.currentTarget.value;
+  console.log("fx3_pan.pan: " + fx3_pan.pan.value)
+  fx3_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-//-------------
+//------------------------------------------
+fx4_volume.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    fxReturn_4_fader.volume.value = -100;
+    fx4_volume_value.innerHTML = -100;
+  }
+  else {
+    fxReturn_4_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    fx4_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
 
+fx4_pan_fader.addEventListener("change", function (e) {
+  fx4_pan.pan.value = e.currentTarget.value;
+  console.log("fx4_pan.pan: " + fx4_pan.pan.value)
+  fx4_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
 
 //************************************************************************* */
 //************************************************************** */
@@ -964,7 +1045,7 @@ volume_1_value.innerHTML = "-40";
 pan_1_value.innerHTML = "0";
 playback_rate_1_value.innerHTML = "100";
 loop_checkbox_text.innerHTML = "Loop";
-autoplay_1_text.innerHTML = "AutoPLAY";
+autoplay_1_text.innerHTML = "AutoPlay";
 reverse_1_text.innerHTML = "Reverse";
 loop_start_1_text.innerHTML = "Loop Start: ";
 //loop_start_1_time.innerHTML = `${player1.loopStart}`;
@@ -976,7 +1057,7 @@ fadeOut_1_text.innerHTML = `fadeOut`;
 fadeOut_1_value.innerHTML = `${player1.fadeOut}`;
 songName1.innerHTML = `No Song Loaded`;
 duration_1_text.innerHTML = "Duration";
-duration_1_value.innerHTML = "Unknown";
+duration_1_value.innerHTML = "Unk";
 frequency_1_value.innerHTML = "20";
 Q_1_value.innerHTML = "0";
 detune_1_value.innerHTML = "0";
@@ -1077,6 +1158,24 @@ function recieves_Number_Returns_url(song) {
   return `${array_Canciones[song].url_src}`;
 }//CLOSES recieves_Number_Returns_url
 
+
+function hides_All_EQ1_Faders() {
+
+  frequency_1.style.opacity = "0";
+  frequency_1_value.style.opacity = "0";
+  frequency_1_text.style.opacity = "0";
+  Q_1.style.opacity = "0";
+  Q_1_value.style.opacity = "0";
+  Q_1_text.style.opacity = "0";
+  gain_1.style.opacity = "0";
+  gain_1_value.style.opacity = "0";
+  gain_1_text.style.opacity = "0";
+  detune_1.style.opacity = "0";
+  detune_1_value.style.opacity = "0";
+  detune_1_text.style.opacity = "0";
+}//CLOSES hides_All_EQ1_Faders
+
+
 //************************************************************************* */
 //************************************************************************
 //GRABADORA
@@ -1125,27 +1224,7 @@ function eqOnOff1() {
     player1.connect(filter_1);
     filter_1.connect(player1_pan);
   }
-} 
-
-//-----------------------------------------
-//EQ FX 1
-function fx1_eqOnOff() {
-  isFilter_fx1_On = !isFilter_fx1_On; console.log("isFilter_fx1_On: " + isFilter_fx1_On);
-  if (fx1_Eq_On_Off_Button.innerText === "On") {
-    fx1_Eq_On_Off_Button.innerText = "Off";       //conecta el player a destination
-  //  filter_1.disconnect(player1_pan);
-  //  player1.disconnect(filter_1);
-  //  player1.connect(player1_pan);
-  }
-  else {
-    fx1_Eq_On_Off_Button.innerText = "On";      //conecta el player al filter y este a destination
-    //player1.disconnect(player1_pan);
-    //player1.connect(filter_1);
-    //filter_1.connect(player1_pan);
-  }
 }
-
-
 
 //************************************************************************* */
 //********************************************************************* */
@@ -1166,3 +1245,35 @@ function callbackLoaded(songNumber) {
 
 //************************************************************************
 //************************************************************************
+/*
+const filterClone = new BiquadFilter({
+  frequency: this.frequency.value,
+  gain: this.gain.value,
+  Q: this.Q.value,
+  type: this._type,
+  detune: this.detune.value,
+});
+*/
+
+//USAR ALPHA PARA MOSTRAR FADERS COPRRESPONDIENTES A PARAMETROS DEL FILTRO ELEGIDO
+
+/*
+type lowshelf
+Description Standard second-order lowshelf filter. Frequencies lower than the frequency get a boost, or an attenuation; frequencies over it are unchanged.	
+frequency  The upper limit of the frequencies getting a boost or an attenuation.	
+Q Not used	
+gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
+
+type highshelf
+Description Standard second-order highshelf filter. Frequencies higher than the frequency get a boost or an attenuation; frequencies lower than it are unchanged.	
+frequency  The lower limit of the frequencies getting a boost or an attenuation.	
+Q Not used
+gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
+
+type peaking
+Description Frequencies inside the range get a boost or an attenuation; frequencies outside it are unchanged.	
+frequency The middle of the frequency range getting a boost or an attenuation.	
+Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.	
+gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
+
+*/

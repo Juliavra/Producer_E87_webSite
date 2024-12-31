@@ -209,19 +209,19 @@
     <p id="reverse_1_text">Reverse</p>
     <br>
     <p id="loop_start_1_text">loop start</p>
-    <input id="loop_start_1" type="number" min= "0" max="1234" />
+    <input id="loop_start_1" type="number" min= "0" />
     <p id="loop_start_1_time"></p>
     <br>
     <p id="loop_end_1_text">loop end</p>
-    <input id="loop_end_1" type="number" min= "0" max="1234" />
+    <input id="loop_end_1" type="number" min= "0"  />
     <p id="loop_end_1_time"></p>
     <br>
     <p id="fadeIn_1_text">fadeIn</p>
-    <input id="fadeIn_1" type="number" min= "0" max="1234" />
+    <input id="fadeIn_1" type="number" min= "0"  />
     <p id="fadeIn_1_value"></p>
     <br>
     <p id="fadeOut_1_text">fadeOut</p>
-    <input id="fadeOut_1" type="number" min= "0" max="1234" />
+    <input id="fadeOut_1" type="number" min= "0"  />
     <p id="fadeOut_1_value"></p>
 
     <label for="filter_1_label">
@@ -251,7 +251,7 @@
     <p id="gain_1_value"></p>
     <br>
     <p id="detune_1_text">Detune </p>
-    <input type='range' min=0 max=100 step='1' value="0" id='detune_1'>
+    <input type='range' min=0 max=10000 step='10' value="0" id='detune_1'>
     <p id="detune_1_value"></p>
 
     <h1>FX</h1>
@@ -305,16 +305,17 @@
   </div>
   <div class="column">
     <h2>FX 1</h2>
+
     <div>
       <p id="fx1_volume_text"> </p>
         Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx1_volume'>
       <p id="fx1_volume_value"></p>
       <br>
       <p id="pan_fx1_text">Pan</p>
-      <input type='range' min=-1 max=1 step='0.02' value=0 id='fx1_pan_fader'>
+      <input type='range' min=-1 max=1 step='0.01' value=0 id='fx1_pan_fader'>
       <p id="fx1_pan_value"></p>
     </div>
-
+<!--
     <label for="fx1_filter_label">
       <h1>EQ</h1>
     </label> <button id="fx1_Eq_On_Off_Button" onclick="fx1_eqOnOff()">On </button>
@@ -344,7 +345,7 @@
     <p id="fx1_detune_text">Detune </p>
     <input type='range' min=0 max=100 step='1' value="0" id='fx1_detune'>
     <p id="fx1_detune_value"></p>
-
+-->
   </div>
   <div class="column">
     <h2>FX 2</h2>
