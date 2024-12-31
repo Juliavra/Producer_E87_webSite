@@ -1052,9 +1052,9 @@ loop_start_1_text.innerHTML = "Loop Start: ";
 loop_end_1_text.innerHTML = "Loop End: ";
 //loop_end_1_time.innerHTML = `${player1.loopEnd}`;
 fadeIn_1_text.innerHTML = `fadeIn: `;
-fadeIn_1_value.innerHTML = `${player1.fadeIn}`;
+//fadeIn_1_value.innerHTML = `${player1.fadeIn}`;
 fadeOut_1_text.innerHTML = `fadeOut`;
-fadeOut_1_value.innerHTML = `${player1.fadeOut}`;
+//fadeOut_1_value.innerHTML = `${player1.fadeOut}`;
 songName1.innerHTML = `No Song Loaded`;
 duration_1_text.innerHTML = "Duration";
 duration_1_value.innerHTML = "Unk";
@@ -1160,7 +1160,6 @@ function recieves_Number_Returns_url(song) {
 
 
 function hides_All_EQ1_Faders() {
-
   frequency_1.style.opacity = "0";
   frequency_1_value.style.opacity = "0";
   frequency_1_text.style.opacity = "0";
@@ -1245,35 +1244,3 @@ function callbackLoaded(songNumber) {
 
 //************************************************************************
 //************************************************************************
-/*
-const filterClone = new BiquadFilter({
-  frequency: this.frequency.value,
-  gain: this.gain.value,
-  Q: this.Q.value,
-  type: this._type,
-  detune: this.detune.value,
-});
-*/
-
-//USAR ALPHA PARA MOSTRAR FADERS COPRRESPONDIENTES A PARAMETROS DEL FILTRO ELEGIDO
-
-/*
-type lowshelf
-Description Standard second-order lowshelf filter. Frequencies lower than the frequency get a boost, or an attenuation; frequencies over it are unchanged.	
-frequency  The upper limit of the frequencies getting a boost or an attenuation.	
-Q Not used	
-gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
-
-type highshelf
-Description Standard second-order highshelf filter. Frequencies higher than the frequency get a boost or an attenuation; frequencies lower than it are unchanged.	
-frequency  The lower limit of the frequencies getting a boost or an attenuation.	
-Q Not used
-gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
-
-type peaking
-Description Frequencies inside the range get a boost or an attenuation; frequencies outside it are unchanged.	
-frequency The middle of the frequency range getting a boost or an attenuation.	
-Q Controls the width of the frequency band. The greater the Q value, the smaller the frequency band.	
-gain  The boost, in dB, to be applied; if negative, it will be an attenuation.
-
-*/
