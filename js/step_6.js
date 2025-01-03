@@ -657,7 +657,6 @@ const player1_fxSend_1_value = document.getElementById("player1_fxSend_1_value")
 const player1_fxSend_2_value = document.getElementById("player1_fxSend_2_value");
 const player1_fxSend_3_value = document.getElementById("player1_fxSend_3_value");
 const player1_fxSend_4_value = document.getElementById("player1_fxSend_4_value");
-
 const loop_start_1 = document.getElementById("loop_start_1");
 const loop_end_1 = document.getElementById("loop_end_1");
 const fadeIn_1 = document.getElementById("fadeIn_1");
@@ -686,8 +685,15 @@ const fx4_pan_value = document.getElementById("fx4_pan_value");
 
 var isFilter_1_On = true;
 var isFilter_fx1_On = true;
+var isFilter_fx1_On = true;
+var isfxSend_1_On = true;
+var isfxSend_2_On = true;
+var isfxSend_3_On = true;
+var isfxSend_4_On = true;
 var loop_1_min = 0;
 var loop_1_max = 0;
+var player1_fxSend_1_state = "PostEQ";
+
 
 //********************************************************** */
 //************************************************************ */
@@ -757,8 +763,11 @@ fx_4_pitchShift.connect(fxReturn_4_fader);
 
 const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
 player1.debug = true;
-player1.fan(filter_1, player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
-
+filter_1.fan(player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
+player1.connect(filter_1);
+//ON PRE EQ SEND FX 
+//TIENE QUE SER INDIVIDUAL LA CONNECT, PARA QUE SEA INDIVIDUAL LA DISCONNECT
+//player1.fan( player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
 //************************************************************************* */
 //*****************************************************************************************
 // ALL ADDEVENTLISTENERS
@@ -1224,9 +1233,150 @@ function eqOnOff1() {
     filter_1.connect(player1_pan);
   }
 }
+//************************************************************************* */
+//********************************************************************* */
 
 //************************************************************************* */
 //********************************************************************* */
+//EQ
+function fxSend_1_OnOff1() {
+  isfxSend_1_On = !isfxSend_1_On; console.log("isfxSend_1_On: " + isfxSend_1_On);
+  if (player1_fxSend_1_On_Off_Button.innerText === "On") {
+    player1_fxSend_1_On_Off_Button.innerText = "Off";
+    player1_fxSend_1_fader.disconnect(fx_1_delay);
+    player1_fxSend_1_fader.connect(fxReturn_1_fader);
+  }
+  else {
+    player1_fxSend_1_On_Off_Button.innerText = "On";
+    player1_fxSend_1_fader.disconnect(fxReturn_1_fader);
+    player1_fxSend_1_fader.connect(fx_1_delay);
+  }
+}
+
+function fxSend_2_OnOff1() {
+  isfxSend_2_On = !isfxSend_2_On; console.log("isfxSend_2_On: " + isfxSend_2_On);
+  if (player1_fxSend_2_On_Off_Button.innerText === "On") {
+    player1_fxSend_2_On_Off_Button.innerText = "Off";
+    player1_fxSend_2_fader.disconnect(fx_2_reverb);
+    player1_fxSend_2_fader.connect(fxReturn_2_fader);
+  }
+  else {
+    player1_fxSend_2_On_Off_Button.innerText = "On";
+    player1_fxSend_2_fader.disconnect(fxReturn_2_fader);
+    player1_fxSend_2_fader.connect(fx_2_reverb);
+  }
+}
+
+function fxSend_3_OnOff1() {
+  isfxSend_3_On = !isfxSend_3_On; console.log("isfxSend_3_On: " + isfxSend_3_On);
+  if (player1_fxSend_3_On_Off_Button.innerText === "On") {
+    player1_fxSend_3_On_Off_Button.innerText = "Off";
+    player1_fxSend_3_fader.disconnect(fx_3_fbDelay);
+    player1_fxSend_3_fader.connect(fxReturn_3_fader);
+  }
+  else {
+    player1_fxSend_3_On_Off_Button.innerText = "On";
+    player1_fxSend_3_fader.disconnect(fxReturn_3_fader);
+    player1_fxSend_3_fader.connect(fx_3_fbDelay);
+  }
+}
+
+function fxSend_4_OnOff1() {
+  isfxSend_4_On = !isfxSend_4_On; console.log("isfxSend_4_On: " + isfxSend_4_On);
+  if (player1_fxSend_4_On_Off_Button.innerText === "On") {
+    player1_fxSend_4_On_Off_Button.innerText = "Off";
+    player1_fxSend_4_fader.disconnect(fx_4_pitchShift);
+    player1_fxSend_4_fader.connect(fxReturn_4_fader);
+  }
+  else {
+    player1_fxSend_4_On_Off_Button.innerText = "On";
+    player1_fxSend_4_fader.disconnect(fxReturn_4_fader);
+    player1_fxSend_4_fader.connect(fx_4_pitchShift);
+  }
+}
+
+//************************************************************
+
+function player1_fxSend_1_state_foo(value) {
+
+  if (player1_fxSend_1_state != value) {
+
+    switch (value) {
+      case "PreEQ": {
+        if (player1_fxSend_1_state === "PostEQ") {
+          console.log("Prev state: " + player1_fxSend_1_state);
+          filter_1.disconnect(player1_fxSend_1_fader);
+          player1.connect(player1_fxSend_1_fader);
+        }
+        else if (player1_fxSend_1_state === "PostFdr") {
+          console.log("Prev state: " + player1_fxSend_1_state);
+          player1_vol.disconnect(player1_fxSend_1_fader);
+          player1.connect(player1_fxSend_1_fader);
+        }
+        else {
+          console.log("ni post eq ni post fdr");
+        }
+        player1_fxSend_1_state = "PreEQ"; console.log("state: " + player1_fxSend_1_state);
+        break;
+      }
+      case "PostEQ": {
+        if (player1_fxSend_1_state === "PreEQ") {
+          player1.disconnect(player1_fxSend_1_fader);
+          player1.connect(filter_1);
+          filter_1.connect(player1_fxSend_1_fader)
+          console.log("Prev state: " + player1_fxSend_1_state);
+        }
+        else if (player1_fxSend_1_state === "PostFdr") {
+          player1_vol.disconnect(player1_fxSend_1_fader);
+          filter_1.connect(player1_fxSend_1_fader);
+          console.log("Prev state: " + player1_fxSend_1_state);
+        }
+        else {
+          console.log("ni pre eq ni post fdr");
+        }
+        player1_fxSend_1_state = "PostEQ"; console.log("state: " + player1_fxSend_1_state);
+        break;
+      }
+      case "PostFdr": {
+        if (player1_fxSend_1_state === "PreEQ") {
+          player1.disconnect(player1_fxSend_1_fader);
+          player1_vol.connect(player1_fxSend_1_fader);
+          console.log("Prev state: " + player1_fxSend_1_state);
+        }
+        else if (player1_fxSend_1_state === "PostEQ") {
+          filter_1.disconnect(player1_fxSend_1_fader);
+          player1_vol.connect(player1_fxSend_1_fader);
+          console.log("Prev state: " + player1_fxSend_1_state);
+        }
+        else {
+          console.log("ni pre eq ni post eq");
+
+        }
+        player1_fxSend_1_state = "PostFdr"; console.log("state: " + player1_fxSend_1_state);
+        break;
+      }
+      default: { break; }
+    }
+
+  }
+  else { alert("player1_fxSend_1_state = value"); }
+}
+
+
+
+
+
+//CAMBIAR EL ESTILO DE UN BOTON DESDE LA LOGICA
+/*
+element.addEventListener('click', (e => {
+    e.preventDefault();
+
+    element.style = '<insert CSS here as you would in a style attribute>';
+}));
+
+*/
+//************************************************************
+
 function in_outs(element, text) {
   console.log(text);
   console.log(text + " in: " + element.numberOfInputs);

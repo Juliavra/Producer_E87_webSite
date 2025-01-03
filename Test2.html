@@ -254,38 +254,43 @@
     <input type='range' min=0 max=10000 step='10' value="0" id='detune_1'>
     <p id="detune_1_value"></p>
 
-    <h1>FX</h1>
+    <h2>FX</h2>
 
-    <p id="player1_fxSend_1_text">FX 1 Delay <button id="player1_fxSend_1_On_Off_Button" onclick="fxSend_1_OnOff1()">On
-      </button>
+    <p id="player1_fxSend_1_text"> <h2> 1 Delay <button id="player1_fxSend_1_On_Off_Button" onclick="fxSend_1_OnOff1()">On
+    </button> </h2> 
     </p>
-    <br>
     Send
+
+    <button id="player1_fxSend_1_pre_EQ_Button" onclick="player1_fxSend_1_state_foo(value)" value="PreEQ">Pre EQ </button>
+    <button id="player1_fxSend_1_post_EQ_Button" onclick="player1_fxSend_1_state_foo(value)" value="PostEQ">Post EQ </button>
+    <button id="player1_fxSend_1_post_fader_Button" onclick="player1_fxSend_1_state_foo(value)" value="PostFdr">Post Fdr </button>
+
     <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_1'>
     <p id="player1_fxSend_1_value"></p>
-    <br><br>
-
-    <p id="player1_fxSend_2_text"> FX 2 Reverb
-      <button id="player1_fxSend_2_On_Off_Button" onclick="fxSend_2_OnOff1()">On </button>
-    </p>
     <br>
+    <p id="player1_fxSend_2_text">  <h2> 2 Reverb
+      <button id="player1_fxSend_2_On_Off_Button" onclick="fxSend_2_OnOff1()">On </button>
+    </h2> 
+    </p>
+
     Send
     <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_2'>
     <p id="player1_fxSend_2_value"></p>
-    <br><br>
-    <p id="player1_fxSend_3_text"> FX 3 FeedBack Delay
-      <button id="player1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
-    </p>
     <br>
+    <p id="player1_fxSend_3_text"> <h2>3 FeedBack Delay <button id="player1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button> 
+    </h2>
+    </p>
+    
     Send
     <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_3'>
     <p id="player1_fxSend_3_value"></p>
 
-    <br><br>
-    <p id="player1_fxSend_4_text"> FX 4 PitchShift
-      <button id="player1_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">On </button>
-    </p>
     <br>
+    <p id="player1_fxSend_4_text"> <h2> 4 PitchShift 
+      <button id="player1_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">On </button>
+    </h2>
+    </p>
+   
     Send
     <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_4'>
     <p id="player1_fxSend_4_value"></p>
