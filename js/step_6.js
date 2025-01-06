@@ -619,36 +619,35 @@ array_Canciones.push(cancion_100);
 //************************************************************************* */
 //************************************************************************* */
 //DOM ACQUISITIONS
-
-const volume_1 = document.getElementById("volume_1");
-const volume_1_value = document.getElementById("volume_1_value");
-const pan_1 = document.getElementById("pan_1");
-const pan_1_value = document.getElementById("pan_1_value");
-const muteButton = document.getElementById("muteButton");
-const soloButton = document.getElementById("soloButton");
-const stopButton = document.getElementById("stopButton");
 const buscaButton = document.getElementById("buscaButton");
-const playback_rate_1 = document.getElementById("playback_rate_1");
-const playback_rate_1_value = document.getElementById("playback_rate_1_value");
-const loop_1_checkbox = document.getElementById("loop_1_checkbox");
-const autoplay_1_checkbox = document.getElementById("autoplay_1_checkbox");
-const reverse_1_checkbox = document.getElementById("reverse_1_checkbox");
-const songName1 = document.getElementById("song_title");
-const duration_1_value = document.getElementById("duration_1_value");
-const duration_1_text = document.getElementById("duration_1_text");
-const frequency_1 = document.getElementById("frequency_1");
-const frequency_1_value = document.getElementById("frequency_1_value");
-const frequency_1_text = document.getElementById("frequency_1_text");
-const Q_1 = document.getElementById("Q_1");
-const Q_1_value = document.getElementById("Q_1_value");
-const Q_1_text = document.getElementById("Q_1_text");
-const detune_1 = document.getElementById("detune_1");
-const detune_1_value = document.getElementById("detune_1_value");
-const detune_1_text = document.getElementById("detune_1_text");
-const gain_1 = document.getElementById("gain_1");
-const gain_1_value = document.getElementById("gain_1_value");
-const gain_1_text = document.getElementById("gain_1_text");
-const eq_On_Off_Button_1 = document.getElementById("eq_On_Off_Button_1");
+const player_1_volume = document.getElementById("player_1_volume");
+const player_1_volume_value = document.getElementById("player_1_volume_value");
+const player_1_pan = document.getElementById("player_1_pan");
+const player_1_pan_value = document.getElementById("player_1_pan_value");
+const player_1_muteButton = document.getElementById("player_1_muteButton");
+const player_1_soloButton = document.getElementById("player_1_soloButton");
+const player_1_stopButton = document.getElementById("player_1_stopButton");
+const player_1_playback_rate = document.getElementById("player_1_playback_rate");
+const player_1_playback_rate_value = document.getElementById("player_1_playback_rate_value");
+const player_1_loop_checkbox = document.getElementById("player_1_loop_checkbox");
+const player_1_autoplay_checkbox = document.getElementById("player_1_autoplay_checkbox");
+const player_1_reverse_checkbox = document.getElementById("player_1_reverse_checkbox");
+const player_1_songName = document.getElementById("player_1_songName");
+const player_1_duration_value = document.getElementById("player_1_duration_value");
+const player_1_duration_text = document.getElementById("player_1_duration_text");
+const player_1_filter_frequency = document.getElementById("player_1_filter_frequency");
+const player_1_filter_frequency_value = document.getElementById("player_1_filter_frequency_value");
+const player_1_filter_frequency_text = document.getElementById("player_1_filter_frequency_text");
+const player_1_filter_Q = document.getElementById("player_1_filter_Q");
+const player_1_filter_Q_value = document.getElementById("player_1_filter_Q_value");
+const player_1_filter_Q_text = document.getElementById("player_1_filter_Q_text");
+const player_1_filter_gain = document.getElementById("player_1_filter_gain");
+const player_1_filter_gain_value = document.getElementById("player_1_filter_gain_value");
+const player_1_filter_gain_text = document.getElementById("player_1_filter_gain_text");
+const player_1_filter_detune = document.getElementById("player_1_filter_detune");
+const player_1_filter_detune_value = document.getElementById("player_1_filter_detune_value");
+const player_1_filter_detune_text = document.getElementById("player_1_filter_detune_text");
+const player_1_filter_eq_On_Off_Button = document.getElementById("player_1_filter_eq_On_Off_Button");
 const player1_fxSend_1 = document.getElementById("player1_fxSend_1");
 const player1_fxSend_2 = document.getElementById("player1_fxSend_2");
 const player1_fxSend_3 = document.getElementById("player1_fxSend_3");
@@ -657,10 +656,14 @@ const player1_fxSend_1_value = document.getElementById("player1_fxSend_1_value")
 const player1_fxSend_2_value = document.getElementById("player1_fxSend_2_value");
 const player1_fxSend_3_value = document.getElementById("player1_fxSend_3_value");
 const player1_fxSend_4_value = document.getElementById("player1_fxSend_4_value");
-const loop_start_1 = document.getElementById("loop_start_1");
-const loop_end_1 = document.getElementById("loop_end_1");
-const fadeIn_1 = document.getElementById("fadeIn_1");
-const fadeOut_1 = document.getElementById("fadeOut_1");
+const player_1_loop_start = document.getElementById("player_1_loop_start");
+const player_1_loop_end = document.getElementById("player_1_loop_end");
+const player_1_fadeIn = document.getElementById("player_1_fadeIn");
+const player_1_fadeOut = document.getElementById("player_1_fadeOut");
+
+
+//************************************************************ */
+//FX 1 VOLUME + PAN + SENDFX
 
 const fx1_volume = document.getElementById("fx1_volume");
 const fx2_volume = document.getElementById("fx2_volume");
@@ -679,12 +682,104 @@ const fx2_pan_value = document.getElementById("fx2_pan_value");
 const fx3_pan_value = document.getElementById("fx3_pan_value");
 const fx4_pan_value = document.getElementById("fx4_pan_value");
 
-//********************************************************** */
+const fx_1_fxSend_2 = document.getElementById("fx_1_fxSend_2");
+const fx_1_fxSend_2_value = document.getElementById("fx_1_fxSend_2_value");
+const fx_1_fxSend_3 = document.getElementById("fx_1_fxSend_3");
+const fx_1_fxSend_3_value = document.getElementById("fx_1_fxSend_3_value");
+const fx_1_fxSend_4 = document.getElementById("fx_1_fxSend_4");
+const fx_1_fxSend_4_value = document.getElementById("fx_1_fxSend_4_value");
+
+//FX 2 SENDFX
+const fx_2_fxSend_1 = document.getElementById("fx_2_fxSend_1");
+const fx_2_fxSend_1_value = document.getElementById("fx_2_fxSend_1_value");
+const fx_2_fxSend_3 = document.getElementById("fx_2_fxSend_3");
+const fx_2_fxSend_3_value = document.getElementById("fx_2_fxSend_3_value");
+const fx_2_fxSend_4 = document.getElementById("fx_2_fxSend_4");
+const fx_2_fxSend_4_value = document.getElementById("fx_2_fxSend_4_value");
+
+//FX 3 SENDFX
+const fx_3_fxSend_1 = document.getElementById("fx_3_fxSend_1");
+const fx_3_fxSend_1_value = document.getElementById("fx_3_fxSend_1_value");
+const fx_3_fxSend_2 = document.getElementById("fx_3_fxSend_2");
+const fx_3_fxSend_2_value = document.getElementById("fx_3_fxSend_2_value");
+const fx_3_fxSend_4 = document.getElementById("fx_3_fxSend_4");
+const fx_3_fxSend_4_value = document.getElementById("fx_3_fxSend_4_value");
+
+//FX 4 SENDFX
+const fx_4_fxSend_1 = document.getElementById("fx_4_fxSend_1");
+const fx_4_fxSend_1_value = document.getElementById("fx_4_fxSend_1_value");
+const fx_4_fxSend_2 = document.getElementById("fx_4_fxSend_2");
+const fx_4_fxSend_2_value = document.getElementById("fx_4_fxSend_2_value");
+const fx_4_fxSend_3 = document.getElementById("fx_4_fxSend_3");
+const fx_4_fxSend_3_value = document.getElementById("fx_4_fxSend_3_value");
+
+//************************************************************ */
+//***************************
+// ESTO ES UN EQ (FX 1)
+//  */
+const fx1_filter_frequency = document.getElementById("fx1_filter_frequency");
+const fx1_filter_frequency_value = document.getElementById("fx1_filter_frequency_value");
+const fx1_filter_frequency_text = document.getElementById("fx1_filter_frequency_text");
+const fx1_filter_Q = document.getElementById("fx1_filter_Q");
+const fx1_filter_Q_value = document.getElementById("fx1_filter_Q_value");
+const fx1_filter_Q_text = document.getElementById("fx1_filter_Q_text");
+const fx1_filter_detune_1 = document.getElementById("fx1_filter_detune_1");
+const fx1_filter_detune_value = document.getElementById("fx1_filter_detune_value");
+const fx1_filter_detune_1_text = document.getElementById("fx1_filter_detune_1_text");
+const fx1_filter_gain = document.getElementById("fx1_filter_gain");
+const fx1_filter_gain_value = document.getElementById("fx1_filter_gain_value");
+const fx1_filter_gain_text = document.getElementById("fx1_filter_gain_text");
+const fx1_filter_eq_On_Off_Button = document.getElementById("fx1_filter_eq_On_Off_Button");
+
+//************************************************************ */
+//************************************************************ */
+//PLAYER 2 
+const player_2_volume = document.getElementById("player_2_volume");
+const player_2_volume_value = document.getElementById("player_2_volume_value");
+const player_2_pan = document.getElementById("player_2_pan");
+const player_2_pan_value = document.getElementById("player_2_pan_value");
+const player_2_muteButton = document.getElementById("player_2_muteButton");
+const player_2_soloButton = document.getElementById("player_2_soloButton");
+const player_2_stopButton = document.getElementById("player_2_stopButton");
+const player_2_playback_rate = document.getElementById("player_2_playback_rate");
+const player_2_playback_rate_value = document.getElementById("player_2_playback_rate_value");
+const player_2_loop_checkbox = document.getElementById("player_2_loop_checkbox");
+const player_2_autoplay_checkbox = document.getElementById("player_2_autoplay_checkbox");
+const player_2_reverse_checkbox = document.getElementById("player_2_reverse_checkbox");
+const player_2_songName = document.getElementById("player_2_songName");
+const player_2_duration_value = document.getElementById("player_2_duration_value");
+const player_2_duration_text = document.getElementById("player_2_duration_text");
+const player_2_filter_frequency = document.getElementById("player_2_filter_frequency");
+const player_2_filter_frequency_value = document.getElementById("player_2_filter_frequency_value");
+const player_2_frequency_text = document.getElementById("player_2_frequency_text");
+const player_2_Q = document.getElementById("player_2_Q");
+const player_2_Q_value = document.getElementById("player_2_Q_value");
+const player_2_Q_text = document.getElementById("player_2_Q_text");
+const player_2_detune = document.getElementById("player_2_detune");
+const player_2_detune_value = document.getElementById("player_2_detune_value");
+const player_2_detune_text = document.getElementById("player_2_detune_text");
+const player_2_gain = document.getElementById("player_2_gain");
+const player_2_gain_value = document.getElementById("player_2_gain_value");
+const player_2_gain_text = document.getElementById("player_2_gain_text");
+const player_2_eq_On_Off_Button = document.getElementById("player_2_eq_On_Off_Button");
+const player_2_fxSend_1 = document.getElementById("player_2_fxSend_1");
+const player_2_fxSend_2 = document.getElementById("player_2_fxSend_2");
+const player_2_fxSend_3 = document.getElementById("player_2_fxSend_3");
+const player_2_fxSend_4 = document.getElementById("player_2_fxSend_4");
+const player_2_fxSend_1_value = document.getElementById("player_2_fxSend_1_value");
+const player_2_fxSend_2_value = document.getElementById("player_2_fxSend_2_value");
+const player_2_fxSend_3_value = document.getElementById("player_2_fxSend_3_value");
+const player_2_fxSend_4_value = document.getElementById("player_2_fxSend_4_value");
+const player_2_loop_start = document.getElementById("player_2_loop_start");
+const player_2_loop_end = document.getElementById("player_2_loop_end");
+const player_2_fadeIn = document.getElementById("player_2_fadeIn");
+const player_2_fadeOut = document.getElementById("player_2_fadeOut");
+
+//************************************************************ */
 //************************************************************ */
 //VAR DECLARATION
 
 var isFilter_1_On = true;
-var isFilter_fx1_On = true;
 var isFilter_fx1_On = true;
 var isfxSend_1_On = true;
 var isfxSend_2_On = true;
@@ -693,6 +788,21 @@ var isfxSend_4_On = true;
 var loop_1_min = 0;
 var loop_1_max = 0;
 var player1_fxSend_1_state = "PostEQ";
+var player1_fxSend_2_state = "PostEQ";
+var player1_fxSend_3_state = "PostEQ";
+var player1_fxSend_4_state = "PostEQ";
+
+var fx_1_fxSend_1_state = "PostEQ";
+var fx_1_fxSend_2_state = "PostEQ";
+var fx_1_fxSend_3_state = "PostEQ";
+var fx_1_fxSend_4_state = "PostEQ";
+
+var is_fx1_fxSend_1_On = true;
+var is_fx1_fxSend_2_On = true;
+var is_fx1_fxSend_3_On = true;
+var is_fx1_fxSend_4_On = true;
+
+
 
 
 //********************************************************** */
@@ -701,11 +811,16 @@ var player1_fxSend_1_state = "PostEQ";
 
 const recorder = new Tone.Recorder();
 const masterVolume = new Tone.Volume(-3).toDestination();
-const player1_vol = new Tone.Volume(-40).connect(masterVolume);
-const player1_pan = new Tone.Panner(0).connect(player1_vol);
+const player_1_volNode = new Tone.Volume(-40).connect(masterVolume);
+const player_2_volNode = new Tone.Volume(-40).connect(masterVolume);
+
+const player_1_panNode = new Tone.Panner(0).connect(player_1_volNode);
+const player_2_panNode = new Tone.Panner(0).connect(player_2_volNode);
+
+
 masterVolume.fan(recorder);
 recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
-const filter_1 = new Tone.Filter().connect(player1_pan);
+const filter_1 = new Tone.Filter().connect(player_1_panNode);
 /*
 filter_1.set({
   frequency: 1000,
@@ -720,6 +835,7 @@ filter_1.debug = true;
 filter_1.frequency.rampTo(2000, 7);
 //filter_1.getFrequencyResponse
 */
+const fx1_Filter = new Tone.Filter();
 
 const fx_1_delay = new Tone.PingPongDelay("4n", 0.2);
 const fx_2_reverb = new Tone.Reverb({
@@ -749,12 +865,19 @@ const fx2_pan = new Tone.Panner(0).toDestination();
 const fx3_pan = new Tone.Panner(0).toDestination();
 const fx4_pan = new Tone.Panner(0).toDestination();
 
-//********************************
-const fxReturn_1_fader = new Tone.Volume(-100).connect(fx1_pan);
+fx1_Filter.connect(fx1_pan);//se conecta esto aqui, se lo creo arriba
+
+//************************************************************************
+const fxReturn_1_fader = new Tone.Volume(-100).connect(fx1_Filter);
 const fxReturn_2_fader = new Tone.Volume(-10).connect(fx2_pan);
 const fxReturn_3_fader = new Tone.Volume(-10).connect(fx3_pan);
 const fxReturn_4_fader = new Tone.Volume(-10).connect(fx4_pan);
-//********************************
+
+//PLAYER 2 TEST FILTER EQ3
+const filter_2_TEST = new Tone.EQ3;
+
+
+//*********************************************************************
 //LOS EFECTOS TIENEN QUE ESTAR FANEADOS A LOS SEND Y AL MASTERFADER
 fx_1_delay.connect(fxReturn_1_fader);
 fx_2_reverb.connect(fxReturn_2_fader);
@@ -765,74 +888,100 @@ const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite
 player1.debug = true;
 filter_1.fan(player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
 player1.connect(filter_1);
+
+
+//*********************************************************************
+//PLAYER 2
+const player2 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3");
+player2.debug = true;
+//filter_2_TEST.connect(player_2_panNode);
+filter_2_TEST.toDestination();
+
+player2.connect(filter_2_TEST);
+
+filter_2_TEST.set(
+  {
+    low: 0,
+    mid: -0,
+    high: 0,
+    lowFrequency: 400,
+    highFrequency: 2500
+  }
+);
+
+
+
+
 //ON PRE EQ SEND FX 
 //TIENE QUE SER INDIVIDUAL LA CONNECT, PARA QUE SEA INDIVIDUAL LA DISCONNECT
 //player1.fan( player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
 //************************************************************************* */
+// *****************ALL EVENTLISTENERS************************************
 //*****************************************************************************************
-// ALL ADDEVENTLISTENERS
 //  */
-volume_1.addEventListener("change", function (e) {
+
+// PLAYER 1 EVENTLISTENERS
+player_1_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
-    player1_vol.volume.value = -100;
-    volume_1_value.innerHTML = -100;
+    player_1_volNode.volume.value = -100;
+    player_1_volume_value.innerHTML = -100;
   }
   else {
-    player1_vol.volume.value = e.currentTarget.value; console.log("volumen>NN: " + e.currentTarget.value);
-    volume_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    player_1_volNode.volume.value = e.currentTarget.value; console.log("volumen>NN: " + e.currentTarget.value);
+    player_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
 
-pan_1.addEventListener("change", function (e) {
-  player1_pan.pan.value = e.currentTarget.value; console.log("channel_1.pan: " + player1_pan.pan.value)
-  pan_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+player_1_pan.addEventListener("change", function (e) {
+  player_1_panNode.pan.value = e.currentTarget.value; console.log("channel_1.pan: " + player_1_panNode.pan.value)
+  player_1_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-playback_rate_1.addEventListener("change", function (e) {
+player_1_playback_rate.addEventListener("change", function (e) {
   player1.playbackRate = `${e.currentTarget.value}`;
-  playback_rate_1_value.innerHTML = Math.round(`${e.currentTarget.value}` * 100);
+  player_1_playback_rate_value.innerHTML = Math.round(`${e.currentTarget.value}` * 100);
 });
 
-loop_1_checkbox.addEventListener("change", function () {
-  if (loop_1_checkbox.checked) { player1.loop = true; }
+player_1_loop_checkbox.addEventListener("change", function () {
+  if (player_1_loop_checkbox.checked) { player1.loop = true; }
   else { player1.loop = false; }
 });
 
-autoplay_1_checkbox.addEventListener("change", function () {
-  if (autoplay_1_checkbox.checked) { player1 = true; }
-  else { player1 = false; }
-  console.log("player1.autoplay_1_checkbox: " + autoplay_1_checkbox.checked);
+player_1_autoplay_checkbox.addEventListener("change", function () {
+  if (player_1_autoplay_checkbox.checked) { player1.autoplay = true; }
+  else { player1.autoplay = false; }
+  console.log("player1.player_1_autoplay_checkbox: " + player_1_autoplay_checkbox.checked);
 });
 
-reverse_1_checkbox.addEventListener("change", function () {
-  if (reverse_1_checkbox.checked) { player1.reverse = true; }
+player_1_reverse_checkbox.addEventListener("change", function () {
+  if (player_1_reverse_checkbox.checked) { player1.reverse = true; }
   else { player1.reverse = false; }
-  console.log("reverse_1_checkbox: " + reverse_1_checkbox.checked);
+  console.log("player_1_reverse_checkbox: " + player_1_reverse_checkbox.checked);
 });
 
-frequency_1.addEventListener("change", function (e) {
+player_1_filter_frequency.addEventListener("change", function (e) {
   filter_1.frequency.value = e.currentTarget.value; console.log("filter_1.frequency: " + filter_1.frequency.value);
-  frequency_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  player_1_filter_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-Q_1.addEventListener("change", function (e) {
+player_1_filter_Q.addEventListener("change", function (e) {
   filter_1.Q.value = e.currentTarget.value; console.log("filter_1.q: " + e.currentTarget.value);
-  Q_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  player_1_filter_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-detune_1.addEventListener("change", function (e) {
+player_1_filter_detune.addEventListener("change", function (e) {
   filter_1.detune.value = e.currentTarget.value; console.log("filter_1.detune: " + e.currentTarget.value);
-  detune_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  player_1_filter_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-gain_1.addEventListener("change", function (e) {
+player_1_filter_gain.addEventListener("change", function (e) {
   filter_1.gain.value = e.currentTarget.value; console.log("filter_1.gain: " + e.currentTarget.value);
-  gain_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  player_1_filter_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 filter_1_select.addEventListener("change", function (e) {
   filter_1.type = e.currentTarget.value; console.log("filter_1.value: " + e.currentTarget.value);
-  hides_All_EQ1_Faders();
+  hides_All_EQ_Faders("player_1_filter");
   switch (e.currentTarget.value) {
     case "lowpass":
     case "highpass":
@@ -840,56 +989,50 @@ filter_1_select.addEventListener("change", function (e) {
     case "notch":
     case "allpass":
       {
-        frequency_1.style.opacity = "1";
-        frequency_1_value.style.opacity = "1";
-        frequency_1_text.style.opacity = "1";
-        Q_1.style.opacity = "1";
-        Q_1_value.style.opacity = "1";
-        Q_1_text.style.opacity = "1";
-        detune_1.style.opacity = "1";
-        detune_1_value.style.opacity = "1";
-        detune_1_text.style.opacity = "1";
+        player_1_filter_frequency.style.opacity = "1";
+        player_1_filter_frequency_value.style.opacity = "1";
+        player_1_filter_frequency_text.style.opacity = "1";
+        player_1_filter_Q.style.opacity = "1";
+        player_1_filter_Q_value.style.opacity = "1";
+        player_1_filter_Q_text.style.opacity = "1";
+        player_1_filter_detune.style.opacity = "1";
+        player_1_filter_detune_value.style.opacity = "1";
+        player_1_filter_detune_text.style.opacity = "1";
         break;
       }
     case "lowshelf":
     case "highshelf":
       {
-        frequency_1.style.opacity = "1";
-        frequency_1_value.style.opacity = "1";
-        frequency_1_text.style.opacity = "1";
-        gain_1.style.opacity = "1";
-        gain_1_value.style.opacity = "1";
-        gain_1_text.style.opacity = "1";
-        detune_1.style.opacity = "1";
-        detune_1_value.style.opacity = "1";
-        detune_1_text.style.opacity = "1";
+        player_1_filter_frequency.style.opacity = "1";
+        player_1_filter_frequency_value.style.opacity = "1";
+        player_1_filter_frequency_text.style.opacity = "1";
+        player_1_filter_gain.style.opacity = "1";
+        player_1_filter_gain_value.style.opacity = "1";
+        player_1_filter_gain_text.style.opacity = "1";
+        player_1_filter_detune.style.opacity = "1";
+        player_1_filter_detune_value.style.opacity = "1";
+        player_1_filter_detune_text.style.opacity = "1";
         break;
       }
     case "peaking":
       {
-        frequency_1.style.opacity = "1";
-        frequency_1_value.style.opacity = "1";
-        frequency_1_text.style.opacity = "1";
-        Q_1.style.opacity = "1";
-        Q_1_value.style.opacity = "1";
-        Q_1_text.style.opacity = "1";
-        gain_1.style.opacity = "1";
-        gain_1_value.style.opacity = "1";
-        gain_1_text.style.opacity = "1";
-        detune_1.style.opacity = "1";
-        detune_1_value.style.opacity = "1";
-        detune_1_text.style.opacity = "1";
+        player_1_filter_frequency.style.opacity = "1";
+        player_1_filter_frequency_value.style.opacity = "1";
+        player_1_filter_frequency_text.style.opacity = "1";
+        player_1_filter_Q.style.opacity = "1";
+        player_1_filter_Q_value.style.opacity = "1";
+        player_1_filter_Q_text.style.opacity = "1";
+        player_1_filter_gain.style.opacity = "1";
+        player_1_filter_gain_value.style.opacity = "1";
+        player_1_filter_gain_text.style.opacity = "1";
+        player_1_filter_detune.style.opacity = "1";
+        player_1_filter_detune_value.style.opacity = "1";
+        player_1_filter_detune_text.style.opacity = "1";
         break;
       }
     default:
       { console.log(" EQ1 DEFAULT"); }
   }
-
-  /*filter_1.frequency = 2000;
-  filter_1.Q = 0;   //ES PREFERIBLE ESTE RESETEO QUE USAR LOS VALORES DE LAS PERILLAS AL MOMENTO DE HACER SELECT???
-  filter_1.gain = 0;
-  filter_1.rolloff = -12;
-  /**/
 });
 
 player1_fxSend_1.addEventListener("change", function (e) {
@@ -936,7 +1079,7 @@ player1_fxSend_4.addEventListener("change", function (e) {
   }
 });
 
-loop_start_1.addEventListener("change", function (e) {
+player_1_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player1.loopStart = e.currentTarget.value;
     console.log("player1.loopStart = " + e.currentTarget.value);
@@ -946,7 +1089,7 @@ loop_start_1.addEventListener("change", function (e) {
   }
 });
 
-loop_end_1.addEventListener("change", function (e) {
+player_1_loop_end.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234 && e.currentTarget.value > player1.loopStart) {
     player1.loopEnd = e.currentTarget.value;
     console.log("player1.loopend = " + e.currentTarget.value);
@@ -956,7 +1099,7 @@ loop_end_1.addEventListener("change", function (e) {
   }
 });
 
-fadeIn_1.addEventListener("change", function (e) {
+player_1_fadeIn.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player1.fadeIn_1 = e.currentTarget.value;
     console.log("player1.fadeIn_1 = " + e.currentTarget.value);
@@ -966,15 +1109,219 @@ fadeIn_1.addEventListener("change", function (e) {
   }
 });
 
-fadeOut_1.addEventListener("change", function (e) {
+player_1_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
-    player1.fadeOut_1 = e.currentTarget.value;
-    console.log("player1.fadeOut_1 = " + e.currentTarget.value);
+    player1.player_1_fadeOut = e.currentTarget.value;
+    console.log("player1.player_1_fadeOut = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.fadeOut_1");
+    alert("errororororor player1.player_1_fadeOut");
   }
 });
+
+//*************************************************************************** */
+// PLAYER 1 EVENTLISTENERS
+player_2_volume.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player_2_volNode.volume.value = -100;
+    player_2_volume_value.innerHTML = -100;
+  }
+  else {
+    player_2_volNode.volume.value = e.currentTarget.value; console.log("player_2_volNode: " + e.currentTarget.value);
+    player_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+player_1_pan.addEventListener("change", function (e) {
+  player_1_panNode.pan.value = e.currentTarget.value; console.log("channel_1.pan: " + player_1_panNode.pan.value)
+  player_1_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+player_1_playback_rate.addEventListener("change", function (e) {
+  player1.playbackRate = `${e.currentTarget.value}`;
+  player_1_playback_rate_value.innerHTML = Math.round(`${e.currentTarget.value}` * 100);
+});
+
+player_1_loop_checkbox.addEventListener("change", function () {
+  if (player_1_loop_checkbox.checked) { player1.loop = true; }
+  else { player1.loop = false; }
+});
+
+player_1_autoplay_checkbox.addEventListener("change", function () {
+  if (player_1_autoplay_checkbox.checked) { player1.autoplay = true; }
+  else { player1.autoplay = false; }
+  console.log("player1.player_1_autoplay_checkbox: " + player_1_autoplay_checkbox.checked);
+});
+
+player_1_reverse_checkbox.addEventListener("change", function () {
+  if (player_1_reverse_checkbox.checked) { player1.reverse = true; }
+  else { player1.reverse = false; }
+  console.log("player_1_reverse_checkbox: " + player_1_reverse_checkbox.checked);
+});
+
+player_1_filter_frequency.addEventListener("change", function (e) {
+  filter_1.frequency.value = e.currentTarget.value; console.log("filter_1.frequency: " + filter_1.frequency.value);
+  player_1_filter_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+player_1_filter_Q.addEventListener("change", function (e) {
+  filter_1.Q.value = e.currentTarget.value; console.log("filter_1.q: " + e.currentTarget.value);
+  player_1_filter_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+player_1_filter_detune.addEventListener("change", function (e) {
+  filter_1.detune.value = e.currentTarget.value; console.log("filter_1.detune: " + e.currentTarget.value);
+  player_1_filter_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+player_1_filter_gain.addEventListener("change", function (e) {
+  filter_1.gain.value = e.currentTarget.value; console.log("filter_1.gain: " + e.currentTarget.value);
+  player_1_filter_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+filter_1_select.addEventListener("change", function (e) {
+  filter_1.type = e.currentTarget.value; console.log("filter_1.value: " + e.currentTarget.value);
+  hides_All_EQ_Faders("player_1_filter");
+  switch (e.currentTarget.value) {
+    case "lowpass":
+    case "highpass":
+    case "bandpass":
+    case "notch":
+    case "allpass":
+      {
+        player_1_filter_frequency.style.opacity = "1";
+        player_1_filter_frequency_value.style.opacity = "1";
+        player_1_filter_frequency_text.style.opacity = "1";
+        player_1_filter_Q.style.opacity = "1";
+        player_1_filter_Q_value.style.opacity = "1";
+        player_1_filter_Q_text.style.opacity = "1";
+        player_1_filter_detune.style.opacity = "1";
+        player_1_filter_detune_value.style.opacity = "1";
+        player_1_filter_detune_text.style.opacity = "1";
+        break;
+      }
+    case "lowshelf":
+    case "highshelf":
+      {
+        player_1_filter_frequency.style.opacity = "1";
+        player_1_filter_frequency_value.style.opacity = "1";
+        player_1_filter_frequency_text.style.opacity = "1";
+        player_1_filter_gain.style.opacity = "1";
+        player_1_filter_gain_value.style.opacity = "1";
+        player_1_filter_gain_text.style.opacity = "1";
+        player_1_filter_detune.style.opacity = "1";
+        player_1_filter_detune_value.style.opacity = "1";
+        player_1_filter_detune_text.style.opacity = "1";
+        break;
+      }
+    case "peaking":
+      {
+        player_1_filter_frequency.style.opacity = "1";
+        player_1_filter_frequency_value.style.opacity = "1";
+        player_1_filter_frequency_text.style.opacity = "1";
+        player_1_filter_Q.style.opacity = "1";
+        player_1_filter_Q_value.style.opacity = "1";
+        player_1_filter_Q_text.style.opacity = "1";
+        player_1_filter_gain.style.opacity = "1";
+        player_1_filter_gain_value.style.opacity = "1";
+        player_1_filter_gain_text.style.opacity = "1";
+        player_1_filter_detune.style.opacity = "1";
+        player_1_filter_detune_value.style.opacity = "1";
+        player_1_filter_detune_text.style.opacity = "1";
+        break;
+      }
+    default:
+      { console.log(" EQ1 DEFAULT"); }
+  }
+});
+
+player1_fxSend_1.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player1_fxSend_1_fader.volume.value = -100;
+    player1_fxSend_1_value.innerHTML = -100;
+  }
+  else {
+    player1_fxSend_1_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+player1_fxSend_2.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player1_fxSend_2_fader.volume.value = -100;
+    player1_fxSend_2_value.innerHTML = -100;
+  }
+  else {
+    player1_fxSend_2_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player1_fxSend_2_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+player1_fxSend_3.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player1_fxSend_3_fader.volume.value = -100;
+    player1_fxSend_3_value.innerHTML = -100;
+  }
+  else {
+    player1_fxSend_3_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player1_fxSend_3_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+player1_fxSend_4.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player1_fxSend_4_fader.volume.value = -100;
+    player1_fxSend_4_value.innerHTML = -100;
+  }
+  else {
+    player1_fxSend_4_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player1_fxSend_4_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+player_1_loop_start.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
+    player1.loopStart = e.currentTarget.value;
+    console.log("player1.loopStart = " + e.currentTarget.value);
+  }
+  else {
+    alert("errororororor player1.loopStart");
+  }
+});
+
+player_1_loop_end.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234 && e.currentTarget.value > player1.loopStart) {
+    player1.loopEnd = e.currentTarget.value;
+    console.log("player1.loopend = " + e.currentTarget.value);
+  }
+  else {
+    alert("errororororor player1.loopEnd");
+  }
+});
+
+player_1_fadeIn.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
+    player1.fadeIn_1 = e.currentTarget.value;
+    console.log("player1.fadeIn_1 = " + e.currentTarget.value);
+  }
+  else {
+    alert("errororororor player1.fadeIn_1");
+  }
+});
+
+player_1_fadeOut.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
+    player1.player_1_fadeOut = e.currentTarget.value;
+    console.log("player1.player_1_fadeOut = " + e.currentTarget.value);
+  }
+  else {
+    alert("errororororor player1.player_1_fadeOut");
+  }
+});
+
+
+//*************************************************************************** */
+//FX 1-4 ADDEVENTLISTENERS
 
 fx1_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
@@ -993,7 +1340,42 @@ fx1_pan_fader.addEventListener("change", function (e) {
   fx1_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-//------------------------------------------
+
+fx_1_fxSend_2.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    fx1_fxSend_2_fader.volume.value = -100;
+    fx_1_fxSend_2_value.innerHTML = -100;
+  }
+  else {
+    fx1_fxSend_2_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    fx_1_fxSend_2_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+fx_1_fxSend_3.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    fx1_fxSend_3_fader.volume.value = -100;
+    fx_1_fxSend_3_value.innerHTML = -100;
+  }
+  else {
+    fx1_fxSend_3_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    fx_1_fxSend_3_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+fx_1_fxSend_4.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    fx1_fxSend_4_fader.volume.value = -100;
+    fx_1_fxSend_4_value.innerHTML = -100;
+  }
+  else {
+    fx1_fxSend_4_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    fx_1_fxSend_4_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+
+//------------------------------------------------------------------------------------
 fx2_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fxReturn_2_fader.volume.value = -100;
@@ -1010,7 +1392,7 @@ fx2_pan_fader.addEventListener("change", function (e) {
   fx2_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-//------------------------------------------
+//------------------------------------------------------------------------------------
 fx3_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fxReturn_3_fader.volume.value = -100;
@@ -1028,7 +1410,7 @@ fx3_pan_fader.addEventListener("change", function (e) {
   fx3_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-//------------------------------------------
+//------------------------------------------------------------------------------------
 fx4_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fxReturn_4_fader.volume.value = -100;
@@ -1046,67 +1428,332 @@ fx4_pan_fader.addEventListener("change", function (e) {
   fx4_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
+//------------------------------------------------------------------------------------
+// FX 1 EQ
+//  */
+
+fx1_filter_frequency.addEventListener("change", function (e) {
+  fx1_Filter.frequency.value = e.currentTarget.value; console.log("fx1_Filter.frequency: " + fx1_Filter.frequency.value);
+  fx1_filter_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+fx1_filter_Q.addEventListener("change", function (e) {
+  fx1_Filter.Q.value = e.currentTarget.value; console.log("fx1_Filter.q: " + e.currentTarget.value);
+  fx1_filter_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+fx1_filter_detune_1.addEventListener("change", function (e) {
+  fx1_Filter.detune.value = e.currentTarget.value; console.log("fx1_Filter.detune: " + e.currentTarget.value);
+  fx1_filter_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+fx1_filter_gain.addEventListener("change", function (e) {
+  fx1_Filter.gain.value = e.currentTarget.value; console.log("fx1_Filter.gain: " + e.currentTarget.value);
+  fx1_filter_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+fx1_filter_select.addEventListener("change", function (e) {
+  fx1_Filter.type = e.currentTarget.value; console.log("fx1_Filter.value: " + e.currentTarget.value);
+  hides_All_EQ_Faders("fx1_Filter");
+  switch (e.currentTarget.value) {
+    case "lowpass":
+    case "highpass":
+    case "bandpass":
+    case "notch":
+    case "allpass":
+      {
+        fx1_filter_frequency.style.opacity = "1";
+        fx1_filter_frequency_value.style.opacity = "1";
+        fx1_filter_frequency_text.style.opacity = "1";
+        fx1_filter_Q.style.opacity = "1";
+        fx1_filter_Q_value.style.opacity = "1";
+        fx1_filter_Q_text.style.opacity = "1";
+        fx1_filter_detune_1.style.opacity = "1";
+        fx1_filter_detune_value.style.opacity = "1";
+        fx1_filter_detune_1_text.style.opacity = "1";
+        break;
+      }
+    case "lowshelf":
+    case "highshelf":
+      {
+        fx1_filter_frequency.style.opacity = "1";
+        fx1_filter_frequency_value.style.opacity = "1";
+        fx1_filter_frequency_text.style.opacity = "1";
+        fx1_filter_gain.style.opacity = "1";
+        fx1_filter_gain_value.style.opacity = "1";
+        fx1_filter_gain_text.style.opacity = "1";
+        fx1_filter_detune_1.style.opacity = "1";
+        fx1_filter_detune_value.style.opacity = "1";
+        fx1_filter_detune_1_text.style.opacity = "1";
+        break;
+      }
+    case "peaking":
+      {
+        fx1_filter_frequency.style.opacity = "1";
+        fx1_filter_frequency_value.style.opacity = "1";
+        fx1_filter_frequency_text.style.opacity = "1";
+        fx1_filter_Q.style.opacity = "1";
+        fx1_filter_Q_value.style.opacity = "1";
+        fx1_filter_Q_text.style.opacity = "1";
+        fx1_filter_gain.style.opacity = "1";
+        fx1_filter_gain_value.style.opacity = "1";
+        fx1_filter_gain_text.style.opacity = "1";
+        fx1_filter_detune_1.style.opacity = "1";
+        fx1_filter_detune_value.style.opacity = "1";
+        fx1_filter_detune_1_text.style.opacity = "1";
+        break;
+      }
+    default:
+      { console.log(" EQ1 DEFAULT"); }
+  }
+});
+
 //************************************************************************* */
-//************************************************************** */
+//************************************************************************* */
 //INNERHTML
 
-volume_1_value.innerHTML = "-40";
-pan_1_value.innerHTML = "0";
-playback_rate_1_value.innerHTML = "100";
-loop_checkbox_text.innerHTML = "Loop";
-autoplay_1_text.innerHTML = "AutoPlay";
-reverse_1_text.innerHTML = "Reverse";
-loop_start_1_text.innerHTML = "Loop Start: ";
-//loop_start_1_time.innerHTML = `${player1.loopStart}`;
-loop_end_1_text.innerHTML = "Loop End: ";
-//loop_end_1_time.innerHTML = `${player1.loopEnd}`;
-fadeIn_1_text.innerHTML = `fadeIn: `;
+player_1_volume_value.innerHTML = "-40";
+player_1_pan_value.innerHTML = "0";
+player_1_playback_rate_value.innerHTML = "100";
+player_1_loop_checkbox_text.innerHTML = "Loop";
+player_1_autoplay_text.innerHTML = "AutoPlay";
+player_1_reverse_text.innerHTML = "Reverse";
+player_1_loop_start_text.innerHTML = "Loop Start: ";
+//player_1_loop_start_time.innerHTML = `${player1.loopStart}`;
+player_1_loop_end_text.innerHTML = "Loop End: ";
+//player_1_loop_end_time.innerHTML = `${player1.loopEnd}`;
+player_1_fadeIn_text.innerHTML = `fadeIn: `;
 //fadeIn_1_value.innerHTML = `${player1.fadeIn}`;
-fadeOut_1_text.innerHTML = `fadeOut`;
-//fadeOut_1_value.innerHTML = `${player1.fadeOut}`;
-songName1.innerHTML = `No Song Loaded`;
-duration_1_text.innerHTML = "Duration";
-duration_1_value.innerHTML = "Unk";
-frequency_1_value.innerHTML = "20";
-Q_1_value.innerHTML = "0";
-detune_1_value.innerHTML = "0";
-gain_1_value.innerHTML = "0";
+player_1_fadeOut_text.innerHTML = `fadeOut`;
+//player_1_fadeIn_value.innerHTML = `${player1.fadeOut}`;
+player_1_songName.innerHTML = `No Song Loaded`;
+player_1_duration_text.innerHTML = "Duration";
+player_1_duration_value.innerHTML = "Unk";
+player_1_filter_frequency_value.innerHTML = "20";
+player_1_filter_Q_value.innerHTML = "0";
+player_1_filter_detune_value.innerHTML = "0";
+player_1_filter_gain_value.innerHTML = "0";
 player1_fxSend_1_value.innerHTML = "0";
 player1_fxSend_2_value.innerHTML = "0";
 player1_fxSend_3_value.innerHTML = "0";
 player1_fxSend_4_value.innerHTML = "0";
 
+//************************************************************************* */
+// FX 1 EQ 
+//  */
 
+fx1_filter_frequency_value.innerHTML = "20";
+fx1_filter_Q_value.innerHTML = "0";
+fx1_filter_detune_value.innerHTML = "0";
+fx1_filter_gain_value.innerHTML = "0";
+
+fx_1_fxSend_2_value.innerHTML = "0";
+fx_1_fxSend_3_value.innerHTML = "0";
+fx_1_fxSend_4_value.innerHTML = "0";
+
+//************************************************************************* */
+//PLAYER 2 INNER
+
+player_2_volume_value.innerHTML = "-40";
+player_2_pan_value.innerHTML = "0";
+player_2_playback_rate_value.innerHTML = "100";
+player_2_loop_checkbox_text.innerHTML = "Loop";
+player_2_autoplay_text.innerHTML = "AutoPlay";
+player_2_reverse_text.innerHTML = "Reverse";
+player_2_loop_start_text.innerHTML = "Loop Start: ";
+player_2_loop_end_text.innerHTML = "Loop End: ";
+player_2_songName.innerHTML = `No Song Loaded`;
+player_2_duration_text.innerHTML = "Duration";
+player_2_duration_value.innerHTML = "UNK";
+/*player_2_filter_frequency_value.innerHTML = "20";
+player_2_Q_value.innerHTML = "0";
+player_2_detune_value.innerHTML = "0";
+player_2_gain_value.innerHTML = "0";
+player2_fxSend_1_value.innerHTML = "0";
+player2_fxSend_2_value.innerHTML = "0";
+player2_fxSend_3_value.innerHTML = "0";
+player2_fxSend_4_value.innerHTML = "0";
+ 
+//player2_loop_start_time.innerHTML = `${player1.loopStart}`;
+//player2_loop_end_time.innerHTML = `${player1.loopEnd}`;
+player2_fadeIn_text.innerHTML = `fadeIn: `;
+//player2_fadeIn_value.innerHTML = `${player1.fadeIn}`;
+player2_fadeOut_text.innerHTML = `fadeOut`;
+//player2_fadeOut_value.innerHTML = `${player1.fadeOut}`;
+*/
 //************************************************************************* */
 //************************************************************************* */
 //FUNCTIONS 
 
-function mute1() {
-  player1_vol.mute = !player1_vol.mute;
+function play(value) {
+//  console.log("PLAY FOO VALUE: " + value);
+  switch (value) {
+    case "1":
+      {
+        if (!player1.loaded) {
+          player_1_duration_value.innerHTML = "loading (PLAY FOO)";
+        }
+        else {
+          var duration = player1.buffer.duration; console.log("else  player1.buffer.duration:     " + player1.buffer.duration);
+          player_1_duration_value.innerHTML = Math.round(`${duration}`);
+          player1.start();
+        }
+        break;
+      }
+    case "2":
+      {
+        if (!player2.loaded) {
+          player_2_duration_value.innerHTML = "loading P2 (PLAY FOO)";
+        }
+        else {
+          var duration = player2.buffer.duration; console.log("else  player2.buffer.duration:     " + player2.buffer.duration);
+          player_2_duration_value.innerHTML = Math.round(`${duration}`);
+          player2.start();
+        }
+        break;
+
+      }
+    case "3":
+      {
+        alert("function play(value) CASE 3 ")
+        if (!player3.loaded) {
+          player_3_duration_value.innerHTML = "loading P3 (PLAY FOO)";
+        }
+        else {
+          var duration = player3.buffer.duration; console.log("else  player3.buffer.duration:     " + player3.buffer.duration);
+          player_3_duration_value.innerHTML = Math.round(`${duration}`);
+          player3.start();
+        }
+        break;
+
+      }
+    case "4":
+      {
+        alert("function play(value) CASE 4 ")
+        if (!player4.loaded) {
+          player_4_duration_value.innerHTML = "loading P4 (PLAY FOO)";
+        }
+        else {
+          var duration = player4.buffer.duration; console.log("else  player4.buffer.duration:     " + player4.buffer.duration);
+          player_4_duration_value.innerHTML = Math.round(`${duration}`);
+          player4.start();
+        }
+        break;
+
+      }
+    default:
+      {
+        break;
+      }
+
+  }//CLOSES SWT6CH
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+function stop(value) {
+  switch (value) {
+    case "1":
+      { player1.stop(); break; }
+    case "2":
+      { player2.stop(); break; }
+    case "3":
+      { player3.stop(); break; }
+    case "4":
+      { player4.stop(); break; }
+    default:
+      { console.log("DEFAULT function stop(value)"); break; }
+  }
+}
+
+function mute1() {
+  player_1_volNode.mute = !player_1_volNode.mute;
+}
+
+function mute(value) { alert("mute(value)" +value);
+  switch (value) {
+    case "1":
+      { player_1_volNode.mute = !player_1_volNode.mute; alert("1111111111111111111111"); break; }
+    case "2":
+      { player_2_volNode.mute = !player_2_volNode.mute; alert("222222222222222222222");break; }
+    case "3":
+      { player_3_volNode.mute = !player_3_volNode.mute; break; }
+    case "4":
+      { player_4_volNode.mute = !player_4_volNode.mute; break; }
+    default:
+      { console.log("DEFAULT function stop(value)"); break; }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function solo1() {
-  player1_vol.solo = !player1_vol.solo; alert("player1_vol.solo: " + player1_vol.solo);
+  player_1_volNode.solo = !player_1_volNode.solo; alert("player_1_volNode.solo: " + player_1_volNode.solo);
+}
+/*
+ function stop1() {
+   player1.stop();
+ }
+ 
+ function play1() {
+   if (!player1.loaded) {
+     player_1_duration_value.innerHTML = "loading";
+   }
+   else {
+     var duration = player1.buffer.duration; console.log("else  player1.buffer.duration:     " + player1.buffer.duration);
+     player_1_duration_value.innerHTML = Math.round(`${duration}`);
+     player1.start();
+   }
+ }
+ */
+
+function mute2() {
+  player_2_volume.mute = !player_2_volume.mute;
 }
 
-function stop1() {
-  player1.stop();
+function solo2() {
+  player_2_volume.solo = !player_2_volume.solo; alert("player_2_volume.solo: " + player_2_volume.solo);
 }
-
-function play1() {
-  if (!player1.loaded) {
-    duration_1_value.innerHTML = "loading";
+/*
+  function stop2() {
+    player2.stop();
   }
-  else {
-    var duration = player1.buffer.duration; console.log("else  player1.buffer.duration:     " + player1.buffer.duration);
-    duration_1_value.innerHTML = Math.round(`${duration}`);
-    player1.start();
+  
+  function play2() {
+    if (!player2.loaded) {
+      player_2_duration_value.innerHTML = "loading";
+    }
+    else {
+      var duration = player2.buffer.duration; console.log("else  player2.buffer.duration:     " + player2.buffer.duration);
+      player_2_duration_value.innerHTML = Math.round(`${duration}`);
+      player2.start();
+    }
   }
-}
-
+  */
 function busca1() {
-  duration_1_value.innerHTML = "Unknown";
-  songName1.innerHTML = `No Song Loaded`;
+  //player_1_duration_value.innerHTML = "Unknown";
+  //player_1_songName.innerHTML = `busca1foo No Song Loaded`;
   let songNumber = "", playerNumber = "";
   let cadena = validateForm();
   var doesItInclude = cadena.includes("-", 0);
@@ -1125,13 +1772,27 @@ function busca1() {
     case "1":
       {
         if (player1.state != "started") {
-          player1.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber));
+          player1.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
         }
         else {
           alert("ELSE: deten la reproduccion");
         }
         break;
       }
+
+    case "2":
+      {
+        if (player2.state != "started") {
+          player2.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
+        }
+        else {
+          alert("ELSE: deten la reproduccion");
+        }
+        break;
+      }
+
+
+
     default:
       { console.log("DEFAULT"); }
   }
@@ -1168,25 +1829,50 @@ function recieves_Number_Returns_url(song) {
 }//CLOSES recieves_Number_Returns_url
 
 
-function hides_All_EQ1_Faders() {
-  frequency_1.style.opacity = "0";
-  frequency_1_value.style.opacity = "0";
-  frequency_1_text.style.opacity = "0";
-  Q_1.style.opacity = "0";
-  Q_1_value.style.opacity = "0";
-  Q_1_text.style.opacity = "0";
-  gain_1.style.opacity = "0";
-  gain_1_value.style.opacity = "0";
-  gain_1_text.style.opacity = "0";
-  detune_1.style.opacity = "0";
-  detune_1_value.style.opacity = "0";
-  detune_1_text.style.opacity = "0";
-}//CLOSES hides_All_EQ1_Faders
+function hides_All_EQ_Faders(value) {
+  switch (value) {
+    case "player_1_filter":
+      {
+        //alert("PLAYER 1 FILTER");
+        player_1_filter_frequency.style.opacity = "0";
+        player_1_filter_frequency_value.style.opacity = "0";
+        player_1_filter_frequency_text.style.opacity = "0";
+        player_1_filter_Q.style.opacity = "0";
+        player_1_filter_Q_value.style.opacity = "0";
+        player_1_filter_Q_text.style.opacity = "0";
+        player_1_filter_gain.style.opacity = "0";
+        player_1_filter_gain_value.style.opacity = "0";
+        player_1_filter_gain_text.style.opacity = "0";
+        player_1_filter_detune.style.opacity = "0";
+        player_1_filter_detune_value.style.opacity = "0";
+        player_1_filter_detune_text.style.opacity = "0";
+        break;
+      }
+    case "fx1_Filter":
+      {
+        //alert("fx1_Filter");
+        fx1_filter_frequency.style.opacity = "0";
+        fx1_filter_frequency_value.style.opacity = "0";
+        fx1_filter_frequency_text.style.opacity = "0";
+        fx1_filter_Q.style.opacity = "0";
+        fx1_filter_Q_value.style.opacity = "0";
+        fx1_filter_Q_text.style.opacity = "0";
+        fx1_filter_detune_1.style.opacity = "0";
+        fx1_filter_detune_value.style.opacity = "0";
+        fx1_filter_detune_1_text.style.opacity = "0";
+        fx1_filter_gain.style.opacity = "0";
+        fx1_filter_gain_value.style.opacity = "0";
+        fx1_filter_gain_text.style.opacity = "0";
+        break;
+      }
+    default: { console.log("DEFAULT hides_All_EQ_Faders"); }
+  }//CLOSES switch(value)
+}//CLOSES hides_All_EQ_Faders
 
 
 //************************************************************************* */
 //************************************************************************
-//GRABADORA
+//GRABADORA //Get the playback state of the Recorder, either "started", "stopped" or "paused"
 function rec() {
   setTimeout(async () => {
     // the recorded audio is returned as a blob
@@ -1203,42 +1889,78 @@ function rec() {
   setInterval(() => {
     console.log(Tone.immediate());
   }, 3000);
-  console.log("Rec finished");
-
+  document.getElementById("recButton").style.backgroundColor = "red";
 }
 
 function recPause() {
-  recorder.pause(); console.log("Pausa Grabacion");
+  if (recorder.state != "started") {
+    alert("La Grabacion debe comenzar para poder pausarla");
+  }
+  else {
+    recorder.pause(); console.log("Pausa Grabacion");
+    document.getElementById("recButton").style.backgroundColor = "white";
+    document.getElementById("pauseButton").style.backgroundColor = "green";
+  }
 }
 
 function recStop() {
-  recorder.stop(); console.log("Detiene Grabacion");
-}
-
-//************************************************************************* */
-//********************************************************************* */
-//EQ
-function eqOnOff1() {
-  isFilter_1_On = !isFilter_1_On; console.log("isFilter_1_On: " + isFilter_1_On);
-  if (eq_On_Off_Button_1.innerText === "On") {
-    eq_On_Off_Button_1.innerText = "Off";       //conecta el player a destination
-    filter_1.disconnect(player1_pan);
-    player1.disconnect(filter_1);
-    player1.connect(player1_pan);
+  if (recorder.state == "stopped") {
+    alert("La Grabacion esta detenida");
   }
   else {
-    eq_On_Off_Button_1.innerText = "On";      //conecta el player al filter y este a destination
-    player1.disconnect(player1_pan);
-    player1.connect(filter_1);
-    filter_1.connect(player1_pan);
+    recorder.stop(); console.log("Detiene Grabacion");
+    document.getElementById("recButton").style.backgroundColor = "white";
+    document.getElementById("pauseButton").style.backgroundColor = "white";
   }
 }
-//************************************************************************* */
-//********************************************************************* */
 
 //************************************************************************* */
 //********************************************************************* */
 //EQ
+function player_1_filter_eq_On_Off() {
+  isFilter_1_On = !isFilter_1_On; console.log("isFilter_1_On: " + isFilter_1_On);
+  if (player_1_filter_eq_On_Off_Button.innerText === "On") {
+    player_1_filter_eq_On_Off_Button.innerText = "Off";       //conecta el player a destination
+    filter_1.disconnect(player_1_panNode);
+    player1.disconnect(filter_1);
+    player1.connect(player_1_panNode);
+    document.getElementById("player_1_filter_eq_On_Off_Button").style.backgroundColor = "red";
+  }
+  else {
+    player_1_filter_eq_On_Off_Button.innerText = "On";      //conecta el player al filter y este a destination
+    player1.disconnect(player_1_panNode);
+    player1.connect(filter_1);
+    filter_1.connect(player_1_panNode);
+    document.getElementById("player_1_filter_eq_On_Off_Button").style.backgroundColor = "green";
+  }
+}
+//************************************************************************* */
+//********************************************************************* */
+//********************************************************************* */
+//FX 1 EQ ON OFF BUTTON
+function fx1_filter_eq_On_Off_Button_foo() {
+  isFilter_fx1_On = !isFilter_fx1_On; console.log("isFilter_fx1_On: " + isFilter_fx1_On);
+  if (fx1_filter_eq_On_Off_Button.innerText === "On") {
+    fx1_filter_eq_On_Off_Button.innerText = "Off";       //conecta el player a destination
+    fx1_Filter.disconnect(fx1_pan);
+    fxReturn_1_fader.disconnect(fx1_Filter);
+    fxReturn_1_fader.connect(fx1_pan);
+    document.getElementById("fx1_filter_eq_On_Off_Button").style.backgroundColor = "red";
+  }
+  else {
+    fx1_filter_eq_On_Off_Button.innerText = "On";      //conecta el player al filter y este a destination
+    fxReturn_1_fader.disconnect(fx1_pan);
+    fxReturn_1_fader.connect(fx1_Filter);
+    fx1_Filter.connect(fx1_pan);
+    document.getElementById("fx1_filter_eq_On_Off_Button").style.backgroundColor = "green";
+  }
+}
+
+/////const fxReturn_1_fader = new Tone.Volume(-100).connect(fx1_Filter);
+//************************************************************************* */
+//************************************************************************* */
+//********************************************************************* */
+//PLAYER 1 FX SEND  ON OFF BUTTONS
 function fxSend_1_OnOff1() {
   isfxSend_1_On = !isfxSend_1_On; console.log("isfxSend_1_On: " + isfxSend_1_On);
   if (player1_fxSend_1_On_Off_Button.innerText === "On") {
@@ -1253,17 +1975,17 @@ function fxSend_1_OnOff1() {
   }
 }
 
-function fxSend_2_OnOff1() {
+function fx_1_fxSend_2_OnOff() {
   isfxSend_2_On = !isfxSend_2_On; console.log("isfxSend_2_On: " + isfxSend_2_On);
-  if (player1_fxSend_2_On_Off_Button.innerText === "On") {
-    player1_fxSend_2_On_Off_Button.innerText = "Off";
-    player1_fxSend_2_fader.disconnect(fx_2_reverb);
-    player1_fxSend_2_fader.connect(fxReturn_2_fader);
+  if (fx_1_fxSend_2_On_Off_Button.innerText === "On") {
+    fx_1_fxSend_2_On_Off_Button.innerText = "Off";
+    fx1_fxSend_2_fader.disconnect(fx_2_reverb);
+    fx1_fxSend_2_fader.connect(fxReturn_2_fader);
   }
   else {
-    player1_fxSend_2_On_Off_Button.innerText = "On";
-    player1_fxSend_2_fader.disconnect(fxReturn_2_fader);
-    player1_fxSend_2_fader.connect(fx_2_reverb);
+    fx_1_fxSend_2_On_Off_Button.innerText = "On";
+    fx1_fxSend_2_fader.disconnect(fxReturn_2_fader);
+    fx1_fxSend_2_fader.connect(fx_2_reverb);
   }
 }
 
@@ -1297,6 +2019,58 @@ function fxSend_4_OnOff1() {
 
 //************************************************************
 
+//********************************************************************* */
+//FX 1 FX SEND  ON OFF BUTTONS
+
+
+function fx_1_fxSend_2_OnOff() {
+  is_fx1_fxSend_2_On = !is_fx1_fxSend_2_On; console.log("is_fx1_fxSend_2_On: " + is_fx1_fxSend_2_On);
+  if (fx_1_fxSend_2_On_Off_Button.innerText === "On") {
+    fx_1_fxSend_2_On_Off_Button.innerText = "Off";
+    fx1_fxSend_2_fader.disconnect(fx_2_reverb);
+    fx1_fxSend_2_fader.connect(fxReturn_2_fader);
+  }
+  else {
+    fx_1_fxSend_2_On_Off_Button.innerText = "On";
+    fx1_fxSend_2_fader.disconnect(fxReturn_2_fader);
+    fx1_fxSend_2_fader.connect(fx_2_reverb);
+  }
+}
+
+function fx_1_fxSend_3_OnOff() {
+  is_fx1_fxSend_3_On = !is_fx1_fxSend_3_On; console.log("is_fx1_fxSend_3_On: " + is_fx1_fxSend_3_On);
+  if (fx_1_fxSend_3_On_Off_Button.innerText === "On") {
+    fx_1_fxSend_3_On_Off_Button.innerText = "Off";
+    fx1_fxSend_3_fader.disconnect(fx_3_fbDelay);
+    fx1_fxSend_3_fader.connect(fxReturn_3_fader);
+  }
+  else {
+    fx_1_fxSend_3_On_Off_Button.innerText = "On";
+    fx1_fxSend_3_fader.disconnect(fxReturn_3_fader);
+    fx1_fxSend_3_fader.connect(fx_3_fbDelay);
+  }
+}
+
+function fx1_fxSend_4_OnOff() {
+  isfxSend_4_On = !isfxSend_4_On; console.log("isfxSend_4_On: " + isfxSend_4_On);
+  if (fx_1_fxSend_4_On_Off_Button.innerText === "On") {
+    fx_1_fxSend_4_On_Off_Button.innerText = "Off";
+    fx1_fxSend_4_fader.disconnect(fx_4_pitchShift);
+    fx1_fxSend_4_fader.connect(fxReturn_4_fader);
+  }
+  else {
+    fx_1_fxSend_4_On_Off_Button.innerText = "On";
+    fx1_fxSend_4_fader.disconnect(fxReturn_4_fader);
+    fx1_fxSend_4_fader.connect(fx_4_pitchShift);
+  }
+}
+
+//************************************************************
+
+
+
+
+
 function player1_fxSend_1_state_foo(value) {
 
   if (player1_fxSend_1_state != value) {
@@ -1304,14 +2078,14 @@ function player1_fxSend_1_state_foo(value) {
     switch (value) {
       case "PreEQ": {
         if (player1_fxSend_1_state === "PostEQ") {
-          console.log("Prev state: " + player1_fxSend_1_state);
           filter_1.disconnect(player1_fxSend_1_fader);
           player1.connect(player1_fxSend_1_fader);
+          send_state_player1_background_change(value);
         }
         else if (player1_fxSend_1_state === "PostFdr") {
-          console.log("Prev state: " + player1_fxSend_1_state);
-          player1_vol.disconnect(player1_fxSend_1_fader);
+          player_1_volNode.disconnect(player1_fxSend_1_fader);
           player1.connect(player1_fxSend_1_fader);
+          send_state_player1_background_change(value);
         }
         else {
           console.log("ni post eq ni post fdr");
@@ -1324,12 +2098,12 @@ function player1_fxSend_1_state_foo(value) {
           player1.disconnect(player1_fxSend_1_fader);
           player1.connect(filter_1);
           filter_1.connect(player1_fxSend_1_fader)
-          console.log("Prev state: " + player1_fxSend_1_state);
+          send_state_player1_background_change(value);
         }
         else if (player1_fxSend_1_state === "PostFdr") {
-          player1_vol.disconnect(player1_fxSend_1_fader);
+          player_1_volNode.disconnect(player1_fxSend_1_fader);
           filter_1.connect(player1_fxSend_1_fader);
-          console.log("Prev state: " + player1_fxSend_1_state);
+          send_state_player1_background_change(value);
         }
         else {
           console.log("ni pre eq ni post fdr");
@@ -1340,41 +2114,49 @@ function player1_fxSend_1_state_foo(value) {
       case "PostFdr": {
         if (player1_fxSend_1_state === "PreEQ") {
           player1.disconnect(player1_fxSend_1_fader);
-          player1_vol.connect(player1_fxSend_1_fader);
-          console.log("Prev state: " + player1_fxSend_1_state);
+          player_1_volNode.connect(player1_fxSend_1_fader);
+          send_state_player1_background_change(value);
         }
         else if (player1_fxSend_1_state === "PostEQ") {
           filter_1.disconnect(player1_fxSend_1_fader);
-          player1_vol.connect(player1_fxSend_1_fader);
-          console.log("Prev state: " + player1_fxSend_1_state);
+          player_1_volNode.connect(player1_fxSend_1_fader);
+          send_state_player1_background_change(value);
         }
         else {
           console.log("ni pre eq ni post eq");
-
         }
         player1_fxSend_1_state = "PostFdr"; console.log("state: " + player1_fxSend_1_state);
         break;
       }
       default: { break; }
     }
-
   }
-  else { alert("player1_fxSend_1_state = value"); }
+  else { alert("EL EQ SELECCIONADO ES EL QUE ESTA EN USO"); }
 }
 
+function send_state_player1_background_change(value) {
+  switch (value) {
+    case "PreEQ": {
+      document.getElementById("player1_fxSend_1_pre_EQ_Button").style.backgroundColor = "green";
+      document.getElementById("player1_fxSend_1_post_EQ_Button").style.backgroundColor = "white";
+      document.getElementById("player1_fxSend_1_post_fader_Button").style.backgroundColor = "white";
+      break;
+    }
+    case "PostEQ": {
+      document.getElementById("player1_fxSend_1_pre_EQ_Button").style.backgroundColor = "white";
+      document.getElementById("player1_fxSend_1_post_fader_Button").style.backgroundColor = "white";
+      document.getElementById("player1_fxSend_1_post_EQ_Button").style.backgroundColor = "green";
+      break;
+    }
+    case "PostFdr": {
+      document.getElementById("player1_fxSend_1_post_EQ_Button").style.backgroundColor = "white";
+      document.getElementById("player1_fxSend_1_pre_EQ_Button").style.backgroundColor = "white";
+      document.getElementById("player1_fxSend_1_post_fader_Button").style.backgroundColor = "green";
+      break;
+    }
+  }
+}
 
-
-
-
-//CAMBIAR EL ESTILO DE UN BOTON DESDE LA LOGICA
-/*
-element.addEventListener('click', (e => {
-    e.preventDefault();
-
-    element.style = '<insert CSS here as you would in a style attribute>';
-}));
-
-*/
 //************************************************************
 
 function in_outs(element, text) {
@@ -1388,8 +2170,27 @@ function sarasa() {
   console.log("SARASA");
 }
 
-function callbackLoaded(songNumber) {
-  songName1.innerHTML = array_Canciones[songNumber - 1].title;
+function callbackLoaded(songNumber, playerNumber) {
+  switch (playerNumber) {
+
+    case "1": {
+      player_1_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      break;
+    }
+    case "2": {
+      player_2_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      break;
+    }
+    case "3": {
+      player_3_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      break;
+    }
+    case "4": {
+      player_4_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      break;
+    }
+    default: { console.log("DEFAULT switch(playerNumber)") }
+  }
 }
 
 //************************************************************************
