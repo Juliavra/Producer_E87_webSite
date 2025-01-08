@@ -273,23 +273,32 @@ ACA INICIA EL PLAYER 1
     </p>
     Send
 
-    <button id="player1_fxSend_1_pre_EQ_Button" onclick="player1_fxSend_1_state_foo(value)" value="PreEQ">Pre EQ
+    <button id="player_1_fxSend_1_pre_EQ_Button" name="player_1_fxSend_1" onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
     </button>
-    <button id="player1_fxSend_1_post_EQ_Button" onclick="player1_fxSend_1_state_foo(value)" value="PostEQ">Post EQ
+    <button id="player_1_fxSend_1_post_EQ_Button" name="player_1_fxSend_1" onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
     </button>
-    <button id="player1_fxSend_1_post_fader_Button" onclick="player1_fxSend_1_state_foo(value)" value="PostFdr">Post Fdr
+    <button id="player_1_fxSend_1_post_fader_Button" name="player_1_fxSend_1" onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
     </button>
 
     <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_1'>
     <p id="player1_fxSend_1_value"></p>
     <br>
+
     <p id="player1_fxSend_2_text">
     <h2> 2 Reverb
       <button id="player1_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">On </button>
     </h2>
     </p>
-
     Send
+
+    <button id="player_1_fxSend_2_pre_EQ_Button" name="player_1_fxSend_2" onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
+    </button>
+    <button id="player_1_fxSend_2_post_EQ_Button" name="player_1_fxSend_2" onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
+    </button>
+    <button id="player_1_fxSend_2_post_fader_Button" name="player_1_fxSend_2" onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
+    </button>
+
+
     <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_2'>
     <p id="player1_fxSend_2_value"></p>
     <br>
@@ -297,8 +306,15 @@ ACA INICIA EL PLAYER 1
     <h2>3 FeedBack Delay <button id="player1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
     </h2>
     </p>
-
     Send
+
+
+    <button id="player_1_fxSend_3_pre_EQ_Button" name="player_1_fxSend_3" onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
+    </button>
+    <button id="player_1_fxSend_3_post_EQ_Button" name="player_1_fxSend_3" onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
+    </button>
+    <button id="player_1_fxSend_3_post_fader_Button" name="player_1_fxSend_3" onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
+    </button>
     <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_3'>
     <p id="player1_fxSend_3_value"></p>
 
@@ -308,8 +324,15 @@ ACA INICIA EL PLAYER 1
       <button id="player1_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">On </button>
     </h2>
     </p>
-
     Send
+
+    <button id="player_1_fxSend_4_pre_EQ_Button" name="player_1_fxSend_4" onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
+    </button>
+    <button id="player_1_fxSend_4_post_EQ_Button" name="player_1_fxSend_4" onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
+    </button>
+    <button id="player_1_fxSend_4_post_fader_Button" name="player_1_fxSend_4" onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
+    </button>
+
     <input type='range' min=-40 max=12 step=1 value="-40" id='player1_fxSend_4'>
     <p id="player1_fxSend_4_value"></p>
 
@@ -421,7 +444,7 @@ ACA FINALIZA EL PLAYER 2
       <button id="player_3_playButton" value="3" onclick="play(value)">Play </button>
       <button id="player_3_stopButton" value="3" onclick="stop(value)">Stop </button>
       <button id="player_3_muteButton" value="3" onclick="mute(value)">Mute </button>
-      <button id="player_3_soloButton" value="3" onclick="solo()">Solo </button>
+      <button id="player_3_soloButton" value="3" onclick="solo(value)">Solo </button>
     </div>
 
 
@@ -481,7 +504,7 @@ ACA FINALIZA EL PLAYER 2
       <button id="player_4_playButton" value="4" onclick="play(value)">Play </button>
       <button id="player_4_stopButton" value="4" onclick="stop(value)">Stop </button>
       <button id="player_4_muteButton" value="4" onclick="mute(value)">Mute </button>
-      <button id="player_4_soloButton" value="4" onclick="solo()">Solo </button>
+      <button id="player_4_soloButton" value="4" onclick="solo(value)">Solo </button>
     </div>
 
 
@@ -579,11 +602,11 @@ ACA FINALIZA EL PLAYER 2
     </h2>
     </p>
     Send
-    <button id="fx1_fxSend_1_pre_EQ_Button" onclick="fx1_fxSend_1_state_foo(value)" value="PreEQ">Pre EQ
+    <button id="fx1_fxSend_1_pre_EQ_Button" name="fx1_fxSend_1" onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
     </button>
-    <button id="fx1_fxSend_1_post_EQ_Button" onclick="fx1_fxSend_1_state_foo(value)" value="PostEQ">Post EQ
+    <button id="fx1_fxSend_1_post_EQ_Button" name="fx1_fxSend_1" onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
     </button>
-    <button id="fx1_fxSend_1_post_fader_Button" onclick="fx1_fxSend_1_state_foo(value)" value="PostFdr">Post Fdr
+    <button id="fx1_fxSend_1_post_fader_Button" name="fx1_fxSend_1" onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
     </button>
 
 

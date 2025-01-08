@@ -13,14 +13,16 @@
 //*********************************************************** */
 /* TODO LIST
 
+---> REVISAR CHANNEL 1 SEND 1 PRE EQ  PARECE AFECTADO POR UN FILTRO, SALE RE BAJITO Y SUCIO
+---> REVISAR CHANNEL 1 con send post eq elegido y eq off, al elegir pre eq, da ERROR
 ---> REVISAR AUTOPLAY A VER SI FUNCIONA
 ---> REVISAR fadeIn
 ---> REVISAR fadeOut
 ---> AGREGAR .seek() A LOS 4 PLAYERS 
 ---> REVISAR .sync() PARA USAR EN LOS PLAYERS //.unsync() TAMBIEN 
 ---> REVISAR .buffer EN LOS 4 PLAYERS 
---->  
---->  
+---> REVISAR .solo
+---> AGREGAR BUTTON PARA   rolloff: -12, -24, -48, -96,  
 --->  
 
 */
@@ -780,11 +782,30 @@ const player_2_eq_On_Off_Button = document.getElementById("player_2_eq_On_Off_Bu
 const player_3_filter_eq_On_Off_Button = document.getElementById("player_3_filter_eq_On_Off_Button");
 const player_4_filter_eq_On_Off_Button = document.getElementById("player_4_filter_eq_On_Off_Button");
 
-
 const player1_fxSend_1 = document.getElementById("player1_fxSend_1");
 const player2_fxSend_1 = document.getElementById("player2_fxSend_1");
 const player_3_fxSend_1 = document.getElementById("player_3_fxSend_1");
 const player_4_fxSend_1 = document.getElementById("player_4_fxSend_1");
+
+const player_1_fxSend_1_pre_EQ_Button = document.getElementById("player_1_fxSend_1_pre_EQ_Button");
+const player_1_fxSend_1_post_EQ_Button = document.getElementById("player_1_fxSend_1_post_EQ_Button");
+const player_1_fxSend_1_post_fader_Button = document.getElementById("player_1_fxSend_1_post_fader_Button");
+
+const player_1_fxSend_2_pre_EQ_Button = document.getElementById("player_1_fxSend_2_pre_EQ_Button");
+const player_1_fxSend_2_post_EQ_Button = document.getElementById("player_1_fxSend_2_post_EQ_Button");
+const player_1_fxSend_2_post_fader_Button = document.getElementById("player_1_fxSend_2_post_fader_Button");
+            
+const player_1_fxSend_3_pre_EQ_Button = document.getElementById("player_1_fxSend_3_pre_EQ_Button");
+const player_1_fxSend_3_post_EQ_Button = document.getElementById("player_1_fxSend_3_post_EQ_Button");
+const player_1_fxSend_3_post_fader_Button = document.getElementById("player_1_fxSend_3_post_fader_Button");
+              
+const player_1_fxSend_4_pre_EQ_Button = document.getElementById("player_1_fxSend_4_pre_EQ_Button");
+const player_1_fxSend_4_post_EQ_Button = document.getElementById("player_1_fxSend_4_post_EQ_Button");
+const player_1_fxSend_4_post_fader_Button = document.getElementById("player_1_fxSend_4_post_fader_Button");
+
+
+
+
 
 const player1_fxSend_2 = document.getElementById("player1_fxSend_2");
 const player2_fxSend_2 = document.getElementById("player2_fxSend_2");
@@ -841,21 +862,10 @@ const player_2_fadeOut = document.getElementById("player_2_fadeOut");
 const player_3_fadeOut = document.getElementById("player_3_fadeOut");
 const player_4_fadeOut = document.getElementById("player_4_fadeOut");
 
-//Arreglar esto y borrarlo
-const player_2_fxSend_1 = document.getElementById("player_2_fxSend_1");
-const player_2_fxSend_2 = document.getElementById("player_2_fxSend_2");
-const player_2_fxSend_3 = document.getElementById("player_2_fxSend_3");
-const player_2_fxSend_4 = document.getElementById("player_2_fxSend_4");
-const player_2_fxSend_1_value = document.getElementById("player_2_fxSend_1_value");
-const player_2_fxSend_2_value = document.getElementById("player_2_fxSend_2_value");
-const player_2_fxSend_3_value = document.getElementById("player_2_fxSend_3_value");
-const player_2_fxSend_4_value = document.getElementById("player_2_fxSend_4_value");
-
 const player_1_rms_value = document.getElementById("player_1_rms_value");
 const player_2_rms_value = document.getElementById("player_2_rms_value");
 const player_3_rms_value = document.getElementById("player_3_rms_value");
 const player_4_rms_value = document.getElementById("player_4_rms_value");
-
 
 //************************************************************ */
 //FX 1 VOLUME + PAN + SENDFX
@@ -956,18 +966,19 @@ const player_2_EQ3_Q_value = document.getElementById("player_2_EQ3_Q_value");
 //************************************************************ */
 //VAR DECLARATION
 
-var isFilter_1_On = true;
-var isFilter_fx1_On = true;
-var isfxSend_1_On = true;
-var isfxSend_2_On = true;
-var isfxSend_3_On = true;
-var isfxSend_4_On = true;
+var isFilter_1_On = false;        //EQ Off
+var isFilter_fx1_On = false;      //EQ Off
+var is_player_1_fxSend_1_On = true;
+var is_player_1_fxSend_2_On = true;
+var is_player_1_fxSend_3_On = true;
+var is_player_1_fxSend_4_On = true;
+var isfxSend_4_On = true; //es para fx1_send1
 var loop_1_min = 0;
 var loop_1_max = 0;
-var player1_fxSend_1_state = "PostEQ";
-var player1_fxSend_2_state = "PostEQ";
-var player1_fxSend_3_state = "PostEQ";
-var player1_fxSend_4_state = "PostEQ";
+var player_1_fxSend_1_state = "PostEQ";
+var player_1_fxSend_2_state = "PostEQ";
+var player_1_fxSend_3_state = "PostEQ";
+var player_1_fxSend_4_state = "PostEQ";
 
 var fx_1_fxSend_1_state = "PostEQ";
 var fx_1_fxSend_2_state = "PostEQ";
@@ -979,11 +990,17 @@ var is_fx1_fxSend_2_On = true;
 var is_fx1_fxSend_3_On = true;
 var is_fx1_fxSend_4_On = true;
 
+
+
+
+
+
+
 //********************************************************** */
 //************************************************************ */
 //NODE CONSTRUCTION
 
-const recorder = new Tone.Recorder();
+const recorderNode = new Tone.Recorder();
 const masterVolume = new Tone.Volume(-3).toDestination();
 const player_1_volNode = new Tone.Volume(-40).connect(masterVolume);
 const player_2_volNode = new Tone.Volume(-40).connect(masterVolume);
@@ -996,8 +1013,8 @@ const player_3_panNode = new Tone.Panner(0).connect(player_3_volNode);
 const player_4_panNode = new Tone.Panner(0).connect(player_4_volNode);
 
 
-masterVolume.fan(recorder);
-recorder.debug = "true"; //alert(recorder.supported); TRY CATCH
+masterVolume.fan(recorderNode);
+recorderNode.debug = "true"; //alert(recorderNode.supported); TRY CATCH
 const filter_1 = new Tone.Filter().connect(player_1_panNode);
 /*
 filter_1.set({
@@ -1062,10 +1079,10 @@ fx_2_reverb.connect(fxReturn_2_fader);
 fx_3_fbDelay.connect(fxReturn_3_fader);
 fx_4_pitchShift.connect(fxReturn_4_fader);
 
-const player1 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
-player1.debug = true;
+const player_1_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
+player_1_Node.debug = true;
 filter_1.fan(player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
-player1.connect(filter_1);
+player_1_Node.connect(filter_1);
 
 
 //*********************************************************************
@@ -1103,7 +1120,7 @@ const testMeter_3 = new Tone.Meter(0);
 const testMeter_4 = new Tone.Meter(0);
 
 
-player1.fan(testMeter_1);
+player_1_Node.fan(testMeter_1);
 player2.fan(testMeter_2);
 player_3.fan(testMeter_3);
 player_4.fan(testMeter_4);
@@ -1201,7 +1218,7 @@ player_4_pan.addEventListener("change", function (e) {
 });
 
 player_1_playback_rate.addEventListener("change", function (e) {
-  player1.playbackRate = `${e.currentTarget.value}`;
+  player_1_Node.playbackRate = `${e.currentTarget.value}`;
   player_1_playback_rate_value.innerHTML = Math.round(`${e.currentTarget.value}` * 100);
 });
 
@@ -1221,8 +1238,8 @@ player_4_playback_rate.addEventListener("change", function (e) {
 });
 
 player_1_loop_checkbox.addEventListener("change", function () {
-  if (player_1_loop_checkbox.checked) { player1.loop = true; }
-  else { player1.loop = false; }
+  if (player_1_loop_checkbox.checked) { player_1_Node.loop = true; }
+  else { player_1_Node.loop = false; }
 });
 
 player_2_loop_checkbox.addEventListener("change", function () {
@@ -1241,9 +1258,9 @@ player_4_loop_checkbox.addEventListener("change", function () {
 });
 
 player_1_autoplay_checkbox.addEventListener("change", function () {
-  if (player_1_autoplay_checkbox.checked) { player1.autoplay = true; }
-  else { player1.autoplay = false; }
-  console.log("player1.player_1_autoplay_checkbox: " + player_1_autoplay_checkbox.checked);
+  if (player_1_autoplay_checkbox.checked) { player_1_Node.autoplay = true; }
+  else { player_1_Node.autoplay = false; }
+  console.log("player_1_Node.player_1_autoplay_checkbox: " + player_1_autoplay_checkbox.checked);
 });
 
 player_2_autoplay_checkbox.addEventListener("change", function () {
@@ -1265,8 +1282,8 @@ player_4_autoplay_checkbox.addEventListener("change", function () {
 });
 
 player_1_reverse_checkbox.addEventListener("change", function () {
-  if (player_1_reverse_checkbox.checked) { player1.reverse = true; }
-  else { player1.reverse = false; }
+  if (player_1_reverse_checkbox.checked) { player_1_Node.reverse = true; }
+  else { player_1_Node.reverse = false; }
   console.log("player_1_reverse_checkbox: " + player_1_reverse_checkbox.checked);
 });
 
@@ -1295,52 +1312,52 @@ player_4_reverse_checkbox.addEventListener("change", function () {
 
 player_1_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
-    player1.loopStart = e.currentTarget.value;
-    console.log("player1.loopStart = " + e.currentTarget.value);
+    player_1_Node.loopStart = e.currentTarget.value;
+    console.log("player_1_Node.loopStart = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.loopStart");
+    alert("errororororor player_1_Node.loopStart");
   }
 });
 
 player_2_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player2.loopStart = e.currentTarget.value;
-    console.log("player1.loopStart = " + e.currentTarget.value);
+    console.log("player2.loopStart = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.loopStart");
+    alert("errororororor player2.loopStart");
   }
 });
 
 player_3_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player_3.loopStart = e.currentTarget.value;
-    console.log("player1.loopStart = " + e.currentTarget.value);
+    console.log("player3.loopStart = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.loopStart");
+    alert("errororororor player3.loopStart");
   }
 });
 
 player_4_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player_4.loopStart = e.currentTarget.value;
-    console.log("player1.loopStart = " + e.currentTarget.value);
+    console.log("player4.loopStart = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.loopStart");
+    alert("errororororor player4.loopStart");
   }
 });
 
 
 player_1_loop_end.addEventListener("change", function (e) {
-  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234 && e.currentTarget.value > player1.loopStart) {
-    player1.loopEnd = e.currentTarget.value;
-    console.log("player1.loopend = " + e.currentTarget.value);
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234 && e.currentTarget.value > player_1_Node.loopStart) {
+    player_1_Node.loopEnd = e.currentTarget.value;
+    console.log("player_1_Node.loopend = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.loopEnd");
+    alert("errororororor player_1_Node.loopEnd");
   }
 });
 
@@ -1378,11 +1395,11 @@ player_4_loop_end.addEventListener("change", function (e) {
 
 player_1_fadeIn.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
-    player1.fadeIn = e.currentTarget.value;
-    console.log("player1.fadeIn_1 = " + e.currentTarget.value);
+    player_1_Node.fadeIn = e.currentTarget.value;
+    console.log("player_1_Node.fadeIn_1 = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.fadeIn_1");
+    alert("errororororor player_1_Node.fadeIn_1");
   }
 });
 
@@ -1412,47 +1429,47 @@ player_4_fadeIn.addEventListener("change", function (e) {
     console.log("player.fadeIn = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.fadeIn");
+    alert("errororororor player4.fadeIn");
   }
 });
 
 player_1_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
-    player1.fadeOut = e.currentTarget.value;
-    console.log("player1.fadeOut = " + e.currentTarget.value);
+    player_1_Node.fadeOut = e.currentTarget.value;
+    console.log("player_1_Node.fadeOut = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.fadeOut");
+    alert("errororororor player_1_Node.fadeOut");
   }
 });
 
 player_2_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player2.fadeOut = e.currentTarget.value;
-    console.log("player1.fadeOut = " + e.currentTarget.value);
+    console.log("player2.fadeOut = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.fadeOut");
+    alert("errororororor player2.fadeOut");
   }
 });
 
 player_3_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player_3.fadeOut = e.currentTarget.value;
-    console.log("player1.fadeOut = " + e.currentTarget.value);
+    console.log("player3.fadeOut = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.fadeOut");
+    alert("errororororor player3.fadeOut");
   }
 });
 
 player_4_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player4.fadeOut = e.currentTarget.value;
-    console.log("player1.fadeOut = " + e.currentTarget.value);
+    console.log("player4.fadeOut = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player1.fadeOut");
+    alert("errororororor player4.fadeOut");
   }
 });
 
@@ -1487,7 +1504,7 @@ filter_1_select.addEventListener("change", function (e) {
     case "notch":
     case "allpass":
       {
-        player_1_filter_frequency.style.opacity = "1";
+        player_1_filter_frequency.style.opacity = "3";
         player_1_filter_frequency_value.style.opacity = "1";
         player_1_filter_frequency_text.style.opacity = "1";
         player_1_filter_Q.style.opacity = "1";
@@ -1806,7 +1823,6 @@ Mid Frequency: Smooth +/-18dB peaking, fixed ‘Q’ with selectable centre freq
 High Pass Filter: 18dB per octave slope, switchable between 50Hz, 80Hz, 160Hz & 300Hz
 //-------------------------------------------------------------------------
 G e o r g e M a s s e n b u r g L a b s (GLM 8200)
-
 FORM FACTOR – 2 CHANNELS, 5 BANDS: FULLY PARAMETRIC
 1. 15 Hz – 800 Hz, Q of 0.4 – 4.0 or shelving, 15 dB boost/cut
 2. 15 Hz – 800 Hz, Q of 0.4 – 4.0, 15 dB boost/cut
@@ -2143,6 +2159,22 @@ player_2_rms_value.innerHTML = 0;
 player_3_rms_value.innerHTML = 0;
 player_4_rms_value.innerHTML = 0;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //************************************************************************* */
 //************************************************************************* */
 //FUNCTIONS 
@@ -2164,18 +2196,18 @@ function play(value) {
   switch (value) {
     case "1":
       {
-        if (!player1.loaded) {
+        if (!player_1_Node.loaded) {
           player_1_duration_value.innerHTML = "loading (PLAY FOO)";
         }
         else {
-          var duration = player1.buffer.duration; console.log("else  player1.buffer.duration:     " + player1.buffer.duration);
+          var duration = player_1_Node.buffer.duration; console.log("else  player_1_Node.buffer.duration:     " + player_1_Node.buffer.duration);
           player_1_duration_value.innerHTML = Math.round(`${duration}`);
-          player1.start();
+          player_1_Node.start();
         }
         break;
       }
 
-      case "2":
+    case "2":
       {
         if (!player2.loaded) {
           player_2_duration_value.innerHTML = "loading P2 (PLAY FOO)";
@@ -2188,7 +2220,7 @@ function play(value) {
         break;
       }
 
-      case "3":
+    case "3":
       {
         console.log("function play(value) CASE 3 ")
         if (!player_3.loaded) {
@@ -2202,7 +2234,7 @@ function play(value) {
         break;
       }
 
-      case "4":
+    case "4":
       {
         console.log("function play(value) CASE 4 ")
         if (!player_4.loaded) {
@@ -2217,7 +2249,7 @@ function play(value) {
 
       }
     default:
-      {break;}
+      { break; }
 
   }//CLOSES SWT6CH
 }
@@ -2225,7 +2257,7 @@ function play(value) {
 function stop(value) {
   switch (value) {
     case "1":
-      { player1.stop(); break; }
+      { player_1_Node.stop(); break; }
     case "2":
       { player2.stop(); break; }
     case "3":
@@ -2255,7 +2287,6 @@ function mute(value) {
       { console.log("DEFAULT function stop(value)"); break; }
   }
 }
-
 
 function solo(value) {
   console.log("solo(value): " + value);
@@ -2327,8 +2358,8 @@ function busca1() {
   switch (playerNumber) {
     case "1":
       {
-        if (player1.state != "started") {
-          player1.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
+        if (player_1_Node.state != "started") {
+          player_1_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
         }
         else {
           alert("ELSE: deten la reproduccion");
@@ -2341,7 +2372,7 @@ function busca1() {
         if (player2.state != "started") {
           player2.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
         }
-        else {alert("ELSE: deten la reproduccion");}
+        else { alert("ELSE: deten la reproduccion"); }
         break;
       }
     case "3":
@@ -2349,7 +2380,7 @@ function busca1() {
         if (player_3.state != "started") {
           player_3.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
         }
-        else {alert("ELSE: deten la reproduccion");}
+        else { alert("ELSE: deten la reproduccion"); }
         break;
       }
     case "4":
@@ -2357,7 +2388,7 @@ function busca1() {
         if (player_4.state != "started") {
           player_4.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
         }
-        else {alert("ELSE: deten la reproduccion");}
+        else { alert("ELSE: deten la reproduccion"); }
         break;
       }
     default:
@@ -2443,7 +2474,7 @@ function hides_All_EQ_Faders(value) {
 function rec() {
   setTimeout(async () => {
     // the recorded audio is returned as a blob
-    const recording = await recorder.stop();
+    const recording = await recorderNode.stop();
     // download the recording by creating an anchor element and blob url
     const url = URL.createObjectURL(recording);
     const anchor = document.createElement("a");
@@ -2452,7 +2483,7 @@ function rec() {
     anchor.click();
   }, 100000); //<-- TIEMPO QUE DURA LA GRABACION -1 SEGUNDO
   console.log("Rec started");
-  recorder.start();
+  recorderNode.start();
   setInterval(() => {
     console.log(Tone.immediate());
   }, 3000);
@@ -2460,22 +2491,22 @@ function rec() {
 }
 
 function recPause() {
-  if (recorder.state != "started") {
+  if (recorderNode.state != "started") {
     alert("La Grabacion debe comenzar para poder pausarla");
   }
   else {
-    recorder.pause(); console.log("Pausa Grabacion");
+    recorderNode.pause(); console.log("Pausa Grabacion");
     document.getElementById("recButton").style.backgroundColor = "white";
     document.getElementById("pauseButton").style.backgroundColor = "green";
   }
 }
 
 function recStop() {
-  if (recorder.state == "stopped") {
+  if (recorderNode.state == "stopped") {
     alert("La Grabacion esta detenida");
   }
   else {
-    recorder.stop(); console.log("Detiene Grabacion");
+    recorderNode.stop(); console.log("Detiene Grabacion");
     document.getElementById("recButton").style.backgroundColor = "white";
     document.getElementById("pauseButton").style.backgroundColor = "white";
   }
@@ -2489,16 +2520,16 @@ function player_1_filter_eq_On_Off() {
   if (player_1_filter_eq_On_Off_Button.innerText === "On") {
     player_1_filter_eq_On_Off_Button.innerText = "Off";       //conecta el player a destination
     filter_1.disconnect(player_1_panNode);
-    player1.disconnect(filter_1);
-    player1.connect(player_1_panNode);
-    document.getElementById("player_1_filter_eq_On_Off_Button").style.backgroundColor = "red";
+    player_1_Node.disconnect(filter_1);
+    player_1_Node.connect(player_1_panNode);
+    player_1_filter_eq_On_Off_Button.style.backgroundColor = "red";
   }
   else {
     player_1_filter_eq_On_Off_Button.innerText = "On";      //conecta el player al filter y este a destination
-    player1.disconnect(player_1_panNode);
-    player1.connect(filter_1);
+    player_1_Node.disconnect(player_1_panNode);
+    player_1_Node.connect(filter_1);
     filter_1.connect(player_1_panNode);
-    document.getElementById("player_1_filter_eq_On_Off_Button").style.backgroundColor = "green";
+    player_1_filter_eq_On_Off_Button.style.backgroundColor = "green";
   }
 }
 //************************************************************************* */
@@ -2529,7 +2560,7 @@ function fx1_filter_eq_On_Off_Button_foo() {
 //********************************************************************* */
 //PLAYER 1 FX SEND  ON OFF BUTTONS
 function fxSend_1_OnOff1() {
-  isfxSend_1_On = !isfxSend_1_On; console.log("isfxSend_1_On: " + isfxSend_1_On);
+  is_player_1_fxSend_1_On = !is_player_1_fxSend_1_On; console.log("is_player_1_fxSend_1_On: " + is_player_1_fxSend_1_On);
   if (player1_fxSend_1_On_Off_Button.innerText === "On") {
     player1_fxSend_1_On_Off_Button.innerText = "Off";
     player1_fxSend_1_fader.disconnect(fx_1_delay);
@@ -2543,7 +2574,7 @@ function fxSend_1_OnOff1() {
 }
 
 function fx_1_fxSend_2_OnOff() {
-  isfxSend_2_On = !isfxSend_2_On; console.log("isfxSend_2_On: " + isfxSend_2_On);
+  is_player_1_fxSend_2_On = !is_player_1_fxSend_2_On; console.log("is_player_1_fxSend_2_On: " + is_player_1_fxSend_2_On);
   if (fx_1_fxSend_2_On_Off_Button.innerText === "On") {
     fx_1_fxSend_2_On_Off_Button.innerText = "Off";
     fx1_fxSend_2_fader.disconnect(fx_2_reverb);
@@ -2557,7 +2588,7 @@ function fx_1_fxSend_2_OnOff() {
 }
 
 function fxSend_3_OnOff1() {
-  isfxSend_3_On = !isfxSend_3_On; console.log("isfxSend_3_On: " + isfxSend_3_On);
+  is_player_1_fxSend_3_On = !is_player_1_fxSend_3_On; console.log("is_player_1_fxSend_3_On: " + is_player_1_fxSend_3_On);
   if (player1_fxSend_3_On_Off_Button.innerText === "On") {
     player1_fxSend_3_On_Off_Button.innerText = "Off";
     player1_fxSend_3_fader.disconnect(fx_3_fbDelay);
@@ -2571,7 +2602,7 @@ function fxSend_3_OnOff1() {
 }
 
 function fxSend_4_OnOff1() {
-  isfxSend_4_On = !isfxSend_4_On; console.log("isfxSend_4_On: " + isfxSend_4_On);
+  is_player_1_fxSend_4_On = !is_player_1_fxSend_4_On; console.log("is_player_1_fxSend_4_On: " + is_player_1_fxSend_4_On);
   if (player1_fxSend_4_On_Off_Button.innerText === "On") {
     player1_fxSend_4_On_Off_Button.innerText = "Off";
     player1_fxSend_4_fader.disconnect(fx_4_pitchShift);
@@ -2634,91 +2665,380 @@ function fx1_fxSend_4_OnOff() {
 
 //************************************************************
 
-function player1_fxSend_1_state_foo(value) {
+function player_x_fxSend_x_state_foo(name, value) {
 
-  if (player1_fxSend_1_state != value) {
+  switch (name) {
+    case "player_1_fxSend_1":
+      {
+        if (player_1_fxSend_1_state != value) {
+          switch (value) {
+            case "PreEQ": {
+              if (player_1_fxSend_1_state === "PostEQ") {
+                filter_1.disconnect(player1_fxSend_1_fader);
+                player_1_Node.disconnect(filter_1);
+                player_1_Node.connect(player1_fxSend_1_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_1_state === "PostFdr") {
+                player_1_volNode.disconnect(player1_fxSend_1_fader);
+                player_1_Node.connect(player1_fxSend_1_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else {
+                console.log("ni post eq ni post fdr");
+              }
+              player_1_fxSend_1_state = "PreEQ"; console.log("player_1_fxSend_1_state: " + player_1_fxSend_1_state);
+              break;
+            }
+            case "PostEQ": {
+              if (player_1_fxSend_1_state === "PreEQ") {
+                player_1_Node.disconnect(player1_fxSend_1_fader);
+                player_1_Node.connect(filter_1);
+                filter_1.connect(player1_fxSend_1_fader)
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_1_state === "PostFdr") {
+                player_1_volNode.disconnect(player1_fxSend_1_fader);
+                filter_1.connect(player1_fxSend_1_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else {
+                console.log("ni pre eq ni post fdr");
+              }
+              player_1_fxSend_1_state = "PostEQ"; console.log("state: " + player_1_fxSend_1_state);
+              break;
+            }
+            case "PostFdr": {
+              if (player_1_fxSend_1_state === "PreEQ") {
+                player_1_Node.disconnect(player1_fxSend_1_fader);
+                player_1_volNode.connect(player1_fxSend_1_fader);
+                send_state_player1_background_change(name, value);;
+              }
+              else if (player_1_fxSend_1_state === "PostEQ") {
+                filter_1.disconnect(player1_fxSend_1_fader);
+                player_1_volNode.connect(player1_fxSend_1_fader);
+                send_state_player1_background_change(name, value);;
+              }
+              else {
+                console.log("ni pre eq ni post eq");
+              }
+              player_1_fxSend_1_state = "PostFdr"; console.log("state: " + player_1_fxSend_1_state);
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else { }
+        break;
+      }
+    case "player_1_fxSend_2":
+      {
+        if (player_1_fxSend_2_state != value) {
+          switch (value) {
+            case "PreEQ": {
+              if (player_1_fxSend_2_state === "PostEQ") {
+                filter_1.disconnect(player1_fxSend_2_fader);
+                player_1_Node.connect(player1_fxSend_2_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_2_state === "PostFdr") {
+                player_1_volNode.disconnect(player1_fxSend_2_fader);
+                player_1_Node.connect(player1_fxSend_2_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else {
+                console.log("ni post eq ni post fdr");
+              }
+              player_1_fxSend_2_state = "PreEQ"; console.log("state: " + player_1_fxSend_2_state);
+              break;
+            }
+            case "PostEQ": {
+              if (player_1_fxSend_2_state === "PreEQ") {
+                player_1_Node.disconnect(player1_fxSend_2_fader);
+                player_1_Node.connect(filter_1);
+                filter_1.connect(player1_fxSend_2_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_2_state === "PostFdr") {
+                player_1_volNode.disconnect(player1_fxSend_2_fader);
+                filter_1.connect(player1_fxSend_2_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else {
+                console.log("ni pre eq ni post fdr");
+              }
+              player_1_fxSend_2_state = "PostEQ"; console.log("state: " + player_1_fxSend_2_state);
+              break;
+            }
+            case "PostFdr": {
+              if (player_1_fxSend_2_state === "PreEQ") {
+                player_1_Node.disconnect(player1_fxSend_2_fader);
+                player_1_volNode.connect(player1_fxSend_2_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_2_state === "PostEQ") {
+                filter_1.disconnect(player1_fxSend_2_fader);
+                player_1_volNode.connect(player1_fxSend_2_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else { console.log("ni pre eq ni post eq"); }
+              player_1_fxSend_2_state = "PostFdr";
+              console.log("state: " + player_1_fxSend_2_state);
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else { }
+        break;
+      }
+    case "player_1_fxSend_3":
+      {
+        if (player_1_fxSend_3_state != value) {
+          switch (value) {
+            case "PreEQ": {
+              if (player_1_fxSend_3_state === "PostEQ") {
+                filter_1.disconnect(player1_fxSend_3_fader);
+                player_1_Node.connect(player1_fxSend_3_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_3_state === "PostFdr") {
+                player_1_volNode.disconnect(player1_fxSend_3_fader);
+                player_1_Node.connect(player1_fxSend_3_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else {
+                console.log("ni post eq ni post fdr");
+              }
+              player_1_fxSend_3_state = "PreEQ"; console.log("state: " + player_1_fxSend_3_state);
+              break;
+            }
+            case "PostEQ": {
+              if (player_1_fxSend_3_state === "PreEQ") {
+                player_1_Node.disconnect(player1_fxSend_3_fader);
+                player_1_Node.connect(filter_1);
+                filter_1.connect(player1_fxSend_3_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_3_state === "PostFdr") {
+                player_1_volNode.disconnect(player1_fxSend_3_fader);
+                filter_1.connect(player1_fxSend_3_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else {
+                console.log("ni pre eq ni post fdr");
+              }
+              player_1_fxSend_3_state = "PostEQ"; console.log("state: " + player_1_fxSend_3_state);
+              break;
+            }
+            case "PostFdr": {
+              if (player_1_fxSend_3_state === "PreEQ") {
+                player_1_Node.disconnect(player1_fxSend_3_fader);
+                player_1_volNode.connect(player1_fxSend_3_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_3_state === "PostEQ") {
+                filter_1.disconnect(player1_fxSend_3_fader);
+                player_1_volNode.connect(player1_fxSend_3_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else { console.log("ni pre eq ni post eq"); }
+              player_1_fxSend_3_state = "PostFdr";
+              console.log("state: " + player_1_fxSend_3_state);
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else { }
+        break;
+      }
+    case "player_1_fxSend_4":
+      {
+        if (player_1_fxSend_4_state != value) {
 
-    switch (value) {
-      case "PreEQ": {
-        if (player1_fxSend_1_state === "PostEQ") {
-          filter_1.disconnect(player1_fxSend_1_fader);
-          player1.connect(player1_fxSend_1_fader);
-          send_state_player1_background_change(value);
+          switch (value) {
+            case "PreEQ": {
+              if (player_1_fxSend_4_state === "PostEQ") {
+                filter_1.disconnect(player1_fxSend_4_fader);
+                player_1_Node.connect(player1_fxSend_4_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_4_state === "PostFdr") {
+                player_1_volNode.disconnect(player1_fxSend_4_fader);
+                player_1_Node.connect(player1_fxSend_4_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else {
+                console.log("ni post eq ni post fdr");
+              }
+              player_1_fxSend_4_state = "PreEQ"; console.log("state: " + player_1_fxSend_4_state);
+              break;
+            }
+            case "PostEQ": {
+              if (player_1_fxSend_4_state === "PreEQ") {
+                player_1_Node.disconnect(player1_fxSend_4_fader);
+                player_1_Node.connect(filter_1);
+                filter_1.connect(player1_fxSend_4_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_4_state === "PostFdr") {
+                player_1_volNode.disconnect(player1_fxSend_4_fader);
+                filter_1.connect(player1_fxSend_4_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else {
+                console.log("ni pre eq ni post fdr");
+              }
+              player_1_fxSend_4_state = "PostEQ"; console.log("state: " + player_1_fxSend_4_state);
+              break;
+            }
+            case "PostFdr": {
+              if (player_1_fxSend_4_state === "PreEQ") {
+                player_1_Node.disconnect(player1_fxSend_4_fader);
+                player_1_volNode.connect(player1_fxSend_4_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else if (player_1_fxSend_4_state === "PostEQ") {
+                filter_1.disconnect(player1_fxSend_4_fader);
+                player_1_volNode.connect(player1_fxSend_4_fader);
+                send_state_player1_background_change(name, value);
+              }
+              else { console.log("ni pre eq ni post eq"); }
+              player_1_fxSend_4_state = "PostFdr";
+              console.log("state: " + player_1_fxSend_4_state);
+              break;
+            }
+            default: { break; }
+          }
         }
-        else if (player1_fxSend_1_state === "PostFdr") {
-          player_1_volNode.disconnect(player1_fxSend_1_fader);
-          player1.connect(player1_fxSend_1_fader);
-          send_state_player1_background_change(value);
-        }
-        else {
-          console.log("ni post eq ni post fdr");
-        }
-        player1_fxSend_1_state = "PreEQ"; console.log("state: " + player1_fxSend_1_state);
+        else { }
         break;
       }
-      case "PostEQ": {
-        if (player1_fxSend_1_state === "PreEQ") {
-          player1.disconnect(player1_fxSend_1_fader);
-          player1.connect(filter_1);
-          filter_1.connect(player1_fxSend_1_fader)
-          send_state_player1_background_change(value);
-        }
-        else if (player1_fxSend_1_state === "PostFdr") {
-          player_1_volNode.disconnect(player1_fxSend_1_fader);
-          filter_1.connect(player1_fxSend_1_fader);
-          send_state_player1_background_change(value);
-        }
-        else {
-          console.log("ni pre eq ni post fdr");
-        }
-        player1_fxSend_1_state = "PostEQ"; console.log("state: " + player1_fxSend_1_state);
+    case "fx1_fxSend_1":
+      {
+        alert("fx1_fxSend_1");
         break;
       }
-      case "PostFdr": {
-        if (player1_fxSend_1_state === "PreEQ") {
-          player1.disconnect(player1_fxSend_1_fader);
-          player_1_volNode.connect(player1_fxSend_1_fader);
-          send_state_player1_background_change(value);
-        }
-        else if (player1_fxSend_1_state === "PostEQ") {
-          filter_1.disconnect(player1_fxSend_1_fader);
-          player_1_volNode.connect(player1_fxSend_1_fader);
-          send_state_player1_background_change(value);
-        }
-        else {
-          console.log("ni pre eq ni post eq");
-        }
-        player1_fxSend_1_state = "PostFdr"; console.log("state: " + player1_fxSend_1_state);
-        break;
-      }
-      default: { break; }
-    }
-  }
-  else { alert("EL EQ SELECCIONADO ES EL QUE ESTA EN USO"); }
+
+
+  }//CLOSES switch
+
+
+
 }
 
-function send_state_player1_background_change(value) {
-  switch (value) {
-    case "PreEQ": {
-      document.getElementById("player1_fxSend_1_pre_EQ_Button").style.backgroundColor = "green";
-      document.getElementById("player1_fxSend_1_post_EQ_Button").style.backgroundColor = "white";
-      document.getElementById("player1_fxSend_1_post_fader_Button").style.backgroundColor = "white";
-      break;
-    }
-    case "PostEQ": {
-      document.getElementById("player1_fxSend_1_pre_EQ_Button").style.backgroundColor = "white";
-      document.getElementById("player1_fxSend_1_post_fader_Button").style.backgroundColor = "white";
-      document.getElementById("player1_fxSend_1_post_EQ_Button").style.backgroundColor = "green";
-      break;
-    }
-    case "PostFdr": {
-      document.getElementById("player1_fxSend_1_post_EQ_Button").style.backgroundColor = "white";
-      document.getElementById("player1_fxSend_1_pre_EQ_Button").style.backgroundColor = "white";
-      document.getElementById("player1_fxSend_1_post_fader_Button").style.backgroundColor = "green";
-      break;
-    }
-  }
-}
+
+
+
+
+function send_state_player1_background_change(name, value) {
+
+  switch (name) {
+    case "player_1_fxSend_1":
+      {
+        switch (value) {
+          case "PreEQ": {
+            player_1_fxSend_1_pre_EQ_Button.style.backgroundColor = "green";
+            player_1_fxSend_1_post_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_1_post_fader_Button.style.backgroundColor = "white";
+            break;
+          }
+          case "PostEQ": {
+            player_1_fxSend_1_pre_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_1_post_fader_Button.style.backgroundColor = "white";
+            player_1_fxSend_1_post_EQ_Button.style.backgroundColor = "green";
+            break;
+          }
+          case "PostFdr": {
+            player_1_fxSend_1_post_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_1_pre_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_1_post_fader_Button.style.backgroundColor = "green";
+            break;
+          }
+          default:{ break; }
+        }
+        break;
+      }
+    case "player_1_fxSend_2":
+      {
+        switch (value) {
+          case "PreEQ": {
+            player_1_fxSend_2_pre_EQ_Button.style.backgroundColor = "green";
+            player_1_fxSend_2_post_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_2_post_fader_Button.style.backgroundColor = "white";
+            break;
+          }
+          case "PostEQ": {
+            player_1_fxSend_2_pre_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_2_post_fader_Button.style.backgroundColor = "white";
+            player_1_fxSend_2_post_EQ_Button.style.backgroundColor = "green";
+            break;
+          }
+          case "PostFdr": {
+            player_1_fxSend_2_post_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_2_pre_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_2_post_fader_Button.style.backgroundColor = "green";
+            break;
+          }
+          default:{ break; }
+        }
+        break;
+      }
+
+    case "player_1_fxSend_3":
+        {
+          switch (value) {
+            case "PreEQ": {
+              player_1_fxSend_3_pre_EQ_Button.style.backgroundColor = "green";
+              player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "white";
+              player_1_fxSend_3_post_fader_Button.style.backgroundColor = "white";
+              break;
+            }
+            case "PostEQ": {
+              player_1_fxSend_3_pre_EQ_Button.style.backgroundColor = "white";
+              player_1_fxSend_3_post_fader_Button.style.backgroundColor = "white";
+              player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "green";
+              break;
+            }
+            case "PostFdr": {
+              player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "white";
+              player_1_fxSend_3_pre_EQ_Button.style.backgroundColor = "white";
+              player_1_fxSend_3_post_fader_Button.style.backgroundColor = "green";
+              break;
+            }
+            default:{ break; }
+          }
+          break;
+        }
+
+    case "player_1_fxSend_4":
+          {
+            switch (value) {
+              case "PreEQ": {
+                player_1_fxSend_4_pre_EQ_Button.style.backgroundColor = "green";
+                player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "white";
+                player_1_fxSend_4_post_fader_Button.style.backgroundColor = "white";
+                break;
+              }
+              case "PostEQ": {
+                player_1_fxSend_4_pre_EQ_Button.style.backgroundColor = "white";
+                player_1_fxSend_4_post_fader_Button.style.backgroundColor = "white";
+                player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
+                break;
+              }
+              case "PostFdr": {
+                player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "white";
+                player_1_fxSend_4_pre_EQ_Button.style.backgroundColor = "white";
+                player_1_fxSend_4_post_fader_Button.style.backgroundColor = "green";
+                break;
+              }
+              default:{ break; }
+            }
+            break;
+          }
+  }//CLOSES  switch (name)
+}//CLOSES send_state_player1_background_change
 
 //************************************************************
 
