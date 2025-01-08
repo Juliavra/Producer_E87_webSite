@@ -29,7 +29,7 @@
     }
 
     .column {
-      padding: 20px;
+      padding: 10px;
       background-color: #f4f4f4;
       border: 3px solid #ddd;
     }
@@ -178,6 +178,8 @@ ACA INICIA EL PLAYER 1
 -->
   <div class="column">
     <h2>1</h2>
+    <br>     rms: <p id="player_1_rms_value"> </p>
+    <br>
     <p id="player_1_songName">  </p>
     <p id="player_1_duration_text">  </p>
     <p id="player_1_duration_value"> </p>
@@ -186,12 +188,17 @@ ACA INICIA EL PLAYER 1
       <button id="player_1_playButton" value="1" onclick="play(value)">Play </button>
       <button id="player_1_stopButton" value="1" onclick="stop(value)">Stop </button>
       <button id="player_1_muteButton" value="1" onclick="mute(value)">Mute </button>
-      <button id="player_1_soloButton" value="1" onclick="solo1()">Solo </button>
+      <button id="player_1_soloButton" value="1" onclick="solo(value)">Solo </button>
     </div>
 
     <p id="player_1_volume_text">Vol</p>
     <input type='range' min=-41 max=12 step='1' value="-40" id='player_1_volume'>
     <p id="player_1_volume_value"> </p>
+    <input id="player_1_volume_rampTo_gain" type="number" min="-50" max="12" />
+    time: <input id="player_1_volume_rampTo_time" type="number" min="0" max="60" />
+    <button id="player_1_volume_rampTo_send_Button" value="player_1_volume" onclick="send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time)">Send </button>
+    
+    <!-- //filter_1.frequency.rampTo(2000, 7);     -->
     <br>
     <p id="player_1_pan_text">Pan
       <input type='range' min=-1 max=1 step='0.02' value=0 id='player_1_pan'>
@@ -210,7 +217,7 @@ ACA INICIA EL PLAYER 1
     <input class="checkbox" type="checkbox" name="player_1_reverse_checkbox" id="player_1_reverse_checkbox">
     <p id="player_1_reverse_text">Reverse</p>
     <br>
-    <p id="player_1_loop_start_text">loop start</p>
+    <p id="player_1_loop_start_text"> </p>
     <input id="player_1_loop_start" type="number" min="0" />
     <p id="player_1_loop_start_time"></p>
     <br>
@@ -313,7 +320,9 @@ ACA FINALIZA EL PLAYER 2
 -->
   <div class="column">
     <h2> 2</h2>
-
+    <br>
+    rms: <p id="player_2_rms_value"> </p>
+    <br> 
     <p id="player_2_songName">  </p>
     <p id="player_2_duration_text">  </p>
     <p id="player_2_duration_value"> </p>
@@ -323,7 +332,7 @@ ACA FINALIZA EL PLAYER 2
       <button id="player_2_playButton" value="2" onclick="play(value)">Play </button>
       <button id="player_2_stopButton" value="2" onclick="stop(value)">Stop </button>
       <button id="player_2_muteButton" value="2" onclick="mute(value)">Mute </button>
-      <button id="player_2_soloButton" value="2" onclick="solo2()">Solo </button>
+      <button id="player_2_soloButton" value="2" onclick="solo(value)">Solo </button>
     </div>
 
     <p id="player_2_volume_text">Vol</p>
@@ -363,6 +372,34 @@ ACA FINALIZA EL PLAYER 2
     <input id="player_2_fadeOut" type="number" min="0" />
     <p id="player_2_fadeOut_value"></p>
 
+    <label for="player_2_EQ3_label">
+      <h1>EQ</h1>
+
+      <p id="player_2_EQ3_low_frequency_fader_text">Low Freq </p>
+      <input type='range' min=20 max=1000 step='10' value="100" id='player_2_EQ3_low_frequency_fader'>
+      <p id="player_2_EQ3_low_frequency_fader_value"></p>
+      <br>
+      <p id="player_2_EQ3_low_fader_gain_text">Low Freq Gain</p>
+      <input type='range' min=-41 max=12 step='1' value="0" id='player_2_EQ3_low_fader_gain'>
+      <p id="player_2_EQ3_low_fader_gain_value"> </p>
+      <br>
+      <p id="player_2_EQ3_mid_fader_gain_text">Mid Freq Gain</p>
+      <input type='range' min=-41 max=12 step='1' value="0" id='player_2_EQ3_mid_fader_gain'>
+      <p id="player_2_EQ3_mid_fader_gain_value"> </p>
+      <br>
+      <p id="player_2_EQ3_hi_fader_gain_text">Hi Freq Gain</p>
+      <input type='range' min=-41 max=12 step='1' value="0" id='player_2_EQ3_hi_fader_gain'>
+      <p id="player_2_EQ3_hi_fader_gain_value"> </p>
+      <br>
+      <p id="player_2_EQ3_high_frequency_text">Hi Freq </p>
+      <input type='range' min=8000 max=12000 step='100' value="10000" id='player_2_EQ3_high_frequency_fader'>
+      <p id="player_2_EQ3_high_frequency_value"></p>
+<br>
+      <p id="player_2_EQ3_Q_text">Q </p>
+      <input type='range' min=0 max=20 step='1' value="0" id='player_2_EQ3_Q_fader'>
+      <p id="player_2_EQ3_Q_value"></p>
+
+
 
 
   </div>  <!--cierra columna 2-->
@@ -373,11 +410,122 @@ ACA FINALIZA EL PLAYER 2
 
   <div class="column">
     <h2> 3</h2>
-    <p>This is the content of the third column.</p>
+    <br>
+    rms: <p id="player_3_rms_value"> </p>
+    <br> 
+    <p id="player_3_songName">  </p>
+    <p id="player_3_duration_text">  </p>
+    <p id="player_3_duration_value"> </p>
+    
+    <div>
+      <button id="player_3_playButton" value="3" onclick="play(value)">Play </button>
+      <button id="player_3_stopButton" value="3" onclick="stop(value)">Stop </button>
+      <button id="player_3_muteButton" value="3" onclick="mute(value)">Mute </button>
+      <button id="player_3_soloButton" value="3" onclick="solo()">Solo </button>
+    </div>
+
+
+    <p id="player_3_volume_text">Vol</p>
+    <input type='range' min=-41 max=12 step='1' value="-40" id='player_3_volume'>
+    <p id="player_3_volume_value"> </p>
+    <br>
+    <p id="player_3_pan_text">Pan
+      <input type='range' min=-1 max=1 step='0.02' value=0 id='player_3_pan'>
+    </p>
+    <p id="player_3_pan_value"></p>
+    <br>
+    <p id="playback_rate_3_text">Rate
+      <input type='range' min=0.1 max=1 step='0.01' value=1 id='player_3_playback_rate'>
+    </p>
+    <p id="player_3_playback_rate_value"></p>
+    <br>
+
+    <input class="checkbox" type="checkbox" name="player_3_loop_checkbox" id="player_3_loop_checkbox">
+    <p id="player_3_loop_checkbox_text">Loop</p>
+    <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="player_3_autoplay_checkbox">
+    <p id="player_3_autoplay_text">Autoplay</p>
+    <input class="checkbox" type="checkbox" name="player_3_reverse_checkbox" id="player_3_reverse_checkbox">
+    <p id="player_3_reverse_text">Reverse</p>
+    <br>
+    <p id="player_3_loop_start_text">loop start</p>
+    <input id="player_3_loop_start" type="number" min="0" />
+    <p id="player_3_loop_start_time"></p>
+    <br>
+    <p id="player_3_loop_end_text">loop end</p>
+    <input id="player_3_loop_end" type="number" min="0" />
+    <p id="player_3_loop_end_time"></p>
+    <br>
+    <p id="player_3_fadeIn_text">fadeIn</p>
+    <input id="player_3_fadeIn" type="number" min="0" />
+    <p id="player_3_fadeIn_value"></p>
+    <br>
+    <p id="player_3_fadeOut_text">fadeOut</p>
+    <input id="player_3_fadeOut" type="number" min="0" />
+    <p id="player_3_fadeOut_value"></p>
+
+
+
+
+        
   </div>
   <div class="column">
     <h2> 4</h2>
-    <p>This is the content of the fourth column.</p>
+    <br>
+    rms: <p id="player_4_rms_value"> </p>
+    <br> 
+    <p id="player_4_songName">  </p>
+    <p id="player_4_duration_text">  </p>
+    <p id="player_4_duration_value"> </p>
+
+    <div>
+      <button id="player_4_playButton" value="4" onclick="play(value)">Play </button>
+      <button id="player_4_stopButton" value="4" onclick="stop(value)">Stop </button>
+      <button id="player_4_muteButton" value="4" onclick="mute(value)">Mute </button>
+      <button id="player_4_soloButton" value="4" onclick="solo()">Solo </button>
+    </div>
+
+
+
+    <p id="player_4_volume_text">Vol</p>
+    <input type='range' min=-41 max=12 step='1' value="-40" id='player_4_volume'>
+    <p id="player_4_volume_value"> </p>
+    <br>
+    <p id="player_4_pan_text">Pan
+      <input type='range' min=-1 max=1 step='0.02' value=0 id='player_4_pan'>
+    </p>
+    <p id="player_4_pan_value"></p>
+    <br>
+    <p id="playback_rate_4_text">Rate
+      <input type='range' min=0.1 max=1 step='0.01' value=1 id='player_4_playback_rate'>
+    </p>
+    <p id="player_4_playback_rate_value"></p>
+    <br>
+
+    <input class="checkbox" type="checkbox" name="player_4_loop_checkbox" id="player_4_loop_checkbox">
+    <p id="player_4_loop_checkbox_text">Loop</p>
+    <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="player_4_autoplay_checkbox">
+    <p id="player_4_autoplay_text">Autoplay</p>
+    <input class="checkbox" type="checkbox" name="player_4_reverse_checkbox" id="player_4_reverse_checkbox">
+    <p id="player_4_reverse_text">Reverse</p>
+    <br>
+    <p id="player_4_loop_start_text">loop start</p>
+    <input id="player_4_loop_start" type="number" min="0" />
+    <p id="player_4_loop_start_time"></p>
+    <br>
+    <p id="player_4_loop_end_text">loop end</p>
+    <input id="player_4_loop_end" type="number" min="0" />
+    <p id="player_4_loop_end_time"></p>
+    <br>
+    <p id="player_4_fadeIn_text">fadeIn</p>
+    <input id="player_4_fadeIn" type="number" min="0" />
+    <p id="player_4_fadeIn_value"></p>
+    <br>
+    <p id="player_4_fadeOut_text">fadeOut</p>
+    <input id="player_4_fadeOut" type="number" min="0" />
+    <p id="player_4_fadeOut_value"></p>
+
+
+
   </div>
   <div class="column">
     <h2>FX 1</h2>
