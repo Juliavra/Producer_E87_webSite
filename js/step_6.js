@@ -6,7 +6,9 @@
   /**/
 
 //setInterval ('tuFuncion()', 5000);
-
+/* Revisar si se puede usar to force an input change.
+This event does fire, however, the slider won't visually update.
+element.dispatchEvent(new Event('input'))
 
 
 //*********************************************************** */
@@ -642,6 +644,8 @@ array_Canciones.push(cancion_100);
 //DOM ACQUISITIONS
 const buscaButton = document.getElementById("buscaButton");
 
+const test_unit_rms_value = document.getElementById("test_unit_rms_value");
+
 const player_1_volume = document.getElementById("player_1_volume");
 const player_2_volume = document.getElementById("player_2_volume");
 const player_3_volume = document.getElementById("player_3_volume");
@@ -794,11 +798,11 @@ const player_1_fxSend_1_post_fader_Button = document.getElementById("player_1_fx
 const player_1_fxSend_2_pre_EQ_Button = document.getElementById("player_1_fxSend_2_pre_EQ_Button");
 const player_1_fxSend_2_post_EQ_Button = document.getElementById("player_1_fxSend_2_post_EQ_Button");
 const player_1_fxSend_2_post_fader_Button = document.getElementById("player_1_fxSend_2_post_fader_Button");
-            
+
 const player_1_fxSend_3_pre_EQ_Button = document.getElementById("player_1_fxSend_3_pre_EQ_Button");
 const player_1_fxSend_3_post_EQ_Button = document.getElementById("player_1_fxSend_3_post_EQ_Button");
 const player_1_fxSend_3_post_fader_Button = document.getElementById("player_1_fxSend_3_post_fader_Button");
-              
+
 const player_1_fxSend_4_pre_EQ_Button = document.getElementById("player_1_fxSend_4_pre_EQ_Button");
 const player_1_fxSend_4_post_EQ_Button = document.getElementById("player_1_fxSend_4_post_EQ_Button");
 const player_1_fxSend_4_post_fader_Button = document.getElementById("player_1_fxSend_4_post_fader_Button");
@@ -867,6 +871,23 @@ const player_2_rms_value = document.getElementById("player_2_rms_value");
 const player_3_rms_value = document.getElementById("player_3_rms_value");
 const player_4_rms_value = document.getElementById("player_4_rms_value");
 
+const fx_1_rms_value = document.getElementById("fx_1_rms_value");
+const fx_2_rms_value = document.getElementById("fx_2_rms_value");
+const fx_3_rms_value = document.getElementById("fx_3_rms_value");
+const fx_4_rms_value = document.getElementById("fx_4_rms_value");
+
+//************************************************************ 
+// player1_fxSend_x_On_Off_Buttons
+// */
+
+const player1_fxSend_1_On_Off_Button = document.getElementById("player1_fxSend_1_On_Off_Button");
+
+
+
+
+
+
+
 //************************************************************ */
 //FX 1 VOLUME + PAN + SENDFX
 
@@ -922,6 +943,7 @@ const fx_4_fxSend_3_value = document.getElementById("fx_4_fxSend_3_value");
 //***************************
 // ESTO ES UN EQ (FX 1)
 //  */
+/*
 const fx1_filter_frequency = document.getElementById("fx1_filter_frequency");
 const fx1_filter_frequency_value = document.getElementById("fx1_filter_frequency_value");
 const fx1_filter_frequency_text = document.getElementById("fx1_filter_frequency_text");
@@ -935,6 +957,13 @@ const fx1_filter_gain = document.getElementById("fx1_filter_gain");
 const fx1_filter_gain_value = document.getElementById("fx1_filter_gain_value");
 const fx1_filter_gain_text = document.getElementById("fx1_filter_gain_text");
 const fx1_filter_eq_On_Off_Button = document.getElementById("fx1_filter_eq_On_Off_Button");
+*/
+//************************************************************ */
+//************************************************************ */
+//PLAYER 3 EQ
+const player_3_LowShelf_gain = document.getElementById("player_3_LowShelf_gain");
+const player_3_LowShelf_gain_value = document.getElementById("player_3_LowShelf_gain_value");
+
 
 //************************************************************ */
 //************************************************************ */
@@ -966,8 +995,12 @@ const player_2_EQ3_Q_value = document.getElementById("player_2_EQ3_Q_value");
 //************************************************************ */
 //VAR DECLARATION
 
-var isFilter_1_On = false;        //EQ Off
-var isFilter_fx1_On = false;      //EQ Off
+var isplayer_1_filter_eq_On = true;
+
+player_1_filter_eq_On_Off_Button.style.backgroundColor = "green";
+
+
+var isFilter_fx1_On = true;      //EQ Off
 var is_player_1_fxSend_1_On = true;
 var is_player_1_fxSend_2_On = true;
 var is_player_1_fxSend_3_On = true;
@@ -990,48 +1023,78 @@ var is_fx1_fxSend_2_On = true;
 var is_fx1_fxSend_3_On = true;
 var is_fx1_fxSend_4_On = true;
 
-
-
-
-
-
+var is_player_1_EQ
 
 //********************************************************** */
 //************************************************************ */
 //NODE CONSTRUCTION
 
 const recorderNode = new Tone.Recorder();
-const masterVolume = new Tone.Volume(-3).toDestination();
-const player_1_volNode = new Tone.Volume(-40).connect(masterVolume);
-const player_2_volNode = new Tone.Volume(-40).connect(masterVolume);
-const player_3_volNode = new Tone.Volume(-40).connect(masterVolume);
-const player_4_volNode = new Tone.Volume(-40).connect(masterVolume);
+const masterVolume = new Tone.Volume(0).toDestination();
+masterVolume.fan(recorderNode);
+recorderNode.debug = "true"; //alert(recorderNode.supported); TRY CATCH
 
-const player_1_panNode = new Tone.Panner(0).connect(player_1_volNode);
+const player_1_volNode = new Tone.Volume(-100).connect(masterVolume);
+const player_2_volNode = new Tone.Volume(-100).connect(masterVolume);
+const player_3_volNode = new Tone.Volume(-100).connect(masterVolume);
+const player_4_volNode = new Tone.Volume(-100).connect(masterVolume);
+
+const player_1_filter = new Tone.Filter().connect(player_1_volNode);
+player_1_filter.debug = true;
+player_1_filter.set({
+  frequency: 20000,
+  type: "lowpass",
+  Q: 0,
+  gain: 0,
+  rolloff: -96,
+});
+
+const player_1_panNode = new Tone.Panner(0).connect(player_1_filter);
 const player_2_panNode = new Tone.Panner(0).connect(player_2_volNode);
 const player_3_panNode = new Tone.Panner(0).connect(player_3_volNode);
 const player_4_panNode = new Tone.Panner(0).connect(player_4_volNode);
 
+const player_1_bypass_EQ_Node = new Tone.Volume(-100).connect(player_1_volNode);
 
-masterVolume.fan(recorderNode);
-recorderNode.debug = "true"; //alert(recorderNode.supported); TRY CATCH
-const filter_1 = new Tone.Filter().connect(player_1_panNode);
+//player_1_panNode.fan(player_1_filter, player_1_bypass_EQ_Node); //REEMPLAZAR FAN POR LAS DOS OPCIONES EN EL BUTTON DE ON OFF
+//player_1_filter.getFrequencyResponse  
 /*
-filter_1.set({
-  frequency: 1000,
+const fx1_Filter = new Tone.Filter();
+fx1_Filter.set({
+  frequency: 20000,
   type: "lowpass",
-  Q: 1,
-  gain: 12,
+  Q: 0,
+  gain: 0,
   rolloff: -96,
 });
-*/
-filter_1.debug = true;
-/*
-//filter_1.frequency.rampTo(2000, 7);
-//filter_1.getFrequencyResponse
-*/
-const fx1_Filter = new Tone.Filter();
+/**/
 
+
+//**********
+// CAMBIAR ESTO LUEGO
+//  */
+const player_3_LowShelf_FilterNode = new Tone.Filter();
+player_3_LowShelf_FilterNode.set({
+  frequency: 100,
+  type: "lowshelf",
+  gain: 0,
+  rolloff: -12,
+});
+
+//****************************************************
+// CAMBIAR A ADD EVENT ALL
+//  */
+player_3_LowShelf_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= 10 && e.currentTarget.value >= -10) {
+    player_3_LowShelf_FilterNode.gain.value = e.currentTarget.value;
+    player_3_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+  else {
+    console.log("ELSE player_3_LowShelf_gain");
+  }
+});
+
+//**************************************************** */
 const fx_1_delay = new Tone.PingPongDelay("4n", 0.2);
 const fx_2_reverb = new Tone.Reverb({
   decay: 4,
@@ -1045,10 +1108,24 @@ const fx_3_fbDelay = new Tone.FeedbackDelay({
 });
 const fx_4_pitchShift = new Tone.PitchShift(-14);
 
-const player1_fxSend_1_fader = new Tone.Volume(-100).connect(fx_1_delay);
-const player1_fxSend_2_fader = new Tone.Volume(-100).connect(fx_2_reverb);
-const player1_fxSend_3_fader = new Tone.Volume(-100).connect(fx_3_fbDelay);
-const player1_fxSend_4_fader = new Tone.Volume(-100).connect(fx_4_pitchShift);
+const player_1_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_delay);
+const player_1_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_reverb);
+const player_1_fxSend_3_preEq_volNode = new Tone.Volume(-100).connect(fx_3_fbDelay);
+const player_1_fxSend_4_preEq_volNode = new Tone.Volume(-100).connect(fx_4_pitchShift);
+
+const player_1_fxSend_1_postEq_volNode = new Tone.Volume(-100).connect(fx_1_delay);
+const player_1_fxSend_2_postEq_volNode = new Tone.Volume(-100).connect(fx_2_reverb);
+const player_1_fxSend_3_postEq_volNode = new Tone.Volume(-100).connect(fx_3_fbDelay);
+const player_1_fxSend_4_postEq_volNode = new Tone.Volume(-100).connect(fx_4_pitchShift);
+
+const player_1_fxSend_1_postFdr_volNode = new Tone.Volume(-100).connect(fx_1_delay);
+const player_1_fxSend_2_postFdr_volNode = new Tone.Volume(-100).connect(fx_2_reverb);
+const player_1_fxSend_3_postFdr_volNode = new Tone.Volume(-100).connect(fx_3_fbDelay);
+const player_1_fxSend_4_postFdr_volNode = new Tone.Volume(-100).connect(fx_4_pitchShift);
+
+
+
+
 
 //const fx1_fxSend_1_fader = new Tone.Volume(-100).connect(fx_1_delay);
 const fx1_fxSend_2_fader = new Tone.Volume(-100).connect(fx_2_reverb);
@@ -1060,17 +1137,16 @@ const fx2_pan = new Tone.Panner(0).toDestination();
 const fx3_pan = new Tone.Panner(0).toDestination();
 const fx4_pan = new Tone.Panner(0).toDestination();
 
-fx1_Filter.connect(fx1_pan);//se conecta esto aqui, se lo creo arriba
+//fx1_Filter.connect(fx1_pan);//se conecta esto aqui, se lo creo arriba
 
 //************************************************************************
-const fxReturn_1_fader = new Tone.Volume(-100).connect(fx1_Filter);
+const fxReturn_1_fader = new Tone.Volume(-100).connect(fx1_pan);
 const fxReturn_2_fader = new Tone.Volume(-10).connect(fx2_pan);
 const fxReturn_3_fader = new Tone.Volume(-10).connect(fx3_pan);
 const fxReturn_4_fader = new Tone.Volume(-10).connect(fx4_pan);
 
 //PLAYER 2 TEST FILTER EQ3
 const filter_2_TEST = new Tone.EQ3;
-const filter_3_TEST = new Tone.EQ3;
 const filter_4_TEST = new Tone.EQ3;
 //*********************************************************************
 //LOS EFECTOS TIENEN QUE ESTAR FANEADOS A LOS SEND Y AL MASTERFADER
@@ -1079,10 +1155,13 @@ fx_2_reverb.connect(fxReturn_2_fader);
 fx_3_fbDelay.connect(fxReturn_3_fader);
 fx_4_pitchShift.connect(fxReturn_4_fader);
 
-const player_1_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(filter_1);
+const player_1_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3").connect(player_1_panNode);
 player_1_Node.debug = true;
-filter_1.fan(player1_fxSend_1_fader, player1_fxSend_2_fader, player1_fxSend_3_fader, player1_fxSend_4_fader);
-player_1_Node.connect(filter_1);
+
+player_1_panNode.fan(player_1_fxSend_1_preEq_volNode, player_1_fxSend_2_preEq_volNode, player_1_fxSend_3_preEq_volNode, player_1_fxSend_4_preEq_volNode);
+player_1_filter.fan(player_1_fxSend_1_postEq_volNode, player_1_fxSend_2_postEq_volNode, player_1_fxSend_3_postEq_volNode, player_1_fxSend_4_postEq_volNode);
+player_1_volNode.fan(player_1_fxSend_1_postFdr_volNode, player_1_fxSend_2_postFdr_volNode, player_1_fxSend_3_postFdr_volNode, player_1_fxSend_4_postFdr_volNode);
+
 
 
 //*********************************************************************
@@ -1097,15 +1176,17 @@ player2.connect(filter_2_TEST);
 
 //*********************************************************************
 //PLAYER 3
+const test_Unit_rms = new Tone.Meter(0);
 const player_3 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3");
 player_3.debug = true;
-filter_3_TEST.connect(player_3_panNode);
-//filter_3_TEST.toDestination();
+//player_3_LowShelf_FilterNode.connect(player_3_panNode);
+player_3_LowShelf_FilterNode.fan(player_3_panNode, test_Unit_rms);
 
-player_3.connect(filter_3_TEST);
+
+player_3.connect(player_3_LowShelf_FilterNode);
 //CODIGO DE PRUEBA DE RMS 
 
-//PLAYER 3
+//PLAYER 4
 const player_4 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3");
 player_4.debug = true;
 filter_4_TEST.connect(player_4_panNode);
@@ -1119,20 +1200,39 @@ const testMeter_2 = new Tone.Meter(0);
 const testMeter_3 = new Tone.Meter(0);
 const testMeter_4 = new Tone.Meter(0);
 
+const testMeter_fx_1 = new Tone.Meter(0);
+//const testMeter_fx_2 = new Tone.Meter(0);
+//const testMeter_fx_3 = new Tone.Meter(0);
+//const testMeter_fx_4 = new Tone.Meter(0);
+
 
 player_1_Node.fan(testMeter_1);
 player2.fan(testMeter_2);
 player_3.fan(testMeter_3);
 player_4.fan(testMeter_4);
 
+player_1_fxSend_1_postEq_volNode.fan(testMeter_fx_1);
+//player_1_fxSend_1_preEq_volNode.fan(testMeter_fx_1);
+
+
+
+//fxReturn_2_fader.fan(testMeter_fx_2);
+//fxReturn_3_fader.fan(testMeter_fx_3);
+//fxReturn_4_fader.fan(testMeter_fx_4);
+
+
 setInterval('tuFuncion()', 200);
 
 function tuFuncion() {
-  //player_2_rms_value.innerHTML = Math.round(`${testMeter.getLevel()}`);  ESTO NO
   player_1_rms_value.innerHTML = Math.round(`${testMeter_1.getValue()}`);
   player_2_rms_value.innerHTML = Math.round(`${testMeter_2.getValue()}`);
-  player_3_rms_value.innerHTML = Math.round(`${testMeter_3.getValue()}`);
+  player_4_rms_value.innerHTML = Math.round(`${testMeter_3.getValue()}`);
   player_4_rms_value.innerHTML = Math.round(`${testMeter_4.getValue()}`);
+
+  fx_1_rms_value.innerHTML = Math.round(`${testMeter_fx_1.getValue()}`);
+  //  fx_2_rms_value.innerHTML = Math.round(`${testMeter_fx_2.getValue()}`);
+  // fx_3_rms_value.innerHTML = Math.round(`${testMeter_fx_3.getValue()}`);
+  //fx_4_rms_value.innerHTML = Math.round(`${testMeter_fx_4.getValue()}`);
 
 
 }
@@ -1146,6 +1246,15 @@ filter_2_TEST.set(
     highFrequency: 2500
   }
 );
+
+//************************************************************************* 
+// ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES & ELSE HAVE THE SAME VALUES
+// */
+player_1_fxSend_1_post_EQ_Button.style.backgroundColor = "green";
+player_1_fxSend_2_post_EQ_Button.style.backgroundColor = "green";
+player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "green";
+player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
+//************************************************************************* */
 
 //************************************************************************* */
 // *****************ALL EVENTLISTENERS************************************
@@ -1392,7 +1501,6 @@ player_4_loop_end.addEventListener("change", function (e) {
 });
 
 
-
 player_1_fadeIn.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player_1_Node.fadeIn = e.currentTarget.value;
@@ -1475,36 +1583,37 @@ player_4_fadeOut.addEventListener("change", function (e) {
 
 
 player_1_filter_frequency.addEventListener("change", function (e) {
-  filter_1.frequency.value = e.currentTarget.value; console.log("filter_1.frequency: " + filter_1.frequency.value);
+  player_1_filter.frequency.value = e.currentTarget.value; console.log("player_1_filter.frequency: " + player_1_filter.frequency.value);
   player_1_filter_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 player_1_filter_Q.addEventListener("change", function (e) {
-  filter_1.Q.value = e.currentTarget.value; console.log("filter_1.q: " + e.currentTarget.value);
+  player_1_filter.Q.value = e.currentTarget.value; console.log("player_1_filter.q: " + e.currentTarget.value);
   player_1_filter_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 player_1_filter_detune.addEventListener("change", function (e) {
-  filter_1.detune.value = e.currentTarget.value; console.log("filter_1.detune: " + e.currentTarget.value);
+  player_1_filter.detune.value = e.currentTarget.value; console.log("player_1_filter.detune: " + e.currentTarget.value);
   player_1_filter_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 player_1_filter_gain.addEventListener("change", function (e) {
-  filter_1.gain.value = e.currentTarget.value; console.log("filter_1.gain: " + e.currentTarget.value);
+  player_1_filter.gain.value = e.currentTarget.value; console.log("player_1_filter.gain: " + e.currentTarget.value);
   player_1_filter_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 filter_1_select.addEventListener("change", function (e) {
-  filter_1.type = e.currentTarget.value; console.log("filter_1.value: " + e.currentTarget.value);
+  player_1_filter.type = e.currentTarget.value; console.log("player_1_filter.value: " + e.currentTarget.value);
   hides_All_EQ_Faders("player_1_filter");
   switch (e.currentTarget.value) {
+
     case "lowpass":
     case "highpass":
     case "bandpass":
     case "notch":
     case "allpass":
       {
-        player_1_filter_frequency.style.opacity = "3";
+        player_1_filter_frequency.style.opacity = "1";
         player_1_filter_frequency_value.style.opacity = "1";
         player_1_filter_frequency_text.style.opacity = "1";
         player_1_filter_Q.style.opacity = "1";
@@ -1552,175 +1661,119 @@ filter_1_select.addEventListener("change", function (e) {
 
 player1_fxSend_1.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
-    player1_fxSend_1_fader.volume.value = -100;
+    player_1_fxSend_1_preEq_volNode.volume.value = -100;
+    player_1_fxSend_1_postEq_volNode.volume.value = -100;
+    player_1_fxSend_1_postFdr_volNode.volume.value = -100;
     player1_fxSend_1_value.innerHTML = -100;
+    player1_fxSend_1.value = -100;
   }
   else {
-    player1_fxSend_1_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-    player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    const nombre = "player_1_fxSend_1";
+    recieves_player_1_fxSend_1_value_Sets_Volume_value(e.currentTarget.value, nombre)
+    /*
+   if (player_1_fxSend_1_state == "PostEQ"){
+     player_1_fxSend_1_postEq_volNode.volume.value = e.currentTarget.value;
+     player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+     console.log("PostEQ TODOS: " + e.currentTarget.value);
+   }
+   else if(player_1_fxSend_1_state == "PreEQ"){
+     player_1_fxSend_1_preEq_volNode.volume.value = e.currentTarget.value;  
+     player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+     console.log("PreEQ TODOS: " + e.currentTarget.value);
+   }
+   else{
+     player_1_fxSend_1_postFdr_volNode.volume.value = e.currentTarget.value;
+     player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+     console.log("PostFDR TODOS: " + e.currentTarget.value);
+    
+   }
+   /**/
+    /*
+    player_1_fxSend_1_preEq_volNode.volume.value = e.currentTarget.value;
+        player_1_fxSend_1_postEq_volNode.volume.value = e.currentTarget.value;
+        player_1_fxSend_1_postFdr_volNode.volume.value = e.currentTarget.value;
+        console.log("player_1_fxSend_1_preEq_volNode TODOS: " + e.currentTarget.value);
+        player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+        */
   }
 });
 
+/*
+player1_fxSend_1.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player_1_fxSend_1_preEq_volNode.volume.value = -100;
+    player_1_fxSend_1_postEq_volNode.volume.value = -100;
+    player_1_fxSend_1_postFdr_volNode.volume.value = -100;
+    player1_fxSend_1_value.innerHTML = -100;
+    //player1_fxSend_1.value= -100;
+  }
+  else {
+    if (is_player_1_fxSend_1_On == true) {
+      alert("gggggggggggggggggggggggggggggggg");
+      if (player_1_fxSend_1_state == "preEq") {
+        alert("preEq");
+      }
+      else if (player_1_fxSend_1_state == "postEq")
+      {
+        alert("postEq");
+      }
+      else if (player_1_fxSend_1_state === "postFdr"){
+        alert("postFdr");
+      }
+      player_1_fxSend_1_preEq_volNode.volume.value = e.currentTarget.value; //console.log("volumen: " + e.currentTarget.value);
+      player_1_fxSend_1_postEq_volNode.volume.value = e.currentTarget.value; //console.log("volumen: " + e.currentTarget.value);    
+      player_1_fxSend_1_postFdr_volNode.volume.value = e.currentTarget.value; //console.log("volumen: " + e.currentTarget.value);
+      player1_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    }
+    else {
+      alert("llllllllllllllllllllllllllllll");
+      player_1_fxSend_1_preEq_volNode.volume.value = -100;
+      player_1_fxSend_1_postEq_volNode.volume.value = -100;
+      player_1_fxSend_1_postFdr_volNode.volume.value = -100;
+      player1_fxSend_1.value = -100;
+      player1_fxSend_1_value.innerHTML = -100;
+    }
+
+  }
+});
+/**/
 player1_fxSend_2.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
-    player1_fxSend_2_fader.volume.value = -100;
+    player_1_fxSend_2_preEq_volNode.volume.value = -100;
     player1_fxSend_2_value.innerHTML = -100;
   }
   else {
-    player1_fxSend_2_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player_1_fxSend_2_preEq_volNode.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
     player1_fxSend_2_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
 
 player1_fxSend_3.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
-    player1_fxSend_3_fader.volume.value = -100;
+    player_1_fxSend_3_preEq_volNode.volume.value = -100;
     player1_fxSend_3_value.innerHTML = -100;
   }
   else {
-    player1_fxSend_3_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player_1_fxSend_3_preEq_volNode.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
     player1_fxSend_3_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
 
 player1_fxSend_4.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
-    player1_fxSend_4_fader.volume.value = -100;
+    player_1_fxSend_4_preEq_volNode.volume.value = -100;
     player1_fxSend_4_value.innerHTML = -100;
   }
   else {
-    player1_fxSend_4_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    player_1_fxSend_4_preEq_volNode.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
     player1_fxSend_4_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
 
 
-
-
-
 //*************************************************************************** */
 // PLAYER 2 EVENTLISTENERS
 
-/*
-player_2_filter_frequency.addEventListener("change", function (e) {
-  filter_2.frequency.value = e.currentTarget.value; console.log("filter_2.frequency: " + filter_2.frequency.value);
-  player_2_filter_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-});
-
-player_2_filter_Q.addEventListener("change", function (e) {
-  filter_2.Q.value = e.currentTarget.value; console.log("filter_2.q: " + e.currentTarget.value);
-  player_2_filter_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-});
-
-player_2_filter_detune.addEventListener("change", function (e) {
-  filter_2.detune.value = e.currentTarget.value; console.log("filter_2.detune: " + e.currentTarget.value);
-  player_2_filter_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-});
-
-player_2_filter_gain.addEventListener("change", function (e) {
-  filter_2.gain.value = e.currentTarget.value; console.log("filter_2.gain: " + e.currentTarget.value);
-  player_2_filter_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-});
-*/
-filter_1_select.addEventListener("change", function (e) {
-  filter_1.type = e.currentTarget.value; console.log("filter_1.value: " + e.currentTarget.value);
-  hides_All_EQ_Faders("player_1_filter");
-  switch (e.currentTarget.value) {
-    case "lowpass":
-    case "highpass":
-    case "bandpass":
-    case "notch":
-    case "allpass":
-      {
-        player_1_filter_frequency.style.opacity = "1";
-        player_1_filter_frequency_value.style.opacity = "1";
-        player_1_filter_frequency_text.style.opacity = "1";
-        player_1_filter_Q.style.opacity = "1";
-        player_1_filter_Q_value.style.opacity = "1";
-        player_1_filter_Q_text.style.opacity = "1";
-        player_1_filter_detune.style.opacity = "1";
-        player_1_filter_detune_value.style.opacity = "1";
-        player_1_filter_detune_text.style.opacity = "1";
-        break;
-      }
-    case "lowshelf":
-    case "highshelf":
-      {
-        player_1_filter_frequency.style.opacity = "1";
-        player_1_filter_frequency_value.style.opacity = "1";
-        player_1_filter_frequency_text.style.opacity = "1";
-        player_1_filter_gain.style.opacity = "1";
-        player_1_filter_gain_value.style.opacity = "1";
-        player_1_filter_gain_text.style.opacity = "1";
-        player_1_filter_detune.style.opacity = "1";
-        player_1_filter_detune_value.style.opacity = "1";
-        player_1_filter_detune_text.style.opacity = "1";
-        break;
-      }
-    case "peaking":
-      {
-        player_1_filter_frequency.style.opacity = "1";
-        player_1_filter_frequency_value.style.opacity = "1";
-        player_1_filter_frequency_text.style.opacity = "1";
-        player_1_filter_Q.style.opacity = "1";
-        player_1_filter_Q_value.style.opacity = "1";
-        player_1_filter_Q_text.style.opacity = "1";
-        player_1_filter_gain.style.opacity = "1";
-        player_1_filter_gain_value.style.opacity = "1";
-        player_1_filter_gain_text.style.opacity = "1";
-        player_1_filter_detune.style.opacity = "1";
-        player_1_filter_detune_value.style.opacity = "1";
-        player_1_filter_detune_text.style.opacity = "1";
-        break;
-      }
-    default:
-      { console.log(" EQ1 DEFAULT"); }
-  }
-});
-/*
-player2_fxSend_2.addEventListener("change", function (e) {
-  if (e.currentTarget.value <= -40) {
-    player2_fxSend_1_fader.volume.value = -100;
-    player2_fxSend_1_value.innerHTML = -100;
-  }
-  else {
-    player2_fxSend_1_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-    player2_fxSend_1_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  }
-});
-
-player2_fxSend_2.addEventListener("change", function (e) {
-  if (e.currentTarget.value <= -40) {
-    player2_fxSend_2_fader.volume.value = -100;
-    player2_fxSend_2_value.innerHTML = -100;
-  }
-  else {
-    player2_fxSend_2_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-    player2_fxSend_2_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  }
-});
-
-player2_fxSend_3.addEventListener("change", function (e) {
-  if (e.currentTarget.value <= -40) {
-    player2_fxSend_3_fader.volume.value = -100;
-    player2_fxSend_3_value.innerHTML = -100;
-  }
-  else {
-    player2_fxSend_3_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-    player2_fxSend_3_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  }
-});
-
-player2_fxSend_4.addEventListener("change", function (e) {
-  if (e.currentTarget.value <= -40) {
-    player2_fxSend_4_fader.volume.value = -100;
-    player2_fxSend_4_value.innerHTML = -100;
-  }
-  else {
-    player2_fxSend_4_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-    player2_fxSend_4_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  }
-});
 
 //************************************************************************** */
 //PLAYER 2 EQ 3 
@@ -1781,7 +1834,7 @@ player_2_EQ3_high_frequency_fader.addEventListener("change", function (e) {
 });
 
 player_2_EQ3_Q_fader.addEventListener("change", function (e) {
-  filter_2_TEST.Q.value = e.currentTarget.value; console.log("filter_1.q: " + e.currentTarget.value);
+  filter_2_TEST.Q.value = e.currentTarget.value; console.log("player_1_filter.q: " + e.currentTarget.value);
   player_2_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -1964,7 +2017,8 @@ fx4_pan_fader.addEventListener("change", function (e) {
 //------------------------------------------------------------------------------------
 // FX 1 EQ
 //  */
-
+//FX1 EQ LISTENERS
+/*
 fx1_filter_frequency.addEventListener("change", function (e) {
   fx1_Filter.frequency.value = e.currentTarget.value; console.log("fx1_Filter.frequency: " + fx1_Filter.frequency.value);
   fx1_filter_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
@@ -2040,7 +2094,7 @@ fx1_filter_select.addEventListener("change", function (e) {
       { console.log(" EQ1 DEFAULT"); }
   }
 });
-
+/**/
 //************************************************************************* */
 //************************************************************************* */
 //INNERHTML
@@ -2108,7 +2162,7 @@ player_4_songName.innerHTML = `No Song Loaded`;
 
 player_1_duration_text.innerHTML = "Duration";
 player_1_duration_value.innerHTML = "Unk";
-player_1_filter_frequency_value.innerHTML = "20";
+player_1_filter_frequency_value.innerHTML = "20000";
 player_1_filter_Q_value.innerHTML = "0";
 player_1_filter_detune_value.innerHTML = "0";
 player_1_filter_gain_value.innerHTML = "0";
@@ -2120,12 +2174,12 @@ player1_fxSend_4_value.innerHTML = "0";
 //************************************************************************* */
 // FX 1 EQ 
 //  */
-
+/*
 fx1_filter_frequency_value.innerHTML = "20";
 fx1_filter_Q_value.innerHTML = "0";
 fx1_filter_detune_value.innerHTML = "0";
 fx1_filter_gain_value.innerHTML = "0";
-
+/**/
 fx_1_fxSend_2_value.innerHTML = "0";
 fx_1_fxSend_3_value.innerHTML = "0";
 fx_1_fxSend_4_value.innerHTML = "0";
@@ -2159,18 +2213,15 @@ player_2_rms_value.innerHTML = 0;
 player_3_rms_value.innerHTML = 0;
 player_4_rms_value.innerHTML = 0;
 
+fx_1_rms_value.innerHTML = 0;
+fx_2_rms_value.innerHTML = 0;
+fx_3_rms_value.innerHTML = 0;
+fx_4_rms_value.innerHTML = 0;
 
-
-
-
-
-
-
-
-
-
-
-
+//***************************************
+// player 3 eq
+//  */
+player_3_LowShelf_gain_value.innerHTML = 0;
 
 
 
@@ -2284,7 +2335,7 @@ function mute(value) {
     case "4":
       { player_4_volNode.mute = !player_4_volNode.mute; break; }
     default:
-      { console.log("DEFAULT function stop(value)"); break; }
+      { console.log("DEFAULT function stop(value)"); break; } 9
   }
 }
 
@@ -2308,19 +2359,6 @@ function solo(value) {
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 function solo1() {
   player_1_volNode.solo = !player_1_volNode.solo; console.log("player_1_volNode.solo: " + player_1_volNode.solo);
 }
@@ -2336,7 +2374,6 @@ function solo3() {
 function solo4() {
   player_4_volume.solo = !player_4_volume.solo; console.log("player_4_volume.solo: " + player_4_volume.solo);
 }
-
 
 function busca1() {
   //player_1_duration_value.innerHTML = "Unknown";
@@ -2446,23 +2483,25 @@ function hides_All_EQ_Faders(value) {
         player_1_filter_detune_text.style.opacity = "0";
         break;
       }
-    case "fx1_Filter":
-      {
-        //alert("fx1_Filter");
-        fx1_filter_frequency.style.opacity = "0";
-        fx1_filter_frequency_value.style.opacity = "0";
-        fx1_filter_frequency_text.style.opacity = "0";
-        fx1_filter_Q.style.opacity = "0";
-        fx1_filter_Q_value.style.opacity = "0";
-        fx1_filter_Q_text.style.opacity = "0";
-        fx1_filter_detune_1.style.opacity = "0";
-        fx1_filter_detune_value.style.opacity = "0";
-        fx1_filter_detune_1_text.style.opacity = "0";
-        fx1_filter_gain.style.opacity = "0";
-        fx1_filter_gain_value.style.opacity = "0";
-        fx1_filter_gain_text.style.opacity = "0";
-        break;
-      }
+    /*
+  case "fx1_Filter":
+    {
+      //alert("fx1_Filter");
+      fx1_filter_frequency.style.opacity = "0";
+      fx1_filter_frequency_value.style.opacity = "0";
+      fx1_filter_frequency_text.style.opacity = "0";
+      fx1_filter_Q.style.opacity = "0";
+      fx1_filter_Q_value.style.opacity = "0";
+      fx1_filter_Q_text.style.opacity = "0";
+      fx1_filter_detune_1.style.opacity = "0";
+      fx1_filter_detune_value.style.opacity = "0";
+      fx1_filter_detune_1_text.style.opacity = "0";
+      fx1_filter_gain.style.opacity = "0";
+      fx1_filter_gain_value.style.opacity = "0";
+      fx1_filter_gain_text.style.opacity = "0";
+      break;
+    }
+    /**/
     default: { console.log("DEFAULT hides_All_EQ_Faders"); }
   }//CLOSES switch(value)
 }//CLOSES hides_All_EQ_Faders
@@ -2516,26 +2555,40 @@ function recStop() {
 //********************************************************************* */
 //EQ
 function player_1_filter_eq_On_Off() {
-  isFilter_1_On = !isFilter_1_On; console.log("isFilter_1_On: " + isFilter_1_On);
-  if (player_1_filter_eq_On_Off_Button.innerText === "On") {
-    player_1_filter_eq_On_Off_Button.innerText = "Off";       //conecta el player a destination
-    filter_1.disconnect(player_1_panNode);
-    player_1_Node.disconnect(filter_1);
-    player_1_Node.connect(player_1_panNode);
+  //  if (player_1_filter_eq_On_Off_Button.innerText === "On") {
+  if (isplayer_1_filter_eq_On === true) {
     player_1_filter_eq_On_Off_Button.style.backgroundColor = "red";
+    player_1_filter_eq_On_Off_Button.innerText = "Off";
+    player_1_filter_frequency.value = 20000;
+    player_1_filter_frequency_value.innerHTML = 20000;
+    player_1_filter_Q.value = 0;
+    player_1_filter_Q_value.innerHTML = 0;
+    player_1_filter_gain.value = 0;
+    player_1_filter_gain_value.innerHTML = 0;
+    player_1_filter_detune.value = 0;
+    player_1_filter_detune_value.innerHTML = 0;
+
+    player_1_filter.set({
+      frequency: 20000,
+      type: "lowpass",
+      Q: 0,
+      gain: 0,
+      rolloff: -96,
+    });
   }
   else {
-    player_1_filter_eq_On_Off_Button.innerText = "On";      //conecta el player al filter y este a destination
-    player_1_Node.disconnect(player_1_panNode);
-    player_1_Node.connect(filter_1);
-    filter_1.connect(player_1_panNode);
+    player_1_filter_eq_On_Off_Button.innerText = "On";
     player_1_filter_eq_On_Off_Button.style.backgroundColor = "green";
+
   }
+  isplayer_1_filter_eq_On = !isplayer_1_filter_eq_On; console.log("AAAAAAAAAAAAAAisplayer_1_filter_eq_On: " + isplayer_1_filter_eq_On);
+
 }
 //************************************************************************* */
 //********************************************************************* */
 //********************************************************************* */
 //FX 1 EQ ON OFF BUTTON
+/*
 function fx1_filter_eq_On_Off_Button_foo() {
   isFilter_fx1_On = !isFilter_fx1_On; console.log("isFilter_fx1_On: " + isFilter_fx1_On);
   if (fx1_filter_eq_On_Off_Button.innerText === "On") {
@@ -2553,24 +2606,34 @@ function fx1_filter_eq_On_Off_Button_foo() {
     document.getElementById("fx1_filter_eq_On_Off_Button").style.backgroundColor = "green";
   }
 }
-
-/////const fxReturn_1_fader = new Tone.Volume(-100).connect(fx1_Filter);
+/**/
 //************************************************************************* */
 //************************************************************************* */
 //********************************************************************* */
 //PLAYER 1 FX SEND  ON OFF BUTTONS
-function fxSend_1_OnOff1() {
-  is_player_1_fxSend_1_On = !is_player_1_fxSend_1_On; console.log("is_player_1_fxSend_1_On: " + is_player_1_fxSend_1_On);
-  if (player1_fxSend_1_On_Off_Button.innerText === "On") {
+function player1_fxSend_1_On_Off_Button_foo() {
+  console.log("is_player_1_fxSend_1_On: " + is_player_1_fxSend_1_On);
+  if (is_player_1_fxSend_1_On == true) {
+    alert("el send era true");
+    player_1_fxSend_1_preEq_volNode.volume.value = -100;
+    player_1_fxSend_1_postEq_volNode.volume.value = -100;
+    player_1_fxSend_1_postFdr_volNode.volume.value = -100;
+    player1_fxSend_1.value = -100;
+    player1_fxSend_1_value.value = -100;
     player1_fxSend_1_On_Off_Button.innerText = "Off";
-    player1_fxSend_1_fader.disconnect(fx_1_delay);
-    player1_fxSend_1_fader.connect(fxReturn_1_fader);
   }
   else {
     player1_fxSend_1_On_Off_Button.innerText = "On";
-    player1_fxSend_1_fader.disconnect(fxReturn_1_fader);
-    player1_fxSend_1_fader.connect(fx_1_delay);
+    player_1_fxSend_1_preEq_volNode.volume.value = 0;
+    player_1_fxSend_1_postEq_volNode.volume.value = 0;
+    player_1_fxSend_1_postFdr_volNode.volume.value = 0;
+    //REVISAR SI NO ES NECESARIO 
+    // GUARDAR EL VALOR ANTERIOR ANTES DE DEVOLVER EL ON
+    player1_fxSend_1.value = 0;
+    player1_fxSend_1_value.value = 0;
+    alert("el send era FALSE");
   }
+  is_player_1_fxSend_1_On = !is_player_1_fxSend_1_On;
 }
 
 function fx_1_fxSend_2_OnOff() {
@@ -2591,13 +2654,13 @@ function fxSend_3_OnOff1() {
   is_player_1_fxSend_3_On = !is_player_1_fxSend_3_On; console.log("is_player_1_fxSend_3_On: " + is_player_1_fxSend_3_On);
   if (player1_fxSend_3_On_Off_Button.innerText === "On") {
     player1_fxSend_3_On_Off_Button.innerText = "Off";
-    player1_fxSend_3_fader.disconnect(fx_3_fbDelay);
-    player1_fxSend_3_fader.connect(fxReturn_3_fader);
+    player_1_fxSend_3_preEq_volNode.disconnect(fx_3_fbDelay);
+    player_1_fxSend_3_preEq_volNode.connect(fxReturn_3_fader);
   }
   else {
     player1_fxSend_3_On_Off_Button.innerText = "On";
-    player1_fxSend_3_fader.disconnect(fxReturn_3_fader);
-    player1_fxSend_3_fader.connect(fx_3_fbDelay);
+    player_1_fxSend_3_preEq_volNode.disconnect(fxReturn_3_fader);
+    player_1_fxSend_3_preEq_volNode.connect(fx_3_fbDelay);
   }
 }
 
@@ -2605,13 +2668,13 @@ function fxSend_4_OnOff1() {
   is_player_1_fxSend_4_On = !is_player_1_fxSend_4_On; console.log("is_player_1_fxSend_4_On: " + is_player_1_fxSend_4_On);
   if (player1_fxSend_4_On_Off_Button.innerText === "On") {
     player1_fxSend_4_On_Off_Button.innerText = "Off";
-    player1_fxSend_4_fader.disconnect(fx_4_pitchShift);
-    player1_fxSend_4_fader.connect(fxReturn_4_fader);
+    player_1_fxSend_4_preEq_volNode.disconnect(fx_4_pitchShift);
+    player_1_fxSend_4_preEq_volNode.connect(fxReturn_4_fader);
   }
   else {
     player1_fxSend_4_On_Off_Button.innerText = "On";
-    player1_fxSend_4_fader.disconnect(fxReturn_4_fader);
-    player1_fxSend_4_fader.connect(fx_4_pitchShift);
+    player_1_fxSend_4_preEq_volNode.disconnect(fxReturn_4_fader);
+    player_1_fxSend_4_preEq_volNode.connect(fx_4_pitchShift);
   }
 }
 
@@ -2666,70 +2729,113 @@ function fx1_fxSend_4_OnOff() {
 //************************************************************
 
 function player_x_fxSend_x_state_foo(name, value) {
-
+  console.log("name: " + name);
+  console.log("actual: " + player_1_fxSend_1_state);
+  console.log("nuevo:" + value);
   switch (name) {
     case "player_1_fxSend_1":
       {
-        if (player_1_fxSend_1_state != value) {
-          switch (value) {
-            case "PreEQ": {
-              if (player_1_fxSend_1_state === "PostEQ") {
-                filter_1.disconnect(player1_fxSend_1_fader);
-                player_1_Node.disconnect(filter_1);
-                player_1_Node.connect(player1_fxSend_1_fader);
-                send_state_player1_background_change(name, value);
+        if (is_player_1_fxSend_1_On == true) {
+          if (player_1_fxSend_1_state != value) {
+            switch (player_1_fxSend_1_state) {
+              case "PreEQ": {
+                if (value == "PostEQ") {
+                  player_1_fxSend_1_postEq_volNode.volume.value = player_1_fxSend_1_preEq_volNode.volume.value;
+                  player_1_fxSend_1_preEq_volNode.volume.value = -100;
+                  player_1_fxSend_1_postFdr_volNode.volume.value = -100;
+                  send_state_player1_background_change(name, value);
+                  player_1_fxSend_1_state = "PostEQ";
+                }
+                else if (value == "PostFdr") {
+                  player_1_fxSend_1_postFdr_volNode.volume.value = player_1_fxSend_1_preEq_volNode.volume.value;
+                  player_1_fxSend_1_preEq_volNode.volume.value = -100;
+                  player_1_fxSend_1_postEq_volNode.volume.value = -100;
+                  send_state_player1_background_change(name, value);
+                  player_1_fxSend_1_state = "PostFdr";
+                }
+                break;
               }
-              else if (player_1_fxSend_1_state === "PostFdr") {
-                player_1_volNode.disconnect(player1_fxSend_1_fader);
-                player_1_Node.connect(player1_fxSend_1_fader);
-                send_state_player1_background_change(name, value);
+              case "PostEQ": {
+                if (value == "PreEQ") {
+                  player_1_fxSend_1_preEq_volNode.volume.value = player_1_fxSend_1_postEq_volNode.volume.value;
+                  player_1_fxSend_1_postEq_volNode.volume.value = -100;
+                  player_1_fxSend_1_postFdr_volNode.volume.value = -100;
+                  send_state_player1_background_change(name, value);
+                  player_1_fxSend_1_state = "PreEQ";
+                }
+                else if (value == "PostFdr") {
+                  player_1_fxSend_1_postFdr_volNode.volume.value = player_1_fxSend_1_postEq_volNode.volume.value;
+                  player_1_fxSend_1_preEq_volNode.volume.value = -100;
+                  player_1_fxSend_1_postEq_volNode.volume.value = -100;
+                  send_state_player1_background_change(name, value);
+                  player_1_fxSend_1_state = "PostFdr";
+                }
+                break;
               }
-              else {
-                console.log("ni post eq ni post fdr");
+              case "PostFdr": {
+                if (value == "PostEQ") {
+                  player_1_fxSend_1_postEq_volNode.volume.value = player_1_fxSend_1_postFdr_volNode.volume.value;
+                  player_1_fxSend_1_preEq_volNode.volume.value = -100;
+                  player_1_fxSend_1_postFdr_volNode.volume.value = -100;
+                  send_state_player1_background_change(name, value);
+                  player_1_fxSend_1_state = "PostEQ";
+                }
+                else if (value == "PreEQ") {
+                  player_1_fxSend_1_preEq_volNode.volume.value = player_1_fxSend_1_postFdr_volNode.volume.value;
+                  player_1_fxSend_1_postFdr_volNode.volume.value = -100;
+                  player_1_fxSend_1_postEq_volNode.volume.value = -100;
+                  send_state_player1_background_change(name, value);
+                  player_1_fxSend_1_state = "PreEQ";
+                }
+                break;
               }
-              player_1_fxSend_1_state = "PreEQ"; console.log("player_1_fxSend_1_state: " + player_1_fxSend_1_state);
-              break;
+              default: { alert("DEFAULT switch(player_1_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
             }
-            case "PostEQ": {
-              if (player_1_fxSend_1_state === "PreEQ") {
-                player_1_Node.disconnect(player1_fxSend_1_fader);
-                player_1_Node.connect(filter_1);
-                filter_1.connect(player1_fxSend_1_fader)
-                send_state_player1_background_change(name, value);
-              }
-              else if (player_1_fxSend_1_state === "PostFdr") {
-                player_1_volNode.disconnect(player1_fxSend_1_fader);
-                filter_1.connect(player1_fxSend_1_fader);
-                send_state_player1_background_change(name, value);
-              }
-              else {
-                console.log("ni pre eq ni post fdr");
-              }
-              player_1_fxSend_1_state = "PostEQ"; console.log("state: " + player_1_fxSend_1_state);
-              break;
-            }
-            case "PostFdr": {
-              if (player_1_fxSend_1_state === "PreEQ") {
-                player_1_Node.disconnect(player1_fxSend_1_fader);
-                player_1_volNode.connect(player1_fxSend_1_fader);
-                send_state_player1_background_change(name, value);;
-              }
-              else if (player_1_fxSend_1_state === "PostEQ") {
-                filter_1.disconnect(player1_fxSend_1_fader);
-                player_1_volNode.connect(player1_fxSend_1_fader);
-                send_state_player1_background_change(name, value);;
-              }
-              else {
-                console.log("ni pre eq ni post eq");
-              }
-              player_1_fxSend_1_state = "PostFdr"; console.log("state: " + player_1_fxSend_1_state);
-              break;
-            }
-            default: { break; }
+
+            /*
+                        switch (value) {
+                          case "PreEQ": {
+                            console.log("Pre  PreEQ " + player_1_fxSend_1_preEq_volNode.volume.value);
+                            console.log("Pre  PostEQ " + player_1_fxSend_1_postEq_volNode.volume.value);
+                            console.log("Pre  PostFdr " + player_1_fxSend_1_postFdr_volNode.volume.value);
+                            player_1_fxSend_1_postEq_volNode.volume.value = -100;
+                            player_1_fxSend_1_postFdr_volNode.volume.value = -100;
+                            send_state_player1_background_change(name, value);
+                            player_1_fxSend_1_state = "PreEQ";
+                            break;
+                          }
+                          case "PostEQ": {
+            
+                            console.log("PEQ  PreEQ " + player_1_fxSend_1_preEq_volNode.volume.value);
+                            console.log("PEQ  PostEQ " + player_1_fxSend_1_postEq_volNode.volume.value);
+                            console.log("PEQ  PostFdr " + player_1_fxSend_1_postFdr_volNode.volume.value);
+                            console.log("");
+                            player_1_fxSend_1_preEq_volNode.volume.value = -100;
+                            player_1_fxSend_1_postFdr_volNode.volume.value = -100;
+                            send_state_player1_background_change(name, value);
+                            player_1_fxSend_1_state = "PostEQ";
+                            break;
+                          }
+                          case "PostFdr": {
+                            console.log("PFDR PreEQ " + player_1_fxSend_1_preEq_volNode.volume.value);
+                            console.log("PFDR PostEQ " + player_1_fxSend_1_postEq_volNode.volume.value);
+                            console.log("PFDR PostFdr " + player_1_fxSend_1_postFdr_volNode.volume.value);
+            
+                            player_1_fxSend_1_preEq_volNode.volume.value = -100;
+                            player_1_fxSend_1_postEq_volNode.volume.value = -100;
+                            send_state_player1_background_change(name, value);
+                            player_1_fxSend_1_state = "PostFdr";
+                            break;
+                          }
+                          default: { break; }
+                        }
+            */
+
           }
+          else { }
+          break;
         }
-        else { }
-        break;
+        else { console.log("is_player_1_fxSend_1_On == FALSE"); }
       }
     case "player_1_fxSend_2":
       {
@@ -2737,13 +2843,13 @@ function player_x_fxSend_x_state_foo(name, value) {
           switch (value) {
             case "PreEQ": {
               if (player_1_fxSend_2_state === "PostEQ") {
-                filter_1.disconnect(player1_fxSend_2_fader);
-                player_1_Node.connect(player1_fxSend_2_fader);
+                player_1_filter.disconnect(player_1_fxSend_2_preEq_volNode);
+                player_1_Node.connect(player_1_fxSend_2_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else if (player_1_fxSend_2_state === "PostFdr") {
-                player_1_volNode.disconnect(player1_fxSend_2_fader);
-                player_1_Node.connect(player1_fxSend_2_fader);
+                player_1_volNode.disconnect(player_1_fxSend_2_preEq_volNode);
+                player_1_Node.connect(player_1_fxSend_2_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else {
@@ -2754,14 +2860,14 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
             case "PostEQ": {
               if (player_1_fxSend_2_state === "PreEQ") {
-                player_1_Node.disconnect(player1_fxSend_2_fader);
-                player_1_Node.connect(filter_1);
-                filter_1.connect(player1_fxSend_2_fader);
+                player_1_Node.disconnect(player_1_fxSend_2_preEq_volNode);
+                player_1_Node.connect(player_1_filter);
+                player_1_filter.connect(player_1_fxSend_2_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else if (player_1_fxSend_2_state === "PostFdr") {
-                player_1_volNode.disconnect(player1_fxSend_2_fader);
-                filter_1.connect(player1_fxSend_2_fader);
+                player_1_volNode.disconnect(player_1_fxSend_2_preEq_volNode);
+                player_1_filter.connect(player_1_fxSend_2_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else {
@@ -2772,13 +2878,13 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
             case "PostFdr": {
               if (player_1_fxSend_2_state === "PreEQ") {
-                player_1_Node.disconnect(player1_fxSend_2_fader);
-                player_1_volNode.connect(player1_fxSend_2_fader);
+                player_1_Node.disconnect(player_1_fxSend_2_preEq_volNode);
+                player_1_volNode.connect(player_1_fxSend_2_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else if (player_1_fxSend_2_state === "PostEQ") {
-                filter_1.disconnect(player1_fxSend_2_fader);
-                player_1_volNode.connect(player1_fxSend_2_fader);
+                player_1_filter.disconnect(player_1_fxSend_2_preEq_volNode);
+                player_1_volNode.connect(player_1_fxSend_2_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else { console.log("ni pre eq ni post eq"); }
@@ -2798,13 +2904,13 @@ function player_x_fxSend_x_state_foo(name, value) {
           switch (value) {
             case "PreEQ": {
               if (player_1_fxSend_3_state === "PostEQ") {
-                filter_1.disconnect(player1_fxSend_3_fader);
-                player_1_Node.connect(player1_fxSend_3_fader);
+                player_1_filter.disconnect(player_1_fxSend_3_preEq_volNode);
+                player_1_Node.connect(player_1_fxSend_3_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else if (player_1_fxSend_3_state === "PostFdr") {
-                player_1_volNode.disconnect(player1_fxSend_3_fader);
-                player_1_Node.connect(player1_fxSend_3_fader);
+                player_1_volNode.disconnect(player_1_fxSend_3_preEq_volNode);
+                player_1_Node.connect(player_1_fxSend_3_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else {
@@ -2815,14 +2921,14 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
             case "PostEQ": {
               if (player_1_fxSend_3_state === "PreEQ") {
-                player_1_Node.disconnect(player1_fxSend_3_fader);
-                player_1_Node.connect(filter_1);
-                filter_1.connect(player1_fxSend_3_fader);
+                player_1_Node.disconnect(player_1_fxSend_3_preEq_volNode);
+                player_1_Node.connect(player_1_filter);
+                player_1_filter.connect(player_1_fxSend_3_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else if (player_1_fxSend_3_state === "PostFdr") {
-                player_1_volNode.disconnect(player1_fxSend_3_fader);
-                filter_1.connect(player1_fxSend_3_fader);
+                player_1_volNode.disconnect(player_1_fxSend_3_preEq_volNode);
+                player_1_filter.connect(player_1_fxSend_3_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else {
@@ -2833,13 +2939,13 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
             case "PostFdr": {
               if (player_1_fxSend_3_state === "PreEQ") {
-                player_1_Node.disconnect(player1_fxSend_3_fader);
-                player_1_volNode.connect(player1_fxSend_3_fader);
+                player_1_Node.disconnect(player_1_fxSend_3_preEq_volNode);
+                player_1_volNode.connect(player_1_fxSend_3_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else if (player_1_fxSend_3_state === "PostEQ") {
-                filter_1.disconnect(player1_fxSend_3_fader);
-                player_1_volNode.connect(player1_fxSend_3_fader);
+                player_1_filter.disconnect(player_1_fxSend_3_preEq_volNode);
+                player_1_volNode.connect(player_1_fxSend_3_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else { console.log("ni pre eq ni post eq"); }
@@ -2860,13 +2966,13 @@ function player_x_fxSend_x_state_foo(name, value) {
           switch (value) {
             case "PreEQ": {
               if (player_1_fxSend_4_state === "PostEQ") {
-                filter_1.disconnect(player1_fxSend_4_fader);
-                player_1_Node.connect(player1_fxSend_4_fader);
+                player_1_filter.disconnect(player_1_fxSend_4_preEq_volNode);
+                player_1_Node.connect(player_1_fxSend_4_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else if (player_1_fxSend_4_state === "PostFdr") {
-                player_1_volNode.disconnect(player1_fxSend_4_fader);
-                player_1_Node.connect(player1_fxSend_4_fader);
+                player_1_volNode.disconnect(player_1_fxSend_4_preEq_volNode);
+                player_1_Node.connect(player_1_fxSend_4_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else {
@@ -2877,14 +2983,14 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
             case "PostEQ": {
               if (player_1_fxSend_4_state === "PreEQ") {
-                player_1_Node.disconnect(player1_fxSend_4_fader);
-                player_1_Node.connect(filter_1);
-                filter_1.connect(player1_fxSend_4_fader);
+                player_1_Node.disconnect(player_1_fxSend_4_preEq_volNode);
+                player_1_Node.connect(player_1_filter);
+                player_1_filter.connect(player_1_fxSend_4_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else if (player_1_fxSend_4_state === "PostFdr") {
-                player_1_volNode.disconnect(player1_fxSend_4_fader);
-                filter_1.connect(player1_fxSend_4_fader);
+                player_1_volNode.disconnect(player_1_fxSend_4_preEq_volNode);
+                player_1_filter.connect(player_1_fxSend_4_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else {
@@ -2895,13 +3001,13 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
             case "PostFdr": {
               if (player_1_fxSend_4_state === "PreEQ") {
-                player_1_Node.disconnect(player1_fxSend_4_fader);
-                player_1_volNode.connect(player1_fxSend_4_fader);
+                player_1_Node.disconnect(player_1_fxSend_4_preEq_volNode);
+                player_1_volNode.connect(player_1_fxSend_4_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else if (player_1_fxSend_4_state === "PostEQ") {
-                filter_1.disconnect(player1_fxSend_4_fader);
-                player_1_volNode.connect(player1_fxSend_4_fader);
+                player_1_filter.disconnect(player_1_fxSend_4_preEq_volNode);
+                player_1_volNode.connect(player_1_fxSend_4_preEq_volNode);
                 send_state_player1_background_change(name, value);
               }
               else { console.log("ni pre eq ni post eq"); }
@@ -2920,14 +3026,39 @@ function player_x_fxSend_x_state_foo(name, value) {
         alert("fx1_fxSend_1");
         break;
       }
-
-
   }//CLOSES switch
-
-
-
 }
 
+function recieves_player_1_fxSend_1_value_Sets_Volume_value(e, name) {
+  const state = player_1_fxSend_1_state;
+  console.log("NOW player_1_fxSend_1_state : " + state);
+  console.log("NOW e : " + e);
+  console.log("NOW name: " + name);
+
+  switch (name) {
+    case "player_1_fxSend_1":
+      {
+        if (player_1_fxSend_1_state == "PostEQ") {
+          player_1_fxSend_1_postEq_volNode.volume.value = e;
+          player1_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          player1_fxSend_1.value = e;
+          console.log("PostEQ TODOS: " + e);
+        }
+        else if (player_1_fxSend_1_state == "PreEQ") {
+          player_1_fxSend_1_preEq_volNode.volume.value = e;
+          player1_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          console.log("PreEQ TODOS: " + e);
+        }
+        else {
+          player_1_fxSend_1_postFdr_volNode.volume.value = e;
+          player1_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          console.log("PostFDR TODOS: " + e);
+        }
+        break;
+      }
+    default: { alert("DEFAULT"); }
+  }// CLOSES SWITCH
+}//CLOSES FOO 
 
 
 
@@ -2956,7 +3087,7 @@ function send_state_player1_background_change(name, value) {
             player_1_fxSend_1_post_fader_Button.style.backgroundColor = "green";
             break;
           }
-          default:{ break; }
+          default: { break; }
         }
         break;
       }
@@ -2981,62 +3112,60 @@ function send_state_player1_background_change(name, value) {
             player_1_fxSend_2_post_fader_Button.style.backgroundColor = "green";
             break;
           }
-          default:{ break; }
+          default: { break; }
         }
         break;
       }
-
     case "player_1_fxSend_3":
-        {
-          switch (value) {
-            case "PreEQ": {
-              player_1_fxSend_3_pre_EQ_Button.style.backgroundColor = "green";
-              player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "white";
-              player_1_fxSend_3_post_fader_Button.style.backgroundColor = "white";
-              break;
-            }
-            case "PostEQ": {
-              player_1_fxSend_3_pre_EQ_Button.style.backgroundColor = "white";
-              player_1_fxSend_3_post_fader_Button.style.backgroundColor = "white";
-              player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "green";
-              break;
-            }
-            case "PostFdr": {
-              player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "white";
-              player_1_fxSend_3_pre_EQ_Button.style.backgroundColor = "white";
-              player_1_fxSend_3_post_fader_Button.style.backgroundColor = "green";
-              break;
-            }
-            default:{ break; }
-          }
-          break;
-        }
-
-    case "player_1_fxSend_4":
-          {
-            switch (value) {
-              case "PreEQ": {
-                player_1_fxSend_4_pre_EQ_Button.style.backgroundColor = "green";
-                player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "white";
-                player_1_fxSend_4_post_fader_Button.style.backgroundColor = "white";
-                break;
-              }
-              case "PostEQ": {
-                player_1_fxSend_4_pre_EQ_Button.style.backgroundColor = "white";
-                player_1_fxSend_4_post_fader_Button.style.backgroundColor = "white";
-                player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
-                break;
-              }
-              case "PostFdr": {
-                player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "white";
-                player_1_fxSend_4_pre_EQ_Button.style.backgroundColor = "white";
-                player_1_fxSend_4_post_fader_Button.style.backgroundColor = "green";
-                break;
-              }
-              default:{ break; }
-            }
+      {
+        switch (value) {
+          case "PreEQ": {
+            player_1_fxSend_3_pre_EQ_Button.style.backgroundColor = "green";
+            player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_3_post_fader_Button.style.backgroundColor = "white";
             break;
           }
+          case "PostEQ": {
+            player_1_fxSend_3_pre_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_3_post_fader_Button.style.backgroundColor = "white";
+            player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "green";
+            break;
+          }
+          case "PostFdr": {
+            player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_3_pre_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_3_post_fader_Button.style.backgroundColor = "green";
+            break;
+          }
+          default: { break; }
+        }
+        break;
+      }
+    case "player_1_fxSend_4":
+      {
+        switch (value) {
+          case "PreEQ": {
+            player_1_fxSend_4_pre_EQ_Button.style.backgroundColor = "green";
+            player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_4_post_fader_Button.style.backgroundColor = "white";
+            break;
+          }
+          case "PostEQ": {
+            player_1_fxSend_4_pre_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_4_post_fader_Button.style.backgroundColor = "white";
+            player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
+            break;
+          }
+          case "PostFdr": {
+            player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_4_pre_EQ_Button.style.backgroundColor = "white";
+            player_1_fxSend_4_post_fader_Button.style.backgroundColor = "green";
+            break;
+          }
+          default: { break; }
+        }
+        break;
+      }
   }//CLOSES  switch (name)
 }//CLOSES send_state_player1_background_change
 
@@ -3078,3 +3207,5 @@ function callbackLoaded(songNumber, playerNumber) {
 
 //************************************************************************
 //************************************************************************
+
+

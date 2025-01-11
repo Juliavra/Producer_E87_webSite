@@ -18,7 +18,6 @@
       gap: 10px;
       padding: 20px;
     }
-
     header {
       grid-column: span 4;
       /* Header spans across all 4 columns */
@@ -27,21 +26,17 @@
       padding: 20px;
       text-align: center;
     }
-
     .column {
       padding: 10px;
       background-color: #f4f4f4;
       border: 3px solid #ddd;
     }
-
     .column:nth-child(odd) {
       background-color: #f4f4f4;
     }
-
     p {
       display: inline-flex;
     }
-
     @media (max-width: 768px) {
       body {
         grid-template-columns: repeat(2, 1fr);
@@ -54,7 +49,8 @@
 <body>
   <header>
     <h1>Step 6 Player + Vol + Pan + Recorder + EQ + FX</h1>
-    <h1>Jugamos como nunca, perdimos como siempre</h1>
+    <h2>Jugamos como nunca, perdimos como siempre</h2>
+    <h2> nuestras nadas poco difieren </h2>
     <button id="recButton" onclick="rec()">Rec </button>
     <button id="pauseButton" onclick="">Pause </button>
     <button id="recStopButton" onclick="recStop()">Stop </button>
@@ -178,8 +174,8 @@ ACA INICIA EL PLAYER 1
 -->
   <div class="column">
     <h2>1</h2>
-    <br>     rms: <p id="player_1_rms_value"> </p>
-    <br>
+    RMS     <p id="player_1_rms_value"> </p>
+    <br> 
     <p id="player_1_songName">  </p>
     <p id="player_1_duration_text">  </p>
     <p id="player_1_duration_value"> </p>
@@ -237,7 +233,7 @@ ACA INICIA EL PLAYER 1
       <h1>EQ</h1>
     </label> <button id="player_1_filter_eq_On_Off_Button" onclick="player_1_filter_eq_On_Off()">On </button>
     <select name="filter_1" id="filter_1_select">
-      <option name="lowpass" id="lowpass" value="lowpass">Lowpass</option>
+      <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
       <option name="highpass" id="highpass" value="highpass">highpass</option>
       <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
       <option name="lowshelf" id="lowshelf" value="lowshelf">lowshelf</option>
@@ -268,7 +264,7 @@ ACA INICIA EL PLAYER 1
     <h2>FX</h2>
 
     <p id="player1_fxSend_1_text">
-    <h2> 1 Delay <button id="player1_fxSend_1_On_Off_Button" onclick="fxSend_1_OnOff1()">On
+    <h2> 1 Delay <button id="player1_fxSend_1_On_Off_Button" onclick="player1_fxSend_1_On_Off_Button_foo()">On
       </button> </h2>
     </p>
     Send
@@ -435,6 +431,8 @@ ACA FINALIZA EL PLAYER 2
     <h2> 3</h2>
     <br>
     rms: <p id="player_3_rms_value"> </p>
+    <br>
+    Test Unit rms: <p id="test_unit_rms_value"> </p>
     <br> 
     <p id="player_3_songName">  </p>
     <p id="player_3_duration_text">  </p>
@@ -486,10 +484,13 @@ ACA FINALIZA EL PLAYER 2
     <input id="player_3_fadeOut" type="number" min="0" />
     <p id="player_3_fadeOut_value"></p>
 
-
-
-
-        
+    <h1>EQ</h1>tascam
+    <br>
+    <p id="player_3_LowShelf_gain_text">LowShelf Gain </p>
+    <input type='range' min=-10 max=10 step='1' value="0" id='player_3_LowShelf_gain'>
+    <p id="player_3_LowShelf_gain_value"></p>
+    <br>
+         
   </div>
   <div class="column">
     <h2> 4</h2>
@@ -552,7 +553,7 @@ ACA FINALIZA EL PLAYER 2
   </div>
   <div class="column">
     <h2>FX 1</h2>
-
+    rms: <p id="fx_1_rms_value"> </p>
     <div>
       <p id="fx1_volume_text"> </p>
       Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx1_volume'>
@@ -596,6 +597,10 @@ ACA FINALIZA EL PLAYER 2
     <br>
     fx send
 
+
+una vez que esta en post eq y eq off y quiere pasar a pre eq
+
+
     <p id="fx_1_fxSend_2_text">
     <h2> 2 Reverb
       <button id="fx_1_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">On </button>
@@ -635,6 +640,7 @@ ACA FINALIZA EL PLAYER 2
   </div>
   <div class="column">
     <h2>FX 2</h2>
+    rms: <p id="fx_2_rms_value"> </p>
     <div>
       <p id="fx2_volume_text"> </p>
       Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx2_volume'>
@@ -647,6 +653,7 @@ ACA FINALIZA EL PLAYER 2
   </div>
   <div class="column">
     <h2>FX 3</h2>
+    rms: <p id="fx_3_rms_value"> </p>
     <div>
       <p id="fx3_volume_text"> </p>
       Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx3_volume'>
@@ -659,6 +666,7 @@ ACA FINALIZA EL PLAYER 2
   </div>
   <div class="column">
     <h2>FX 4</h2>
+    rms: <p id="fx_4_rms_value"> </p>
     <div>
       <p id="fx4_volume_text"> </p>
       Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx4_volume'>
