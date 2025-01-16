@@ -1001,79 +1001,13 @@
       <option name="Vibrato" id="Vibrato" value="Vibrato">Vibrato</option>
     </select>
     <br>
-    <!--
-    <div id="fx_4_effects_div_autoFilter">
-      <p id="fx4_autofilter_baseFrec_text">BaseFrec </p>
-      <input type='range' min=20 max=20000 step='10' value="20" id='fx4_autofilter_baseFrec'>
-      <p id="fx4_autofilter_baseFrec_value"></p>
-      <br>
-      <p id="fx4_autofilter_LFORate_text">LFO Rate </p>
-      <input type='range' min=0 max=50 step='1' value="0" id='fx4_autofilter_LFORate'>
-      <p id="fx4_autofilter_LFORate_value"></p>
-      <br>
-      <p id="fx4_autofilter_depth_text">Depth </p>
-      <input type='range' min=0 max=12 step='1' value="0" id='fx4_autofilter_depth'>
-      <p id="fx4_autofilter_depth_value"></p>
-      <br>
-      <p id="fx4_autofilter_octaves_text">Octaves </p>
-      <input type='range' min=0 max=7 step='0.25' value="0" id='fx4_autofilter_octaves'>
-      <p id="fx4_autofilter_octaves_value"></p>
-      <br>
-      <p id="fx4_autofilter_baseFrec_text">Octaves </p>
-      <input type='range' min=20 max=20000 step='10' value="20" id='fx4_autofilter_baseFrec'>
-      <p id="fx4_autofilter_baseFrec_value"></p>
-      <br>
--->
-    <!--
- 
-  interface AutoFilterOptions {
-    baseFrequency: Unit.Frequency;
-    context: BaseContext;
-    depth: number;
+
+    <div id="autofilter_div">
+      <!-- SE PUEDE ACCEDER A LAS PROPIEDADES DEL OSCILLATOR QUE ELIJAS 
+type: ToneOscillatorType;
     filter: Omit<FilterOptions, "gain" | "frequency" | "detune" | (keyof SourceOptions)>;
-    frequency: Unit.Frequency;
-    octaves: number;
-    type: ToneOscillatorType;
-    wet: number;
-}
 
-
-
-DEFAULTS
-{
-frequency : 1 ,
-type : sine ,
-depth : 1 ,
-baseFrequency : 200 ,
-octaves : 2.6 ,
-filter : {
-type : lowpass ,
-rolloff : -12 ,
-Q : 1
-}
-}
-
-
-new Tone.AutoFilter ( [ frequency ] , [ baseFrequency ] , [ octaves ] )
-frequency	
-The rate of the LFO.
-
-type: Time or Object
-optional
-baseFrequency	
-The lower value of the LFOs oscillation
-
-type: Frequency
-optional
-octaves	
-The number of octaves above the baseFrequency
-
-type: Frequency
-optional
-
-
-  
-Tone.AutoFilter.defaults = {
+    Tone.AutoFilter.defaults = {
 	"frequency" : 1,
 	"type" : "sine",
 	"depth" : 1,
@@ -1084,15 +1018,108 @@ Tone.AutoFilter.defaults = {
 		"rolloff" : -12,
 		"Q" : 1,
 	}
-};  
+}; 
+
+-->
+      <p id="fx_4_autofilter_baseFrequency_text">baseFrequency </p>
+      <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autofilter_baseFrequency'>
+      <p id="fx_4_autofilter_baseFrequency_value"></p>
+      <br>
+      <p id="fx_4_autofilter_depth_text"> </p>
+      Depth<input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_autofilter_depth'>
+      <p id="fx_4_autofilter_depth_value"></p>
+      <br>
+      <p id="fx_4_autofilter_frequency_text">Frequency </p>
+      <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autofilter_frequency'>
+      <p id="fx_4_autofilter_frequency_value"></p>
+      <br>
+      <p id="fx_4_autofilter_octaves_text">Octaves </p>
+      <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autofilter_octaves'>
+      <p id="fx_4_autofilter_octaves_value"></p>
+      <br> <br>
+      <label for="fx_4_autofilter_select__type"></label>
+      type:
+      <select name="fx_4_autofilter_select_typ" id="fx_4_autofilter_select_type">
+        <option name="sine" id="sine" value="sine">sine</option>
+        <option name="square" id="square" value="square">square</option>
+        <option name="triangle" id="triangle" value="triangle">triangle</option>
+        <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+      </select>
+      <br>
+    </div>
+
+    <div id="autoPanner_div">
+      <p id="fx_4_autoPanner_frequency_text">Frequency </p>
+      <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autoPanner_frequency'>
+      <p id="fx_4_autoPanner_frequency_value"></p>
+      <br>
+      <p id="fx_4_autoPanner_depth_text"> </p>
+      Depth<input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_autoPanner_depth'>
+      <p id="fx_4_autoPanner_depth_value"></p>
+      <br> <br>
+      <label for="fx_4_autoPanner_select__type"></label>
+      type:
+      <select name="fx_4_autoPanner_select_typ" id="fx_4_autoPanner_select_type">
+        <option name="sine" id="sine" value="sine">sine</option>
+        <option name="square" id="square" value="square">square</option>
+        <option name="triangle" id="triangle" value="triangle">triangle</option>
+        <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+      </select>
+      <br>
+
+    </div>
+
+    <div id="autoWah_div">
+      <p id="fx_4_autoWah_baseFrequency_text">baseFrequency </p>
+      <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autoWah_baseFrequency'>
+      <p id="fx_4_autoWah_baseFrequency_value"></p>
+      <br>
+      <p id="fx_4_autoWah_octaves_text">Octaves </p>
+      <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autoWah_octaves'>
+      <p id="fx_4_autoWah_octaves_value"></p>
+      <br>
+      <p id="fx_4_autoWah_sensitivity_text">Sensitivity </p>
+      <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autoWah_sensitivity'>
+      <p id="fx_4_autoWah_sensitivity_value"></p>
+      <br>
+      <p id="fx_4_autoWah_Q_text">Q </p>
+      <input type='range' min=0 max=100 step='1' value="0" id='fx_4_autoWah_Q'>
+      <p id="fx_4_autoWah_Q_value"></p>
+      <br>
+      <p id="fx_4_autoWah_gain_text"> gain</p>
+      <input type='range' min=-100 max=100 step='1' value="0" id='fx_4_autoWah_gain'>
+      <p id="fx_4_autoWah_gain_value"></p>
+      <br>
+      <!--
+      <p id="fx_4_autoWah_follower_attack_text"> fol Attack</p>
+      <input type='range' min=0 max=20 step='0.001' value="1" id='fx_4_autoWah_follower_attack'>
+      <p id="fx_4_autoWah_follower_attack_value"></p>
+      <br>
+      <p id="fx_4_autoWah_follower_release_text"> fol Release</p>
+      <input type='range' min=1 max=20 step='1' value="1" id='fx_4_autoWah_follower_release'>
+      <p id="fx_4_autoWah_follower_release_value"></p>
+      <br>
+      -->
 
 
+    </div>
 
+    <div id="Chebyshev_div">
+      <p id="fx_4_Chebyshev_order_text"> Order</p>
+      <input type='range' min=1 max=20 step='1' value="1" id='fx_4_Chebyshev_order'>
+      <p id="fx_4_Chebyshev_order_value"></p>
+      <br>
+      <label for="fx_4_distortion_select_type"></label>
+      Oversample:
+      <select name="fx_4_Chebyshev_select" id="fx_4_Chebyshev_select_type">
+        <option name="none" id="none" value="none">none</option>
+        <option name="2x" id="2x" value="2x">2x</option>
+        <option name="4x" id="4x" value="4x">4x</option>
+      </select>
+      <br>
+    </div>
 
-  -->
-
-
-    <div id="chorus">
+    <div id="chorus_div">
       <p id="fx4_chorus_freq_text"> Chorus</p>
       Freq<input type='range' min=0 max=20 step='0.01' value="0" id='fx4_chorus_freq'>
       <p id="fx4_chorus_freq_value"></p>
@@ -1303,13 +1330,220 @@ Tone.AutoFilter.defaults = {
       <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_vibrato_depth'>
       <p id="fx_4_vibrato_depth_value"></p>
       <br>
-      <p id="fx_4_vibrato_maxDelay_text">  Max Dly</p>
+      <p id="fx_4_vibrato_maxDelay_text"> Max Dly</p>
       <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_vibrato_maxDelay'>
       <p id="fx_4_vibrato_maxDelay_value"></p>
       <br>
     </div>
 
+    <!--ESTO VA EN OTRO LADO-->
+    <div id="gate_div">
+      <p id="gate_threshold_text"> Threshold </p>
+      <input type='range' min=-100 max=12 step='1' value="0" id='gate_threshold'>
+      <p id="gate_threshold_value"></p>
+      <br>
+      <p id="gate_smoothing_text"> </p>
+      Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='gate_smoothing'>
+      <p id="gate_smoothing_value"></p>
+      <br>
+    </div>
+
+    <div id="limiter_div">
+      <p id="limiter_threshold_text"> Threshold </p>
+      <input type='range' min=-100 max=12 step='1' value="0" id='limiter_threshold'>
+      <p id="limiter_threshold_value"></p>
+      <br>
+      <p id="limiter_smoothing_text"> </p>
+      Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='limiter_smoothing'>
+      <p id="limiter_smoothing_value"></p>
+      <br>
+      Reduction: <p id="limiter_reduction_value"> </p>
+    </div>
+
+    <div id="grainPlayer_div">
+      RMS <p id="grainPlayer_rms_value"> </p>
+      <br>
+      <p id="grainPlayer_songName"> </p>
+      <p id="grainPlayer_duration_text"> </p>
+      <p id="grainPlayer_duration_value"> </p>
+
+      <div>
+        <button id="grainPlayer_playButton" value="1" onclick="play(value)">Play </button>
+        <button id="grainPlayer_stopButton" value="1" onclick="stop(value)">Stop </button>
+        <button id="grainPlayer_muteButton" value="1" onclick="mute(value)">Mute </button>
+        <button id="grainPlayer_soloButton" value="1" onclick="solo(value)">Solo </button>
+      </div>
+
+      <p id="grainPlayer_volume_text">Vol</p>
+      <input type='range' min=-41 max=12 step='1' value="-40" id='grainPlayer_volume'>
+      <p id="grainPlayer_volume_value"> </p>
+      <input id="grainPlayer_volume_rampTo_gain" type="number" min="-50" max="12" />
+      time: <input id="grainPlayer_volume_rampTo_time" type="number" min="0" max="60" />
+      <button id="grainPlayer_volume_rampTo_send_Button" value="grainPlayer_volume"
+        onclick="send(value, grainPlayer_volume_rampTo_gain, grainPlayer_volume_rampTo_time)">Send </button>
+      <br>
+      <p id="grainPlayer_pan_text">Pan
+        <input type='range' min=-1 max=1 step='0.02' value=0 id='grainPlayer_pan'>
+      </p>
+      <p id="grainPlayer_pan_value"></p>
+      <br>
+      <p id="grainPlayer_grainSize_text"> Grain Size </p>
+      <input type='range' min=-100 max=12 step='1' value="0" id='grainPlayer_grainSize'>
+      <p id="grainPlayer_grainSize_value"></p>
+      <br>
+      <p id="grainPlayer_overlap_text"> </p>
+      Overlap <input type='range' min=0 max=10 step='0.001' value="0" id='grainPlayer_overlap'>
+      <p id="grainPlayer_overlap_value"></p>
+      <br>
+      <p id="grainPlayer_playback_rate_text">PlayBack Rate
+        <input type='range' min=0.1 max=1 step='0.01' value=1 id='grainPlayer_playback_rate'>
+      </p>
+      <p id="grainPlayer_playback_rate_value"></p>
+      <br>
+      <p id="grainPlayer_filter_detune_text">Detune </p>
+      <input type='range' min=0 max=10000 step='100' value="0" id='grainPlayer_filter_detune'>
+      <p id="grainPlayer_filter_detune_value"></p>
+      <br>
+      <input class="checkbox" type="checkbox" name="grainPlayer_loop_checkbox" id="grainPlayer_loop_checkbox">
+      <p id="grainPlayer_loop_checkbox_text">Loop</p>
+      <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="grainPlayer_autoplay_checkbox">
+      <p id="grainPlayer_autoplay_text">Autoplay</p>
+      <input class="checkbox" type="checkbox" name="grainPlayer_reverse_checkbox" id="grainPlayer_reverse_checkbox">
+      <p id="grainPlayer_reverse_text">Reverse</p>
+      <div class="loopstartEnd">
+        <p id="grainPlayer_loop_start_text">loop start</p>
+        <input id="grainPlayer_loop_start" type="number" min="0" />
+        <p id="grainPlayer_loop_start_time"></p>
+        <br>
+        <p id="grainPlayer_loop_end_text">loop end</p>
+        <input id="grainPlayer_loop_end" type="number" min="0" />
+        <p id="grainPlayer_loop_end_time"></p>
+      </div>
+
+
+
+
+
+
+      
+
+    </div>
+
+
+
   </div>
+
+
+
+  <!--
+MEMBERS
+buffer
+loaded
+volume
+state
+fadeOut
+mute
+fadeIn
+
+METHODS
+start
+sync
+unsync
+stop
+
+Properties
+buffer
+loop
+onstop
+volume
+
+Accessors
+grainSize
+loaded
+loopEnd
+loopStart
+mute
+overlap
+playbackRate
+reverse
+state
+
+Methods
+restart
+start
+stop
+sync
+unsync
+
+
+-->
+  <!--
+  LO QUE HAY QUE AGREGAR    
+-------SOURCE---------
+AMOscillator
+FMOscillator
+FatOscillator
+GrainPlayer
+LFO
+Noise
+OmniOscillator
+Oscillator
+PWMOscillator
+Player
+Players
+PulseOscillator
+ToneBufferSource
+ToneOscillatorNode
+UserMedia
+------INSTRUMENT-------
+AMSynth
+DuoSynth
+FMSynth
+MembraneSynth
+MetalSynth
+MonoSynth
+NoiseSynth
+PluckSynth
+PolySynth
+Sampler
+Synth
+
+----COMPONENT------
+AmplitudeEnvelope
+Convolver
+DCMeter
+Envelope
+FeedbackCombFilter
+LowpassCombFilter
+Filter
+Follower
+FrequencyEnvelope
+LFO
+Merge
+Meter
+MidSideCompressor
+MidSideMerge
+MidSideSplit
+MultibandCompressor
+MultibandSplit
+OnePoleFilter
+Recorder
+Solo
+Split
+Waveform
+
+----SIGNAL------
+AudioToGain
+GainToAudio
+-->
+
+
+
+
+
+
+
+
 
 
 
