@@ -1,4 +1,18 @@
-﻿//PARA QUITAR UN ELEMENTO CANCION DE LA LISTA DE CANCIONES 
+﻿/*
+<label for="cars">Choose a car:</label>
+<select name="cars" id="cars">
+  <optgroup label="Swedish Cars">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+  </optgroup>
+  <optgroup label="German Cars">
+    <option value="mercedes">Mercedes</option>
+    <option value="audi">Audi</option>
+  </optgroup>
+</select>
+*/
+
+//PARA QUITAR UN ELEMENTO CANCION DE LA LISTA DE CANCIONES 
 //remove()	Removes an option from a drop-down list
 // select.remove("Tascam_424");
 
@@ -825,10 +839,6 @@ const player_1_fxSend_4_pre_EQ_Button = document.getElementById("player_1_fxSend
 const player_1_fxSend_4_post_EQ_Button = document.getElementById("player_1_fxSend_4_post_EQ_Button");
 const player_1_fxSend_4_post_fader_Button = document.getElementById("player_1_fxSend_4_post_fader_Button");
 
-
-
-
-
 const player_1_fxSend_2 = document.getElementById("player_1_fxSend_2");
 const player2_fxSend_2 = document.getElementById("player_2_fxSend_2");
 const player_3_fxSend_2 = document.getElementById("player_3_fxSend_2");
@@ -863,6 +873,26 @@ const player_1_fxSend_4_value = document.getElementById("player_1_fxSend_4_value
 const player_2_fxSend_4_value = document.getElementById("player_2_fxSend_4_value");
 const player_3_fxSend_4_value = document.getElementById("player_3_fxSend_4_value");
 const player_4_fxSend_4_value = document.getElementById("player_4_fxSend_4_value");
+
+const player_1_fxSend_1_text = document.getElementById("player_1_fxSend_1_text");
+const player_2_fxSend_1_text = document.getElementById("player_2_fxSend_1_text");
+const player_3_fxSend_1_text = document.getElementById("player_3_fxSend_1_text");
+const player_4_fxSend_1_text = document.getElementById("player_4_fxSend_1_text");
+
+const player_1_fxSend_2_text = document.getElementById("player_1_fxSend_2_text");
+const player_2_fxSend_2_text = document.getElementById("player_2_fxSend_2_text");
+const player_3_fxSend_2_text = document.getElementById("player_3_fxSend_2_text");
+const player_4_fxSend_2_text = document.getElementById("player_4_fxSend_2_text");
+
+const player_1_fxSend_3_text = document.getElementById("player_1_fxSend_3_text");
+const player_2_fxSend_3_text = document.getElementById("player_2_fxSend_3_text");
+const player_3_fxSend_3_text = document.getElementById("player_3_fxSend_3_text");
+const player_4_fxSend_3_text = document.getElementById("player_4_fxSend_3_text");
+
+const player_1_fxSend_4_text = document.getElementById("player_1_fxSend_4_text");
+const player_2_fxSend_4_text = document.getElementById("player_2_fxSend_4_text");
+const player_3_fxSend_4_text = document.getElementById("player_3_fxSend_4_text");
+const player_4_fxSend_4_text = document.getElementById("player_4_fxSend_4_text");
 
 const player_1_loop_start = document.getElementById("player_1_loop_start");
 const player_2_loop_start = document.getElementById("player_2_loop_start");
@@ -1163,7 +1193,7 @@ var i;
 
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function () {
-    this.classList.toggle("active"); 
+    this.classList.toggle("active");
     var content = this.nextElementSibling;
     if (content.style.display === "block") {
       content.style.display = "none";
@@ -1448,10 +1478,119 @@ filter_2_TEST.set(
     highFrequency: 2500
   }
 );
+
+//-----------------------------------------------------------------------
+//SINTE PARA TESTEAR EFFECTS
+const fmSynth = new Tone.FMSynth();
+fmSynth.volume.value = -20;
+//-----------------------------------------------------------------------
+//-----------------------------------------------------------------------
+//PLAYER
+const player_Node = new Tone.Player().toDestination();
+
+
+const player_div = document.getElementById("player_div");
+player_div.style.display = "none";
+//---------------------------------------------------------------------
+//---------------------------------------------------------------------
+//SAMPLER
+const sampler_Node = new Tone.Sampler().toDestination();
+
+const sampler_fieldset = document.getElementById("sampler_fieldset");
+const sampler_curve_linear = document.getElementById("sampler_curve_linear");
+const sampler_curve_exponential = document.getElementById("sampler_curve_exponential");
+
+const sampler_curve = document.getElementsByName("sampler_curve");
+
+sampler_fieldset.addEventListener("change", function (e) {
+  console.clear();
+  console.log("sampler_fieldset e.value: " + e.currentTarget.value);
+
+  const curve = document.getElementsByName("sampler_curve");
+  console.log("curve: " + curve);
+});
+
+
+const sampler_div = document.getElementById("sampler_div");
+sampler_div.style.display = "none";
+
+//---------------------------------------------------------------------
+//---------------------------------------------------------------------
+//NOISE
+const noise_Node = new Tone.Noise().toDestination();
+noise_Node.volume.value = -100;
+
+const noise_rms_value = document.getElementById("noise_rms_value");
+
+const noise_playButton = document.getElementById("noise_playButton");
+const noise_stopButton = document.getElementById("noise_stopButton");
+const noise_muteButton = document.getElementById("noise_muteButton");
+const noise_soloButton = document.getElementById("noise_soloButton");
+noise_muteButton.mute = false;
+
+const noise_volume = document.getElementById("noise_volume");
+const noise_volume_value = document.getElementById("noise_volume_value");
+const noise_volume_rampTo_gain = document.getElementById("noise_volume_rampTo_gain");
+const noise_volume_rampTo_gain_value = document.getElementById("noise_volume_rampTo_gain_value");
+const noise_volume_rampTo_time = document.getElementById("noise_volume_rampTo_time");
+const noise_volume_rampTo_time_value = document.getElementById("noise_volume_rampTo_time_value");
+const noise_volume_rampTo_send_Button = document.getElementById("noise_volume_rampTo_send_Button");
+const noise_playback_rate = document.getElementById("noise_playback_rate");
+const noise_playback_rate_value = document.getElementById("noise_playback_rate_value");
+
+const noise_fadeIn = document.getElementById("noise_fadeIn");
+const noise_fadeOut = document.getElementById("noise_fadeOut");
+
+const noise_select_type = document.getElementById("noise_select_type");
+
+noise_volume.addEventListener("change", function (e) {
+  console.clear();
+  // agregar if para llegar a -100
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
+  noise_Node.volume.value = e.currentTarget.value;
+  console.log("noise_Node.threshold: " + noise_Node.volume.value);
+  noise_volume_value.innerHTML = `${e.currentTarget.value}`;
+});
+
+noise_playback_rate.addEventListener("change", function (e) {
+  console.clear();
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
+  noise_Node.playbackRate = e.currentTarget.value;
+  console.log("noise_Node.playbackRate: " + noise_Node.playbackRate);
+  noise_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
+});
+
+noise_select_type.addEventListener("change", function (e) {
+  noise_Node.type = e.currentTarget.value;
+  console.log("noise_Node.type: " + noise_Node.type);
+});
+
+noise_fadeIn.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
+    noise_Node.fadeIn = e.currentTarget.value;
+    console.log("noise_Node.fadeIn_1 = " + e.currentTarget.value);
+  }
+  else {
+    alert("errororororor noise_Node.fadeIn_1");
+  }
+});
+
+noise_fadeOut.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
+    noise_Node.fadeOut = e.currentTarget.value;
+    console.log("noise_Node.fadeOut = " + e.currentTarget.value);
+  }
+  else {
+    alert("errororororor noise_Node.fadeOut");
+  }
+});
+
+const noise_div = document.getElementById("noise_div");
+noise_div.style.display = "none";
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
 //GRAIN PLAYER
-const grainPLayer_Node = new Tone.GrainPlayer().toDestination();
+const grainPlayer_Node = new Tone.GrainPlayer().toDestination();
 
 const grainPlayer_rms_value = document.getElementById("grainPlayer_rms_value");
 const grainPlayer_songName = document.getElementById("grainPlayer_songName");
@@ -1479,8 +1618,11 @@ const grainPlayer_grainSize_value = document.getElementById("grainPlayer_grainSi
 const grainPlayer_overlap = document.getElementById("grainPlayer_overlap");
 const grainPlayer_overlap_value = document.getElementById("grainPlayer_overlap_value");
 
-const grainPlayer_filter_detune = document.getElementById("grainPlayer_filter_detune");
-const grainPlayer_filter_detune_value = document.getElementById("grainPlayer_filter_detune_value");
+const grainPlayer_playback_rate = document.getElementById("grainPlayer_playback_rate");
+const grainPlayer_playback_rate_value = document.getElementById("grainPlayer_playback_rate_value");
+
+const grainPlayer_detune = document.getElementById("grainPlayer_detune");
+const grainPlayer_detune_value = document.getElementById("grainPlayer_detune_value");
 
 const grainPlayer_loop_checkbox = document.getElementById("grainPlayer_loop_checkbox");
 const grainPlayer_autoplay_checkbox = document.getElementById("grainPlayer_autoplay_checkbox");
@@ -1488,32 +1630,95 @@ const grainPlayer_reverse_checkbox = document.getElementById("grainPlayer_revers
 const grainPlayer_loop_start = document.getElementById("grainPlayer_loop_start");
 const grainPlayer_loop_end = document.getElementById("grainPlayer_loop_end");
 
-grainPlayer_volume.addEventListener("change", function(e) {
+grainPlayer_volume.addEventListener("change", function (e) {
   console.clear();
   // agregar if para llegar a -100
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  grainPLayer_Node.volume.value = e.currentTarget.value; 
-  console.log("grainPLayer_Node.threshold: " + grainPLayer_Node.volume.value);
+  grainPlayer_Node.volume.value = e.currentTarget.value;
+  console.log("grainPlayer_Node.threshold: " + grainPlayer_Node.volume.value);
   grainPlayer_volume_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-grainPlayer_pan.addEventListener("change", function(e) {
+grainPlayer_pan.addEventListener("change", function (e) {
   console.clear();
-  // agregar if para llegar a -100
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  grainPLayer_Node.pan = e.currentTarget.value; 
-  console.log("grainPLayer_Node.threshold: " + grainPLayer_Node.pan);
+  grainPlayer_Node.pan = e.currentTarget.value;
+  console.log("grainPlayer_Node.pan: " + grainPlayer_Node.pan);
   grainPlayer_pan_value.innerHTML = `${e.currentTarget.value}`;
 });
 
+grainPlayer_grainSize.addEventListener("change", function (e) {
+  console.clear();
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
+  grainPlayer_Node.grainSize = e.currentTarget.value;
+  console.log("grainPlayer_Node.grainSize: " + grainPlayer_Node.grainSize);
+  grainPlayer_grainSize_value.innerHTML = `${e.currentTarget.value}`;
+});
 
+grainPlayer_overlap.addEventListener("change", function (e) {
+  console.clear();
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
+  grainPlayer_Node.overlap = e.currentTarget.value;
+  console.log("grainPlayer_Node.overlap: " + grainPlayer_Node.overlap);
+  grainPlayer_overlap_value.innerHTML = `${e.currentTarget.value}`;
+});
 
+grainPlayer_playback_rate.addEventListener("change", function (e) {
+  console.clear();
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
+  grainPlayer_Node.playbackRate = e.currentTarget.value;
+  console.log("grainPlayer_Node.playbackRate: " + grainPlayer_Node.playbackRate);
+  grainPlayer_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
+});
 
+grainPlayer_detune.addEventListener("change", function (e) {
+  console.clear();
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
+  grainPlayer_Node.detune = e.currentTarget.value;
+  console.log("grainPlayer_Node.detune: " + grainPlayer_Node.detune);
+  grainPlayer_detune_value.innerHTML = `${e.currentTarget.value}`;
+});
 
+grainPlayer_loop_checkbox.addEventListener("change", function () {
+  if (grainPlayer_loop_checkbox.checked) { grainPlayer_Node.loop = true; }
+  else { grainPlayer_Node.loop = false; }
+  console.log("grainPlayer_Node.grainPlayer_loop_checkbox: " + grainPlayer_loop_checkbox.checked);
+});
 
+grainPlayer_autoplay_checkbox.addEventListener("change", function () {
+  if (grainPlayer_autoplay_checkbox.checked) { grainPlayer_Node.autoplay = true; }
+  else { grainPlayer_Node.autoplay = false; }
+  console.log("grainPlayer_Node.grainPlayer_autoplay_checkbox: " + grainPlayer_autoplay_checkbox.checked);
+});
+
+grainPlayer_reverse_checkbox.addEventListener("change", function () {
+  if (grainPlayer_reverse_checkbox.checked) { grainPlayer_Node.reverse = true; }
+  else { grainPlayer_Node.reverse = false; }
+  console.log("grainPlayer_Node.grainPlayer_reverse_checkbox: " + grainPlayer_reverse_checkbox.checked);
+});
+
+grainPlayer_loop_start.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
+    grainPlayer_Node.loopStart = e.currentTarget.value;
+    console.log("grainPlayer_Node.loopStart = " + grainPlayer_Node.loopStart);
+  }
+  else {
+    alert("errororororor grainPlayer_Node.loopStart");
+  }
+});
+
+grainPlayer_loop_end.addEventListener("change", function (e) {
+  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
+    grainPlayer_Node.loopEnd = e.currentTarget.value;
+    console.log("grainPlayer_Node.loopend = " + grainPlayer_Node.loopEnd);
+  }
+  else {
+    alert("errororororor grainPlayer_Node.loopStart");
+  }
+});
 
 const grainPlayer_div = document.getElementById("grainPlayer_div");
-grainPlayer_div.style.display = "block";
+grainPlayer_div.style.display = "none";
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
 //Limiter
@@ -1528,26 +1733,23 @@ const limiter_smoothing_value = document.getElementById("limiter_smoothing_value
 
 const limiter_reduction_value = document.getElementById("limiter_reduction_value");
 
-limiter_threshold.addEventListener("change", function(e) {
+limiter_threshold.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  limiter_Node.threshold = e.currentTarget.value; 
+  limiter_Node.threshold = e.currentTarget.value;
   console.log("limiter_Node.threshold: " + limiter_Node.threshold);
   limiter_threshold_value.innerHTML = `${e.currentTarget.value}`;
   limiter_reduction_value.innerHTML = limiter_reduction_value.reduction;
 });
 
-limiter_smoothing.addEventListener("change", function(e) {
+limiter_smoothing.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  limiter_smoothing.smoothing = e.currentTarget.value; 
+  limiter_smoothing.smoothing = e.currentTarget.value;
   console.log("limiter_smoothing. smoothing: " + limiter_smoothing.smoothing);
   limiter_smoothing_value.innerHTML = `${e.currentTarget.value}`;
   limiter_reduction_value.innerHTML = limiter_reduction_value.reduction;
 });
-
-
-
 
 const limiter_div = document.getElementById("limiter_div");
 limiter_div.style.display = "none";
@@ -1564,18 +1766,18 @@ const gate_threshold_value = document.getElementById("gate_threshold_value");
 const gate_smoothing = document.getElementById("gate_smoothing");
 const gate_smoothing_value = document.getElementById("gate_smoothing_value");
 
-gate_threshold.addEventListener("change", function(e) {
+gate_threshold.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  gate_Node.threshold = e.currentTarget.value; 
+  gate_Node.threshold = e.currentTarget.value;
   console.log("gate_Node.threshold: " + gate_Node.threshold);
   gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-gate_smoothing.addEventListener("change", function(e) {
+gate_smoothing.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  gate_smoothing.smoothing = e.currentTarget.value; 
+  gate_smoothing.smoothing = e.currentTarget.value;
   console.log("gate_smoothing. smoothing: " + gate_smoothing.smoothing);
   gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -1603,36 +1805,36 @@ const fx_4_autofilter_octaves_value = document.getElementById("fx_4_autofilter_o
 
 const fx_4_autofilter_select_type = document.getElementById("fx_4_autofilter_select_type");
 
-fx_4_autofilter_baseFrequency.addEventListener("change", function(e) {
+fx_4_autofilter_baseFrequency.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoFilter_Node.baseFrequency = e.currentTarget.value; 
+  fx_4_AutoFilter_Node.baseFrequency = e.currentTarget.value;
   console.log("fx_4_AutoFilter_Node. baseFrequency: " + fx_4_AutoFilter_Node.baseFrequency);
   fx_4_autofilter_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_autofilter_depth.addEventListener("change", function(e) {
-  fx_4_AutoFilter_Node.depth.value = e.currentTarget.value; 
+fx_4_autofilter_depth.addEventListener("change", function (e) {
+  fx_4_AutoFilter_Node.depth.value = e.currentTarget.value;
   console.log("fx_4_AutoFilter_Node: " + fx_4_AutoFilter_Node.depth.value);
   fx_4_autofilter_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_autofilter_frequency.addEventListener("change", function(e) {
-  fx_4_AutoFilter_Node.frequency.value = e.currentTarget.value; 
+fx_4_autofilter_frequency.addEventListener("change", function (e) {
+  fx_4_AutoFilter_Node.frequency.value = e.currentTarget.value;
   console.log("fx_4_AutoFilter_Node: " + fx_4_AutoFilter_Node.frequency.value);
   fx_4_autofilter_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_autofilter_octaves.addEventListener("change", function(e) {
+fx_4_autofilter_octaves.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoFilter_Node.octaves = e.currentTarget.value; 
+  fx_4_AutoFilter_Node.octaves = e.currentTarget.value;
   console.log("fx_4_autoWah_Node. octaves: " + fx_4_AutoFilter_Node.octaves);
   fx_4_autofilter_octaves_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_autofilter_select_type.addEventListener("change", function(e) {
-  fx_4_AutoFilter_Node.type = e.currentTarget.value; 
+fx_4_autofilter_select_type.addEventListener("change", function (e) {
+  fx_4_AutoFilter_Node.type = e.currentTarget.value;
   console.log("fx_4_AutoFilter_Node.type: " + fx_4_AutoFilter_Node.type);
 });
 
@@ -1663,20 +1865,20 @@ const fx_4_autoPanner_depth_value = document.getElementById("fx_4_autoPanner_dep
 const fx_4_autoPanner_select_type = document.getElementById("fx_4_autoPanner_select_type");
 const fx_4_autoPanner_select_type_value = document.getElementById("fx_4_autoPanner_select_type_value");
 
-fx_4_autoPanner_frequency.addEventListener("change", function(e) {
-  fx_4_AutoPanner_Node.frequency.value = e.currentTarget.value; 
+fx_4_autoPanner_frequency.addEventListener("change", function (e) {
+  fx_4_AutoPanner_Node.frequency.value = e.currentTarget.value;
   console.log("fx_4_AutoPanner_Node: " + fx_4_AutoPanner_Node.frequency.value);
   fx_4_autoPanner_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_autoPanner_depth.addEventListener("change", function(e) {
-  fx_4_AutoPanner_Node.depth.value = e.currentTarget.value; 
+fx_4_autoPanner_depth.addEventListener("change", function (e) {
+  fx_4_AutoPanner_Node.depth.value = e.currentTarget.value;
   console.log("fx_4_AutoPanner_Node: " + fx_4_AutoPanner_Node.depth.value);
   fx_4_autoPanner_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_autoPanner_select_type.addEventListener("change", function(e) {
-  fx_4_AutoPanner_Node.type = e.currentTarget.value; 
+fx_4_autoPanner_select_type.addEventListener("change", function (e) {
+  fx_4_AutoPanner_Node.type = e.currentTarget.value;
   console.log("fx_4_AutoPanner_Node.type: " + fx_4_AutoPanner_Node.type);
 });
 
@@ -1709,41 +1911,41 @@ const fx_4_autoWah_follower_attack_value = document.getElementById("fx_4_autoWah
 const fx_4_autoWah_follower_release = document.getElementById("fx_4_autoWah_follower_release");
 const fx_4_autoWah_follower_release_value = document.getElementById("fx_4_autoWah_follower_release_value");
 
-fx_4_autoWah_baseFrequency.addEventListener("change", function(e) {
+fx_4_autoWah_baseFrequency.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.baseFrequency = e.currentTarget.value; 
+  fx_4_AutoWah_Node.baseFrequency = e.currentTarget.value;
   console.log("fx_4_AutoWah_Node. baseFrequency: " + fx_4_AutoWah_Node.baseFrequency);
   fx_4_autoWah_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
 });
-fx_4_autoWah_octaves.addEventListener("change", function(e) {
+fx_4_autoWah_octaves.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.octaves = e.currentTarget.value; 
+  fx_4_AutoWah_Node.octaves = e.currentTarget.value;
   console.log("fx_4_autoWah_Node. octaves: " + fx_4_AutoWah_Node.octaves);
   fx_4_autoWah_octaves_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_autoWah_sensitivity.addEventListener("change", function(e) {
+fx_4_autoWah_sensitivity.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.sensitivity = e.currentTarget.value; 
+  fx_4_AutoWah_Node.sensitivity = e.currentTarget.value;
   console.log("fx_4_autoWah_Node. sensitivity: " + fx_4_AutoWah_Node.sensitivity);
   fx_4_autoWah_sensitivity_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_autoWah_Q.addEventListener("change", function(e) {
+fx_4_autoWah_Q.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.Q.value = e.currentTarget.value; 
+  fx_4_AutoWah_Node.Q.value = e.currentTarget.value;
   console.log("fx_4_AutoWah_Node. Q: " + fx_4_AutoWah_Node.Q.value);
   fx_4_autoWah_Q_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_autoWah_gain.addEventListener("change", function(e) {
+fx_4_autoWah_gain.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.gain.value = e.currentTarget.value; 
+  fx_4_AutoWah_Node.gain.value = e.currentTarget.value;
   console.log("fx_4_AutoWah_Node. gain: " + fx_4_AutoWah_Node.gain.value);
   fx_4_autoWah_gain_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -1775,6 +1977,9 @@ const fx4_bitCrusher_text = document.getElementById("fx4_bitCrusher_text");
 const fx4_bitCrusher = document.getElementById("fx4_bitCrusher");
 const fx4_bitCrusher_value = document.getElementById("fx4_bitCrusher_value");
 */
+const bitCrusher_div = document.getElementById("bitCrusher_div");
+bitCrusher_div.style.display = "none";
+
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
 //Chebyshev
@@ -1788,14 +1993,14 @@ const fx_4_Chebyshev_order_value = document.getElementById("fx_4_Chebyshev_order
 const fx_4_Chebyshev_select_type = document.getElementById("fx_4_Chebyshev_select_type");
 const fx_4_Chebyshev_select_type_value = document.getElementById("fx_4_Chebyshev_select_type_value");
 
-fx_4_Chebyshev_order.addEventListener("change", function(e) {
+fx_4_Chebyshev_order.addEventListener("change", function (e) {
   fx4_Chebyshev_Node.order = Math.round(`${e.currentTarget.value}`);
   console.log("fx4_Chebyshev_Node: " + fx4_Chebyshev_Node.order);
   fx_4_Chebyshev_order_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_Chebyshev_select_type.addEventListener("change", function(e) {
-  fx4_Chebyshev_Node.type = e.currentTarget.value; 
+fx_4_Chebyshev_select_type.addEventListener("change", function (e) {
+  fx4_Chebyshev_Node.type = e.currentTarget.value;
   console.log("fx4_Chebyshev_Node.type: " + e.currentTarget.value);
 });
 
@@ -1825,40 +2030,43 @@ const fx4_chorus_feedback_value = document.getElementById("fx4_chorus_feedback_v
 
 const fx_4_chorus_select_type = document.getElementById("fx_4_chorus_select_type");
 
-fx4_chorus_freq.addEventListener("change", function(e) {
-  fx4_chorus_Node.frequency.value = e.currentTarget.value; 
+fx4_chorus_freq.addEventListener("change", function (e) {
+  fx4_chorus_Node.frequency.value = e.currentTarget.value;
   console.log("fx4_chorus_Node: " + fx4_chorus_Node.frequency);
   fx4_chorus_freq_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx4_chorus_delayTime.addEventListener("change", function(e) {
-  fx4_chorus_Node.delayTime = e.currentTarget.value; 
+fx4_chorus_delayTime.addEventListener("change", function (e) {
+  fx4_chorus_Node.delayTime = e.currentTarget.value;
   console.log("fx4_chorus_Node: " + fx4_chorus_Node.delayTime);
   fx4_chorus_delayTime_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx4_chorus_depth.addEventListener("change", function(e) {
-  fx4_chorus_Node.depth = e.currentTarget.value; 
+fx4_chorus_depth.addEventListener("change", function (e) {
+  fx4_chorus_Node.depth = e.currentTarget.value;
   console.log("fx4_chorus_Node: " + fx4_chorus_Node.depth);
   fx4_chorus_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx4_chorus_spread.addEventListener("change", function(e) {
-  fx4_chorus_Node.spread = e.currentTarget.value; 
+fx4_chorus_spread.addEventListener("change", function (e) {
+  fx4_chorus_Node.spread = e.currentTarget.value;
   console.log("fx4_chorus_Node: " + fx4_chorus_Node.spread);
   fx4_chorus_spread_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_chorus_select_type.addEventListener("change", function(e) {
-  fx4_chorus_Node.type = e.currentTarget.value; 
+fx_4_chorus_select_type.addEventListener("change", function (e) {
+  fx4_chorus_Node.type = e.currentTarget.value;
   console.log("fx4_chorus_Node.type: " + e.currentTarget.value);
 });
 
-fx4_chorus_feedback.addEventListener("change", function(e) {
-  fx4_chorus_Node.feedback.value = e.currentTarget.value; 
+fx4_chorus_feedback.addEventListener("change", function (e) {
+  fx4_chorus_Node.feedback.value = e.currentTarget.value;
   console.log("fx4_chorus_Node: " + fx4_chorus_Node.feedback.value);
   fx4_chorus_feedback_value.innerHTML = `${e.currentTarget.value}`;
 });
+
+
+fmSynth.connect(fx4_chorus_Node);
 
 const chorus_div = document.getElementById("chorus_div");
 chorus_div.style.display = "none";
@@ -1879,31 +2087,31 @@ const fx_4_distortion_output_value = document.getElementById("fx_4_distortion_ou
 
 const fx_4_distortion_select_type = document.getElementById("fx_4_distortion_select_type");
 
-fx_4_distortion_select_type.addEventListener("change", function(e) {
-  fx_4_distortion_Node.type = e.currentTarget.value; 
+fx_4_distortion_select_type.addEventListener("change", function (e) {
+  fx_4_distortion_Node.type = e.currentTarget.value;
   console.log("fx_4_distortion_Node.type: " + e.currentTarget.value);
 });
 
-fx_4_distortion.addEventListener("change", function(e) {
+fx_4_distortion.addEventListener("change", function (e) {
   //console.clear();
   //console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_distortion_Node.distortion = e.currentTarget.value; 
+  fx_4_distortion_Node.distortion = e.currentTarget.value;
   //console.log("fx4_distortion_Node: " + fx_4_distortion_Node.distortion);
   fx_4_distortion_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_distortion_input.addEventListener("change", function(e) {
+fx_4_distortion_input.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_distortion_Node.input = e.currentTarget.value; 
+  fx_4_distortion_Node.input = e.currentTarget.value;
   console.log("fx4_distortion_Node: " + fx_4_distortion_Node.input);
   fx_4_distortion_input_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_distortion_output.addEventListener("change", function(e) {
+fx_4_distortion_output.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_distortion_Node.output = e.currentTarget.value; 
+  fx_4_distortion_Node.output = e.currentTarget.value;
   console.log("fx4_distortion_Node: " + fx_4_distortion_Node.output);
   fx_4_distortion_output_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -1933,41 +2141,41 @@ const fx_4_feedback_delayTime_value = document.getElementById("fx_4_feedback_del
 const fx_4_feedback_maxDelay = document.getElementById("fx_4_feedback_maxDelay");
 const fx_4_feedback_maxDelay_value = document.getElementById("fx_4_feedback_maxDelay_value");
 
-fx_4_feedback.addEventListener("change", function(e) {
+fx_4_feedback.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_feedback_Node.feedback.value = e.currentTarget.value; 
+  fx_4_feedback_Node.feedback.value = e.currentTarget.value;
   console.log("fx4_feedback_Node: " + fx_4_feedback_Node.feedback.value);
   fx_4_feedback_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_feedback_delayTime.addEventListener("change", function(e) {
+fx_4_feedback_delayTime.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_feedback_Node.delayTime.value = e.currentTarget.value; 
+  fx_4_feedback_Node.delayTime.value = e.currentTarget.value;
   console.log("fx4_feedback_Node: " + fx_4_feedback_Node.delayTime.value);
   fx_4_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
 });
-fx_4_feedback_maxDelay.addEventListener("change", function(e) {
+fx_4_feedback_maxDelay.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_feedback_Node.maxDelay = e.currentTarget.value; 
+  fx_4_feedback_Node.maxDelay = e.currentTarget.value;
   console.log("fx4_feedback_Node: " + fx_4_feedback_Node.maxDelay);
   fx_4_feedback_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_feedback_input.addEventListener("change", function(e) {
+fx_4_feedback_input.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_feedback_Node.input = e.currentTarget.value; 
+  fx_4_feedback_Node.input = e.currentTarget.value;
   console.log("fx4_feedback_Node: " + fx_4_feedback_Node.input);
   fx_4_feedback_input_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_feedback_output.addEventListener("change", function(e) {
+fx_4_feedback_output.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_feedback_Node.output = e.currentTarget.value; 
+  fx_4_feedback_Node.output = e.currentTarget.value;
   console.log("fx4_feedback_Node: " + fx_4_feedback_Node.output);
   fx_4_feedback_output_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -1976,7 +2184,7 @@ const feedback_div = document.getElementById("feedback_div");
 feedback_div.style.display = "none";
 
 
-const fmSynth = new Tone.FMSynth()
+
 //fmSynth.connect(fx_4_feedback_Node);
 //fmSynth.triggerAttackRelease("C5", "4n");
 //fmSynth.volume.value = -20;
@@ -2011,12 +2219,10 @@ fx_4_freeVerb_roomSize.addEventListener("change", function(e) {
 });
 
 const freeVerb_div = document.getElementById("freeVerb_div");
-freeVerb_div.style.display = "block";
+//freeVerb_div.style.display = "block";
 
-fmSynth.connect(fx_4_freeVerb_Node);
-
+//fmSynth.connect(fx_4_freeVerb_Node);
 /**/
-const freeVerb_div = document.getElementById("freeVerb_div");
 freeVerb_div.style.display = "none";
 //--------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------
@@ -2028,10 +2234,10 @@ fx_4_FrequencyShifter_Node.wet = 1;
 const fx_4_frequencyShifter = document.getElementById("fx_4_frequencyShifter");
 const fx_4_frequencyShifter_value = document.getElementById("fx_4_frequencyShifter_value");
 
-fx_4_frequencyShifter.addEventListener("change", function(e) {
+fx_4_frequencyShifter.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_FrequencyShifter_Node.frequency.value = e.currentTarget.value; 
+  fx_4_FrequencyShifter_Node.frequency.value = e.currentTarget.value;
   console.log("fx4_dampening_Node: " + fx_4_FrequencyShifter_Node.frequency.value);
   fx_4_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -2052,25 +2258,24 @@ fx_4_JCReverb_Node.wet = 1;
 const fx_4_JCReverb = document.getElementById("fx_4_JCReverb");
 const fx_4_JCReverb_value = document.getElementById("fx_4_JCReverb_value");
 
-fx_4_JCReverb.addEventListener("change", function(e) {
+fx_4_JCReverb.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_JCReverb_Node.roomSize = e.currentTarget.value; 
+  fx_4_JCReverb_Node.roomSize.value = e.currentTarget.value;
   console.log("fx_4_JCReverb_Node: " + fx_4_JCReverb_Node.roomSize);
   fx_4_JCReverb_value.innerHTML = `${e.currentTarget.value}`;
 });
-
+/*
 const JCReverb_div = document.getElementById("JCReverb_div");
+/**/
 JCReverb_div.style.display = "none";
 
 //fmSynth.connect(fx_4_JCReverb_Node);
 
-/**/
-JCReverb_div.style.display = "none";
 //--------------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------------
 // Phaser
-/*
+
 const fx_4_phaser_Node = new Tone.Phaser().toDestination();
 fx_4_phaser_Node.wet = 1;
 
@@ -2089,42 +2294,42 @@ const fx_4_phaser_Q_value = document.getElementById("fx_4_phaser_Q_value");
 const fx_4_phaser_baseFrequency = document.getElementById("fx_4_phaser_baseFrequency");
 const fx_4_phaser_baseFrequency_value = document.getElementById("fx_4_phaser_baseFrequency_value");
 
-fx_4_phaser_frequency.addEventListener("change", function(e) {
+fx_4_phaser_frequency.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.frequency.value = e.currentTarget.value; 
+  fx_4_phaser_Node.frequency.value = e.currentTarget.value;
   console.log("fx_4_phaser_Node: " + fx_4_phaser_Node.frequency.value);
   fx_4_phaser_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_phaser_stages.addEventListener("change", function(e) {
+fx_4_phaser_stages.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.stages = e.currentTarget.value; 
+  fx_4_phaser_Node.stages = e.currentTarget.value;
   console.log("fx_4_phaser_Node. stages: " + fx_4_phaser_Node.stages);
   fx_4_phaser_stages_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_phaser_octaves.addEventListener("change", function(e) {
+fx_4_phaser_octaves.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.octaves = e.currentTarget.value; 
+  fx_4_phaser_Node.octaves = e.currentTarget.value;
   console.log("fx_4_phaser_Node. octaves: " + fx_4_phaser_Node.octaves);
   fx_4_phaser_octaves_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_phaser_Q.addEventListener("change", function(e) {
+fx_4_phaser_Q.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.Q = e.currentTarget.value; 
+  fx_4_phaser_Node.Q = e.currentTarget.value;
   console.log("fx_4_phaser_Node. Q: " + fx_4_phaser_Node.Q);
   fx_4_phaser_Q_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_phaser_baseFrequency.addEventListener("change", function(e) {
+fx_4_phaser_baseFrequency.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.baseFrequency = e.currentTarget.value; 
+  fx_4_phaser_Node.baseFrequency = e.currentTarget.value;
   console.log("fx_4_phaser_Node. baseFrequency: " + fx_4_phaser_Node.baseFrequency);
   fx_4_phaser_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -2152,20 +2357,20 @@ const fx_4_pingpong_delayTime_value = document.getElementById("fx_4_pingpong_del
 const fx_4_pingpong_maxDelay = document.getElementById("fx_4_pingpong_maxDelay");
 const fx_4_pingpong_maxDelay_value = document.getElementById("fx_4_pingpong_maxDelay_value");
 
-fx_4_pingpong_delayTime.addEventListener("change", function(e) {
-  fx_4_pingpong_Node.delayTime.value = e.currentTarget.value; 
+fx_4_pingpong_delayTime.addEventListener("change", function (e) {
+  fx_4_pingpong_Node.delayTime.value = e.currentTarget.value;
   console.log("fx_4_pingpong_Node: " + fx_4_pingpong_Node.delayTime.value);
   fx_4_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_pingpong_feedback.addEventListener("change", function(e) {
-  fx_4_pingpong_Node.feedback.value = e.currentTarget.value; 
+fx_4_pingpong_feedback.addEventListener("change", function (e) {
+  fx_4_pingpong_Node.feedback.value = e.currentTarget.value;
   console.log("fx_4_pingpong_Node: " + fx_4_pingpong_Node.feedback.value);
   fx_4_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_pingpong_maxDelay.addEventListener("change", function(e) {
-  fx_4_pingpong_Node.maxDelay = e.currentTarget.value; 
+fx_4_pingpong_maxDelay.addEventListener("change", function (e) {
+  fx_4_pingpong_Node.maxDelay = e.currentTarget.value;
   console.log("fx_4_pingpong_Node: " + fx_4_pingpong_Node.maxDelay);
   fx_4_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -2195,26 +2400,26 @@ const fx_4_pitchshift_delayTime_value = document.getElementById("fx_4_pitchshift
 const fx_4_pitchshift_pitch = document.getElementById("fx_4_pitchshift_pitch");
 const fx_4_pitchshift_pitch_value = document.getElementById("fx_4_pitchshift_pitch_value");
 
-fx_4_pitchshift_delayTime.addEventListener("change", function(e) {
-  fx_4_pitchshift_Node.delayTime.value = e.currentTarget.value; 
+fx_4_pitchshift_delayTime.addEventListener("change", function (e) {
+  fx_4_pitchshift_Node.delayTime.value = e.currentTarget.value;
   console.log("fx_4_pitchshift_Node: " + fx_4_pitchshift_Node.delayTime.value);
   fx_4_pitchshift_delayTime_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_pitchshift_feedback.addEventListener("change", function(e) {
-  fx_4_pitchshift_Node.feedback.value = e.currentTarget.value; 
+fx_4_pitchshift_feedback.addEventListener("change", function (e) {
+  fx_4_pitchshift_Node.feedback.value = e.currentTarget.value;
   console.log("fx_4_pitchshift_Node: " + fx_4_pitchshift_Node.feedback.value);
   fx_4_pitchshift_feedback_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_pitchshift_pitch.addEventListener("change", function(e) {
-  fx_4_pitchshift_Node.pitch = e.currentTarget.value; 
+fx_4_pitchshift_pitch.addEventListener("change", function (e) {
+  fx_4_pitchshift_Node.pitch = e.currentTarget.value;
   console.log("fx_4_pitchshift_Node: " + fx_4_pitchshift_Node.pitch);
   fx_4_pitchshift_pitch_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_pitchshift_windowSize.addEventListener("change", function(e) {
-  fx_4_pitchshift_Node.windowSize = e.currentTarget.value; 
+fx_4_pitchshift_windowSize.addEventListener("change", function (e) {
+  fx_4_pitchshift_Node.windowSize = e.currentTarget.value;
   console.log("fx_4_pitchshift_Node: " + fx_4_pitchshift_Node.windowSize);
   fx_4_pitchshift_windowSize_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -2240,14 +2445,14 @@ const fx_4_reverb_preDelay_value = document.getElementById("fx_4_reverb_preDelay
 const fx_4_reverb_decay = document.getElementById("fx_4_reverb_decay");
 const fx_4_reverb_decay_value = document.getElementById("fx_4_reverb_decay_value");
 
-fx_4_reverb_preDelay.addEventListener("change", function(e) {
-  fx_4_reverb_Node.preDelay = e.currentTarget.value; 
+fx_4_reverb_preDelay.addEventListener("change", function (e) {
+  fx_4_reverb_Node.preDelay = e.currentTarget.value;
   console.log("fx_4_reverb_Node: " + fx_4_reverb_Node.preDelay);
   fx_4_reverb_preDelay_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_reverb_decay.addEventListener("change", function(e) {
-  fx_4_reverb_Node.decay = e.currentTarget.value; 
+fx_4_reverb_decay.addEventListener("change", function (e) {
+  fx_4_reverb_Node.decay = e.currentTarget.value;
   console.log("fx_4_reverb_Node: " + fx_4_reverb_Node.decay);
   fx_4_reverb_decay_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -2268,8 +2473,8 @@ fx_4_StereoWidener_Node.wet = 1;
 const fx_4_StereoWidener_width = document.getElementById("fx_4_StereoWidener_width");
 const fx_4_StereoWidener_width_value = document.getElementById("fx_4_StereoWidener_width_value");
 
-fx_4_StereoWidener_width.addEventListener("change", function(e) {
-  fx_4_StereoWidener_Node.width = e.currentTarget.value; 
+fx_4_StereoWidener_width.addEventListener("change", function (e) {
+  fx_4_StereoWidener_Node.width = e.currentTarget.value;
   console.log("fx_4_StereoWidener_Node: " + fx_4_StereoWidener_Node.width);
   fx_4_StereoWidener_width_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -2293,20 +2498,20 @@ const fx_4_tremolo_depth_value = document.getElementById("fx_4_tremolo_depth_val
 const fx_4_tremolo_spread = document.getElementById("fx_4_tremolo_spread");
 const fx_4_tremolo_spread_value = document.getElementById("fx_4_tremolo_spread_value");
 
-fx_4_tremolo_frequency.addEventListener("change", function(e) {
-  fx_4_tremolo_Node.frequency = e.currentTarget.value; 
+fx_4_tremolo_frequency.addEventListener("change", function (e) {
+  fx_4_tremolo_Node.frequency = e.currentTarget.value;
   console.log("fx_4_tremolo_Node: " + fx_4_tremolo_Node.frequency);
   fx_4_tremolo_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_tremolo_depth.addEventListener("change", function(e) {
-  fx_4_tremolo_Node.depth = e.currentTarget.value; 
+fx_4_tremolo_depth.addEventListener("change", function (e) {
+  fx_4_tremolo_Node.depth = e.currentTarget.value;
   console.log("fx_4_tremolo_Node: " + fx_4_tremolo_Node.depth);
   fx_4_tremolo_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_tremolo_spread.addEventListener("change", function(e) {
-  fx_4_tremolo_Node.spread = e.currentTarget.value; 
+fx_4_tremolo_spread.addEventListener("change", function (e) {
+  fx_4_tremolo_Node.spread = e.currentTarget.value;
   console.log("fx_4_tremolo_Node: " + fx_4_tremolo_Node.spread);
   fx_4_tremolo_spread_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -2330,20 +2535,20 @@ const fx_4_vibrato_depth_value = document.getElementById("fx_4_vibrato_depth_val
 const fx_4_vibrato_maxDelay = document.getElementById("fx_4_vibrato_maxDelay");
 const fx_4_vibrato_maxDelay_value = document.getElementById("fx_4_vibrato_maxDelay_value");
 
-fx_4_vibrato_frequency.addEventListener("change", function(e) {
-  fx_4_vibrato_Node.frequency = e.currentTarget.value; 
+fx_4_vibrato_frequency.addEventListener("change", function (e) {
+  fx_4_vibrato_Node.frequency = e.currentTarget.value;
   console.log("fx_4_vibrato_Node: " + fx_4_vibrato_Node.frequency);
   fx_4_vibrato_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_vibrato_depth.addEventListener("change", function(e) {
-  fx_4_vibrato_Node.depth = e.currentTarget.value; 
+fx_4_vibrato_depth.addEventListener("change", function (e) {
+  fx_4_vibrato_Node.depth = e.currentTarget.value;
   console.log("fx_4_vibrato_Node: " + fx_4_vibrato_Node.depth);
   fx_4_vibrato_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_vibrato_maxDelay.addEventListener("change", function(e) {
-  fx_4_vibrato_Node.maxDelay = e.currentTarget.value; 
+fx_4_vibrato_maxDelay.addEventListener("change", function (e) {
+  fx_4_vibrato_Node.maxDelay = e.currentTarget.value;
   console.log("fx_4_vibrato_Node: " + fx_4_vibrato_Node.maxDelay);
   fx_4_vibrato_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -2385,7 +2590,7 @@ player_1_volume.addEventListener("change", function (e) {
     player_1_volume_value.innerHTML = -100;
   }
   else {
-    player_1_volNode.volume.value = e.currentTarget.value; 
+    player_1_volNode.volume.value = e.currentTarget.value;
     console.log("player_1_volNode: " + e.currentTarget.value);
     player_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
@@ -2765,57 +2970,57 @@ player_1_filter_gain.addEventListener("change", function (e) {
 });
 
 filter_1_select.addEventListener("change", function (e) {
-    switch (e.currentTarget.value) {
-      case "lowpass":
-      case "highpass":
-      case "bandpass":
-      case "notch":
-      case "allpass":
-        {
-          player_1_filter.type = e.currentTarget.value;
-          tascam_424_controls.style.display = "none";
-          peaking_controls.style.display = "none";
-          shelf_controls.style.display = "none";
-          allpass_controls.style.display = "block";
-          break;
-        }
-      case "lowshelf":
-      case "highshelf":
-        {
-          player_1_filter.type = e.currentTarget.value;
-          tascam_424_controls.style.display = "none";
-          peaking_controls.style.display = "none";
-          allpass_controls.style.display = "none";
-          shelf_controls.style.display = "block";
-          break;
-        }
-      case "peaking":
-        {
-          player_1_filter.type = e.currentTarget.value;
-          tascam_424_controls.style.display = "none";
-          allpass_controls.style.display = "none";
-          shelf_controls.style.display = "none";
-          peaking_controls.style.display = "block";
-          break;
-        }
-      case "empty": {
-        allpass_controls.style.display = "none";
-        peaking_controls.style.display = "none";
-        shelf_controls.style.display = "none";
+  switch (e.currentTarget.value) {
+    case "lowpass":
+    case "highpass":
+    case "bandpass":
+    case "notch":
+    case "allpass":
+      {
+        player_1_filter.type = e.currentTarget.value;
         tascam_424_controls.style.display = "none";
-        break;
-      }
-      case "Tascam": {
-        allpass_controls.style.display = "none";
         peaking_controls.style.display = "none";
         shelf_controls.style.display = "none";
-        tascam_424_controls.style.display = "block";
+        allpass_controls.style.display = "block";
         break;
       }
-      default:
-        { console.log(" EQ1 DEFAULT"); }
+    case "lowshelf":
+    case "highshelf":
+      {
+        player_1_filter.type = e.currentTarget.value;
+        tascam_424_controls.style.display = "none";
+        peaking_controls.style.display = "none";
+        allpass_controls.style.display = "none";
+        shelf_controls.style.display = "block";
+        break;
+      }
+    case "peaking":
+      {
+        player_1_filter.type = e.currentTarget.value;
+        tascam_424_controls.style.display = "none";
+        allpass_controls.style.display = "none";
+        shelf_controls.style.display = "none";
+        peaking_controls.style.display = "block";
+        break;
+      }
+    case "empty": {
+      allpass_controls.style.display = "none";
+      peaking_controls.style.display = "none";
+      shelf_controls.style.display = "none";
+      tascam_424_controls.style.display = "none";
+      break;
     }
- // }
+    case "Tascam": {
+      allpass_controls.style.display = "none";
+      peaking_controls.style.display = "none";
+      shelf_controls.style.display = "none";
+      tascam_424_controls.style.display = "block";
+      break;
+    }
+    default:
+      { console.log(" EQ1 DEFAULT"); }
+  }
+  // }
 
 });
 
@@ -3373,14 +3578,210 @@ fx_4_rms_value.innerHTML = 0;
 //  */
 player_1_LowShelf_gain_value.innerHTML = 0;
 
+//******************************************************* */
 
+const fx_4_select = document.getElementById("fx_4_select");
 
+fx_4_select.addEventListener("change", function (e) {
+  consoleClear();
+  hide_all_divs("fx_4_select");
+  switch (e.currentTarget.value) {
+    case "AutoFilter":
+      {
+        console.log("AutoFilter fx_4_select");
+        autofilter_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "AutoFilter";
+        player_2_fxSend_4_text.innerHTML = "AutoFilter";
+        player_3_fxSend_4_text.innerHTML = "AutoFilter";
+        player_4_fxSend_4_text.innerHTML = "AutoFilter";
 
+        break;
+      }
+    case "AutoPanner":
+      {
+        console.log("AutoPanner fx_4_select");
+        autoPanner_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "AutoPanner";
+        player_2_fxSend_4_text.innerHTML = "AutoPanner";
+        player_3_fxSend_4_text.innerHTML = "AutoPanner";
+        player_4_fxSend_4_text.innerHTML = "AutoPanner";
+        break;
+      }
+    case "AutoWah":
+      {
+        console.log("AutoWah fx_4_select");
+        autoWah_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "AutoWah";
+        player_2_fxSend_4_text.innerHTML = "AutoWah";
+        player_3_fxSend_4_text.innerHTML = "AutoWah";
+        player_4_fxSend_4_text.innerHTML = "AutoWah";
 
+        break;
+      }
+    case "BitCrusher":
+      {
+        console.log("BitCrusher fx_4_select");
+        bitCrusher_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "BitCrusher";
+        player_2_fxSend_4_text.innerHTML = "BitCrusher";
+        player_3_fxSend_4_text.innerHTML = "BitCrusher";
+        player_4_fxSend_4_text.innerHTML = "BitCrusher";
+        break;
+      }
+    case "Chebyshev":
+      {
+        console.log("Chebyshev fx_4_select");
+        Chebyshev_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "Chebyshev";
+        player_2_fxSend_4_text.innerHTML = "Chebyshev";
+        player_3_fxSend_4_text.innerHTML = "Chebyshev";
+        player_4_fxSend_4_text.innerHTML = "Chebyshev";
+        break;
+      }
+    case "Chorus":
+      {
+        console.log("Chorus fx_4_select");
+        chorus_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "Chorus";
+        player_2_fxSend_4_text.innerHTML = "Chorus";
+        player_3_fxSend_4_text.innerHTML = "Chorus";
+        player_4_fxSend_4_text.innerHTML = "Chorus";
+        break;
+      }
+    case "Distortion":
+      {
+        console.log("Distortion fx_4_select");
+        distortion_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "Distortion";
+        player_2_fxSend_4_text.innerHTML = "Distortion";
+        player_3_fxSend_4_text.innerHTML = "Distortion";
+        player_4_fxSend_4_text.innerHTML = "Distortion";
+        break;
+      }
+    case "FeedbackDelay":
+      {
+        console.log("FeedbackDelay fx_4_select");
+        feedback_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "FeedbackDelay";
+        player_2_fxSend_4_text.innerHTML = "FeedbackDelay";
+        player_3_fxSend_4_text.innerHTML = "FeedbackDelay";
+        player_4_fxSend_4_text.innerHTML = "FeedbackDelay";
+        break;
+      }
+    case "Freeverb":
+      {
+        console.log("Freeverb fx_4_select");
+        freeVerb_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "Freeverb";
+        player_2_fxSend_4_text.innerHTML = "Freeverb";
+        player_3_fxSend_4_text.innerHTML = "Freeverb";
+        player_4_fxSend_4_text.innerHTML = "Freeverb";
+        break;
+      }
+    case "FrequencyShifter":
+      {
+        console.log("FrequencyShifter fx_4_select");
+        frequencyShifter_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "FrequencyShifter";
+        player_2_fxSend_4_text.innerHTML = "FrequencyShifter";
+        player_3_fxSend_4_text.innerHTML = "FrequencyShifter";
+        player_4_fxSend_4_text.innerHTML = "FrequencyShifter";
+        break;
+      }
+    case "JCReverb":
+      {
+        console.log("JCReverb fx_4_select");
+        JCReverb_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "JCReverb";
+        player_2_fxSend_4_text.innerHTML = "JCReverb";
+        player_3_fxSend_4_text.innerHTML = "JCReverb";
+        player_4_fxSend_4_text.innerHTML = "JCReverb";
+        break;
+      }
+    case "Phaser":
+      {
+        console.log("Phaser fx_4_select");
+        phaser_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "Phaser";
+        player_2_fxSend_4_text.innerHTML = "Phaser";
+        player_3_fxSend_4_text.innerHTML = "Phaser";
+        player_4_fxSend_4_text.innerHTML = "Phaser";
+        break;
+      }
+    case "PingPongDelay":
+      {
+        console.log("PingPongDelay fx_4_select");
+        pingpong_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "PingPongDelay";
+        player_2_fxSend_4_text.innerHTML = "PingPongDelay";
+        player_3_fxSend_4_text.innerHTML = "PingPongDelay";
+        player_4_fxSend_4_text.innerHTML = "PingPongDelay";
+        break;
+      }
+    case "PitchShift":
+      {
+        console.log("PitchShift fx_4_select");
+        pitchshift_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "PitchShift";
+        player_2_fxSend_4_text.innerHTML = "PitchShift";
+        player_3_fxSend_4_text.innerHTML = "PitchShift";
+        player_4_fxSend_4_text.innerHTML = "PitchShift";
+        break;
+      }
+    case "Reverb":
+      {
+        console.log("Reverb fx_4_select");
+        reverb_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "Reverb";
+        player_2_fxSend_4_text.innerHTML = "Reverb";
+        player_3_fxSend_4_text.innerHTML = "Reverb";
+        player_4_fxSend_4_text.innerHTML = "Reverb";
+        break;
+      }
+    case "StereoWidener":
+      {
+        console.log("StereoWidener fx_4_select");
+        StereoWidener_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "StereoWidener";
+        player_2_fxSend_4_text.innerHTML = "StereoWidener";
+        player_3_fxSend_4_text.innerHTML = "StereoWidener";
+        player_4_fxSend_4_text.innerHTML = "StereoWidener";
+        break;
+      }
+    case "Tremolo":
+      {
+        console.log("Tremolo fx_4_select");
+        tremolo_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "Tremolo";
+        player_2_fxSend_4_text.innerHTML = "Tremolo";
+        player_3_fxSend_4_text.innerHTML = "Tremolo";
+        player_4_fxSend_4_text.innerHTML = "Tremolo";
+        break;
+      }
+    case "Vibrato":
+      {
+        console.log("Vibrato fx_4_select");
+        vibrato_div.style.display = "block";
+        player_1_fxSend_4_text.innerHTML = "Vibrato";
+        player_2_fxSend_4_text.innerHTML = "Vibrato";
+        player_3_fxSend_4_text.innerHTML = "Vibrato";
+        player_4_fxSend_4_text.innerHTML = "Vibrato";
+        break;
+      }
+    default: { console.log("default fx_4_select"); break; }
+  }
+});
 
 //************************************************************************* */
 //************************************************************************* */
 //FUNCTIONS 
+
+
+function send_text_Button() {
+  const sampler_baseUrl = document.getElementById("sampler_baseUrl");
+  sampler_baseUrl.value
+  console.log("value en sampler_baseUrl.value: " + sampler_baseUrl.value);
+}
 
 function send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time) {
   switch (value) {
@@ -3453,6 +3854,12 @@ function play(value) {
         break;
 
       }
+
+    case "noise":
+      {
+        noise_Node.start();
+        break;
+      }
     default:
       { break; }
 
@@ -3462,41 +3869,54 @@ function play(value) {
 function stop(value) {
   switch (value) {
     case "1":
-      { player_1_Node.stop();
+      {
+        player_1_Node.stop();
         player_1_playButton.style.backgroundColor = "white";
-         break; }
+        break;
+      }
     case "2":
-      { player2.stop(); 
+      {
+        player2.stop();
         player_2_playButton.style.backgroundColor = "white";
-        break; }
+        break;
+      }
     case "3":
-      { player_3.stop();
+      {
+        player_3.stop();
         player_3_playButton.style.backgroundColor = "white";
-        break; }
+        break;
+      }
     case "4":
-      { player_4.stop();
+      {
+        player_4.stop();
         player_4_playButton.style.backgroundColor = "white";
-        break; }
+        break;
+      }
+    case "noise":
+      { noise_Node.stop(); break; }
     default:
       { console.log("DEFAULT function stop(value)"); break; }
   }
 }
 
 function mute(value) {
-  console.log("mute(value)" + value);
+  //console.log("mute(value)" + value);
   switch (value) {
     case "1":
-      { player_1_volNode.mute = !player_1_volNode.mute; 
+      {
+        player_1_volNode.mute = !player_1_volNode.mute;
         player_1_muteButton.style.backgroundColor = "green";
         player_1_volume.value = -100;
         console.log("mute: " + player_1_volNode.mute);
-        if(player_1_volNode.mute == true){
+        if (player_1_volNode.mute == true) {
           player_1_muteButton.style.backgroundColor = "green";
         }
-        else{player_1_muteButton.style.backgroundColor = "white";
+        else {
+          player_1_muteButton.style.backgroundColor = "white";
           player_1_volume.value = 0; //CORRESPONDE CREAR VAR GLOBAL PARA MANEJAR EL ESTADO
         }
-        break; }
+        break;
+      }
     case "2":
       {
         player_2_volNode.mute = !player_2_volNode.mute;
@@ -3506,6 +3926,18 @@ function mute(value) {
       { player_3_volNode.mute = !player_3_volNode.mute; break; }
     case "4":
       { player_4_volNode.mute = !player_4_volNode.mute; break; }
+    case "noise":
+      {
+        alert("noise_Node.mute: " + noise_Node.mute);
+        if (noise_Node.mute == true) {
+          noise_muteButton.style.backgroundColor = "green";
+          noise_volume.value = -100;
+        }
+        else { noise_muteButton.style.backgroundColor = "white"; }
+
+        noise_Node.mute = !noise_Node.mute;
+        break;
+      }
     default:
       { console.log("DEFAULT function stop(value)"); break; } 9
   }
@@ -4322,6 +4754,37 @@ function send_state_player_1_background_change(name, value) {
   }//CLOSES  switch (name)
 }//CLOSES send_state_player_1_background_change
 
+
+function hide_all_divs(value) {
+  switch (value) {
+    case "fx_4_select": {
+      autofilter_div.style.display = "none";
+      autoPanner_div.style.display = "none";
+      autoWah_div.style.display = "none";
+      bitCrusher_div.style.display = "none";
+      Chebyshev_div.style.display = "none";
+      chorus_div.style.display = "none";
+      distortion_div.style.display = "none";
+      feedback_div.style.display = "none";
+      freeVerb_div.style.display = "none";
+      frequencyShifter_div.style.display = "none";
+      JCReverb_div.style.display = "none";
+      phaser_div.style.display = "none";
+      pingpong_div.style.display = "none";
+      pitchshift_div.style.display = "none";
+      reverb_div.style.display = "none";
+      StereoWidener_div.style.display = "none";
+      tremolo_div.style.display = "none";
+      vibrato_div.style.display = "none";
+      break;
+    }
+
+
+
+
+  }
+}
+
 //************************************************************
 
 function in_outs(element, text) {
@@ -4360,18 +4823,16 @@ function callbackLoaded(songNumber, playerNumber) {
 
 function consoleClear() {
   console.clear();
-  //player_5_Node.start();
-  //osc.start();
+}
 
+function playsTestSynth() {
+  console.clear();
   const loop = new Tone.Loop((time) => {
     // triggered every eighth note.
     fmSynth.triggerAttackRelease("C3", "8n");
     console.log(time);
-}, "1n").start(0);
-Tone.Transport.start();
-
-//player_test_Node.start();
-  //filter_1_select.remove("Tascam_424"); NO ANDA
+  }, "2n").start(0);
+  Tone.Transport.start();
 }
 
 function esconder() {
@@ -4400,5 +4861,3 @@ function myFunction() {
 
 //************************************************************************
 //************************************************************************
-
-
