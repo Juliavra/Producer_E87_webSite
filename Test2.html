@@ -210,6 +210,8 @@
       <option name="98" id="98" value="98">98 All Over T Hop NR loop Song </option>
       <option name="99" id="99" value="99">99 Melo Drums Tempo Loop </option>
       <option name="100" id="100" value="100">100 B Beat re laburado Loop Song </option>
+      <option name="101" id="101" value="101">101 Jijiji </option>
+
     </select>
 
     <label for="player">Player</label>
@@ -1325,14 +1327,14 @@ type: ToneOscillatorType;
         <br>
       </fieldset>
     </div>
-
+<br>
     <button type="button" class="collapsible">
       EQ
     </button>
     <div class="content">
       <br>
-      <label for="filter_1_label"> </label>
-      <button id="player_1_filter_eq_On_Off_Button" onclick="player_1_filter_eq_On_Off()">On </button>
+      <label for="fx_1_filter_label"> </label>
+      <button id="fx_1_filter_eq_On_Off_Button" onclick="fx_1_filter_eq_On_Off()">On </button>
       <select name="filter_1" id="filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
         <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
@@ -1346,7 +1348,7 @@ type: ToneOscillatorType;
         <option name="Tascam" id="Tascam" value="Tascam">Tascam 424</option>
       </select>
       <br>
-      <div id="allpass_controls">
+      <div id="fx_1_allpass_controls">
         <fieldset>
           allpass
           <br>
@@ -1364,7 +1366,7 @@ type: ToneOscillatorType;
           <br>
         </fieldset>
       </div>
-      <div id="shelf_controls">
+      <div id="fx_1_shelf_controls">
         <fieldset>
           Shelf
           <br>
@@ -1382,7 +1384,7 @@ type: ToneOscillatorType;
           <br>
         </fieldset>
       </div>
-      <div id="peaking_controls">
+      <div id="fx_1_peaking_controls">
         <fieldset>
           Peaking
           <br>
@@ -1404,7 +1406,7 @@ type: ToneOscillatorType;
           <br>
         </fieldset>
       </div>
-      <div id="tascam_424_controls">
+      <div id="fx_1_tascam_424_controls">
         <fieldset>
           Tascam 424
           <br>
@@ -1436,7 +1438,7 @@ type: ToneOscillatorType;
       Dynamics
     </button>
     <div class="content">
-      <div id="player_1_dynamics_select">
+      <div id="fx_1_dynamics_select">
         <br>
         <fieldset>
           <br>
@@ -1459,63 +1461,63 @@ type: ToneOscillatorType;
             onclick="player_x_dynamics_On_Off(name, value)">On </button>
           <br>
       </div>
-      <div id="player_1_dynamics_compressor_div">
+      <div id="fx_1_dynamics_compressor_div">
         Compressor
         <fieldset>
-          <p id="player_1_dynamics_ratio_text">RatIo </p>
-          <input type='range' min=1 max=20 step='1' value="0" id='player_1_dynamics_ratio'>
-          <p id="player_1_dynamics_ratio_value"> 0</p>
+          <p id="fx_1_dynamics_ratio_text">RatIo </p>
+          <input type='range' min=1 max=20 step='1' value="0" id='fx_1_dynamics_ratio'>
+          <p id="fx_1_dynamics_ratio_value"> 0</p>
           <br>
-          <p id="player_1_dynamics_threshold_text">threshold </p>
-          <input type='range' min=-100 max=0 step='1' value="0" id='player_1_dynamics_threshold'>
-          <p id="player_1_dynamics_threshold_value"> 0</p>
+          <p id="fx_1_dynamics_threshold_text">threshold </p>
+          <input type='range' min=-100 max=0 step='1' value="0" id='fx_1_dynamics_threshold'>
+          <p id="fx_1_dynamics_threshold_value"> 0</p>
           <br>
-          <p id="player_1_dynamics_release_text">release </p>
-          <input type='range' min=0 max=1 step='0.01' value="0" id='player_1_dynamics_release'>
-          <p id="player_1_dynamics_release_value"> 0</p>
+          <p id="fx_1_dynamics_release_text">release </p>
+          <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_dynamics_release'>
+          <p id="fx_1_dynamics_release_value"> 0</p>
           <br>
-          <p id="player_1_dynamics_attack_text">attack </p>
-          <input type='range' min=0 max=1 step='0.01' value="0" id='player_1_dynamics_attack'>
-          <p id="player_1_dynamics_attack_value"> 0</p>
+          <p id="fx_1_dynamics_attack_text">attack </p>
+          <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_dynamics_attack'>
+          <p id="fx_1_dynamics_attack_value"> 0</p>
           <br>
-          <p id="player_1_dynamics_knee_text">knee </p>
-          <input type='range' min=0 max=40 step='1' value="0" id='player_1_dynamics_knee'>
-          <p id="player_1_dynamics_knee_value"> 0</p>
+          <p id="fx_1_dynamics_knee_text">knee </p>
+          <input type='range' min=0 max=40 step='1' value="0" id='fx_1_dynamics_knee'>
+          <p id="fx_1_dynamics_knee_value"> 0</p>
           <br>
-          <p id="player_1_dynamics_reduction_text"> Reduction: </p>
-          <p id="player_1_dynamics_reduction_value"> </p>
+          <p id="fx_1_dynamics_reduction_text"> Reduction: </p>
+          <p id="fx_1_dynamics_reduction_value"> </p>
           <br>
         </fieldset>
         a la salida del comp tiene que haber un volNode
         que tome el reduction y levante el volumen en esa cantidad valor
         <br>
       </div>
-      <div id="player_1_dynamics_gate_div">
+      <div id="fx_1_dynamics_gate_div">
         Gate <br>
         <fieldset>
-          <p id="player_1_gate_threshold_text"> Threshold </p>
-          <input type='range' min=-100 max=12 step='1' value="0" id='player_1_gate_threshold'>
-          <p id="player_1_gate_threshold_value"></p>
+          <p id="fx_1_gate_threshold_text"> Threshold </p>
+          <input type='range' min=-100 max=12 step='1' value="0" id='fx_1_gate_threshold'>
+          <p id="fx_1_gate_threshold_value"></p>
           <br>
-          <p id="player_1_gate_smoothing_text"> </p>
-          Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='player_1_gate_smoothing'>
-          <p id="player_1_gate_smoothing_value"></p>
+          <p id="fx_1_gate_smoothing_text"> </p>
+          Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='fx_1_gate_smoothing'>
+          <p id="fx_1_gate_smoothing_value"></p>
         </fieldset>
         <br>
       </div>
-      <div id="player_1_dynamics_limiter_div">
+      <div id="fx_1_dynamics_limiter_div">
         Limiter
         <br>
         <fieldset>
-          <p id="player_1_limiter_threshold_text"> Threshold </p>
-          <input type='range' min=-100 max=12 step='1' value="-100" id='player_1_limiter_threshold'>
-          <p id="player_1_limiter_threshold_value"></p>
+          <p id="fx_1_limiter_threshold_text"> Threshold </p>
+          <input type='range' min=-100 max=12 step='1' value="-100" id='fx_1_limiter_threshold'>
+          <p id="fx_1_limiter_threshold_value"></p>
           <br>
-          <p id="player_1_limiter_smoothing_text"> </p>
-          Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='player_1_limiter_smoothing'>
-          <p id="player_1_limiter_smoothing_value"></p>
+          <p id="fx_1_limiter_smoothing_text"> </p>
+          Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='fx_1_limiter_smoothing'>
+          <p id="fx_1_limiter_smoothing_value"></p>
           <br>
-          Reduction: <p id="player_1_limiter_reduction_value"> </p>
+          Reduction: <p id="fx_1_limiter_reduction_value"> </p>
         </fieldset>
       </div>
     </div>
@@ -1807,7 +1809,7 @@ type: ToneOscillatorType;
     </select>
     <br>
 
-    <div id="autofilter_div">
+    <div id="fx_4_autofilter_div">
       <!-- SE PUEDE ACCEDER A LAS PROPIEDADES DEL OSCILLATOR QUE ELIJAS 
 type: ToneOscillatorType;
     filter: Omit<FilterOptions, "gain" | "frequency" | "detune" | (keyof SourceOptions)>;
@@ -1856,7 +1858,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="autoPanner_div">
+    <div id="fx_4_autoPanner_div">
       <br>
       <fieldset>
         <p id="fx_4_autoPanner_frequency_text">Frequency </p>
@@ -1879,7 +1881,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="autoWah_div">
+    <div id="fx_4_autoWah_div">
       <br>
       <fieldset>
         <p id="fx_4_autoWah_baseFrequency_text">baseFrequency </p>
@@ -1916,7 +1918,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="bitCrusher_div">
+    <div id="fx_4_bitCrusher_div">
       <br>
       <fieldset>
         <!--
@@ -1947,7 +1949,7 @@ type: ToneOscillatorType;
       <br>
     </div>
 
-    <div id="Chebyshev_div">
+    <div id="fx_4_Chebyshev_div">
       <br>
       <fieldset>
         <p id="fx_4_Chebyshev_order_text"> Order</p>
@@ -1965,7 +1967,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="chorus_div">
+    <div id="fx_4_chorus_div">
       <br>
       <fieldset>
         <p id="fx_4_chorus_freq_text"> Chorus</p>
@@ -2002,7 +2004,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="distortion_div">
+    <div id="fx_4_distortion_div">
       <br>
       <fieldset>
         <p id="fx_4_distortion_text">Amount </p>
@@ -2028,7 +2030,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="feedback_div">
+    <div id="fx_4_feedback_div">
       <br>
       <fieldset>
         <p id="fx_4_feedback_text">Feedback </p>
@@ -2054,7 +2056,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="freeVerb_div">
+    <div id="fx_4_freeVerb_div">
       <br>
       <fieldset>
         <p id="fx_4_freeVerb_dampening_text">Dampening </p>
@@ -2068,7 +2070,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="frequencyShifter_div">
+    <div id="fx_4_frequencyShifter_div">
       <br>
       <fieldset>
         <p id="fx_4_frequencyShifter_text">Frequency </p>
@@ -2078,7 +2080,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="JCReverb_div">
+    <div id="fx_4_JCReverb_div">
       <br>
       <fieldset>
         <p id="fx_4_JCReverb_text">Frequency </p>
@@ -2088,7 +2090,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="phaser_div">
+    <div id="fx_4_phaser_div">
       <br>
       <fieldset>
         <p id="fx_4_phaser_frequency_text">Frequency </p>
@@ -2114,7 +2116,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="pingpong_div">
+    <div id="fx_4_pingpong_div">
       <br>
       <fieldset>
         <p id="fx_4_pingpong_feedback_text"> </p>
@@ -2134,7 +2136,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="pitchshift_div">
+    <div id="fx_4_pitchshift_div">
       <br>
       <fieldset>
         <p id="fx_4_pitchshift_feedback_text"> </p>
@@ -2156,7 +2158,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="reverb_div">
+    <div id="fx_4_reverb_div">
       <br>
       <fieldset>
         <p id="fx_4_reverb_preDelay_text"> </p>
@@ -2170,7 +2172,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="StereoWidener_div">
+    <div id="fx_4_StereoWidener_div">
       <br>
       <fieldset>
         <p id="fx_4_StereoWidener_width_text"> Width</p>
@@ -2180,7 +2182,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="tremolo_div">
+    <div id="fx_4_tremolo_div">
       <br>
       <fieldset>
         <p id="fx_4_tremolo_frequency_text"> frequency</p>
@@ -2198,7 +2200,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 
-    <div id="vibrato_div">
+    <div id="fx_4_vibrato_div">
       <br>
       <fieldset>
         <p id="fx_4_vibrato_frequency_text"> frequency</p>
