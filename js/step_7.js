@@ -564,7 +564,11 @@ var cancion_101 = {
   title: "101 Jijiji",
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/101_Jijiji.mp3"
 };
-
+var cancion_112 = {
+  id: 112,
+  title: "112 El Cazador",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/112_El_cazador.mp3"
+};
 var array_Canciones = [];
 array_Canciones.push(cancion_1);
 array_Canciones.push(cancion_2);
