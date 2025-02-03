@@ -565,7 +565,7 @@ var cancion_101 = {
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/101_Jijiji.mp3"
 };
 var cancion_102 = {
-  id: 112,
+  id: 102,
   title: "102 El Cazador",
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/102_El_cazador.mp3"
 };
@@ -675,6 +675,50 @@ array_Canciones.push(cancion_102);
 //************************************************************************* */
 //************************************************************************* */
 //DOM ACQUISITIONS
+
+const fileInput = document.getElementById("files");
+
+console.log(fileInput.files instanceof FileList); // true even if empty
+
+
+fileInput.addEventListener("change", () => {
+
+  for (const file of fileInput.files) {
+    console.log(file.name); // prints file name
+    let fileDate = new Date(file.lastModified);
+    console.log(fileDate.toLocaleDateString()); // prints legible date
+    console.log(
+      file.size < 1000 ? file.size : Math.round(file.size / 1000) + "KB",
+    );
+    console.log(file.type); // prints MIME type
+  }
+
+/*
+To create an ArrayBuffer from a byte sequence bytes in a realm realm:
+Let jsArrayBuffer be ? AllocateArrayBuffer(realm.[[Intrinsics]].[[%ArrayBuffer%]], bytes’s length).
+
+Let arrayBuffer be the result of converting jsArrayBuffer to an IDL value of type ArrayBuffer.
+
+Write bytes into arrayBuffer.
+
+Return arrayBuffer.
+
+/**/ 
+
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
 const buscaButton = document.getElementById("buscaButton");
 
 const player_1_filter_1_select = document.getElementById("player_1_filter_1_select");
@@ -1687,6 +1731,16 @@ const masterVolume = new Tone.Volume(0).toDestination();
 masterVolume.fan(recorderNode);
 recorderNode.debug = true; //alert(recorderNode.supported); TRY CATCH
 
+
+
+
+const audio = document.querySelector('audio_tag_test_load_user_files');
+const actx = Tone.context;
+const dest = actx.createMediaStreamDestination();
+const recorder = new MediaRecorder(dest.stream);
+
+
+
 //****************************************************
 //**************************************************** */
 const fx_1 = new Tone.PingPongDelay("4n", 0.7);
@@ -2159,6 +2213,11 @@ fx_1_vibrato_Node.wet = 1;
 
 //ffffffffffffffffffffffffffffffff
 const fx_1_actual_patch = "PingPongDelay";
+
+
+
+
+
 
 //--------------------------------------------------------------------------
 const fx_1_peaking_controls = document.getElementById("fx_1_peaking_controls");
@@ -4272,22 +4331,30 @@ function recieves_Number_Returns_url(song) {
 //************************************************************************
 //GRABADORA //Get the playback state of the Recorder, either "started", "stopped" or "paused"
 function rec() {
-  setTimeout(async () => {
-    // the recorded audio is returned as a blob
-    const recording = await recorderNode.stop();
-    // download the recording by creating an anchor element and blob url
-    const url = URL.createObjectURL(recording);
-    const anchor = document.createElement("a");
-    anchor.download = "recording.webm";
-    anchor.href = url;
-    anchor.click();
-  }, 100000); //<-- TIEMPO QUE DURA LA GRABACION -1 SEGUNDO
-  console.log("Rec started");
-  recorderNode.start();
-  setInterval(() => {
-    console.log(Tone.immediate());
-  }, 3000);
-  recButton.style.backgroundColor = "red";
+
+  if (recorderNode.state == "started") {
+    alert("Grabadora Grabando Grabación");
+
+  }
+  else {
+    recButton.style.backgroundColor = "red";
+    console.log("Rec started");
+    setTimeout(async () => {
+      // the recorded audio is returned as a blob
+      const recording = await recorderNode.stop();
+      // download the recording by creating an anchor element and blob url
+      const url = URL.createObjectURL(recording);
+      const anchor = document.createElement("a");
+      anchor.download = "recording.webm";
+      anchor.href = url;
+      anchor.click();
+    }, 1000000); //<-- TIEMPO QUE DURA LA GRABACION -1 SEGUNDO
+    //    console.log("Rec finished");
+    recorderNode.start();
+    setInterval(() => {
+      console.log(Tone.immediate());
+    }, 1000);
+  }
 }
 
 function recPause() {
@@ -4303,14 +4370,60 @@ function recPause() {
 
 function recStop() {
   if (recorderNode.state == "stopped") {
-    alert("La Grabacion esta detenida");
-  }
-  else {
-    recorderNode.stop(); console.log("Detiene Grabacion");
-    recButton.style.backgroundColor = "white";
-    document.getElementById("pauseButton").style.backgroundColor = "white";
+      alert("La Grabacion esta detenida");
+    }
+    else {
+  recorderNode.stop();
+  console.log("Detiene Grabacion");
+  recButton.style.backgroundColor = "white";
+  //recorder.stop();
+  //  document.getElementById("pauseButton").style.backgroundColor = "white";
   }
 }
+
+
+
+
+/*
+function recording() {
+  console.clear();
+  const audio = document.querySelector('audio');
+  const synth = new Tone.Synth();
+  synth.volume.value = -21;
+  const actx = Tone.context;
+  const dest = actx.createMediaStreamDestination();
+  const recorder = new MediaRecorder(dest.stream);
+
+  masterVolume.connect(dest);
+  //synth.connect(dest);
+  synth.toMaster();
+
+  const chunks = [];
+
+  const notes = 'CDEFGAB'.split('').map(n => `${n}4`);
+  let note = 0;
+  Tone.Transport.scheduleRepeat(time => {
+    if (note === 0) recorder.start();
+    if (note > notes.length) {
+      synth.triggerRelease(time)
+      recorder.stop();
+      Tone.Transport.stop();
+    } else synth.triggerAttack(notes[note], time);
+    note++;
+  }, '4n');
+
+  recorder.ondataavailable = evt => chunks.push(evt.data);
+  recorder.onstop = evt => {
+    let blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+    audio.src = URL.createObjectURL(blob);
+  };
+
+  Tone.Transport.start();
+}
+*/
+
+
+
 
 //************************************************************************* */
 //********************************************************************* */
