@@ -103,6 +103,20 @@
 
 <body>
   <header>
+
+    <section class = "container">
+      <h3>Record</h3>
+      <button id ="start-record">(X)Start Recording</button>
+      <button id ="stop-record">(X)Stop Recording</button>
+      <div>
+          <h3>Playback</h3>
+      <audio id="audio-playback" controls></audio>
+  </div>
+  </section> 
+     <br>    <br>    <br>    <br>    <br>
+
+
+
     <input id="files" type="file" accept="audio/mpeg, audio/vorbis">
     <br>
    <!-- <audio id="audio_tag_test_load_user_files" src="" controls></audio> -->
@@ -246,7 +260,7 @@
     <div>
 
       <button type="button" class="collapsible">
-        Player
+        Player controls
       </button>
       <div class="content">
         <br>
@@ -937,416 +951,11 @@
       <option name="Tremolo" id="Tremolo" value="Tremolo">Tremolo</option>
       <option name="Vibrato" id="Vibrato" value="Vibrato">Vibrato</option>
     </select>
-    <br>
+    <br> <br>
 
-    <div id="fx_1_autofilter_div">
-      <!-- SE PUEDE ACCEDER A LAS PROPIEDADES DEL OSCILLATOR QUE ELIJAS 
-type: ToneOscillatorType;
-    filter: Omit<FilterOptions, "gain" | "frequency" | "detune" | (keyof SourceOptions)>;
+    <section class="sound-clips_1" id="fx_1_clip">
+    </section>
 
-    Tone.AutoFilter.defaults = {
-	"frequency" : 1,
-	"type" : "sine",
-	"depth" : 1,
-	"baseFrequency" : 200,
-	"octaves" : 2.6,
-	"filter" : {
-		"type" : "lowpass",
-		"rolloff" : -12,
-		"Q" : 1,
-	}
-}; 
-
--->
-      <br>
-      <fieldset>
-        <p id="fx_1_autofilter_baseFrequency_text">baseFrequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autofilter_baseFrequency'>
-        <p id="fx_1_autofilter_baseFrequency_value"></p>
-        <br>
-        <p id="fx_1_autofilter_depth_text"> </p>
-        Depth<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_autofilter_depth'>
-        <p id="fx_1_autofilter_depth_value"></p>
-        <br>
-        <p id="fx_1_autofilter_frequency_text">Frequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autofilter_frequency'>
-        <p id="fx_1_autofilter_frequency_value"></p>
-        <br>
-        <p id="fx_1_autofilter_octaves_text">Octaves </p>
-        <input type='range' min=0 max=12 step='1' value="0" id='fx_1_autofilter_octaves'>
-        <p id="fx_1_autofilter_octaves_value"></p>
-        <br> <br>
-        <label for="fx_1_autofilter_select__type"></label>
-        type:
-        <select name="fx_1_autofilter_select_typ" id="fx_1_autofilter_select_type">
-          <option name="sine" id="sine" value="sine">sine</option>
-          <option name="square" id="square" value="square">square</option>
-          <option name="triangle" id="triangle" value="triangle">triangle</option>
-          <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-        </select>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_autoPanner_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_autoPanner_frequency_text">Frequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autoPanner_frequency'>
-        <p id="fx_1_autoPanner_frequency_value"></p>
-        <br>
-        <p id="fx_1_autoPanner_depth_text"> </p>
-        Depth<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_autoPanner_depth'>
-        <p id="fx_1_autoPanner_depth_value"></p>
-        <br> <br>
-        <label for="fx_1_autoPanner_select__type"></label>
-        type:
-        <select name="fx_1_autoPanner_select_typ" id="fx_1_autoPanner_select_type">
-          <option name="sine" id="sine" value="sine">sine</option>
-          <option name="square" id="square" value="square">square</option>
-          <option name="triangle" id="triangle" value="triangle">triangle</option>
-          <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-        </select>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_autoWah_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_autoWah_baseFrequency_text">baseFrequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autoWah_baseFrequency'>
-        <p id="fx_1_autoWah_baseFrequency_value"></p>
-        <br>
-        <p id="fx_1_autoWah_octaves_text">Octaves </p>
-        <input type='range' min=0 max=12 step='1' value="0" id='fx_1_autoWah_octaves'>
-        <p id="fx_1_autoWah_octaves_value"></p>
-        <br>
-        <p id="fx_1_autoWah_sensitivity_text">Sensitivity </p>
-        <input type='range' min=0 max=12 step='1' value="0" id='fx_1_autoWah_sensitivity'>
-        <p id="fx_1_autoWah_sensitivity_value"></p>
-        <br>
-        <p id="fx_1_autoWah_Q_text">Q </p>
-        <input type='range' min=0 max=100 step='1' value="0" id='fx_1_autoWah_Q'>
-        <p id="fx_1_autoWah_Q_value"></p>
-        <br>
-        <p id="fx_1_autoWah_gain_text"> gain</p>
-        <input type='range' min=-100 max=100 step='1' value="0" id='fx_1_autoWah_gain'>
-        <p id="fx_1_autoWah_gain_value"></p>
-        <br>
-        <!--
-      <p id="fx_1_autoWah_follower_attack_text"> fol Attack</p>
-      <input type='range' min=0 max=20 step='0.001' value="1" id='fx_1_autoWah_follower_attack'>
-      <p id="fx_1_autoWah_follower_attack_value"></p>
-      <br>
-      <p id="fx_1_autoWah_follower_release_text"> fol Release</p>
-      <input type='range' min=1 max=20 step='1' value="1" id='fx_1_autoWah_follower_release'>
-      <p id="fx_1_autoWah_follower_release_value"></p>
-      <br>
-      -->
-
-      </fieldset>
-    </div>
-
-    <div id="fx_1_bitCrusher_div">
-      <br>
-      <fieldset>
-        <!--
-      <p id="fx_1_autoWah_baseFrequency_text">baseFrequency </p>
-      <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autoWah_baseFrequency'>
-      <p id="fx_1_autoWah_baseFrequency_value"></p>
-      <br>
-      <p id="fx_1_autoWah_octaves_text">Octaves </p>
-      <input type='range' min=0 max=12 step='1' value="0" id='fx_1_autoWah_octaves'>
-      <p id="fx_1_autoWah_octaves_value"></p>
-      <br>
-      <p id="fx_1_autoWah_sensitivity_text">Sensitivity </p>
-      <input type='range' min=0 max=12 step='1' value="0" id='fx_1_autoWah_sensitivity'>
-      <p id="fx_1_autoWah_sensitivity_value"></p>
-      <br>
-      <p id="fx_1_autoWah_Q_text">Q </p>
-      <input type='range' min=0 max=100 step='1' value="0" id='fx_1_autoWah_Q'>
-      <p id="fx_1_autoWah_Q_value"></p>
-      <br>
-      <p id="fx_1_autoWah_gain_text"> gain</p>
-      <input type='range' min=-100 max=100 step='1' value="0" id='fx_1_autoWah_gain'>
-      <p id="fx_1_autoWah_gain_value"></p>
-      <br>
-
-      -->
-
-      </fieldset>
-      <br>
-    </div>
-
-    <div id="fx_1_Chebyshev_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_Chebyshev_order_text"> Order</p>
-        <input type='range' min=1 max=20 step='1' value="1" id='fx_1_Chebyshev_order'>
-        <p id="fx_1_Chebyshev_order_value"></p>
-        <br>
-        <label for="fx_1_distortion_select_type"></label>
-        Oversample:
-        <select name="fx_1_Chebyshev_select" id="fx_1_Chebyshev_select_type">
-          <option name="none" id="none" value="none">none</option>
-          <option name="2x" id="2x" value="2x">2x</option>
-          <option name="4x" id="4x" value="4x">4x</option>
-        </select>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_chorus_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_chorus_freq_text"> Chorus</p>
-        <br>
-        Freq<input type='range' min=0 max=20 step='0.01' value="0" id='fx_1_chorus_freq'>
-        <p id="fx_1_chorus_freq_value"></p>
-        <br>
-        <p id="fx_1_chorus_delayTime_text"> </p>
-        Dly Time<input type='range' min=0 max=3.5 step='0.01' value="0" id='fx_1_chorus_delayTime'>
-        <p id="fx_1_chorus_delayTime_value"></p>
-        <br>
-        <p id="fx_1_chorus_depth_text"> </p>
-        Depth<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_chorus_depth'>
-        <p id="fx_1_chorus_depth_value"></p>
-        <br>
-        <p id="fx_1_chorus_spread_text"> </p>
-        Degrees<input type='range' min=0 max=360 step='1' value="0" id='fx_1_chorus_spread'>
-        <p id="fx_1_chorus_spread_value"></p>
-        <br> <br>
-
-        <label for="fx_1_chorus_select_type"></label>
-        type:
-        <select name="fx_1_chorus_select_type" id="fx_1_chorus_select_type">
-          <option name="sine" id="sine" value="sine">sine</option>
-          <option name="square" id="square" value="square">square</option>
-          <option name="triangle" id="triangle" value="triangle">triangle</option>
-          <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-        </select>
-        <br>
-        <p id="fx_1_chorus_feedback_text"> </p>
-        Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_chorus_feedback'>
-        <p id="fx_1_chorus_feedback_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_distortion_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_distortion_text">Amount </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_distortion'>
-        <p id="fx_1_distortion_value"></p>
-        <br>
-        <p id="fx_1_distortion_input_text">Input </p>
-        <input type='range' min=0 max=3500 step='1' value="0" id='fx_1_distortion_input'>
-        <p id="fx_1_distortion_input_value"></p>
-        <br>
-        <p id="fx_1_distortion_output_text">Output </p>
-        <input type='range' min=0 max=3500 step='1' value="0" id='fx_1_distortion_output'>
-        <p id="fx_1_distortion_output_value"></p>
-        <br>
-        <label for="fx_1_distortion_select_type"></label>
-        Oversample:
-        <select name="fx_1_distortion_select" id="fx_1_distortion_select_type">
-          <option name="none" id="none" value="none">none</option>
-          <option name="2x" id="2x" value="2x">2x</option>
-          <option name="4x" id="4x" value="4x">4x</option>
-        </select>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_feedback_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_feedback_text">Feedback </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_feedback'>
-        <p id="fx_1_feedback_value"></p>
-        <br>
-        <p id="fx_1_feedback_delayTime_text"> DelayTime </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_feedback_delayTime'>
-        <p id="fx_1_feedback_delayTime_value"></p>
-        <br>
-        <p id="fx_1_feedback_maxDelay_text"> MaxDelay </p>
-        <input type='range' min=0 max=100 step='1' value="0" id='fx_1_feedback_maxDelay'>
-        <p id="fx_1_feedback_maxDelay_value"></p>
-        <br>
-        <p id="fx_1_feedback_input_text">Input </p>
-        <input type='range' min=0 max=3500 step='1' value="0" id='fx_1_feedback_input'>
-        <p id="fx_1_feedback_input_value"></p>
-        <br>
-        <p id="fx_1_feedback_output_text">Output </p>
-        <input type='range' min=0 max=3500 step='1' value="0" id='fx_1_feedback_output'>
-        <p id="fx_1_feedback_output_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_freeVerb_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_freeVerb_dampening_text">Dampening </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_freeVerb_dampening'>
-        <p id="fx_1_freeVerb_dampening_value"></p>
-        <br>
-        <p id="fx_1_freeVerb_roomSize_text"> roomSize </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_freeVerb_roomSize'>
-        <p id="fx_1_freeVerb_roomSize_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_frequencyShifter_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_frequencyShifter_text">Frequency </p>
-        <input type='range' min=0 max=20000 step='10' value="0" id='fx_1_frequencyShifter'>
-        <p id="fx_1_frequencyShifter_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_JCReverb_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_JCReverb_text">Frequency </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_JCReverb'>
-        <p id="fx_1_JCReverb_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_phaser_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_phaser_frequency_text">Frequency </p>
-        <input type='range' min=20 max=20000 step='10' value="0" id='fx_1_phaser_frequency'>
-        <p id="fx_1_phaser_frequency_value"></p>
-        <br>
-        <p id="fx_1_phaser_octaves_text">Octaves </p>
-        <input type='range' min=0 max=12 step='1' value="0" id='fx_1_phaser_octaves'>
-        <p id="fx_1_phaser_octaves_value"></p>
-        <br>
-        <p id="fx_1_phaser_stages_text">Stages </p>
-        <input type='range' min=0 max=12000 step='1' value="0" id='fx_1_phaser_stages'>
-        <p id="fx_1_phaser_stages_value"></p>
-        <br>
-        <p id="fx_1_phaser_Q_text">Q </p>
-        <input type='range' min=0 max=100 step='1' value="0" id='fx_1_phaser_Q'>
-        <p id="fx_1_phaser_Q_value"></p>
-        <br>
-        <p id="fx_1_phaser_baseFrequency_text">baseFrequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_phaser_baseFrequency'>
-        <p id="fx_1_phaser_baseFrequency_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_pingpong_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_pingpong_feedback_text"> </p>
-        Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_pingpong_feedback'>
-        <p id="fx_1_pingpong_feedback_value"></p>
-        <br>
-
-        <p id="fx_1_pingpong_delayTime_text"> </p>
-        Dly Time<input type='range' min=0 max=2 step='0.001' value="0" id='fx_1_pingpong_delayTime'>
-        <p id="fx_1_pingpong_delayTime_value"></p>
-        <br>
-
-        <p id="fx_1_pingpong_maxDelay_text"> </p>
-        Max Dly<input type='range' min=0 max=9 step='1' value="0" id='fx_1_pingpong_maxDelay'>
-        <p id="fx_1_pingpong_maxDelay_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_pitchshift_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_pitchshift_feedback_text"> </p>
-        Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_pitchshift_feedback'>
-        <p id="fx_1_pitchshift_feedback_value"></p>
-        <br>
-        <p id="fx_1_pitchshift_delayTime_text"> </p>
-        Dly Time<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_pitchshift_delayTime'>
-        <p id="fx_1_pitchshift_delayTime_value"></p>
-        <br>
-        <p id="fx_1_pitchshift_pitch_text"> </p>
-        Pitch<input type='range' min=-100 max=131 step='1' value="0" id='fx_1_pitchshift_pitch'>
-        <p id="fx_1_pitchshift_pitch_value"></p>
-        <br>
-        <p id="fx_1_pitchshift_windowSize_text"> </p>
-        Window secs<input type='range' min=0 max=30 step='0.1' value="0" id='fx_1_pitchshift_windowSize'>
-        <p id="fx_1_pitchshift_windowSize_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_reverb_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_reverb_preDelay_text"> </p>
-        pre Delay<input type='range' min=0 max=300 step='0.1' value="0" id='fx_1_reverb_preDelay'>
-        <p id="fx_1_reverb_preDelay_value"></p>
-        <br>
-        <p id="fx_1_reverb_decay_text"> </p>
-        Dly Time<input type='range' min=0 max=100 step='0.1' value="0" id='fx_1_reverb_decay'>
-        <p id="fx_1_reverb_decay_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_StereoWidener_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_StereoWidener_width_text"> Width</p>
-        <input type='range' min=0 max=300 step='0.1' value="0" id='fx_1_StereoWidener_width'>
-        <p id="fx_1_StereoWidener_width_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_tremolo_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_tremolo_frequency_text"> frequency</p>
-        <input type='range' min=20 max=20000 step='100' value="0" id='fx_1_tremolo_frequency'>
-        <p id="fx_1_tremolo_frequency_value"></p>
-        <br>
-        <p id="fx_1_tremolo_depth_text"> depth</p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_tremolo_depth'>
-        <p id="fx_1_tremolo_depth_value"></p>
-        <br>
-        <p id="fx_1_tremolo_spread_text"> spread</p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_tremolo_spread'>
-        <p id="fx_1_tremolo_spread_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_1_vibrato_div">
-      <br>
-      <fieldset>
-        <p id="fx_1_vibrato_frequency_text"> frequency</p>
-        <input type='range' min=20 max=20000 step='100' value="0" id='fx_1_vibrato_frequency'>
-        <p id="fx_1_vibrato_frequency_value"></p>
-        <br>
-        <p id="fx_1_vibrato_depth_text"> depth</p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_vibrato_depth'>
-        <p id="fx_1_vibrato_depth_value"></p>
-        <br>
-        <p id="fx_1_vibrato_maxDelay_text"> Max Dly</p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_vibrato_maxDelay'>
-        <p id="fx_1_vibrato_maxDelay_value"></p>
-        <br>
-      </fieldset>
-    </div>
     <br>
     <button type="button" class="collapsible">
       EQ
@@ -1986,7 +1595,7 @@ type: ToneOscillatorType;
         <br>
       </fieldset>
     </div>
-
+<!--
     <div id="fx_4_chorus_div">
       <br>
       <fieldset>
@@ -2023,7 +1632,8 @@ type: ToneOscillatorType;
         <br>
       </fieldset>
     </div>
-
+-->
+    
     <div id="fx_4_distortion_div">
       <br>
       <fieldset>
@@ -2198,24 +1808,6 @@ type: ToneOscillatorType;
         <p id="fx_4_StereoWidener_width_text"> Width</p>
         <input type='range' min=0 max=300 step='0.1' value="0" id='fx_4_StereoWidener_width'>
         <p id="fx_4_StereoWidener_width_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_tremolo_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_tremolo_frequency_text"> frequency</p>
-        <input type='range' min=20 max=20000 step='100' value="0" id='fx_4_tremolo_frequency'>
-        <p id="fx_4_tremolo_frequency_value"></p>
-        <br>
-        <p id="fx_4_tremolo_depth_text"> depth</p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_tremolo_depth'>
-        <p id="fx_4_tremolo_depth_value"></p>
-        <br>
-        <p id="fx_4_tremolo_spread_text"> spread</p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_tremolo_spread'>
-        <p id="fx_4_tremolo_spread_value"></p>
         <br>
       </fieldset>
     </div>
@@ -2672,5 +2264,9 @@ GainToAudio
   integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/step_7.js"></script>
+<!--
+<script src="js/app.js"></script>
+-->
+<script src="js/recorder1.js"></script>
 
 </html>
