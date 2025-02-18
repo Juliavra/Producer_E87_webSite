@@ -1,4 +1,6 @@
-﻿/* PARA CREAR UN MENU QUE CONTENGA
+﻿//"use strict";   ES LO IDEAL PERO HAY QUE REHACER TODO EL CODIGO
+
+/* PARA CREAR UN MENU QUE CONTENGA
 TODOS LOS NODOS POSIBLES DE SER CREADOS,
 PARA QUE EL RESULTADO FINAL SEA 
 LO QUE SE TE HAYA OCURRIDO ENCADENAR.
@@ -690,7 +692,7 @@ array_Canciones.push(cancion_102);
 const fileInput = document.getElementById("files");
 
 //console.log(fileInput.files instanceof FileList); // true even if empty
-
+/*
 fileInput.addEventListener("change", () => {
 
   for (const file of fileInput.files) {
@@ -714,10 +716,10 @@ fileInput.addEventListener("change", () => {
  
   Return arrayBuffer.
   
-  /**/
+
 
 });
-
+  /**/
 const soundClips_1 = document.querySelector(".sound-clips_1");
 
 const player_1_filter_1_select = document.getElementById("player_1_filter_1_select");
@@ -4572,8 +4574,12 @@ function creates_an_FX_Node() {
   console.log(BaseAudioContext.toString());
   */
 //fx_1.dispose();
-fx_1_distortion_Node.dispose();
-console.log("function creates_an_FX_Node() {");
+//if (fx_1.disposed()){console.log("TRUE");}
+console.log("disposed: " + fx_1_FrequencyShifter_Node.disposed);
+}
+
+function dispos3() {
+  fx_1_FrequencyShifter_Node.dispose();
 }
 
 function changes_an_FX_Node(channel, effecttype) {

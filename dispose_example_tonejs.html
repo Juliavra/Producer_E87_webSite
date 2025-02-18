@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>.dispose() example Tone JS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      /* 4 equal-width columns */
+      grid-template-rows: repeat(2, auto);
+      /* 2 rows */
+      gap: 10px;
+      padding: 20px;
+    }
+
+    header {
+      grid-column: span 4;
+      /* Header spans across all 4 columns */
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <button id="player_1_playButton" onclick="play()">Play </button>
+  <button id="player_1_stopButton" onclick="stop()">Stop </button>
+  <button id="fx_1_pingpong_dispose" onclick="pingpong_dispose()">pingpong_dispose </button>
+<br> <br> <br>
+<button id="nodes_disposed" onclick="nodes_disposed()">nodes_disposed </button>
+<br>
+<select name="fx_1_select_" id="fx_1_select">
+    <option name="empty" id="empty" value="empty">empty</option>
+    <option name="Distortion" id="Distortion" value="Distortion">Distortion</option>
+    <option name="PitchShift" id="PitchShift" value="PitchShift">PitchShift</option>
+    <option name="Reverb" id="Reverb" value="Reverb">Reverb</option>
+  </select>
+  <br> <br>
+  <section class="sound-clips_1" id="fx_1_clip">
+  </section>
+  <br> <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
+  integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/dispose_example_tonejs.js"></script>
+
+
+</html>

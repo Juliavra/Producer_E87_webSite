@@ -37,13 +37,13 @@
     .column:nth-child(odd) {
       background-color: #f4f4f4;
     }
-    
-    fieldset{
-      border:1px solid #999;
-      border-radius:8px;
-      box-shadow:0 0 8px #999;
-      padding:6px;
-    } 
+
+    fieldset {
+      border: 1px solid #999;
+      border-radius: 8px;
+      box-shadow: 0 0 8px #999;
+      padding: 6px;
+    }
 
 
     p {
@@ -104,33 +104,43 @@
 <body>
   <header>
 
-    <section class = "container">
-      <h3>Record</h3>
-      <button id ="start-record">(X)Start Recording</button>
-      <button id ="stop-record">(X)Stop Recording</button>
-      <div>
+    <fieldset>
+      Sacado de: https://github.com/drnoir/soundTrigger/blob/main/record.js
+      <!-- https://github.com/drnoir/soundTrigger/blob/main/record.js -->
+      <section class="container">
+        <h3>Record</h3>
+        <button id="start-record">(X)Start Recording</button>
+        <button id="stop-record">(X)Stop Recording</button>
+        <div>
           <h3>Playback</h3>
-      <audio id="audio-playback" controls></audio>
-  </div>
-  </section> 
-     <br>    <br>    <br>    <br>    <br>
-
-
-
+          <audio id="audio-playback" controls></audio>
+        </div>
+        <br>
+        <button id="consoleClear" onclick="consoleClear()"> consoleClear </button>
+        <button id="dispos3" onclick="dispos3()"> dispos3 </button>
+        <button id="creates_an_FX_Node" onclick="creates_an_FX_Node()"> disposed </button>
+        
+      </section>
+    </fieldset>
+    <br> <br>
+ <!--
     <input id="files" type="file" accept="audio/mpeg, audio/vorbis">
     <br>
-   <!-- <audio id="audio_tag_test_load_user_files" src="" controls></audio> -->
+  -->
+    <!-- <audio id="audio_tag_test_load_user_files" src="" controls></audio> 
     <br>
-    <button id="consoleClear" onclick="consoleClear()"> consoleClear </button>
+    -->
+     <!--
+    
     <button id="playsTestSynth" onclick="playsTestSynth()"> playsTestSynth </button>
-    <button id="creates_an_FX_Node" onclick="creates_an_FX_Node()"> creates an FX Node </button>
+    
     <button id="changes_an_FX_Node" onclick="changes_an_FX_Node()"> changes an FX Node </button>
     <h1>Step 6 Player + Vol + Pan + Recorder + EQ + FX</h1>
 
     <button id="recButton" onclick="rec()">Rec </button>
     <button id="pauseButton" onclick="">Pause </button>
     <button id="recStopButton" onclick="recStop()">Stop </button>
-
+  -->
     <label for="song">Song</label>
     <select name="song" id="song">
       <option name="01" id="01" value="1">01 Dark Ringy Short Loop</option>
@@ -250,13 +260,13 @@
   <!-- ACA INICIA EL PLAYER 1 -->
   <div class="column">
     <h2>1</h2>
-    
-      RMS <p id="player_1_rms_value"> </p>
-      <br>
-      <p id="player_1_songName"> </p>
-      <p id="player_1_duration_text"> </p>
-      <p id="player_1_duration_value"> </p>
-    
+
+    RMS <p id="player_1_rms_value"> </p>
+    <br>
+    <p id="player_1_songName"> </p>
+    <p id="player_1_duration_text"> </p>
+    <p id="player_1_duration_value"> </p>
+
     <div>
 
       <button type="button" class="collapsible">
@@ -337,7 +347,7 @@
       <button id="player_1_filter_eq_bypass_Button" value="bypass" onclick="test1(value)">Bypass </button>
       <button id="player_1_filter_eq_On_Button" value="on" onclick="test1(value)">On </button>
       <button id="player_1_filter_eq_tascam_Button" value="tascam_424" onclick="test1(value)">Tascam </button>
-      
+
       <select name="filter_1" id="player_1_filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
         <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
@@ -351,7 +361,7 @@
       </select>
       <br>
       <div id="player_1_allpass_controls_div">
-<br>
+        <br>
         <fieldset>
           <p id="player_1_filter_frequency_text_allpass">Frequency </p>
           <input type='range' min=20 max=20000 step='1' value="20" id='player_1_filter_frequency_allpass'>
@@ -524,15 +534,15 @@
     <button type="button" class="collapsible">
       FX Send
     </button>
-     <div class="content">
+    <div class="content">
       <br>
       <fieldset>
-     
+
         <p id="player_1_fxSend_1_text"> 1 </p>
-       <br>
+        <br>
         <button id="player_1_fxSend_1_On_Off_Button" onclick="player_1_fxSend_1_On_Off_Button_foo()">Mute
         </button>
-       
+
         <button id="player_1_fxSend_1_pre_EQ_Button" name="player_1_fxSend_1"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
         </button>
@@ -1161,8 +1171,8 @@
         <button id="fx_1_fxSend_1_On_Off_Button" onclick="fx_1_fxSend_1_On_Off_Button_foo()">Mute
         </button>
         </p>
-        <button id="fx_1_fxSend_1_pre_EQ_Button" name="fx_1_fxSend_1"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
+        <button id="fx_1_fxSend_1_pre_EQ_Button" name="fx_1_fxSend_1" onclick="player_x_fxSend_x_state_foo(name, value)"
+          value="PreEQ">Pre EQ
         </button>
         <button id="fx_1_fxSend_1_post_EQ_Button" name="fx_1_fxSend_1"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
@@ -1180,8 +1190,8 @@
           <button id="player1_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">On </button>
         </h2>
         </p>
-        <button id="fx_1_fxSend_2_pre_EQ_Button" name="fx_1_fxSend_2"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
+        <button id="fx_1_fxSend_2_pre_EQ_Button" name="fx_1_fxSend_2" onclick="player_x_fxSend_x_state_foo(name, value)"
+          value="PreEQ">Pre EQ
         </button>
         <button id="fx_1_fxSend_2_post_EQ_Button" name="fx_1_fxSend_2"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
@@ -1198,8 +1208,8 @@
         <h2>3 FeedBack Delay <button id="player1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
         </h2>
         </p>
-        <button id="fx_1_fxSend_3_pre_EQ_Button" name="fx_1_fxSend_3"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
+        <button id="fx_1_fxSend_3_pre_EQ_Button" name="fx_1_fxSend_3" onclick="player_x_fxSend_x_state_foo(name, value)"
+          value="PreEQ">Pre EQ
         </button>
         <button id="fx_1_fxSend_3_post_EQ_Button" name="fx_1_fxSend_3"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
@@ -1215,8 +1225,8 @@
         </h2>
         <button id="fx_1_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">On </button>
         <br>
-        <button id="fx_1_fxSend_4_pre_EQ_Button" name="fx_1_fxSend_4"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
+        <button id="fx_1_fxSend_4_pre_EQ_Button" name="fx_1_fxSend_4" onclick="player_x_fxSend_x_state_foo(name, value)"
+          value="PreEQ">Pre EQ
         </button>
         <button id="fx_1_fxSend_4_post_EQ_Button" name="fx_1_fxSend_4"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
@@ -1366,10 +1376,10 @@
       Fx Send
     </button>
     <div class="content">
-      <p id="fx_2_fxSend_1_text">  </p>
-      <p id="fx_2_fxSend_2_text">  </p>
-      <p id="fx_2_fxSend_3_text">  </p>
-      <p id="fx_2_fxSend_4_text">  </p>
+      <p id="fx_2_fxSend_1_text"> </p>
+      <p id="fx_2_fxSend_2_text"> </p>
+      <p id="fx_2_fxSend_3_text"> </p>
+      <p id="fx_2_fxSend_4_text"> </p>
     </div>
 
   </div>
@@ -1404,10 +1414,10 @@
       Fx Send
     </button>
     <div class="content">
-      <p id="fx_3_fxSend_1_text">  </p>
-      <p id="fx_3_fxSend_2_text">  </p>
-      <p id="fx_3_fxSend_3_text">  </p>
-      <p id="fx_3_fxSend_4_text">  </p>
+      <p id="fx_3_fxSend_1_text"> </p>
+      <p id="fx_3_fxSend_2_text"> </p>
+      <p id="fx_3_fxSend_3_text"> </p>
+      <p id="fx_3_fxSend_4_text"> </p>
     </div>
   </div>
   <!-- FX 4-->
@@ -1595,7 +1605,7 @@ type: ToneOscillatorType;
         <br>
       </fieldset>
     </div>
-<!--
+    <!--
     <div id="fx_4_chorus_div">
       <br>
       <fieldset>
@@ -1633,7 +1643,7 @@ type: ToneOscillatorType;
       </fieldset>
     </div>
 -->
-    
+
     <div id="fx_4_distortion_div">
       <br>
       <fieldset>
@@ -1829,7 +1839,7 @@ type: ToneOscillatorType;
         <br>
       </fieldset>
     </div>
-    
+
     <!--ESTO VA EN OTRO LADO-->
     <div id="gate_div">
       Gate <br>
@@ -1837,7 +1847,7 @@ type: ToneOscillatorType;
         <p id="gate_threshold_text"> Threshold </p>
         <input type='range' min=-100 max=12 step='1' value="0" id='gate_threshold'>
         <p id="gate_threshold_value"></p>
-<br>
+        <br>
         <p id="gate_smoothing_text"> </p>
         Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='gate_smoothing'>
         <p id="gate_smoothing_value"></p>
@@ -1852,7 +1862,7 @@ type: ToneOscillatorType;
         <p id="limiter_threshold_text"> Threshold </p>
         <input type='range' min=-100 max=12 step='1' value="0" id='limiter_threshold'>
         <p id="limiter_threshold_value"></p>
-     <br>
+        <br>
         <p id="limiter_smoothing_text"> </p>
         Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='limiter_smoothing'>
         <p id="limiter_smoothing_value"></p>
@@ -2165,65 +2175,6 @@ type: ToneOscillatorType;
 
   </div>
 
-
-
-
-  <!--
-  LO QUE HAY QUE AGREGAR    
--------SOURCE---------
-AMOscillator
-FMOscillator
-FatOscillator
-LFO
-OmniOscillator
-Oscillator
-PWMOscillator
-Player
-PulseOscillator
-ToneBufferSource
-ToneOscillatorNode
-UserMedia
-------INSTRUMENT-------
-AMSynth
-DuoSynth
-FMSynth
-MembraneSynth
-MetalSynth
-MonoSynth
-NoiseSynth
-PluckSynth
-PolySynth
-Synth
-
-----COMPONENT------
-AmplitudeEnvelope
-Convolver
-DCMeter
-Envelope
-FeedbackCombFilter
-LowpassCombFilter
-Filter
-Follower
-FrequencyEnvelope
-LFO
-Merge
-Meter
-MidSideCompressor
-MidSideMerge
-MidSideSplit
-MultibandCompressor
-MultibandSplit
-OnePoleFilter
-Recorder
-Solo
-Split
-Waveform
-
-----SIGNAL------
-AudioToGain
-GainToAudio
--->
-
   <div>
     <p id="fx_4_volume_text"> </p>
     Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx_4_volume'>
@@ -2267,6 +2218,6 @@ GainToAudio
 <!--
 <script src="js/app.js"></script>
 -->
-<script src="js/recorder1.js"></script>
+<script src="js/record1.js"></script>
 
 </html>
