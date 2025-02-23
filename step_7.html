@@ -104,6 +104,8 @@
 <body>
   <header>
 
+    Today years old
+    <br>
     <fieldset>
       Sacado de: https://github.com/drnoir/soundTrigger/blob/main/record.js
       <!-- https://github.com/drnoir/soundTrigger/blob/main/record.js -->
@@ -119,18 +121,18 @@
         <button id="consoleClear" onclick="consoleClear()"> consoleClear </button>
         <button id="dispos3" onclick="dispos3()"> dispos3 </button>
         <button id="creates_an_FX_Node" onclick="creates_an_FX_Node()"> disposed </button>
-        
+
       </section>
     </fieldset>
     <br> <br>
- <!--
+    <!--
     <input id="files" type="file" accept="audio/mpeg, audio/vorbis">
     <br>
   -->
     <!-- <audio id="audio_tag_test_load_user_files" src="" controls></audio> 
     <br>
     -->
-     <!--
+    <!--
     
     <button id="playsTestSynth" onclick="playsTestSynth()"> playsTestSynth </button>
     
@@ -268,7 +270,6 @@
     <p id="player_1_duration_value"> </p>
 
     <div>
-
       <button type="button" class="collapsible">
         Player controls
       </button>
@@ -301,7 +302,6 @@
         </fieldset>
         <br>
       </div>
-
     </div>
     <button type="button" class="collapsible">
       Loop options
@@ -343,7 +343,7 @@
     </button>
     <div class="content">
       <br>
-      <label for="filter_1_label"> </label>
+      <label for="player_1_filter_1_select" name="player_1_filter_1_select"> </label>
       <button id="player_1_filter_eq_bypass_Button" value="bypass" onclick="test1(value)">Bypass </button>
       <button id="player_1_filter_eq_On_Button" value="on" onclick="test1(value)">On </button>
       <button id="player_1_filter_eq_tascam_Button" value="tascam_424" onclick="test1(value)">Tascam </button>
@@ -623,6 +623,8 @@
     <p id="player_2_duration_text"> </p>
     <p id="player_2_duration_value"> </p>
 
+
+    
     <div>
       <button id="player_2_playButton" value="2" onclick="play(value)">Play </button>
       <button id="player_2_stopButton" value="2" onclick="stop(value)">Stop </button>
@@ -684,8 +686,8 @@
       EQ
     </button>
     <div class="content">
-      <label for="player_2_EQ3_label">
-        <p id="player_2_EQ3_low_frequency_fader_text">Low Freq </p>
+      <label for="player_2_EQ3_low_frequency_fader" name="player_2_EQ3_low_frequency_fader>
+        <p id=" player_2_EQ3_low_frequency_fader_text">Low Freq </p>
         <input type='range' min=20 max=1000 step='10' value="100" id='player_2_EQ3_low_frequency_fader'>
         <p id="player_2_EQ3_low_frequency_fader_value"></p>
         <br>
@@ -940,7 +942,7 @@
       <p id="fx1_pan_value"></p>
     </div>
     <br>
-    <label for="fx_1_select_label"></label>
+    <label for="fx_1_select" name="fx_1_select"></label>
     <select name="fx_1_select_" id="fx_1_select">
       <option name="AutoFilter" id="AutoFilter" value="AutoFilter">AutoFilter</option>
       <option name="AutoPanner" id="AutoPanner" value="AutoPanner">AutoPanner</option>
@@ -964,6 +966,7 @@
     <br> <br>
 
     <section class="sound-clips_1" id="fx_1_clip">
+      <article id="article_1"> </article>
     </section>
 
     <br>
@@ -972,9 +975,9 @@
     </button>
     <div class="content">
       <br>
-      <label for="fx_1_filter_label"> </label>
+      <label for="filter_fx_1_select"> </label>
       <button id="fx_1_filter_eq_On_Off_Button" onclick="fx_1_filter_eq_On_Off()">On </button>
-      <select name="filter_1" id="filter_1_select">
+      <select name="filter_1" id="filter_fx_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
         <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
         <option name="highpass" id="highpass" value="highpass">highpass</option>
@@ -1332,12 +1335,10 @@
       <input type='range' min=-40 max=12 step=1 value="-40" id='fx_1_fxSend_3'>
       <p id="fx_1_fxSend_3_value"></p>
       <br>
-
       
       <p id="fx_1_fxSend_4_text"> 4 </p>
         <button id="fx_1_fxSend_4_On_Off_Button" onclick="fx1_fxSend_4_OnOff()">On </button>
-      
-      
+           
       Send
       <input type='range' min=-40 max=12 step=1 value="-40" id='fx_1_fxSend_4'>
       <p id="fx_1_fxSend_4_value"></p>
@@ -1425,7 +1426,18 @@
     <h2>FX 4</h2>
     rms: <p id="fx_1_rms_value"> </p>
     <br>
-    <label for="fx_4_select_label"></label>
+  
+    <br>
+ 
+    <p id="fx_4_volume_text"> </p>
+    Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx_4_volume'>
+    <p id="fx_4_volume_value"></p>
+    <br>
+    <p id="pan_fx_4_text">Pan</p>
+    <input type='range' min=-1 max=1 step='0.02' value=0 id='fx_4_pan_fader'>
+    <p id="fx_4_pan_value"></p>
+    <br> <br>
+    <label for="fx_4_select"></label>
     <select name="fx_4_select_" id="fx_4_select">
       <option name="AutoFilter" id="AutoFilter" value="AutoFilter">AutoFilter</option>
       <option name="AutoPanner" id="AutoPanner" value="AutoPanner">AutoPanner</option>
@@ -1446,744 +1458,7 @@
       <option name="Tremolo" id="Tremolo" value="Tremolo">Tremolo</option>
       <option name="Vibrato" id="Vibrato" value="Vibrato">Vibrato</option>
     </select>
-    <br>
-
-    <div id="fx_4_autofilter_div">
-      <!-- SE PUEDE ACCEDER A LAS PROPIEDADES DEL OSCILLATOR QUE ELIJAS 
-type: ToneOscillatorType;
-    filter: Omit<FilterOptions, "gain" | "frequency" | "detune" | (keyof SourceOptions)>;
-
-    Tone.AutoFilter.defaults = {
-	"frequency" : 1,
-	"type" : "sine",
-	"depth" : 1,
-	"baseFrequency" : 200,
-	"octaves" : 2.6,
-	"filter" : {
-		"type" : "lowpass",
-		"rolloff" : -12,
-		"Q" : 1,
-	}
-}; 
-
--->
-      <br>
-      <fieldset>
-        <p id="fx_4_autofilter_baseFrequency_text">baseFrequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autofilter_baseFrequency'>
-        <p id="fx_4_autofilter_baseFrequency_value"></p>
-        <br>
-        <p id="fx_4_autofilter_depth_text"> </p>
-        Depth<input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_autofilter_depth'>
-        <p id="fx_4_autofilter_depth_value"></p>
-        <br>
-        <p id="fx_4_autofilter_frequency_text">Frequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autofilter_frequency'>
-        <p id="fx_4_autofilter_frequency_value"></p>
-        <br>
-        <p id="fx_4_autofilter_octaves_text">Octaves </p>
-        <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autofilter_octaves'>
-        <p id="fx_4_autofilter_octaves_value"></p>
-        <br> <br>
-        <label for="fx_4_autofilter_select__type"></label>
-        type:
-        <select name="fx_4_autofilter_select_typ" id="fx_4_autofilter_select_type">
-          <option name="sine" id="sine" value="sine">sine</option>
-          <option name="square" id="square" value="square">square</option>
-          <option name="triangle" id="triangle" value="triangle">triangle</option>
-          <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-        </select>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_autoPanner_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_autoPanner_frequency_text">Frequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autoPanner_frequency'>
-        <p id="fx_4_autoPanner_frequency_value"></p>
-        <br>
-        <p id="fx_4_autoPanner_depth_text"> </p>
-        Depth<input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_autoPanner_depth'>
-        <p id="fx_4_autoPanner_depth_value"></p>
-        <br> <br>
-        <label for="fx_4_autoPanner_select__type"></label>
-        type:
-        <select name="fx_4_autoPanner_select_typ" id="fx_4_autoPanner_select_type">
-          <option name="sine" id="sine" value="sine">sine</option>
-          <option name="square" id="square" value="square">square</option>
-          <option name="triangle" id="triangle" value="triangle">triangle</option>
-          <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-        </select>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_autoWah_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_autoWah_baseFrequency_text">baseFrequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autoWah_baseFrequency'>
-        <p id="fx_4_autoWah_baseFrequency_value"></p>
-        <br>
-        <p id="fx_4_autoWah_octaves_text">Octaves </p>
-        <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autoWah_octaves'>
-        <p id="fx_4_autoWah_octaves_value"></p>
-        <br>
-        <p id="fx_4_autoWah_sensitivity_text">Sensitivity </p>
-        <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autoWah_sensitivity'>
-        <p id="fx_4_autoWah_sensitivity_value"></p>
-        <br>
-        <p id="fx_4_autoWah_Q_text">Q </p>
-        <input type='range' min=0 max=100 step='1' value="0" id='fx_4_autoWah_Q'>
-        <p id="fx_4_autoWah_Q_value"></p>
-        <br>
-        <p id="fx_4_autoWah_gain_text"> gain</p>
-        <input type='range' min=-100 max=100 step='1' value="0" id='fx_4_autoWah_gain'>
-        <p id="fx_4_autoWah_gain_value"></p>
-        <br>
-        <!--
-      <p id="fx_4_autoWah_follower_attack_text"> fol Attack</p>
-      <input type='range' min=0 max=20 step='0.001' value="1" id='fx_4_autoWah_follower_attack'>
-      <p id="fx_4_autoWah_follower_attack_value"></p>
-      <br>
-      <p id="fx_4_autoWah_follower_release_text"> fol Release</p>
-      <input type='range' min=1 max=20 step='1' value="1" id='fx_4_autoWah_follower_release'>
-      <p id="fx_4_autoWah_follower_release_value"></p>
-      <br>
-      -->
-
-      </fieldset>
-    </div>
-
-    <div id="fx_4_bitCrusher_div">
-      <br>
-      <fieldset>
-        <!--
-      <p id="fx_4_autoWah_baseFrequency_text">baseFrequency </p>
-      <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autoWah_baseFrequency'>
-      <p id="fx_4_autoWah_baseFrequency_value"></p>
-      <br>
-      <p id="fx_4_autoWah_octaves_text">Octaves </p>
-      <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autoWah_octaves'>
-      <p id="fx_4_autoWah_octaves_value"></p>
-      <br>
-      <p id="fx_4_autoWah_sensitivity_text">Sensitivity </p>
-      <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autoWah_sensitivity'>
-      <p id="fx_4_autoWah_sensitivity_value"></p>
-      <br>
-      <p id="fx_4_autoWah_Q_text">Q </p>
-      <input type='range' min=0 max=100 step='1' value="0" id='fx_4_autoWah_Q'>
-      <p id="fx_4_autoWah_Q_value"></p>
-      <br>
-      <p id="fx_4_autoWah_gain_text"> gain</p>
-      <input type='range' min=-100 max=100 step='1' value="0" id='fx_4_autoWah_gain'>
-      <p id="fx_4_autoWah_gain_value"></p>
-      <br>
-
-      -->
-
-      </fieldset>
-      <br>
-    </div>
-
-    <div id="fx_4_Chebyshev_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_Chebyshev_order_text"> Order</p>
-        <input type='range' min=1 max=20 step='1' value="1" id='fx_4_Chebyshev_order'>
-        <p id="fx_4_Chebyshev_order_value"></p>
-        <br>
-        <label for="fx_4_distortion_select_type"></label>
-        Oversample:
-        <select name="fx_4_Chebyshev_select" id="fx_4_Chebyshev_select_type">
-          <option name="none" id="none" value="none">none</option>
-          <option name="2x" id="2x" value="2x">2x</option>
-          <option name="4x" id="4x" value="4x">4x</option>
-        </select>
-        <br>
-      </fieldset>
-    </div>
-    <!--
-    <div id="fx_4_chorus_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_chorus_freq_text"> Chorus</p>
-        <br>
-        Freq<input type='range' min=0 max=20 step='0.01' value="0" id='fx_4_chorus_freq'>
-        <p id="fx_4_chorus_freq_value"></p>
-        <br>
-        <p id="fx_4_chorus_delayTime_text"> </p>
-        Dly Time<input type='range' min=0 max=3500 step='1' value="0" id='fx_4_chorus_delayTime'>
-        <p id="fx_4_chorus_delayTime_value"></p>
-        <br>
-        <p id="fx_4_chorus_depth_text"> </p>
-        Depth<input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_chorus_depth'>
-        <p id="fx_4_chorus_depth_value"></p>
-        <br>
-        <p id="fx_4_chorus_spread_text"> </p>
-        Degrees<input type='range' min=0 max=360 step='1' value="0" id='fx_4_chorus_spread'>
-        <p id="fx_4_chorus_spread_value"></p>
-        <br> <br>
-
-        <label for="fx_4_chorus_select_type"></label>
-        type:
-        <select name="fx_4_chorus_select_type" id="fx_4_chorus_select_type">
-          <option name="sine" id="sine" value="sine">sine</option>
-          <option name="square" id="square" value="square">square</option>
-          <option name="triangle" id="triangle" value="triangle">triangle</option>
-          <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-        </select>
-        <br>
-        <p id="fx_4_chorus_feedback_text"> </p>
-        Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_chorus_feedback'>
-        <p id="fx_4_chorus_feedback_value"></p>
-        <br>
-      </fieldset>
-    </div>
--->
-
-    <div id="fx_4_distortion_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_distortion_text">Amount </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_distortion'>
-        <p id="fx_4_distortion_value"></p>
-        <br>
-        <p id="fx_4_distortion_input_text">Input </p>
-        <input type='range' min=0 max=3500 step='1' value="0" id='fx_4_distortion_input'>
-        <p id="fx_4_distortion_input_value"></p>
-        <br>
-        <p id="fx_4_distortion_output_text">Output </p>
-        <input type='range' min=0 max=3500 step='1' value="0" id='fx_4_distortion_output'>
-        <p id="fx_4_distortion_output_value"></p>
-        <br>
-        <label for="fx_4_distortion_select_type"></label>
-        Oversample:
-        <select name="fx_4_distortion_select" id="fx_4_distortion_select_type">
-          <option name="none" id="none" value="none">none</option>
-          <option name="2x" id="2x" value="2x">2x</option>
-          <option name="4x" id="4x" value="4x">4x</option>
-        </select>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_feedback_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_feedback_text">Feedback </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_feedback'>
-        <p id="fx_4_feedback_value"></p>
-        <br>
-        <p id="fx_4_feedback_delayTime_text"> DelayTime </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_feedback_delayTime'>
-        <p id="fx_4_feedback_delayTime_value"></p>
-        <br>
-        <p id="fx_4_feedback_maxDelay_text"> MaxDelay </p>
-        <input type='range' min=0 max=100 step='1' value="0" id='fx_4_feedback_maxDelay'>
-        <p id="fx_4_feedback_maxDelay_value"></p>
-        <br>
-        <p id="fx_4_feedback_input_text">Input </p>
-        <input type='range' min=0 max=3500 step='1' value="0" id='fx_4_feedback_input'>
-        <p id="fx_4_feedback_input_value"></p>
-        <br>
-        <p id="fx_4_feedback_output_text">Output </p>
-        <input type='range' min=0 max=3500 step='1' value="0" id='fx_4_feedback_output'>
-        <p id="fx_4_feedback_output_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_freeVerb_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_freeVerb_dampening_text">Dampening </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_freeVerb_dampening'>
-        <p id="fx_4_freeVerb_dampening_value"></p>
-        <br>
-        <p id="fx_4_freeVerb_roomSize_text"> roomSize </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_freeVerb_roomSize'>
-        <p id="fx_4_freeVerb_roomSize_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_frequencyShifter_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_frequencyShifter_text">Frequency </p>
-        <input type='range' min=0 max=20000 step='10' value="0" id='fx_4_frequencyShifter'>
-        <p id="fx_4_frequencyShifter_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_JCReverb_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_JCReverb_text">Frequency </p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_JCReverb'>
-        <p id="fx_4_JCReverb_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_phaser_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_phaser_frequency_text">Frequency </p>
-        <input type='range' min=20 max=20000 step='10' value="0" id='fx_4_phaser_frequency'>
-        <p id="fx_4_phaser_frequency_value"></p>
-        <br>
-        <p id="fx_4_phaser_octaves_text">Octaves </p>
-        <input type='range' min=0 max=12 step='1' value="0" id='fx_4_phaser_octaves'>
-        <p id="fx_4_phaser_octaves_value"></p>
-        <br>
-        <p id="fx_4_phaser_stages_text">Stages </p>
-        <input type='range' min=0 max=12000 step='1' value="0" id='fx_4_phaser_stages'>
-        <p id="fx_4_phaser_stages_value"></p>
-        <br>
-        <p id="fx_4_phaser_Q_text">Q </p>
-        <input type='range' min=0 max=100 step='1' value="0" id='fx_4_phaser_Q'>
-        <p id="fx_4_phaser_Q_value"></p>
-        <br>
-        <p id="fx_4_phaser_baseFrequency_text">baseFrequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_phaser_baseFrequency'>
-        <p id="fx_4_phaser_baseFrequency_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_pingpong_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_pingpong_feedback_text"> </p>
-        Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_pingpong_feedback'>
-        <p id="fx_4_pingpong_feedback_value"></p>
-        <br>
-
-        <p id="fx_4_pingpong_delayTime_text"> </p>
-        Dly Time<input type='range' min=0 max=3500 step='1' value="0" id='fx_4_pingpong_delayTime'>
-        <p id="fx_4_pingpong_delayTime_value"></p>
-        <br>
-
-        <p id="fx_4_pingpong_maxDelay_text"> </p>
-        Max Dly<input type='range' min=0 max=35000 step='1' value="0" id='fx_4_pingpong_maxDelay'>
-        <p id="fx_4_pingpong_maxDelay_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_pitchshift_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_pitchshift_feedback_text"> </p>
-        Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_pitchshift_feedback'>
-        <p id="fx_4_pitchshift_feedback_value"></p>
-        <br>
-        <p id="fx_4_pitchshift_delayTime_text"> </p>
-        Dly Time<input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_pitchshift_delayTime'>
-        <p id="fx_4_pitchshift_delayTime_value"></p>
-        <br>
-        <p id="fx_4_pitchshift_pitch_text"> </p>
-        Pitch<input type='range' min=-100 max=131 step='1' value="0" id='fx_4_pitchshift_pitch'>
-        <p id="fx_4_pitchshift_pitch_value"></p>
-        <br>
-        <p id="fx_4_pitchshift_windowSize_text"> </p>
-        Window secs<input type='range' min=0 max=30 step='0.1' value="0" id='fx_4_pitchshift_windowSize'>
-        <p id="fx_4_pitchshift_windowSize_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_reverb_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_reverb_preDelay_text"> </p>
-        pre Delay<input type='range' min=0 max=300 step='0.1' value="0" id='fx_4_reverb_preDelay'>
-        <p id="fx_4_reverb_preDelay_value"></p>
-        <br>
-        <p id="fx_4_reverb_decay_text"> </p>
-        Dly Time<input type='range' min=0 max=100 step='0.1' value="0" id='fx_4_reverb_decay'>
-        <p id="fx_4_reverb_decay_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_StereoWidener_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_StereoWidener_width_text"> Width</p>
-        <input type='range' min=0 max=300 step='0.1' value="0" id='fx_4_StereoWidener_width'>
-        <p id="fx_4_StereoWidener_width_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <div id="fx_4_vibrato_div">
-      <br>
-      <fieldset>
-        <p id="fx_4_vibrato_frequency_text"> frequency</p>
-        <input type='range' min=20 max=20000 step='100' value="0" id='fx_4_vibrato_frequency'>
-        <p id="fx_4_vibrato_frequency_value"></p>
-        <br>
-        <p id="fx_4_vibrato_depth_text"> depth</p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_vibrato_depth'>
-        <p id="fx_4_vibrato_depth_value"></p>
-        <br>
-        <p id="fx_4_vibrato_maxDelay_text"> Max Dly</p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_vibrato_maxDelay'>
-        <p id="fx_4_vibrato_maxDelay_value"></p>
-        <br>
-      </fieldset>
-    </div>
-
-    <!--ESTO VA EN OTRO LADO-->
-    <div id="gate_div">
-      Gate <br>
-      <fieldset>
-        <p id="gate_threshold_text"> Threshold </p>
-        <input type='range' min=-100 max=12 step='1' value="0" id='gate_threshold'>
-        <p id="gate_threshold_value"></p>
-        <br>
-        <p id="gate_smoothing_text"> </p>
-        Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='gate_smoothing'>
-        <p id="gate_smoothing_value"></p>
-      </fieldset>
-      <br>
-    </div>
-
-    <div id="limiter_div">
-      Limiter
-      <br>
-      <fieldset>
-        <p id="limiter_threshold_text"> Threshold </p>
-        <input type='range' min=-100 max=12 step='1' value="0" id='limiter_threshold'>
-        <p id="limiter_threshold_value"></p>
-        <br>
-        <p id="limiter_smoothing_text"> </p>
-        Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='limiter_smoothing'>
-        <p id="limiter_smoothing_value"></p>
-        <br>
-        Reduction: <p id="limiter_reduction_value"> </p>
-        <br> <br>
-      </fieldset>
-    </div>
-
-
-    <div id="player_div">
-      <h2>1</h2>
-      <fieldset>
-        RMS <p id="player_rms_value"> </p>
-        <br>
-      </fieldset>
-      <fieldset>
-        <p id="player_songName"> </p>
-        <p id="player_duration_text"> </p>
-        <p id="player_duration_value"> </p>
-      </fieldset>
-      <div>
-        <fieldset>
-          <button id="player_playButton" value="1" onclick="play(value)">Play </button>
-          <button id="player_stopButton" value="1" onclick="stop(value)">Stop </button>
-          <button id="player_muteButton" value="1" onclick="mute(value)">Mute </button>
-          <button id="player_soloButton" value="1" onclick="solo(value)">Solo </button>
-        </fieldset>
-      </div>
-      <fieldset>
-        <p id="player_volume_text">Vol</p>
-        <input type='range' min=-41 max=12 step='1' value="-40" id='player_volume'>
-        <p id="player_volume_value"> </p>
-        <input id="player_volume_rampTo_gain" type="number" min="-50" max="12" />
-        time: <input id="player_volume_rampTo_time" type="number" min="0" max="60" />
-        <button id="player_volume_rampTo_send_Button" value="player_volume"
-          onclick="send(value, player_volume_rampTo_gain, player_volume_rampTo_time)">Send </button>
-      </fieldset>
-      <fieldset>
-        <p id="player_pan_text">Pan
-          <input type='range' min=-1 max=1 step='0.02' value=0 id='player_pan'>
-        </p>
-        <p id="player_pan_value"></p>
-      </fieldset>
-      <fieldset>
-        <p id="player_playback_rate_text">Rate
-          <input type='range' min=0.1 max=1 step='0.01' value=1 id='player_playback_rate'>
-        </p>
-        <p id="player_playback_rate_value"></p>
-      </fieldset>
-
-      <button type="button" class="collapsible">
-        Loop options
-      </button>
-      <div class="content">
-        <input class="checkbox" type="checkbox" name="player_loop_checkbox" id="player_loop_checkbox">
-        <p id="player_loop_checkbox_text">Loop</p>
-        <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="player_autoplay_checkbox">
-        <p id="player_autoplay_text">Autoplay</p>
-        <input class="checkbox" type="checkbox" name="player_reverse_checkbox" id="player_reverse_checkbox">
-        <p id="player_reverse_text">Reverse</p>
-        </fieldset>
-        <br>
-        <p id="player_loop_start_text">Loop Start </p>
-        <input id="player_loop_start" type="number" min="0" />
-        <p id="player_loop_start_time"></p>
-        <br>
-        <p id="player_loop_end_text">Loop end</p>
-        <input id="player_loop_end" type="number" min="0" />
-        <p id="player_loop_end_time"></p>
-        <br>
-      </div>
-
-      <button type="button" class="collapsible">
-        Fade options
-      </button>
-      <div class="content">
-        <p id="player_fadeIn_text">fadeIn</p>
-        <input id="player_fadeIn" type="number" min="0" />
-        <p id="player_fadeIn_value"></p>
-        <br>
-        <p id="player_fadeOut_text">fadeOut</p>
-        <input id="player_fadeOut" type="number" min="0" />
-        <p id="player_fadeOut_value"></p>
-        <br>
-      </div>
-
-      <button type="button" class="collapsible">
-        EQ
-      </button>
-      <div class="content">
-        <br>
-        <label for="filter_1_label"> </label>
-        <button id="player_filter_eq_On_Off_Button" onclick="player_filter_eq_On_Off()">On </button>
-        <select name="filter_1" id="filter_1_select">
-          <option name="empty" id="empty" value="empty">empty</option>
-          <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
-          <option name="highpass" id="highpass" value="highpass">highpass</option>
-          <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
-          <option name="lowshelf" id="lowshelf" value="lowshelf">lowshelf</option>
-          <option name="highshelf" id="highshelf" value="highshelf">highshelf</option>
-          <option name="notch" id="notch" value="notch">notch</option>
-          <option name="allpass" id="allpass" value="allpass">allpass</option>
-          <option name="peaking" id="peaking" value="peaking">peaking</option>
-        </select>
-        <br>
-        <fieldset>
-          <div id="allpass_controls">
-            <p id="player_filter_frequency_text">Frequency </p>
-            <input type='range' min=20 max=20000 step='1' value="0" id='player_filter_frequency'>
-            <p id="player_filter_frequency_value"></p>
-            <br>
-            <p id="player_filter_Q_text">Q </p>
-            <input type='range' min=0 max=2 step=0.1 value="0" id='player_filter_Q'>
-            <p id="player_filter_Q_value"></p>
-            <br>
-            <p id="player_filter_detune_text">Detune </p>
-            <input type='range' min=0 max=10000 step='100' value="0" id='player_filter_detune'>
-            <p id="player_filter_detune_value"></p>
-            <br>
-          </div>
-        </fieldset>
-        <fieldset>
-          <div id="shelf_controls">
-            <p id="player_filter_frequency_text">Frequency </p>
-            <input type='range' min=20 max=20000 step='1' value="0" id='player_filter_frequency'>
-            <p id="player_filter_frequency_value"></p>
-            <br>
-            <p id="player_filter_gain_text">Gain </p>
-            <input type='range' min=-30 max=12 step='1' value="-30" id='player_filter_gain'>
-            <p id="player_filter_gain_value"></p>
-            <br>
-            <p id="player_filter_detune_text">Detune </p>
-            <input type='range' min=0 max=10000 step='100' value="0" id='player_filter_detune'>
-            <p id="player_filter_detune_value"></p>
-            <br>
-          </div>
-        </fieldset>
-        <fieldset>
-          <div id="peaking_controls">
-            <p id="player_filter_frequency_text">Frequency </p>
-            <input type='range' min=20 max=20000 step='1' value="0" id='player_filter_frequency'>
-            <p id="player_filter_frequency_value"></p>
-            <br>
-            <p id="player_filter_Q_text">Q </p>
-            <input type='range' min=0 max=2 step=0.1 value="0" id='player_filter_Q'>
-            <p id="player_filter_Q_value"></p>
-            <br>
-            <p id="player_filter_gain_text">Gain </p>
-            <input type='range' min=-30 max=12 step='1' value="-30" id='player_filter_gain'>
-            <p id="player_filter_gain_value"></p>
-            <br>
-            <p id="player_filter_detune_text">Detune </p>
-            <input type='range' min=0 max=10000 step='100' value="0" id='player_filter_detune'>
-            <p id="player_filter_detune_value"></p>
-            <br>
-          </div>
-        </fieldset>
-        <fieldset>
-          <div id="tascam_424_controls">
-            <p id="player_HighShelf_gain_text">Hi Shelf Gain </p>
-            <input type='range' min=-10 max=10 step='1' value="0" id='player_HighShelf_gain'>
-            <p id="player_HighShelf_gain_value"></p>
-            <br>
-
-            <p id="player_Mid_SemiParam_gain_text">Mid Gain </p>
-            <input type='range' min=-12 max=12 step='1' value="0" id='player_Mid_SemiParam_gain'>
-            <p id="player_Mid_SemiParam_gain_value"></p>
-            <br>
-
-            <p id="player_Mid_SemiParam_frequency_text">Mid Frequency </p>
-            <input type='range' min=250 max=5000 step='1' value="0" id='player_Mid_SemiParam_frequency'>
-            <p id="player_Mid_SemiParam_frequency_value"></p>
-            <br>
-
-            <p id="player_LowShelf_gain_text">Low Shelf Gain </p>
-            <input type='range' min=-10 max=10 step='1' value="0" id='player_LowShelf_gain'>
-            <p id="player_LowShelf_gain_value"></p>
-            <br>
-          </div>
-        </fieldset>
-        <br>
-      </div>
-
-      <button type="button" class="collapsible">
-        Dynamics
-      </button>
-      <fieldset>
-        <div class="content">
-          <div id="player_dynamics_compressor">
-            <button id="player_dynamics_On_Off_Button" onclick="player_dynamics_On_Off()">On </button>
-            <br>
-            <p id="player_dynamics_ratio_text">RatIo </p>
-            <input type='range' min=1 max=20 step='1' value="0" id='player_dynamics_ratio'>
-            <p id="player_dynamics_ratio_value"> 0</p>
-            <br>
-            <p id="player_dynamics_threshold_text">threshold </p>
-            <input type='range' min=-100 max=0 step='1' value="0" id='player_dynamics_threshold'>
-            <p id="player_dynamics_threshold_value"> 0</p>
-            <br>
-            <p id="player_dynamics_release_text">release </p>
-            <input type='range' min=0 max=1 step='0.01' value="0" id='player_dynamics_release'>
-            <p id="player_dynamics_release_value"> 0</p>
-            <br>
-            <p id="player_dynamics_attack_text">attack </p>
-            <input type='range' min=0 max=1 step='0.01' value="0" id='player_dynamics_attack'>
-            <p id="player_dynamics_attack_value"> 0</p>
-            <br>
-            <p id="player_dynamics_knee_text">knee </p>
-            <input type='range' min=0 max=40 step='1' value="0" id='player_dynamics_knee'>
-            <p id="player_dynamics_knee_value"> 0</p>
-            <br>
-            <p id="player_dynamics_reduction_text"> Reduction: </p>
-            <p id="player_dynamics_reduction_value"> </p>
-            <br>
-            a la salida del comp tiene que haber un volPan que tome el reduction y levante el volumen en esa cantidad
-            valor
-            <br>
-          </div>
-        </div>
-      </fieldset>
-      <button type="button" class="collapsible">
-        FX Send
-      </button>
-      <div class="content">
-
-        <p id="player1_fxSend_1_text">
-        <h2> 1 Delay <button id="player_fxSend_1_On_Off_Button" onclick="player_1_fxSend_1_On_Off_Button_foo()">On
-          </button> </h2>
-        </p>
-        <button id="player_1_fxSend_1_pre_EQ_Button" name="player_1_fxSend_1"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
-        </button>
-        <button id="player_1_fxSend_1_post_EQ_Button" name="player_1_fxSend_1"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
-        </button>
-        <button id="player_1_fxSend_1_post_fader_Button" name="player_1_fxSend_1"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
-        </button>
-        <input type='range' min=-40 max=12 step=1 value="-40" id='player_1_fxSend_1'>
-        <p id="player_1_fxSend_1_value"></p>
-        <br>
-
-        <p id="player1_fxSend_2_text">
-        <h2> 2 Reverb
-          <button id="player1_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">On </button>
-        </h2>
-        </p>
-        <button id="player_1_fxSend_2_pre_EQ_Button" name="player_1_fxSend_2"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
-        </button>
-        <button id="player_1_fxSend_2_post_EQ_Button" name="player_1_fxSend_2"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
-        </button>
-        <button id="player_1_fxSend_2_post_fader_Button" name="player_1_fxSend_2"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
-        </button>
-        <input type='range' min=-40 max=12 step=1 value="-40" id='player_1_fxSend_2'>
-        <p id="player_1_fxSend_2_value"></p>
-        <br>
-
-        <p id="player1_fxSend_3_text">
-        <h2>3 FeedBack Delay <button id="player1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
-        </h2>
-        </p>
-
-
-
-        <button id="player_1_fxSend_3_pre_EQ_Button" name="player_1_fxSend_3"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
-        </button>
-        <button id="player_1_fxSend_3_post_EQ_Button" name="player_1_fxSend_3"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
-        </button>
-        <button id="player_1_fxSend_3_post_fader_Button" name="player_1_fxSend_3"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
-        </button>
-        <input type='range' min=-40 max=12 step=1 value="-40" id='player_1_fxSend_3'>
-        <p id="player_1_fxSend_3_value"></p>
-
-        <br>
-        <p id="player1_fxSend_4_text">
-        <h2> 4 PitchShift
-          <button id="player_1_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">On </button>
-        </h2>
-        </p>
-
-
-        <button id="player_1_fxSend_4_pre_EQ_Button" name="player_1_fxSend_4"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
-        </button>
-        <button id="player_1_fxSend_4_post_EQ_Button" name="player_1_fxSend_4"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PostEQ">Post EQ
-        </button>
-        <button id="player_1_fxSend_4_post_fader_Button" name="player_1_fxSend_4"
-          onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
-        </button>
-
-        <input type='range' min=-40 max=12 step=1 value="-40" id='player_1_fxSend_4'>
-        <p id="player_1_fxSend_4_value"></p>
-
-      </div>
-
-
-    </div>
-
-
-
-
-
-  </div>
-
-  <div>
-    <p id="fx_4_volume_text"> </p>
-    Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx_4_volume'>
-    <p id="fx_4_volume_value"></p>
-    <br>
-    <p id="pan_fx_4_text">Pan</p>
-    <input type='range' min=-1 max=1 step='0.02' value=0 id='fx_4_pan_fader'>
-    <p id="fx_4_pan_value"></p>
-  </div>
+    <br> <br> <br>
 
   <button type="button" class="collapsible">
     EQ

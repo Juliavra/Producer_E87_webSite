@@ -65,6 +65,16 @@ PARA DEVOLVER A LA CANCION AL MUTE.FALSE
 //************************************************************************* */
 //ARRAY SONG DATA ADD DURATION 
 
+
+//Tone.context.createMediaElementSource(mediaElement)
+//USAR ESTO PARA CREAR UN AUDIO TAG Y CARGAR EL SRC EN UN BUFFER 
+// Y PASARLO A UN TONE PLAYER, SE PUEDE SACAR LA DURATION Y ALGUNA COSA MAS
+
+
+
+
+
+
 var cancion_1 = {
   id: 1,
   title: "01 Dark Ringy Short Loop",
@@ -1108,6 +1118,9 @@ player_1_rms_value.innerHTML = 0;
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
+
+window.addEventListener("error", mostrarerror);
+
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -2040,7 +2053,7 @@ setInterval('tuFuncion()', 200);
 function tuFuncion() {
   player_1_rms_value.innerHTML = Math.round(`${testMeter_1.getValue()}`);
   player_2_rms_value.innerHTML = Math.round(`${testMeter_2.getValue()}`);
-  player_4_rms_value.innerHTML = Math.round(`${testMeter_3.getValue()}`);
+  player_3_rms_value.innerHTML = Math.round(`${testMeter_3.getValue()}`);
   player_4_rms_value.innerHTML = Math.round(`${testMeter_4.getValue()}`);
 
   fx_1_rms_value.innerHTML = Math.round(`${testMeter_fx_1.getValue()}`);
@@ -2061,20 +2074,19 @@ filter_2_TEST.set(
 );
 
 //-----------------------------------------------------------------------
-//SINTE PARA TESTEAR EFFECTS
-const fmSynth = new Tone.FMSynth();
-fmSynth.volume.value = -20;
 //-----------------------------------------------------------------------
 //-----------------------------------------------------------------------
 //PLAYER
+/*
 const player_Node = new Tone.Player().toDestination();
 
 const player_div = document.getElementById("player_div");
 player_div.style.display = "none";
-
+*/
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
 //Autofilter
+/*
 const fx_4_AutoFilter_Node = new Tone.AutoFilter(4).toDestination();
 fx_4_AutoFilter_Node.wet = 1;
 
@@ -2124,595 +2136,7 @@ fx_4_autofilter_select_type.addEventListener("change", function (e) {
   fx_4_AutoFilter_Node.type = e.currentTarget.value;
   console.log("fx_4_AutoFilter_Node.type: " + fx_4_AutoFilter_Node.type);
 });
-
-/*
-QUE SE PUEDE HAER CON EL FILTRO???, HAY CONTROL TOTAL???
-interface AutoFilterOptions {
-    filter: Omit<FilterOptions, "gain" | "frequency" | "detune" | (keyof SourceOptions)>;
- type: ToneOscillatorType;
-}
 */
-
-//const fx_4_autofilter_div = document.getElementById("fx_4_autofilter_div");
-//fx_4_autofilter_div.style.display = "none";
-
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
-//AutoPanner
-/*
-const fx_4_AutoPanner_Node = new Tone.AutoPanner(4).toDestination();
-fx_4_AutoPanner_Node.wet = 1;
-
-const fx_4_autoPanner_frequency = document.getElementById("fx_4_autoPanner_frequency");
-const fx_4_autoPanner_frequency_value = document.getElementById("fx_4_autoPanner_frequency_value");
-
-const fx_4_autoPanner_depth = document.getElementById("fx_4_autoPanner_depth");
-const fx_4_autoPanner_depth_value = document.getElementById("fx_4_autoPanner_depth_value");
-
-const fx_4_autoPanner_select_type = document.getElementById("fx_4_autoPanner_select_type");
-const fx_4_autoPanner_select_type_value = document.getElementById("fx_4_autoPanner_select_type_value");
-
-fx_4_autoPanner_frequency.addEventListener("change", function (e) {
-  fx_4_AutoPanner_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_4_AutoPanner_Node: " + fx_4_AutoPanner_Node.frequency.value);
-  fx_4_autoPanner_frequency_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_autoPanner_depth.addEventListener("change", function (e) {
-  fx_4_AutoPanner_Node.depth.value = e.currentTarget.value;
-  console.log("fx_4_AutoPanner_Node: " + fx_4_AutoPanner_Node.depth.value);
-  fx_4_autoPanner_depth_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_autoPanner_select_type.addEventListener("change", function (e) {
-  fx_4_AutoPanner_Node.type = e.currentTarget.value;
-  console.log("fx_4_AutoPanner_Node.type: " + fx_4_AutoPanner_Node.type);
-});
-
-const fx_4_autoPanner_div = document.getElementById("fx_4_autoPanner_div");
-fx_4_autoPanner_div.style.display = "none";
-*/
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
-//AutoWah
-/*
-const fx_4_AutoWah_Node = new Tone.AutoWah(4).toDestination();
-fx_4_AutoWah_Node.wet = 1;
-
-const fx_4_autoWah_baseFrequency = document.getElementById("fx_4_autoWah_baseFrequency");
-const fx_4_autoWah_baseFrequency_value = document.getElementById("fx_4_autoWah_baseFrequency_value");
-
-const fx_4_autoWah_octaves = document.getElementById("fx_4_autoWah_octaves");
-const fx_4_autoWah_octaves_value = document.getElementById("fx_4_autoWah_octaves_value");
-
-const fx_4_autoWah_sensitivity = document.getElementById("fx_4_autoWah_sensitivity");
-const fx_4_autoWah_sensitivity_value = document.getElementById("fx_4_autoWah_sensitivity_value");
-
-const fx_4_autoWah_Q = document.getElementById("fx_4_autoWah_Q");
-const fx_4_autoWah_Q_value = document.getElementById("fx_4_autoWah_Q_value");
-
-const fx_4_autoWah_gain = document.getElementById("fx_4_autoWah_gain");
-const fx_4_autoWah_gain_value = document.getElementById("fx_4_autoWah_gain_value");
-
-const fx_4_autoWah_follower_attack = document.getElementById("fx_4_autoWah_follower_attack");
-const fx_4_autoWah_follower_attack_value = document.getElementById("fx_4_autoWah_follower_attack_value");
-
-const fx_4_autoWah_follower_release = document.getElementById("fx_4_autoWah_follower_release");
-const fx_4_autoWah_follower_release_value = document.getElementById("fx_4_autoWah_follower_release_value");
-
-fx_4_autoWah_baseFrequency.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.baseFrequency = e.currentTarget.value;
-  console.log("fx_4_AutoWah_Node. baseFrequency: " + fx_4_AutoWah_Node.baseFrequency);
-  fx_4_autoWah_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
-});
-fx_4_autoWah_octaves.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.octaves = e.currentTarget.value;
-  console.log("fx_4_autoWah_Node. octaves: " + fx_4_AutoWah_Node.octaves);
-  fx_4_autoWah_octaves_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_autoWah_sensitivity.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.sensitivity = e.currentTarget.value;
-  console.log("fx_4_autoWah_Node. sensitivity: " + fx_4_AutoWah_Node.sensitivity);
-  fx_4_autoWah_sensitivity_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_autoWah_Q.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.Q.value = e.currentTarget.value;
-  console.log("fx_4_AutoWah_Node. Q: " + fx_4_AutoWah_Node.Q.value);
-  fx_4_autoWah_Q_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_autoWah_gain.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.gain.value = e.currentTarget.value;
-  console.log("fx_4_AutoWah_Node. gain: " + fx_4_AutoWah_Node.gain.value);
-  fx_4_autoWah_gain_value.innerHTML = `${e.currentTarget.value}`;
-});
-/*
-fx_4_autoWah_follower_attack.addEventListener("change", function(e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.follower.attack = e.currentTarget.value; 
-  console.log("fx_4_AutoWah_Node.follower.attack: " + fx_4_AutoWah_Node.follower.attack);
-  fx_4_autoWah_follower_attack_value.innerHTML = `${e.currentTarget.value}`;
-});
-fx_4_autoWah_follower_release.addEventListener("change", function(e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_AutoWah_Node.follower.release = e.currentTarget.value; 
-  console.log("fx_4_AutoWah_Node.follower.release: " + fx_4_AutoWah_Node.follower.release);
-  fx_4_autoWah_follower_release_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-const fx_4_autoWah_div = document.getElementById("fx_4_autoWah_div");
-fx_4_autoWah_div.style.display = "none";
-*/
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
-//bitCrusher
-/*
-const bitCrusher = new Tone.BitCrusher(4).toDestination();
-const fx_4_bitCrusher_text = document.getElementById("fx_4_bitCrusher_text");
-const fx_4_bitCrusher = document.getElementById("fx_4_bitCrusher");
-const fx_4_bitCrusher_value = document.getElementById("fx_4_bitCrusher_value");
-
-const fx_4_bitCrusher_div = document.getElementById("fx_4_bitCrusher_div");
-fx_4_bitCrusher_div.style.display = "none";
-*/
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
-//Chebyshev
-/*
-const fx_4_Chebyshev_Node = new Tone.Chebyshev().toDestination();
-fx_4_Chebyshev_Node.wet = 1;
-
-const fx_4_Chebyshev_order = document.getElementById("fx_4_Chebyshev_order");
-const fx_4_Chebyshev_order_value = document.getElementById("fx_4_Chebyshev_order_value");
-
-const fx_4_Chebyshev_select_type = document.getElementById("fx_4_Chebyshev_select_type");
-const fx_4_Chebyshev_select_type_value = document.getElementById("fx_4_Chebyshev_select_type_value");
-
-fx_4_Chebyshev_order.addEventListener("change", function (e) {
-  fx_4_Chebyshev_Node.order = Math.round(`${e.currentTarget.value}`);
-  console.log("fx_4_Chebyshev_Node: " + fx_4_Chebyshev_Node.order);
-  fx_4_Chebyshev_order_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_Chebyshev_select_type.addEventListener("change", function (e) {
-  fx_4_Chebyshev_Node.type = e.currentTarget.value;
-  console.log("fx_4_Chebyshev_Node.type: " + e.currentTarget.value);
-});
-
-const fx_4_Chebyshev_div = document.getElementById("fx_4_Chebyshev_div");
-fx_4_Chebyshev_div.style.display = "none";
-*/
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
-//Chorus
-/*
-const fx_4_chorus_Node = new Tone.Chorus().toDestination().start();
-fx_4_chorus_Node.wet = 1;
-
-const fx_4_chorus_delayTime = document.getElementById("fx_4_chorus_delayTime");
-const fx_4_chorus_delayTime_value = document.getElementById("fx_4_chorus_delayTime_value");
-
-const fx_4_chorus_freq = document.getElementById("fx_4_chorus_freq");
-const fx_4_chorus_freq_value = document.getElementById("fx_4_chorus_freq_value");
-
-const fx_4_chorus_depth = document.getElementById("fx_4_chorus_depth");
-const fx_4_chorus_depth_value = document.getElementById("fx_4_chorus_depth_value");
-
-const fx_4_chorus_spread = document.getElementById("fx_4_chorus_spread");
-const fx_4_chorus_spread_value = document.getElementById("fx_4_chorus_spread_value");
-
-const fx_4_chorus_feedback = document.getElementById("fx_4_chorus_feedback");
-const fx_4_chorus_feedback_value = document.getElementById("fx_4_chorus_feedback_value");
-
-const fx_4_chorus_select_type = document.getElementById("fx_4_chorus_select_type");
-
-fx_4_chorus_freq.addEventListener("change", function (e) {
-  fx_4_chorus_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_4_chorus_Node: " + fx_4_chorus_Node.frequency);
-  fx_4_chorus_freq_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_chorus_delayTime.addEventListener("change", function (e) {
-  fx_4_chorus_Node.delayTime = e.currentTarget.value;
-  console.log("fx_4_chorus_Node: " + fx_4_chorus_Node.delayTime);
-  fx_4_chorus_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_chorus_depth.addEventListener("change", function (e) {
-  fx_4_chorus_Node.depth = e.currentTarget.value;
-  console.log("fx_4_chorus_Node: " + fx_4_chorus_Node.depth);
-  fx_4_chorus_depth_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_chorus_spread.addEventListener("change", function (e) {
-  fx_4_chorus_Node.spread = e.currentTarget.value;
-  console.log("fx_4_chorus_Node: " + fx_4_chorus_Node.spread);
-  fx_4_chorus_spread_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_chorus_select_type.addEventListener("change", function (e) {
-  fx_4_chorus_Node.type = e.currentTarget.value;
-  console.log("fx_4_chorus_Node.type: " + e.currentTarget.value);
-});
-
-fx_4_chorus_feedback.addEventListener("change", function (e) {
-  fx_4_chorus_Node.feedback.value = e.currentTarget.value;
-  console.log("fx_4_chorus_Node: " + fx_4_chorus_Node.feedback.value);
-  fx_4_chorus_feedback_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-const fx_4_chorus_div = document.getElementById("fx_4_chorus_div");
-fx_4_chorus_div.style.display = "none";
-*/
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
-//  DISTORTION
-/*
-const fx_4_distortion_Node = new Tone.Distortion().toDestination();
-fx_4_distortion_Node.wet = 1;
-
-const fx_4_distortion = document.getElementById("fx_4_distortion");
-const fx_4_distortion_value = document.getElementById("fx_4_distortion_value");
-
-const fx_4_distortion_input = document.getElementById("fx_4_distortion_input");
-const fx_4_distortion_input_value = document.getElementById("fx_4_distortion_input_value");
-
-const fx_4_distortion_output = document.getElementById("fx_4_distortion_output");
-const fx_4_distortion_output_value = document.getElementById("fx_4_distortion_output_value");
-
-const fx_4_distortion_select_type = document.getElementById("fx_4_distortion_select_type");
-
-fx_4_distortion_select_type.addEventListener("change", function (e) {
-  fx_4_distortion_Node.type = e.currentTarget.value;
-  console.log("fx_4_distortion_Node.type: " + e.currentTarget.value);
-});
-
-fx_4_distortion.addEventListener("change", function (e) {
-  //console.clear();
-  //console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_distortion_Node.distortion = e.currentTarget.value;
-  //console.log("fx_4_distortion_Node: " + fx_4_distortion_Node.distortion);
-  fx_4_distortion_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_distortion_input.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_distortion_Node.input = e.currentTarget.value;
-  console.log("fx_4_distortion_Node: " + fx_4_distortion_Node.input);
-  fx_4_distortion_input_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_distortion_output.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_distortion_Node.output = e.currentTarget.value;
-  console.log("fx_4_distortion_Node: " + fx_4_distortion_Node.output);
-  fx_4_distortion_output_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-const fx_4_distortion_div = document.getElementById("fx_4_distortion_div");
-fx_4_distortion_div.style.display = "none";
-*/
-
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
-//FEEDBACK DELAY
-/*
-const fx_4_feedback_Node = new Tone.FeedbackDelay().toDestination();
-fx_4_feedback_Node.wet = 1;
-
-const fx_4_feedback = document.getElementById("fx_4_feedback");
-const fx_4_feedback_value = document.getElementById("fx_4_feedback_value");
-
-const fx_4_feedback_input = document.getElementById("fx_4_feedback_input");
-const fx_4_feedback_input_value = document.getElementById("fx_4_feedback_input_value");
-
-const fx_4_feedback_output = document.getElementById("fx_4_feedback_output");
-const fx_4_feedback_output_value = document.getElementById("fx_4_feedback_output_value");
-
-const fx_4_feedback_delayTime = document.getElementById("fx_4_feedback_delayTime");
-const fx_4_feedback_delayTime_value = document.getElementById("fx_4_feedback_delayTime_value");
-
-const fx_4_feedback_maxDelay = document.getElementById("fx_4_feedback_maxDelay");
-const fx_4_feedback_maxDelay_value = document.getElementById("fx_4_feedback_maxDelay_value");
-
-fx_4_feedback.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_feedback_Node.feedback.value = e.currentTarget.value;
-  console.log("fx_4_feedback_Node: " + fx_4_feedback_Node.feedback.value);
-  fx_4_feedback_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_feedback_delayTime.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_feedback_Node.delayTime.value = e.currentTarget.value;
-  console.log("fx_4_feedback_Node: " + fx_4_feedback_Node.delayTime.value);
-  fx_4_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_feedback_maxDelay.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_feedback_Node.maxDelay = e.currentTarget.value;
-  console.log("fx_4_feedback_Node: " + fx_4_feedback_Node.maxDelay);
-  fx_4_feedback_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_feedback_input.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_feedback_Node.input = e.currentTarget.value;
-  console.log("fx_4_feedback_Node: " + fx_4_feedback_Node.input);
-  fx_4_feedback_input_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_feedback_output.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_feedback_Node.output = e.currentTarget.value;
-  console.log("fx_4_feedback_Node: " + fx_4_feedback_Node.output);
-  fx_4_feedback_output_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-const fx_4_feedback_div = document.getElementById("fx_4_feedback_div");
-fx_4_feedback_div.style.display = "none";
-*/
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
-//FreeVerb
-/*
-const fx_4_freeVerb_Node = new Tone.Freeverb().toDestination();
-fx_4_freeVerb_Node.wet = 1;
-
-const fx_4_freeVerb_dampening = document.getElementById("fx_4_freeVerb_dampening");
-const fx_4_freeVerb_dampening_value = document.getElementById("fx_4_freeVerb_dampening_value");
-
-const fx_4_freeVerb_roomSize = document.getElementById("fx_4_freeVerb_roomSize");
-const fx_4_freeVerb_roomSize_value = document.getElementById("fx_4_freeVerb_roomSize_value");
-
-fx_4_freeVerb_dampening.addEventListener("change", function(e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_freeVerb_Node.dampening = e.currentTarget.value; 
-  console.log("fx_4_dampening_Node: " + fx_4_freeVerb_Node.dampening);
-  fx_4_freeVerb_dampening_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_freeVerb_roomSize.addEventListener("change", function(e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_freeVerb_Node.roomSize.value = e.currentTarget.value; 
-  console.log("fx_4_roomSize_Node: " + fx_4_freeVerb_Node.roomSize.value);
-  fx_4_freeVerb_roomSize_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-const freeVerb_div = document.getElementById("freeVerb_div");
-//freeVerb_div.style.display = "block";
-
-/**/
-//fx_4_freeVerb_div.style.display = "none";
-//--------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------
-// frequencyShifter
-/*
-const fx_4_FrequencyShifter_Node = new Tone.FrequencyShifter().toDestination();
-fx_4_FrequencyShifter_Node.wet = 1;
-
-const fx_4_frequencyShifter = document.getElementById("fx_4_frequencyShifter");
-const fx_4_frequencyShifter_value = document.getElementById("fx_4_frequencyShifter_value");
-
-fx_4_frequencyShifter.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_FrequencyShifter_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_4_dampening_Node: " + fx_4_FrequencyShifter_Node.frequency.value);
-  fx_4_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-//const fx_4_frequencyShifter_div = document.getElementById("fx_4_frequencyShifter_div");
-//fx_4_frequencyShifter_div.style.display = "none";
-
-
-/**/
-//--------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------
-// JCReverb
-/*
-const fx_4_JCReverb_Node = new Tone.JCReverb().toDestination();
-fx_4_JCReverb_Node.wet = 1;
-
-const fx_4_JCReverb = document.getElementById("fx_4_JCReverb");
-const fx_4_JCReverb_value = document.getElementById("fx_4_JCReverb_value");
-
-fx_4_JCReverb.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_JCReverb_Node.roomSize.value = e.currentTarget.value;
-  console.log("fx_4_JCReverb_Node: " + fx_4_JCReverb_Node.roomSize);
-  fx_4_JCReverb_value.innerHTML = `${e.currentTarget.value}`;
-});
-/*
-const JCReverb_div = document.getElementById("JCReverb_div");
-/**/
-//fx_4_JCReverb_div.style.display = "none";
-
-//--------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------
-// Phaser
-/*
-const fx_4_phaser_Node = new Tone.Phaser().toDestination();
-fx_4_phaser_Node.wet = 1;
-
-const fx_4_phaser_frequency = document.getElementById("fx_4_phaser_frequency");
-const fx_4_phaser_frequency_value = document.getElementById("fx_4_phaser_frequency_value");
-
-const fx_4_phaser_octaves = document.getElementById("fx_4_phaser_octaves");
-const fx_4_phaser_octaves_value = document.getElementById("fx_4_phaser_octaves_value");
-
-const fx_4_phaser_stages = document.getElementById("fx_4_phaser_stages");
-const fx_4_phaser_stages_value = document.getElementById("fx_4_phaser_stages_value");
-
-const fx_4_phaser_Q = document.getElementById("fx_4_phaser_Q");
-const fx_4_phaser_Q_value = document.getElementById("fx_4_phaser_Q_value");
-
-const fx_4_phaser_baseFrequency = document.getElementById("fx_4_phaser_baseFrequency");
-const fx_4_phaser_baseFrequency_value = document.getElementById("fx_4_phaser_baseFrequency_value");
-
-fx_4_phaser_frequency.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_4_phaser_Node: " + fx_4_phaser_Node.frequency.value);
-  fx_4_phaser_frequency_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_phaser_stages.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.stages = e.currentTarget.value;
-  console.log("fx_4_phaser_Node. stages: " + fx_4_phaser_Node.stages);
-  fx_4_phaser_stages_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_phaser_octaves.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.octaves = e.currentTarget.value;
-  console.log("fx_4_phaser_Node. octaves: " + fx_4_phaser_Node.octaves);
-  fx_4_phaser_octaves_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_phaser_Q.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.Q = e.currentTarget.value;
-  console.log("fx_4_phaser_Node. Q: " + fx_4_phaser_Node.Q);
-  fx_4_phaser_Q_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_phaser_baseFrequency.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.baseFrequency = e.currentTarget.value;
-  console.log("fx_4_phaser_Node. baseFrequency: " + fx_4_phaser_Node.baseFrequency);
-  fx_4_phaser_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-//const fx_4_phaser_div = document.getElementById("fx_4_phaser_div");
-//fx_4_phaser_div.style.display = "none";
-
-/**/
-//phaser_div.style.display = "none";
-//-------------------------------------------------------------------------
-//-------------------------------------------------------------------------
-//PingPongDelay
-/*
-const fx_4_pingpong_Node = new Tone.PingPongDelay().toDestination();
-fx_4_pingpong_Node.wet = 1;
-
-const fx_4_pingpong_feedback = document.getElementById("fx_4_pingpong_feedback");
-const fx_4_pingpong_feedback_value = document.getElementById("fx_4_pingpong_feedback_value");
-
-const fx_4_pingpong_delayTime = document.getElementById("fx_4_pingpong_delayTime");
-const fx_4_pingpong_delayTime_value = document.getElementById("fx_4_pingpong_delayTime_value");
-
-const fx_4_pingpong_maxDelay = document.getElementById("fx_4_pingpong_maxDelay");
-const fx_4_pingpong_maxDelay_value = document.getElementById("fx_4_pingpong_maxDelay_value");
-
-fx_4_pingpong_delayTime.addEventListener("change", function (e) {
-  fx_4_pingpong_Node.delayTime.value = e.currentTarget.value;
-  console.log("fx_4_pingpong_Node: " + fx_4_pingpong_Node.delayTime.value);
-  fx_4_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_pingpong_feedback.addEventListener("change", function (e) {
-  fx_4_pingpong_Node.feedback.value = e.currentTarget.value;
-  console.log("fx_4_pingpong_Node: " + fx_4_pingpong_Node.feedback.value);
-  fx_4_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_pingpong_maxDelay.addEventListener("change", function (e) {
-  fx_4_pingpong_Node.maxDelay = e.currentTarget.value;
-  console.log("fx_4_pingpong_Node: " + fx_4_pingpong_Node.maxDelay);
-  fx_4_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-//const fx_4_pingpong_div = document.getElementById("fx_4_pingpong_div");
-//fx_4_pingpong_div.style.display = "none";
-
-/**/
-
-//-------------------------------------------------------------------------
-//-------------------------------------------------------------------------
-//-------------------------------------------------------------------------
-//Reverb
-/*
-const fx_4_reverb_Node = new Tone.Reverb().toDestination();
-fx_4_reverb_Node.wet = 1;
-fx_4_reverb_Node.generate();
-fx_4_reverb_Node.normalize = true;
-
-const fx_4_reverb_preDelay = document.getElementById("fx_4_reverb_preDelay");
-const fx_4_reverb_preDelay_value = document.getElementById("fx_4_reverb_preDelay_value");
-
-const fx_4_reverb_decay = document.getElementById("fx_4_reverb_decay");
-const fx_4_reverb_decay_value = document.getElementById("fx_4_reverb_decay_value");
-
-fx_4_reverb_preDelay.addEventListener("change", function (e) {
-  fx_4_reverb_Node.preDelay = e.currentTarget.value;
-  console.log("fx_4_reverb_Node: " + fx_4_reverb_Node.preDelay);
-  fx_4_reverb_preDelay_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_4_reverb_decay.addEventListener("change", function (e) {
-  fx_4_reverb_Node.decay = e.currentTarget.value;
-  console.log("fx_4_reverb_Node: " + fx_4_reverb_Node.decay);
-  fx_4_reverb_decay_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-//const fx_4_reverb_div = document.getElementById("fx_4_reverb_div");
-//fx_4_reverb_div.style.display = "none";
-
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//StereoWidener
-
-const fx_4_StereoWidener_Node = new Tone.StereoWidener().toDestination();
-fx_4_StereoWidener_Node.wet = 1;
-
-const fx_4_StereoWidener_width = document.getElementById("fx_4_StereoWidener_width");
-const fx_4_StereoWidener_width_value = document.getElementById("fx_4_StereoWidener_width_value");
-
-fx_4_StereoWidener_width.addEventListener("change", function (e) {
-  fx_4_StereoWidener_Node.width = e.currentTarget.value;
-  console.log("fx_4_StereoWidener_Node: " + fx_4_StereoWidener_Node.width);
-  fx_4_StereoWidener_width_value.innerHTML = `${e.currentTarget.value}`;
-});
-//The width control. 0 = 100% mid. 1 = 100% side. 0.5 = no change.
-//const fx_4_StereoWidener_div = document.getElementById("fx_4_StereoWidener_div");
-//fx_4_StereoWidener_div.style.display = "none";
-
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 // ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES TO  START
@@ -2726,13 +2150,8 @@ fx_1_tascam_424_controls.style.display = "none";
 const gate_div = document.getElementById("gate_div");
 const limiter_div = document.getElementById("limiter_div");
 
-
-gate_div.style.display = "none";
-limiter_div.style.display = "none";
-
-
-
-
+//gate_div.style.display = "none";
+//limiter_div.style.display = "none";
 //--------------------------------------------
 
 player_2_volume.addEventListener("change", function (e) {
@@ -3092,40 +2511,6 @@ fx1_pan_fader.addEventListener("change", function (e) {
   fx1_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
-/*
-fx_1_fxSend_2.addEventListener("change", function (e) {
-  if (e.currentTarget.value <= -40) {
-    fx1_fxSend_2_fader.volume.value = -100;
-    fx_1_fxSend_2_value.innerHTML = -100;
-  }
-  else {
-    fx1_fxSend_2_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-    fx_1_fxSend_2_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  }
-});
-
-fx_1_fxSend_3.addEventListener("change", function (e) {
-  if (e.currentTarget.value <= -40) {
-    fx1_fxSend_3_fader.volume.value = -100;
-    fx_1_fxSend_3_value.innerHTML = -100;
-  }
-  else {
-    fx1_fxSend_3_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-    fx_1_fxSend_3_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  }
-});
-
-fx_1_fxSend_4.addEventListener("change", function (e) {
-  if (e.currentTarget.value <= -40) {
-    fx1_fxSend_4_fader.volume.value = -100;
-    fx_1_fxSend_4_value.innerHTML = -100;
-  }
-  else {
-    fx1_fxSend_4_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
-    fx_1_fxSend_4_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  }
-});
-*/
 //------------------------------------------------------------------------------------
 fx2_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
@@ -3459,22 +2844,6 @@ function solo(value) {
     default:
       { console.log("DEFAULT function stop(value)"); break; }
   }
-}
-
-function solo1() {
-  player_1_volNode.solo = !player_1_volNode.solo; console.log("player_1_volNode.solo: " + player_1_volNode.solo);
-}
-
-function solo2() {
-  player_2_volume.solo = !player_2_volume.solo; console.log("player_2_volume.solo: " + player_2_volume.solo);
-}
-
-function solo3() {
-  player_3_volume.solo = !player_3_volume.solo; console.log("player_3_volume.solo: " + player_3_volume.solo);
-}
-
-function solo4() {
-  player_4_volume.solo = !player_4_volume.solo; console.log("player_4_volume.solo: " + player_4_volume.solo);
 }
 
 function busca1() {
@@ -3846,93 +3215,7 @@ function player_1_fxSend_1_On_Off_Button_foo() {
   is_player_1_fxSend_1_On = !is_player_1_fxSend_1_On;
 }
 
-function fx_1_fxSend_2_OnOff() {
-  is_player_1_fxSend_2_On = !is_player_1_fxSend_2_On; console.log("is_player_1_fxSend_2_On: " + is_player_1_fxSend_2_On);
-  if (fx_1_fxSend_2_On_Off_Button.innerText === "On") {
-    fx_1_fxSend_2_On_Off_Button.innerText = "Off";
-    fx1_fxSend_2_fader.disconnect(fx_2);
-    fx1_fxSend_2_fader.connect(fxReturn_2_fader);
-  }
-  else {
-    fx_1_fxSend_2_On_Off_Button.innerText = "On";
-    fx1_fxSend_2_fader.disconnect(fxReturn_2_fader);
-    fx1_fxSend_2_fader.connect(fx_2);
-  }
-}
-
-function fxSend_3_OnOff1() {
-  is_player_1_fxSend_3_On = !is_player_1_fxSend_3_On; console.log("is_player_1_fxSend_3_On: " + is_player_1_fxSend_3_On);
-  if (player_1_fxSend_3_On_Off_Button.innerText === "On") {
-    player_1_fxSend_3_On_Off_Button.innerText = "Off";
-    player_1_fxSend_3_preEq_volNode.disconnect(fx_3);
-    player_1_fxSend_3_preEq_volNode.connect(fxReturn_3_fader);
-  }
-  else {
-    player_1_fxSend_3_On_Off_Button.innerText = "On";
-    player_1_fxSend_3_preEq_volNode.disconnect(fxReturn_3_fader);
-    player_1_fxSend_3_preEq_volNode.connect(fx_3);
-  }
-}
-
-function fxSend_4_OnOff1() {
-  is_player_1_fxSend_4_On = !is_player_1_fxSend_4_On; console.log("is_player_1_fxSend_4_On: " + is_player_1_fxSend_4_On);
-  if (player_1_fxSend_4_On_Off_Button.innerText === "On") {
-    player_1_fxSend_4_On_Off_Button.innerText = "Off";
-    player_1_fxSend_4_preEq_volNode.disconnect(fx_4);
-    player_1_fxSend_4_preEq_volNode.connect(fxReturn_4_fader);
-  }
-  else {
-    player_1_fxSend_4_On_Off_Button.innerText = "On";
-    player_1_fxSend_4_preEq_volNode.disconnect(fxReturn_4_fader);
-    player_1_fxSend_4_preEq_volNode.connect(fx_4);
-  }
-}
-
 //********************************************************************* */
-//FX 1 FX SEND  ON OFF BUTTONS
-
-function fx_1_fxSend_2_OnOff() {
-  is_fx1_fxSend_2_On = !is_fx1_fxSend_2_On; console.log("is_fx1_fxSend_2_On: " + is_fx1_fxSend_2_On);
-  if (fx_1_fxSend_2_On_Off_Button.innerText === "On") {
-    fx_1_fxSend_2_On_Off_Button.innerText = "Off";
-    fx1_fxSend_2_fader.disconnect(fx_2);
-    fx1_fxSend_2_fader.connect(fxReturn_2_fader);
-  }
-  else {
-    fx_1_fxSend_2_On_Off_Button.innerText = "On";
-    fx1_fxSend_2_fader.disconnect(fxReturn_2_fader);
-    fx1_fxSend_2_fader.connect(fx_2);
-  }
-}
-
-function fx_1_fxSend_3_OnOff() {
-  is_fx1_fxSend_3_On = !is_fx1_fxSend_3_On; console.log("is_fx1_fxSend_3_On: " + is_fx1_fxSend_3_On);
-  if (fx_1_fxSend_3_On_Off_Button.innerText === "On") {
-    fx_1_fxSend_3_On_Off_Button.innerText = "Off";
-    fx1_fxSend_3_fader.disconnect(fx_3);
-    fx1_fxSend_3_fader.connect(fxReturn_3_fader);
-  }
-  else {
-    fx_1_fxSend_3_On_Off_Button.innerText = "On";
-    fx1_fxSend_3_fader.disconnect(fxReturn_3_fader);
-    fx1_fxSend_3_fader.connect(fx_3);
-  }
-}
-
-function fx1_fxSend_4_OnOff() {
-  isfxSend_4_On = !isfxSend_4_On; console.log("isfxSend_4_On: " + isfxSend_4_On);
-  if (fx_1_fxSend_4_On_Off_Button.innerText === "On") {
-    fx_1_fxSend_4_On_Off_Button.innerText = "Off";
-    fx1_fxSend_4_fader.disconnect(fx_4);
-    fx1_fxSend_4_fader.connect(fxReturn_4_fader);
-  }
-  else {
-    fx_1_fxSend_4_On_Off_Button.innerText = "On";
-    fx1_fxSend_4_fader.disconnect(fxReturn_4_fader);
-    fx1_fxSend_4_fader.connect(fx_4);
-  }
-}
-
 //************************************************************
 
 function player_x_fxSend_x_state_foo(name, value) {
@@ -4557,29 +3840,17 @@ function playsTestSynth() {
   //clipContainer_fx_1_distortion.remove();
   //elementToRemove.remove();
 
-  /*
-  const loop = new Tone.Loop((time) => {
-    // triggered every eighth note.
-    fmSynth.triggerAttackRelease("C3", "8n");
-    console.log(time);
-  }, "2n").start(0);
-  Tone.Transport.start();*/
+  //To replace an element to the HTML DOM, use the replaceChild() method:
+
 }
 
 function creates_an_FX_Node() {
-  /*const fx_Node = new Tone.PingPongDelay(0.25, 1);
-  fmSynth.connect(fx_Node);
-  fx_Node.connect(fxReturn_1_fader);
-  player_1_fxSend_1.connect();
-  console.log(BaseAudioContext.toString());
-  */
-//fx_1.dispose();
-//if (fx_1.disposed()){console.log("TRUE");}
-console.log("disposed: " + fx_1_FrequencyShifter_Node.disposed);
+
 }
 
 function dispos3() {
-  fx_1_FrequencyShifter_Node.dispose();
+  //fx_1_FrequencyShifter_Node.dispose();
+  soundClips_1.removeChild(clipContainer);
 }
 
 function changes_an_FX_Node(channel, effecttype) {
@@ -5164,7 +4435,33 @@ function changes_fx_name(channel, effecttype) {
 }
 
 function removes_previous_effect(fx_1_actual_patch) {
-  consoleClear();
+  consoleClear(); console.log("removes_previous_effect");
+  //fx_1.dispose();
+  /*
+var test = document.getElementById("fx_1_clip");
+var child = document.getElementById("article_1");
+test.removeChild(child);
+//  console.log (test.parentElement);
+console.log (test.children);
+*/
+
+if(fx_1.disposed == true){
+  alert("fx_1.disposed == true");
+  const soundClips_1 = document.getElementById("fx_1_clip");
+  const clipContainer = document.getElementsByClassName("clip_1");
+  soundClips_1.removeChild(clipContainer);
+
+}
+else {
+  alert("fx_1.disposed == false");
+}
+ // const soundClips_1 = document.getElementById("fx_1_clip");
+ // const clipContainer = document.getElementsByClassName("clip_1");
+  //console.log("childNodes: " + soundClips_1.childNodes);
+  //soundClips_1.removeChild(clipContainer);
+
+
+  /*
   //console.log("fx_1_actual_patch:" + fx_1_actual_patch);
   alert("fx_1_actual_patch:" + fx_1_actual_patch);
 
@@ -5180,9 +4477,6 @@ function removes_previous_effect(fx_1_actual_patch) {
       alert("removes_previous_effect:\n" + fx_1_actual_patch);
       fx_1_distortion_Node.disconnect();
       fx_1_distortion_Node.dispose();
-      
-      
-      //<section class="sound-clips_1"></section>
       break;
     }
 
@@ -5194,6 +4488,7 @@ function removes_previous_effect(fx_1_actual_patch) {
     }
     default: { break; }
   }
+    */
 }
 
 function removeElement(tagName) {
@@ -5431,7 +4726,6 @@ interface AutoFilterOptions {
             });
 
             const fx_1_autoPanner_fieldset = document.createElement("FIELDSET");
-
             const br_1_autoPanner = document.createElement("span");
             br_1_autoPanner.innerHTML = "<br/>";
             const br_2_autoPanner = document.createElement("span");
@@ -5439,8 +4733,9 @@ interface AutoFilterOptions {
             const br_3_autoPanner = document.createElement("span");
             br_3_autoPanner.innerHTML = "<br/>";
 
+            //const clipContainer_fx_1_autoPanner = document.getElementById("article_1");
             const clipContainer_fx_1_autoPanner = document.createElement("article");
-            clipContainer_fx_1_autoPanner.classList.add("clip");
+            clipContainer_fx_1_autoPanner.classList.add("clip_1");
 
             clipContainer_fx_1_autoPanner.appendChild(fx_1_autoPanner_fieldset);
             fx_1_autoPanner_fieldset.append(fx_1_autoPanner_frequency_text);
@@ -5456,7 +4751,7 @@ interface AutoFilterOptions {
             fx_1_autoPanner_fieldset.append(fx_1_autoPanner_select_title);
             fx_1_autoPanner_fieldset.append(fx_1_autoPanner_select_type);
             fx_1_autoPanner_fieldset.append(br_3_autoPanner);
-
+            fx_1_autoPanner_fieldset.append(fx_1_AutoPanner_Node);
             soundClips_1.appendChild(clipContainer_fx_1_autoPanner);
             console.log("AutoPanner fx_1_select");
             break;
@@ -6052,11 +5347,6 @@ fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
             fx_1_distortion_fieldset.append(fx_1_distortion_select_type);
 
             soundClips_1.appendChild(clipContainer_fx_1_distortion);
-
-            const myElement = document.getElementById("fx_1_clip");
-            for (const child of myElement.children) {
-              console.log(child.tagName);
-            }
 
             fx_1_actual_patch = "fx_1_Distortion";
             break;
@@ -7029,6 +6319,17 @@ fx_1_StereoWidener_width.addEventListener("change", function (e) {
   }
 
 }
+
+function mostrarerror(evento) {
+  console.log("Error: " + evento.error);
+  console.log("Mensaje: " + evento.message);
+  console.log("Línea: " + evento.lineno);
+  console.log("Columna: " + evento.colno);
+  console.log("URL: " + evento.filename);
+}
+
+
+
 
 /*
 function esconder() {

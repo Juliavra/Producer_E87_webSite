@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>.dispose() example Tone JS</title>
+  <title>.dispose() example Tone JS</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       /* 4 equal-width columns */
-      grid-template-rows: repeat(2, auto);
+      grid-template-rows: repeat(3, auto);
       /* 2 rows */
       gap: 10px;
       padding: 20px;
@@ -31,44 +31,26 @@
 </head>
 
 <body>
-
-  <button id="player_1_playButton" onclick="play()">Play </button>
+  example 1
+  <button id="player_1_playButton" value="1" onclick="play()">Play </button>
   <button id="player_1_stopButton" onclick="stop()">Stop </button>
-<br> <br> <br>
-<button id="player_1_console" onclick="console_all()">Logs </button>
-
-<select name="fx_1_select_" id="fx_1_select">
+  <select name="fx_1_select_" id="fx_1_select">
     <option name="empty" id="empty" value="empty">empty</option>
     <option name="PitchShift" id="PitchShift" value="PitchShift">PitchShift</option>
     <option name="PingPongDelay" id="PingPongDelay" value="PingPongDelay">PingPongDelay</option>
   </select>
-  <br> <br>
+  <div></div>   <div></div>   <div></div>  <div></div>  <div></div>  <div></div>
+  <br>
+  example 2
+  <button id="player_2_playButton" value="2" onclick="play2()">Play </button>
+  <button id="player_1_borraButton" value="1" onclick="borra()">borra </button>
   <section class="sound-clips_1" id="fx_1_clip">
   </section>
-  <br> <br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
   integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="js/dispose_example_tonejs.js"></script>
-
+<script src="js/dispose_example_tonejs3.js"></script>
 
 </html>
