@@ -70,7 +70,7 @@ PARA DEVOLVER A LA CANCION AL MUTE.FALSE
 //USAR ESTO PARA CREAR UN AUDIO TAG Y CARGAR EL SRC EN UN BUFFER 
 // Y PASARLO A UN TONE PLAYER, SE PUEDE SACAR LA DURATION Y ALGUNA COSA MAS
 
-
+window.addEventListener("error", mostrarerror);
 
 
 
@@ -695,40 +695,7 @@ array_Canciones.push(cancion_102);
 //************************************************************************* */
 //DOM ACQUISITIONS
 
-const fileInput = document.getElementById("files");
-
-//console.log(fileInput.files instanceof FileList); // true even if empty
-/*
-fileInput.addEventListener("change", () => {
-
-  for (const file of fileInput.files) {
-    //console.log(file.name); // prints file name
-    conPrint("name", file.name);
-    let fileDate = new Date(file.lastModified);
-    console.log(fileDate.toLocaleDateString()); // prints legible date
-    console.log(
-      file.size < 1000 ? file.size : Math.round(file.size / 1000) + "KB",
-    );
-    console.log(file.type); // prints MIME type
-  }
-
-  /*
-  To create an ArrayBuffer from a byte sequence bytes in a realm realm:
-  Let jsArrayBuffer be ? AllocateArrayBuffer(realm.[[Intrinsics]].[[%ArrayBuffer%]], bytes’s length).
-  
-  Let arrayBuffer be the result of converting jsArrayBuffer to an IDL value of type ArrayBuffer.
-  
-  Write bytes into arrayBuffer.
- 
-  Return arrayBuffer.
-  
-
-
-});
-  /**/
 const soundClips_1 = document.querySelector(".sound-clips_1");
-
-const player_1_filter_1_select = document.getElementById("player_1_filter_1_select");
 
 const player_1_volume = document.getElementById("player_1_volume");
 const player_1_volume_value = document.getElementById("player_1_volume_value");
@@ -747,6 +714,7 @@ const player_1_songName = document.getElementById("player_1_songName");
 const player_1_duration_value = document.getElementById("player_1_duration_value");
 const player_1_duration_text = document.getElementById("player_1_duration_text");
 
+const player_1_filter_1_select = document.getElementById("player_1_filter_1_select");
 const player_1_filter_frequency_text_shelf = document.getElementById("player_1_filter_frequency_text_shelf");
 const player_1_filter_frequency_shelf = document.getElementById("player_1_filter_frequency_shelf");
 const player_1_filter_frequency_value_shelf = document.getElementById("player_1_filter_frequency_value_shelf");
@@ -756,7 +724,6 @@ const player_1_filter_gain_value_shelf = document.getElementById("player_1_filte
 const player_1_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
 const player_1_filter_detune_shelf = document.getElementById("player_1_filter_detune_shelf");
 const player_1_filter_detune_value_shelf = document.getElementById("player_1_filter_detune_value_shelf");
-
 const player_1_filter_frequency_text_peaking = document.getElementById("player_1_filter_frequency_text_peaking");
 const player_1_filter_frequency_peaking = document.getElementById("player_1_filter_frequency_peaking");
 const player_1_filter_frequency_value_peaking = document.getElementById("player_1_filter_frequency_value_peaking");
@@ -769,7 +736,6 @@ const player_1_filter_gain_value_peaking = document.getElementById("player_1_fil
 const player_1_filter_detune_text_peaking = document.getElementById("player_1_filter_detune_text_peaking");
 const player_1_filter_detune_peaking = document.getElementById("player_1_filter_detune_peaking");
 const player_1_filter_detune_value_peaking = document.getElementById("player_1_filter_detune_value_peaking");
-
 const player_1_filter_frequency_allpass = document.getElementById("player_1_filter_frequency_allpass");
 const player_1_filter_frequency_value_allpass = document.getElementById("player_1_filter_frequency_value_allpass");
 const player_1_filter_frequency_text_allpass = document.getElementById("player_1_filter_frequency_text_allpass");
@@ -782,7 +748,6 @@ const player_1_filter_gain_text_allpass = document.getElementById("player_1_filt
 const player_1_filter_detune_allpass = document.getElementById("player_1_filter_detune_allpass");
 const player_1_filter_detune_value_allpass = document.getElementById("player_1_filter_detune_value_allpass");
 const player_1_filter_detune_text_allpass = document.getElementById("player_1_filter_detune_text_allpass");
-
 const player_1_filter_eq_On_Button = document.getElementById("player_1_filter_eq_On_Button");
 
 const player_1_peaking_controls_div = document.getElementById("player_1_peaking_controls_div");
@@ -833,18 +798,14 @@ const player_1_dynamics_threshold = document.getElementById("player_1_dynamics_t
 const player_1_dynamics_release = document.getElementById("player_1_dynamics_release");
 const player_1_dynamics_attack = document.getElementById("player_1_dynamics_attack");
 const player_1_dynamics_knee = document.getElementById("player_1_dynamics_knee");
-
 const player_1_dynamics_ratio_value = document.getElementById("player_1_dynamics_ratio_value");
 const player_1_dynamics_threshold_value = document.getElementById("player_1_dynamics_threshold_value");
 const player_1_dynamics_release_value = document.getElementById("player_1_dynamics_release_value");
 const player_1_dynamics_attack_value = document.getElementById("player_1_dynamics_attack_value");
 const player_1_dynamics_knee_value = document.getElementById("player_1_dynamics_knee_value");
-
 const player_1_dynamics_reduction_text = document.getElementById("player_1_dynamics_reduction_text");
 const player_1_dynamics_reduction_value = document.getElementById("player_1_dynamics_reduction_value");
-
 const player_1_dynamics_compressor_div = document.getElementById("player_1_dynamics_compressor_div");
-
 
 const player_1_fxSend_1_On_Off_Button = document.getElementById("player_1_fxSend_1_On_Off_Button");
 
@@ -865,7 +826,27 @@ const player_1_Mid_SemiParam_frequency_text = document.getElementById("player_1_
 const player_1_HighShelf_gain = document.getElementById("player_1_HighShelf_gain");
 const player_1_HighShelf_gain_value = document.getElementById("player_1_HighShelf_gain_value");
 const player_1_HighShelf_gain_text = document.getElementById("player_1_HighShelf_gain_text");
-
+const player_1_HighShelf_FilterNode = new Tone.Filter();
+player_1_HighShelf_FilterNode.set({
+  frequency: 10000,
+  type: "highshelf",
+  gain: -100,
+  rolloff: -12,
+});
+const player_1_Mid_SemiParam_FilterNode = new Tone.Filter().connect(player_1_HighShelf_FilterNode);
+player_1_Mid_SemiParam_FilterNode.set({
+  frequency: 1000,
+  type: "bandpass",
+  gain: -100,
+  rolloff: -12,
+});
+const player_1_LowShelf_FilterNode = new Tone.Filter().connect(player_1_Mid_SemiParam_FilterNode);
+player_1_LowShelf_FilterNode.set({
+  frequency: 100,
+  type: "lowshelf",
+  gain: -100,
+  rolloff: -12,
+});
 player_1_LowShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     console.log("e: " + e.currentTarget.value);
@@ -877,7 +858,6 @@ player_1_LowShelf_gain.addEventListener("change", function (e) {
     alert("ELSE player_1_LowShelf_gain");
   }
 });
-
 player_1_Mid_SemiParam_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     player_1_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
@@ -888,7 +868,6 @@ player_1_Mid_SemiParam_gain.addEventListener("change", function (e) {
     alert("ELSE player_1_SemiPAram_gain");
   }
 });
-
 player_1_Mid_SemiParam_frequency.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
     player_1_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
@@ -899,7 +878,6 @@ player_1_Mid_SemiParam_frequency.addEventListener("change", function (e) {
     alert("ELSE player_1_SemiPAram_frec");
   }
 });
-
 player_1_HighShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     player_1_HighShelf_FilterNode.gain.value = e.currentTarget.value;
@@ -910,31 +888,7 @@ player_1_HighShelf_gain.addEventListener("change", function (e) {
     alert("ELSE player_1_HighShelf_gain");
   }
 });
-
-const player_1_HighShelf_FilterNode = new Tone.Filter();
-player_1_HighShelf_FilterNode.set({
-  frequency: 10000,
-  type: "highshelf",
-  gain: -100,
-  rolloff: -12,
-});
-
-const player_1_Mid_SemiParam_FilterNode = new Tone.Filter().connect(player_1_HighShelf_FilterNode);
-player_1_Mid_SemiParam_FilterNode.set({
-  frequency: 1000,
-  type: "bandpass",
-  gain: -100,
-  rolloff: -12,
-});
-
-const player_1_LowShelf_FilterNode = new Tone.Filter().connect(player_1_Mid_SemiParam_FilterNode);
-player_1_LowShelf_FilterNode.set({
-  frequency: 100,
-  type: "lowshelf",
-  gain: -100,
-  rolloff: -12,
-});
-
+//Tascam 424 player 1
 //--------------------------------------------------------------------------
 //Limiter player 1
 
@@ -992,7 +946,6 @@ player_1_gate_smoothing.addEventListener("change", function (e) {
   console.log("player_1_gate_smoothing. smoothing: " + player_1_gate_smoothing.smoothing);
   player_1_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
 });
-
 const player_1_dynamics_gate_div = document.getElementById("player_1_dynamics_gate_div");
 player_1_dynamics_gate_div.style.display = "none";
 
@@ -1005,10 +958,6 @@ player_1_dynamics_gate_div.style.display = "none";
 //PLAYER 1 SETTINGS 
 const player_1_filter_eq_bypass_Button = document.getElementById("player_1_filter_eq_bypass_Button");
 const player_1_filter_eq_tascam_Button = document.getElementById("player_1_filter_eq_tascam_Button");
-
-player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
-player_1_filter_eq_On_Button.style.backgroundColor = "white";
-player_1_filter_eq_tascam_Button.style.backgroundColor = "white";
 
 var player_1_filter_eq_selection = "bypass";
 
@@ -1028,12 +977,29 @@ var is_player_1_fxSend_4_On = true;
 var fx_1_actual_patch = "fx_1";
 var fx_1_new_patch = "";
 
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
+player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
+player_1_filter_eq_On_Button.style.backgroundColor = "white";
+player_1_filter_eq_tascam_Button.style.backgroundColor = "white";
+// ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES TO  START
+// */
+player_1_fxSend_1_post_EQ_Button.style.backgroundColor = "green";
+player_1_fxSend_2_post_EQ_Button.style.backgroundColor = "green";
+player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "green";
+player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
+// Apaga visual todos los EQ --------------------------------------
+//channel 1
+player_1_allpass_controls_div.style.display = "none";
+player_1_shelf_controls_div.style.display = "none";
+player_1_peaking_controls_div.style.display = "none";
+player_1_tascam_424_controls_div.style.display = "none";
+//-----------------------------------------------------------------
+player_1_rms_value.innerHTML = 0;
 
+
+
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------
+//---------------------------------------------------------------------
 //********************************************************** */
 //************************************************************ */
 //NODE CONSTRUCTION
@@ -1077,28 +1043,8 @@ fx_4.wet = 1;
 //---------------------------------------------------------------------
 //--------------------------------------------------------------------------
 //************************************************************************* 
-// ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES TO  START
-// */
-player_1_fxSend_1_post_EQ_Button.style.backgroundColor = "green";
-player_1_fxSend_2_post_EQ_Button.style.backgroundColor = "green";
-player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "green";
-player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
-
-// Apaga todos los EQ -----------------------
-//channel 1
-player_1_allpass_controls_div.style.display = "none";
-player_1_shelf_controls_div.style.display = "none";
-player_1_peaking_controls_div.style.display = "none";
-player_1_tascam_424_controls_div.style.display = "none";
-//-------------------------------------------------------------------------
-player_1_rms_value.innerHTML = 0;
 
 
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-
-window.addEventListener("error", mostrarerror);
 
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -6324,3 +6270,36 @@ Gain Trim: +/- 12dB
 Switched Bypass: Yes
 //************************************************************************
 */
+
+//FILE MANAGEMENT
+//const fileInput = document.getElementById("files");
+
+//console.log(fileInput.files instanceof FileList); // true even if empty
+/*
+fileInput.addEventListener("change", () => {
+
+  for (const file of fileInput.files) {
+    //console.log(file.name); // prints file name
+    conPrint("name", file.name);
+    let fileDate = new Date(file.lastModified);
+    console.log(fileDate.toLocaleDateString()); // prints legible date
+    console.log(
+      file.size < 1000 ? file.size : Math.round(file.size / 1000) + "KB",
+    );
+    console.log(file.type); // prints MIME type
+  }
+
+  /*
+  To create an ArrayBuffer from a byte sequence bytes in a realm realm:
+  Let jsArrayBuffer be ? AllocateArrayBuffer(realm.[[Intrinsics]].[[%ArrayBuffer%]], bytes’s length).
+  
+  Let arrayBuffer be the result of converting jsArrayBuffer to an IDL value of type ArrayBuffer.
+  
+  Write bytes into arrayBuffer.
+ 
+  Return arrayBuffer.
+  
+
+
+});
+  /**/
