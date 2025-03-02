@@ -19,9 +19,11 @@ player_1_Node.connect(fx_1_pingpong_Node);
 var head = document.getElementsByTagName('head')[0];
 var script = document.createElement('script');
 script.type = 'text/javascript';
-script.src = 'urlOfScript';
+//script.src = 'urlOfScript';
+script.src = "js/creates_Ping_Pong_Node.js";
 head.appendChild(script);
-
+console.log("head.appendChild(script);");
+/*
 Example
 
 mainJs    = document.getElementById("mainJs");
@@ -31,6 +33,7 @@ flushFile = document.createElement("script");
 flushFile.setAttribute("src", "flush.js");
 document.head.appendChild(flushFile);//Loads flush.js into the DOM tree,
 //  overwriting all functions and variables of main.js in browser memory to null
+*/
 
 
 
@@ -41,8 +44,7 @@ document.head.appendChild(flushFile);//Loads flush.js into the DOM tree,
 
 
 
-
-
+/*
 //PitchShift_Node.dispose();
 function play() {
   if (!player_1_Node.loaded) {
@@ -198,3 +200,4 @@ function play2() {
 
 
 let myLove4u, urLove4me, be_tested;
+*/

@@ -41,6 +41,7 @@ fx_1_select.addEventListener("change", function (e) {
 function changes_an_FX_Node(effecttype) {
   //conClear();
   console.log("effecttype: " + effecttype);
+  
   switch (effecttype) {
     case "PitchShift":
       {

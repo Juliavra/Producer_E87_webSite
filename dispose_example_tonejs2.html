@@ -31,7 +31,15 @@
 </head>
 
 <body>
-  example 1
+  example 1 <br>
+  Starts with a global PingPongDelay, 
+  that you can dispose using the PitchShift option of the select. <br>
+Drums are now only altered in pitch, no delay effect in place. <br>
+My sorta C wishfulthinking lead me to believe, 
+that I could get the memory addres of the function,
+where I created the Effect Node and dispose it. <br>
+JS is not meant to work that way, so I got myself a dead end. <br>
+
   <button id="player_1_playButton" value="1" onclick="play()">Play </button>
   <button id="player_1_stopButton" onclick="stop()">Stop </button>
   <select name="fx_1_select_" id="fx_1_select">

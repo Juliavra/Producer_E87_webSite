@@ -1,14 +1,13 @@
 ﻿const player_1_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3");
 player_1_Node.volume.value = -12;
 player_1_Node.loop = true;
-const fx_1_pingpong_Node = new Tone.PingPongDelay(0.15, 0.5).toDestination();
-fx_1_pingpong_Node.wet = 1;
-//const PingPongDelay_Node = creates_PingPong_Node(0.5, 0.5);
+//const fx_1_pingpong_Node = new Tone.PingPongDelay(0.35, 0.5).toDestination();
+//fx_1_pingpong_Node.wet = 1;
+const PingPongDelay_Node = creates_PingPong_Node(0.35, 0.5);
 //const PitchShift_Node = creates_PitchShift_Node(-20);
 //player_1_Node.connect(PingPongDelay_Node);
-player_1_Node.connect(fx_1_pingpong_Node);
+//player_1_Node.connect(fx_1_pingpong_Node);
 
-//PitchShift_Node.dispose();
 function play() {
   if (!player_1_Node.loaded) {
     console.log("player_1 Not Loaded")
@@ -41,20 +40,22 @@ fx_1_select.addEventListener("change", function (e) {
 function changes_an_FX_Node(effecttype) {
   //conClear();
   console.log("effecttype: " + effecttype);
+
+  //if (fx_1_pingpong_Node.disposed == false) {
+  //    fx_1_pingpong_Node.dispose();}
+
   switch (effecttype) {
     case "PitchShift":
       {
-        //creates_PitchShift_Node(-14);
-        creates_n_destroys_PitchShift_Node("create", -7);
-        //node_dispose(PingPongDelay_Node);
+        creates_PitchShift_Node(-24);
+        node_dispose(PingPongDelay_Node);
         console.log("PitchShift fx_1_select");
         break;
       }
     case "PingPongDelay":
       {
         creates_PingPong_Node(0.15, 0.75);
-        //node_dispose(PitchShift_Node);
-        creates_n_destroys_PitchShift_Node("dispose", 0);
+        node_dispose(fx_1_pitchshift);
         console.log("PingPongDelay fx_1_select");
         break;
       }
@@ -92,8 +93,6 @@ player_2_Node.volume.value = -21;
 player_2_Node.loop = true;
 
 const soundClips_1 = document.getElementById("fx_1_clip");
-//const article_1  = document.getElementById("article_1"); 
-
 
 const fx_1_FrequencyShifter_Node = new Tone.FrequencyShifter();
 fx_1_FrequencyShifter_Node.toDestination();
