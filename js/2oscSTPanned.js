@@ -30,10 +30,10 @@ function startsSong() {
     panNode2do.connect(gainNode2do);
     gainNode2do.connect(audioContext.destination)
     gainNode2do.gain.value = -0.11;
-   // startOscillator();
+    startOscillator();
+}//CIERRA CODIGO
 
-    function startOscillator() {
+   function startOscillator() {
         oscillator1ro.start();
         oscillator2do.start();
     }
-}//CIERRA CODIGO
