@@ -6164,8 +6164,8 @@ fx_1_StereoWidener_width.addEventListener("change", function (e) {
 }
 
 function mostrarerror(evento) {
-  console.log("Error: " + evento.error);
-  console.log("Mensaje: " + evento.message);
+  console.log("Error: " + evento.error + "\n" + "Mensaje: " + evento.message);
+  //console.log("Mensaje: " + evento.message);
   console.log("Línea: " + evento.lineno);
   console.log("Columna: " + evento.colno);
   console.log("URL: " + evento.filename);

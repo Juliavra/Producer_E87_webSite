@@ -58,8 +58,6 @@ else { console.log("ELSE");
   //player1.start();
 }
 
-
-
   setInterval(() => {
     console.log(Tone.immediate());
   }, 3000);
