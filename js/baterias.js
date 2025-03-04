@@ -4,9 +4,9 @@ var array = [];
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base 2 Hip Hop Master Sampler.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base dance.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base entrecortada.mp3");
-array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base rara 2 Future Beats n Sounds.mp3");
+/*array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base rara 2 Future Beats n Sounds.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base rara 3 Future Beats n Sounds.mp3");
-/*array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base rara Future Beats n Sounds.mp3");
+array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base rara Future Beats n Sounds.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base Roland EG-101 2.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base simple Archer Mini Amp Estudio Pro1 No Fi.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base simple con publico.mp3");
@@ -3220,46 +3220,43 @@ array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Mas tiempo/Reggae super largo y
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Mas tiempo/Solo con varias bases.mp3");
 */
 var i = 0, j = 1;
-
 console.log("array length: " + array.length);
-/*
-const paragraph = "I think Ruth's dog is cuter than your dog!";
 const searchTerm = '/';
-console.log(
-  `Index of the last ${searchTerm} is ${paragraph.lastIndexOf(searchTerm)}`,
-);
-*/
 
 for (i = 0; i < array.length; i++) {
+  for (j = 1; j < array.length; j++) {
 
-    const searchTerm = '/';
-    console.log(
-        `Index of the last ${searchTerm} is ${array[i].lastIndexOf(searchTerm)}`,
-    );
-    //console.log("array[i]: " + array[i]);
-    //console.log("array[j]: " + array[j]);
-    for (j = 0; j < array.length; j++) {
-       // if (array[i] == array[j] && i != j) {
-             console.log ("array[i]: " + array[i]);
-              console.log ("array[j]: " + array[j]);
-        //}
+    //console.log("i: " + i +"\n" );
+    //console.log("j: " + j +"\n");
+
+    var subI = array[i].lastIndexOf(searchTerm);
+    var nuevaStrI = array[i].substr(subI + 1);
+    var subJ = array[j].lastIndexOf(searchTerm);
+    var nuevaStrJ = array[j].substr(subJ + 1);
+    if (nuevaStrI == nuevaStrJ) {
+
+      console.log("i: " + i + "  " + array[i]);
+      console.log("j: " + j + "  " + array[j]);
     }
+    else {
+      console.log("nuevaStrI: " + i + "\n" + nuevaStrI);
+      console.log("nuevaStrJ: " + j + "\n" + nuevaStrJ);
+    }
+  }
 }
 
 
 
 
-/*
+/*   console.log(
+         `Index of the last ${searchTerm} is ${array[i].lastIndexOf(searchTerm)}`,
+     );*/
 
-    var lineas = result.split('\n');
-    
-    
-    // o lineas.forEach(function(linea){ ... })
-    // o lineas.find(function(linea){ return linea == contraseña })
-    for(var linea of lineas) {
-      console.log('[linea]', linea)
-      //if(linea === passwordBuscar) {
-        // Encontraste contraseña
-      //}
-    }
-      */
+
+/*
+const paragraph = "I think Ruth's dog is cuter than your dog!";
+const searchTerm = '/';
+console.log(
+`Index of the last ${searchTerm} is ${paragraph.lastIndexOf(searchTerm)}`,
+);
+*/
