@@ -17,9 +17,6 @@ function startsSong() {
     gainNode1ro.gain.value = -0.95;
 
 
-
-
-
     const oscillator2do = audioContext.createOscillator();
     oscillator2do.frequency.setValueAtTime(80, audioContext.currentTime);
     oscillator2do.type = 'sine';
@@ -80,10 +77,10 @@ function startsSong() {
     // Inicia el oscilador
     function startOscillator() {
             oscillator1ro.start();
-        //oscillator2do.start();
-        //        oscillator3ro.start();
-        //       oscillator4to.start();
-        //        oscillator5to.start();
+        oscillator2do.start();
+                oscillator3ro.start();
+               oscillator4to.start();
+                oscillator5to.start();
 
     }
 
