@@ -1,4 +1,4 @@
-alert("Uno");
+alert("otup");
 const volumeSlider_osc1 = document.getElementById('volume_osc1');
 const volumeValue1 = document.getElementById('volumeValue_osc1');
 const volumeSlider_osc2 = document.getElementById('volume_osc2');
