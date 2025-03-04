@@ -1,3 +1,4 @@
+alert("otup");
 const volumeSlider_osc1 = document.getElementById('volume_osc1');
 const volumeValue1 = document.getElementById('volumeValue_osc1');
 const volumeSlider_osc2 = document.getElementById('volume_osc2');
@@ -31,11 +32,11 @@ function startsSong() {
     gainNode2do.connect(audioContext.destination)
     gainNode2do.gain.value = -0.11;
     startOscillator();
-   function startOscillator() {
+
+    function startOscillator() {
         oscillator1ro.start();
         oscillator2do.start();
     }
-    
 }//CIERRA CODIGO
 
 
