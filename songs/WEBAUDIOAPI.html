@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
+    <title>WEB AUDIO API</title>
+</head>
+<body>
+    <h1>WEB AUDIO API</h1>
+<!--
+    <button id="playButton" onclick="play1()">play1 </button>
+    <button id="playButton" onclick="play2()">play2</button>
+-->
+
+<button class="tts">Añadir mensaje</button>
+<button class="pause-resume">Pausar / Reanudar</button>
+<button class="cancel">Cancelar todo</button>
+
+
+<fieldset>
+    <legend>Datos del mensaje de voz</legend>
+  
+    <select class="voice"></select>
+  
+    <label>Tono:
+      <input class="pitch" type="range" min="0" max="2" step="0.25" value="1">
+    </label>
+    <label>Velocidad:
+      <input class="rate" type="range" min="0" max="2" step="0.25" value="1">
+    </label>
+    <label>Volumen:
+      <input class="volume" type="range" min="0" max="1" step="0.1" value="1">
+    </label>
+  
+    <textarea cols="60" rows="3" placeholder="Aquí tu mensaje de texto"
+              class="text">Hola. Aún no me sigues en mi canal de Twitch</textarea>
+  </fieldset>
+  
+  <button class="start">Hablar</button>
+  <button class="cancel">Cancelar</button>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js" integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/WEBAUDIOAPI.js"></script>
+    <!--
+    <script src="https://unpkg.com/tone"></script>
+    -->
+</body>
+</html>
+
