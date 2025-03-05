@@ -4,7 +4,7 @@ var array = [];
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base 2 Hip Hop Master Sampler.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base dance.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base entrecortada.mp3");
-/*array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base rara 2 Future Beats n Sounds.mp3");
+array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base rara 2 Future Beats n Sounds.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base rara 3 Future Beats n Sounds.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base rara Future Beats n Sounds.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Base Roland EG-101 2.mp3");
@@ -3218,33 +3218,36 @@ array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Mas tiempo/FM 55 - Track 35.mp3
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Mas tiempo/Hip Hop Vinil largo.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Mas tiempo/Reggae super largo y producido.mp3");
 array.push("C:/Users/Juli/SONIDOS BAKAP/Baterias/Mas tiempo/Solo con varias bases.mp3");
-*/
+
 var i = 0, j = 1;
-console.log("array length: " + array.length);
+//console.log("array length: " + array.length);
 const searchTerm = '/';
+var borrar = 0;
 
 for (i = 0; i < array.length; i++) {
   for (j = 1; j < array.length; j++) {
-
-    //console.log("i: " + i +"\n" );
-    //console.log("j: " + j +"\n");
-
     var subI = array[i].lastIndexOf(searchTerm);
-    var nuevaStrI = array[i].substr(subI + 1);
+    var tituloStrI = array[i].substr(subI + 1);
     var subJ = array[j].lastIndexOf(searchTerm);
-    var nuevaStrJ = array[j].substr(subJ + 1);
-    if (nuevaStrI == nuevaStrJ) {
-
-      console.log("i: " + i + "  " + array[i]);
-      console.log("j: " + j + "  " + array[j]);
+    var tituloStrJ = array[j].substr(subJ + 1);
+    if (tituloStrI == tituloStrJ) {
+      if (array[i] != array[j]) {
+        console.log("BORRAR \n");
+        console.log("i: " + i + "  " + array[i]);
+        console.log("j: " + j + "  " + array[j]);
+        borrar++;
+      }
+      else {
+   //     console.log("SON EL MISMO ARCHIVO");
+      }
     }
     else {
-      console.log("nuevaStrI: " + i + "\n" + nuevaStrI);
-      console.log("nuevaStrJ: " + j + "\n" + nuevaStrJ);
+      //  console.log("tituloStrI: " + i + "\n" + tituloStrI);
+      // console.log("tituloStrJ: " + j + "\n" + tituloStrJ);
     }
   }
 }
-
+alert("BORRAR:   " + borrar);
 
 
 
