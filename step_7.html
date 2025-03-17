@@ -252,6 +252,12 @@
       <option name="100" id="100" value="100">100 B Beat re laburado Loop Song </option>
       <option name="101" id="101" value="101">101 Jijiji </option>
       <option name="102" id="102" value="102">102 El cazador </option>
+      <option name="103" id="103" value="103">103 Fuegos de Octubre </option>
+      <option name="104" id="104" value="104">104  </option>
+      <option name="105" id="105" value="105">105  </option>
+      <option name="106" id="106" value="106">106  </option>
+      <option name="107" id="107" value="107">107  </option>
+    
     </select>
 
     <label for="player">Player</label>
@@ -294,12 +300,17 @@
             onclick="send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time)">go </button>
           <br>
           <p id="player_1_pan_text">Pan
-            <input type='range' min=-1 max=1 step='0.02' value=0 id='player_1_pan'>
+            <input type='range' min=-1 max=1 step='0.01' value=0 id='player_1_pan'>
           </p>
           <p id="player_1_pan_value"></p>
+          <input id="player_1_pan_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
+          time: <input id="player_1_pan_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_pan_rampTo_send_Button" value="player_1_pan"
+            onclick="send(value, player_1_pan_rampTo_gain, player_1_pan_rampTo_time)">go </button>
+
           <br>
           <p id="player_1_playback_rate_text">Rate
-            <input type='range' min=0.1 max=1 step='0.01' value=1 id='player_1_playback_rate'>
+            <input type='range' min=0.1 max=1 step='0.1' value=1 id='player_1_playback_rate'>
           </p>
           <p id="player_1_playback_rate_value"></p>
         </fieldset>
@@ -349,8 +360,7 @@
       <label for="player_1_filter_1_select" name="player_1_filter_1_select"> </label>
       <button id="player_1_filter_eq_bypass_Button" value="bypass" onclick="test1(value)">Bypass </button>
       <button id="player_1_filter_eq_On_Button" value="on" onclick="test1(value)">On </button>
-      <button id="player_1_filter_eq_tascam_Button" value="tascam_424" onclick="test1(value)">Tascam </button>
-
+  
       <select name="filter_1" id="player_1_filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
         <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
@@ -361,13 +371,16 @@
         <option name="notch" id="notch" value="notch">notch</option>
         <option name="allpass" id="allpass" value="allpass">allpass</option>
         <option name="peaking" id="peaking" value="peaking">peaking</option>
+        <option name="eq3" id="eq3" value="eq3">EQ3</option>
+        <option name="tascam" id="tascam" value="tascam">Tascam</option>
+
       </select>
       <br>
       <div id="player_1_allpass_controls_div">
         <br>
         <fieldset>
           <p id="player_1_filter_frequency_text_allpass">Frequency </p>
-          <input type='range' min=20 max=20000 step='1' value="20" id='player_1_filter_frequency_allpass'>
+          <input type='range' min=20 max=20000 step='10' value="20" id='player_1_filter_frequency_allpass'>
           <p id="player_1_filter_frequency_value_allpass"></p>
           <br>
           <p id="player_1_filter_Q_text_allpass">Q </p>
@@ -375,7 +388,7 @@
           <p id="player_1_filter_Q_value_allpass"></p>
           <br>
           <p id="player_1_filter_detune_text_allpass">Detune </p>
-          <input type='range' min=0 max=10000 step='100' value="0" id='player_1_filter_detune_allpass'>
+          <input type='range' min=0 max=10000 step='10' value="0" id='player_1_filter_detune_allpass'>
           <p id="player_1_filter_detune_value_allpass"></p>
         </fieldset>
         <br>
@@ -383,18 +396,32 @@
       <div id="player_1_shelf_controls_div">
         <br>
         <fieldset>
-
-          <p id="player_1_filter_frequency_text_shelf">Frequency </p>
-          <input type='range' min=20 max=20000 step='1' value="20" id='player_1_filter_frequency_shelf'>
+          <p id="player_1_filter_frequency_text_shelf">Freq </p>
+          <input type='range' min=20 max=20000 step='10' value="20" id='player_1_filter_frequency_shelf'>
           <p id="player_1_filter_frequency_value_shelf"></p>
+          <input id="player_1_filter_frequency_shelf_rampTo_gain" type="number" min="20" max="20000" step='10' style="width: 35px;" />
+          time: <input id="player_1_filter_frequency_shelf_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_filter_frequency_shelf_rampTo_send_Button" value="player_1_filter_frequency_shelf"
+            onclick="send(value, player_1_filter_frequency_shelf_rampTo_gain, player_1_filter_frequency_shelf_rampTo_time)">go </button>
           <br>
           <p id="player_1_filter_gain_text_shelf">Gain </p>
-          <input type='range' min=-30 max=12 step='1' value="-30" id='player_1_filter_gain_shelf'>
+          <input type='range' min=-100 max=12 step='1' value="-100" id='player_1_filter_gain_shelf'>
           <p id="player_1_filter_gain_value_shelf"></p>
+
+          <input id="player_1_filter_gain_shelf_rampTo_gain" type="number" min="-100" max="12" step='1' style="width: 35px;" />
+          time: <input id="player_1_filter_gain_shelf_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_filter_gain_shelf_rampTo_send_Button" value="player_1_filter_gain_shelf"
+            onclick="send(value, player_1_filter_gain_shelf_rampTo_gain, player_1_filter_gain_shelf_rampTo_time)">go </button>
           <br>
           <p id="player_1_filter_detune_text_shelf">Detune </p>
-          <input type='range' min=0 max=10000 step='100' value="0" id='player_1_filter_detune_shelf'>
+          <input type='range' min=0 max=10000 step='10' value="0" id='player_1_filter_detune_shelf'>
           <p id="player_1_filter_detune_value_shelf"></p>
+
+          <input id="player_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+          time: <input id="player_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_filter_detune_shelf_rampTo_send_Button" value="player_1_filter_detune_shelf"
+            onclick="send(value, player_1_filter_detune_shelf_rampTo_detune, player_1_filter_detune_shelf_rampTo_time)">go </button>
+          
           <br>
         </fieldset>
       </div>
@@ -402,7 +429,7 @@
         <br>
         <fieldset>
           <p id="player_1_filter_frequency_text_peaking">Frequency </p>
-          <input type='range' min=20 max=20000 step='1' value="20" id='player_1_filter_frequency_peaking'>
+          <input type='range' min=20 max=20000 step='10' value="20" id='player_1_filter_frequency_peaking'>
           <p id="player_1_filter_frequency_value_peaking"></p>
           <br>
           <p id="player_1_filter_Q_text_peaking">Q </p>
@@ -414,7 +441,7 @@
           <p id="player_1_filter_gain_value_peaking"></p>
           <br>
           <p id="player_1_filter_detune_text_peaking">Detune </p>
-          <input type='range' min=0 max=10000 step='100' value="0" id='player_1_filter_detune_peaking'>
+          <input type='range' min=0 max=10000 step='10' value="0" id='player_1_filter_detune_peaking'>
           <p id="player_1_filter_detune_value_peaking"></p>
           <br>
         </fieldset>
@@ -433,13 +460,43 @@
           <br>
 
           <p id="player_1_Mid_SemiParam_frequency_text">Mid Frequency </p>
-          <input type='range' min=250 max=5000 step='1' value="0" id='player_1_Mid_SemiParam_frequency'>
+          <input type='range' min=250 max=5000 step='10' value="250" id='player_1_Mid_SemiParam_frequency'>
           <p id="player_1_Mid_SemiParam_frequency_value"></p>
           <br>
 
           <p id="player_1_LowShelf_gain_text">Low Shelf Gain </p>
           <input type='range' min=-100 max=100 step='1' value="0" id='player_1_LowShelf_gain'>
           <p id="player_1_LowShelf_gain_value"></p>
+          <br>
+        </fieldset>
+      </div>
+      <div id="player_1_eq3_controls_div">
+        <br>
+        <fieldset>
+        <label for="player_1_EQ3_low_frequency_fader" name="player_1_EQ3_low_frequency_fader>
+          <p id=" player_1_EQ3_low_frequency_fader_text">Low Freq </p>
+          <input type='range' min=20 max=1000 step='10' value="100" id='player_1_EQ3_low_frequency_fader'>
+          <p id="player_1_EQ3_low_frequency_fader_value"></p>
+          <br>
+          <p id="player_1_EQ3_low_fader_gain_text">Low Freq Gain</p>
+          <input type='range' min=-41 max=12 step='1' value="0" id='player_1_EQ3_low_fader_gain'>
+          <p id="player_1_EQ3_low_fader_gain_value"> </p>
+          <br>
+          <p id="player_1_EQ3_mid_fader_gain_text">Mid Freq Gain</p>
+          <input type='range' min=-41 max=12 step='1' value="0" id='player_1_EQ3_mid_fader_gain'>
+          <p id="player_1_EQ3_mid_fader_gain_value"> </p>
+          <br>
+          <p id="player_1_EQ3_hi_fader_gain_text">Hi Freq Gain</p>
+          <input type='range' min=-41 max=12 step='1' value="0" id='player_1_EQ3_hi_fader_gain'>
+          <p id="player_1_EQ3_hi_fader_gain_value"> </p>
+          <br>
+          <p id="player_1_EQ3_high_frequency_text">Hi Freq </p>
+          <input type='range' min=8000 max=12000 step='100' value="10000" id='player_1_EQ3_high_frequency_fader'>
+          <p id="player_1_EQ3_high_frequency_value"></p>
+          <br>
+          <p id="player_1_EQ3_Q_text">Q </p>
+          <input type='range' min=0 max=20 step='1' value="0" id='player_1_EQ3_Q_fader'>
+          <p id="player_1_EQ3_Q_value"></p>
           <br>
         </fieldset>
       </div>
@@ -533,7 +590,6 @@
         </fieldset>
       </div>
     </div>
-
     <button type="button" class="collapsible">
       FX Send
     </button>
@@ -625,9 +681,6 @@
     <p id="player_2_songName"> </p>
     <p id="player_2_duration_text"> </p>
     <p id="player_2_duration_value"> </p>
-
-
-    
     <div>
       <button id="player_2_playButton" value="2" onclick="play(value)">Play </button>
       <button id="player_2_stopButton" value="2" onclick="stop(value)">Stop </button>
@@ -713,8 +766,6 @@
         <p id="player_2_EQ3_Q_text">Q </p>
         <input type='range' min=0 max=20 step='1' value="0" id='player_2_EQ3_Q_fader'>
         <p id="player_2_EQ3_Q_value"></p>
-
-
     </div>
 
     <button type="button" class="collapsible">

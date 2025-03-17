@@ -72,13 +72,11 @@ PARA DEVOLVER A LA CANCION AL MUTE.FALSE
 
 window.addEventListener("error", mostrarerror);
 
-
-
-
 var cancion_1 = {
   id: 1,
   title: "01 Dark Ringy Short Loop",
-  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/01_Dark_Ringy_Short_Loop.mp3"
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/01_Dark_Ringy_Short_Loop.mp3",
+  duration: 17
 };
 var cancion_2 = {
   id: 2,
@@ -585,6 +583,38 @@ var cancion_102 = {
   title: "102 El Cazador",
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/102_El_cazador.mp3"
 };
+
+var cancion_103 = {
+  id: 103,
+  title: "103 Fuegos de Octubre",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/103_Fuegos_de_Octubre.mp3"
+};
+
+var cancion_104 = {
+  id: 104,
+  title: "104 Conf.La Pesadilla (Borges)",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/108_Atmosfera_submarina.mp3"
+};
+
+var cancion_105 = {
+  id: 105,
+  title: "105 Conf.La Pesadilla (Borges)",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/109_Attack_A_Withmore.mp3"
+};
+
+var cancion_106 = {
+  id: 106,
+  title: "106 Aquatica_2_Gary_Numan",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/106_Aquatica_2_Gary_Numan.mp3"
+};
+
+var cancion_107 = {
+  id: 107,
+  title: "107 Aquatica_Gary_Numan",
+  url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/107_Aquatica_Gary_Numan.mp3"
+};
+
+
 var array_Canciones = [];
 array_Canciones.push(cancion_1);
 array_Canciones.push(cancion_2);
@@ -688,7 +718,13 @@ array_Canciones.push(cancion_99);
 array_Canciones.push(cancion_100);
 array_Canciones.push(cancion_101);
 array_Canciones.push(cancion_102);
-//************************************************************************* */
+array_Canciones.push(cancion_103);
+array_Canciones.push(cancion_104);
+array_Canciones.push(cancion_105);
+array_Canciones.push(cancion_106);
+array_Canciones.push(cancion_107);
+//array_Canciones.push(cancion_108);
+
 //************************************************************************* */
 //************************************************************************* */
 //************************************************************************* */
@@ -754,6 +790,7 @@ const player_1_peaking_controls_div = document.getElementById("player_1_peaking_
 const player_1_tascam_424_controls_div = document.getElementById("player_1_tascam_424_controls_div");
 const player_1_shelf_controls_div = document.getElementById("player_1_shelf_controls_div");
 const player_1_allpass_controls_div = document.getElementById("player_1_allpass_controls_div");
+const player_1_eq3_controls_div = document.getElementById("player_1_eq3_controls_div");
 
 const player_1_fxSend_1 = document.getElementById("player_1_fxSend_1");
 const player_1_fxSend_2 = document.getElementById("player_1_fxSend_2");
@@ -792,6 +829,7 @@ const player_1_fadeIn = document.getElementById("player_1_fadeIn");
 const player_1_fadeOut = document.getElementById("player_1_fadeOut");
 const player_1_rms_value = document.getElementById("player_1_rms_value");
 
+// Player 1 Compressor
 const player_1_dynamics_On_Off_Button = document.getElementById("player_1_dynamics_On_Off_Button");
 const player_1_dynamics_ratio = document.getElementById("player_1_dynamics_ratio");
 const player_1_dynamics_threshold = document.getElementById("player_1_dynamics_threshold");
@@ -977,25 +1015,28 @@ var is_player_1_fxSend_4_On = true;
 var fx_1_actual_patch = "fx_1";
 var fx_1_new_patch = "";
 
+
+
+// ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES TO  START
+//PLAYER 1 */
+
 player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
 player_1_filter_eq_On_Button.style.backgroundColor = "white";
-player_1_filter_eq_tascam_Button.style.backgroundColor = "white";
-// ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES TO  START
-// */
+
 player_1_fxSend_1_post_EQ_Button.style.backgroundColor = "green";
 player_1_fxSend_2_post_EQ_Button.style.backgroundColor = "green";
 player_1_fxSend_3_post_EQ_Button.style.backgroundColor = "green";
 player_1_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
+
 // Apaga visual todos los EQ --------------------------------------
 //channel 1
 player_1_allpass_controls_div.style.display = "none";
 player_1_shelf_controls_div.style.display = "none";
 player_1_peaking_controls_div.style.display = "none";
 player_1_tascam_424_controls_div.style.display = "none";
+player_1_eq3_controls_div.style.display = "none";
 //-----------------------------------------------------------------
 player_1_rms_value.innerHTML = 0;
-
-
 
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------
@@ -1040,17 +1081,6 @@ fx_4.wet = 1;
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
-//---------------------------------------------------------------------
-//--------------------------------------------------------------------------
-//************************************************************************* 
-
-
-
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
 //************************************************************************* */
 // *****************ALL EVENTLISTENERS************************************
 //*****************************************************************************************
@@ -1076,7 +1106,7 @@ player_1_volume.ondblclick = function () {
 player_1_pan.addEventListener("change", function (e) {
   player_1_panNode.pan.value = e.currentTarget.value;
   console.log("channel_1.pan: " + player_1_panNode.pan.value)
-  player_1_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  player_1_pan_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 player_1_pan.ondblclick = function () {
@@ -1211,6 +1241,7 @@ player_1_filter_1_select.addEventListener("change", function (e) {
         player_1_tascam_424_controls_div.style.display = "none";
         player_1_peaking_controls_div.style.display = "none";
         player_1_shelf_controls_div.style.display = "none";
+        player_1_eq3_controls_div.style.display = "none";
         player_1_allpass_controls_div.style.display = "block";
         break;
       }
@@ -1221,6 +1252,7 @@ player_1_filter_1_select.addEventListener("change", function (e) {
         player_1_tascam_424_controls_div.style.display = "none";
         player_1_peaking_controls_div.style.display = "none";
         player_1_allpass_controls_div.style.display = "none";
+        player_1_eq3_controls_div.style.display = "none";
         player_1_shelf_controls_div.style.display = "block";
         break;
       }
@@ -1230,6 +1262,7 @@ player_1_filter_1_select.addEventListener("change", function (e) {
         player_1_tascam_424_controls_div.style.display = "none";
         player_1_allpass_controls_div.style.display = "none";
         player_1_shelf_controls_div.style.display = "none";
+        player_1_eq3_controls_div.style.display = "none";
         player_1_peaking_controls_div.style.display = "block";
         break;
       }
@@ -1238,21 +1271,34 @@ player_1_filter_1_select.addEventListener("change", function (e) {
       player_1_peaking_controls_div.style.display = "none";
       player_1_shelf_controls_div.style.display = "none";
       player_1_tascam_424_controls_div.style.display = "none";
+      player_1_eq3_controls_div.style.display = "none";
       break;
     }
-    case "Tascam": {
-      alert("TASCAM case en player_1_filter_1_select.addEventListener");
-      /*
+    case "tascam": {
       player_1_allpass_controls_div.style.display = "none";
       player_1_peaking_controls_div.style.display = "none";
       player_1_shelf_controls_div.style.display = "none";
+      player_1_eq3_controls_div.style.display = "none";
       player_1_tascam_424_controls_div.style.display = "block";
-      test1("tascam_424");
-      */
+      //test1("tascam_424");
+      
       break;
     }
+    case "eq3":
+      {
+       // player_1_filter.type = e.currentTarget.value;
+        player_1_tascam_424_controls_div.style.display = "none";
+        player_1_peaking_controls_div.style.display = "none";
+        player_1_shelf_controls_div.style.display = "none";
+        player_1_allpass_controls_div.style.display = "none";
+        player_1_eq3_controls_div.style.display = "block";
+        break;
+      }
+
+
+
     default:
-      { console.log(" EQ1 DEFAULT"); }
+      { console.log(" EQ1 DEFAULT player_1_filter_1_select switch"); }
   }
   // }
 
@@ -1372,9 +1418,9 @@ player_1_fadeOut_text.innerHTML = `fadeOut`;
 player_1_songName.innerHTML = `No Song Loaded`;
 //player_1_duration_text.innerHTML = "Duration";
 player_1_duration_value.innerHTML = "Unk";
-player_1_filter_frequency_value_allpass.innerHTML = "20000";
-player_1_filter_frequency_value_shelf.innerHTML = "20000";
-player_1_filter_frequency_value_peaking.innerHTML = "20000";
+player_1_filter_frequency_value_allpass.innerHTML = "20";
+player_1_filter_frequency_value_shelf.innerHTML = "20";
+player_1_filter_frequency_value_peaking.innerHTML = "20";
 player_1_filter_Q_value_allpass.innerHTML = "0";
 player_1_filter_Q_value_peaking.innerHTML = "0";
 player_1_filter_detune_value_allpass.innerHTML = "0";
@@ -1397,6 +1443,12 @@ player_1_dynamics_release_value.innerHTML = 0;
 player_1_dynamics_attack_value.innerHTML = 0;
 player_1_dynamics_knee_value.innerHTML = 0;
 
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+//********************************************************** */
+//************************************************************ */
+//NODE CONSTRUCTION PLAYER 1
 
 const player_1_volNode = new Tone.Volume(-100).connect(masterVolume);
 
@@ -1404,7 +1456,6 @@ const player_1_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(player_1
 const player_1_dynamics_gateNode_Bypass = new Tone.Volume(0).connect(player_1_dynamics_limiterNode_Bypass);
 const player_1_dynamics_compressorNode_Bypass = new Tone.Volume(0).connect(player_1_dynamics_gateNode_Bypass);
 const player_1_filter_Bypass = new Tone.Volume(0).connect(player_1_dynamics_compressorNode_Bypass);
-
 
 const player_1_filter = new Tone.Filter();
 player_1_filter.debug = true;
@@ -1487,18 +1538,118 @@ fx_1_tremolo_Node.wet = 1;
 const fx_1_vibrato_Node = new Tone.Vibrato();
 fx_1_vibrato_Node.wet = 1;
 
+
+
 //--------------------------------------------------------------------------
+//PLAYER 1 EQ3
+
+const player_1_filter_eq3 = new Tone.EQ3;
+
+player_1_filter_eq3.set(
+  {
+    low: 0,
+    mid: 0,
+    high: 0,
+    lowFrequency: 400,
+    highFrequency: 2500
+  }
+);
+
+const player_1_EQ3_low_fader_gain = document.getElementById("player_1_EQ3_low_fader_gain");
+const player_1_EQ3_low_fader_gain_value = document.getElementById("player_1_EQ3_low_fader_gain_value");
+
+const player_1_EQ3_low_frequency_fader = document.getElementById("player_1_EQ3_low_frequency_fader");
+const player_1_EQ3_low_frequency_fader_value = document.getElementById("player_1_EQ3_low_frequency_fader_value");
+
+const player_1_EQ3_mid_fader_gain = document.getElementById("player_1_EQ3_mid_fader_gain");
+const player_1_EQ3_mid_fader_gain_value = document.getElementById("player_1_EQ3_mid_fader_gain_value");
+
+const player_1_EQ3_hi_fader_gain = document.getElementById("player_1_EQ3_hi_fader_gain");
+const player_1_EQ3_hi_fader_gain_value = document.getElementById("player_1_EQ3_hi_fader_gain_value");
+
+const player_1_EQ3_high_frequency_fader = document.getElementById("player_1_EQ3_high_frequency_fader");
+const player_1_EQ3_high_frequency_value = document.getElementById("player_1_EQ3_high_frequency_value");
+
+const player_1_EQ3_Q_fader = document.getElementById("player_1_EQ3_Q_fader");
+const player_1_EQ3_Q_value = document.getElementById("player_1_EQ3_Q_value");
+//--------------------------------------------------------------------------
+//************************************************************************** */
+//PLAYER 1 EQ 3 EVENTLISTENERS
+
+player_1_EQ3_low_fader_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player_1_filter_eq3.low.value = -100;
+    player_1_EQ3_low_fader_gain_value.innerHTML = -100;
+  }
+  else {
+    player_1_filter_eq3.low.value = e.currentTarget.value; console.log("player_1_filter_eq3.low: " + e.currentTarget.value);
+    player_1_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+player_1_EQ3_low_frequency_fader.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player_1_filter_eq3.lowFrequency.value = -100;
+    player_1_EQ3_low_frequency_fader_value.innerHTML = -100;
+  }
+  else {
+    player_1_filter_eq3.lowFrequency.value = e.currentTarget.value; console.log("player_1_filter_eq3.low: " + e.currentTarget.value);
+    player_1_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+player_1_EQ3_mid_fader_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player_1_filter_eq3.mid.value = -100;
+    player_1_EQ3_mid_fader_gain_value.innerHTML = -100;
+  }
+  else {
+    player_1_filter_eq3.mid.value = e.currentTarget.value; console.log("player_1_filter_eq3.mid: " + e.currentTarget.value);
+    player_1_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+player_1_EQ3_hi_fader_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player_1_filter_eq3.mid.value = -100;
+    player_1_EQ3_hi_fader_gain_value.innerHTML = -100;
+  }
+  else {
+    player_1_filter_eq3.high.value = e.currentTarget.value; console.log("player_1_filter_eq3.hi: " + e.currentTarget.value);
+    player_1_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+player_1_EQ3_high_frequency_fader.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player_1_filter_eq3.highFrequency.value = -100;
+    player_1_EQ3_high_frequency_value.innerHTML = -100;
+  }
+  else {
+    player_1_filter_eq3.highFrequency.value = e.currentTarget.value; console.log("player_1_filter_eq3.low: " + e.currentTarget.value);
+    player_1_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
+
+player_1_EQ3_Q_fader.addEventListener("change", function (e) {
+  player_1_filter_eq3.Q.value = e.currentTarget.value; console.log("player_1_filter.q: " + e.currentTarget.value);
+  player_1_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+//*************************************************************************** */
+//*************************************************************************** */
+//*************************************************************************** */
+//FX 1 EQ CONTROLS
 const fx_1_peaking_controls = document.getElementById("fx_1_peaking_controls");
 const fx_1_tascam_424_controls = document.getElementById("fx_1_tascam_424_controls");
 const fx_1_shelf_controls = document.getElementById("fx_1_shelf_controls");
 const fx_1_allpass_controls = document.getElementById("fx_1_allpass_controls");
 
-
+//*************************************************************************** */
+//*************************************************************************** */
+//*************************************************************************** */
 //---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------
-//-----------------------------------------------------------------------------
+//PLAYER 2 3 & 4  BULLSHIT
 const player_2_volume = document.getElementById("player_2_volume");
 const player_3_volume = document.getElementById("player_3_volume");
 const player_4_volume = document.getElementById("player_4_volume");
@@ -1708,7 +1859,6 @@ const fx_2_rms_value = document.getElementById("fx_2_rms_value");
 const fx_3_rms_value = document.getElementById("fx_3_rms_value");
 const fx_4_rms_value = document.getElementById("fx_4_rms_value");
 
-//****************************************************
 //************************************************************ 
 //************************************************************ */
 //FX 1 VOLUME + PAN + SENDFX
@@ -1806,12 +1956,8 @@ for (i = 0; i < coll.length; i++) {
 
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
-//--------------------------------------------------------------------------
-//--------------------------------------------------------------------------
-//************************************************************ */
-//************************************************************ */
+//***************************************************************************** */
+//***************************************************************************** */
 //VAR DECLARATION
 
 var isFilter_fx1_On = true;      //EQ Off
@@ -1825,16 +1971,11 @@ var is_fx1_fxSend_2_On = true;
 var is_fx1_fxSend_3_On = true;
 var is_fx1_fxSend_4_On = true;
 
-
 //---------------------------------------------------------------------------
 //---------------------------------------------------------------------------
-//---------------------------------------------------------------------------
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
-//********************************************************** */
-//************************************************************ */
-//NODE CONSTRUCTION
-
+//***************************************************************************** */
+//***************************************************************************** */
+//NODE CONSTRUCTION PLAYER 2 3 & 4 
 
 const player_2_volNode = new Tone.Volume(-100).connect(masterVolume);
 const player_3_volNode = new Tone.Volume(-100).connect(masterVolume);
@@ -1915,8 +2056,6 @@ fx_2.connect(fxReturn_2_fader);
 fx_3.connect(fxReturn_3_fader);
 fx_4.connect(fxReturn_4_fader);
 
-
-
 //*********************************************************************
 //PLAYER 2
 const player2 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3");
@@ -1932,53 +2071,25 @@ player2.connect(filter_2_TEST);
 const test_Unit_rms = new Tone.Meter(0);
 const player_3 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3");
 player_3.debug = true;
-//CODIGO DE PRUEBA DE RMS 
 
 //PLAYER 4
 const player_4 = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/00_Silence.mp3");
 player_4.debug = true;
-filter_4_TEST.connect(player_4_panNode);
-//filter_4_TEST.toDestination();
+player_4.connect(player_4_panNode);
 
-player_4.connect(filter_4_TEST);
+
 //CODIGO DE PRUEBA DE RMS 
-
-
 const testMeter_2 = new Tone.Meter(0);
 const testMeter_3 = new Tone.Meter(0);
 const testMeter_4 = new Tone.Meter(0);
-
 const testMeter_fx_1 = new Tone.Meter(0);
 
 player2.fan(testMeter_2);
 player_3.fan(testMeter_3);
 player_4.fan(testMeter_4);
 
-
 setInterval('tuFuncion()', 200);
 
-function tuFuncion() {
-  player_1_rms_value.innerHTML = Math.round(`${testMeter_1.getValue()}`);
-  player_2_rms_value.innerHTML = Math.round(`${testMeter_2.getValue()}`);
-  player_3_rms_value.innerHTML = Math.round(`${testMeter_3.getValue()}`);
-  player_4_rms_value.innerHTML = Math.round(`${testMeter_4.getValue()}`);
-
-  fx_1_rms_value.innerHTML = Math.round(`${testMeter_fx_1.getValue()}`);
-  //  fx_2_rms_value.innerHTML = Math.round(`${testMeter_fx_2.getValue()}`);
-  // fx_3_rms_value.innerHTML = Math.round(`${testMeter_fx_3.getValue()}`);
-  //fx_4_rms_value.innerHTML = Math.round(`${testMeter_fx_4.getValue()}`);
-
-}
-
-filter_2_TEST.set(
-  {
-    low: 0,
-    mid: 0,
-    high: 0,
-    lowFrequency: 400,
-    highFrequency: 2500
-  }
-);
 
 //-----------------------------------------------------------------------
 //---------------------------------------------------------------------------
@@ -1996,6 +2107,21 @@ const limiter_div = document.getElementById("limiter_div");
 //gate_div.style.display = "none";
 //limiter_div.style.display = "none";
 //--------------------------------------------
+//******************************************************************** */
+//******************************************************************** */
+//******************************************************************** */
+//******************************************************************** */
+//ALL PLAYER 2 3 & 4
+
+filter_2_TEST.set(
+  {
+    low: 0,
+    mid: 0,
+    high: 0,
+    lowFrequency: 400,
+    highFrequency: 2500
+  }
+);
 
 player_2_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
@@ -2270,7 +2396,6 @@ player_4_fadeOut.addEventListener("change", function (e) {
   }
 });
 
-
 //************************************************************************** */
 //PLAYER 2 EQ 3 EVENTLISTENERS
 
@@ -2460,7 +2585,6 @@ player_4_songName.innerHTML = `No Song Loaded`;
 //************************************************************************* */
 //PLAYER 2 INNER
 
-
 player_2_duration_text.innerHTML = "Duration";
 player_2_duration_value.innerHTML = "UNK";
 
@@ -2473,32 +2597,34 @@ fx_2_rms_value.innerHTML = 0;
 fx_3_rms_value.innerHTML = 0;
 //fx_4_rms_value.innerHTML = 0;
 
-//***************************************
+//******************************************************* */
+//******************************************************* */
 //******************************************************* */
 
 const fx_1_select = document.getElementById("fx_1_select");
 fx_1_select.addEventListener("change", function (e) {
   consoleClear();
   console.log("fx_1_select add event listener");
-  hide_all_divs("fx_1_select");
-  changes_an_FX_Node("FX1", e.currentTarget.value);
+    changes_an_FX_Node("FX1", e.currentTarget.value);
 });
+//************************************************************************* */
+//************************************************************************* */
+//************************************************************************* */
+//************************************************************************* */
+//************************************************************************* */
+//************************************************************************* */
+//SO CALL PROGRAM
+//INIT SETUP
+player_1_loop_checkbox.checked = true; 
+player_1_Node.loop = true;
+player_1_Node.loopStart = 0.3;    player_1_loop_start.value = 0.3;
+player_1_Node.loopEnd = 22.8;     player_1_loop_end.value = 22.8;
 
 //************************************************************************* */
-
-hide_all_divs("fx_1_select");
-hide_all_divs("fx_4_select");
-
-
-//******************************************************* */
-const fx_4_select = document.getElementById("fx_4_select");
-fx_4_select.addEventListener("change", function (e) {
-  consoleClear();
-  hide_all_divs("fx_4_select");
-  changes_an_FX_Node("FX4", e.currentTarget.value);
-
-});
-
+//************************************************************************* */
+//************************************************************************* */
+//************************************************************************* */
+//************************************************************************* */
 //************************************************************************* */
 //************************************************************************* */
 //FUNCTIONS 
@@ -2513,11 +2639,40 @@ function send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time) {
   switch (value) {
     case "player_1_volume": {
       player_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      //player_1_volume acomodar la posicion del circulo del fader
+      player_1_volume.value = player_1_volume_rampTo_gain;
       player_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
-      player_1_volume.value = 12;
       break;
     }
+    case "player_1_pan": {
+      player_1_panNode.pan.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_pan.value = player_1_volume_rampTo_gain.value;
+      player_1_pan_value.innerHTML = player_1_pan.value;
+      break;
+    }
+    case "player_1_filter_frequency_shelf": {
+      player_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_filter_frequency_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_frequency_shelf.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_filter_gain_shelf": {
+      player_1_filter.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_filter_gain_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_gain_shelf.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_filter_detune_shelf": {
+      alert("value:   " + value + "\n" + 
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+       );
+      player_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_filter_detune_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_detune_shelf.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+
+
   }//CLOSES switch
 }
 
@@ -2831,88 +2986,16 @@ function recStop() {
   }
 }
 
-/*
-function recording() {
-  console.clear();
-  const audio = document.querySelector('audio');
-  const synth = new Tone.Synth();
-  synth.volume.value = -21;
-  const actx = Tone.context;
-  const dest = actx.createMediaStreamDestination();
-  const recorder = new MediaRecorder(dest.stream);
-
-  masterVolume.connect(dest);
-  //synth.connect(dest);
-  synth.toMaster();
-
-  const chunks = [];
-
-  const notes = 'CDEFGAB'.split('').map(n => `${n}4`);
-  let note = 0;
-  Tone.Transport.scheduleRepeat(time => {
-    if (note === 0) recorder.start();
-    if (note > notes.length) {
-      synth.triggerRelease(time)
-      recorder.stop();
-      Tone.Transport.stop();
-    } else synth.triggerAttack(notes[note], time);
-    note++;
-  }, '4n');
-
-  recorder.ondataavailable = evt => chunks.push(evt.data);
-  recorder.onstop = evt => {
-    let blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
-    audio.src = URL.createObjectURL(blob);
-  };
-
-  Tone.Transport.start();
-}
-*/
-
 //************************************************************************* */
 //********************************************************************* */
 //EQ PLAYER 1
-function player_1_filter_eq_selection_foo(value) {
-  alert("value: " + value);
-
-  if (isplayer_1_filter_eq_On === true) {
-    player_1_filter_eq_On_Button.style.backgroundColor = "white";
-    /*    player_1_filter_frequency_allpass.value = 20000;
-        player_1_filter_frequency_value_allpass.innerHTML = 20000;
-        player_1_filter_Q_allpass.value = 0;
-        player_1_filter_Q_value_allpass.innerHTML = 0;
-        player_1_filter_gain_allpass.value = 0;
-        player_1_filter_gain_value_allpass.innerHTML = 0;
-        player_1_filter_detune_allpass.value = 0;
-        player_1_filter_detune_value_allpass.innerHTML = 0;
-    
-        player_1_filter.set({
-          frequency: 20000,
-          type: "lowpass",
-          Q: 0,
-          gain: 0,
-          rolloff: -96,
-        });
-        */
-  }
-  else {
-    player_1_filter_eq_On_Button.innerText = "On";
-    player_1_filter_eq_On_Button.style.backgroundColor = "green";
-
-  }
-  isplayer_1_filter_eq_On = !isplayer_1_filter_eq_On; console.log("AAAAAAAAAAAAAAisplayer_1_filter_eq_On: " + isplayer_1_filter_eq_On);
-
-}
 
 function test1(value) {
   consoleClear();
   console.log("test1 value: " + value + "");
-  console.log("  player_1_filter_eq_selection: " + player_1_filter_eq_selection + "");
+  console.log("  player_1_filter_eq_selection ACTUAL: " + player_1_filter_eq_selection + " ");
 
   if (player_1_filter_eq_selection != value) {
-    hide_all_EQ_divs("1");
-    switch (player_1_filter_eq_selection) {
-      case "bypass": {
         switch (value) {
           case "on": {
             player_1_panNode.disconnect(player_1_filter_Bypass);
@@ -2921,26 +3004,8 @@ function test1(value) {
             player_1_filter_eq_selection = "on";
             player_1_filter_eq_On_Button.style.backgroundColor = "green";
             player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
-            player_1_filter_eq_tascam_Button.style.backgroundColor = "white";
             break;
           }
-          case "tascam_424": {
-            //alert("TASCAM 424")
-            player_1_panNode.disconnect(player_1_filter_Bypass);
-            player_1_panNode.connect(player_1_LowShelf_FilterNode);
-            player_1_HighShelf_FilterNode.connect(player_1_dynamics_compressorNode_Bypass);
-            player_1_filter_eq_selection = "tascam_424";
-            player_1_filter_eq_On_Button.style.backgroundColor = "white";
-            player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
-            player_1_filter_eq_tascam_Button.style.backgroundColor = "green";
-            player_1_tascam_424_controls_div.style.display = "block";
-            break;
-          }
-        }
-        break;
-      }
-      case "on": {
-        switch (value) {
           case "bypass": {
             player_1_panNode.disconnect(player_1_filter);
             //player_1_filter.disconnect(player_1_dynamics_compressorNode_Bypass);
@@ -2949,71 +3014,13 @@ function test1(value) {
             player_1_filter_eq_selection = "bypass";
             player_1_filter_eq_On_Button.style.backgroundColor = "white";
             player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
-            player_1_filter_eq_tascam_Button.style.backgroundColor = "white";
-
             break;
-          }
-          case "tascam_424": {
-            //alert("TASCAM 424")
-            player_1_panNode.disconnect(player_1_filter);
-            player_1_panNode.connect(player_1_LowShelf_FilterNode);
-            player_1_HighShelf_FilterNode.connect(player_1_dynamics_compressorNode_Bypass);
-            player_1_filter_eq_selection = "tascam_424";
-            player_1_filter_eq_On_Button.style.backgroundColor = "white";
-            player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
-            player_1_filter_eq_tascam_Button.style.backgroundColor = "green";
-            player_1_tascam_424_controls_div.style.display = "block";
-
-            /*
-              player_1_allpass_controls_div.style.display = "none";
-              player_1_shelf_controls_div.style.display = "none";
-              player_1_peaking_controls_div.style.display = "none";
-              player_1_tascam_424_controls_div.style.display = "block";
-              */
-            break;
-          }
+   
         }
-        break;
-      }
-      case "tascam_424": {
-        switch (value) {
-          case "on": {
-            player_1_panNode.disconnect(player_1_LowShelf_FilterNode);
-            player_1_panNode.connect(player_1_filter);
-            player_1_filter.connect(player_1_dynamics_compressorNode_Bypass);
-            player_1_filter_eq_selection = "on";
-            player_1_filter_eq_On_Button.style.backgroundColor = "green";
-            player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
-            player_1_filter_eq_tascam_Button.style.backgroundColor = "white";
-            break;
-          }
-          case "bypass": {
-            player_1_panNode.disconnect(player_1_LowShelf_FilterNode);
-            player_1_panNode.connect(player_1_filter_Bypass);
-            player_1_filter_Bypass.connect(player_1_dynamics_compressorNode_Bypass);
-            player_1_filter_eq_selection = "bypass";
-            player_1_filter_eq_On_Button.style.backgroundColor = "white";
-            player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
-            player_1_filter_eq_tascam_Button.style.backgroundColor = "white";
-            break;
-          }
-          default: { break; }
-        }
-
-      }
-      default: { break; }
+       default: { break; }
     }
   }
-  else { console.log("player_1_filter_eq_selection != value    == TRUE"); }
-
-
-  switch (value) {
-    case "bypass": {
-
-      break;
-    }
-    default: { break; }
-  }
+  else { console.log("player_1_filter_eq_selection != value ELSE"); }
 }
 
 //************************************************************************* */
@@ -3022,38 +3029,20 @@ function test1(value) {
 function player_1_fxSend_1_On_Off_Button_foo() {
   console.log("is_player_1_fxSend_1_On: " + is_player_1_fxSend_1_On);
   if (is_player_1_fxSend_1_On == true) {
-    //  alert("el send era true");
     player_1_fxSend_1_preEq_volNode.mute = true;
     player_1_fxSend_1_postEq_volNode.mute = true;
     player_1_fxSend_1_postFdr_volNode.mute = true;
-    /*
-    player_1_fxSend_1_preEq_volNode.volume.value = -100;
-      player_1_fxSend_1_postEq_volNode.volume.value = -100;
-      player_1_fxSend_1_postFdr_volNode.volume.value = -100;
-      */
-    //player_1_fxSend_1.value = -100;
-    //player_1_fxSend_1_value.value = -100;
-    //player_1_fxSend_1_On_Off_Button.innerText = "Off";
     player_1_fxSend_1_On_Off_Button.style.backgroundColor = "red";
   }
   else {
     player_1_fxSend_1_On_Off_Button.style.backgroundColor = "white";
-    //player_1_fxSend_1_On_Off_Button.innerText = "On";
-    /*
-    player_1_fxSend_1_preEq_volNode.volume.value = 0;
-    player_1_fxSend_1_postEq_volNode.volume.value = 0;
-    player_1_fxSend_1_postFdr_volNode.volume.value = 0;
-    */
     player_1_fxSend_1_preEq_volNode.mute = false;
     player_1_fxSend_1_postEq_volNode.mute = false;
     player_1_fxSend_1_postFdr_volNode.mute = false;
-
-
     //REVISAR SI NO ES NECESARIO 
     // GUARDAR EL VALOR ANTERIOR ANTES DE DEVOLVER EL ON
     player_1_fxSend_1.value = 0;
     player_1_fxSend_1_value.value = 0;
-    //  alert("el send era FALSE");
   }
   is_player_1_fxSend_1_On = !is_player_1_fxSend_1_On;
 }
@@ -3422,7 +3411,6 @@ function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
 }//CLOSES FOO 
 
 function send_state_player_1_background_change(name, value) {
-
   switch (name) {
     case "player_1_fxSend_1":
       {
@@ -3599,19 +3587,6 @@ function player_x_dynamics_On_Off(name, value) {
   }
 }
 
-function hide_all_divs(value) {
-  switch (value) {
-    case "fx_1_select": {
-      break;
-    }
-
-    case "fx_4_select": {
-      break;
-    }
-
-  }
-}
-
 function hide_all_EQ_divs(value) {
   switch (value) {
     case "1":
@@ -3620,10 +3595,9 @@ function hide_all_EQ_divs(value) {
         player_1_shelf_controls_div.style.display = "none";
         player_1_peaking_controls_div.style.display = "none";
         player_1_tascam_424_controls_div.style.display = "none";
+        player_1_eq3_controls_div.style.display = "none";
         break;
       }
-
-
 
     default: { break; }
   }
@@ -4288,18 +4262,18 @@ test.removeChild(child);
 console.log (test.children);
 */
 
-if(fx_1.disposed == true){
-  alert("fx_1.disposed == true");
-  const soundClips_1 = document.getElementById("fx_1_clip");
-  const clipContainer = document.getElementsByClassName("clip_1");
-  soundClips_1.removeChild(clipContainer);
+  if (fx_1.disposed == true) {
+    alert("fx_1.disposed == true");
+    const soundClips_1 = document.getElementById("fx_1_clip");
+    const clipContainer = document.getElementsByClassName("clip_1");
+    soundClips_1.removeChild(clipContainer);
 
-}
-else {
-  alert("fx_1.disposed == false");
-}
- // const soundClips_1 = document.getElementById("fx_1_clip");
- // const clipContainer = document.getElementsByClassName("clip_1");
+  }
+  else {
+    alert("fx_1.disposed == false");
+  }
+  // const soundClips_1 = document.getElementById("fx_1_clip");
+  // const clipContainer = document.getElementsByClassName("clip_1");
   //console.log("childNodes: " + soundClips_1.childNodes);
   //soundClips_1.removeChild(clipContainer);
 
@@ -6171,32 +6145,19 @@ function mostrarerror(evento) {
   console.log("URL: " + evento.filename);
 }
 
+function tuFuncion() {
+  player_1_rms_value.innerHTML = Math.round(`${testMeter_1.getValue()}`);
+  player_2_rms_value.innerHTML = Math.round(`${testMeter_2.getValue()}`);
+  player_3_rms_value.innerHTML = Math.round(`${testMeter_3.getValue()}`);
+  player_4_rms_value.innerHTML = Math.round(`${testMeter_4.getValue()}`);
 
+  fx_1_rms_value.innerHTML = Math.round(`${testMeter_fx_1.getValue()}`);
+  //  fx_2_rms_value.innerHTML = Math.round(`${testMeter_fx_2.getValue()}`);
+  // fx_3_rms_value.innerHTML = Math.round(`${testMeter_fx_3.getValue()}`);
+  //fx_4_rms_value.innerHTML = Math.round(`${testMeter_fx_4.getValue()}`);
 
-
-/*
-function esconder() {
-  var x = document.getElementById("player_1_filter_gain_allpass");
-  if (window.getComputedStyle(x).display === "none") {
-    alert("player_1_filter_frequency_allpass se debe haber borrado")
-    player_1_filter_gain_allpass.hidden = true;
-  }
-  else {
-    alert("ELSE player_1_filter_frequency_allpass se debe haber borrado");
-    player_1_filter_gain_allpass.hidden = true;
-  }
-}
-/**
-/*
-
-function myFunction() {
-  var x = document.getElementById("myDIV");
-  if (window.getComputedStyle(x).display === "none") {
-    // Do something..
-  }
 }
 
-/**/
 //************************************************************************
 //************************************************************************
 //EQ high/mid/low values are all in Decibels, so 0 would mean no change.
@@ -6211,7 +6172,7 @@ MID (Parametric): 250 Hz to 5 kHz, ±12 dB
 LOW (Shelving): 100 Hz, ±10 dB
 //-------------------------------------------------------------------------
 MACKIE 24-8
-Hi Mid EQ 
+Hi Mid EQ
 full parametric, ±15dB freq.
 sweep from 500Hz–18kHz
 bandwidth variable from
@@ -6275,6 +6236,7 @@ Switched Bypass: Yes
 //const fileInput = document.getElementById("files");
 
 //console.log(fileInput.files instanceof FileList); // true even if empty
+
 /*
 fileInput.addEventListener("change", () => {
 
@@ -6299,7 +6261,5 @@ fileInput.addEventListener("change", () => {
  
   Return arrayBuffer.
   
-
-
 });
   /**/
