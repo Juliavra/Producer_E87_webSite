@@ -1290,114 +1290,12 @@
         <button id="fx_1_fxSend_4_post_fader_Button" name="fx_1_fxSend_4"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
         </button>
-
         <input type='range' min=-40 max=12 step=1 value="-40" id='fx_1_fxSend_4'>
         <p id="fx_1_fxSend_4_value"></p>
       </fieldset>
     </div>
-
-
   </div>
 
-
-  <!-- FX 1-->
-  <!--
-  <div class="column">
-    <h2>FX 1</h2>
-    rms: <p id="fx_1_rms_value"> </p>
-    <div>
-      <p id="fx1_volume_text"> </p>
-      Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx1_volume'>
-      <p id="fx1_volume_value"></p>
-      <br>
-      <p id="pan_fx1_text">Pan</p>
-      <input type='range' min=-1 max=1 step='0.01' value=0 id='fx1_pan_fader'>
-      <p id="fx1_pan_value"></p>
-    </div>
-
-    <button type="button" class="collapsible">
-      EQ
-    </button>
-    <div class="content">
-      <label for="fx1_filter_label">
-      </label> <button id="fx1_filter_eq_On_Off_Button" onclick="fx1_filter_eq_On_Off_Button_foo()">On </button>
-      <select name="fx1_filter" id="fx1_filter_select">
-        <option name="lowpass" id="lowpass" value="lowpass">Lowpass</option>
-        <option name="highpass" id="highpass" value="highpass">highpass</option>
-        <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
-        <option name="lowshelf" id="lowshelf" value="lowshelf">lowshelf</option>
-        <option name="highshelf" id="highshelf" value="highshelf">highshelf</option>
-        <option name="notch" id="notch" value="notch">notch</option>
-        <option name="allpass" id="allpass" value="allpass">allpass</option>
-        <option name="peaking" id="peaking" value="peaking">peaking</option>
-      </select>
-      <br>
-      <p id="fx1_filter_frequency_text">Frequency </p>
-      <input type='range' min=20 max=20000 step='1' value="0" id='fx1_filter_frequency'>
-      <p id="fx1_filter_frequency_value"></p>
-      <br>
-      <p id="fx1_filter_Q_text">Q </p>
-      <input type='range' min=0 max=2 step=0.1 value="0" id='fx1_filter_Q'>
-      <p id="fx1_filter_Q_value"></p>
-      <br>
-      <p id="fx1_filter_gain_text">Gain </p>
-      <input type='range' min=-30 max=12 step='1' value="-30" id='fx1_filter_gain'>
-      <p id="fx1_filter_gain_value"></p>
-      <br>
-      <p id="fx1_filter_detune_1_text">Detune </p>
-      <input type='range' min=0 max=10000 step='100' value="0" id='fx1_filter_detune_1'>
-      <p id="fx1_filter_detune_value"></p>
-    </div>
-
-    <button type="button" class="collapsible">
-      Dynamics
-    </button>
-    <div class="content">
-
-    </div>
-
-    <button type="button" class="collapsible">
-      Fx Send
-    </button>
-    <div class="content">
-      <p id="fx_1_fxSend_2_text">
-      <h2> 2 Reverb
-        <button id="fx_1_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">On </button>
-      </h2>
-      </p>
-      Send
-      <button id="fx1_fxSend_1_pre_EQ_Button" name="fx1_fxSend_1" onclick="player_x_fxSend_x_state_foo(name, value)"
-        value="PreEQ">Pre EQ
-      </button>
-      <button id="fx1_fxSend_1_post_EQ_Button" name="fx1_fxSend_1" onclick="player_x_fxSend_x_state_foo(name, value)"
-        value="PostEQ">Post EQ
-      </button>
-      <button id="fx1_fxSend_1_post_fader_Button" name="fx1_fxSend_1" onclick="player_x_fxSend_x_state_foo(name, value)"
-        value="PostFdr">Post Fdr
-      </button>
-
-      <input type='range' min=-40 max=12 step=1 value="-40" id='fx_1_fxSend_2'>
-      <p id="fx_1_fxSend_2_value"></p>
-      <br>
-
-      <p id="fx_1_fxSend_3_text">
-      <h2>3 FeedBack Delay <button id="fx_1_fxSend_3_On_Off_Button" onclick="fx_1_fxSend_3_OnOff()">On </button>
-      </h2>
-      </p>
-      Send
-      <input type='range' min=-40 max=12 step=1 value="-40" id='fx_1_fxSend_3'>
-      <p id="fx_1_fxSend_3_value"></p>
-      <br>
-      
-      <p id="fx_1_fxSend_4_text"> 4 </p>
-        <button id="fx_1_fxSend_4_On_Off_Button" onclick="fx1_fxSend_4_OnOff()">On </button>
-           
-      Send
-      <input type='range' min=-40 max=12 step=1 value="-40" id='fx_1_fxSend_4'>
-      <p id="fx_1_fxSend_4_value"></p>
-    </div>
-  </div>
-  -->
   <!-- FX 2-->
   <div class="column">
     <h2>FX 2</h2>
@@ -1542,7 +1440,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
   integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="js/step_7.js"></script>
+<script src="js/step_8.js"></script>
 <!--
 <script src="js/app.js"></script>
 -->
