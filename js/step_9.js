@@ -1485,7 +1485,7 @@ player_1_Node.fan(testMeter_1);
 //const player_1_limiter_Node = new Tone.Limiter();
 //const player_1_gate_Node = new Tone.Gate();
 
-const fmSynth = new Tone.FMSynth().toDestination();
+const fmSynth = new Tone.FMSynth();
 fmSynth.volume.value = -20;
 
 //************************************************************************** */
@@ -1638,47 +1638,42 @@ fx_1_autoWah_octaves.addEventListener("change", function (e) {
   console.log("fx_1_autoWah_Node. octaves: " + fx_1_AutoWah_Node.octaves);
   fx_1_autoWah_octaves_value.innerHTML = `${e.currentTarget.value}`;
 });
-
 fx_1_autoWah_sensitivity.addEventListener("change", function (e) {
   console.clear();
-  console.log("e.currentTarget.value: "+  e.currentTarget.value);
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.sensitivity = e.currentTarget.value;
   console.log("fx_1_autoWah_Node. sensitivity: " + fx_1_AutoWah_Node.sensitivity);
   fx_1_autoWah_sensitivity_value.innerHTML = `${e.currentTarget.value}`;
 });
-
 fx_1_autoWah_Q.addEventListener("change", function (e) {
   console.clear();
-  console.log("e.currentTarget.value: "+  e.currentTarget.value);
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.Q.value = e.currentTarget.value;
   console.log("fx_1_AutoWah_Node. Q: " + fx_1_AutoWah_Node.Q.value);
   fx_1_autoWah_Q_value.innerHTML = `${e.currentTarget.value}`;
 });
-
 fx_1_autoWah_gain.addEventListener("change", function (e) {
   console.clear();
-  console.log("e.currentTarget.value: "+  e.currentTarget.value);
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.gain.value = e.currentTarget.value;
   console.log("fx_1_AutoWah_Node. gain: " + fx_1_AutoWah_Node.gain.value);
   fx_1_autoWah_gain_value.innerHTML = `${e.currentTarget.value}`;
 });
-/*
-fx_1_autoWah_follower_attack.addEventListener("change", function(e) {
-  console.clear();
-  console.log("e.currentTarget.value: "  e.currentTarget.value);
+
+fx_1_autoWah_follower_attack.addEventListener("change", function (e) {
+  //console.clear();
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.follower.attack = e.currentTarget.value;
-  console.log("fx_1_AutoWah_Node.follower.attack: "  fx_1_AutoWah_Node.follower.attack);
+  console.log("fx_1_AutoWah_Node.follower.attack: " + fx_1_AutoWah_Node.follower.attack);
   fx_1_autoWah_follower_attack_value.innerHTML = `${e.currentTarget.value}`;
 });
-fx_1_autoWah_follower_release.addEventListener("change", function(e) {
-  console.clear();
-  console.log("e.currentTarget.value: "  e.currentTarget.value);
-  fx_1_AutoWah_Node.follower.release = e.currentTarget.value;
-  console.log("fx_1_AutoWah_Node.follower.release: "  fx_1_AutoWah_Node.follower.release);
+fx_1_autoWah_follower_release.addEventListener("change", function (e) {
+  //console.clear();
+  console.log("e.currentTarget.value: " + e.currentTarget.value);
+  fx_1_AutoWah_Node.follower.release.value = e.currentTarget.value;
+  console.log("fx_1_AutoWah_Node.follower.release: " + fx_1_AutoWah_Node.follower.release);
   fx_1_autoWah_follower_release_value.innerHTML = `${e.currentTarget.value}`;
 });
-
-/**/
 
 const fx_1_autoWah_div = document.getElementById("fx_1_autoWah_div");
 fx_1_autoWah_div.style.display = "none";
@@ -1689,14 +1684,13 @@ fx_1_autoWah_div.style.display = "none";
 //************************************************************************** */
 //************************************************************************** */
 
-//const bitCrusher = new Tone.BitCrusher();
+//const fx_1_bitCrusher_Node = new Tone.BitCrusher();
+//fx_1_bitCrusher_Node.wet = 1;
 
-/*
-const bitCrusher = new Tone.BitCrusher(4).toDestination();
 const fx_1_bitCrusher_text = document.getElementById("fx_1_bitCrusher_text");
 const fx_1_bitCrusher = document.getElementById("fx_1_bitCrusher");
 const fx_1_bitCrusher_value = document.getElementById("fx_1_bitCrusher_value");
-*/
+
 
 const fx_1_bitCrusher_div = document.getElementById("fx_1_bitCrusher_div");
 fx_1_bitCrusher_div.style.display = "none";
@@ -1710,10 +1704,6 @@ fx_1_bitCrusher_div.style.display = "none";
 const fx_1_Chebyshev_Node = new Tone.Chebyshev();
 fx_1_Chebyshev_Node.wet = 1;
 
-/*
-const fx_1_Chebyshev_Node = new Tone.Chebyshev().toDestination();
-fx_1_Chebyshev_Node.wet = 1;
-
 const fx_1_Chebyshev_order = document.getElementById("fx_1_Chebyshev_order");
 const fx_1_Chebyshev_order_value = document.getElementById("fx_1_Chebyshev_order_value");
 
@@ -1722,7 +1712,7 @@ const fx_1_Chebyshev_select_type_value = document.getElementById("fx_1_Chebyshev
 
 fx_1_Chebyshev_order.addEventListener("change", function (e) {
   fx_1_Chebyshev_Node.order = Math.round(`${e.currentTarget.value}`);
-  console.log("fx_1_Chebyshev_Node: "+  fx_1_Chebyshev_Node.order);
+  console.log("fx_1_Chebyshev_Node: " + fx_1_Chebyshev_Node.order);
   fx_1_Chebyshev_order_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -1730,8 +1720,6 @@ fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
   fx_1_Chebyshev_Node.type = e.currentTarget.value;
   console.log("fx_1_Chebyshev_Node.type: " + e.currentTarget.value);
 });
-
-/**/
 
 const fx_1_Chebyshev_div = document.getElementById("fx_1_Chebyshev_div");
 fx_1_Chebyshev_div.style.display = "none";
@@ -1761,36 +1749,36 @@ const fx_1_chorus_feedback_value = document.getElementById("fx_1_chorus_feedback
 
 const fx_1_chorus_select_type = document.getElementById("fx_1_chorus_select_type");
 
-fx_1_chorus_freq.addEventListener("change", function(e) {
+fx_1_chorus_freq.addEventListener("change", function (e) {
   fx_1_chorus_Node.frequency.value = e.currentTarget.value;
   console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.frequency);
   fx_1_chorus_freq_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_chorus_delayTime.addEventListener("change", function(e) {
+fx_1_chorus_delayTime.addEventListener("change", function (e) {
   fx_1_chorus_Node.delayTime = e.currentTarget.value;
   console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.delayTime);
   fx_1_chorus_delayTime_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_chorus_depth.addEventListener("change", function(e) {
+fx_1_chorus_depth.addEventListener("change", function (e) {
   fx_1_chorus_Node.depth = e.currentTarget.value;
   console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.depth);
   fx_1_chorus_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_chorus_spread.addEventListener("change", function(e) {
+fx_1_chorus_spread.addEventListener("change", function (e) {
   fx_1_chorus_Node.spread = e.currentTarget.value;
   console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.spread);
   fx_1_chorus_spread_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_chorus_select_type.addEventListener("change", function(e) {
+fx_1_chorus_select_type.addEventListener("change", function (e) {
   fx_1_chorus_Node.type = e.currentTarget.value;
   console.log("fx_1_chorus_Node.type: " + e.currentTarget.value);
 });
 
-fx_1_chorus_feedback.addEventListener("change", function(e) {
+fx_1_chorus_feedback.addEventListener("change", function (e) {
   fx_1_chorus_Node.feedback.value = e.currentTarget.value;
   console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.feedback.value);
   fx_1_chorus_feedback_value.innerHTML = `${e.currentTarget.value}`;
@@ -1848,7 +1836,7 @@ const fx_1_feedback_delayTime_value = document.getElementById("fx_1_feedback_del
 const fx_1_feedback_maxDelay = document.getElementById("fx_1_feedback_maxDelay");
 const fx_1_feedback_maxDelay_value = document.getElementById("fx_1_feedback_maxDelay_value");
 
-fx_1_feedback.addEventListener("change", function(e) {
+fx_1_feedback.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_feedback_Node.feedback.value = e.currentTarget.value;
@@ -1856,14 +1844,14 @@ fx_1_feedback.addEventListener("change", function(e) {
   fx_1_feedback_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_feedback_delayTime.addEventListener("change", function(e) {
+fx_1_feedback_delayTime.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_feedback_Node.delayTime.value = e.currentTarget.value;
   console.log("fx4_feedback_Node: " + fx_1_feedback_Node.delayTime.value);
   fx_1_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
 });
-fx_1_feedback_maxDelay.addEventListener("change", function(e) {
+fx_1_feedback_maxDelay.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_feedback_Node.maxDelay = e.currentTarget.value;
@@ -1882,7 +1870,6 @@ fx_1_feedback_div.style.display = "none";
 //*****************************************************************************************************
 //*****************************************************************************************************
 
-/*
 //const fx_1_freeVerb_Node = new Tone.Freeverb();
 //fx_1_freeVerb_Node.wet = 1;
 
@@ -1896,7 +1883,7 @@ fx_1_freeVerb_dampening.addEventListener("change", function(e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_freeVerb_Node.dampening = e.currentTarget.value;
-  console.log("fx4_dampening_Node: " + fx_1_freeVerb_Node.dampening);
+  console.log("fx1_dampening_Node: " + fx_1_freeVerb_Node.dampening);
   fx_1_freeVerb_dampening_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -1904,11 +1891,9 @@ fx_1_freeVerb_roomSize.addEventListener("change", function(e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_freeVerb_Node.roomSize.value = e.currentTarget.value;
-  console.log("fx4_roomSize_Node: " + fx_1_freeVerb_Node.roomSize.value);
+  console.log("fx1_roomSize_Node: " + fx_1_freeVerb_Node.roomSize.value);
   fx_1_freeVerb_roomSize_value.innerHTML = `${e.currentTarget.value}`;
 });
-
-/**/
 
 const fx_1_freeVerb_div = document.getElementById("fx_1_freeVerb_div");
 fx_1_freeVerb_div.style.display = "none";
@@ -1921,24 +1906,9 @@ fx_1_freeVerb_div.style.display = "none";
 
 const fx_1_FrequencyShifter_Node = new Tone.FrequencyShifter();
 fx_1_FrequencyShifter_Node.wet = 1;
-/*
-fx_1_FrequencyShifter_Node.connect(fxReturn_1_fader);
 
-player_1_fxSend_1_preEq_volNode.connect(fx_1_FrequencyShifter_Node);
-player_1_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
-player_1_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
-
-player_2_fxSend_1_preEq_volNode.connect(fx_1_FrequencyShifter_Node);
-player_2_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
-player_2_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
-
-player_3_fxSend_1_preEq_volNode.connect(fx_1_FrequencyShifter_Node);
-player_3_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
-player_3_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
-
-player_4_fxSend_1_preEq_volNode.connect(fx_1_FrequencyShifter_Node);
-player_4_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
-player_4_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
+const fx_1_frequencyShifter = document.getElementById("fx_1_frequencyShifter");
+const fx_1_frequencyShifter_value = document.getElementById("fx_1_frequencyShifter_value");
 
 fx_1_frequencyShifter.addEventListener("change", function (e) {
   console.clear();
@@ -1948,18 +1918,13 @@ fx_1_frequencyShifter.addEventListener("change", function (e) {
   fx_1_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-const fx_1_frequencyShifter = document.getElementById("fx_1_frequencyShifter");
-const fx_1_frequencyShifter_value = document.getElementById("fx_1_frequencyShifter_value");
-
-fx_1_frequencyShifter.addEventListener("change", function(e) {
+fx_1_frequencyShifter.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_FrequencyShifter_Node.frequency.value = e.currentTarget.value;
   console.log("fx4_dampening_Node: " + fx_1_FrequencyShifter_Node.frequency.value);
   fx_1_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
 });
-
-/**/
 
 const fx_1_frequencyShifter_div = document.getElementById("fx_1_frequencyShifter_div");
 fx_1_frequencyShifter_div.style.display = "none";
@@ -1997,65 +1962,64 @@ fx_1_JCReverb_div.style.display = "none";
 
 const fx_1_phaser_Node = new Tone.Phaser();
 fx_1_phaser_Node.wet = 1;
-/*
-const fx_4_phaser_frequency = document.getElementById("fx_4_phaser_frequency");
-const fx_4_phaser_frequency_value = document.getElementById("fx_4_phaser_frequency_value");
 
-const fx_4_phaser_octaves = document.getElementById("fx_4_phaser_octaves");
-const fx_4_phaser_octaves_value = document.getElementById("fx_4_phaser_octaves_value");
+const fx_1_phaser_frequency = document.getElementById("fx_1_phaser_frequency");
+const fx_1_phaser_frequency_value = document.getElementById("fx_1_phaser_frequency_value");
 
-const fx_4_phaser_stages = document.getElementById("fx_4_phaser_stages");
-const fx_4_phaser_stages_value = document.getElementById("fx_4_phaser_stages_value");
+const fx_1_phaser_octaves = document.getElementById("fx_1_phaser_octaves");
+const fx_1_phaser_octaves_value = document.getElementById("fx_1_phaser_octaves_value");
 
-const fx_4_phaser_Q = document.getElementById("fx_4_phaser_Q");
-const fx_4_phaser_Q_value = document.getElementById("fx_4_phaser_Q_value");
+const fx_1_phaser_stages = document.getElementById("fx_1_phaser_stages");
+const fx_1_phaser_stages_value = document.getElementById("fx_1_phaser_stages_value");
 
-const fx_4_phaser_baseFrequency = document.getElementById("fx_4_phaser_baseFrequency");
-const fx_4_phaser_baseFrequency_value = document.getElementById("fx_4_phaser_baseFrequency_value");
+const fx_1_phaser_Q = document.getElementById("fx_1_phaser_Q");
+const fx_1_phaser_Q_value = document.getElementById("fx_1_phaser_Q_value");
 
-fx_4_phaser_frequency.addEventListener("change", function(e) {
+const fx_1_phaser_baseFrequency = document.getElementById("fx_1_phaser_baseFrequency");
+const fx_1_phaser_baseFrequency_value = document.getElementById("fx_1_phaser_baseFrequency_value");
+
+fx_1_phaser_frequency.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_4_phaser_Node: " + fx_4_phaser_Node.frequency.value);
-  fx_4_phaser_frequency_value.innerHTML = `${e.currentTarget.value}`;
+  fx_1_phaser_Node.frequency.value = e.currentTarget.value;
+  console.log("fx_1_phaser_Node: " + fx_1_phaser_Node.frequency.value);
+  fx_1_phaser_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_phaser_stages.addEventListener("change", function(e) {
+fx_1_phaser_stages.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.stages = e.currentTarget.value;
-  console.log("fx_4_phaser_Node. stages: " + fx_4_phaser_Node.stages);
-  fx_4_phaser_stages_value.innerHTML = `${e.currentTarget.value}`;
+  fx_1_phaser_Node.stages = e.currentTarget.value;
+  console.log("fx_1_phaser_Node. stages: " + fx_1_phaser_Node.stages);
+  fx_1_phaser_stages_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_phaser_octaves.addEventListener("change", function(e) {
+fx_1_phaser_octaves.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.octaves = e.currentTarget.value;
-  console.log("fx_4_phaser_Node. octaves: " + fx_4_phaser_Node.octaves);
-  fx_4_phaser_octaves_value.innerHTML = `${e.currentTarget.value}`;
+  fx_1_phaser_Node.octaves = e.currentTarget.value;
+  console.log("fx_1_phaser_Node. octaves: " + fx_1_phaser_Node.octaves);
+  fx_1_phaser_octaves_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_phaser_Q.addEventListener("change", function(e) {
+fx_1_phaser_Q.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.Q = e.currentTarget.value;
-  console.log("fx_4_phaser_Node. Q: " + fx_4_phaser_Node.Q);
-  fx_4_phaser_Q_value.innerHTML = `${e.currentTarget.value}`;
+  fx_1_phaser_Node.Q = e.currentTarget.value;
+  console.log("fx_1_phaser_Node. Q: " + fx_1_phaser_Node.Q);
+  fx_1_phaser_Q_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_phaser_baseFrequency.addEventListener("change", function(e) {
+fx_1_phaser_baseFrequency.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_4_phaser_Node.baseFrequency = e.currentTarget.value;
-  console.log("fx_4_phaser_Node. baseFrequency: " + fx_4_phaser_Node.baseFrequency);
-  fx_4_phaser_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
+  fx_1_phaser_Node.baseFrequency = e.currentTarget.value;
+  console.log("fx_1_phaser_Node. baseFrequency: " + fx_1_phaser_Node.baseFrequency);
+  fx_1_phaser_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
 });
-/**/
+
 const fx_1_phaser_div = document.getElementById("fx_1_phaser_div");
 fx_1_phaser_div.style.display = "none";
-
 
 //************************************************************************** */
 //************************************************************************** */
@@ -2066,34 +2030,32 @@ fx_1_phaser_div.style.display = "none";
 const fx_1_pingpong_Node = new Tone.PingPongDelay();
 fx_1_pingpong_Node.wet = 1;
 
-const fx_4_pingpong_feedback = document.getElementById("fx_4_pingpong_feedback");
-const fx_4_pingpong_feedback_value = document.getElementById("fx_4_pingpong_feedback_value");
+const fx_1_pingpong_feedback = document.getElementById("fx_1_pingpong_feedback");
+const fx_1_pingpong_feedback_value = document.getElementById("fx_1_pingpong_feedback_value");
 
-const fx_4_pingpong_delayTime = document.getElementById("fx_4_pingpong_delayTime");
-const fx_4_pingpong_delayTime_value = document.getElementById("fx_4_pingpong_delayTime_value");
+const fx_1_pingpong_delayTime = document.getElementById("fx_1_pingpong_delayTime");
+const fx_1_pingpong_delayTime_value = document.getElementById("fx_1_pingpong_delayTime_value");
 
-const fx_4_pingpong_maxDelay = document.getElementById("fx_4_pingpong_maxDelay");
-const fx_4_pingpong_maxDelay_value = document.getElementById("fx_4_pingpong_maxDelay_value");
-/*
-fx_4_pingpong_delayTime.addEventListener("change", function(e) {
-  fx_4_pingpong_Node.delayTime.value = e.currentTarget.value;
-  console.log("fx_4_pingpong_Node: " + fx_4_pingpong_Node.delayTime.value);
-  fx_4_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
+const fx_1_pingpong_maxDelay = document.getElementById("fx_1_pingpong_maxDelay");
+const fx_1_pingpong_maxDelay_value = document.getElementById("fx_1_pingpong_maxDelay_value");
+
+fx_1_pingpong_delayTime.addEventListener("change", function (e) {
+  fx_1_pingpong_Node.delayTime.value = e.currentTarget.value;
+  console.log("fx_1_pingpong_Node: " + fx_1_pingpong_Node.delayTime.value);
+  fx_1_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_pingpong_feedback.addEventListener("change", function(e) {
-  fx_4_pingpong_Node.feedback.value = e.currentTarget.value;
-  console.log("fx_4_pingpong_Node: " + fx_4_pingpong_Node.feedback.value);
-  fx_4_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
+fx_1_pingpong_feedback.addEventListener("change", function (e) {
+  fx_1_pingpong_Node.feedback.value = e.currentTarget.value;
+  console.log("fx_1_pingpong_Node: " + fx_1_pingpong_Node.feedback.value);
+  fx_1_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_4_pingpong_maxDelay.addEventListener("change", function(e) {
-  fx_4_pingpong_Node.maxDelay = e.currentTarget.value;
-  console.log("fx_4_pingpong_Node: " + fx_4_pingpong_Node.maxDelay);
-  fx_4_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
+fx_1_pingpong_maxDelay.addEventListener("change", function (e) {
+  fx_1_pingpong_Node.maxDelay = e.currentTarget.value;
+  console.log("fx_1_pingpong_Node: " + fx_1_pingpong_Node.maxDelay);
+  fx_1_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
 });
-
-/**/
 
 const fx_1_pingpong_div = document.getElementById("fx_1_pingpong_div");
 fx_1_pingpong_div.style.display = "none";
@@ -2116,25 +2078,25 @@ const fx_1_pitchshift_delayTime_value = document.getElementById("fx_1_pitchshift
 const fx_1_pitchshift_pitch = document.getElementById("fx_1_pitchshift_pitch");
 const fx_1_pitchshift_pitch_value = document.getElementById("fx_1_pitchshift_pitch_value");
 
-fx_1_pitchshift_delayTime.addEventListener("change", function(e) {
+fx_1_pitchshift_delayTime.addEventListener("change", function (e) {
   fx_1_pitchshift_Node.delayTime.value = e.currentTarget.value;
   console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.delayTime.value);
   fx_1_pitchshift_delayTime_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_pitchshift_feedback.addEventListener("change", function(e) {
+fx_1_pitchshift_feedback.addEventListener("change", function (e) {
   fx_1_pitchshift_Node.feedback.value = e.currentTarget.value;
   console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.feedback.value);
   fx_1_pitchshift_feedback_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_pitchshift_pitch.addEventListener("change", function(e) {
+fx_1_pitchshift_pitch.addEventListener("change", function (e) {
   fx_1_pitchshift_Node.pitch = e.currentTarget.value;
   console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.pitch);
   fx_1_pitchshift_pitch_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_pitchshift_windowSize.addEventListener("change", function(e) {
+fx_1_pitchshift_windowSize.addEventListener("change", function (e) {
   fx_1_pitchshift_Node.windowSize = e.currentTarget.value;
   console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.windowSize);
   fx_1_pitchshift_windowSize_value.innerHTML = `${e.currentTarget.value}`;
@@ -2162,13 +2124,13 @@ const fx_1_reverb_preDelay_value = document.getElementById("fx_1_reverb_preDelay
 const fx_1_reverb_decay = document.getElementById("fx_1_reverb_decay");
 const fx_1_reverb_decay_value = document.getElementById("fx_1_reverb_decay_value");
 
-fx_1_reverb_preDelay.addEventListener("change", function(e) {
+fx_1_reverb_preDelay.addEventListener("change", function (e) {
   fx_1_reverb_Node.preDelay = e.currentTarget.value;
   console.log("fx_1_reverb_Node: " + fx_1_reverb_Node.preDelay);
   fx_1_reverb_preDelay_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_reverb_decay.addEventListener("change", function(e) {
+fx_1_reverb_decay.addEventListener("change", function (e) {
   fx_1_reverb_Node.decay = e.currentTarget.value;
   console.log("fx_1_reverb_Node: " + fx_1_reverb_Node.decay);
   fx_1_reverb_decay_value.innerHTML = `${e.currentTarget.value}`;
@@ -2191,7 +2153,7 @@ fx_1_StereoWidener_Node.wet = 1;
 const fx_1_StereoWidener_width = document.getElementById("fx_1_StereoWidener_width");
 const fx_1_StereoWidener_width_value = document.getElementById("fx_1_StereoWidener_width_value");
 
-fx_1_StereoWidener_width.addEventListener("change", function(e) {
+fx_1_StereoWidener_width.addEventListener("change", function (e) {
   fx_1_StereoWidener_Node.width = e.currentTarget.value;
   console.log("fx_1_StereoWidener_Node: " + fx_1_StereoWidener_Node.width);
   fx_1_StereoWidener_width_value.innerHTML = `${e.currentTarget.value}`;
@@ -2220,19 +2182,19 @@ const fx_1_tremolo_depth_value = document.getElementById("fx_1_tremolo_depth_val
 const fx_1_tremolo_spread = document.getElementById("fx_1_tremolo_spread");
 const fx_1_tremolo_spread_value = document.getElementById("fx_1_tremolo_spread_value");
 
-fx_1_tremolo_frequency.addEventListener("change", function(e) {
+fx_1_tremolo_frequency.addEventListener("change", function (e) {
   fx_1_tremolo_Node.frequency = e.currentTarget.value;
   console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.frequency);
   fx_1_tremolo_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_tremolo_depth.addEventListener("change", function(e) {
+fx_1_tremolo_depth.addEventListener("change", function (e) {
   fx_1_tremolo_Node.depth = e.currentTarget.value;
   console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.depth);
- fx_1_tremolo_depth_value.innerHTML = `${e.currentTarget.value}`;
+  fx_1_tremolo_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_tremolo_spread.addEventListener("change", function(e) {
+fx_1_tremolo_spread.addEventListener("change", function (e) {
   fx_1_tremolo_Node.spread = e.currentTarget.value;
   console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.spread);
   fx_1_tremolo_spread_value.innerHTML = `${e.currentTarget.value}`;
@@ -2261,19 +2223,19 @@ const fx_1_vibrato_depth_value = document.getElementById("fx_1_vibrato_depth_val
 const fx_1_vibrato_maxDelay = document.getElementById("fx_1_vibrato_maxDelay");
 const fx_1_vibrato_maxDelay_value = document.getElementById("fx_1_vibrato_maxDelay_value");
 
-fx_1_vibrato_frequency.addEventListener("change", function(e) {
+fx_1_vibrato_frequency.addEventListener("change", function (e) {
   fx_1_vibrato_Node.frequency = e.currentTarget.value;
   console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.frequency);
   fx_1_vibrato_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_vibrato_depth.addEventListener("change", function(e) {
+fx_1_vibrato_depth.addEventListener("change", function (e) {
   fx_1_vibrato_Node.depth = e.currentTarget.value;
   console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.depth);
   fx_1_vibrato_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_vibrato_maxDelay.addEventListener("change", function(e) {
+fx_1_vibrato_maxDelay.addEventListener("change", function (e) {
   fx_1_vibrato_Node.maxDelay = e.currentTarget.value;
   console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.maxDelay);
   fx_1_vibrato_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
@@ -3399,7 +3361,7 @@ const fx_1_select = document.getElementById("fx_1_select");
 fx_1_select.addEventListener("change", function (e) {
   //consoleClear();
   //console.log("fx_1_select add event listener");
-    changes_an_FX_Node("FX1", e.currentTarget.value);
+  changes_an_FX_Node("FX1", e.currentTarget.value);
 });
 
 //*********************************************************************************** */
@@ -3408,7 +3370,7 @@ fx_1_select.addEventListener("change", function (e) {
 //*********************************************************************************** */
 //SO CALL PROGRAM
 //INIT SETUP
-player_1_loop_checkbox.checked = true; 
+player_1_loop_checkbox.checked = true;
 player_1_Node.loop = true;
 //player_1_Node.loopStart = 0.3;    player_1_loop_start.value = 0.3;
 //player_1_Node.loopEnd = 22.8;     player_1_loop_end.value = 22.8;
@@ -3460,10 +3422,10 @@ function send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time) {
       break;
     }
     case "player_1_filter_detune_shelf": {
-      alert("value:   " + value + "\n" + 
+      alert("value:   " + value + "\n" +
         "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
         "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-       );
+      );
       player_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
       player_1_filter_detune_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
       player_1_filter_detune_shelf.value = `${player_1_volume_rampTo_gain.value}`;
@@ -3794,27 +3756,27 @@ function player_1_filter_eq_selection_bypass_on(value) {
   console.log("  player_1_filter_eq_selection ACTUAL: " + player_1_filter_eq_selection + " ");
 
   if (player_1_filter_eq_selection != value) {
-        switch (value) {
-          case "on": {
-            player_1_panNode.disconnect(player_1_filter_Bypass);
-            player_1_panNode.connect(player_1_filter);
-            player_1_filter.connect(player_1_dynamics_compressorNode_Bypass);
-            player_1_filter_eq_selection = "on";
-            player_1_filter_eq_On_Button.style.backgroundColor = "green";
-            player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
-            break;
-          }
-          case "bypass": {
-            player_1_panNode.disconnect(player_1_filter);
-            //player_1_filter.disconnect(player_1_dynamics_compressorNode_Bypass);
-            player_1_panNode.connect(player_1_filter_Bypass);
-            player_1_filter_Bypass.connect(player_1_dynamics_compressorNode_Bypass);
-            player_1_filter_eq_selection = "bypass";
-            player_1_filter_eq_On_Button.style.backgroundColor = "white";
-            player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
-            break;
-           }
-       default: { break; }
+    switch (value) {
+      case "on": {
+        player_1_panNode.disconnect(player_1_filter_Bypass);
+        player_1_panNode.connect(player_1_filter);
+        player_1_filter.connect(player_1_dynamics_compressorNode_Bypass);
+        player_1_filter_eq_selection = "on";
+        player_1_filter_eq_On_Button.style.backgroundColor = "green";
+        player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
+        break;
+      }
+      case "bypass": {
+        player_1_panNode.disconnect(player_1_filter);
+        //player_1_filter.disconnect(player_1_dynamics_compressorNode_Bypass);
+        player_1_panNode.connect(player_1_filter_Bypass);
+        player_1_filter_Bypass.connect(player_1_dynamics_compressorNode_Bypass);
+        player_1_filter_eq_selection = "bypass";
+        player_1_filter_eq_On_Button.style.backgroundColor = "white";
+        player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
+        break;
+      }
+      default: { break; }
     }
   }
   else { console.log("player_1_filter_eq_selection != value ELSE"); }
@@ -4459,6 +4421,9 @@ function creates_an_FX_Node() {
 
 function dispos3() {
   fmSynth.triggerAttackRelease("C3", "4n");
+  fmSynth.connect(fx_1_chorus_Node);
+  fmSynth.connect(fx_1_feedback_Node);
+
   Tone.Transport.start();
 }
 
@@ -5045,7 +5010,7 @@ function changes_fx_name(channel, effecttype) {
 
 function removes_previous_effect(fx_1_actual_patch) {
   //consoleClear(); 
-  console.log("removes_previous_effect foo \n" + 
+  console.log("removes_previous_effect foo \n" +
     "fx_1_actual_patch:" + fx_1_actual_patch);
 
 
@@ -5075,159 +5040,101 @@ function removes_previous_effect(fx_1_actual_patch) {
       alert(fx_1_actual_patch);
       break;
     }
-
     default: { break; }
   }
-  
 }
 
 function sets_New_FX(channel, effecttype) {
   // consoleClear();
   //console.log("sets_New_FX channel: " + channel);
   console.log("sets_New_FX effecttype: " + effecttype);
-//alert("sets_New_FX foo")
+  //alert("sets_New_FX foo")
   switch (channel) {
     case "FX1": {
-    //  removes_previous_effect(fx_1_actual_patch);
-      //ACA VA switch(fx_1_actual_patch) PARA SACAR 
-      // EL FX PRIMERO Y DESPUES EL switch(effecttype)
-
-      //removeElement(tagName);
-
+      removes_previous_effect(fx_1_actual_patch);
       switch (effecttype) {
-        case "AutoFilter":
+        case "AutoFilter"://FUNCIONA PERO NO TIENE SENTIDO
           {
-            //  fx_1.dispose();
-            const newfx_1 = new Tone.AutoFilter();
-            newfx_1.connect(fxReturn_1_fader);
-            player_1_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postFdr_volNode.connect(newfx_1);
+            fx_1.dispose();
+            fx_1_AutoFilter_Node.connect(fxReturn_1_fader);
+            player_1_fxSend_1_preEq_volNode.connect(fx_1_AutoFilter_Node);
+            player_1_fxSend_1_postEq_volNode.connect(fx_1_AutoFilter_Node);
+            player_1_fxSend_1_postFdr_volNode.connect(fx_1_AutoFilter_Node);
 
-            player_2_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_2_fxSend_1_preEq_volNode.connect(fx_1_AutoFilter_Node);
+            player_2_fxSend_1_postEq_volNode.connect(fx_1_AutoFilter_Node);
+            player_2_fxSend_1_postFdr_volNode.connect(fx_1_AutoFilter_Node);
 
-            player_3_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_3_fxSend_1_preEq_volNode.connect(fx_1_AutoFilter_Node);
+            player_3_fxSend_1_postEq_volNode.connect(fx_1_AutoFilter_Node);
+            player_3_fxSend_1_postFdr_volNode.connect(fx_1_AutoFilter_Node);
 
-            player_4_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_4_fxSend_1_preEq_volNode.connect(fx_1_AutoFilter_Node);
+            player_4_fxSend_1_postEq_volNode.connect(fx_1_AutoFilter_Node);
+            player_4_fxSend_1_postFdr_volNode.connect(fx_1_AutoFilter_Node);
 
+            const fx_1_autofilter_baseFrequency = document.getElementById("fx_1_autofilter_baseFrequency");
+            const fx_1_autofilter_baseFrequency_value = document.getElementById("fx_1_autofilter_baseFrequency_value");
+
+            const fx_1_autofilter_depth = document.getElementById("fx_1_autofilter_depth");
+            const fx_1_autofilter_depth_value = document.getElementById("fx_1_autofilter_depth_value");
+
+            const fx_1_autofilter_frequency = document.getElementById("fx_1_autofilter_frequency");
+            const fx_1_autofilter_frequency_value = document.getElementById("fx_1_autofilter_frequency_value");
+
+            const fx_1_autofilter_octaves = document.getElementById("fx_1_autofilter_octaves");
+            const fx_1_autofilter_octaves_value = document.getElementById("fx_1_autofilter_octaves_value");
+
+            const fx_1_autofilter_select_type = document.getElementById("fx_1_autofilter_select_type");
+
+            fx_1_autofilter_baseFrequency.addEventListener("change", function (e) {
+              console.clear();
+              console.log("e.currentTarget.value: " + e.currentTarget.value);
+              fx_1_AutoFilter_Node.baseFrequency = e.currentTarget.value;
+              console.log("fx_1_AutoFilter_Node. baseFrequency: " + fx_1_AutoFilter_Node.baseFrequency);
+              fx_1_autofilter_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
+            });
+
+            fx_1_autofilter_depth.addEventListener("change", function (e) {
+              fx_1_AutoFilter_Node.depth.value = e.currentTarget.value;
+              console.log("fx_1_AutoFilter_Node: " + fx_1_AutoFilter_Node.depth.value);
+              fx_1_autofilter_depth_value.innerHTML = `${e.currentTarget.value}`;
+            });
+
+            fx_1_autofilter_frequency.addEventListener("change", function (e) {
+              fx_1_AutoFilter_Node.frequency.value = e.currentTarget.value;
+              console.log("fx_1_AutoFilter_Node: " + fx_1_AutoFilter_Node.frequency.value);
+              fx_1_autofilter_frequency_value.innerHTML = `${e.currentTarget.value}`;
+            });
+
+            fx_1_autofilter_octaves.addEventListener("change", function (e) {
+              console.clear();
+              console.log("e.currentTarget.value: " + e.currentTarget.value);
+              fx_1_AutoFilter_Node.octaves = e.currentTarget.value;
+              console.log("fx_1_autoWah_Node. octaves: " + fx_1_AutoFilter_Node.octaves);
+              fx_1_autofilter_octaves_value.innerHTML = `${e.currentTarget.value}`;
+            });
+
+            fx_1_autofilter_select_type.addEventListener("change", function (e) {
+              fx_1_AutoFilter_Node.type = e.currentTarget.value;
+              console.log("fx_1_AutoFilter_Node.type: " + fx_1_AutoFilter_Node.type);
+            });
+
+            fx_1_actual_patch = "fx_1_autofilter";
+            fx_1_autofilter_div.style.display = "block";
             /*
-            
-                <div id="fx_4_autofilter_div">
-                  <!-- SE PUEDE ACCEDER A LAS PROPIEDADES DEL OSCILLATOR QUE ELIJAS 
-            type: ToneOscillatorType;
+            QUE SE PUEDE HAER CON EL FILTRO???, HAY CONTROL TOTAL???
+            interface AutoFilterOptions {
                 filter: Omit<FilterOptions, "gain" | "frequency" | "detune" | (keyof SourceOptions)>;
-            
-                Tone.AutoFilter.defaults = {
-              "frequency" : 1,
-              "type" : "sine",
-              "depth" : 1,
-              "baseFrequency" : 200,
-              "octaves" : 2.6,
-              "filter" : {
-                "type" : "lowpass",
-                "rolloff" : -12,
-                "Q" : 1,
-              }
-            }; 
-            
-            -->
-                  <br>
-                  <fieldset>
-                    <p id="fx_4_autofilter_baseFrequency_text">baseFrequency </p>
-                    <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autofilter_baseFrequency'>
-                    <p id="fx_4_autofilter_baseFrequency_value"></p>
-                    <br>
-                    <p id="fx_4_autofilter_depth_text"> </p>
-                    Depth<input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_autofilter_depth'>
-                    <p id="fx_4_autofilter_depth_value"></p>
-                    <br>
-                    <p id="fx_4_autofilter_frequency_text">Frequency </p>
-                    <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autofilter_frequency'>
-                    <p id="fx_4_autofilter_frequency_value"></p>
-                    <br>
-                    <p id="fx_4_autofilter_octaves_text">Octaves </p>
-                    <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autofilter_octaves'>
-                    <p id="fx_4_autofilter_octaves_value"></p>
-                    <br> <br>
-                    <label for="fx_4_autofilter_select__type"></label>
-                    type:
-                    <select name="fx_4_autofilter_select_typ" id="fx_4_autofilter_select_type">
-                      <option name="sine" id="sine" value="sine">sine</option>
-                      <option name="square" id="square" value="square">square</option>
-                      <option name="triangle" id="triangle" value="triangle">triangle</option>
-                      <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-                    </select>
-                    <br>
-                  </fieldset>
-                </div>
-            
-            
-const fx_1_autofilter_baseFrequency = document.getElementById("fx_1_autofilter_baseFrequency");
-const fx_1_autofilter_baseFrequency_value = document.getElementById("fx_1_autofilter_baseFrequency_value");
-
-const fx_1_autofilter_depth = document.getElementById("fx_1_autofilter_depth");
-const fx_1_autofilter_depth_value = document.getElementById("fx_1_autofilter_depth_value");
-
-const fx_1_autofilter_frequency = document.getElementById("fx_1_autofilter_frequency");
-const fx_1_autofilter_frequency_value = document.getElementById("fx_1_autofilter_frequency_value");
-
-const fx_1_autofilter_octaves = document.getElementById("fx_1_autofilter_octaves");
-const fx_1_autofilter_octaves_value = document.getElementById("fx_1_autofilter_octaves_value");
-
-const fx_1_autofilter_select_type = document.getElementById("fx_1_autofilter_select_type");
-
-fx_1_autofilter_baseFrequency.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_1_AutoFilter_Node.baseFrequency = e.currentTarget.value;
-  console.log("fx_1_AutoFilter_Node. baseFrequency: " + fx_1_AutoFilter_Node.baseFrequency);
-  fx_1_autofilter_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_1_autofilter_depth.addEventListener("change", function (e) {
-  fx_1_AutoFilter_Node.depth.value = e.currentTarget.value;
-  console.log("fx_1_AutoFilter_Node: " + fx_1_AutoFilter_Node.depth.value);
-  fx_1_autofilter_depth_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_1_autofilter_frequency.addEventListener("change", function (e) {
-  fx_1_AutoFilter_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_1_AutoFilter_Node: " + fx_1_AutoFilter_Node.frequency.value);
-  fx_1_autofilter_frequency_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_1_autofilter_octaves.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_1_AutoFilter_Node.octaves = e.currentTarget.value;
-  console.log("fx_1_autoWah_Node. octaves: " + fx_1_AutoFilter_Node.octaves);
-  fx_1_autofilter_octaves_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_1_autofilter_select_type.addEventListener("change", function (e) {
-  fx_1_AutoFilter_Node.type = e.currentTarget.value;
-  console.log("fx_1_AutoFilter_Node.type: " + fx_1_AutoFilter_Node.type);
-});
-
-/*
-QUE SE PUEDE HAER CON EL FILTRO???, HAY CONTROL TOTAL???
-interface AutoFilterOptions {
-    filter: Omit<FilterOptions, "gain" | "frequency" | "detune" | (keyof SourceOptions)>;
- type: ToneOscillatorType;
-}
-*/
+             type: ToneOscillatorType;
+            }
+            */
             console.log("AutoFilter fx_1_select");
             break;
           }
-        case "AutoPanner":  //TEST
+        case "AutoPanner":  //NO FUNCA
           {
-/*
+            fx_1.dispose();
             fx_1_AutoPanner_Node.connect(fxReturn_1_fader);
             player_1_fxSend_1_preEq_volNode.connect(fx_1_AutoPanner_Node);
             player_1_fxSend_1_postEq_volNode.connect(fx_1_AutoPanner_Node);
@@ -5245,429 +5152,93 @@ interface AutoFilterOptions {
             player_4_fxSend_1_postEq_volNode.connect(fx_1_AutoPanner_Node);
             player_4_fxSend_1_postFdr_volNode.connect(fx_1_AutoPanner_Node);
 
-            const fx_1_autoPanner_frequency_text = document.createElement("p");
-            fx_1_autoPanner_frequency_text.innerHTML = "Freq";
-            const fx_1_autoPanner_frequency = document.createElement("INPUT");
-            fx_1_autoPanner_frequency.setAttribute("type", "range");
-            fx_1_autoPanner_frequency.setAttribute("id", "fx_1_autoPanner_frequency");
-            fx_1_autoPanner_frequency.setAttribute("min", 0);
-            fx_1_autoPanner_frequency.setAttribute("max", 22000);
-            fx_1_autoPanner_frequency.setAttribute("value", 0);
-            fx_1_autoPanner_frequency.setAttribute("step", 10);
-            const fx_1_autoPanner_frequency_value = document.createElement("p");
-
-            const fx_1_autoPanner_depth_text = document.createElement("p");
-            fx_1_autoPanner_depth_text.innerHTML = "Depth";
-            const fx_1_autoPanner_depth = document.createElement("INPUT");
-            fx_1_autoPanner_depth.setAttribute("type", "range");
-            fx_1_autoPanner_depth.setAttribute("id", "fx_1_autoPanner_depth");
-            fx_1_autoPanner_depth.setAttribute("min", 0);
-            fx_1_autoPanner_depth.setAttribute("max", 1);
-            fx_1_autoPanner_depth.setAttribute("value", 0);
-            fx_1_autoPanner_depth.setAttribute("step", 0.01);
-            const fx_1_autoPanner_depth_value = document.createElement("p");
-
-            const fx_1_autoPanner_select_title = document.createElement("p");
-            fx_1_autoPanner_select_title.innerHTML = "Type ";
-
-            const fx_1_autoPanner_select_type = document.createElement("SELECT");
-            const option_sine = document.createElement('option');
-            option_sine.id = option_sine.value = option_sine.text = "sine";
-            fx_1_autoPanner_select_type.add(option_sine);
-            const option_square = document.createElement('option');
-            option_square.value = option_square.text = "square";
-            fx_1_autoPanner_select_type.add(option_square);
-            const option_triangle = document.createElement('option');
-            option_triangle.value = option_triangle.text = "triangle";
-            fx_1_autoPanner_select_type.add(option_triangle);
-            const option_sawtooth = document.createElement('option');
-            option_sawtooth.value = option_sawtooth.text = "sawtooth";
-            fx_1_autoPanner_select_type.add(option_sawtooth);
-
-            fx_1_autoPanner_frequency.addEventListener("change", function (e) {
-              fx_1_AutoPanner_Node.frequency.value = e.currentTarget.value;
-              console.log("fx_1_AutoPanner_Node: " + fx_1_AutoPanner_Node.frequency.value);
-              fx_1_autoPanner_frequency_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_autoPanner_depth.addEventListener("change", function (e) {
-              fx_1_AutoPanner_Node.depth.value = e.currentTarget.value;
-              console.log("fx_1_AutoPanner_Node: " + fx_1_AutoPanner_Node.depth.value);
-              fx_1_autoPanner_depth_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_autoPanner_select_type.addEventListener("change", function (e) {
-              fx_1_AutoPanner_Node.type = e.currentTarget.value;
-              console.log("fx_1_AutoPanner_Node.type: " + fx_1_AutoPanner_Node.type);
-            });
-
-            const fx_1_autoPanner_fieldset = document.createElement("FIELDSET");
-            const br_1_autoPanner = document.createElement("span");
-            br_1_autoPanner.innerHTML = "<br/>";
-            const br_2_autoPanner = document.createElement("span");
-            br_2_autoPanner.innerHTML = "<br/>";
-            const br_3_autoPanner = document.createElement("span");
-            br_3_autoPanner.innerHTML = "<br/>";
-
-            //const clipContainer_fx_1_autoPanner = document.getElementById("article_1");
-            const clipContainer_fx_1_autoPanner = document.createElement("article");
-            clipContainer_fx_1_autoPanner.classList.add("clip_1");
-
-            clipContainer_fx_1_autoPanner.appendChild(fx_1_autoPanner_fieldset);
-            fx_1_autoPanner_fieldset.append(fx_1_autoPanner_frequency_text);
-            fx_1_autoPanner_fieldset.append(fx_1_autoPanner_frequency);
-            fx_1_autoPanner_fieldset.append(fx_1_autoPanner_frequency_value);
-            fx_1_autoPanner_fieldset.append(br_1_autoPanner);
-
-            fx_1_autoPanner_fieldset.append(fx_1_autoPanner_depth_text);
-            fx_1_autoPanner_fieldset.append(fx_1_autoPanner_depth);
-            fx_1_autoPanner_fieldset.append(fx_1_autoPanner_depth_value);
-            fx_1_autoPanner_fieldset.append(br_2_autoPanner);
-
-            fx_1_autoPanner_fieldset.append(fx_1_autoPanner_select_title);
-            fx_1_autoPanner_fieldset.append(fx_1_autoPanner_select_type);
-            fx_1_autoPanner_fieldset.append(br_3_autoPanner);
-            fx_1_autoPanner_fieldset.append(fx_1_AutoPanner_Node);
-            soundClips_1.appendChild(clipContainer_fx_1_autoPanner);
-            */
+            fx_1_actual_patch = "fx_1_autoPanner";
+            fx_1_autoPanner_div.style.display = "block";
             console.log("AutoPanner fx_1_select");
             break;
           }
         case "AutoWah": //TEST
           {
-/*
-            newfx_1.connect(fxReturn_1_fader);
-            player_1_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postFdr_volNode.connect(newfx_1);
+            fx_1.dispose();
+            fx_1_AutoWah_Node.connect(fxReturn_1_fader);
+            player_1_fxSend_1_preEq_volNode.connect(fx_1_AutoWah_Node);
+            player_1_fxSend_1_postEq_volNode.connect(fx_1_AutoWah_Node);
+            player_1_fxSend_1_postFdr_volNode.connect(fx_1_AutoWah_Node);
 
-            player_2_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_2_fxSend_1_preEq_volNode.connect(fx_1_AutoWah_Node);
+            player_2_fxSend_1_postEq_volNode.connect(fx_1_AutoWah_Node);
+            player_2_fxSend_1_postFdr_volNode.connect(fx_1_AutoWah_Node);
 
-            player_3_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_3_fxSend_1_preEq_volNode.connect(fx_1_AutoWah_Node);
+            player_3_fxSend_1_postEq_volNode.connect(fx_1_AutoWah_Node);
+            player_3_fxSend_1_postFdr_volNode.connect(fx_1_AutoWah_Node);
 
-            player_4_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_4_fxSend_1_preEq_volNode.connect(fx_1_AutoWah_Node);
+            player_4_fxSend_1_postEq_volNode.connect(fx_1_AutoWah_Node);
+            player_4_fxSend_1_postFdr_volNode.connect(fx_1_AutoWah_Node);
 
-            const fx_1_autoWah_baseFrequency_text = document.createElement("p");
-            fx_1_autoWah_baseFrequency_text.innerHTML = "Base Freq";
-            const fx_1_autoWah_baseFrequency = document.createElement("INPUT");
-            fx_1_autoWah_baseFrequency.setAttribute("type", "range");
-            fx_1_autoWah_baseFrequency.setAttribute("id", "fx_1_autoWah_baseFrequency");
-            fx_1_autoWah_baseFrequency.setAttribute("min", 0);
-            fx_1_autoWah_baseFrequency.setAttribute("max", 22000);
-            fx_1_autoWah_baseFrequency.setAttribute("value", 0);
-            fx_1_autoWah_baseFrequency.setAttribute("step", 10);
-            const fx_1_autoWah_baseFrequency_value = document.createElement("p");
-
-            const fx_1_autoWah_octaves_text = document.createElement("p");
-            fx_1_autoWah_octaves_text.innerHTML = "Octaves";
-            const fx_1_autoWah_octaves = document.createElement("INPUT");
-            fx_1_autoWah_octaves.setAttribute("type", "range");
-            fx_1_autoWah_octaves.setAttribute("id", "fx_1_autoWah_octaves");
-            fx_1_autoWah_octaves.setAttribute("min", 0);
-            fx_1_autoWah_octaves.setAttribute("max", 12);
-            fx_1_autoWah_octaves.setAttribute("value", 0);
-            fx_1_autoWah_octaves.setAttribute("step", 1);
-            const fx_1_autoWah_octaves_value = document.createElement("p");
-
-            const fx_1_autoWah_sensitivity_text = document.createElement("p");
-            fx_1_autoWah_sensitivity_text.innerHTML = "Sensitivity";
-            const fx_1_autoWah_sensitivity = document.createElement("INPUT");
-            fx_1_autoWah_sensitivity.setAttribute("type", "range");
-            fx_1_autoWah_sensitivity.setAttribute("id", "fx_1_autoWah_sensitivity");
-            fx_1_autoWah_sensitivity.setAttribute("min", 0);
-            fx_1_autoWah_sensitivity.setAttribute("max", 12);
-            fx_1_autoWah_sensitivity.setAttribute("value", 0);
-            fx_1_autoWah_sensitivity.setAttribute("step", 1);
-            const fx_1_autoWah_sensitivity_value = document.createElement("p");
-
-            const fx_1_autoWah_Q_text = document.createElement("p");
-            fx_1_autoWah_Q_text.innerHTML = "Q";
-            const fx_1_autoWah_Q = document.createElement("INPUT");
-            fx_1_autoWah_Q.setAttribute("type", "range");
-            fx_1_autoWah_Q.setAttribute("id", "fx_1_autoWah_Q");
-            fx_1_autoWah_Q.setAttribute("min", 0);
-            fx_1_autoWah_Q.setAttribute("max", 15);
-            fx_1_autoWah_Q.setAttribute("value", 0);
-            fx_1_autoWah_Q.setAttribute("step", 1);
-            const fx_1_autoWah_Q_value = document.createElement("p");
-
-            const fx_1_autoWah_gain_text = document.createElement("p");
-            fx_1_autoWah_gain_text.innerHTML = "Gain";
-            const fx_1_autoWah_gain = document.createElement("INPUT");
-            fx_1_autoWah_gain.setAttribute("type", "range");
-            fx_1_autoWah_gain.setAttribute("id", "fx_1_autoWah_gain");
-            fx_1_autoWah_gain.setAttribute("min", -100);
-            fx_1_autoWah_gain.setAttribute("max", 100);
-            fx_1_autoWah_gain.setAttribute("value", 0);
-            fx_1_autoWah_gain.setAttribute("step", 1);
-            const fx_1_autoWah_gain_value = document.createElement("p");
-
-            const fx_1_autoWah_follower_attack_text = document.createElement("p");
-            fx_1_autoWah_follower_attack_text.innerHTML = "follower attack";
-            const fx_1_autoWah_follower_attack = document.createElement("INPUT");
-            fx_1_autoWah_follower_attack.setAttribute("type", "range");
-            fx_1_autoWah_follower_attack.setAttribute("id", "fx_1_autoWah_follower_attack");
-            fx_1_autoWah_follower_attack.setAttribute("min", 0);
-            fx_1_autoWah_follower_attack.setAttribute("max", 20);
-            fx_1_autoWah_follower_attack.setAttribute("value", 1);
-            fx_1_autoWah_follower_attack.setAttribute("step", 0.001);
-            const fx_1_autoWah_follower_attack_value = document.createElement("p");
-
-            const fx_1_autoWah_follower_release_text = document.createElement("p");
-            fx_1_autoWah_follower_release_text.innerHTML = "follower release";
-            const fx_1_autoWah_follower_release = document.createElement("INPUT");
-            fx_1_autoWah_follower_release.setAttribute("type", "range");
-            fx_1_autoWah_follower_release.setAttribute("id", "fx_1_autoWah_follower_release");
-            fx_1_autoWah_follower_release.setAttribute("min", 0);
-            fx_1_autoWah_follower_release.setAttribute("max", 20);
-            fx_1_autoWah_follower_release.setAttribute("value", 0);
-            fx_1_autoWah_follower_release.setAttribute("step", 1);
-            const fx_1_autoWah_follower_release_value = document.createElement("p");
-
-            fx_1_autoWah_baseFrequency.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_AutoWah_Node.baseFrequency = e.currentTarget.value;
-              console.log("fx_1_AutoWah_Node. baseFrequency: " + fx_1_AutoWah_Node.baseFrequency);
-              fx_1_autoWah_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
-            });
-            fx_1_autoWah_octaves.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_AutoWah_Node.octaves = e.currentTarget.value;
-              console.log("fx_1_autoWah_Node. octaves: " + fx_1_AutoWah_Node.octaves);
-              fx_1_autoWah_octaves_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_autoWah_sensitivity.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_AutoWah_Node.sensitivity = e.currentTarget.value;
-              console.log("fx_1_autoWah_Node. sensitivity: " + fx_1_AutoWah_Node.sensitivity);
-              fx_1_autoWah_sensitivity_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_autoWah_Q.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_AutoWah_Node.Q.value = e.currentTarget.value;
-              console.log("fx_1_AutoWah_Node. Q: " + fx_1_AutoWah_Node.Q.value);
-              fx_1_autoWah_Q_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_autoWah_gain.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_AutoWah_Node.gain.value = e.currentTarget.value;
-              console.log("fx_1_AutoWah_Node. gain: " + fx_1_AutoWah_Node.gain.value);
-              fx_1_autoWah_gain_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_autoWah_follower_attack.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_AutoWah_Node.follower.attack = e.currentTarget.value;
-              console.log("fx_1_AutoWah_Node.follower.attack: " + fx_1_AutoWah_Node.follower.attack);
-              fx_1_autoWah_follower_attack_value.innerHTML = `${e.currentTarget.value}`;
-            });
-            fx_1_autoWah_follower_release.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_AutoWah_Node.follower.release = e.currentTarget.value;
-              console.log("fx_1_AutoWah_Node.follower.release: " + fx_1_AutoWah_Node.follower.release);
-              fx_1_autoWah_follower_release_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            /*
-            const fx_1_autoWah_fieldset = document.createElement("FIELDSET");
-
-            const br_1_autoWah = document.createElement("span");
-            br_1_autoWah.innerHTML = "<br/>";
-            const br_2_autoWah = document.createElement("span");
-            br_2_autoWah.innerHTML = "<br/>";
-            const br_3_autoWah = document.createElement("span");
-            br_3_autoWah.innerHTML = "<br/>";
-            const br_4_autoWah = document.createElement("span");
-            br_4_autoWah.innerHTML = "<br/>";
-            const br_5_autoWah = document.createElement("span");
-            br_5_autoWah.innerHTML = "<br/>";
-            const br_6_autoWah = document.createElement("span");
-            br_6_autoWah.innerHTML = "<br/>";
-            const br_7_autoWah = document.createElement("span");
-            br_7_autoWah.innerHTML = "<br/>";
-
-            const clipContainer_fx_1_autoWah = document.createElement("article");
-            clipContainer_fx_1_autoWah.classList.add("clip");
-
-            clipContainer_fx_1_autoWah.appendChild(fx_1_autoWah_fieldset);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_baseFrequency_text);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_baseFrequency);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_baseFrequency_value);
-            fx_1_autoWah_fieldset.append(br_1_autoWah);
-
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_octaves_text);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_octaves);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_octaves_value);
-            fx_1_autoWah_fieldset.append(br_2_autoWah);
-
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_sensitivity_text);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_sensitivity);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_sensitivity_value);
-            fx_1_autoWah_fieldset.append(br_3_autoWah);
-
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_Q_text);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_Q);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_Q_value);
-            fx_1_autoWah_fieldset.append(br_4_autoWah);
-
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_gain_text);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_gain);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_gain_value);
-            fx_1_autoWah_fieldset.append(br_5_autoWah);
-
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_follower_attack_text);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_follower_attack);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_follower_attack_value);
-            fx_1_autoWah_fieldset.append(br_6_autoWah);
-
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_follower_release_text);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_follower_release);
-            fx_1_autoWah_fieldset.append(fx_1_autoWah_follower_release_value);
-            fx_1_autoWah_fieldset.append(br_7_autoWah);
-
-            soundClips_1.appendChild(clipContainer_fx_1_autoWah);
-            */
+            fx_1_actual_patch = "fx_1_autoWah";
+            fx_1_autoWah_div.style.display = "block";
             console.log("AutoWah fx_1_select");
             break;
           }
         case "BitCrusher":
           {
-
-            newfx_1.connect(fxReturn_1_fader);
-            player_1_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postFdr_volNode.connect(newfx_1);
-
-            player_2_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postFdr_volNode.connect(newfx_1);
-
-            player_3_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postFdr_volNode.connect(newfx_1);
-
-            player_4_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postFdr_volNode.connect(newfx_1);
-
+            fx_1.dispose();
             /*
-                <div id="fx_4_bitCrusher_div">
-                  <br>
-                  <fieldset>
-                    <!--
-                  <p id="fx_4_autoWah_baseFrequency_text">baseFrequency </p>
-                  <input type='range' min=0 max=22000 step='10' value="0" id='fx_4_autoWah_baseFrequency'>
-                  <p id="fx_4_autoWah_baseFrequency_value"></p>
-                  <br>
-                  <p id="fx_4_autoWah_octaves_text">Octaves </p>
-                  <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autoWah_octaves'>
-                  <p id="fx_4_autoWah_octaves_value"></p>
-                  <br>
-                  <p id="fx_4_autoWah_sensitivity_text">Sensitivity </p>
-                  <input type='range' min=0 max=12 step='1' value="0" id='fx_4_autoWah_sensitivity'>
-                  <p id="fx_4_autoWah_sensitivity_value"></p>
-                  <br>
-                  <p id="fx_4_autoWah_Q_text">Q </p>
-                  <input type='range' min=0 max=100 step='1' value="0" id='fx_4_autoWah_Q'>
-                  <p id="fx_4_autoWah_Q_value"></p>
-                  <br>
-                  <p id="fx_4_autoWah_gain_text"> gain</p>
-                  <input type='range' min=-100 max=100 step='1' value="0" id='fx_4_autoWah_gain'>
-                  <p id="fx_4_autoWah_gain_value"></p>
-                  <br>
-            
-                  -->
-            
-                  </fieldset>
-                  <br>
-                </div>
-            
-            */
+            fx_1_bitCrusher_Node.connect(fxReturn_1_fader);
+            player_1_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
+            player_1_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
+            player_1_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
 
+            player_2_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
+            player_2_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
+            player_2_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
+
+            player_3_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
+            player_3_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
+            player_3_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
+
+            player_4_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
+            player_4_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
+            player_4_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
+
+            fx_1_actual_patch = "fx_1_bitCrusher";
+            fx_1_bitCrusher_div.style.display = "block";
             console.log("BitCrusher fx_1_select");
+            */
             break;
           }
-        case "Chebyshev":
+        case "Chebyshev": //OK PERO PARECE UNA DISTORTION
           {
-            // fx_1.dispose();
-            const newfx_1 = new Tone.Chebyshev();
-            newfx_1.connect(fxReturn_1_fader);
-            player_1_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postFdr_volNode.connect(newfx_1);
+            fx_1.dispose();
+            fx_1_Chebyshev_Node.connect(fxReturn_1_fader);
+            player_1_fxSend_1_preEq_volNode.connect(fx_1_Chebyshev_Node);
+            player_1_fxSend_1_postEq_volNode.connect(fx_1_Chebyshev_Node);
+            player_1_fxSend_1_postFdr_volNode.connect(fx_1_Chebyshev_Node);
 
-            player_2_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_2_fxSend_1_preEq_volNode.connect(fx_1_Chebyshev_Node);
+            player_2_fxSend_1_postEq_volNode.connect(fx_1_Chebyshev_Node);
+            player_2_fxSend_1_postFdr_volNode.connect(fx_1_Chebyshev_Node);
 
-            player_3_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_3_fxSend_1_preEq_volNode.connect(fx_1_Chebyshev_Node);
+            player_3_fxSend_1_postEq_volNode.connect(fx_1_Chebyshev_Node);
+            player_3_fxSend_1_postFdr_volNode.connect(fx_1_Chebyshev_Node);
 
-            player_4_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_4_fxSend_1_preEq_volNode.connect(fx_1_Chebyshev_Node);
+            player_4_fxSend_1_postEq_volNode.connect(fx_1_Chebyshev_Node);
+            player_4_fxSend_1_postFdr_volNode.connect(fx_1_Chebyshev_Node);
 
-            /*
-                <div id="fx_4_Chebyshev_div">
-                  <br>
-                  <fieldset>
-                    <p id="fx_4_Chebyshev_order_text"> Order</p>
-                    <input type='range' min=1 max=20 step='1' value="1" id='fx_4_Chebyshev_order'>
-                    <p id="fx_4_Chebyshev_order_value"></p>
-                    <br>
-                    <label for="fx_4_distortion_select_type"></label>
-                    Oversample:
-                    <select name="fx_4_Chebyshev_select" id="fx_4_Chebyshev_select_type">
-                      <option name="none" id="none" value="none">none</option>
-                      <option name="2x" id="2x" value="2x">2x</option>
-                      <option name="4x" id="4x" value="4x">4x</option>
-                    </select>
-                    <br>
-                  </fieldset>
-                </div>
-            
-            
-const fx_1_Chebyshev_order = document.getElementById("fx_1_Chebyshev_order");
-const fx_1_Chebyshev_order_value = document.getElementById("fx_1_Chebyshev_order_value");
-
-const fx_1_Chebyshev_select_type = document.getElementById("fx_1_Chebyshev_select_type");
-const fx_1_Chebyshev_select_type_value = document.getElementById("fx_1_Chebyshev_select_type_value");
-
-fx_1_Chebyshev_order.addEventListener("change", function (e) {
-  fx_1_Chebyshev_Node.order = Math.round(`${e.currentTarget.value}`);
-  console.log("fx_1_Chebyshev_Node: " + fx_1_Chebyshev_Node.order);
-  fx_1_Chebyshev_order_value.innerHTML = `${e.currentTarget.value}`;
-});
-
-fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
-  fx_1_Chebyshev_Node.type = e.currentTarget.value;
-  console.log("fx_1_Chebyshev_Node.type: " + e.currentTarget.value);
-});
-            */
+            fx_1_actual_patch = "fx_1_chebyshev";
+            fx_1_Chebyshev_div.style.display = "block";
             console.log("Chebyshev fx_1_select");
             break;
           }
-        case "Chorus": //TEST
+        case "Chorus": //OK
           {
+            fx_1.dispose();
             fx_1_chorus_Node.connect(fxReturn_1_fader);
-         
+
             player_1_fxSend_1_preEq_volNode.connect(fx_1_chorus_Node);
             player_1_fxSend_1_postEq_volNode.connect(fx_1_chorus_Node);
             player_1_fxSend_1_postFdr_volNode.connect(fx_1_chorus_Node);
@@ -5686,13 +5257,12 @@ fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
 
             fx_1_actual_patch = "fx_1_chorus";
             fx_1_chorus_div.style.display = "block";
-
             console.log("Chorus fx_1_select");
             break;
           }
-        case "Distortion":  //TEST
+        case "Distortion":  //OK
           {
-
+            fx_1.dispose();
             fx_1_distortion_Node.connect(fxReturn_1_fader);
             player_1_fxSend_1_preEq_volNode.connect(fx_1_distortion_Node);
             player_1_fxSend_1_postEq_volNode.connect(fx_1_distortion_Node);
@@ -5712,12 +5282,12 @@ fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
             console.log("Distortion fx_1_select");
 
             fx_1_actual_patch = "fx_1_Distortion";
-            alert("AAAAAAAAAAA");
+            fx_1_distortion_div.style.display = "block";
             break;
           }
-        case "FeedbackDelay": //TEST
+        case "FeedbackDelay": //OK
           {
-/*           
+            fx_1.dispose();
             fx_1_feedback_Node.connect(fxReturn_1_fader);
 
             player_1_fxSend_1_preEq_volNode.connect(fx_1_feedback_Node);
@@ -5735,160 +5305,45 @@ fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
             player_4_fxSend_1_preEq_volNode.connect(fx_1_feedback_Node);
             player_4_fxSend_1_postEq_volNode.connect(fx_1_feedback_Node);
             player_4_fxSend_1_postFdr_volNode.connect(fx_1_feedback_Node);
-/*
-            const fx_1_feedback_text = document.createElement("p");
-            fx_1_feedback_text.innerHTML = "FeedBack"
-            const fx_1_feedback = document.createElement("INPUT");
-            fx_1_feedback.setAttribute("type", "range");
-            fx_1_feedback.setAttribute("id", "fx_1_feedback");
-            fx_1_feedback.setAttribute("min", 0);
-            fx_1_feedback.setAttribute("max", 1);
-            fx_1_feedback.setAttribute("value", 0);
-            fx_1_feedback.setAttribute("step", 0.01);
 
-            const fx_1_feedback_value = document.createElement("p");
-
-            fx_1_feedback.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_feedback_Node.feedback.value = e.currentTarget.value;
-              console.log("fx_1_feedback_Node: " + fx_1_feedback_Node.feedback.value);
-              fx_1_feedback_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            const fx_1_feedback_delayTime_text = document.createElement("p");
-            fx_1_feedback_delayTime_text.innerHTML = "Delay Time"
-            const fx_1_feedback_delayTime = document.createElement("INPUT");
-            fx_1_feedback_delayTime.setAttribute("type", "range");
-            fx_1_feedback_delayTime.setAttribute("id", "fx_1_feedback_delayTime");
-            fx_1_feedback_delayTime.setAttribute("min", 0);
-            fx_1_feedback_delayTime.setAttribute("max", 1);
-            fx_1_feedback_delayTime.setAttribute("value", 0);
-            fx_1_feedback_delayTime.setAttribute("step", 0.01);
-
-            const fx_1_feedback_delayTime_value = document.createElement("p");
-
-            fx_1_feedback_delayTime.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_feedback_Node.delayTime.value = e.currentTarget.value;
-              console.log("fx_1_feedback_Node: " + fx_1_feedback_Node.delayTime.value);
-              fx_1_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            const br = document.createElement("span");
-            br.innerHTML = "<br/>";
-            const br2 = document.createElement("span");
-            br2.innerHTML = "<br/>";
-
-            const fx_1_feedback_maxDelay_text = document.createElement("p");
-            fx_1_feedback_maxDelay_text.innerHTML = "Max Delay"
-            const fx_1_feedback_maxDelay = document.createElement("INPUT");
-            fx_1_feedback_maxDelay.setAttribute("type", "range");
-            fx_1_feedback_maxDelay.setAttribute("id", "fx_1_feedback_maxDelay");
-            fx_1_feedback_maxDelay.setAttribute("min", 0);
-            fx_1_feedback_maxDelay.setAttribute("max", 10);
-            fx_1_feedback_maxDelay.setAttribute("value", 0);
-            fx_1_feedback_maxDelay.setAttribute("step", 0.1);
-
-            const fx_1_feedback_maxDelay_value = document.createElement("p");
-
-            fx_1_feedback_maxDelay.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_feedback_Node.maxDelay = e.currentTarget.value;
-              console.log("fx_1_feedback_Node: " + fx_1_feedback_Node.maxDelay);
-              fx_1_feedback_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            const clipContainer = document.createElement("article");
-            clipContainer.classList.add("clip");
-
-            const fx_1_feedback_fieldset = document.createElement("fieldset");
-
-            const br1_fbdelay = document.createElement("span");
-            br1_fbdelay.innerHTML = "<br/>";
-
-            clipContainer.appendChild(br1_fbdelay);
-            clipContainer.appendChild(fx_1_feedback_fieldset);
-            fx_1_feedback_fieldset.append(fx_1_feedback_text);
-            fx_1_feedback_fieldset.append(fx_1_feedback);
-            fx_1_feedback_fieldset.append(fx_1_feedback_value);
-            fx_1_feedback_fieldset.append(br);
-            fx_1_feedback_fieldset.append(fx_1_feedback_delayTime_text);
-            fx_1_feedback_fieldset.append(fx_1_feedback_delayTime);
-            fx_1_feedback_fieldset.append(fx_1_feedback_delayTime_value);
-            fx_1_feedback_fieldset.append(br2);
-            fx_1_feedback_fieldset.append(fx_1_feedback_maxDelay_text);
-            fx_1_feedback_fieldset.append(fx_1_feedback_maxDelay);
-            fx_1_feedback_fieldset.append(fx_1_feedback_maxDelay_value);
-
-            soundClips_1.appendChild(clipContainer);
+            fx_1_feedback_div.style.display = "block";
             fx_1_actual_patch = "fx_1_Feedback";
             console.log("FeedbackDelay fx_1_select");
-            */
+            alert("AAAAAAAAAAA");
             break;
           }
-        case "Freeverb":
+        case "Freeverb": // TIRA ERROR VIOLENTO
           {
-/*
-            newfx_1.connect(fxReturn_1_fader);
-            player_1_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postFdr_volNode.connect(newfx_1);
-
-            player_2_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postFdr_volNode.connect(newfx_1);
-
-            player_3_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postFdr_volNode.connect(newfx_1);
-
-            player_4_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postFdr_volNode.connect(newfx_1);
-
+            fx_1.dispose();
             /*
-                <div id="fx_4_freeVerb_div">
-                  <br>
-                  <fieldset>
-                    <p id="fx_4_freeVerb_dampening_text">Dampening </p>
-                    <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_freeVerb_dampening'>
-                    <p id="fx_4_freeVerb_dampening_value"></p>
-                    <br>
-                    <p id="fx_4_freeVerb_roomSize_text"> roomSize </p>
-                    <input type='range' min=0 max=1 step='0.01' value="0" id='fx_4_freeVerb_roomSize'>
-                    <p id="fx_4_freeVerb_roomSize_value"></p>
-                    <br>
-                  </fieldset>
-                </div>
+            fx_1_freeVerb_Node.connect(fxReturn_1_fader);
+            player_1_fxSend_1_preEq_volNode.connect(fx_1_freeVerb_Node);
+            player_1_fxSend_1_postEq_volNode.connect(fx_1_freeVerb_Node);
+            player_1_fxSend_1_postFdr_volNode.connect(fx_1_freeVerb_Node);
 
-                fx_1_freeVerb_dampening.addEventListener("change", function(e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_1_freeVerb_Node.dampening = e.currentTarget.value; 
-  console.log("fx_1_dampening_Node: " + fx_1_freeVerb_Node.dampening);
-  fx_1_freeVerb_dampening_value.innerHTML = `${e.currentTarget.value}`;
-});
+            player_2_fxSend_1_preEq_volNode.connect(fx_1_freeVerb_Node);
+            player_2_fxSend_1_postEq_volNode.connect(fx_1_freeVerb_Node);
+            player_2_fxSend_1_postFdr_volNode.connect(fx_1_freeVerb_Node);
 
-fx_1_freeVerb_roomSize.addEventListener("change", function(e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_1_freeVerb_Node.roomSize.value = e.currentTarget.value; 
-  console.log("fx_1_roomSize_Node: " + fx_1_freeVerb_Node.roomSize.value);
-  fx_1_freeVerb_roomSize_value.innerHTML = `${e.currentTarget.value}`;
-});
-            */
+            player_3_fxSend_1_preEq_volNode.connect(fx_1_freeVerb_Node);
+            player_3_fxSend_1_postEq_volNode.connect(fx_1_freeVerb_Node);
+            player_3_fxSend_1_postFdr_volNode.connect(fx_1_freeVerb_Node);
+
+            player_4_fxSend_1_preEq_volNode.connect(fx_1_freeVerb_Node);
+            player_4_fxSend_1_postEq_volNode.connect(fx_1_freeVerb_Node);
+            player_4_fxSend_1_postFdr_volNode.connect(fx_1_freeVerb_Node);
+            
+            fx_1_actual_patch = "fx_1_freeVerb";
+            fx_1_freeVerb_div.style.display = "block";
             console.log("Freeverb fx_1_select");
+            */
             break;
           }
         case "FrequencyShifter":  //OK
           {
-/*
-            const fx_1_FrequencyShifter_Node = new Tone.FrequencyShifter();
+            fx_1.dispose();
             fx_1_FrequencyShifter_Node.connect(fxReturn_1_fader);
-            fx_1_FrequencyShifter_Node.wet = 1;
+
             player_1_fxSend_1_preEq_volNode.connect(fx_1_FrequencyShifter_Node);
             player_1_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
             player_1_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
@@ -5905,92 +5360,60 @@ fx_1_freeVerb_roomSize.addEventListener("change", function(e) {
             player_4_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
             player_4_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
 
-            const fx_1_frequencyShifter_text = document.createElement("p");
-            fx_1_frequencyShifter_text.innerHTML = "Frequency";
-            const fx_1_frequencyShifter = document.createElement("INPUT");
-            fx_1_frequencyShifter.setAttribute("type", "range");
-            fx_1_frequencyShifter.setAttribute("id", "fx_1_frequencyShifter");
-            fx_1_frequencyShifter.setAttribute("min", 0);
-            fx_1_frequencyShifter.setAttribute("max", 20000);
-            fx_1_frequencyShifter.setAttribute("value", 0);
-            fx_1_frequencyShifter.setAttribute("step", 10);
-
-            const fx_1_frequencyShifter_value = document.createElement("p");
-
-            const clipContainer = document.createElement("article");
-            clipContainer.classList.add("clip");
-            const fx_1_frequencyShifter_fieldset = document.createElement("fieldset");
-
-            const br1_frequencyShifter = document.createElement("span");
-            br1_frequencyShifter.innerHTML = "<br/>";
-
-            clipContainer.appendChild(br1_frequencyShifter);
-            clipContainer.appendChild(fx_1_frequencyShifter_fieldset);
-            fx_1_frequencyShifter_fieldset.append(fx_1_frequencyShifter_text);
-            fx_1_frequencyShifter_fieldset.append(fx_1_frequencyShifter);
-            fx_1_frequencyShifter_fieldset.append(fx_1_frequencyShifter_value);
-            soundClips_1.appendChild(clipContainer);
             fx_1_actual_patch = "fx_1_frequencyShifter";
+            fx_1_frequencyShifter_div.style.display = "block";
             console.log("eeee    FrequencyShifter fx_1_select");
-
-            fx_1_frequencyShifter.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_FrequencyShifter_Node.frequency.value = e.currentTarget.value;
-              console.log("fx_1_FrequencyShifter_Node: " + fx_1_FrequencyShifter_Node.frequency.value);
-              fx_1_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
-            });
-            */
             break;
           }
         case "JCReverb":
           {
-/*
-            const newfx_1 = new Tone.JCReverb();
-            newfx_1.connect(fxReturn_1_fader);
-            player_1_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postFdr_volNode.connect(newfx_1);
-
-            player_2_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postFdr_volNode.connect(newfx_1);
-
-            player_3_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postFdr_volNode.connect(newfx_1);
-
-            player_4_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postFdr_volNode.connect(newfx_1);
-
+            fx_1.dispose();
             /*
-                <div id="fx_1_JCReverb_div">
-                  <br>
-                  <fieldset>
-                    <p id="fx_1_JCReverb_text">Frequency </p>
-                    <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_JCReverb'>
-                    <p id="fx_1_JCReverb_value"></p>
-                    <br>
-                  </fieldset>
-                </div>
-
-
-fx_1_JCReverb.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_1_JCReverb_Node.roomSize.value = e.currentTarget.value;
-  console.log("fx_1_JCReverb_Node: " + fx_1_JCReverb_Node.roomSize);
-  fx_1_JCReverb_value.innerHTML = `${e.currentTarget.value}`;
-});
-            */
+                        const newfx_1 = new Tone.JCReverb();
+                        newfx_1.connect(fxReturn_1_fader);
+                        player_1_fxSend_1_preEq_volNode.connect(newfx_1);
+                        player_1_fxSend_1_postEq_volNode.connect(newfx_1);
+                        player_1_fxSend_1_postFdr_volNode.connect(newfx_1);
+            
+                        player_2_fxSend_1_preEq_volNode.connect(newfx_1);
+                        player_2_fxSend_1_postEq_volNode.connect(newfx_1);
+                        player_2_fxSend_1_postFdr_volNode.connect(newfx_1);
+            
+                        player_3_fxSend_1_preEq_volNode.connect(newfx_1);
+                        player_3_fxSend_1_postEq_volNode.connect(newfx_1);
+                        player_3_fxSend_1_postFdr_volNode.connect(newfx_1);
+            
+                        player_4_fxSend_1_preEq_volNode.connect(newfx_1);
+                        player_4_fxSend_1_postEq_volNode.connect(newfx_1);
+                        player_4_fxSend_1_postFdr_volNode.connect(newfx_1);
+            
+                        /*
+                            <div id="fx_1_JCReverb_div">
+                              <br>
+                              <fieldset>
+                                <p id="fx_1_JCReverb_text">Frequency </p>
+                                <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_JCReverb'>
+                                <p id="fx_1_JCReverb_value"></p>
+                                <br>
+                              </fieldset>
+                            </div>
+            
+            
+            fx_1_JCReverb.addEventListener("change", function (e) {
+              console.clear();
+              console.log("e.currentTarget.value: " + e.currentTarget.value);
+              fx_1_JCReverb_Node.roomSize.value = e.currentTarget.value;
+              console.log("fx_1_JCReverb_Node: " + fx_1_JCReverb_Node.roomSize);
+              fx_1_JCReverb_value.innerHTML = `${e.currentTarget.value}`;
+            });
+                        */
 
             console.log("JCReverb fx_1_select");
             break;
           }
-        case "Phaser":  //Test
+        case "Phaser":  //Testear NO ANDA NADA
           {
-/*
+            fx_1.dispose();
             fx_1_phaser_Node.connect(fxReturn_1_fader);
             player_1_fxSend_1_preEq_volNode.connect(fx_1_phaser_Node);
             player_1_fxSend_1_postEq_volNode.connect(fx_1_phaser_Node);
@@ -6008,196 +5431,41 @@ fx_1_JCReverb.addEventListener("change", function (e) {
             player_4_fxSend_1_postEq_volNode.connect(fx_1_phaser_Node);
             player_4_fxSend_1_postFdr_volNode.connect(fx_1_phaser_Node);
 
-            const fx_1_phaser_frequency_text = document.createElement("p");
-            fx_1_phaser_frequency_text.innerHTML = "Frequency"
-            const fx_1_phaser_frequency = document.createElement("INPUT");
-            fx_1_phaser_frequency.setAttribute("type", "range");
-            fx_1_phaser_frequency.setAttribute("id", "fx_1_phaser_frequency");
-            fx_1_phaser_frequency.setAttribute("min", 20);
-            fx_1_phaser_frequency.setAttribute("max", 20000);
-            fx_1_phaser_frequency.setAttribute("value", 20);
-            fx_1_phaser_frequency.setAttribute("step", 10);
-            const fx_1_phaser_frequency_value = document.createElement("p");
-
-            const fx_1_phaser_octaves_text = document.createElement("p");
-            fx_1_phaser_octaves_text.innerHTML = "Octaves"
-            const fx_1_phaser_octaves = document.createElement("INPUT");
-            fx_1_phaser_octaves.setAttribute("type", "range");
-            fx_1_phaser_octaves.setAttribute("id", "fx_1_phaser_octaves");
-            fx_1_phaser_octaves.setAttribute("min", 0);
-            fx_1_phaser_octaves.setAttribute("max", 12);
-            fx_1_phaser_octaves.setAttribute("value", 0);
-            fx_1_phaser_octaves.setAttribute("step", 0.1);
-            const fx_1_phaser_octaves_value = document.createElement("p");
-
-            const fx_1_phaser_Q_text = document.createElement("p");
-            fx_1_phaser_Q_text.innerHTML = "Q"
-            const fx_1_phaser_Q = document.createElement("INPUT");
-            fx_1_phaser_Q.setAttribute("type", "range");
-            fx_1_phaser_Q.setAttribute("id", "fx_1_phaser_Q");
-            fx_1_phaser_Q.setAttribute("min", 0);
-            fx_1_phaser_Q.setAttribute("max", 10);
-            fx_1_phaser_Q.setAttribute("value", 0);
-            fx_1_phaser_Q.setAttribute("step", 0.1);
-            const fx_1_phaser_Q_value = document.createElement("p");
-
-            const fx_1_phaser_baseFrequency_text = document.createElement("p");
-            fx_1_phaser_baseFrequency_text.innerHTML = "baseFrequency"
-            const fx_1_phaser_baseFrequency = document.createElement("INPUT");
-            fx_1_phaser_baseFrequency.setAttribute("type", "range");
-            fx_1_phaser_baseFrequency.setAttribute("id", "fx_1_phaser_baseFrequency");
-            fx_1_phaser_baseFrequency.setAttribute("min", 20);
-            fx_1_phaser_baseFrequency.setAttribute("max", 22000);
-            fx_1_phaser_baseFrequency.setAttribute("value", 20);
-            fx_1_phaser_baseFrequency.setAttribute("step", 10);
-            const fx_1_phaser_baseFrequency_value = document.createElement("p");
-
-            fx_1_phaser_frequency.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_phaser_Node.frequency.value = e.currentTarget.value;
-              console.log("fx_1_phaser_Node: " + fx_1_phaser_Node.frequency.value);
-              fx_1_phaser_frequency_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_phaser_octaves.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_phaser_Node.octaves = e.currentTarget.value;
-              console.log("fx_1_phaser_Node. octaves: " + fx_1_phaser_Node.octaves);
-              fx_1_phaser_octaves_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_phaser_Q.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_phaser_Node.Q = e.currentTarget.value;
-              console.log("fx_1_phaser_Node. Q: " + fx_1_phaser_Node.Q);
-              fx_1_phaser_Q_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_phaser_baseFrequency.addEventListener("change", function (e) {
-              console.clear();
-              console.log("e.currentTarget.value: " + e.currentTarget.value);
-              fx_1_phaser_Node.baseFrequency = e.currentTarget.value;
-              console.log("fx_1_phaser_Node. baseFrequency: " + fx_1_phaser_Node.baseFrequency);
-              fx_1_phaser_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            const clipContainer = document.createElement("article");
-            clipContainer.classList.add("clip");
-
-            const fx_1_phaser_fieldset = document.createElement("fieldset");
-            const br1_phaser = document.createElement("span");
-            br1_phaser.innerHTML = "<br/>";
-            const br2_phaser = document.createElement("span");
-            br2_phaser.innerHTML = "<br/>";
-            const br3_phaser = document.createElement("span");
-            br3_phaser.innerHTML = "<br/>";
-            const br4_phaser = document.createElement("span");
-            br4_phaser.innerHTML = "<br/>";
-
-            clipContainer.appendChild(br1_phaser);
-            clipContainer.appendChild(fx_1_phaser_fieldset);
-            fx_1_phaser_fieldset.append(fx_1_phaser_frequency_text);
-            fx_1_phaser_fieldset.append(fx_1_phaser_frequency);
-            fx_1_phaser_fieldset.append(fx_1_phaser_frequency_value);
-            fx_1_phaser_fieldset.append(br2_phaser);
-            fx_1_phaser_fieldset.append(fx_1_phaser_octaves_text);
-            fx_1_phaser_fieldset.append(fx_1_phaser_octaves);
-            fx_1_phaser_fieldset.append(fx_1_phaser_octaves_value);
-            fx_1_phaser_fieldset.append(br3_phaser);
-            fx_1_phaser_fieldset.append(fx_1_phaser_Q_text);
-            fx_1_phaser_fieldset.append(fx_1_phaser_Q);
-            fx_1_phaser_fieldset.append(fx_1_phaser_Q_value);
-            fx_1_phaser_fieldset.append(br4_phaser);
-            fx_1_phaser_fieldset.append(fx_1_phaser_baseFrequency_text);
-            fx_1_phaser_fieldset.append(fx_1_phaser_baseFrequency);
-            fx_1_phaser_fieldset.append(fx_1_phaser_baseFrequency_value);
-
-            soundClips_1.appendChild(clipContainer);
+            fx_1_actual_patch = "fx_1_phaser";
+            fx_1_phaser_div.style.display = "block";
             console.log("Phaser fx_1_select");
-            */
             break;
           }
-        case "PingPongDelay": //TEST
+        case "PingPongDelay": //OK
           {
-//            newfx_1.connect(fxReturn_1_fader);
+            fx_1.dispose();
+            fx_1_pingpong_Node.connect(fxReturn_1_fader);
 
-            player_1_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_1_fxSend_1_preEq_volNode.connect(fx_1_pingpong_Node);
+            player_1_fxSend_1_postEq_volNode.connect(fx_1_pingpong_Node);
+            player_1_fxSend_1_postFdr_volNode.connect(fx_1_pingpong_Node);
 
-            player_2_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_2_fxSend_1_preEq_volNode.connect(fx_1_pingpong_Node);
+            player_2_fxSend_1_postEq_volNode.connect(fx_1_pingpong_Node);
+            player_2_fxSend_1_postFdr_volNode.connect(fx_1_pingpong_Node);
 
-            player_3_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_3_fxSend_1_preEq_volNode.connect(fx_1_pingpong_Node);
+            player_3_fxSend_1_postEq_volNode.connect(fx_1_pingpong_Node);
+            player_3_fxSend_1_postFdr_volNode.connect(fx_1_pingpong_Node);
 
-            player_4_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postFdr_volNode.connect(newfx_1);
-/*
-            const fx_1_pingpong_feedback_text = document.createElement("p");
-            fx_1_pingpong_feedback_text.innerHTML = "Feedback";
-            const fx_1_pingpong_feedback = document.createElement("INPUT");
-            fx_1_pingpong_feedback.setAttribute("type", "range");
-            fx_1_pingpong_feedback.setAttribute("id", "fx_1_pingpong_feedback");
-            fx_1_pingpong_feedback.setAttribute("min", 0);
-            fx_1_pingpong_feedback.setAttribute("max", 1);
-            fx_1_pingpong_feedback.setAttribute("value", 0);
-            fx_1_pingpong_feedback.setAttribute("step", 0.01);
-            const fx_1_pingpong_feedback_value = document.createElement("p");
+            player_4_fxSend_1_preEq_volNode.connect(fx_1_pingpong_Node);
+            player_4_fxSend_1_postEq_volNode.connect(fx_1_pingpong_Node);
+            player_4_fxSend_1_postFdr_volNode.connect(fx_1_pingpong_Node);
 
-            const fx_1_pingpong_delayTime_text = document.createElement("p");
-            fx_1_pingpong_delayTime_text.innerHTML = "Dly Time";
-            const fx_1_pingpong_delayTime = document.createElement("INPUT");
-            fx_1_pingpong_delayTime.setAttribute("type", "range");
-            fx_1_pingpong_delayTime.setAttribute("id", "fx_1_pingpong_delayTime");
-            fx_1_pingpong_delayTime.setAttribute("min", 0);
-            fx_1_pingpong_delayTime.setAttribute("max", 2);
-            fx_1_pingpong_delayTime.setAttribute("value", 0);
-            fx_1_pingpong_delayTime.setAttribute("step", 0.001);
-            const fx_1_pingpong_delayTime_value = document.createElement("p");
-
-            const fx_1_pingpong_maxDelay_text = document.createElement("p");
-            fx_1_pingpong_maxDelay_text.innerHTML = "Max Dly";
-            const fx_1_pingpong_maxDelay = document.createElement("INPUT");
-            fx_1_pingpong_maxDelay.setAttribute("type", "range");
-            fx_1_pingpong_maxDelay.setAttribute("id", "fx_1_pingpong_maxDelay");
-            fx_1_pingpong_maxDelay.setAttribute("min", 0);
-            fx_1_pingpong_maxDelay.setAttribute("max", 9);
-            fx_1_pingpong_maxDelay.setAttribute("value", 0);
-            fx_1_pingpong_maxDelay.setAttribute("step", 1);
-            const fx_1_pingpong_maxDelay_value = document.createElement("p");
-
-            fx_1_pingpong_delayTime.addEventListener("change", function (e) {
-              fx_1_pingpong_Node.delayTime.value = e.currentTarget.value;
-              console.log("fx_1_pingpong_Node: " + fx_1_pingpong_Node.delayTime.value);
-              fx_1_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_pingpong_feedback.addEventListener("change", function (e) {
-              fx_1_pingpong_Node.feedback.value = e.currentTarget.value;
-              console.log("fx_1_pingpong_Node: " + fx_1_pingpong_Node.feedback.value);
-              fx_1_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_pingpong_maxDelay.addEventListener("change", function (e) {
-              fx_1_pingpong_Node.maxDelay = e.currentTarget.value;
-              console.log("fx_1_pingpong_Node: " + fx_1_pingpong_Node.maxDelay);
-              fx_1_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
+            fx_1_actual_patch = "fx_1_pingpong";
+            fx_1_pingpong_div.style.display = "block";
             console.log("PingPongDelay fx_1_select");
-            */
+
             break;
           }
-        case "PitchShift":  //Test
+        case "PitchShift":  //OK
           {
-/*
+            fx_1.dispose();
             fx_1_pitchshift_Node.connect(fxReturn_1_fader);
             player_1_fxSend_1_preEq_volNode.connect(fx_1_pitchshift_Node);
             player_1_fxSend_1_postEq_volNode.connect(fx_1_pitchshift_Node);
@@ -6215,114 +5483,15 @@ fx_1_JCReverb.addEventListener("change", function (e) {
             player_4_fxSend_1_postEq_volNode.connect(fx_1_pitchshift_Node);
             player_4_fxSend_1_postFdr_volNode.connect(fx_1_pitchshift_Node);
 
-            const fx_1_pitchshift_feedback_text = document.createElement("p");
-            fx_1_pitchshift_feedback_text.innerHTML = "Feedback"
-            const fx_1_pitchshift_feedback = document.createElement("INPUT");
-            fx_1_pitchshift_feedback.setAttribute("type", "range");
-            fx_1_pitchshift_feedback.setAttribute("id", "fx_1_pitchshift_feedback");
-            fx_1_pitchshift_feedback.setAttribute("min", 0);
-            fx_1_pitchshift_feedback.setAttribute("max", 1);
-            fx_1_pitchshift_feedback.setAttribute("value", 0);
-            fx_1_pitchshift_feedback.setAttribute("step", 0.01);
-            const fx_1_pitchshift_feedback_value = document.createElement("p");
-
-            const fx_1_pitchshift_delayTime_text = document.createElement("p");
-            fx_1_pitchshift_delayTime_text.innerHTML = "Delay Time"
-            const fx_1_pitchshift_delayTime = document.createElement("INPUT");
-            fx_1_pitchshift_delayTime.setAttribute("type", "range");
-            fx_1_pitchshift_delayTime.setAttribute("id", "fx_1_pitchshift_delayTime");
-            fx_1_pitchshift_delayTime.setAttribute("min", 0);
-            fx_1_pitchshift_delayTime.setAttribute("max", 1);
-            fx_1_pitchshift_delayTime.setAttribute("value", 0);
-            fx_1_pitchshift_delayTime.setAttribute("step", 0.01);
-            const fx_1_pitchshift_delayTime_value = document.createElement("p");
-
-            const fx_1_pitchshift_pitch_text = document.createElement("p");
-            fx_1_pitchshift_pitch_text.innerHTML = "Pitch"
-            const fx_1_pitchshift_pitch = document.createElement("INPUT");
-            fx_1_pitchshift_pitch.setAttribute("type", "range");
-            fx_1_pitchshift_pitch.setAttribute("id", "fx_1_pitchshift_pitch");
-            fx_1_pitchshift_pitch.setAttribute("min", -100);
-            fx_1_pitchshift_pitch.setAttribute("max", 150);
-            fx_1_pitchshift_pitch.setAttribute("value", 0);
-            fx_1_pitchshift_pitch.setAttribute("step", 1);
-            const fx_1_pitchshift_pitch_value = document.createElement("p");
-
-            const fx_1_pitchshift_windowSize_text = document.createElement("p");
-            fx_1_pitchshift_windowSize_text.innerHTML = "Window Size"
-            const fx_1_pitchshift_windowSize = document.createElement("INPUT");
-            fx_1_pitchshift_windowSize.setAttribute("type", "range");
-            fx_1_pitchshift_windowSize.setAttribute("id", "fx_1_pitchshift_windowSize");
-            fx_1_pitchshift_windowSize.setAttribute("min", 0);
-            fx_1_pitchshift_windowSize.setAttribute("max", 15);
-            fx_1_pitchshift_windowSize.setAttribute("value", 0);
-            fx_1_pitchshift_windowSize.setAttribute("step", 1);
-            const fx_1_pitchshift_windowSize_value = document.createElement("p");
-
-
-            fx_1_pitchshift_delayTime.addEventListener("change", function (e) {
-              fx_1_pitchshift_Node.delayTime.value = e.currentTarget.value;
-              console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.delayTime.value);
-              fx_1_pitchshift_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_pitchshift_feedback.addEventListener("change", function (e) {
-              fx_1_pitchshift_Node.feedback.value = e.currentTarget.value;
-              console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.feedback.value);
-              fx_1_pitchshift_feedback_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_pitchshift_pitch.addEventListener("change", function (e) {
-              fx_1_pitchshift_Node.pitch = e.currentTarget.value;
-              console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.pitch);
-              fx_1_pitchshift_pitch_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_pitchshift_windowSize.addEventListener("change", function (e) {
-              fx_1_pitchshift_Node.windowSize = e.currentTarget.value;
-              console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.windowSize);
-              fx_1_pitchshift_windowSize_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            const clipContainer = document.createElement("article");
-            clipContainer.classList.add("clip");
-
-            const fx_1_pitchshift_fieldset = document.createElement("fieldset");
-
-            const br1_pitchshift = document.createElement("span");
-            br1_pitchshift.innerHTML = "<br/>";
-            const br2_pitchshift = document.createElement("span");
-            br2_pitchshift.innerHTML = "<br/>";
-            const br3_pitchshift = document.createElement("span");
-            br3_pitchshift.innerHTML = "<br/>";
-            const br4_pitchshift = document.createElement("span");
-            br4_pitchshift.innerHTML = "<br/>";
-
-            clipContainer.appendChild(br1_pitchshift);
-            clipContainer.appendChild(fx_1_pitchshift_fieldset);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_feedback_text);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_feedback);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_feedback_value);
-            fx_1_pitchshift_fieldset.append(br2_pitchshift);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_delayTime_text);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_delayTime);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_delayTime_value);
-            fx_1_pitchshift_fieldset.append(br3_pitchshift);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_pitch_text);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_pitch);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_pitch_value);
-            fx_1_pitchshift_fieldset.append(br4_pitchshift);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_windowSize_text);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_windowSize);
-            fx_1_pitchshift_fieldset.append(fx_1_pitchshift_windowSize_value);
-
-            soundClips_1.appendChild(clipContainer);
+            fx_1_actual_patch = "fx_1_pitchshift";
+            fx_1_pitchshift_div.style.display = "block";
             console.log("PitchShift fx_1_select");
-            */
             break;
           }
-        case "Reverb": //TEST
+        case "Reverb": //REVISAR CUELGA TODO
           {
+            fx_1.dispose();
+            fx_1_reverb_Node.connect(fxReturn_1_fader);
 
             player_1_fxSend_1_preEq_volNode.connect(fx_1_reverb_Node);
             player_1_fxSend_1_postEq_volNode.connect(fx_1_reverb_Node);
@@ -6340,114 +5509,39 @@ fx_1_JCReverb.addEventListener("change", function (e) {
             player_4_fxSend_1_postEq_volNode.connect(fx_1_reverb_Node);
             player_4_fxSend_1_postFdr_volNode.connect(fx_1_reverb_Node);
 
-            /*
-            const fx_1_reverb_preDelay_text = document.createElement("p");
-            fx_1_reverb_preDelay_text.innerHTML = "Pre Delay"
-            const fx_1_reverb_preDelay = document.createElement("INPUT");
-            fx_1_reverb_preDelay.setAttribute("type", "range");
-            fx_1_reverb_preDelay.setAttribute("id", "fx_1_reverb_preDelay");
-            fx_1_reverb_preDelay.setAttribute("min", 0);
-            fx_1_reverb_preDelay.setAttribute("max", 300);
-            fx_1_reverb_preDelay.setAttribute("value", 0);
-            fx_1_reverb_preDelay.setAttribute("step", 0.1);
-            const fx_1_reverb_preDelay_value = document.createElement("p");
-
-            const fx_1_reverb_decay_text = document.createElement("p");
-            fx_1_reverb_decay_text.innerHTML = "Decay"
-            const fx_1_reverb_decay = document.createElement("INPUT");
-            fx_1_reverb_decay.setAttribute("type", "range");
-            fx_1_reverb_decay.setAttribute("id", "fx_1_reverb_decay");
-            fx_1_reverb_decay.setAttribute("min", 0);
-            fx_1_reverb_decay.setAttribute("max", 100);
-            fx_1_reverb_decay.setAttribute("value", 0);
-            fx_1_reverb_decay.setAttribute("step", 0.1);
-            const fx_1_reverb_decay_value = document.createElement("p");
-
-            fx_1_reverb_preDelay.addEventListener("change", function (e) {
-              fx_1_reverb_Node.preDelay = e.currentTarget.value;
-              console.log("fx_1_reverb_Node: " + fx_1_reverb_Node.preDelay);
-              fx_1_reverb_preDelay_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_reverb_decay.addEventListener("change", function (e) {
-              fx_1_reverb_Node.decay = e.currentTarget.value;
-              console.log("fx_1_reverb_Node: " + fx_1_reverb_Node.decay);
-              fx_1_reverb_decay_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            const clipContainer = document.createElement("article");
-            clipContainer.classList.add("clip");
-
-            const fx_1_reverb_fieldset = document.createElement("fieldset");
-
-            const br1_reverb = document.createElement("span");
-            br1_reverb.innerHTML = "<br/>";
-            const br2_reverb = document.createElement("span");
-            br2_reverb.innerHTML = "<br/>";
-            const br3_reverb = document.createElement("span");
-            br3_reverb.innerHTML = "<br/>";
-
-            clipContainer.appendChild(br1_reverb);
-            clipContainer.appendChild(fx_1_reverb_fieldset);
-            fx_1_reverb_fieldset.append(fx_1_reverb_preDelay_text);
-            fx_1_reverb_fieldset.append(fx_1_reverb_preDelay);
-            fx_1_reverb_fieldset.append(fx_1_reverb_preDelay_value);
-            fx_1_reverb_fieldset.append(br2_reverb);
-            fx_1_reverb_fieldset.append(fx_1_reverb_decay_text);
-            fx_1_reverb_fieldset.append(fx_1_reverb_decay);
-            fx_1_reverb_fieldset.append(fx_1_reverb_decay_value);
-            fx_1_reverb_fieldset.append(br3_reverb);
-
-            soundClips_1.appendChild(clipContainer);
+            fx_1_actual_patch = "fx_1_reverb";
+            fx_1_reverb_div.style.display = "block";
             console.log("Reverb fx_1_select");
-            */
             break;
           }
         case "StereoWidener":
           {
-/*
-            newfx_1.connect(fxReturn_1_fader);
-            player_1_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_1_fxSend_1_postFdr_volNode.connect(newfx_1);
+            fx_1.dispose();
+            fx_1_StereoWidener_Node.connect(fxReturn_1_fader);
+            player_1_fxSend_1_preEq_volNode.connect(fx_1_StereoWidener_Node);
+            player_1_fxSend_1_postEq_volNode.connect(fx_1_StereoWidener_Node);
+            player_1_fxSend_1_postFdr_volNode.connect(fx_1_StereoWidener_Node);
 
-            player_2_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_2_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_2_fxSend_1_preEq_volNode.connect(fx_1_StereoWidener_Node);
+            player_2_fxSend_1_postEq_volNode.connect(fx_1_StereoWidener_Node);
+            player_2_fxSend_1_postFdr_volNode.connect(fx_1_StereoWidener_Node);
 
-            player_3_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_3_fxSend_1_postFdr_volNode.connect(newfx_1);
+            player_3_fxSend_1_preEq_volNode.connect(fx_1_StereoWidener_Node);
+            player_3_fxSend_1_postEq_volNode.connect(fx_1_StereoWidener_Node);
+            player_3_fxSend_1_postFdr_volNode.connect(fx_1_StereoWidener_Node);
 
-            player_4_fxSend_1_preEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postEq_volNode.connect(newfx_1);
-            player_4_fxSend_1_postFdr_volNode.connect(newfx_1);
-            /*
-                <div id="fx_1_StereoWidener_div">
-                  <br>
-                  <fieldset>
-                    <p id="fx_1_StereoWidener_width_text"> Width</p>
-                    <input type='range' min=0 max=300 step='0.1' value="0" id='fx_1_StereoWidener_width'>
-                    <p id="fx_1_StereoWidener_width_value"></p>
-                    <br>
-                  </fieldset>
-                </div>
+            player_4_fxSend_1_preEq_volNode.connect(fx_1_StereoWidener_Node);
+            player_4_fxSend_1_postEq_volNode.connect(fx_1_StereoWidener_Node);
+            player_4_fxSend_1_postFdr_volNode.connect(fx_1_StereoWidener_Node);
 
-fx_1_StereoWidener_width.addEventListener("change", function (e) {
-  fx_1_StereoWidener_Node.width = e.currentTarget.value;
-  console.log("fx_1_StereoWidener_Node: " + fx_1_StereoWidener_Node.width);
-  fx_1_StereoWidener_width_value.innerHTML = `${e.currentTarget.value}`;
-});
-//The width control. 0 = 100% mid. 1 = 100% side. 0.5 = no change.
-
-            */
-
+            fx_1_actual_patch = "fx_1_stereoWidener";
+            fx_1_StereoWidener_div.style.display = "block";
             console.log("StereoWidener fx_1_select");
             break;
           }
-        case "Tremolo": //TEST
+        case "Tremolo": //TEST NO FUNCA
           {
-/*
+            fx_1.dispose();
             fx_1_tremolo_Node.connect(fxReturn_1_fader);
             player_1_fxSend_1_preEq_volNode.connect(fx_1_tremolo_Node);
             player_1_fxSend_1_postEq_volNode.connect(fx_1_tremolo_Node);
@@ -6465,94 +5559,14 @@ fx_1_StereoWidener_width.addEventListener("change", function (e) {
             player_4_fxSend_1_postEq_volNode.connect(fx_1_tremolo_Node);
             player_4_fxSend_1_postFdr_volNode.connect(fx_1_tremolo_Node);
 
-            const fx_1_tremolo_frequency_text = document.createElement("p");
-            fx_1_tremolo_frequency_text.innerHTML = "Frequency"
-            const fx_1_tremolo_frequency = document.createElement("INPUT");
-            fx_1_tremolo_frequency.setAttribute("type", "range");
-            fx_1_tremolo_frequency.setAttribute("id", "fx_1_tremolo_frequency");
-            fx_1_tremolo_frequency.setAttribute("min", 20);
-            fx_1_tremolo_frequency.setAttribute("max", 20000);
-            fx_1_tremolo_frequency.setAttribute("value", 0);
-            fx_1_tremolo_frequency.setAttribute("step", 100);
-            const fx_1_tremolo_frequency_value = document.createElement("p");
-
-            const fx_1_tremolo_depth_text = document.createElement("p");
-            fx_1_tremolo_depth_text.innerHTML = "Depth"
-            const fx_1_tremolo_depth = document.createElement("INPUT");
-            fx_1_tremolo_depth.setAttribute("type", "range");
-            fx_1_tremolo_depth.setAttribute("id", "fx_1_tremolo_depth");
-            fx_1_tremolo_depth.setAttribute("min", 0);
-            fx_1_tremolo_depth.setAttribute("max", 1);
-            fx_1_tremolo_depth.setAttribute("value", 0);
-            fx_1_tremolo_depth.setAttribute("step", 0.01);
-            const fx_1_tremolo_depth_value = document.createElement("p");
-
-            const fx_1_tremolo_spread_text = document.createElement("p");
-            fx_1_tremolo_spread_text.innerHTML = "Spread"
-            const fx_1_tremolo_spread = document.createElement("INPUT");
-            fx_1_tremolo_spread.setAttribute("type", "range");
-            fx_1_tremolo_spread.setAttribute("id", "fx_1_tremolo_spread");
-            fx_1_tremolo_spread.setAttribute("min", 0);
-            fx_1_tremolo_spread.setAttribute("max", 1);
-            fx_1_tremolo_spread.setAttribute("value", 0);
-            fx_1_tremolo_spread.setAttribute("step", 0.01);
-            const fx_1_tremolo_spread_value = document.createElement("p");
-
-            fx_1_tremolo_frequency.addEventListener("change", function (e) {
-              fx_1_tremolo_Node.frequency = e.currentTarget.value;
-              console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.frequency);
-              fx_1_tremolo_frequency_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_tremolo_depth.addEventListener("change", function (e) {
-              fx_1_tremolo_Node.depth = e.currentTarget.value;
-              console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.depth);
-              fx_1_tremolo_depth_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_tremolo_spread.addEventListener("change", function (e) {
-              fx_1_tremolo_Node.spread = e.currentTarget.value;
-              console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.spread);
-              fx_1_tremolo_spread_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            const clipContainer = document.createElement("article");
-            clipContainer.classList.add("clip");
-
-            const fx_1_tremolo_fieldset = document.createElement("fieldset");
-
-            const br1_tremolo = document.createElement("span");
-            br1_tremolo.innerHTML = "<br/>";
-            const br2_tremolo = document.createElement("span");
-            br2_tremolo.innerHTML = "<br/>";
-            const br3_tremolo = document.createElement("span");
-            br3_tremolo.innerHTML = "<br/>";
-            const br4_tremolo = document.createElement("span");
-            br4_tremolo.innerHTML = "<br/>";
-
-            clipContainer.appendChild(br1_tremolo);
-            clipContainer.appendChild(fx_1_tremolo_fieldset);
-            fx_1_tremolo_fieldset.append(fx_1_tremolo_frequency_text);
-            fx_1_tremolo_fieldset.append(fx_1_tremolo_frequency);
-            fx_1_tremolo_fieldset.append(fx_1_tremolo_frequency_value);
-            fx_1_tremolo_fieldset.append(br2_tremolo);
-            fx_1_tremolo_fieldset.append(fx_1_tremolo_depth_text);
-            fx_1_tremolo_fieldset.append(fx_1_tremolo_depth);
-            fx_1_tremolo_fieldset.append(fx_1_tremolo_depth_value);
-            fx_1_tremolo_fieldset.append(br3_tremolo);
-            fx_1_tremolo_fieldset.append(fx_1_tremolo_spread_text);
-            fx_1_tremolo_fieldset.append(fx_1_tremolo_spread);
-            fx_1_tremolo_fieldset.append(fx_1_tremolo_spread_value);
-            fx_1_tremolo_fieldset.append(br4_tremolo);
-
-            soundClips_1.appendChild(clipContainer);
+            fx_1_actual_patch = "fx_1_tremolo";
+            fx_1_tremolo_div.style.display = "block";
             console.log("Tremolo fx_1_select");
-            */
             break;
           }
-        case "Vibrato": //Test
+        case "Vibrato": //Test NO FUNCA
           {
-/*
+            fx_1.dispose();
             fx_1_vibrato_Node.connect(fxReturn_1_fader);
             player_1_fxSend_1_preEq_volNode.connect(fx_1_vibrato_Node);
             player_1_fxSend_1_postEq_volNode.connect(fx_1_vibrato_Node);
@@ -6570,88 +5584,8 @@ fx_1_StereoWidener_width.addEventListener("change", function (e) {
             player_4_fxSend_1_postEq_volNode.connect(fx_1_vibrato_Node);
             player_4_fxSend_1_postFdr_volNode.connect(fx_1_vibrato_Node);
 
-            const fx_1_vibrato_frequency_text = document.createElement("p");
-            fx_1_vibrato_frequency_text.innerHTML = "Frequency"
-            const fx_1_vibrato_frequency = document.createElement("INPUT");
-            fx_1_vibrato_frequency.setAttribute("type", "range");
-            fx_1_vibrato_frequency.setAttribute("id", "fx_1_vibrato_frequency");
-            fx_1_vibrato_frequency.setAttribute("min", 20);
-            fx_1_vibrato_frequency.setAttribute("max", 20000);
-            fx_1_vibrato_frequency.setAttribute("value", 0);
-            fx_1_vibrato_frequency.setAttribute("step", 100);
-            const fx_1_vibrato_frequency_value = document.createElement("p");
-
-            const fx_1_vibrato_depth_text = document.createElement("p");
-            fx_1_vibrato_depth_text.innerHTML = "Depth"
-            const fx_1_vibrato_depth = document.createElement("INPUT");
-            fx_1_vibrato_depth.setAttribute("type", "range");
-            fx_1_vibrato_depth.setAttribute("id", "fx_1_vibrato_depth");
-            fx_1_vibrato_depth.setAttribute("min", 0);
-            fx_1_vibrato_depth.setAttribute("max", 1);
-            fx_1_vibrato_depth.setAttribute("value", 0);
-            fx_1_vibrato_depth.setAttribute("step", 0.01);
-            const fx_1_vibrato_depth_value = document.createElement("p");
-
-            const fx_1_vibrato_maxDelay_text = document.createElement("p");
-            fx_1_vibrato_maxDelay_text.innerHTML = "Max Delay"
-            const fx_1_vibrato_maxDelay = document.createElement("INPUT");
-            fx_1_vibrato_maxDelay.setAttribute("type", "range");
-            fx_1_vibrato_maxDelay.setAttribute("id", "fx_1_vibrato_maxDelay");
-            fx_1_vibrato_maxDelay.setAttribute("min", 0);
-            fx_1_vibrato_maxDelay.setAttribute("max", 1);
-            fx_1_vibrato_maxDelay.setAttribute("value", 0);
-            fx_1_vibrato_maxDelay.setAttribute("step", 0.01);
-            const fx_1_vibrato_maxDelay_value = document.createElement("p");
-
-            fx_1_vibrato_frequency.addEventListener("change", function (e) {
-              fx_1_vibrato_Node.frequency = e.currentTarget.value;
-              console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.frequency);
-              fx_1_vibrato_frequency_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_vibrato_depth.addEventListener("change", function (e) {
-              fx_1_vibrato_Node.depth = e.currentTarget.value;
-              console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.depth);
-              fx_1_vibrato_depth_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            fx_1_vibrato_maxDelay.addEventListener("change", function (e) {
-              fx_1_vibrato_Node.maxDelay = e.currentTarget.value;
-              console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.maxDelay);
-              fx_1_vibrato_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-            });
-
-            const clipContainer = document.createElement("article");
-            clipContainer.classList.add("clip");
-
-            const fx_1_vibrato_fieldset = document.createElement("fieldset");
-
-            const br1_vibrato = document.createElement("span");
-            br1_vibrato.innerHTML = "<br/>";
-            const br2_vibrato = document.createElement("span");
-            br2_vibrato.innerHTML = "<br/>";
-            const br3_vibrato = document.createElement("span");
-            br3_vibrato.innerHTML = "<br/>";
-            const br4_vibrato = document.createElement("span");
-            br4_vibrato.innerHTML = "<br/>";
-
-            clipContainer.appendChild(br1_vibrato);
-            clipContainer.appendChild(fx_1_vibrato_fieldset);
-            fx_1_vibrato_fieldset.append(fx_1_vibrato_frequency_text);
-            fx_1_vibrato_fieldset.append(fx_1_vibrato_frequency);
-            fx_1_vibrato_fieldset.append(fx_1_vibrato_frequency_value);
-            fx_1_vibrato_fieldset.append(br2_vibrato);
-            fx_1_vibrato_fieldset.append(fx_1_vibrato_depth_text);
-            fx_1_vibrato_fieldset.append(fx_1_vibrato_depth);
-            fx_1_vibrato_fieldset.append(fx_1_vibrato_depth_value);
-            fx_1_vibrato_fieldset.append(br3_vibrato);
-            fx_1_vibrato_fieldset.append(fx_1_vibrato_maxDelay_text);
-            fx_1_vibrato_fieldset.append(fx_1_vibrato_maxDelay);
-            fx_1_vibrato_fieldset.append(fx_1_vibrato_maxDelay_value);
-            fx_1_vibrato_fieldset.append(br4_vibrato);
-
-            soundClips_1.appendChild(clipContainer);
-*/
+            fx_1_actual_patch = "fx_1_vibrato";
+            fx_1_vibrato_div.style.display = "block";
             console.log("Vibrato fx_1_select");
             break;
           }
@@ -6698,53 +5632,53 @@ function tuFuncion() {
 }
 
 function hide_all_divs(value) {
-    switch (value) {
-      case "fx_1_select": {
-        fx_1_autofilter_div.style.display = "none";
-        fx_1_autoPanner_div.style.display = "none";
-        fx_1_autoWah_div.style.display = "none";
-        fx_1_bitCrusher_div.style.display = "none";
-        fx_1_Chebyshev_div.style.display = "none";
-        fx_1_chorus_div.style.display = "none";
-        fx_1_distortion_div.style.display = "none";
-        fx_1_feedback_div.style.display = "none";
-        fx_1_freeVerb_div.style.display = "none";
-        fx_1_frequencyShifter_div.style.display = "none";
-        fx_1_JCReverb_div.style.display = "none";
-        fx_1_phaser_div.style.display = "none";
-        fx_1_pingpong_div.style.display = "none";
-        fx_1_pitchshift_div.style.display = "none";
-        fx_1_reverb_div.style.display = "none";
-        fx_1_StereoWidener_div.style.display = "none";
-        fx_1_tremolo_div.style.display = "none";
-        fx_1_vibrato_div.style.display = "none";
-        break;
-      }
-  
-      case "fx_4_select": {
-        fx_4_autofilter_div.style.display = "none";
-        fx_4_autoPanner_div.style.display = "none";
-        fx_4_autoWah_div.style.display = "none";
-        fx_4_bitCrusher_div.style.display = "none";
-        fx_4_Chebyshev_div.style.display = "none";
-        fx_4_chorus_div.style.display = "none";
-        fx_4_distortion_div.style.display = "none";
-        fx_4_feedback_div.style.display = "none";
-        fx_4_freeVerb_div.style.display = "none";
-        fx_4_frequencyShifter_div.style.display = "none";
-        fx_4_JCReverb_div.style.display = "none";
-        fx_4_phaser_div.style.display = "none";
-        fx_4_pingpong_div.style.display = "none";
-        fx_4_pitchshift_div.style.display = "none";
-        fx_4_reverb_div.style.display = "none";
-        fx_4_StereoWidener_div.style.display = "none";
-        fx_4_tremolo_div.style.display = "none";
-        fx_4_vibrato_div.style.display = "none";
-        break;
-      }
+  switch (value) {
+    case "fx_1_select": {
+      fx_1_autofilter_div.style.display = "none";
+      fx_1_autoPanner_div.style.display = "none";
+      fx_1_autoWah_div.style.display = "none";
+      fx_1_bitCrusher_div.style.display = "none";
+      fx_1_Chebyshev_div.style.display = "none";
+      fx_1_chorus_div.style.display = "none";
+      fx_1_distortion_div.style.display = "none";
+      fx_1_feedback_div.style.display = "none";
+      fx_1_freeVerb_div.style.display = "none";
+      fx_1_frequencyShifter_div.style.display = "none";
+      fx_1_JCReverb_div.style.display = "none";
+      fx_1_phaser_div.style.display = "none";
+      fx_1_pingpong_div.style.display = "none";
+      fx_1_pitchshift_div.style.display = "none";
+      fx_1_reverb_div.style.display = "none";
+      fx_1_StereoWidener_div.style.display = "none";
+      fx_1_tremolo_div.style.display = "none";
+      fx_1_vibrato_div.style.display = "none";
+      break;
+    }
+
+    case "fx_4_select": {
+      fx_4_autofilter_div.style.display = "none";
+      fx_4_autoPanner_div.style.display = "none";
+      fx_4_autoWah_div.style.display = "none";
+      fx_4_bitCrusher_div.style.display = "none";
+      fx_4_Chebyshev_div.style.display = "none";
+      fx_4_chorus_div.style.display = "none";
+      fx_4_distortion_div.style.display = "none";
+      fx_4_feedback_div.style.display = "none";
+      fx_4_freeVerb_div.style.display = "none";
+      fx_4_frequencyShifter_div.style.display = "none";
+      fx_4_JCReverb_div.style.display = "none";
+      fx_4_phaser_div.style.display = "none";
+      fx_4_pingpong_div.style.display = "none";
+      fx_4_pitchshift_div.style.display = "none";
+      fx_4_reverb_div.style.display = "none";
+      fx_4_StereoWidener_div.style.display = "none";
+      fx_4_tremolo_div.style.display = "none";
+      fx_4_vibrato_div.style.display = "none";
+      break;
     }
   }
-  
+}
+
 //************************************************************************
 //************************************************************************
 //EQ high/mid/low values are all in Decibels, so 0 would mean no change.
@@ -6852,7 +5786,7 @@ fileInput.addEventListener("change", () => {
   /**/
 
 
-    /*
+/*
 var test = document.getElementById("fx_1_clip");
 var child = document.getElementById("article_1");
 test.removeChild(child);
