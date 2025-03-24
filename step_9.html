@@ -979,7 +979,6 @@
 
   </div>
 
-
   <!-- FX 1-->
   <div class="column">
     <h2>FX 1</h2>
@@ -1005,9 +1004,9 @@
       <option name="Chorus" id="Chorus" value="Chorus">Chorus</option>
       <option name="Distortion" id="Distortion" value="Distortion">Distortion</option>
       <option name="FeedbackDelay" id="FeedbackDelay" value="FeedbackDelay">FeedbackDelay</option>
-      <option name="Freeverb" id="Freeverb" value="Freeverb">Freeverb</option>
+ <!--     <option name="Freeverb" id="Freeverb" value="Freeverb">Freeverb</option>-->
       <option name="FrequencyShifter" id="FrequencyShifter" value="FrequencyShifter">FrequencyShifter</option>
-      <option name="JCReverb" id="JCReverb" value="JCReverb">JCReverb</option>
+  <!--    <option name="JCReverb" id="JCReverb" value="JCReverb">JCReverb</option>-->
       <option name="Phaser" id="Phaser" value="Phaser">Phaser</option>
       <option name="PingPongDelay" id="PingPongDelay" value="PingPongDelay">PingPongDelay</option>
       <option name="PitchShift" id="PitchShift" value="PitchShift">PitchShift</option>
@@ -1041,7 +1040,9 @@
     };
     -->
       <br>
+      
       <fieldset>
+        fx_1_autofilter_div
         <p id="fx_1_autofilter_baseFrequency_text">baseFrequency </p>
         <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autofilter_baseFrequency'>
         <p id="fx_1_autofilter_baseFrequency_value"></p>
@@ -1069,9 +1070,10 @@
         <br>
       </fieldset>
     </div>
-    <div id="fx_1_autoPanner_div">
+    <div id="fx_1_autopanner_div">
       <br>
       <fieldset>
+        fx_1_autopanner_div  <br>
         <p id="fx_1_autoPanner_frequency_text">Frequency </p>
         <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autoPanner_frequency'>
         <p id="fx_1_autoPanner_frequency_value"></p>
@@ -1091,9 +1093,10 @@
         <br>
       </fieldset>
     </div>
-    <div id="fx_1_autoWah_div">
+    <div id="fx_1_autowah_div">
       <br>
       <fieldset>
+        fx_1_autowah_div  <br>
         <p id="fx_1_autoWah_baseFrequency_text">baseFrequency </p>
         <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autoWah_baseFrequency'>
         <p id="fx_1_autoWah_baseFrequency_value"></p>
@@ -1131,6 +1134,7 @@
     <div id="fx_1_bitCrusher_div">
       <br>
       <fieldset>
+        fx_1_bitCrusher_div 
         <!--
       <p id="fx_1_autoWah_baseFrequency_text">baseFrequency </p>
       <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autoWah_baseFrequency'>
@@ -1161,6 +1165,7 @@
     <div id="fx_1_Chebyshev_div">
       <br>
       <fieldset>
+        fx_1_Chebyshev_div  <br>
         <p id="fx_1_Chebyshev_order_text"> Order</p>
         <input type='range' min=1 max=20 step='1' value="1" id='fx_1_Chebyshev_order'>
         <p id="fx_1_Chebyshev_order_value"></p>
@@ -1178,7 +1183,8 @@
     <div id="fx_1_chorus_div">
       <br>
       <fieldset>
-        <p id="fx_1_chorus_freq_text"> Chorus_DIV</p>
+        fx_1_chorus_div  <br>
+        <p id="fx_1_chorus_freq_text"> </p>
         <br>
         Freq<input type='range' min=0 max=20 step='0.01' value="0" id='fx_1_chorus_freq'>
         <p id="fx_1_chorus_freq_value"></p>
@@ -1214,6 +1220,7 @@
     <div id="fx_1_distortion_div">
       <br>
       <fieldset>
+        fx_1_distortion_div
         <p id="fx_1_distortion_text">Amount </p>
         <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_distortion'>
         <p id="fx_1_distortion_value"></p>
@@ -1231,6 +1238,7 @@
     <div id="fx_1_feedback_div">
       <br>
       <fieldset>
+        fx_1_feedback_div
         <p id="fx_1_feedback_text">Feedback </p>
         <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_feedback'>
         <p id="fx_1_feedback_value"></p>
@@ -1261,6 +1269,7 @@
     <div id="fx_1_frequencyShifter_div">
       <br>
       <fieldset>
+        fx_1_frequencyShifter_div
         <p id="fx_1_frequencyShifter_text">Frequency </p>
         <input type='range' min=0 max=20000 step='10' value="0" id='fx_1_frequencyShifter'>
         <p id="fx_1_frequencyShifter_value"></p>
@@ -1279,6 +1288,7 @@
     <div id="fx_1_phaser_div">
       <br>
       <fieldset>
+        fx_1_phaser_div
         <p id="fx_1_phaser_frequency_text">Frequency </p>
         <input type='range' min=20 max=20000 step='10' value="0" id='fx_1_phaser_frequency'>
         <p id="fx_1_phaser_frequency_value"></p>
@@ -1304,6 +1314,7 @@
     <div id="fx_1_pingpong_div">
       <br>
       <fieldset>
+        fx_1_pingpong_div
         <p id="fx_1_pingpong_feedback_text"> </p>
         Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_pingpong_feedback'>
         <p id="fx_1_pingpong_feedback_value"></p>
@@ -1323,7 +1334,8 @@
     <div id="fx_1_pitchshift_div">
       <br>
       <fieldset>
-        <p id="fx_1_pitchshift_feedback_text"> </p>
+        fx_1_pitchshift_div
+        <p id="fx_1_pitchshift_feedback_text"> fx_1_pitchshift_div</p>
         Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_pitchshift_feedback'>
         <p id="fx_1_pitchshift_feedback_value"></p>
         <br>
@@ -1344,6 +1356,7 @@
     <div id="fx_1_reverb_div">
       <br>
       <fieldset>
+        fx_1_reverb_div
         <p id="fx_1_reverb_preDelay_text"> </p>
         pre Delay<input type='range' min=0 max=300 step='0.1' value="0" id='fx_1_reverb_preDelay'>
         <p id="fx_1_reverb_preDelay_value"></p>
@@ -1357,6 +1370,7 @@
     <div id="fx_1_StereoWidener_div">
       <br>
       <fieldset>
+        fx_1_StereoWidener_div
         <p id="fx_1_StereoWidener_width_text"> Width</p>
         <input type='range' min=0 max=300 step='0.1' value="0" id='fx_1_StereoWidener_width'>
         <p id="fx_1_StereoWidener_width_value"></p>
@@ -1366,6 +1380,7 @@
     <div id="fx_1_tremolo_div">
       <br>
       <fieldset>
+        fx_1_tremolo_div
         <p id="fx_1_tremolo_frequency_text"> frequency</p>
         <input type='range' min=20 max=20000 step='100' value="0" id='fx_1_tremolo_frequency'>
         <p id="fx_1_tremolo_frequency_value"></p>
@@ -1383,6 +1398,7 @@
     <div id="fx_1_vibrato_div">
       <br>
       <fieldset>
+        fx_1_vibrato_div
         <p id="fx_1_vibrato_frequency_text"> frequency</p>
         <input type='range' min=20 max=20000 step='100' value="0" id='fx_1_vibrato_frequency'>
         <p id="fx_1_vibrato_frequency_value"></p>
@@ -1670,13 +1686,8 @@
       </fieldset>
     </div>
   </div>
-
 <!-- //********************************************************** -->
-
-
 <!-- //********************************************************** -->
-
-
   <!-- FX 2-->
   <div class="column">
     <h2>FX 2</h2>
