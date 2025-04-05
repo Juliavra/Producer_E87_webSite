@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <!--
+<!--
     <h2>Jugamos como nunca, perdimos como siempre</h2>
     <h2> nuestras nadas poco difieren </h2>
     -->
@@ -253,11 +253,11 @@
       <option name="101" id="101" value="101">101 Jijiji </option>
       <option name="102" id="102" value="102">102 El cazador </option>
       <option name="103" id="103" value="103">103 Fuegos de Octubre </option>
-      <option name="104" id="104" value="104">104  </option>
-      <option name="105" id="105" value="105">105  </option>
-      <option name="106" id="106" value="106">106  </option>
-      <option name="107" id="107" value="107">107  </option>
-    
+      <option name="104" id="104" value="104">104 </option>
+      <option name="105" id="105" value="105">105 </option>
+      <option name="106" id="106" value="106">106 </option>
+      <option name="107" id="107" value="107">107 </option>
+
     </select>
 
     <label for="player">Player</label>
@@ -275,6 +275,9 @@
     <h2>1</h2>
     RMS <p id="player_1_rms_value"> </p>
     <br>
+    RMS <p id="player_1_rms_after_volume_value"> </p>
+    <br>
+    
     <p id="player_1_songName"> </p>
     <p id="player_1_duration_text"> </p>
     <p id="player_1_duration_value"> </p>
@@ -358,9 +361,11 @@
     <div class="content">
       <br>
       <label for="player_1_filter_1_select" name="player_1_filter_1_select"> </label>
-      <button id="player_1_filter_eq_bypass_Button" value="bypass" onclick="player_1_filter_eq_selection_bypass_on(value)">Bypass </button>
-      <button id="player_1_filter_eq_On_Button" value="on" onclick="player_1_filter_eq_selection_bypass_on(value)">On </button>
-  
+      <button id="player_1_filter_eq_bypass_Button" value="bypass"
+        onclick="player_1_filter_eq_selection_bypass_on(value)">Bypass </button>
+      <button id="player_1_filter_eq_On_Button" value="on" onclick="player_1_filter_eq_selection_bypass_on(value)">On
+      </button>
+
       <select name="filter_1" id="player_1_filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
         <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
@@ -379,17 +384,36 @@
       <div id="player_1_allpass_controls_div">
         <br>
         <fieldset>
-          <p id="player_1_filter_frequency_text_allpass">Frequency </p>
+          <p id="player_1_filter_frequency_text_allpass">Freq </p>
           <input type='range' min=20 max=20000 step='10' value="20" id='player_1_filter_frequency_allpass'>
           <p id="player_1_filter_frequency_value_allpass"></p>
+
+          <input id="player_1_filter_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_filter_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_filter_frequency_rampTo_send_Button" value="player_1_filter_frequency_allpass"
+            onclick="send(value, player_1_filter_frequency_rampTo_gain, player_1_filter_frequency_rampTo_time)">go
+          </button>
           <br>
+
           <p id="player_1_filter_Q_text_allpass">Q </p>
           <input type='range' min=0 max=2 step=0.1 value="0" id='player_1_filter_Q_allpass'>
           <p id="player_1_filter_Q_value_allpass"></p>
+
+          <input id="player_1_filter_Q_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_filter_Q_rampTo_send_Button" value="player_1_filter_Q_allpass"
+            onclick="send(value, player_1_filter_Q_rampTo_gain, player_1_filter_Q_rampTo_time)">go </button>
+
           <br>
           <p id="player_1_filter_detune_text_allpass">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='player_1_filter_detune_allpass'>
           <p id="player_1_filter_detune_value_allpass"></p>
+
+          <input id="player_1_filter_detune_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_filter_detune_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_filter_detune_rampTo_send_Button" value="player_1_filter_detune_allpass"
+            onclick="send(value, player_1_filter_detune_rampTo_gain, player_1_filter_detune_rampTo_time)">go </button>
+
         </fieldset>
         <br>
       </div>
@@ -399,104 +423,207 @@
           <p id="player_1_filter_frequency_text_shelf">Freq </p>
           <input type='range' min=20 max=20000 step='10' value="20" id='player_1_filter_frequency_shelf'>
           <p id="player_1_filter_frequency_value_shelf"></p>
-          <input id="player_1_filter_frequency_shelf_rampTo_gain" type="number" min="20" max="20000" step='10' style="width: 35px;" />
-          time: <input id="player_1_filter_frequency_shelf_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+
+          <input id="player_1_filter_frequency_shelf_rampTo_gain" type="number" min="20" max="20000" step='10'
+            style="width: 35px;" />
+          time: <input id="player_1_filter_frequency_shelf_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
           <button id="player_1_filter_frequency_shelf_rampTo_send_Button" value="player_1_filter_frequency_shelf"
-            onclick="send(value, player_1_filter_frequency_shelf_rampTo_gain, player_1_filter_frequency_shelf_rampTo_time)">go </button>
+            onclick="send(value, player_1_filter_frequency_shelf_rampTo_gain, player_1_filter_frequency_shelf_rampTo_time)">go
+          </button>
+
           <br>
           <p id="player_1_filter_gain_text_shelf">Gain </p>
           <input type='range' min=-100 max=12 step='1' value="-100" id='player_1_filter_gain_shelf'>
           <p id="player_1_filter_gain_value_shelf"></p>
 
-          <input id="player_1_filter_gain_shelf_rampTo_gain" type="number" min="-100" max="12" step='1' style="width: 35px;" />
-          time: <input id="player_1_filter_gain_shelf_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <input id="player_1_filter_gain_shelf_rampTo_gain" type="number" min="-100" max="12" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_filter_gain_shelf_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
           <button id="player_1_filter_gain_shelf_rampTo_send_Button" value="player_1_filter_gain_shelf"
-            onclick="send(value, player_1_filter_gain_shelf_rampTo_gain, player_1_filter_gain_shelf_rampTo_time)">go </button>
+            onclick="send(value, player_1_filter_gain_shelf_rampTo_gain, player_1_filter_gain_shelf_rampTo_time)">go
+          </button>
           <br>
           <p id="player_1_filter_detune_text_shelf">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='player_1_filter_detune_shelf'>
           <p id="player_1_filter_detune_value_shelf"></p>
 
-          <input id="player_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1' style="width: 35px;" />
-          time: <input id="player_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <input id="player_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
           <button id="player_1_filter_detune_shelf_rampTo_send_Button" value="player_1_filter_detune_shelf"
-            onclick="send(value, player_1_filter_detune_shelf_rampTo_detune, player_1_filter_detune_shelf_rampTo_time)">go </button>
-          
+            onclick="send(value, player_1_filter_detune_shelf_rampTo_detune, player_1_filter_detune_shelf_rampTo_time)">go
+          </button>
+
           <br>
         </fieldset>
       </div>
       <div id="player_1_peaking_controls_div">
         <br>
         <fieldset>
-          <p id="player_1_filter_frequency_text_peaking">Frequency </p>
+          <p id="player_1_filter_frequency_text_peaking">Freq </p>
           <input type='range' min=20 max=20000 step='10' value="20" id='player_1_filter_frequency_peaking'>
           <p id="player_1_filter_frequency_value_peaking"></p>
+
+          <input id="player_1_filter_frequency_peaking_rampTo_gain" type="number" min="20" max="20000" step='10'
+            style="width: 35px;" />
+          time: <input id="player_1_filter_frequency_peaking_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_filter_frequency_peaking_rampTo_send_Button" value="player_1_filter_frequency_peaking"
+            onclick="send(value, player_1_filter_frequency_peaking_rampTo_gain, player_1_filter_frequency_peaking_rampTo_time)">go
+          </button>
+
           <br>
           <p id="player_1_filter_Q_text_peaking">Q </p>
           <input type='range' min=0 max=2 step=0.1 value="0" id='player_1_filter_Q_peaking'>
           <p id="player_1_filter_Q_value_peaking"></p>
+
+          <input id="player_1_filter_Q_peaking_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_filter_Q_peaking_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_filter_Q_peaking_rampTo_send_Button" value="player_1_filter_Q_peaking"
+            onclick="send(value, player_1_filter_Q_peaking_rampTo_gain, player_1_filter_Q_peaking_rampTo_time)">go
+          </button>
+
           <br>
           <p id="player_1_filter_gain_text_peaking">Gain </p>
           <input type='range' min=-30 max=12 step='1' value="-30" id='player_1_filter_gain_peaking'>
           <p id="player_1_filter_gain_value_peaking"></p>
+
+          <input id="player_1_filter_gain_peaking_rampTo_gain" type="number" min="-100" max="12" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_filter_gain_peaking_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_filter_gain_peaking_rampTo_send_Button" value="player_1_filter_gain_peaking"
+            onclick="send(value, player_1_filter_gain_peaking_rampTo_gain, player_1_filter_gain_peaking_rampTo_time)">go
+          </button>
+
           <br>
           <p id="player_1_filter_detune_text_peaking">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='player_1_filter_detune_peaking'>
           <p id="player_1_filter_detune_value_peaking"></p>
+
+          <input id="player_1_filter_detune_peaking_rampTo_detune" type="number" min="0" max="10000" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_filter_detune_peaking_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_filter_detune_peaking_rampTo_send_Button" value="player_1_filter_detune_peaking"
+            onclick="send(value, player_1_filter_detune_peaking_rampTo_detune, player_1_filter_detune_peaking_rampTo_time)">go
+          </button>
           <br>
         </fieldset>
       </div>
       <div id="player_1_tascam_424_controls_div">
         <br>
         <fieldset>
-          <p id="player_1_HighShelf_gain_text">Hi Shelf Gain </p>
+          <p id="player_1_HighShelf_gain_text">Hi Gain </p>
           <input type='range' min=-100 max=100 step='1' value="0" id='player_1_HighShelf_gain'>
           <p id="player_1_HighShelf_gain_value"></p>
+
+          <input id="player_1_HighShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_HighShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_HighShelf_gain_rampTo_send_Button" value="player_1_HighShelf_gain_tascam"
+            onclick="send(value, player_1_HighShelf_gain_rampTo_gain, player_1_HighShelf_gain_rampTo_time)">go
+          </button>
           <br>
 
           <p id="player_1_Mid_SemiParam_gain_text">Mid Gain </p>
           <input type='range' min=-100 max=100 step='1' value="0" id='player_1_Mid_SemiParam_gain'>
           <p id="player_1_Mid_SemiParam_gain_value"></p>
+
+          <input id="player_1_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_Mid_SemiParam_gain_send_Button" value="player_1_Mid_SemiParam_gain_tascam"
+            onclick="send(value, player_1_Mid_SemiParam_gain_rampTo_gain, player_1_Mid_SemiParam_gain_rampTo_time)">go
+          </button>
           <br>
 
-          <p id="player_1_Mid_SemiParam_frequency_text">Mid Frequency </p>
+          <p id="player_1_Mid_SemiParam_frequency_text">Mid Freq </p>
           <input type='range' min=250 max=5000 step='10' value="250" id='player_1_Mid_SemiParam_frequency'>
           <p id="player_1_Mid_SemiParam_frequency_value"></p>
+
+          <input id="player_1_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_Mid_SemiParam_frequency_rampTo_send_Button" value="player_1_Mid_SemiParam_frequency_tascam"
+            onclick="send(value, player_1_Mid_SemiParam_frequency_rampTo_gain, player_1_Mid_SemiParam_frequency_rampTo_time)">go
+          </button>
           <br>
 
-          <p id="player_1_LowShelf_gain_text">Low Shelf Gain </p>
+          <p id="player_1_LowShelf_gain_text">Low Gain </p>
           <input type='range' min=-100 max=100 step='1' value="0" id='player_1_LowShelf_gain'>
           <p id="player_1_LowShelf_gain_value"></p>
+
+          <input id="player_1_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_LowShelf_gain_rampTo_send_Button" value="player_1_LowShelf_gain_tascam"
+            onclick="send(value, player_1_LowShelf_gain_rampTo_gain, player_1_LowShelf_gain_rampTo_time)">go
+          </button>
           <br>
         </fieldset>
       </div>
       <div id="player_1_eq3_controls_div">
         <br>
         <fieldset>
-        <label for="player_1_EQ3_low_frequency_fader" name="player_1_EQ3_low_frequency_fader>
-          <p id=" player_1_EQ3_low_frequency_fader_text">Low Freq </p>
+          <p id="player_1_EQ3_low_frequency_fader_text">Low Freq </p>
           <input type='range' min=20 max=1000 step='10' value="100" id='player_1_EQ3_low_frequency_fader'>
           <p id="player_1_EQ3_low_frequency_fader_value"></p>
+
+          <input id="player_1_EQ3_low_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_EQ3_low_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_EQ3_low_frequency_rampTo_send_Button" value="player_1_EQ3_low_frequency"
+            onclick="send(value, player_1_EQ3_low_frequency_rampTo_gain, player_1_EQ3_low_frequency_rampTo_time)">go
+          </button>
           <br>
-          <p id="player_1_EQ3_low_fader_gain_text">Low Freq Gain</p>
+          <p id="player_1_EQ3_low_fader_gain_text">Low Gain</p>
           <input type='range' min=-41 max=12 step='1' value="0" id='player_1_EQ3_low_fader_gain'>
           <p id="player_1_EQ3_low_fader_gain_value"> </p>
+
+          <input id="player_1_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_EQ3_low_fader_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_EQ3_low_fader_gain_rampTo_send_Button" value="player_1_EQ3_low_fader_gain"
+            onclick="send(value, player_1_EQ3_low_fader_gain_rampTo_gain, player_1_EQ3_low_fader_gain_rampTo_time)">go
+          </button>
           <br>
-          <p id="player_1_EQ3_mid_fader_gain_text">Mid Freq Gain</p>
+          <p id="player_1_EQ3_mid_fader_gain_text">Mid Gain</p>
           <input type='range' min=-41 max=12 step='1' value="0" id='player_1_EQ3_mid_fader_gain'>
           <p id="player_1_EQ3_mid_fader_gain_value"> </p>
+
+          <input id="player_1_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_EQ3_mid_fader_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_EQ3_mid_fader_gain_rampTo_send_Button" value="player_1_EQ3_mid_fader_gain"
+            onclick="send(value, player_1_EQ3_mid_fader_gain_rampTo_gain, player_1_EQ3_mid_fader_gain_rampTo_time)">go
+          </button>
           <br>
-          <p id="player_1_EQ3_hi_fader_gain_text">Hi Freq Gain</p>
+          <p id="player_1_EQ3_hi_fader_gain_text">Hi Gain</p>
           <input type='range' min=-41 max=12 step='1' value="0" id='player_1_EQ3_hi_fader_gain'>
           <p id="player_1_EQ3_hi_fader_gain_value"> </p>
+
+          <input id="player_1_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_EQ3_hi_fader_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_EQ3_hi_fader_gain_rampTo_send_Button" value="player_1_EQ3_hi_fader_gain"
+            onclick="send(value, player_1_EQ3_hi_fader_gain_rampTo_gain, player_1_EQ3_hi_fader_gain_rampTo_time)">go
+          </button>
           <br>
           <p id="player_1_EQ3_high_frequency_text">Hi Freq </p>
           <input type='range' min=8000 max=12000 step='100' value="10000" id='player_1_EQ3_high_frequency_fader'>
           <p id="player_1_EQ3_high_frequency_value"></p>
+
+          <input id="player_1_EQ3_high_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_EQ3_high_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_EQ3_high_frequency_rampTo_send_Button" value="player_1_EQ3_high_frequency"
+            onclick="send(value, player_1_EQ3_high_frequency_rampTo_gain, player_1_EQ3_high_frequency_rampTo_time)">go
+          </button>
           <br>
           <p id="player_1_EQ3_Q_text">Q </p>
           <input type='range' min=0 max=20 step='1' value="0" id='player_1_EQ3_Q_fader'>
           <p id="player_1_EQ3_Q_value"></p>
+
+          <input id="player_1_EQ3_Q_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="player_1_EQ3_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_EQ3_Q_rampTo_send_Button" value="player_1_EQ3_Q"
+            onclick="send(value, player_1_EQ3_Q_rampTo_gain, player_1_EQ3_Q_rampTo_time)">go
+          </button>
           <br>
         </fieldset>
       </div>
@@ -520,7 +647,7 @@
           <button id="player_1_dynamics_select_unit_Button" name="player_1" value="limiter"
             onclick="player_x_dynamics_select_unit(name, value)">Limiter </button>
           <br>
-          <button id="player_1_dynamics_On_Off_Button" name="player_1" value="compressor"
+          <button id="player_1_compressor_On_Off_Button" name="player_1" value="compressor"
             onclick="player_x_dynamics_On_Off(name, value)">On </button>
           ----------------------|>
           <button id="player_1_gate_On_Off_Button" name="player_1" value="gate"
@@ -533,25 +660,63 @@
       <div id="player_1_dynamics_compressor_div">
         Compressor
         <fieldset>
-          <p id="player_1_dynamics_ratio_text">RatIo </p>
+          <p id="player_1_dynamics_ratio_text">Ratio </p>
           <input type='range' min=1 max=20 step='1' value="0" id='player_1_dynamics_ratio'>
           <p id="player_1_dynamics_ratio_value"> 0</p>
+
+          <input id="player_1_dynamics_ratio_rampTo_detune" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+          time: <input id="player_1_dynamics_ratio_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="player_1_dynamics_ratio_rampTo_send_Button" value="player_1_dynamics_ratio_compressor"
+            onclick="send(value, player_1_dynamics_ratio_rampTo_detune, player_1_dynamics_ratio_rampTo_time)">go
+          </button>
           <br>
           <p id="player_1_dynamics_threshold_text">threshold </p>
           <input type='range' min=-100 max=0 step='1' value="0" id='player_1_dynamics_threshold'>
           <p id="player_1_dynamics_threshold_value"> 0</p>
+
+          <input id="player_1_dynamics_threshold_rampTo_detune" type="number" min="0" max="10000" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_dynamics_threshold_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_dynamics_threshold_rampTo_send_Button" value="player_1_dynamics_threshold_compressor"
+            onclick="send(value, player_1_dynamics_threshold_rampTo_detune, player_1_dynamics_threshold_rampTo_time)">go
+          </button>
           <br>
           <p id="player_1_dynamics_release_text">release </p>
           <input type='range' min=0 max=1 step='0.01' value="0" id='player_1_dynamics_release'>
           <p id="player_1_dynamics_release_value"> 0</p>
+
+          <input id="player_1_dynamics_release_rampTo_detune" type="number" min="0" max="10000" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_dynamics_release_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_dynamics_release_rampTo_send_Button" value="player_1_dynamics_release_compressor"
+            onclick="send(value, player_1_dynamics_release_rampTo_detune, player_1_dynamics_release_rampTo_time)">go
+          </button>
           <br>
           <p id="player_1_dynamics_attack_text">attack </p>
           <input type='range' min=0 max=1 step='0.01' value="0" id='player_1_dynamics_attack'>
           <p id="player_1_dynamics_attack_value"> 0</p>
+
+          <input id="player_1_dynamics_attack_rampTo_detune" type="number" min="0" max="10000" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_dynamics_attack_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_dynamics_attack_rampTo_send_Button" value="player_1_dynamics_attack_compressor"
+            onclick="send(value, player_1_dynamics_attack_rampTo_detune, player_1_dynamics_attack_rampTo_time)">go
+          </button>
           <br>
           <p id="player_1_dynamics_knee_text">knee </p>
           <input type='range' min=0 max=40 step='1' value="0" id='player_1_dynamics_knee'>
           <p id="player_1_dynamics_knee_value"> 0</p>
+
+          <input id="player_1_dynamics_knee_rampTo_detune" type="number" min="0" max="10000" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_dynamics_knee_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_dynamics_knee_rampTo_send_Button" value="player_1_dynamics_knee_compressor"
+            onclick="send(value, player_1_dynamics_knee_rampTo_detune, player_1_dynamics_knee_rampTo_time)">go
+          </button>
           <br>
           <p id="player_1_dynamics_reduction_text"> Reduction: </p>
           <p id="player_1_dynamics_reduction_value"> </p>
@@ -567,10 +732,27 @@
           <p id="player_1_gate_threshold_text"> Threshold </p>
           <input type='range' min=-100 max=12 step='1' value="0" id='player_1_gate_threshold'>
           <p id="player_1_gate_threshold_value"></p>
+
+          <input id="player_1_gate_threshold_rampTo_detune" type="number" min="0" max="10000" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_gate_threshold_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_gate_threshold_rampTo_send_Button" value="player_1_gate_threshold"
+            onclick="send(value, player_1_gate_threshold_rampTo_detune, player_1_gate_threshold_rampTo_time)">go
+          </button>
           <br>
           <p id="player_1_gate_smoothing_text"> </p>
           Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='player_1_gate_smoothing'>
           <p id="player_1_gate_smoothing_value"></p>
+
+          <input id="player_1_gate_smoothing_rampTo_detune" type="number" min="0" max="10000" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_gate_smoothing_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_gate_smoothing_rampTo_send_Button" value="player_1_gate_smoothing"
+            onclick="send(value, player_1_gate_smoothing_rampTo_detune, player_1_gate_smoothing_rampTo_time)">go
+          </button>
+          <br>
         </fieldset>
         <br>
       </div>
@@ -581,10 +763,26 @@
           <p id="player_1_limiter_threshold_text"> Threshold </p>
           <input type='range' min=-100 max=12 step='1' value="-100" id='player_1_limiter_threshold'>
           <p id="player_1_limiter_threshold_value"></p>
+
+          <input id="player_1_limiter_threshold_rampTo_detune" type="number" min="0" max="10000" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_limiter_threshold_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_limiter_threshold_rampTo_send_Button" value="player_1_limiter_threshold"
+            onclick="send(value, player_1_limiter_threshold_rampTo_detune, player_1_limiter_threshold_rampTo_time)">go
+          </button>
           <br>
           <p id="player_1_limiter_smoothing_text"> </p>
           Smoothing <input type='range' min=0 max=10 step='0.001' value="0" id='player_1_limiter_smoothing'>
           <p id="player_1_limiter_smoothing_value"></p>
+
+          <input id="player_1_limiter_smoothing_rampTo_detune" type="number" min="0" max="10000" step='1'
+            style="width: 35px;" />
+          time: <input id="player_1_limiter_smoothing_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="player_1_limiter_smoothing_rampTo_send_Button" value="player_1_limiter_smoothing"
+            onclick="send(value, player_1_limiter_smoothing_rampTo_detune, player_1_limiter_smoothing_rampTo_time)">go
+          </button>
           <br>
           Reduction: <p id="player_1_limiter_reduction_value"> </p>
         </fieldset>
@@ -596,9 +794,8 @@
     <div class="content">
       <br>
       <fieldset>
-
-        <p id="player_1_fxSend_1_text"> 1 </p>
-        <br>
+        <h2> 1 <p id="player_1_fxSend_1_text"> </p>  </h2>
+        
         <button id="player_1_fxSend_1_On_Off_Button" onclick="player_1_fxSend_1_On_Off_Button_foo()">Mute
         </button>
         <button id="player_1_fxSend_1_pre_EQ_Button" name="player_1_fxSend_1"
@@ -610,16 +807,22 @@
         <button id="player_1_fxSend_1_post_fader_Button" name="player_1_fxSend_1"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
         </button>
+        <br> <br>
         <input type='range' min=-40 max=12 step=1 value="-40" id='player_1_fxSend_1'>
         <p id="player_1_fxSend_1_value"></p>
+
+        <input id="player_1_fxSend_1_rampTo_volume" type="number" min="0" max="10000" step='1'
+          style="width: 35px;" />
+        time: <input id="player_1_fxSend_1_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="player_1_fxSend_1_rampTo_send_Button" value="player_1_fxSend_1_rampTo_volume"
+          onclick="send(value, player_1_filter_detune_shelf_rampTo_detune, player_1_filter_detune_shelf_rampTo_time)">go
+        </button>
         <br>
       </fieldset>
       <fieldset>
-        <p id="player1_fxSend_2_text">
-        <h2> 2 Reverb
-          <button id="player1_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">On </button>
-        </h2>
-        </p>
+       <h2>  2 Reverb <p id="player1_fxSend_2_text">   </p>  </h2>
+        <button id="player1_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">Mute </button>
         <button id="player_1_fxSend_2_pre_EQ_Button" name="player_1_fxSend_2"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
         </button>
@@ -629,15 +832,23 @@
         <button id="player_1_fxSend_2_post_fader_Button" name="player_1_fxSend_2"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
         </button>
+        <br> <br>
         <input type='range' min=-40 max=12 step=1 value="-40" id='player_1_fxSend_2'>
         <p id="player_1_fxSend_2_value"></p>
+
+        <input id="player_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
+          style="width: 35px;" />
+        time: <input id="player_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="player_1_filter_detune_shelf_rampTo_send_Button" value="player_1_filter_detune_shelf"
+          onclick="send(value, player_1_filter_detune_shelf_rampTo_detune, player_1_filter_detune_shelf_rampTo_time)">go
+        </button>
         <br>
       </fieldset>
       <fieldset>
-        <p id="player1_fxSend_3_text">
-        <h2>3 FeedBack Delay <button id="player1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
-        </h2>
-        </p>
+        <h2> 3 FeedBack Delay <p id="player1_fxSend_3_text">   </p> </h2>
+ 
+        <button id="player1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">Mute </button>
         <button id="player_1_fxSend_3_pre_EQ_Button" name="player_1_fxSend_3"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
         </button>
@@ -647,14 +858,23 @@
         <button id="player_1_fxSend_3_post_fader_Button" name="player_1_fxSend_3"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
         </button>
+        <br> <br>
         <input type='range' min=-40 max=12 step=1 value="-40" id='player_1_fxSend_3'>
         <p id="player_1_fxSend_3_value"></p>
+    
+        <input id="player_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
+          style="width: 35px;" />
+        time: <input id="player_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="player_1_filter_detune_shelf_rampTo_send_Button" value="player_1_filter_detune_shelf"
+          onclick="send(value, player_1_filter_detune_shelf_rampTo_detune, player_1_filter_detune_shelf_rampTo_time)">go
+        </button>
+        
       </fieldset>
       <fieldset>
-        <h2> 4 <p id="player_1_fxSend_4_text"> </p>
-        </h2>
-        <button id="player_1_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">On </button>
-        <br>
+        <h2> 4 Pitch Shift  <p id="player_1_fxSend_4_text"> </p>     </h2>
+
+        <button id="player_1_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">Mute </button>
         <button id="player_1_fxSend_4_pre_EQ_Button" name="player_1_fxSend_4"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
         </button>
@@ -664,9 +884,18 @@
         <button id="player_1_fxSend_4_post_fader_Button" name="player_1_fxSend_4"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PostFdr">Post Fdr
         </button>
-
+<br> <br>
         <input type='range' min=-40 max=12 step=1 value="-40" id='player_1_fxSend_4'>
         <p id="player_1_fxSend_4_value"></p>
+      
+        <input id="player_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
+          style="width: 35px;" />
+        time: <input id="player_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="player_1_filter_detune_shelf_rampTo_send_Button" value="player_1_filter_detune_shelf"
+          onclick="send(value, player_1_filter_detune_shelf_rampTo_detune, player_1_filter_detune_shelf_rampTo_time)">go
+        </button>
+        
       </fieldset>
     </div>
   </div>
@@ -1004,9 +1233,9 @@
       <option name="Chorus" id="Chorus" value="Chorus">Chorus</option>
       <option name="Distortion" id="Distortion" value="Distortion">Distortion</option>
       <option name="FeedbackDelay" id="FeedbackDelay" value="FeedbackDelay">FeedbackDelay</option>
- <!--     <option name="Freeverb" id="Freeverb" value="Freeverb">Freeverb</option>-->
+      <!--     <option name="Freeverb" id="Freeverb" value="Freeverb">Freeverb</option>-->
       <option name="FrequencyShifter" id="FrequencyShifter" value="FrequencyShifter">FrequencyShifter</option>
-  <!--    <option name="JCReverb" id="JCReverb" value="JCReverb">JCReverb</option>-->
+      <!--    <option name="JCReverb" id="JCReverb" value="JCReverb">JCReverb</option>-->
       <option name="Phaser" id="Phaser" value="Phaser">Phaser</option>
       <option name="PingPongDelay" id="PingPongDelay" value="PingPongDelay">PingPongDelay</option>
       <option name="PitchShift" id="PitchShift" value="PitchShift">PitchShift</option>
@@ -1040,7 +1269,7 @@
     };
     -->
       <br>
-      
+
       <fieldset>
         fx_1_autofilter_div
         <p id="fx_1_autofilter_baseFrequency_text">baseFrequency </p>
@@ -1073,7 +1302,7 @@
     <div id="fx_1_autopanner_div">
       <br>
       <fieldset>
-        fx_1_autopanner_div  <br>
+        fx_1_autopanner_div <br>
         <p id="fx_1_autoPanner_frequency_text">Frequency </p>
         <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autoPanner_frequency'>
         <p id="fx_1_autoPanner_frequency_value"></p>
@@ -1096,7 +1325,7 @@
     <div id="fx_1_autowah_div">
       <br>
       <fieldset>
-        fx_1_autowah_div  <br>
+        fx_1_autowah_div <br>
         <p id="fx_1_autoWah_baseFrequency_text">baseFrequency </p>
         <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autoWah_baseFrequency'>
         <p id="fx_1_autoWah_baseFrequency_value"></p>
@@ -1117,24 +1346,24 @@
         <input type='range' min=-100 max=100 step='1' value="0" id='fx_1_autoWah_gain'>
         <p id="fx_1_autoWah_gain_value"></p>
         <br>
-        
-      <p id="fx_1_autoWah_follower_attack_text"> fol Attack</p>
-      <input type='range' min=0 max=20 step='0.001' value="1" id='fx_1_autoWah_follower_attack'>
-      <p id="fx_1_autoWah_follower_attack_value"></p>
-      <br>
-    
-      <p id="fx_1_autoWah_follower_release_text"> fol Release</p>
-      <input type='range' min=1 max=20 step='1' value="1" id='fx_1_autoWah_follower_release'>
-      <p id="fx_1_autoWah_follower_release_value"></p>
-      <br>
-     
-    
+
+        <p id="fx_1_autoWah_follower_attack_text"> fol Attack</p>
+        <input type='range' min=0 max=20 step='0.001' value="1" id='fx_1_autoWah_follower_attack'>
+        <p id="fx_1_autoWah_follower_attack_value"></p>
+        <br>
+
+        <p id="fx_1_autoWah_follower_release_text"> fol Release</p>
+        <input type='range' min=1 max=20 step='1' value="1" id='fx_1_autoWah_follower_release'>
+        <p id="fx_1_autoWah_follower_release_value"></p>
+        <br>
+
+
       </fieldset>
     </div>
     <div id="fx_1_bitCrusher_div">
       <br>
       <fieldset>
-        fx_1_bitCrusher_div 
+        fx_1_bitCrusher_div
         <!--
       <p id="fx_1_autoWah_baseFrequency_text">baseFrequency </p>
       <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_autoWah_baseFrequency'>
@@ -1158,14 +1387,14 @@
       <br>
     
       -->
-    
+
       </fieldset>
       <br>
     </div>
     <div id="fx_1_Chebyshev_div">
       <br>
       <fieldset>
-        fx_1_Chebyshev_div  <br>
+        fx_1_Chebyshev_div <br>
         <p id="fx_1_Chebyshev_order_text"> Order</p>
         <input type='range' min=1 max=20 step='1' value="1" id='fx_1_Chebyshev_order'>
         <p id="fx_1_Chebyshev_order_value"></p>
@@ -1183,15 +1412,26 @@
     <div id="fx_1_chorus_div">
       <br>
       <fieldset>
-        fx_1_chorus_div  <br>
+        fx_1_chorus_div <br>
         <p id="fx_1_chorus_freq_text"> </p>
         <br>
         Freq<input type='range' min=0 max=20 step='0.01' value="0" id='fx_1_chorus_freq'>
         <p id="fx_1_chorus_freq_value"></p>
+
+        <!--********************************************************-->
+
+        <input id="fx_1_chorus_freq_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="fx_1_chorus_freq_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_chorus_freq_rampTo_send_Button" value="fx_1_chorus_freq"
+          onclick="send(value, fx_1_chorus_freq_rampTo_gain, fx_1_chorus_freq_rampTo_time)">go </button>
         <br>
+
+        <!--***************************************************-->
+
         <p id="fx_1_chorus_delayTime_text"> </p>
         Dly Time<input type='range' min=0 max=3500 step='1' value="0" id='fx_1_chorus_delayTime'>
         <p id="fx_1_chorus_delayTime_value"></p>
+
         <br>
         <p id="fx_1_chorus_depth_text"> </p>
         Depth<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_chorus_depth'>
@@ -1201,7 +1441,6 @@
         Degrees<input type='range' min=0 max=360 step='1' value="0" id='fx_1_chorus_spread'>
         <p id="fx_1_chorus_spread_value"></p>
         <br> <br>
-    
         <label for="fx_1_chorus_select_type"></label>
         type:
         <select name="fx_1_chorus_select_type" id="fx_1_chorus_select_type">
@@ -1214,13 +1453,18 @@
         <p id="fx_1_chorus_feedback_text"> </p>
         Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_chorus_feedback'>
         <p id="fx_1_chorus_feedback_value"></p>
-        <br>
+
+        <input id="fx_1_chorus_feedback_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="fx_1_chorus_feedback_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_chorus_feedback_rampTo_send_Button" value="fx_1_chorus_feedback"
+          onclick="send(value, fx_1_chorus_feedback_rampTo_gain, fx_1_chorus_feedback_rampTo_time)">go </button>
+        <br> <br>
       </fieldset>
     </div>
     <div id="fx_1_distortion_div">
       <br>
       <fieldset>
-        fx_1_distortion_div
+        fx_1_distortion_div <br>
         <p id="fx_1_distortion_text">Amount </p>
         <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_distortion'>
         <p id="fx_1_distortion_value"></p>
@@ -1238,17 +1482,27 @@
     <div id="fx_1_feedback_div">
       <br>
       <fieldset>
-        fx_1_feedback_div
+        fx_1_feedback_div <br>
         <p id="fx_1_feedback_text">Feedback </p>
         <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_feedback'>
         <p id="fx_1_feedback_value"></p>
+
+        <input id="fx_1_feedback_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_feedback_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_feedback_rampTo_send_Button" value="fx_1_feedback"
+          onclick="send(value, fx_1_feedback_rampTo_gain, fx_1_feedback_rampTo_time)">go </button>
         <br>
         <p id="fx_1_feedback_delayTime_text"> DelayTime </p>
         <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_feedback_delayTime'>
         <p id="fx_1_feedback_delayTime_value"></p>
+
+        <input id="fx_1_feedback_delayTime_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_feedback_delayTime_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_feedback_delayTime_rampTo_send_Button" value="fx_1_feedback_delayTime"
+          onclick="send(value, fx_1_feedback_delayTime_rampTo_gain, fx_1_feedback_delayTime_rampTo_time)">go </button>
         <br>
         <p id="fx_1_feedback_maxDelay_text"> MaxDelay </p>
-        <input type='range' min=0 max=100 step='1' value="0" id='fx_1_feedback_maxDelay'>
+        <input type='range' min=0 max=10 step='0.1' value="0" id='fx_1_feedback_maxDelay'>
         <p id="fx_1_feedback_maxDelay_value"></p>
         <br>
       </fieldset>
@@ -1273,6 +1527,11 @@
         <p id="fx_1_frequencyShifter_text">Frequency </p>
         <input type='range' min=0 max=20000 step='10' value="0" id='fx_1_frequencyShifter'>
         <p id="fx_1_frequencyShifter_value"></p>
+
+        <input id="fx_1_frequencyShifter_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_frequencyShifter_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_frequencyShifter_rampTo_send_Button" value="fx_1_frequencyShifter"
+          onclick="send(value, fx_1_frequencyShifter_rampTo_gain, fx_1_frequencyShifter_rampTo_time)">go </button>
         <br>
       </fieldset>
     </div>
@@ -1288,43 +1547,71 @@
     <div id="fx_1_phaser_div">
       <br>
       <fieldset>
-        fx_1_phaser_div
+        fx_1_phaser_div <br>
         <p id="fx_1_phaser_frequency_text">Frequency </p>
-        <input type='range' min=20 max=20000 step='10' value="0" id='fx_1_phaser_frequency'>
+        <input type='range' min=0 max=20 step='0.1' value="0" id='fx_1_phaser_frequency'>
         <p id="fx_1_phaser_frequency_value"></p>
+
+        <input id="fx_1_phaser_frequency_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_phaser_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_phaser_frequency_rampTo_send_Button" value="fx_1_phaser_frequency"
+          onclick="send(value, fx_1_phaser_frequency_rampTo_gain, fx_1_phaser_frequency_rampTo_time)">go </button>
         <br>
         <p id="fx_1_phaser_octaves_text">Octaves </p>
-        <input type='range' min=0 max=12 step='1' value="0" id='fx_1_phaser_octaves'>
+        <input type='range' min=0 max=4 step='0.1' value="0" id='fx_1_phaser_octaves'>
         <p id="fx_1_phaser_octaves_value"></p>
-        <br>
-        <p id="fx_1_phaser_stages_text">Stages </p>
-        <input type='range' min=0 max=12000 step='1' value="0" id='fx_1_phaser_stages'>
-        <p id="fx_1_phaser_stages_value"></p>
+
+        <input id="fx_1_phaser_octaves_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_phaser_octaves_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_phaser_octaves_rampTo_send_Button" value="fx_1_phaser_octaves"
+          onclick="send(value, fx_1_phaser_octaves_rampTo_gain, fx_1_phaser_octaves_rampTo_time)">go </button>
         <br>
         <p id="fx_1_phaser_Q_text">Q </p>
         <input type='range' min=0 max=100 step='1' value="0" id='fx_1_phaser_Q'>
         <p id="fx_1_phaser_Q_value"></p>
+
+        <input id="fx_1_phaser_Q_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_phaser_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_phaser_Q_rampTo_send_Button" value="fx_1_phaser_Q"
+          onclick="send(value, fx_1_phaser_Q_rampTo_gain, fx_1_phaser_Q_rampTo_time)">go </button>
         <br>
+
         <p id="fx_1_phaser_baseFrequency_text">baseFrequency </p>
-        <input type='range' min=0 max=22000 step='10' value="0" id='fx_1_phaser_baseFrequency'>
+        <input type='range' min=50 max=980 step='10' value="50" id='fx_1_phaser_baseFrequency'>
         <p id="fx_1_phaser_baseFrequency_value"></p>
+        <input id="fx_1_phaser_baseFrequency_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_phaser_baseFrequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_phaser_baseFrequency_rampTo_send_Button" value="fx_1_phaser_baseFrequency"
+          onclick="send(value, fx_1_phaser_baseFrequency_rampTo_gain, fx_1_phaser_baseFrequency_rampTo_time)">go
+        </button>
+
         <br>
       </fieldset>
     </div>
     <div id="fx_1_pingpong_div">
       <br>
       <fieldset>
-        fx_1_pingpong_div
+        fx_1_pingpong_div <br>
         <p id="fx_1_pingpong_feedback_text"> </p>
         Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_pingpong_feedback'>
         <p id="fx_1_pingpong_feedback_value"></p>
+
+        <input id="fx_1_pingpong_feedback_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_pingpong_feedback_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_pingpong_feedback_rampTo_send_Button" value="fx_1_pingpong_feedback"
+          onclick="send(value, fx_1_pingpong_feedback_rampTo_gain, fx_1_pingpong_feedback_rampTo_time)">go </button>
         <br>
-    
+
         <p id="fx_1_pingpong_delayTime_text"> </p>
         Dly Time<input type='range' min=0 max=3500 step='1' value="0" id='fx_1_pingpong_delayTime'>
         <p id="fx_1_pingpong_delayTime_value"></p>
+
+        <input id="fx_1_pingpong_delayTime_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_pingpong_delayTime_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_pingpong_delayTime_rampTo_send_Button" value="fx_1_pingpong_delayTime"
+          onclick="send(value, fx_1_pingpong_delayTime_rampTo_gain, fx_1_pingpong_delayTime_rampTo_time)">go </button>
         <br>
-    
+
         <p id="fx_1_pingpong_maxDelay_text"> </p>
         Max Dly<input type='range' min=0 max=35000 step='1' value="0" id='fx_1_pingpong_maxDelay'>
         <p id="fx_1_pingpong_maxDelay_value"></p>
@@ -1338,14 +1625,26 @@
         <p id="fx_1_pitchshift_feedback_text"> fx_1_pitchshift_div</p>
         Feedback<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_pitchshift_feedback'>
         <p id="fx_1_pitchshift_feedback_value"></p>
+
+        <input id="fx_1_pitchshift_feedback_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_pitchshift_feedback_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_pitchshift_feedback_rampTo_send_Button" value="fx_1_pitchshift_feedback"
+          onclick="send(value, fx_1_pitchshift_feedback_rampTo_gain, fx_1_pitchshift_feedback_rampTo_time)">go </button>
         <br>
         <p id="fx_1_pitchshift_delayTime_text"> </p>
         Dly Time<input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_pitchshift_delayTime'>
         <p id="fx_1_pitchshift_delayTime_value"></p>
+
+        <input id="fx_1_pitchshift_delayTime_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_pitchshift_delayTime_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_pitchshift_delayTime_rampTo_send_Button" value="fx_1_pitchshift_delayTime"
+          onclick="send(value, fx_1_pitchshift_delayTime_rampTo_gain, fx_1_pitchshift_delayTime_rampTo_time)">go
+        </button>
         <br>
         <p id="fx_1_pitchshift_pitch_text"> </p>
         Pitch<input type='range' min=-100 max=131 step='1' value="0" id='fx_1_pitchshift_pitch'>
         <p id="fx_1_pitchshift_pitch_value"></p>
+
         <br>
         <p id="fx_1_pitchshift_windowSize_text"> </p>
         Window secs<input type='range' min=0 max=30 step='0.1' value="0" id='fx_1_pitchshift_windowSize'>
@@ -1358,12 +1657,25 @@
       <fieldset>
         fx_1_reverb_div
         <p id="fx_1_reverb_preDelay_text"> </p>
-        pre Delay<input type='range' min=0 max=300 step='0.1' value="0" id='fx_1_reverb_preDelay'>
+        pre Delay<input type='range' min=0 max=3 step='0.1' value="0" id='fx_1_reverb_preDelay'>
         <p id="fx_1_reverb_preDelay_value"></p>
+
+        <input id="fx_1_reverb_preDelay_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_reverb_preDelay_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_reverb_preDelay_rampTo_send_Button" value="fx_1_reverb_preDelay"
+          onclick="send(value, fx_1_reverb_preDelay_rampTo_gain, fx_1_reverb_preDelay_rampTo_time)">go </button>
+
         <br>
         <p id="fx_1_reverb_decay_text"> </p>
-        Dly Time<input type='range' min=0 max=100 step='0.1' value="0" id='fx_1_reverb_decay'>
+        Decay Time<input type='range' min=0.001 max=10 step='0.1' value="0.001" id='fx_1_reverb_decay'>
         <p id="fx_1_reverb_decay_value"></p>
+
+        <input id="fx_1_reverb_decay_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_reverb_decay_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_reverb_decay_rampTo_send_Button" value="fx_1_reverb_decay"
+          onclick="send(value, fx_1_reverb_decay_rampTo_gain, fx_1_reverb_decay_rampTo_time)">go </button>
+
+
         <br>
       </fieldset>
     </div>
@@ -1382,16 +1694,29 @@
       <fieldset>
         fx_1_tremolo_div
         <p id="fx_1_tremolo_frequency_text"> frequency</p>
-        <input type='range' min=20 max=20000 step='100' value="0" id='fx_1_tremolo_frequency'>
+        <input type='range' min=0.01 max=20 step='0.01' value="0" id='fx_1_tremolo_frequency'>
         <p id="fx_1_tremolo_frequency_value"></p>
+
+        <input id="fx_1_tremolo_frequency_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_tremolo_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_tremolo_frequency_rampTo_send_Button" value="fx_1_tremolo_frequency"
+          onclick="send(value, fx_1_tremolo_frequency_rampTo_gain, fx_1_tremolo_frequency_rampTo_time)">go </button>
+
         <br>
         <p id="fx_1_tremolo_depth_text"> depth</p>
         <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_tremolo_depth'>
         <p id="fx_1_tremolo_depth_value"></p>
+
+        <input id="fx_1_tremolo_depth_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_tremolo_depth_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_tremolo_depth_rampTo_send_Button" value="fx_1_tremolo_depth"
+          onclick="send(value, fx_1_tremolo_depth_rampTo_gain, fx_1_tremolo_depth_rampTo_time)">go </button>
+
         <br>
         <p id="fx_1_tremolo_spread_text"> spread</p>
-        <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_tremolo_spread'>
+        <input type='range' min=0 max=360 step='1' value="0" id='fx_1_tremolo_spread'>
         <p id="fx_1_tremolo_spread_value"></p>
+
         <br>
       </fieldset>
     </div>
@@ -1402,14 +1727,27 @@
         <p id="fx_1_vibrato_frequency_text"> frequency</p>
         <input type='range' min=20 max=20000 step='100' value="0" id='fx_1_vibrato_frequency'>
         <p id="fx_1_vibrato_frequency_value"></p>
+
+        <input id="fx_1_vibrato_frequency_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_vibrato_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_vibrato_frequency_rampTo_send_Button" value="fx_1_vibrato_frequency"
+          onclick="send(value, fx_1_vibrato_frequency_rampTo_gain, fx_1_vibrato_frequency_rampTo_time)">go </button>
+
         <br>
         <p id="fx_1_vibrato_depth_text"> depth</p>
         <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_vibrato_depth'>
         <p id="fx_1_vibrato_depth_value"></p>
+
+        <input id="fx_1_vibrato_depth_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+        time: <input id="fx_1_vibrato_depth_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_1_vibrato_depth_rampTo_send_Button" value="fx_1_vibrato_depth"
+          onclick="send(value, fx_1_vibrato_depth_rampTo_gain, fx_1_vibrato_depth_rampTo_time)">go </button>
+
         <br>
         <p id="fx_1_vibrato_maxDelay_text"> Max Dly</p>
         <input type='range' min=0 max=1 step='0.01' value="0" id='fx_1_vibrato_maxDelay'>
         <p id="fx_1_vibrato_maxDelay_value"></p>
+
         <br>
       </fieldset>
     </div>
@@ -1528,22 +1866,22 @@
         <br>
         <fieldset>
           <br>
-          <button id="player_1_dynamics_select_unit_Button" name="player_1" value="compressor"
+          <button id="fx_1_dynamics_select_unit_Button" name="fx_1" value="compressor"
             onclick="player_x_dynamics_select_unit(name, value)">Compressor </button>
           -----------|>
-          <button id="player_1_dynamics_select_unit_Button" name="player_1" value="gate"
+          <button id="fx_1_dynamics_select_unit_Button" name="fx_1" value="gate"
             onclick="player_x_dynamics_select_unit(name, value)">Gate </button>
           -----------|>
-          <button id="player_1_dynamics_select_unit_Button" name="player_1" value="limiter"
+          <button id="fx_1_dynamics_select_unit_Button" name="fx_1" value="limiter"
             onclick="player_x_dynamics_select_unit(name, value)">Limiter </button>
           <br>
-          <button id="player_1_dynamics_On_Off_Button" name="player_1" value="compressor"
+          <button id="fx_1_dynamics_On_Off_Button" name="fx_1" value="compressor"
             onclick="player_x_dynamics_On_Off(name, value)">On </button>
           ----------------------|>
-          <button id="player_1_gate_On_Off_Button" name="player_1" value="gate"
+          <button id="fx_1_gate_On_Off_Button" name="fx_1" value="gate"
             onclick="player_x_dynamics_On_Off(name, value)">On </button>
           -------------|>
-          <button id="player_1_limiter_On_Off_Button" name="player_1" value="limiter"
+          <button id="fx_1_limiter_On_Off_Button" name="fx_1" value="limiter"
             onclick="player_x_dynamics_On_Off(name, value)">On </button>
           <br>
       </div>
@@ -1686,8 +2024,8 @@
       </fieldset>
     </div>
   </div>
-<!-- //********************************************************** -->
-<!-- //********************************************************** -->
+  <!-- //********************************************************** -->
+  <!-- //********************************************************** -->
   <!-- FX 2-->
   <div class="column">
     <h2>FX 2</h2>
@@ -1769,9 +2107,9 @@
     <h2>FX 4</h2>
     rms: <p id="fx_1_rms_value"> </p>
     <br>
-  
+
     <br>
- 
+
     <p id="fx_4_volume_text"> </p>
     Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx_4_volume'>
     <p id="fx_4_volume_value"></p>
@@ -1803,26 +2141,26 @@
     </select>
     <br> <br> <br>
 
-  <button type="button" class="collapsible">
-    EQ
-  </button>
-  <div class="content">
+    <button type="button" class="collapsible">
+      EQ
+    </button>
+    <div class="content">
 
-  </div>
+    </div>
 
-  <button type="button" class="collapsible">
-    Dynamics
-  </button>
-  <div class="content">
+    <button type="button" class="collapsible">
+      Dynamics
+    </button>
+    <div class="content">
 
-  </div>
+    </div>
 
-  <button type="button" class="collapsible">
-    Fx Send
-  </button>
-  <div class="content">
+    <button type="button" class="collapsible">
+      Fx Send
+    </button>
+    <div class="content">
 
-  </div>
+    </div>
 
   </div>
 

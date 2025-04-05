@@ -821,12 +821,14 @@ const player_1_loop_end = document.getElementById("player_1_loop_end");
 const player_1_fadeIn = document.getElementById("player_1_fadeIn");
 const player_1_fadeOut = document.getElementById("player_1_fadeOut");
 const player_1_rms_value = document.getElementById("player_1_rms_value");
-
+const player_1_rms_after_volume_value = document.getElementById("player_1_rms_after_volume_value");
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 // Player 1 Compressor
-const player_1_dynamics_On_Off_Button = document.getElementById("player_1_dynamics_On_Off_Button");
+const player_1_compressor_On_Off_Button = document.getElementById("player_1_compressor_On_Off_Button");
+const player_1_gate_On_Off_Button = document.getElementById("player_1_gate_On_Off_Button");
+const player_1_limiter_On_Off_Button = document.getElementById("player_1_limiter_On_Off_Button");
 const player_1_dynamics_ratio = document.getElementById("player_1_dynamics_ratio");
 const player_1_dynamics_threshold = document.getElementById("player_1_dynamics_threshold");
 const player_1_dynamics_release = document.getElementById("player_1_dynamics_release");
@@ -901,7 +903,7 @@ player_1_Mid_SemiParam_gain.addEventListener("change", function (e) {
     console.log("player_1_Mid_SemiParam_FilterNode.gain.value: " + player_1_Mid_SemiParam_FilterNode.gain.value);
   }
   else {
-    alert("ELSE player_1_SemiPAram_gain");
+    alert("ELSE player_1_Mid_SemiParam_gain");
   }
 });
 player_1_Mid_SemiParam_frequency.addEventListener("change", function (e) {
@@ -911,7 +913,7 @@ player_1_Mid_SemiParam_frequency.addEventListener("change", function (e) {
     console.log("player_1_Mid_SemiParam_FilterNode.frequency.value: " + player_1_Mid_SemiParam_FilterNode.frequency.value);
   }
   else {
-    alert("ELSE player_1_SemiPAram_frec");
+    alert("ELSE player_1_Mid_SemiParam_frec");
   }
 });
 player_1_HighShelf_gain.addEventListener("change", function (e) {
@@ -929,7 +931,7 @@ player_1_HighShelf_gain.addEventListener("change", function (e) {
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 //Limiter player 1
-/*
+
 const player_1_limiter_threshold = document.getElementById("player_1_limiter_threshold");
 const player_1_limiter_threshold_value = document.getElementById("player_1_limiter_threshold_value");
 
@@ -941,8 +943,8 @@ const player_1_limiter_reduction_value = document.getElementById("player_1_limit
 player_1_limiter_threshold.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  player_1_limiter_Node.threshold = e.currentTarget.value;
-  console.log("player_1_limiter_Node.threshold: " + player_1_limiter_Node.threshold);
+  player_1_dynamics_limiterNode.threshold = e.currentTarget.value;
+  console.log("player_1_dynamics_limiterNode.threshold: " + player_1_dynamics_limiterNode.threshold);
   player_1_limiter_threshold_value.innerHTML = `${e.currentTarget.value}`;
   player_1_limiter_reduction_value.innerHTML = player_1_limiter_reduction_value.reduction;
 });
@@ -958,12 +960,12 @@ player_1_limiter_smoothing.addEventListener("change", function (e) {
 
 const player_1_dynamics_limiter_div = document.getElementById("player_1_dynamics_limiter_div");
 player_1_dynamics_limiter_div.style.display = "none";
-*/
+
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 //Gate player 1
-/*
+
 const player_1_gate_threshold = document.getElementById("player_1_gate_threshold");
 const player_1_gate_threshold_value = document.getElementById("player_1_gate_threshold_value");
 
@@ -973,8 +975,8 @@ const player_1_gate_smoothing_value = document.getElementById("player_1_gate_smo
 player_1_gate_threshold.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  player_1_gate_Node.threshold = e.currentTarget.value;
-  console.log("player_1_gate_Node.threshold: " + player_1_gate_Node.threshold);
+  player_1_dynamics_gateNode.threshold = e.currentTarget.value;
+  console.log("player_1_dynamics_gateNode.threshold: " + player_1_dynamics_gateNode.threshold);
   player_1_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -994,9 +996,24 @@ player_1_dynamics_gate_div.style.display = "none";
 //*************************************************************************************
 //PLAYER 1 SETTINGS 
 const player_1_filter_eq_bypass_Button = document.getElementById("player_1_filter_eq_bypass_Button");
-const player_1_filter_eq_tascam_Button = document.getElementById("player_1_filter_eq_tascam_Button");
+//const player_1_filter_eq_tascam_Button = document.getElementById("player_1_filter_eq_tascam_Button");
+
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+// ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES TO  START
+//PLAYER 1 */
 
 var player_1_filter_eq_selection = "bypass";
+var player_1_compressor_On_Off_Button_State = "Off";
+var player_1_gate_On_Off_Button_State = "Off";
+var player_1_limiter_On_Off_Button_State = "Off";
 
 var player_1_fxSend_1_state = "PostEQ";
 var player_1_fxSend_2_state = "PostEQ";
@@ -1011,14 +1028,17 @@ var is_player_1_fxSend_2_On = true;
 var is_player_1_fxSend_3_On = true;
 var is_player_1_fxSend_4_On = true;
 
-//*************************************************************************************
-//*************************************************************************************
-//*************************************************************************************
-// ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES TO  START
-//PLAYER 1 */
-
 player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
 player_1_filter_eq_On_Button.style.backgroundColor = "white";
+
+player_1_compressor_On_Off_Button.style.backgroundColor = "white";
+player_1_compressor_On_Off_Button.innerText = "Off";
+
+player_1_gate_On_Off_Button.style.backgroundColor = "white";
+player_1_gate_On_Off_Button.innerText = "Off";
+
+player_1_limiter_On_Off_Button.style.backgroundColor = "white";
+player_1_limiter_On_Off_Button.innerText = "Off";
 
 player_1_fxSend_1_post_EQ_Button.style.backgroundColor = "green";
 player_1_fxSend_2_post_EQ_Button.style.backgroundColor = "green";
@@ -1036,10 +1056,18 @@ player_1_tascam_424_controls_div.style.display = "none";
 player_1_eq3_controls_div.style.display = "none";
 //-----------------------------------------------------------------
 player_1_rms_value.innerHTML = 0;
-
-
+player_1_rms_after_volume_value.innerHTML = 0;
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
 //*****************************************************************************************
 //*****************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//*************************************************************************************
 //NODE CONSTRUCTION
 
 const recorderNode = new Tone.Recorder();
@@ -1167,7 +1195,7 @@ player_1_fadeOut.addEventListener("change", function (e) {
     console.log("player_1_Node.fadeOut = " + e.currentTarget.value);
   }
   else {
-    alert("errororororor player_1_Node.fadeOut");
+    //alert("errororororor player_1_Node.fadeOut");
   }
 });
 
@@ -1188,7 +1216,7 @@ player_1_filter_frequency_peaking.addEventListener("change", function (e) {
 
 player_1_filter_Q_allpass.addEventListener("change", function (e) {
   player_1_filter.Q.value = e.currentTarget.value; console.log("player_1_filter.q: " + e.currentTarget.value);
-  player_1_filter_Q_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
+  player_1_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
 });
 
 player_1_filter_Q_peaking.addEventListener("change", function (e) {
@@ -1290,41 +1318,6 @@ player_1_filter_1_select.addEventListener("change", function (e) {
   }
   // }
 
-});
-
-player_1_dynamics_ratio.addEventListener("change", function (e) {
-  player_1_dynamics_compressorNode.ratio.value = e.currentTarget.value;
-  console.log("player_1_dynamics_ratio: " + player_1_dynamics_compressorNode.ratio.value);
-  player_1_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  player_1_dynamics_reduction_value.innerHTML = player_1_dynamics_compressorNode.reduction;
-});
-
-player_1_dynamics_threshold.addEventListener("change", function (e) {
-  player_1_dynamics_compressorNode.threshold.value = e.currentTarget.value;
-  console.log("player_1_dynamics_threshold: " + player_1_dynamics_compressorNode.threshold.value);
-  player_1_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  player_1_dynamics_reduction_value.innerHTML = player_1_dynamics_compressorNode.reduction;
-});
-
-player_1_dynamics_release.addEventListener("change", function (e) {
-  player_1_dynamics_compressorNode.release.value = e.currentTarget.value;
-  console.log("player_1_dynamics_release: " + player_1_dynamics_compressorNode.release.value);
-  player_1_dynamics_release_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  player_1_dynamics_reduction_value.innerHTML = player_1_dynamics_compressorNode.reduction;
-});
-
-player_1_dynamics_attack.addEventListener("change", function (e) {
-  player_1_dynamics_compressorNode.attack.value = e.currentTarget.value;
-  console.log("player_1_dynamics_attack: " + player_1_dynamics_compressorNode.attack.value);
-  player_1_dynamics_attack_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  player_1_dynamics_reduction_value.innerHTML = player_1_dynamics_compressorNode.reduction;
-});
-
-player_1_dynamics_knee.addEventListener("change", function (e) {
-  player_1_dynamics_compressorNode.knee.value = e.currentTarget.value;
-  console.log("player_1_dynamics_knee: " + player_1_dynamics_compressorNode.knee.value);
-  player_1_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  player_1_dynamics_reduction_value.innerHTML = player_1_dynamics_compressorNode.reduction;
 });
 
 player_1_fxSend_1.addEventListener("change", function (e) {
@@ -1693,7 +1686,7 @@ const fx_1_chorus_select_type = document.getElementById("fx_1_chorus_select_type
 
 fx_1_chorus_freq.addEventListener("change", function (e) {
   fx_1_chorus_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.frequency);
+  console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.frequency.value);
   fx_1_chorus_freq_value.innerHTML = `${e.currentTarget.value}`;
 });
 fx_1_chorus_delayTime.addEventListener("change", function (e) {
@@ -1702,8 +1695,8 @@ fx_1_chorus_delayTime.addEventListener("change", function (e) {
   fx_1_chorus_delayTime_value.innerHTML = `${e.currentTarget.value}`;
 });
 fx_1_chorus_depth.addEventListener("change", function (e) {
-  fx_1_chorus_Node.depth = e.currentTarget.value;
-  console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.depth);
+  fx_1_chorus_Node.depth.value = e.currentTarget.value;
+  console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.depth.value);
   fx_1_chorus_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 fx_1_chorus_spread.addEventListener("change", function (e) {
@@ -1777,7 +1770,7 @@ fx_1_feedback.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_feedback_Node.feedback.value = e.currentTarget.value;
-  console.log("fx4_feedback_Node: " + fx_1_feedback_Node.feedback.value);
+  console.log("fx1_feedback_Node: " + fx_1_feedback_Node.feedback.value);
   fx_1_feedback_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -1785,14 +1778,14 @@ fx_1_feedback_delayTime.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_feedback_Node.delayTime.value = e.currentTarget.value;
-  console.log("fx4_feedback_Node: " + fx_1_feedback_Node.delayTime.value);
+  console.log("fx1_feedback_Node: " + fx_1_feedback_Node.delayTime.value);
   fx_1_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
 });
 fx_1_feedback_maxDelay.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_feedback_Node.maxDelay = e.currentTarget.value;
-  console.log("fx4_feedback_Node: " + fx_1_feedback_Node.maxDelay);
+  console.log("fx1_feedback_Node: " + fx_1_feedback_Node.maxDelay);
   fx_1_feedback_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -1854,7 +1847,7 @@ fx_1_frequencyShifter.addEventListener("change", function (e) {
   console.log("fx_1_FrequencyShifter_Node: " + fx_1_FrequencyShifter_Node.frequency.value);
   fx_1_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
 });
-
+/*
 fx_1_frequencyShifter.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
@@ -1862,7 +1855,7 @@ fx_1_frequencyShifter.addEventListener("change", function (e) {
   console.log("fx4_dampening_Node: " + fx_1_FrequencyShifter_Node.frequency.value);
   fx_1_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
 });
-
+*/
 const fx_1_frequencyShifter_div = document.getElementById("fx_1_frequencyShifter_div");
 fx_1_frequencyShifter_div.style.display = "none";
 
@@ -1906,9 +1899,6 @@ const fx_1_phaser_frequency_value = document.getElementById("fx_1_phaser_frequen
 const fx_1_phaser_octaves = document.getElementById("fx_1_phaser_octaves");
 const fx_1_phaser_octaves_value = document.getElementById("fx_1_phaser_octaves_value");
 
-const fx_1_phaser_stages = document.getElementById("fx_1_phaser_stages");
-const fx_1_phaser_stages_value = document.getElementById("fx_1_phaser_stages_value");
-
 const fx_1_phaser_Q = document.getElementById("fx_1_phaser_Q");
 const fx_1_phaser_Q_value = document.getElementById("fx_1_phaser_Q_value");
 
@@ -1923,14 +1913,6 @@ fx_1_phaser_frequency.addEventListener("change", function (e) {
   fx_1_phaser_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
-fx_1_phaser_stages.addEventListener("change", function (e) {
-  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_1_phaser_Node.stages = e.currentTarget.value;
-  console.log("fx_1_phaser_Node. stages: " + fx_1_phaser_Node.stages);
-  fx_1_phaser_stages_value.innerHTML = `${e.currentTarget.value}`;
-});
-
 fx_1_phaser_octaves.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
@@ -1942,8 +1924,8 @@ fx_1_phaser_octaves.addEventListener("change", function (e) {
 fx_1_phaser_Q.addEventListener("change", function (e) {
   console.clear();
   console.log("e.currentTarget.value: " + e.currentTarget.value);
-  fx_1_phaser_Node.Q = e.currentTarget.value;
-  console.log("fx_1_phaser_Node. Q: " + fx_1_phaser_Node.Q);
+  fx_1_phaser_Node.Q.value = e.currentTarget.value;
+  console.log("fx_1_phaser_Node. Q: " + fx_1_phaser_Node.Q.value);
   fx_1_phaser_Q_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -2014,6 +1996,10 @@ const fx_1_pitchshift_delayTime_value = document.getElementById("fx_1_pitchshift
 
 const fx_1_pitchshift_pitch = document.getElementById("fx_1_pitchshift_pitch");
 const fx_1_pitchshift_pitch_value = document.getElementById("fx_1_pitchshift_pitch_value");
+
+const fx_1_pitchshift_windowSize = document.getElementById("fx_1_pitchshift_windowSize");
+const fx_1_pitchshift_windowSize_value = document.getElementById("fx_1_pitchshift_windowSize_value");
+
 
 fx_1_pitchshift_delayTime.addEventListener("change", function (e) {
   fx_1_pitchshift_Node.delayTime.value = e.currentTarget.value;
@@ -2120,14 +2106,14 @@ const fx_1_tremolo_spread = document.getElementById("fx_1_tremolo_spread");
 const fx_1_tremolo_spread_value = document.getElementById("fx_1_tremolo_spread_value");
 
 fx_1_tremolo_frequency.addEventListener("change", function (e) {
-  fx_1_tremolo_Node.frequency = e.currentTarget.value;
-  console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.frequency);
+  fx_1_tremolo_Node.frequency.value = e.currentTarget.value;
+  console.log("fx_1_tremolo_Node: " + `${fx_1_tremolo_Node.frequency.value}`);
   fx_1_tremolo_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 fx_1_tremolo_depth.addEventListener("change", function (e) {
-  fx_1_tremolo_Node.depth = e.currentTarget.value;
-  console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.depth);
+  fx_1_tremolo_Node.depth.value = e.currentTarget.value;
+  console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.depth.value);
   fx_1_tremolo_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -2161,14 +2147,14 @@ const fx_1_vibrato_maxDelay = document.getElementById("fx_1_vibrato_maxDelay");
 const fx_1_vibrato_maxDelay_value = document.getElementById("fx_1_vibrato_maxDelay_value");
 
 fx_1_vibrato_frequency.addEventListener("change", function (e) {
-  fx_1_vibrato_Node.frequency = e.currentTarget.value;
-  console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.frequency);
+  fx_1_vibrato_Node.frequency.value = e.currentTarget.value;
+  console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.frequency.value);
   fx_1_vibrato_frequency_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 fx_1_vibrato_depth.addEventListener("change", function (e) {
-  fx_1_vibrato_Node.depth = e.currentTarget.value;
-  console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.depth);
+  fx_1_vibrato_Node.depth.value = e.currentTarget.value;
+  console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.depth.value);
   fx_1_vibrato_depth_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -2225,16 +2211,18 @@ const player_1_dynamics_limiterNode = new Tone.Limiter();
 const player_1_dynamics_gateNode = new Tone.Gate();
 const player_1_dynamics_compressorNode = new Tone.Compressor();
 const testMeter_1 = new Tone.Meter(0);
+const testMeter_1_after_volume = new Tone.Meter(0);
 const player_1_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(player_1_panNode);
 player_1_Node.debug = true;
 
 player_1_panNode.fan(player_1_fxSend_1_preEq_volNode, player_1_fxSend_2_preEq_volNode, player_1_fxSend_3_preEq_volNode, player_1_fxSend_4_preEq_volNode);
 player_1_filter.fan(player_1_fxSend_1_postEq_volNode, player_1_fxSend_2_postEq_volNode, player_1_fxSend_3_postEq_volNode, player_1_fxSend_4_postEq_volNode);
 player_1_volNode.fan(player_1_fxSend_1_postFdr_volNode, player_1_fxSend_2_postFdr_volNode, player_1_fxSend_3_postFdr_volNode, player_1_fxSend_4_postFdr_volNode);
+player_1_volNode.fan(testMeter_1_after_volume);
 player_1_Node.fan(testMeter_1);
 
-//const player_1_limiter_Node = new Tone.Limiter();
-//const player_1_gate_Node = new Tone.Gate();
+//const player_1_dynamics_limiterNode = new Tone.Limiter();
+
 
 const fmSynth = new Tone.FMSynth();
 fmSynth.volume.value = -20;
@@ -3265,7 +3253,6 @@ fx_4_pan_fader.addEventListener("change", function (e) {
 //*********************************************************************************** */
 //INNERHTML
 
-
 player_2_volume_value.innerHTML = "-40";
 player_3_volume_value.innerHTML = "-40";
 player_4_volume_value.innerHTML = "-40";
@@ -3425,8 +3412,500 @@ function send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time) {
       player_1_filter_detune_shelf.value = `${player_1_volume_rampTo_gain.value}`;
       break;
     }
+    case "fx_1_chorus_freq": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_chorus_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_chorus_freq_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_chorus_freq.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_chorus_feedback": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_chorus_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_chorus_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_chorus_feedback.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_feedback": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_feedback_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_feedback.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_feedback_delayTime": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_feedback_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_feedback_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_feedback_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_frequencyShifter": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_FrequencyShifter_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_frequencyShifter_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_frequencyShifter.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_phaser_frequency": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_phaser_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_phaser_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_phaser_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_phaser_octaves": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_phaser_Node.octaves.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_phaser_octaves_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_phaser_octaves.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_phaser_Q": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_phaser_Node.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_phaser_Q_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_phaser_Q.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_pingpong_feedback": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_pingpong_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_pingpong_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_pingpong_feedback.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_pingpong_delayTime": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_pingpong_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_pingpong_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_pingpong_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_pitchshift_feedback": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_pitchshift_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_pingpong_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_pingpong_feedback.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_pitchshift_delayTime": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_pitchshift_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_pitchshift_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_pitchshift_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_reverb_preDelay": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_reverb_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_reverb_preDelay_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_reverb_preDelay.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_reverb_decay": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_reverb_Node.decay.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_reverb_decay_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_reverb_decay.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_tremolo_frequency": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_tremolo_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_tremolo_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_tremolo_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_tremolo_depth": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_tremolo_Node.depth.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_tremolo_depth_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_tremolo_depth.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_tremolo_spread": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_tremolo_Node.spread.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_tremolo_spread_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_tremolo_spread.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_vibrato_frequency": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_vibrato_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_vibrato_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_vibrato_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "fx_1_vibrato_depth": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      fx_1_vibrato_Node.depth.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      fx_1_vibrato_depth_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      fx_1_vibrato_depth.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    //Player 1
+    case "player_1_filter_frequency_allpass": {
+      console.log("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_filter_frequency_value_allpass.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_frequency_allpass.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_filter_Q_allpass": {
+      console.log("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_filter_Q_value_allpass.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_Q_allpass.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_filter_detune_allpass": {
+      console.log("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+
+      player_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_filter_detune_value_allpass.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_detune_allpass.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_filter_gain_shelf": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_filter_gain_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_gain_value_shelf.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_filter_frequency_peaking": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_filter_frequency_value_peaking.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_frequency_peaking.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_filter_Q_peaking": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_filter_Q_value_peaking.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_Q_peaking.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_filter_gain_peaking": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_filter_detune_value_peaking.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_detune_peaking.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    //TASCAM
+    case "player_1_HighShelf_gain_tascam": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_HighShelf_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_HighShelf_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_HighShelf_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_Mid_SemiParam_gain_tascam": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_Mid_SemiParam_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_Mid_SemiParam_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_Mid_SemiParam_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_Mid_SemiParam_frequency_tascam": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_HighShelf_FilterNode.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_Mid_SemiParam_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_Mid_SemiParam_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_LowShelf_gain_tascam": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_LowShelf_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_LowShelf_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_LowShelf_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    //EQ3    
+    case "player_1_EQ3_low_frequency": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter_eq3.lowFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_EQ3_low_frequency_fader_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_EQ3_low_frequency_fader.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_EQ3_low_fader_gain": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter_eq3.low.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_EQ3_low_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_EQ3_low_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_EQ3_mid_fader_gain": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter_eq3.mid.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_EQ3_mid_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_EQ3_mid_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_EQ3_mid_fader_gain": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter_eq3.high.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_EQ3_hi_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_EQ3_hi_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_EQ3_high_frequency": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter_eq3.highFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_EQ3_high_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_EQ3_high_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_EQ3_Q": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_filter_eq3.highFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_EQ3_Q_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_filter_eq3.Q.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    // Dynamics Compressor
+    case "player_1_dynamics_ratio_compressor": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_dynamics_compressorNode.ratio.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_dynamics_ratio_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_dynamics_ratio.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_dynamics_threshold_compressor": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_dynamics_compressorNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_dynamics_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_dynamics_threshold.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_dynamics_release_compressor": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_dynamics_compressorNode.release.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_dynamics_release_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_dynamics_release.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_dynamics_attack_compressor": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_dynamics_compressorNode.attack.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_dynamics_attack_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_dynamics_attack.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_dynamics_knee_compressor": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_dynamics_compressorNode.knee.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_dynamics_knee_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_dynamics_knee.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    //Gate
+    case "player_1_gate_threshold": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_dynamics_gateNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_gate_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_gate_threshold.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_gate_smoothing": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_dynamics_gateNode.smoothing.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_gate_smoothing_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_gate_smoothing.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    // Limiter
+    case "player_1_limiter_threshold": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_dynamics_limiterNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_limiter_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_limiter_threshold.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+    case "player_1_limiter_smoothing": {
+      alert("value:   " + value + "\n" +
+        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+      );
+      player_1_dynamics_limiterNode.smoothing.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_limiter_smoothing_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+      player_1_limiter_smoothing.value = `${player_1_volume_rampTo_gain.value}`;
+      break;
+    }
+
+    //HAY QUE RESOLVER EL ENVIOS LOS 4 EFECTOS
 
 
+    case "player_1_fxSend_1_rampTo_volume": {
+      player_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      player_1_volume.value = player_1_volume_rampTo_gain;
+      player_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
+
+
+      /*
+player_1_fxSend_1.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    player_1_fxSend_1_preEq_volNode.volume.value = -100;
+    player_1_fxSend_1_postEq_volNode.volume.value = -100;
+    player_1_fxSend_1_postFdr_volNode.volume.value = -100;
+    player_1_fxSend_1_value.innerHTML = -100;
+    player_1_fxSend_1.value = -100;
+  }
+  else {
+    const nombre = "player_1_fxSend_1";
+    recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
+  }
+});
+   /**/
+
+
+      break;
+    }
+
+
+    //player_1_fxSend_1_rampTo_volume
+
+    /* Revisar si se puede usar to force an input change.
+    This event does fire, however, the slider won't visually update.
+    element.dispatchEvent(new Event('input'))
+    */
   }//CLOSES switch
 }
 
@@ -3747,14 +4226,20 @@ function recStop() {
 function player_1_filter_eq_selection_bypass_on(value) {
   consoleClear();
   console.log("player_1_filter_eq_selection_bypass_on value: " + value + "");
-  console.log("  player_1_filter_eq_selection ACTUAL: " + player_1_filter_eq_selection + " ");
+  console.log("  player_1_filter_eq_selection: " + player_1_filter_eq_selection + " ");
 
   if (player_1_filter_eq_selection != value) {
     switch (value) {
       case "on": {
         player_1_panNode.disconnect(player_1_filter_Bypass);
         player_1_panNode.connect(player_1_filter);
-        player_1_filter.connect(player_1_dynamics_compressorNode_Bypass);
+        if (player_1_compressor_On_Off_Button_State == "Off"){
+          player_1_filter.connect(player_1_dynamics_compressorNode_Bypass);  
+        }
+        else if (player_1_compressor_On_Off_Button_State == "On"){
+          player_1_filter.disconnect(player_1_dynamics_compressorNode_Bypass);  
+        }
+        
         player_1_filter_eq_selection = "on";
         player_1_filter_eq_On_Button.style.backgroundColor = "green";
         player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
@@ -3762,7 +4247,6 @@ function player_1_filter_eq_selection_bypass_on(value) {
       }
       case "bypass": {
         player_1_panNode.disconnect(player_1_filter);
-        //player_1_filter.disconnect(player_1_dynamics_compressorNode_Bypass);
         player_1_panNode.connect(player_1_filter_Bypass);
         player_1_filter_Bypass.connect(player_1_dynamics_compressorNode_Bypass);
         player_1_filter_eq_selection = "bypass";
@@ -4306,30 +4790,67 @@ function player_x_dynamics_select_unit(name, value) {
 }
 
 function player_x_dynamics_On_Off(name, value) {
-  consoleClear();
-  console.log("name: " + name);
-  console.log("value: " + value);
+  //consoleClear();
+  //console.log("name: " + name);
+  //console.log("value: " + value);
   switch (name) {
     case "player_1":
       {
         switch (value) {
           case "compressor":
-            {
-              player_1_dynamics_compressorNode.wet = 0;
-              console.log("player_1_dynamics_compressorNode.wet = 0;")
+            {//ON
+              if (player_1_compressor_On_Off_Button_State == "Off") {
+                console.log("player_1_compressor esta apagado y debe prenderse");
+
+                if (player_1_filter_eq_selection == "on") {
+                  console.log("player_1_filter_eq_selection esta on");
+                  player_1_filter.connect(player_1_dynamics_compressorNode);
+                  player_1_filter.disconnect(player_1_dynamics_compressorNode_Bypass);
+                }
+                else if (player_1_filter_eq_selection == "bypass") {
+                  console.log("player_1_filter_eq_selection esta bypass");
+    //              player_1_filter_Bypass.connect(player_1_dynamics_compressorNode);
+     //             player_1_filter_Bypass.disconnect(player_1_dynamics_compressorNode_Bypass);
+                }
+
+                if (player_1_gate_On_Off_Button.innerText == "Off") {
+                  console.log("player_1_gate_On_Off_Button esta off");
+                }
+                else if (player_1_gate_On_Off_Button.innerText == "On") {
+                  console.log("player_1_gate_On_Off_Button esta on");
+                }
+                player_1_compressor_On_Off_Button_State = "On";
+              }
+              else if (player_1_compressor_On_Off_Button_State == "On") {
+                //OFF
+                console.log("player_1_compressor esta prendido y debe apagarse");
+                if (player_1_filter_eq_selection == "on") {
+                  console.log("player_1_filter_eq_selection esta on");
+                }
+                else if (player_1_filter_eq_selection == "bypass") {
+                  console.log("player_1_filter_eq_selection esta bypass");
+                }
+                //alert("--------------------------")
+                if (player_1_gate_On_Off_Button.innerText == "Off") {
+                  console.log("player_1_gate_On_Off_Button esta off");
+                }
+                else if (player_1_gate_On_Off_Button.innerText == "On") {
+                  console.log("player_1_gate_On_Off_Button esta on");
+                }
+                player_1_compressor_On_Off_Button_State = "Off";
+              }
+              switchState("player_1_compressor_On_Off_Button");
               break;
             }
           case "gate":
             {
-              player_1_dynamics_gateNode.wet = 0;
-              console.log("player_1_dynamics_gateNode.wet = 0;")
+              switchState("player_1_gate_On_Off_Button");
               break;
+
             }
           case "limiter":
             {
-              player_1_dynamics_limiterNode.wet = 0;
-              console.log("player_1_dynamics_limiterNode.wet = 0;")
-
+              switchState("player_1_limiter_On_Off_Button");
               break;
             }
           default: { console.log("DEFAULT switch(value) player_1  player_x_dynamics_On_Off "); break; }
@@ -5010,105 +5531,92 @@ function removes_previous_effect(fx_1_actual_patch) {
   //  alert("fx_1_actual_patch:" + fx_1_actual_patch);
 
   switch (fx_1_actual_patch) {
-    
+
     case "fx_1_autofilter": {
       fx_1_AutoFilter_Node.disconnect(fxReturn_1_fader);
       fx_1_autofilter_div.style.display = "none";
-    //  alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_autopanner": {
       fx_1_AutoPanner_Node.disconnect(fxReturn_1_fader);
       fx_1_autopanner_div.style.display = "none";
-   //   alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_autowah": {
       fx_1_AutoWah_Node.disconnect(fxReturn_1_fader);
       fx_1_autowah_div.style.display = "none";
-   //   alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_bitCrusher": {
-     // fx_1_bitCrusher.disconnect(fxReturn_1_fader);
+      // fx_1_bitCrusher.disconnect(fxReturn_1_fader);
       fx_1_bitCrusher_div.style.display = "none";
-      //alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_chebyshev": {
-       fx_1_Chebyshev_Node.disconnect(fxReturn_1_fader);
-       fx_1_Chebyshev_div.style.display = "none";
-       alert("removes_previous_effect:\n" + fx_1_actual_patch);
-       break;
-     }
+      fx_1_Chebyshev_Node.disconnect(fxReturn_1_fader);
+      fx_1_Chebyshev_div.style.display = "none";
+      break;
+    }
     case "fx_1_chorus": {
       fx_1_chorus_Node.disconnect(fxReturn_1_fader);
       fx_1_chorus_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_Distortion": {
       fx_1_distortion_Node.disconnect(fxReturn_1_fader);
       fx_1_distortion_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_Feedback": {
       fx_1_feedback_Node.disconnect(fxReturn_1_fader);
       fx_1_feedback_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
+      //("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_frequencyShifter": {
       fx_1_FrequencyShifter_Node.disconnect(fxReturn_1_fader);
       fx_1_frequencyShifter_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
+      //   alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_phaser": {
       fx_1_phaser_Node.disconnect(fxReturn_1_fader);
       fx_1_phaser_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_pingpong": {
       fx_1_pingpong_Node.disconnect(fxReturn_1_fader);
       fx_1_pingpong_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_pitchshift": {
       fx_1_pitchshift_Node.disconnect(fxReturn_1_fader);
       fx_1_pitchshift_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_reverb": {
       fx_1_reverb_Node.disconnect(fxReturn_1_fader);
       fx_1_reverb_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_stereoWidener": {
       fx_1_StereoWidener_Node.disconnect(fxReturn_1_fader);
       fx_1_StereoWidener_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_tremolo": {
       fx_1_tremolo_Node.disconnect(fxReturn_1_fader);
       fx_1_tremolo_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     case "fx_1_vibrato": {
       fx_1_vibrato_Node.disconnect(fxReturn_1_fader);
       fx_1_vibrato_div.style.display = "none";
-      alert("removes_previous_effect:\n" + fx_1_actual_patch);
       break;
     }
     default: { break; }
   }
+  //  alert("removes_previous_effect:\n" + fx_1_actual_patch);
 }
 
 function sets_New_FX(channel, effecttype) {
@@ -5119,7 +5627,7 @@ function sets_New_FX(channel, effecttype) {
   switch (channel) {
     case "FX1": {
       removes_previous_effect(fx_1_actual_patch);
-      alert("fx_1_actual_patch : " + fx_1_actual_patch);
+      //  alert("fx_1_actual_patch : " + fx_1_actual_patch);
       switch (effecttype) {
         case "AutoFilter"://FUNCIONA PERO NO TIENE SENTIDO
           {
@@ -5196,8 +5704,8 @@ function sets_New_FX(channel, effecttype) {
                          type: ToneOscillatorType;
                         }
                         */
-                       fx_1_autofilter_div.style.display = "block";
-                       fx_1_actual_patch = "fx_1_autofilter";
+            fx_1_autofilter_div.style.display = "block";
+            fx_1_actual_patch = "fx_1_autofilter";
             console.log("AutoFilter fx_1_select");
             break;
           }
@@ -5272,7 +5780,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_actual_patch = "fx_1_bitCrusher";
             fx_1_bitCrusher_div.style.display = "block";
             console.log("BitCrusher fx_1_select");
-            
+
             break;
           }
         case "Chebyshev": //OK PERO PARECE UNA DISTORTION
@@ -5371,7 +5879,6 @@ function sets_New_FX(channel, effecttype) {
             fx_1_feedback_div.style.display = "block";
             fx_1_actual_patch = "fx_1_Feedback";
             console.log("FeedbackDelay fx_1_select");
-            alert("AAAAAAAAAAA");
             break;
           }
         case "Freeverb": // TIRA ERROR VIOLENTO
@@ -5428,7 +5935,7 @@ function sets_New_FX(channel, effecttype) {
         case "JCReverb":
           {
             /*
-                        const newfx_1 = new Tone.JCReverb();
+                        
                         newfx_1.connect(fxReturn_1_fader);
                         player_1_fxSend_1_preEq_volNode.connect(newfx_1);
                         player_1_fxSend_1_postEq_volNode.connect(newfx_1);
@@ -5663,8 +6170,8 @@ function sets_New_FX(channel, effecttype) {
 }
 
 function mostrarerror(evento) {
-  console.log("Error: " + evento.error + "\n" + "Mensaje: " + evento.message);
-  //console.log("Mensaje: " + evento.message);
+  console.log("Error: " + evento.error);
+  console.log("Mensaje: " + evento.message);
   console.log("Línea: " + evento.lineno);
   console.log("Columna: " + evento.colno);
   console.log("URL: " + evento.filename);
@@ -5675,6 +6182,7 @@ function tuFuncion() {
   player_2_rms_value.innerHTML = Math.round(`${testMeter_2.getValue()}`);
   player_3_rms_value.innerHTML = Math.round(`${testMeter_3.getValue()}`);
   player_4_rms_value.innerHTML = Math.round(`${testMeter_4.getValue()}`);
+  player_1_rms_after_volume_value.innerHTML = Math.round(`${testMeter_1_after_volume.getValue()}`);
 
   fx_1_rms_value.innerHTML = Math.round(`${testMeter_fx_1.getValue()}`);
   //  fx_2_rms_value.innerHTML = Math.round(`${testMeter_fx_2.getValue()}`);
@@ -5730,6 +6238,70 @@ function hide_all_divs(value) {
     }
   }
 }
+
+function switchState(name) {
+  //console.log("name: " + name);
+  //alert("name: " + name);
+  switch (name) {
+    case "player_1_filter_eq_selection":
+      {
+        if (player_1_filter_eq_selection == "on") {
+          player_1_filter_eq_selection == "bypass";
+          //alert("green: " + name);
+        }
+        else if (player_1_filter_eq_selection == "bypass") {
+          player_1_filter_eq_selection == "on"
+          //alert("white: " + name);
+        }
+        break;
+      }
+    case "player_1_compressor_On_Off_Button":
+      {
+        if (player_1_compressor_On_Off_Button.innerText == "On") {
+          player_1_compressor_On_Off_Button.innerText = "Off";
+          player_1_compressor_On_Off_Button.style.backgroundColor = "white";
+          //   alert("white: " + name);
+        }
+        else if (player_1_compressor_On_Off_Button.innerText == "Off") {
+          player_1_compressor_On_Off_Button.innerText = "On"
+          player_1_compressor_On_Off_Button.style.backgroundColor = "green";
+          //         alert("green: " + name);
+        }
+        break;
+      }
+    case "player_1_gate_On_Off_Button":
+      {
+        if (player_1_gate_On_Off_Button.innerText == "On") {
+          player_1_gate_On_Off_Button.innerText = "Off";
+          player_1_gate_On_Off_Button.style.backgroundColor = "white";
+          //alert("white: " + name);
+        }
+        else if (player_1_gate_On_Off_Button.innerText == "Off") {
+          player_1_gate_On_Off_Button.innerText = "On"
+          player_1_gate_On_Off_Button.style.backgroundColor = "green";
+          //alert("green: " + name);
+        }
+        break;
+      }
+    case "player_1_limiter_On_Off_Button":
+      {
+        if (player_1_limiter_On_Off_Button.innerText == "On") {
+          player_1_limiter_On_Off_Button.innerText = "Off";
+          player_1_limiter_On_Off_Button.style.backgroundColor = "white";
+          //alert("white: " + name);
+        }
+        else if (player_1_limiter_On_Off_Button.innerText == "Off") {
+          player_1_limiter_On_Off_Button.innerText = "On"
+          player_1_limiter_On_Off_Button.style.backgroundColor = "green";
+          //alert("green: " + name);
+        }
+        break;
+      }
+
+    default: { break; }
+  }
+}
+
 
 //************************************************************************
 //************************************************************************
