@@ -784,6 +784,8 @@ const player_1_tascam_424_controls_div = document.getElementById("player_1_tasca
 const player_1_shelf_controls_div = document.getElementById("player_1_shelf_controls_div");
 const player_1_allpass_controls_div = document.getElementById("player_1_allpass_controls_div");
 const player_1_eq3_controls_div = document.getElementById("player_1_eq3_controls_div");
+const player_1_empty_controls_div = document.getElementById("player_1_empty_controls_div");
+const player_1_bypass_controls_div = document.getElementById("player_1_bypass_controls_div");
 
 const player_1_fxSend_1 = document.getElementById("player_1_fxSend_1");
 const player_1_fxSend_2 = document.getElementById("player_1_fxSend_2");
@@ -896,6 +898,10 @@ const player_1_fxSend_1_On_Off_Button = document.getElementById("player_1_fxSend
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 //Tascam 424 player 1
+
+
+const player_1_filter_eq_On_Tascam_Button = document.getElementById("player_1_filter_eq_On_Tascam_Button");
+
 const player_1_LowShelf_gain = document.getElementById("player_1_LowShelf_gain");
 const player_1_LowShelf_gain_value = document.getElementById("player_1_LowShelf_gain_value");
 const player_1_LowShelf_gain_text = document.getElementById("player_1_LowShelf_gain_text");
@@ -915,21 +921,21 @@ const player_1_HighShelf_FilterNode = new Tone.Filter();
 player_1_HighShelf_FilterNode.set({
   frequency: 10000,
   type: "highshelf",
-  gain: -100,
+  gain: 0,
   rolloff: -12,
 });
 const player_1_Mid_SemiParam_FilterNode = new Tone.Filter().connect(player_1_HighShelf_FilterNode);
 player_1_Mid_SemiParam_FilterNode.set({
   frequency: 1000,
   type: "bandpass",
-  gain: -100,
+  gain: 0,
   rolloff: -12,
 });
 const player_1_LowShelf_FilterNode = new Tone.Filter().connect(player_1_Mid_SemiParam_FilterNode);
 player_1_LowShelf_FilterNode.set({
   frequency: 100,
   type: "lowshelf",
-  gain: -100,
+  gain: 0,
   rolloff: -12,
 });
 player_1_LowShelf_gain.addEventListener("change", function (e) {
@@ -973,7 +979,8 @@ player_1_HighShelf_gain.addEventListener("change", function (e) {
     alert("ELSE player_1_HighShelf_gain");
   }
 });
-//Tascam 424 player 1
+
+
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
@@ -1043,20 +1050,13 @@ player_1_dynamics_gate_div.style.display = "none";
 //*************************************************************************************
 //PLAYER 1 SETTINGS 
 const player_1_filter_eq_bypass_Button = document.getElementById("player_1_filter_eq_bypass_Button");
-//const player_1_filter_eq_tascam_Button = document.getElementById("player_1_filter_eq_tascam_Button");
-
-//*************************************************************************************
-//*************************************************************************************
-//*************************************************************************************
-//*************************************************************************************
-//*************************************************************************************
-//*************************************************************************************
 //*************************************************************************************
 //*************************************************************************************
 //*************************************************************************************
 // ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES TO  START
 //PLAYER 1 */
 
+var player_1_filter_eq_type = "empty"; 
 var player_1_filter_eq_selection = "bypass";
 var player_1_compressor_On_Off_Button_State = "off";
 var player_1_gate_On_Off_Button_State = "off";
@@ -1067,7 +1067,6 @@ var player_1_fxSend_2_state = "PostEQ";
 var player_1_fxSend_3_state = "PostEQ";
 var player_1_fxSend_4_state = "PostEQ";
 
-//var isplayer_1_filter_eq_On = false;  //TRUE  
 var loop_1_min = 0;
 var loop_1_max = 0;
 var is_player_1_fxSend_1_On = true;
@@ -1101,6 +1100,8 @@ player_1_shelf_controls_div.style.display = "none";
 player_1_peaking_controls_div.style.display = "none";
 player_1_tascam_424_controls_div.style.display = "none";
 player_1_eq3_controls_div.style.display = "none";
+player_1_empty_controls_div.style.display = "none"; 
+player_1_bypass_controls_div.style.display = "block";
 //-----------------------------------------------------------------
 player_1_rms_value.innerHTML = 0;
 player_1_rms_after_volume_value.innerHTML = 0;
@@ -1318,59 +1319,37 @@ player_1_filter_1_select.addEventListener("change", function (e) {
     case "allpass":
       {
         player_1_filter.type = e.currentTarget.value;
-        player_1_tascam_424_controls_div.style.display = "none";
-        player_1_peaking_controls_div.style.display = "none";
-        player_1_shelf_controls_div.style.display = "none";
-        player_1_eq3_controls_div.style.display = "none";
-        player_1_allpass_controls_div.style.display = "block";
+        player_1_filter_eq_type = "allpass"; 
+        if(player_1_filter_eq_type == "on"){
+          hide_all_EQ_divs("1");
+          player_1_allpass_controls_div.style.display = "block";
+        }
         break;
       }
     case "lowshelf":
     case "highshelf":
       {
         player_1_filter.type = e.currentTarget.value;
-        player_1_tascam_424_controls_div.style.display = "none";
-        player_1_peaking_controls_div.style.display = "none";
-        player_1_allpass_controls_div.style.display = "none";
-        player_1_eq3_controls_div.style.display = "none";
-        player_1_shelf_controls_div.style.display = "block";
+        player_1_filter_eq_type = "shelf"; 
         break;
       }
     case "peaking":
       {
         player_1_filter.type = e.currentTarget.value;
-        player_1_tascam_424_controls_div.style.display = "none";
-        player_1_allpass_controls_div.style.display = "none";
-        player_1_shelf_controls_div.style.display = "none";
-        player_1_eq3_controls_div.style.display = "none";
-        player_1_peaking_controls_div.style.display = "block";
+        player_1_filter_eq_type = "peaking"; 
         break;
       }
     case "empty": {
-      player_1_allpass_controls_div.style.display = "none";
-      player_1_peaking_controls_div.style.display = "none";
-      player_1_shelf_controls_div.style.display = "none";
-      player_1_tascam_424_controls_div.style.display = "none";
-      player_1_eq3_controls_div.style.display = "none";
+      player_1_filter_eq_type = "empty"; 
+      player_1_filter.set({
+        frequency: 20000,
+        type: "lowpass",
+        Q: 0,
+        gain: 0,
+        rolloff: -96,
+      });
       break;
     }
-    case "tascam": {
-      player_1_allpass_controls_div.style.display = "none";
-      player_1_peaking_controls_div.style.display = "none";
-      player_1_shelf_controls_div.style.display = "none";
-      player_1_eq3_controls_div.style.display = "none";
-      player_1_tascam_424_controls_div.style.display = "block";
-      break;
-    }
-    case "eq3":
-      {
-        player_1_tascam_424_controls_div.style.display = "none";
-        player_1_peaking_controls_div.style.display = "none";
-        player_1_shelf_controls_div.style.display = "none";
-        player_1_allpass_controls_div.style.display = "none";
-        player_1_eq3_controls_div.style.display = "block";
-        break;
-      }
     default:
       { console.log(" EQ1 DEFAULT player_1_filter_1_select switch"); }
   }
@@ -2285,7 +2264,6 @@ const testMeter_1_player_1_rms_gate = new Tone.Meter(0);
 const testMeter_1_player_1_rms_limiter_Bypass = new Tone.Meter(0);
 const testMeter_1_player_1_rms_limiter = new Tone.Meter(0);
 
-
 player_1_dynamics_compressorNode_Bypass.connect(testMeter_1_player_1_rms_comp_Bypass); //BORRAR ESTO LUEGO
 player_1_dynamics_compressorNode.connect(testMeter_1_player_1_rms_comp); //BORRAR ESTO LUEGO
 player_1_dynamics_gateNode_Bypass.connect(testMeter_1_player_1_rms_gate_Bypass); //BORRAR ESTO LUEGO
@@ -2293,18 +2271,16 @@ player_1_dynamics_gateNode.connect(testMeter_1_player_1_rms_gate); //BORRAR ESTO
 player_1_dynamics_limiterNode_Bypass.connect(testMeter_1_player_1_rms_limiter_Bypass); //BORRAR ESTO LUEGO
 player_1_dynamics_limiterNode.connect(testMeter_1_player_1_rms_limiter); //BORRAR ESTO LUEGO
 
-
-
-
 const player_1_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(player_1_panNode);
 player_1_Node.debug = true;
 
 player_1_panNode.fan(player_1_fxSend_1_preEq_volNode, player_1_fxSend_2_preEq_volNode, player_1_fxSend_3_preEq_volNode, player_1_fxSend_4_preEq_volNode);
 player_1_filter.fan(player_1_fxSend_1_postEq_volNode, player_1_fxSend_2_postEq_volNode, player_1_fxSend_3_postEq_volNode, player_1_fxSend_4_postEq_volNode);
+
 player_1_volNode.fan(player_1_fxSend_1_postFdr_volNode, player_1_fxSend_2_postFdr_volNode, player_1_fxSend_3_postFdr_volNode, player_1_fxSend_4_postFdr_volNode);
 player_1_volNode.fan(testMeter_1_after_volume);
 player_1_Node.fan(testMeter_1);
-
+player_1_HighShelf_FilterNode.fan(player_1_fxSend_1_postEq_volNode, player_1_fxSend_2_postEq_volNode, player_1_fxSend_3_postEq_volNode, player_1_fxSend_4_postEq_volNode);
 //const player_1_dynamics_limiterNode = new Tone.Limiter();
 
 
@@ -2346,6 +2322,7 @@ frequency : 1 ,
 //*****************************************************************************************
 //PLAYER 1 EQ3
 
+const player_1_filter_eq_On_EQ3_Button = document.getElementById("player_1_filter_eq_On_EQ3_Button");
 const player_1_filter_eq3 = new Tone.EQ3;
 
 player_1_filter_eq3.set(
@@ -2375,6 +2352,8 @@ const player_1_EQ3_high_frequency_value = document.getElementById("player_1_EQ3_
 
 const player_1_EQ3_Q_fader = document.getElementById("player_1_EQ3_Q_fader");
 const player_1_EQ3_Q_value = document.getElementById("player_1_EQ3_Q_value");
+
+player_1_filter_eq3.fan(player_1_fxSend_1_postEq_volNode, player_1_fxSend_2_postEq_volNode, player_1_fxSend_3_postEq_volNode, player_1_fxSend_4_postEq_volNode);
 
 //*****************************************************************************************
 //PLAYER 1 EQ 3 EVENTLISTENERS
@@ -2895,9 +2874,7 @@ player2.fan(testMeter_2);
 player_3.fan(testMeter_3);
 player_4.fan(testMeter_4);
 
-setInterval('tuFuncion()', 200);
-//setInterval('muestraP1CompState()', 2000);
-
+setInterval('tuFuncion()', 100);
 
 
 //*****************************************************************************************
@@ -4319,84 +4296,225 @@ function recStop() {
 function player_1_filter_eq_selection_bypass_on(value) {
   //consoleClear();
   //console.log("\n ");
-  console.log("player_1_filter_eq_selection value: " + value + "");
-  //console.log("\n ");
-  // console.log("  player_1_filter_eq_selection PREVIA: " + player_1_filter_eq_selection + " ");
+  console.log("value: " + "\n" + value + "\n" + "player_1_filter_eq_selection: " + "\n" + player_1_filter_eq_selection + "\n");
+  //console.log("player_1_filter_eq_selection: "+"\n" + player_1_filter_eq_selection);
 
+  //console.log("\n ");
   if (player_1_filter_eq_selection != value) {
     switch (value) {
       case "on": {
-        if (player_1_filter_eq_selection == "bypass" &&
-          player_1_compressor_On_Off_Button_State == "off") {
-          player_1_filter_Bypass.disconnect(player_1_dynamics_compressorNode_Bypass);
-          player_1_filter.connect(player_1_dynamics_compressorNode_Bypass);
-          //          alert("BP / OFF EN EL ON");
+        if (player_1_filter_eq_selection == "bypass") {
+          player_1_panNode.disconnect(player_1_filter_Bypass);
+          player_1_panNode.connect(player_1_filter);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_filter_Bypass.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_filter.connect(player_1_dynamics_compressorNode_Bypass);
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_filter_Bypass.disconnect(player_1_dynamics_compressorNode);
+            player_1_filter.connect(player_1_dynamics_compressorNode);
+          }
         }
-        if (player_1_filter_eq_selection == "bypass" &&
-          player_1_compressor_On_Off_Button_State == "on") {
-          player_1_filter_Bypass.disconnect(player_1_dynamics_compressorNode);
-          player_1_filter.connect(player_1_dynamics_compressorNode);
-          //        alert("bP / On en el on");
+        else if (player_1_filter_eq_selection == "eq3") {
+          player_1_panNode.disconnect(player_1_filter_eq3);
+          player_1_panNode.connect(player_1_filter);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_filter_eq3.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_filter.connect(player_1_dynamics_compressorNode_Bypass);
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_filter_eq3.disconnect(player_1_dynamics_compressorNode);
+            player_1_filter.connect(player_1_dynamics_compressorNode);
+          }
         }
-        player_1_panNode.disconnect(player_1_filter_Bypass);
-        player_1_panNode.connect(player_1_filter);
+        else if (player_1_filter_eq_selection == "tascam") {
+          player_1_panNode.disconnect(player_1_LowShelf_FilterNode);
+          player_1_panNode.connect(player_1_filter);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_HighShelf_FilterNode.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_filter.connect(player_1_dynamics_compressorNode_Bypass);
 
-        switchState("player_1_filter_eq_selection");
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_HighShelf_FilterNode.disconnect(player_1_dynamics_compressorNode);
+            player_1_filter.connect(player_1_dynamics_compressorNode);
+          }
+        }
+        switchState2("player_1_filter_eq_selection", "on");
+        //allDivsAreNone();
+        hide_all_EQ_divs("1");
+        switch(player_1_filter_eq_type){
+          case "empty": {
+            player_1_empty_controls_div.style.display = "block";
+            break;
+          }
+          case "allpass":{
+            player_1_allpass_controls_div.style.display = "block";
+            break;
+          }
+          case "shelf":{
+            player_1_shelf_controls_div.style.display = "block";
+            break;
+          }
+          case "peaking":{
+            player_1_peaking_controls_div.style.display = "block";
+            break;
+          }
+          default:{break;}
+        }
         console.log("player_1_filter_eq_selection_bypass_on  ON");
-        //  alert("ON");
         break;
       }
       case "bypass": {
-        player_1_panNode.disconnect(player_1_filter);
-        player_1_panNode.connect(player_1_filter_Bypass);
-        if (player_1_filter_eq_selection == "on" &&
-          player_1_compressor_On_Off_Button_State == "off") {
-          player_1_filter.disconnect(player_1_dynamics_compressorNode_Bypass);
-          player_1_filter_Bypass.connect(player_1_dynamics_compressorNode_Bypass);
-          //      alert("ON / OFF EN EL ON");
+        if (player_1_filter_eq_selection == "on") {
+          player_1_panNode.disconnect(player_1_filter);
+          player_1_panNode.connect(player_1_filter_Bypass);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_filter.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_filter_Bypass.connect(player_1_dynamics_compressorNode_Bypass);
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_filter.disconnect(player_1_dynamics_compressorNode);
+            player_1_filter_Bypass.connect(player_1_dynamics_compressorNode);
+          }
         }
-        if (player_1_filter_eq_selection == "on" &&
-          player_1_compressor_On_Off_Button_State == "on") {
-          player_1_filter.disconnect(player_1_dynamics_compressorNode);
-          player_1_filter_Bypass.connect(player_1_dynamics_compressorNode);
-          //    alert("ON / On en el on");
+        else if (player_1_filter_eq_selection == "eq3") {
+          player_1_panNode.disconnect(player_1_filter_eq3);
+          player_1_panNode.connect(player_1_filter_Bypass);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_filter_eq3.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_filter_Bypass.connect(player_1_dynamics_compressorNode_Bypass);
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_filter_eq3.disconnect(player_1_dynamics_compressorNode);
+            player_1_filter_Bypass.connect(player_1_dynamics_compressorNode);
+          }
+        }
+        else if (player_1_filter_eq_selection == "tascam") {
+          player_1_panNode.disconnect(player_1_LowShelf_FilterNode);
+          player_1_panNode.connect(player_1_filter_Bypass);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_HighShelf_FilterNode.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_filter_Bypass.connect(player_1_dynamics_compressorNode_Bypass);
+            //          alert("BP / OFF EN EL ON");
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_HighShelf_FilterNode.disconnect(player_1_dynamics_compressorNode);
+            player_1_filter_Bypass.connect(player_1_dynamics_compressorNode);
+            //        alert("bP / On en el on");
+          }
         }
         console.log("player_1_filter_eq_selection_bypass_on  BYPASS");
-        switchState("player_1_filter_eq_selection");
-        //  alert("BP");
+        hide_all_EQ_divs("1");
+        //allDivsAreNone();
+        player_1_bypass_controls_div.style.display = "block";
+        switchState2("player_1_filter_eq_selection", "bypass");
         break;
       }
-      default: { break; }
+      case "eq3": {
+        if (player_1_filter_eq_selection == "on") {
+          player_1_panNode.disconnect(player_1_filter);
+          player_1_panNode.connect(player_1_filter_eq3);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_filter.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_filter_eq3.connect(player_1_dynamics_compressorNode_Bypass);
+            //      alert("ON / OFF EN EL ON");
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_filter.disconnect(player_1_dynamics_compressorNode);
+            player_1_filter_eq3.connect(player_1_dynamics_compressorNode);
+            //    alert("ON / On en el on");
+          }
+        }
+        else if (player_1_filter_eq_selection == "bypass") {
+          player_1_panNode.disconnect(player_1_filter_Bypass);
+          player_1_panNode.connect(player_1_filter_eq3);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_filter_Bypass.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_filter_eq3.connect(player_1_dynamics_compressorNode_Bypass);
+            //          alert("BP / OFF EN EL ON");
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_filter_Bypass.disconnect(player_1_dynamics_compressorNode);
+            player_1_filter_eq3.connect(player_1_dynamics_compressorNode);
+            //        alert("bP / On en el on");
+          }
+        }
+        else if (player_1_filter_eq_selection == "tascam") {
+          player_1_panNode.disconnect(player_1_LowShelf_FilterNode);
+          player_1_panNode.connect(player_1_filter_eq3);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_HighShelf_FilterNode.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_filter_eq3.connect(player_1_dynamics_compressorNode_Bypass);
+            //          alert("BP / OFF EN EL ON");
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_HighShelf_FilterNode.disconnect(player_1_dynamics_compressorNode);
+            player_1_filter_eq3.connect(player_1_dynamics_compressorNode);
+            //        alert("bP / On en el on");
+          }
+        }
+        hide_all_EQ_divs("1");
+        //allDivsAreNone();
+        player_1_eq3_controls_div.style.display = "block";
+        switchState2("player_1_filter_eq_selection", "eq3");
+        break;
+      }
+      case "tascam": {
+        if (player_1_filter_eq_selection == "on") {
+          player_1_panNode.disconnect(player_1_filter);
+          player_1_panNode.connect(player_1_LowShelf_FilterNode);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_filter.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_HighShelf_FilterNode.connect(player_1_dynamics_compressorNode_Bypass);
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_filter.disconnect(player_1_dynamics_compressorNode);
+            player_1_HighShelf_FilterNode.connect(player_1_dynamics_compressorNode);
+            //    alert("ON / On en el on");
+          }
+        }
+        else if (player_1_filter_eq_selection == "bypass") {
+          player_1_panNode.disconnect(player_1_filter_Bypass);
+          player_1_panNode.connect(player_1_LowShelf_FilterNode);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_filter_Bypass.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_HighShelf_FilterNode.connect(player_1_dynamics_compressorNode_Bypass);
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_filter_Bypass.disconnect(player_1_dynamics_compressorNode);
+            player_1_HighShelf_FilterNode.connect(player_1_dynamics_compressorNode);
+          }
+        }
+        else if (player_1_filter_eq_selection == "eq3") {
+          player_1_panNode.disconnect(player_1_filter_eq3);
+          player_1_panNode.connect(player_1_LowShelf_FilterNode);
+          if (player_1_compressor_On_Off_Button_State == "off") {
+            player_1_filter_eq3.disconnect(player_1_dynamics_compressorNode_Bypass);
+            player_1_HighShelf_FilterNode.connect(player_1_dynamics_compressorNode_Bypass);
+            //          alert("BP / OFF EN EL ON");
+          }
+          if (player_1_compressor_On_Off_Button_State == "on") {
+            player_1_filter_eq3.disconnect(player_1_dynamics_compressorNode);
+            player_1_HighShelf_FilterNode.connect(player_1_dynamics_compressorNode);
+            //        alert("bP / On en el on");
+          }
+        }
+        hide_all_EQ_divs("1");
+        //allDivsAreNone();
+        player_1_tascam_424_controls_div.style.display = "block";
+        switchState2("player_1_filter_eq_selection", "tascam");
+        break;
+      }
+      default: {/* console.log("default value: " + value);*/ break; }
     }
   }
   else { console.log("player_1_filter_eq_selection != value ELSE"); }
-  // }
-
 }
+
 //************************************************************************* */
 //********************************************************************* */
 //PLAYER 1 FX SEND  ON OFF BUTTONS
-function player_1_fxSend_1_On_Off_Button_foo() {
-  console.log("is_player_1_fxSend_1_On: " + is_player_1_fxSend_1_On);
-  if (is_player_1_fxSend_1_On == true) {
-    player_1_fxSend_1_preEq_volNode.mute = true;
-    player_1_fxSend_1_postEq_volNode.mute = true;
-    player_1_fxSend_1_postFdr_volNode.mute = true;
-    player_1_fxSend_1_On_Off_Button.style.backgroundColor = "red";
-  }
-  else {
-    player_1_fxSend_1_On_Off_Button.style.backgroundColor = "white";
-    player_1_fxSend_1_preEq_volNode.mute = false;
-    player_1_fxSend_1_postEq_volNode.mute = false;
-    player_1_fxSend_1_postFdr_volNode.mute = false;
-    //REVISAR SI NO ES NECESARIO 
-    // GUARDAR EL VALOR ANTERIOR ANTES DE DEVOLVER EL ON
-    player_1_fxSend_1.value = 0;
-    player_1_fxSend_1_value.value = 0;
-  }
-  is_player_1_fxSend_1_On = !is_player_1_fxSend_1_On;
-}
-
 //********************************************************************* */
 //************************************************************
 
@@ -4925,7 +5043,7 @@ function player_x_dynamics_On_Off(name, value) {
                   player_1_dynamics_compressorNode_Bypass.disconnect(player_1_dynamics_gateNode_Bypass);
                   player_1_dynamics_compressorNode.connect(player_1_dynamics_gateNode_Bypass);
                 }
-               // alert("ON / OFF EN EL ON    player_x_dynamics_On_Off");
+                // alert("ON / OFF EN EL ON    player_x_dynamics_On_Off");
               }
               else if (player_1_compressor_On_Off_Button_State == "off"
                 && player_1_filter_eq_selection == "bypass") {
@@ -4943,7 +5061,7 @@ function player_x_dynamics_On_Off(name, value) {
               }
               else if (player_1_compressor_On_Off_Button_State == "on"
                 && player_1_filter_eq_selection == "on") {
-             //   alert("ON / ON EN EL     player_x_dynamics_On_Off");
+                //   alert("ON / ON EN EL     player_x_dynamics_On_Off");
                 player_1_filter.disconnect(player_1_dynamics_compressorNode);
                 player_1_filter.connect(player_1_dynamics_compressorNode_Bypass);
                 if (player_1_gate_On_Off_Button_State == "on") {
@@ -4969,7 +5087,7 @@ function player_x_dynamics_On_Off(name, value) {
                   player_1_dynamics_compressorNode_Bypass.connect(player_1_dynamics_gateNode_Bypass)
                 }
 
-               // alert("BP / ON EN EL     player_x_dynamics_On_Off");
+                // alert("BP / ON EN EL     player_x_dynamics_On_Off");
               }
               /*
                   if (player_1_compressor_On_Off_Button_State == "off" && 
@@ -5006,7 +5124,7 @@ function player_x_dynamics_On_Off(name, value) {
                   player_1_dynamics_gateNode_Bypass.disconnect(player_1_dynamics_limiterNode_Bypass);
                   player_1_dynamics_gateNode.connect(player_1_dynamics_limiterNode_Bypass);
                 }
-            //    alert("GATE ON / OFF EN EL ON    player_x_dynamics_On_Off");
+                //    alert("GATE ON / OFF EN EL ON    player_x_dynamics_On_Off");
               }
               else if (player_1_gate_On_Off_Button_State == "off"
                 && player_1_compressor_On_Off_Button_State == "off") {
@@ -5020,11 +5138,11 @@ function player_x_dynamics_On_Off(name, value) {
                   player_1_dynamics_gateNode_Bypass.disconnect(player_1_dynamics_limiterNode_Bypass);
                   player_1_dynamics_gateNode.connect(player_1_dynamics_limiterNode_Bypass);
                 }
-               // alert("GATE BP / OFF EN EL     player_x_dynamics_On_Off");
+                // alert("GATE BP / OFF EN EL     player_x_dynamics_On_Off");
               }
               else if (player_1_gate_On_Off_Button_State == "on"
                 && player_1_compressor_On_Off_Button_State == "on") {
-               // alert("GATE ON / ON EN EL     player_x_dynamics_On_Off");
+                // alert("GATE ON / ON EN EL     player_x_dynamics_On_Off");
                 player_1_dynamics_compressorNode.disconnect(player_1_dynamics_gateNode);
                 player_1_dynamics_compressorNode.connect(player_1_dynamics_gateNode_Bypass);
                 if (player_1_limiter_On_Off_Button_State == "on") {
@@ -5049,7 +5167,7 @@ function player_x_dynamics_On_Off(name, value) {
                   player_1_dynamics_gateNode.disconnect(player_1_dynamics_limiterNode_Bypass);
                   player_1_dynamics_gateNode_Bypass.connect(player_1_dynamics_limiterNode_Bypass)
                 }
-               // alert("BP / ON EN EL     player_x_dynamics_On_Off");
+                // alert("BP / ON EN EL     player_x_dynamics_On_Off");
               }
               switchState("player_1_gate_On_Off_Button");
               break;
@@ -5074,7 +5192,7 @@ function player_x_dynamics_On_Off(name, value) {
               }
               else if (player_1_limiter_On_Off_Button_State == "on"
                 && player_1_gate_On_Off_Button_State == "on") {
-               // alert("GATE ON / ON EN EL     player_x_dynamics_On_Off");
+                // alert("GATE ON / ON EN EL     player_x_dynamics_On_Off");
                 player_1_dynamics_gateNode.disconnect(player_1_dynamics_limiterNode);
                 player_1_dynamics_gateNode.connect(player_1_dynamics_limiterNode_Bypass);
                 player_1_dynamics_limiterNode.disconnect(player_1_volNode);
@@ -5086,7 +5204,7 @@ function player_x_dynamics_On_Off(name, value) {
                 player_1_dynamics_gateNode_Bypass.connect(player_1_dynamics_limiterNode_Bypass);
                 player_1_dynamics_limiterNode.disconnect(player_1_volNode);
                 player_1_dynamics_limiterNode_Bypass.connect(player_1_volNode);
-              //  alert("BP / ON EN EL     player_x_dynamics_On_Off");
+                //  alert("BP / ON EN EL     player_x_dynamics_On_Off");
               }
 
               switchState("player_1_limiter_On_Off_Button");
@@ -5104,11 +5222,13 @@ function hide_all_EQ_divs(value) {
   switch (value) {
     case "1":
       {
-        player_1_allpass_controls_div.style.display = "none";
-        player_1_shelf_controls_div.style.display = "none";
-        player_1_peaking_controls_div.style.display = "none";
         player_1_tascam_424_controls_div.style.display = "none";
+        player_1_peaking_controls_div.style.display = "none";
+        player_1_allpass_controls_div.style.display = "none";
         player_1_eq3_controls_div.style.display = "none";
+        player_1_shelf_controls_div.style.display = "none";
+        player_1_empty_controls_div.style.display = "none";
+        player_1_bypass_controls_div.style.display = "none";
         break;
       }
 
@@ -5180,7 +5300,7 @@ function dispos3() {
   fmSynth.connect(fx_1_feedback_Node);
   Tone.Transport.start();
   */
-  muestraP1CompState();
+
 }
 
 function changes_an_FX_Node(channel, effecttype) {
@@ -6500,13 +6620,21 @@ function switchState(name) {
           player_1_filter_eq_selection = "bypass";
           player_1_filter_eq_On_Button.style.backgroundColor = "white";
           player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
+          player_1_filter_eq_On_EQ3_Button.style.backgroundColor = "white";
           //   alert("SwitchState se pone en : bypass");
         }
         else if (player_1_filter_eq_selection == "bypass") {
           player_1_filter_eq_selection = "on";
           player_1_filter_eq_On_Button.style.backgroundColor = "green";
           player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
+          player_1_filter_eq_On_EQ3_Button.style.backgroundColor = "white";
           // alert("SwitchState se pone en : on");
+        }
+        else if (player_1_filter_eq_selection == "eq3") {
+          player_1_filter_eq_On_EQ3_Button.style.backgroundColor = "green";
+          player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
+          player_1_filter_eq_On_Button.style.backgroundColor = "white";
+          // alert("SwitchState se pone en : eq3");
         }
         break;
       }
@@ -6532,17 +6660,17 @@ function switchState(name) {
           player_1_gate_On_Off_Button_State = "off";
           player_1_gate_On_Off_Button.innerText = "Off";
           player_1_gate_On_Off_Button.style.backgroundColor = "white";
-         // alert("GATE white: " + name); 
+          // alert("GATE white: " + name); 
         }
         else if (player_1_gate_On_Off_Button_State == "off") {
           player_1_gate_On_Off_Button_State = "on";
           player_1_gate_On_Off_Button.innerText = "On"
           player_1_gate_On_Off_Button.style.backgroundColor = "green";
-         // alert("GATE green: " + name);
+          // alert("GATE green: " + name);
         }
         break;
       }
-    case "player_1_limiter_On_Off_Button":5
+    case "player_1_limiter_On_Off_Button": 5
       {
         if (player_1_limiter_On_Off_Button_State == "on") {
           player_1_limiter_On_Off_Button_State = "off";
@@ -6560,6 +6688,119 @@ function switchState(name) {
       }
     default: { break; }
   }
+}
+
+function switchState2(name, value) {
+  // alert("value: " + value);
+  console.log("value: " + value);
+  // alert("name: " + name);
+  switch (name) {
+    case "player_1_filter_eq_selection":
+      {
+        switch (player_1_filter_eq_selection) {
+          case "bypass": {
+            if (value == "on") {
+              player_1_filter_eq_selection = "on";
+              player_1_filter_eq_On_Button.style.backgroundColor = "green";
+              player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
+              //alert("SwitchState 2222 se pone en : bypass + on");
+            }
+            else if (value == "eq3") {
+              player_1_filter_eq_selection = "eq3";
+              player_1_filter_eq_On_EQ3_Button.style.backgroundColor = "green";
+              player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
+              //alert("SwitchState 2222 se pone en :bypass -  eq3");
+            }
+            else if (value == "tascam") {
+              player_1_filter_eq_selection = "tascam";
+              player_1_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
+              player_1_filter_eq_bypass_Button.style.backgroundColor = "white";
+              // alert("SwitchState 2222 se pone en : bypass -  tascam");
+            }
+            break;
+          }
+          case "on": {
+
+            if (value == "bypass") {
+              player_1_filter_eq_selection = "bypass";
+              player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
+              player_1_filter_eq_On_Button.style.backgroundColor = "white";
+              // alert("SwitchState 2222 se pone en : on   -  bypass");
+            }
+            else if (value == "eq3") {
+              player_1_filter_eq_selection = "eq3";
+              player_1_filter_eq_On_EQ3_Button.style.backgroundColor = "green";
+              player_1_filter_eq_On_Button.style.backgroundColor = "white";
+              // alert("SwitchState 2222 se pone en :on  -- eq3   ");
+            }
+            else if (value == "tascam") {
+              player_1_filter_eq_selection = "tascam";
+              player_1_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
+              player_1_filter_eq_On_Button.style.backgroundColor = "white";
+              // alert("SwitchState 2222 se pone en : on  --  tascam");
+            }
+
+            break;
+          }
+          case "eq3": {
+
+            if (value == "bypass") {
+              player_1_filter_eq_selection = "bypass";
+              player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
+              player_1_filter_eq_On_EQ3_Button.style.backgroundColor = "white";
+              // alert("SwitchState 2222 se pone en :eq3 + bypass");
+            }
+            else if (value == "on") {
+              player_1_filter_eq_selection = "on";
+              player_1_filter_eq_On_Button.style.backgroundColor = "green";
+              player_1_filter_eq_On_EQ3_Button.style.backgroundColor = "white";
+              // alert("SwitchState 2222 se pone en : eq3 +  on");
+            }
+            else if (value == "tascam") {
+              player_1_filter_eq_selection = "tascam";
+              player_1_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
+              player_1_filter_eq_On_EQ3_Button.style.backgroundColor = "white";
+              // alert("SwitchState 2222 se pone en :eq3 + tascam");
+            }
+            break;
+          }
+          case "tascam": {
+            if (value == "bypass") {
+              player_1_filter_eq_selection = "bypass";
+              player_1_filter_eq_bypass_Button.style.backgroundColor = "green";
+              player_1_filter_eq_On_Tascam_Button.style.backgroundColor = "white";
+              // alert("SwitchState 2222 se pone en :Tascam + bypass");
+            }
+            else if (value == "on") {
+              player_1_filter_eq_selection = "on";
+              player_1_filter_eq_On_Button.style.backgroundColor = "green";
+              player_1_filter_eq_On_Tascam_Button.style.backgroundColor = "white";
+              //alert("SwitchState 2222 se pone en : Tascam +  on");
+            }
+            else if (value == "eq3") {
+              player_1_filter_eq_selection = "eq3";
+              player_1_filter_eq_On_EQ3_Button.style.backgroundColor = "green";
+              player_1_filter_eq_On_Tascam_Button.style.backgroundColor = "white";
+              // alert("SwitchState 2222 se pone en :tascam + EQ3");
+            }
+            break;
+          }
+          default: { break; }
+        }
+      }
+
+    default: { break; }
+  }
+}
+
+function allDivsAreNone() {
+  player_1_tascam_424_controls_div.style.display = "none";
+  player_1_peaking_controls_div.style.display = "none";
+  player_1_allpass_controls_div.style.display = "none";
+  player_1_eq3_controls_div.style.display = "none";
+  player_1_shelf_controls_div.style.display = "none";
+  player_1_empty_controls_div.style.display = "none";
+  player_1_bypass_controls_div.style.display = "none";
 }
 
 
@@ -6698,10 +6939,4 @@ function removeElement(tagName) {
   }
 
   elementToRemove.remove(elementToRemove);
-}
-
-function muestraP1CompState() {
-  alert("compressor On/Off State:  " + player_1_compressor_On_Off_Button_State);
-
-
 }

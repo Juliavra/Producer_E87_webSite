@@ -114,7 +114,7 @@
       Sacado de: https://github.com/drnoir/soundTrigger/blob/main/record.js
       <!-- https://github.com/drnoir/soundTrigger/blob/main/record.js -->
       <section class="container">
-        
+
         <h3>Record</h3>
         <button id="start-record">(X)Start Recording</button>
         <button id="stop-record">(X)Stop Recording</button>
@@ -273,28 +273,28 @@
   <!--PLAYER 1 -->
   <div class="column">
     <h2>1</h2>
-     RMS_player_1 <p id="player_1_rms_value"> </p>
+    RMS_player_1 <p id="player_1_rms_value"> </p>
     <br>
     <div>
-    
-    filter_BP <p id="testMeter_1_player_1_filter_Bypass_VALUE"> </p>
-  
-    filter <p id="testMeter_1_player_1_filter_VALUE"> </p>
-    <br>
-    comp_BP <p id="testMeter_1_player_1_rms_comp_Bypass_value"> </p>
-   
-    comp <p id="testMeter_1_player_1_rms_comp_value"> </p>
-    <br>
-    gate_BP <p id="testMeter_1_player_1_rms_gate_Bypass_value"> </p>
-   
-    gate <p id="testMeter_1_player_1_rms_gate_value"> </p>
-    <br>
-    limiter_BP <p id="testMeter_1_player_1_rms_limiter_Bypass_value"> </p>
-    
-    limiter <p id="testMeter_1_player_1_rms_limiter_value"> </p>
-    <br>
-    RMS_after_volume_value <p id="player_1_rms_after_volume_value"> </p>
-  </div>
+
+      filter_BP <p id="testMeter_1_player_1_filter_Bypass_VALUE"> </p>
+
+      filter <p id="testMeter_1_player_1_filter_VALUE"> </p>
+      <br>
+      comp_BP <p id="testMeter_1_player_1_rms_comp_Bypass_value"> </p>
+
+      comp <p id="testMeter_1_player_1_rms_comp_value"> </p>
+      <br>
+      gate_BP <p id="testMeter_1_player_1_rms_gate_Bypass_value"> </p>
+
+      gate <p id="testMeter_1_player_1_rms_gate_value"> </p>
+      <br>
+      limiter_BP <p id="testMeter_1_player_1_rms_limiter_Bypass_value"> </p>
+
+      limiter <p id="testMeter_1_player_1_rms_limiter_value"> </p>
+      <br>
+      RMS_after_volume_value <p id="player_1_rms_after_volume_value"> </p>
+    </div>
     <p id="player_1_songName"> </p>
     <p id="player_1_duration_text"> </p>
     <p id="player_1_duration_value"> </p>
@@ -378,10 +378,11 @@
       <br>
       <label for="player_1_filter_1_select" name="player_1_filter_1_select"> </label>
       <button id="player_1_filter_eq_bypass_Button" value="bypass"
-        onclick="player_1_filter_eq_selection_bypass_on(value)">Bypass </button>
-      <button id="player_1_filter_eq_On_Button" value="on" onclick="player_1_filter_eq_selection_bypass_on(value)">On
+        onclick="player_1_filter_eq_selection_bypass_on(value)">Bypass 
       </button>
-
+      <button id="player_1_filter_eq_On_Button" value="on"
+        onclick="player_1_filter_eq_selection_bypass_on(value)">EQ1
+      </button>
       <select name="filter_1" id="player_1_filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
         <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
@@ -392,11 +393,36 @@
         <option name="notch" id="notch" value="notch">notch</option>
         <option name="allpass" id="allpass" value="allpass">allpass</option>
         <option name="peaking" id="peaking" value="peaking">peaking</option>
+        <!--
         <option name="eq3" id="eq3" value="eq3">EQ3</option>
         <option name="tascam" id="tascam" value="tascam">Tascam</option>
-
+--> 
       </select>
-      <br>
+      <button id="player_1_filter_eq_On_EQ3_Button" value="eq3"
+        onclick="player_1_filter_eq_selection_bypass_on(value)">EQ3
+      </button>
+      <br> <br>
+      <button id="player_1_filter_eq_On_Tascam_Button" value="tascam"
+        onclick="player_1_filter_eq_selection_bypass_on(value)">Tascam
+      </button>
+      <div id="player_1_empty_controls_div">
+        <br>
+        <fieldset>
+          <br>
+         EMPTY SLOT
+          <br><br>
+        </fieldset>
+        <br>
+      </div>
+      <div id="player_1_bypass_controls_div">
+        <br>
+        <fieldset>
+          <br>
+          EQ BY PASSED
+          <br><br>
+        </fieldset>
+        <br>
+      </div>
       <div id="player_1_allpass_controls_div">
         <br>
         <fieldset>
@@ -1222,9 +1248,9 @@
       <p id="player_4_fxSend_3_text"> </p>
       <p id="player_4_fxSend_4_text"> </p>
     </div>
-  </div> 
- 
- <!-- FX 1-->
+  </div>
+
+  <!-- FX 1-->
   <div class="column">
     <h2>FX 1</h2>
     rms: <p id="fx_1_rms_value"> </p>
@@ -2033,8 +2059,8 @@
       </fieldset>
     </div>
   </div>
-<!-- FX 2-->
-  <div class="column"> 
+  <!-- FX 2-->
+  <div class="column">
     <h2>FX 2</h2>
     rms: <p id="fx_2_rms_value"> </p>
     <div>
@@ -2071,8 +2097,8 @@
       <p id="fx_2_fxSend_4_text"> </p>
     </div>
 
-  </div> 
-<!-- FX 3-->
+  </div>
+  <!-- FX 3-->
   <div class="column">
     <h2>FX 3</h2>
     rms: <p id="fx_3_rms_value"> </p>
@@ -2109,11 +2135,11 @@
       <p id="fx_3_fxSend_4_text"> </p>
     </div>
   </div>
-<!-- FX 4-->
+  <!-- FX 4-->
   <div class="column">
     <h2>FX 4</h2>
     rms: <p id="fx_1_rms_value"> </p>
-    <br>     <br>
+    <br> <br>
     <p id="fx_4_volume_text"> </p>
     Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx_4_volume'>
     <p id="fx_4_volume_value"></p>
@@ -2162,8 +2188,8 @@
     </div>
 
   </div>
- 
-  
+
+
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
