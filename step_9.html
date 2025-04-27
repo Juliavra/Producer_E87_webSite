@@ -123,9 +123,20 @@
           <audio id="audio-playback" controls></audio>
         </div>
         <br>
+        Master Volume: 
+        <p id="master_volume_text">Vol</p>
+        <input type='range' min=-41 max=12 step='1' value="-40" id='master_volume'>
+        <p id="master_volume_value"> </p>
+        <input id="master_volume_rampTo_gain" type="number" min="-50" max="12" style="width: 35px;" />
+        time: <input id="master_volume_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="master_volume_rampTo_send_Button" value="master_volume"
+          onclick="send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time)">go </button>
+        <br>
+
+
         <button id="consoleClear" onclick="consoleClear()"> consoleClear </button>
-        <button id="dispos3" onclick="dispos3()"> dispos3 </button>
-        <button id="creates_an_FX_Node" onclick="creates_an_FX_Node()"> disposed </button>
+        <button id="Sinte" onclick="Sinte()"> Sinte </button>
+        <button id="CustomizedButton" onclick="CustomizedButton()"> Boton a customizar</button>
 
       </section>
     </fieldset>
