@@ -5161,10 +5161,27 @@ function playsTestSynth() {
   //To replace an element to the HTML DOM, use the replaceChild() method:
 }
 
-function CustomizedButton() {
-  alert("CustomizedButton");
-}
 
+/*
+function CustomizedButton() {
+  if ('showOpenFilePicker' in self){
+    alert("File msystem API Supported");
+    let fileHandle;
+
+    const file = await fileHandle.getFile();
+    const contents = await file.text();
+
+    butOpenFile.addEventListener('click', async()=>{
+      //destructure the one element array
+      [fileHandle] = await window.showOpenFilePicker();
+      //do something with the file handle
+    });
+  }
+  
+  //window.showDirectoryFilePicker();
+
+}
+*/
 function Sinte() {
 
   fmSynth.triggerAttackRelease("C3", "4n");
