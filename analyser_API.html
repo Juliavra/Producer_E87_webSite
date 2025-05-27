@@ -7,44 +7,90 @@
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File API Test</title>
+    <title>analyser API Test</title>
 
 </head>
 
 <body>
 
-    <h1>file_API.js</h1>
+    <h1>analyser A.js</h1>
 
-    <button id="loadButton" onclick="loadSong()">Load</button>
-    <button id="otroButton" onclick="asyncSong()">otro</button>
+    <button id="loadButton" onclick="load()">Load</button>
+    <!--   <button id="otroButton" onclick="asyncSong()">otro</button>
 
-<br><br>
-<audio src="https://juliavra.github.io/Producer_E87_webSite/audio/01_Dark_Ringy_Short_Loop.mp3" controls controlslist="nodownload" onplay="visualize()"></audio>
-<div>
-    Fast Fourier Transform Size (density): <input type="range" min="5" max="15" value="10" oninput="changeFFTSize(value)">
-</div>
-<div>
-    Min Decibels (bar variation): <input type="range" min="-200" max="200" value="-100" oninput="changeMinDecibels(value)">
-</div>
-<div>
-    Max Decibels (bar height): <input type="range" min="-200" max="200" value="-30" oninput="changeMaxDecibels(value)">
-</div>
-<div>
-    Smoothing Time Constant (bar jitter): <input type="range" min="0" max="100" value="80" oninput="changeSmoothingTimeConstant(value)">
-</div>
-<canvas id="waveform" width="700" height="150"></canvas>
-<canvas id="frequencies" width="700" height="150"></canvas>
+https://juliavra.github.io/Producer_E87_webSite/audio/03_Phased_Sleppy_Noise_Loop.mp3
+   
+
+
+    <br><br>
+    <audio src="https://juliavra.github.io/Producer_E87_webSite/audio/92_Sub_Space_Tribal_Loop.mp3 " controls controlslist="nodownload" 
+    onplay="visualize()" crossOrigin="anonymous"></audio>
+ -->
+    <div>
+        Fast Fourier Transform Size (density): <input type="range" min="5" max="15" value="10"
+            oninput="changeFFTSize(value)">
+    </div>
+    <div>
+        Min Decibels (bar variation): <input type="range" min="-200" max="200" value="-100"
+            oninput="changeMinDecibels(value)">
+    </div>
+    <div>
+        Max Decibels (bar height): <input type="range" min="-200" max="200" value="-30"
+            oninput="changeMaxDecibels(value)">
+    </div>
+    <div>
+        Smoothing Time Constant (bar jitter): <input type="range" min="0" max="100" value="80"
+            oninput="changeSmoothingTimeConstant(value)">
+    </div>
+    <canvas id="waveform" width="700" height="150"></canvas>
+    <canvas id="frequencies" width="700" height="150"></canvas>
+
+
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
+        integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="js/file_API2.js"></script>
+
+   
+    <script src="https://unpkg.com/tone"></script>
+    -->
+
+</body>
+
+<script src="js/analyser_API.js"></script>
+
+<!--
 <script>
     const context = new AudioContext();
-    let mediaElementAudioSourceNode;
-    // create a new media source node using the <audio> element
-    const audioNode = document.querySelector('audio');
-    mediaElementAudioSourceNode = context.createMediaElementSource(audioNode);
-    // create an analyser node
+
+    const [fileHandle] = await window.showOpenFilePicker({
+    multiple: false,
+    types: [
+      {
+        description: 'Audio files',
+        accept: {
+          'audio/*': ['.wav', '.ogg', '.mp3', '.mp4', '.aac', '.flac', '.webm'],
+        }
+      },
+    ],
+    excludeAcceptAllOption: true,
+  });
+  // Do something with the file handle.
+  const file = await fileHandle.getFile();
+  const arrayBuffer = await file.arrayBuffer();
+  const decodedBuffer = await context.decodeAudioData(arrayBuffer);
+  // Create source node
+  const source = context.createBufferSource();
+  source.buffer = decodedBuffer; alert("")
+  
+  source.start();
+
     const analyserNode = context.createAnalyser();
     analyserNode.minDecibels = -150;
     // connect the media source to the analyser
-    mediaElementAudioSourceNode.connect(analyserNode);
+    source.connect(analyserNode);
     // connect the analyser to the destination
     analyserNode.connect(context.destination);
     let bufferLength = analyserNode.frequencyBinCount;
@@ -58,7 +104,7 @@
     const fCanvasContext = frequenciesCanvas.getContext('2d');
     const visualize = () => {
         // only animate while playing (reduces CPU load)
-        if(!audioNode.paused) requestAnimationFrame(visualize);
+        if (!audioNode.paused) requestAnimationFrame(visualize);
         // time domain visualization
         analyserNode.getByteTimeDomainData(waveformArray);
         wfCanvasContext.clearRect(0, 0, WIDTH, HEIGHT);
@@ -67,17 +113,17 @@
         wfCanvasContext.beginPath();
         const sliceWidth = WIDTH * 1.0 / bufferLength;
         let x = 0;
-        for(let i = 0; i < bufferLength; i++) {
+        for (let i = 0; i < bufferLength; i++) {
             const v = waveformArray[i] / 128.0;
             const y = v * HEIGHT / 2;
-            if(i === 0) {
+            if (i === 0) {
                 wfCanvasContext.moveTo(x, y);
             } else {
                 wfCanvasContext.lineTo(x, y);
             }
             x += sliceWidth;
         }
-        wfCanvasContext.lineTo(waveformCanvas.width, waveformCanvas.height/2);
+        wfCanvasContext.lineTo(waveformCanvas.width, waveformCanvas.height / 2);
         wfCanvasContext.stroke();
         // frequencies visualization
         analyserNode.getByteFrequencyData(frequenciesArray);
@@ -85,7 +131,7 @@
         const barWidth = (WIDTH / bufferLength) * 2.5;
         let barHeight;
         let x2 = 0;
-        for(let i = 0; i < bufferLength; i++) {
+        for (let i = 0; i < bufferLength; i++) {
             barHeight = frequenciesArray[i] / 2;
             fCanvasContext.fillStyle = `rgb(${Math.min(barHeight + 150, 255)}, ${Math.min(barHeight + 150, 255)}, ${Math.min(barHeight + 150, 255)})`;
             fCanvasContext.fillRect(x2, HEIGHT - barHeight, barWidth, barHeight);
@@ -100,29 +146,14 @@
         frequenciesArray = new Uint8Array(bufferLength);
     }
     const changeMinDecibels = (minDecibels) => {
-        if(minDecibels < analyserNode.maxDecibels) analyserNode.minDecibels = minDecibels;
+        if (minDecibels < analyserNode.maxDecibels) analyserNode.minDecibels = minDecibels;
     }
     const changeMaxDecibels = (maxDecibels) => {
-        if(maxDecibels > analyserNode.minDecibels) analyserNode.maxDecibels = maxDecibels;
+        if (maxDecibels > analyserNode.minDecibels) analyserNode.maxDecibels = maxDecibels;
     }
     const changeSmoothingTimeConstant = (smoothingTimeConstant) => {
         analyserNode.smoothingTimeConstant = smoothingTimeConstant / 100;
     }
 </script>
-
-    <br><br>
-
- <!--
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
-        integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script src="js/file_API2.js"></script>
-
-   
-    <script src="https://unpkg.com/tone"></script>
-    -->
-
-</body>
-
+-->
 </html>

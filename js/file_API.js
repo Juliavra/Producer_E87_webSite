@@ -20,7 +20,8 @@ window.addEventListener('click', () => {
 //analyserNode.maxDecibels = -30;
 //analyserNode.smoothingTimeConstant = 0.5;
 
-//------------------------------------ const context = new AudioContext();
+//------------------------------------
+//  const context = new AudioContext();
 let mediaElementAudioSourceNode;
 // create a new media source node using the <audio> element
 const audioNode = document.querySelector('audio');
@@ -32,7 +33,6 @@ analyserNode.minDecibels = -150;
 mediaElementAudioSourceNode.connect(analyserNode);
 // connect the analyser to the destination
 analyserNode.connect(ctx.destination);
-
 let bufferLength = analyserNode.frequencyBinCount;
 const WIDTH = 70;
 const HEIGHT = 15;
@@ -117,20 +117,44 @@ async function asyncSong() {
 	const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
 	// Create source node
 	const source = ctx.createBufferSource();
-	source.buffer = decodedBuffer; alert("")
+	source.buffer = decodedBuffer; 
+	//source.connect(ctx.destination);
+	source.connect(analyserNode);
+	source.start();
+}
+/**/
 
-	//file:///C:/Users/Juli/Downloads/TONEJS/BufferSource.html REVISAR ESTO
-	//var buffer = new Tone.Buffer();
-	//buffer.fromArray(arrayBuffer);
-	//player_1.buffer = decodedBuffer;
-	//let result = player_1.loaded;
-	//console.log ("result: " + result);
+/*
+async function asyncSong() {
+	console.log("ASYNC SONG");
+	//Taken from https://gist.github.com/Anoesj/7d560cfb51223dfb7120827fe9f153c6
+	const [fileHandle] = await window.showOpenFilePicker({
+		multiple: false,
+		types: [
+			{
+				description: 'Audio files',
+				accept: {
+					'audio/*': ['.wav', '.ogg', '.mp3', '.mp4', '.aac', '.flac', '.webm'],
+				}
+			},
+		],
+		excludeAcceptAllOption: true,
+	});
+	// Do something with the file handle.
+	const file = await fileHandle.getFile();
+	const arrayBuffer = await file.arrayBuffer();
+	const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
+	// Create source node
+	const source = ctx.createBufferSource();
+	source.buffer = decodedBuffer; 
 	source.connect(ctx.destination);
 	source.start();
 }
 /**/
 
-/**/
+
+
+/*
 async function directoryHandle() {
 	const dirHandle = await window.showDirectoryPicker();
 	for await (const entry of dirHandle.values()) {
