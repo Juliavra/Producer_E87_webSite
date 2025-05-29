@@ -486,7 +486,6 @@ audio.addEventListener("timeupdate", function () {
   actual_Position_text_1.innerHTML = Math.round(`${audio.currentTime}`);
 });
 
-
 ruta_archivo.addEventListener("change", function(e) {
  // console.log("se cargo cancion abajo");
  var target = e.currentTarget;
@@ -510,10 +509,6 @@ console.log("atributo: " + atributo);
         reader.readAsDataURL(file);
     }
 });
-
-
-
-
 
 play_Rate_1_text.innerHTML = "PLAYRATE";
 volume_1_text.innerHTML = "VOLUME";
@@ -1157,9 +1152,9 @@ window.addEventListener("load", muestra_array_Canciones);
 
 //---------------------------------------------------------
 function muestraLista() {
-  // console.log(`LISTA: ` + `${lista}`);
-  playlist.innerHTML = (`${lista}`);
+playlist.innerHTML = (`${lista}`);
 }
+
 function muestra_array_Canciones() {
   var source;
   array_song_div = []; array_audio_toAppend = [];

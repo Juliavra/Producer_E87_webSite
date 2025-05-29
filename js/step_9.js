@@ -718,7 +718,6 @@ array_Canciones.push(cancion_107);
 
 const soundClips_1 = document.querySelector(".sound-clips_1");
 
-
 //*************************************************************************************
 //*************************************************************************************
 //********     PLAYER 1 SONG DATA   **************************************************************
@@ -728,13 +727,12 @@ const player_1_songName = document.getElementById("player_1_songName");
 const player_1_duration_value = document.getElementById("player_1_duration_value");
 const player_1_duration_text = document.getElementById("player_1_duration_text");
 
-
 //*************************************************************************************
 //*************************************************************************************
 //********     PLAYER 1 PLAYER CONTROLS   **************************************************************
 //*************************************************************************************
 //*************************************************************************************
-
+//PLAYER 1
 
 const player_1_loadButton = document.getElementById("player_1_loadButton");
 var player_1_load_text = document.getElementById("player_1_load_text");
@@ -755,6 +753,7 @@ player_1_volume.addEventListener("change", function (e) {
     player_1_volNode.volume.value = e.currentTarget.value;
     console.log("player_1_volNode: " + e.currentTarget.value);
     player_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListanewValue(Tone.now(), "player_1_volume", e.currentTarget.value);
   }
 });
 
@@ -848,6 +847,17 @@ player_1_fadeOut.addEventListener("change", function (e) {
     //alert("errororororor player_1_Node.fadeOut");
   }
 });
+
+const player_1_loop_options_div = document.getElementById("player_1_loop_options_div");
+player_1_loop_options_div.style.display = "none";
+
+//IF LOOP=TRUE; LOOP_OPTIONS_DIV = BLOCK -- FADE_DIV = NONE
+//ELSE LOOP=FALSE; LOOP_OPTIONS_DIV = NONE -- FADE_DIV = BLOCK 
+const player_1_fade_options_div = document.getElementById("player_1_fade_options_div");
+player_1_fade_options_div.style.display = "none";
+
+const player_1_div = document.getElementById("player_1_div");
+player_1_div.style.display = "none";
 
 //*************************************************************************************
 //*************************************************************************************
@@ -3365,8 +3375,7 @@ const polySynth_1_div = document.getElementById("polySynth_1_div");
 
 //--------------------------------------------
 //--------------------------------------------
-//tONE.sYNTH +AMPLITUDEENV
-
+//tONE.sYNTH 
 const Synth_w_AmpEnv_1 = new Tone.Synth(
   {
     oscillator: {
@@ -3379,9 +3388,7 @@ const Synth_w_AmpEnv_1 = new Tone.Synth(
       release: 1
     }
   });
-
-
-
+Synth_w_AmpEnv_1.toDestination();
 const Synth_w_AmpEnv_1_volume = document.getElementById("Synth_w_AmpEnv_1_volume");
 const Synth_w_AmpEnv_1_volume_value = document.getElementById("Synth_w_AmpEnv_1_volume_value");
 Synth_w_AmpEnv_1_volume.addEventListener("change", function (e) {
@@ -3413,32 +3420,303 @@ Synth_w_AmpEnv_1_portamento.addEventListener("change", function (e) {
   Synth_w_AmpEnv_1_portamento_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
-//GGGG
+const Synth_w_AmpEnv_1_envelope_attack_text = document.getElementById("Synth_w_AmpEnv_1_envelope_attack_text");
+const Synth_w_AmpEnv_1_envelope_attack = document.getElementById("Synth_w_AmpEnv_1_envelope_attack");
+const Synth_w_AmpEnv_1_envelope_attack_value = document.getElementById("Synth_w_AmpEnv_1_envelope_attack_value");
+Synth_w_AmpEnv_1_envelope_attack.addEventListener("change", function (e) {
+  Synth_w_AmpEnv_1.envelope.attack = e.currentTarget.value;
+  console.log("Synth_w_AmpEnv_1.envelope.attack.value: " + e.currentTarget.value);
+  Synth_w_AmpEnv_1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
+});
 
+const Synth_w_AmpEnv_1_envelope_decay_text = document.getElementById("Synth_w_AmpEnv_1_envelope_decay_text");
+const Synth_w_AmpEnv_1_envelope_decay = document.getElementById("Synth_w_AmpEnv_1_envelope_decay");
+const Synth_w_AmpEnv_1_envelope_decay_value = document.getElementById("Synth_w_AmpEnv_1_envelope_decay_value");
+Synth_w_AmpEnv_1_envelope_decay.addEventListener("change", function (e) {
+  Synth_w_AmpEnv_1.envelope.decay = e.currentTarget.value;
+  console.log("Synth_w_AmpEnv_1.envelope.decay.value: " + e.currentTarget.value);
+  Synth_w_AmpEnv_1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
+});
+
+const Synth_w_AmpEnv_1_envelope_sustain_text = document.getElementById("Synth_w_AmpEnv_1_envelope_sustain_text");
+const Synth_w_AmpEnv_1_envelope_sustain = document.getElementById("Synth_w_AmpEnv_1_envelope_sustain");
+const Synth_w_AmpEnv_1_envelope_sustain_value = document.getElementById("Synth_w_AmpEnv_1_envelope_sustain_value");
+Synth_w_AmpEnv_1_envelope_sustain.addEventListener("change", function (e) {
+  Synth_w_AmpEnv_1.envelope.sustain = e.currentTarget.value;
+  console.log("Synth_w_AmpEnv_1.envelope.sustain.value: " + e.currentTarget.value);
+  Synth_w_AmpEnv_1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
+});
+
+const Synth_w_AmpEnv_1_envelope_release_text = document.getElementById("Synth_w_AmpEnv_1_envelope_release_text");
+const Synth_w_AmpEnv_1_envelope_release = document.getElementById("Synth_w_AmpEnv_1_envelope_release");
+const Synth_w_AmpEnv_1_envelope_release_value = document.getElementById("Synth_w_AmpEnv_1_envelope_release_value");
+Synth_w_AmpEnv_1_envelope_release.addEventListener("change", function (e) {
+  Synth_w_AmpEnv_1.envelope.release = e.currentTarget.value;
+  console.log("Synth_w_AmpEnv_1.envelope.release.value: " + e.currentTarget.value);
+  Synth_w_AmpEnv_1_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
+});
 
 const Synth_w_AmpEnv_1_div = document.getElementById("Synth_w_AmpEnv_1_div");
-//Synth_w_AmpEnv_1_div.style.display = "none";
+Synth_w_AmpEnv_1_div.style.display = "none";
+
+
 //-----------------------------------------------------
 //-------------        TO TEST        ---------------------------
 //-----------------------------------------------------
-//Tone.Follower
-//Tone.FrequencyEnvelope
-//Tone.LowpassCombFilter
-// Tone.MidSideCompressor
-//Tone.MidSideSplit
+//Tone.Convolver: Tone.Convolver is a wrapper around 
+// the Native Web Audio ConvolverNode. 
+// Convolution is useful for reverb and filter emulation. 
+// Read more about convolution reverb on Wikipedia.
+//https://en.wikipedia.org/wiki/Convolution_reverb
+
+
+//Tone.Follower is a crude envelope follower 
+// which will follow the amplitude of an incoming signal.
+// Read more about envelope followers 
+// (also known as envelope detectors) on Wikipedia.
+
+//Tone.FrequencyEnvelope is a Tone.ScaledEnvelope, 
+// but instead of min and max it’s got a baseFrequency 
+// and octaves parameter.
+
+//Tone.Lowpass is a lowpass feedback comb filter.
+//  It is similar to Tone.FeedbackCombFilter,
+//  but includes a lowpass filter.
+
+//Tone.FeedbackCombFilter Comb filters are basic building blocks
+//  for physical modeling. 
+// Read more about comb filters on CCRMA’s website.
+//https://ccrma.stanford.edu/~jos/pasp/Feedback_Comb_Filters.html
+
+// Tone.MidSideCompressor applies two different compressors
+//  to the mid and side signal components. 
+// See Tone.MidSideSplit.
+
+//Tone.MidSideSplit: Mid/Side processing separates the ‘mid’ signal 
+// (which comes out of both the left and the right channel) 
+// and the ‘side’ (which only comes out of the the side channels).
+//Mid = (Left+Right)/sqrt(2); // obtain mid-signal from left and right
+//Side = (Left-Right)/sqrt(2); // obtain side-signal from left and righ
 //Tone.MidSideMerge
-//Tone.MultibandCompressor
-//Tone.MultibandSplit
+//http://www.kvraudio.com/forum/viewtopic.php?t=212587
+
+//Tone.MultibandCompressor: A compressor with seperate controls
+//  over low/mid/high dynamics
+
+//Tone.MultibandSplit: Split the incoming signal into
+//three bands (low, mid, high) with two crossover frequency
+//controls.
+
+//Tone.ScaledEnvelope is an envelope which can be scaled
+//to any range. It’s useful for applying an envelope to
+//a frequency or any other non-NormalRange signal parameter.
+
+//Tone.Solo lets you isolate a specific audio stream. 
+// When an instance is set to solo=true,
+// it will mute all other instances.
+
+//Tone.Split splits an incoming signal into left 
+// and right channels.
+
+//Tone.Waveform: Get the current waveform data 
+// of the connected audio source.
+
+//Tone.TickSource: Uses Tone.TickSignal to track elapsed ticks
+//  with complex automation curves.
+
+
+//Tone.TickSignal: extends Tone.Signal,
+//but adds the capability to calculate the number 
+//of elapsed ticks. exponential and target curves 
+//are approximated with multiple linear ramps. 
+// WAC paper describing integrating timing functions for tempo calculations.
+//https://smartech.gatech.edu/bitstream/handle/1853/54588/WAC2016-49.pdf
+
+
+//***************************************************************
+//***************************************************************
+//***************************************************************
+//***************************************************************
 //Tone.Panner3D
-//Tone.Listener
-//Tone.ScaledEnvelope
-//Tone.Solo
-//Tone.Split
-//Tone.Waveform
-//Tone.Noise
-//Tone.TickSource
+//Tone.Listener: Both Tone.Panner3D and Tone.Listener 
+// have a position in 3D space using a right-handed cartesian 
+// coordinate system. The units used in the coordinate system 
+// are not defined; these coordinates are independent/invariant 
+// of any particular units such as meters or feet. 
+// Tone.Panner3D objects have an forward vector 
+// representing the direction the sound is projecting.
+//  Additionally, they have a sound cone representing 
+// how directional the sound is. 
+// For example, the sound could be omnidirectional, 
+// in which case it would be heard anywhere regardless 
+// of its forward, or it can be more directional and heard 
+// only if it is facing the listener. 
+// Tone.Listener objects (representing a person’s ears) 
+// have an forward and up vector representing 
+// in which direction the person is facing. 
+// Because both the source stream and the listener can be moving,
+//  they both have a velocity vector representing both 
+// the speed and direction of movement. 
+// Taken together, these two velocities can be used 
+// to generate a doppler shift effect which changes the pitch.
+//
+//Note: the position of the Listener will have no effect 
+// on nodes not connected to a Tone.Panner3D.
+/*
+{
+positionX : 0 ,
+positionY : 0 ,
+positionZ : 0 ,
+orientationX : 0 ,
+orientationY : 0 ,
+orientationZ : 0 ,
+panningModel : equalpower ,
+maxDistance : 10000 ,
+distanceModel : inverse ,
+coneOuterGain : 0 ,
+coneOuterAngle : 360 ,
+coneInnerAngle : 360 ,
+refDistance : 1 ,
+rolloffFactor : 1
+}
+*/
+
+
+//***************************************************************
+//***************************************************************
+//***************************************************************
+//***************************************************************
+//Tone.Timeline: A Timeline class for scheduling and 
+// maintaining state along a timeline. 
+// All events must have a “time” property. 
+// Internally, events are stored in time order 
+// for fast retrieval.
+
+//Tone.Transport: Transport for timing musical events.
+//Supports tempo curves and time changes. 
+// Unlike browser-based timing 
+// (setInterval, requestAnimationFrame) 
+// Tone.Transport timing events pass in the exact time 
+// of the scheduled event in the argument of the callback function.
+// Pass that time value to the object you’re scheduling.
+
+//A single transport is created for you when the library 
+// is initialized.
+
+//The transport emits the events: “start”, “stop”, “pause”, and
+//“loop” which are called with the time of that event 
+// as the argument.
+
+//Tone.TransportTime: is a the time along the Transport’s timeline.
+// It is similar to Tone.Time, but instead of evaluating against
+//  the AudioContext’s clock, it is evaluated against 
+// the Transport’s position.
+//https://github.com/Tonejs/Tone.js/wiki/TransportTime
+
+//Tone.Event abstracts away Tone.Transport.schedule and provides
+// a schedulable callback for a single or repeatable events
+// along the timeline.
+//IMPÓRTANTE!!!!!!!!!!!!
+
+//--------------------------------------------------------------------
+//Tone.StereoXFeedbackEffect: Just like a stereo feedback effect,
+// but the feedback is routed from left to right and right 
+// to left instead of on the same channel.
+
+
+//***************************************************************
+//***************************************************************
 //Tone.UserMedia
+//PARA ABRIR EL MICROFONO
+/*
+var placa_Audio = new Tone.UserMedia();
+placa_Audio.open().then(function(){
+//alert("dESEA ABRIR PLACA DE AUDIO");
+console.log("supported: " + Tone.UserMedia.supported);
+console.log("state: " + placa_Audio.state);
+console.log("groupId: " + placa_Audio.groupId);
+console.log("deviceId: " + Tone.UserMedia.deviceId);
+
+Tone.UserMedia.enumerateDevices().then(function(devices){
+console.log(devices);
+});
+});
+/**/
+
+//***************************************************************
+//***************************************************************
 //Tone.Normalize
+/* NO FUNCA
+//BORRAR LUEGO
+var testNormalize = new Tone.Normalize(2,4);
+player_1_Node.connect(testNormalize);
+
+//var norm = new Tone.Normalize(2, 4);
+//var sig = new Tone.Signal(3).connect(norm);
+//output of norm is 0.5.
+*/
+//***************************************************************
+//***************************************************************
+
+const mixEventFinal = Object();
+mixEventFinal.atTime = 1234;
+mixEventFinal.element = "papiri";
+mixEventFinal.action = "sukasca";
+//const mixEvent = Object();
+const mixEvent = {
+  atTime: 0,
+  element: "player_1",
+  action: "play",
+  newValue: 100,
+  logging: function () {
+    return this.atTime + " " + this.element + " " + this.action +
+      " " + this.newValue
+  },
+  alerting: function () {
+    alert(this.logging());
+  },
+  logIntoLista: function (event) {
+    lista.push(event);
+  },
+  logIntoListaAction: function (atTime, element, action) {
+    const event = Object();
+    event.atTime = atTime;
+    event.element = element;
+    event.action = action;
+    lista.push(event);
+  },
+  logIntoListanewValue: function (atTime, element, newValue) {
+    const event = Object();
+    event.atTime = atTime;
+    event.element = element;
+    //event.action = action;
+    event.newValue = newValue;
+    lista.push(event);
+  }
+};
+
+//mixEvent.alerting();
+
+const otherEvent = {};
+otherEvent.atTime = 12;
+otherEvent.element = "player_1";
+otherEvent.action = "stop";
+
+const playlist = document.getElementById("playlist");
+var lista = [];
+function muestraLista() {
+  console.table(lista);
+  playlist.innerHTML = lista[0].atTime + " " + lista[0].element + " " + lista[0].action;
+  //playlist.innerHTML = lista[0].element;
+  //playlist.innerHTML = lista[0].action;
+  // playlist.innerHTML = lista[0].newValue;
+  /**/
+}
+
+
+
+const RMS_all = document.getElementById("RMS_all");
+RMS_all.style.display = "none";
 
 //*****************************************************************************************
 //*****************************************************************************************
@@ -5848,14 +6126,12 @@ function play(value) {
       Tone.Transport.start();
       break;
     }
-
     case "duoSynth_1": {
       //alert("duoSynth_1");
       //duoSynth_1.start();
       Tone.Transport.start();
       break;
     }
-
     case "amSynth_1": {
       //alert("amSynth_1");
       //amSynth_1.start();
@@ -5927,6 +6203,7 @@ function play(value) {
           player_1_duration_value.innerHTML = Math.round(`${duration}`);
           player_1_Node.start();
           player_1_playButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "player_1", "play");
         }
         break;
       }
@@ -6032,6 +6309,8 @@ function stop(value) {
       {
         player_1_Node.stop();
         player_1_playButton.style.backgroundColor = "white";
+        mixEvent.logIntoListaAction(Tone.now(), "player_1", "stop");
+
         break;
       }
     case "2":
@@ -6233,6 +6512,7 @@ function recieves_Number_Returns_url(song) {
 //Get the playback state of the Recorder, either "started", "stopped" or "paused"
 //************************************************************************
 //************************************************************************
+/*
 function rec() {
   if (recorderNode.state == "started") {
     alert("Grabadora Grabando Grabación");
@@ -6282,7 +6562,7 @@ function recStop() {
     //  document.getElementById("pauseButton").style.backgroundColor = "white";
   }
 }
-
+*/
 //************************************************************************* */
 //********************************************************************* */
 //*********    EQ PLAYER 1     ************************************************************ */
@@ -6333,7 +6613,6 @@ function player_1_filter_eq_selection_bypass_on(value) {
           }
         }
         switchState2("player_1_filter_eq_selection", "on");
-        //allDivsAreNone();
         hide_all_EQ_divs("1");
         switch (player_1_filter_eq_type) {
           case "empty": {
@@ -6398,7 +6677,6 @@ function player_1_filter_eq_selection_bypass_on(value) {
         }
         console.log("player_1_filter_eq_selection_bypass_on  BYPASS");
         hide_all_EQ_divs("1");
-        //allDivsAreNone();
         player_1_bypass_controls_div.style.display = "block";
         switchState2("player_1_filter_eq_selection", "bypass");
         break;
@@ -6447,7 +6725,6 @@ function player_1_filter_eq_selection_bypass_on(value) {
           }
         }
         hide_all_EQ_divs("1");
-        //allDivsAreNone();
         player_1_eq3_controls_div.style.display = "block";
         switchState2("player_1_filter_eq_selection", "eq3");
         //alert("ERROR EQ3")
@@ -6494,7 +6771,6 @@ function player_1_filter_eq_selection_bypass_on(value) {
           }
         }
         hide_all_EQ_divs("1");
-        //allDivsAreNone();
         player_1_tascam_424_controls_div.style.display = "block";
         //alert("ERROR TASCAM")
         switchState2("player_1_filter_eq_selection", "tascam");
@@ -7286,10 +7562,6 @@ function in_outs(element, text) {
   console.log(text + " output: " + element.output);
 }
 
-function sarasa() {
-  console.log("SARASA");
-}
-
 function callbackLoaded(songNumber, playerNumber) {
   switch (playerNumber) {
 
@@ -7332,13 +7604,20 @@ function playsTestSynth() {
 
 async function CustomizedButton() {
 
+  muestraLista();
+
   //noiseSynth_1 .triggerAttackRelease("C2", "2n");
   //fmSynth_1.triggerAttackRelease("2n", "2n");
   //fmSynth_1.triggerAttackRelease('E2', '1n', '2n')
-  monoSynth_1.triggerAttackRelease('G3', '2n', '4n')
+  // monoSynth_1.triggerAttackRelease('G3', '2n', '4n')
   /* monoSynth_1.triggerAttackRelease('C4', '2n', '2n')
   monoSynth_1.triggerAttackRelease('E4', '2n', '1n')
  */
+  /*
+    Synth_w_AmpEnv_1.triggerAttackRelease('G3', '2n', '4n')
+    Synth_w_AmpEnv_1.volume.value = -24;
+    console.log("SYNTH PLAY");
+  */
   //ACORDE
   //monoSynth_1.triggerAttackRelease(["C4", "E4", "A4"], "2n");
   //monoSynth_1.setNote("F3", "+1n");
@@ -7407,13 +7686,9 @@ function changes_fx_name(channel, effecttype) {
 }
 
 function removes_previous_effect(fx_1_actual_patch) {
-  //consoleClear(); 
   console.log("removes_previous_effect foo \n" +
     "fx_1_actual_patch:" + fx_1_actual_patch);
-  //  alert("fx_1_actual_patch:" + fx_1_actual_patch);
-
   switch (fx_1_actual_patch) {
-
     case "fx_1_autofilter": {
       fx_1_AutoFilter_Node.disconnect(fxReturn_1_fader);
       fx_1_autofilter_div.style.display = "none";
@@ -7499,24 +7774,105 @@ function removes_previous_effect(fx_1_actual_patch) {
 }
 
 function removes_previous_source(source_1_actual_patch) {
-  //consoleClear(); 
   console.log("removes_previous_source foo \n" +
     "source_1_actual_patch:" + source_1_actual_patch);
-  //  alert("source_1_actual_patch:" + source_1_actual_patch);
+  //alert("source_1_actual_patch:    " + source_1_actual_patch);
   switch (source_1_actual_patch) {
     case "empty": {
-      //   alert("Patch actual Source 1: " + source_1_actual_patch);
       empty_div.style.display = "none";
       break;
     }
+    case "amSynth": {
+      amSynth_1.disconnect(player_1_panNode);
+      amSynth_1_div.style.display = "none";
+      break;
+    }
+    case "duoSynth": {
+      duoSynth_1.disconnect(player_1_panNode);
+      duoSynth_1_div.style.display = "none";
+      break;
+    }
+    case "fmSynth": {
+      fmSynth_1.disconnect(player_1_panNode);
+      fmSynth_1_div.style.display = "none";
+      break;
+    }
+    case "membraneSynth": {
+      membraneSynth_1.disconnect(player_1_panNode);
+      membraneSynth_1_div.style.display = "none";
+      break;
+    }
+    case "metalSynth": {
+      metalSynth_1.disconnect(player_1_panNode);
+      metalSynth_1_div.style.display = "none";
+      break;
+    }
+    case "monoSynth": {
+      monoSynth_1.disconnect(player_1_panNode);
+      monoSynth_1_div.style.display = "none";
+      break;
+    }
+    case "noiseSynth": {
+      noiseSynth_1.disconnect(player_1_panNode);
+      noiseSynth_1_div.style.display = "none";
+      break;
+    }
+    case "pluckSynth": {
+      pluckSynth_1.disconnect(player_1_panNode);
+      pluckSynth_1_div.style.display = "none";
+      break;
+    }
+    case "polySynth": {
+      polySynth_1.disconnect(player_1_panNode);
+      polySynth_1_div.style.display = "none";
+      break;
+    }
+    case "amOscillator": {
+      amOsc_1.disconnect(player_1_panNode);
+      amOsc_1_div.style.display = "none";
+      break;
+    }
+    case "fmOscillator": {
+      fmOsc_1.disconnect(player_1_panNode);
+      fmOsc_1_div.style.display = "none";
+      break;
+    }
+    case "fatOscillator": {
+      fatOsc_1.disconnect(player_1_panNode);
+      fatOsc_1_div.style.display = "none";
+      break;
+    }
+    case "omniOscillator": {
+      omniOsc_1.disconnect(player_1_panNode);
+      omniOsc_1_div.style.display = "none";
+      break;
+    }
+    case "oscillator": {
+      oscillator_1.disconnect(player_1_panNode);
+      oscillator_1_div.style.display = "none";
+      break;
+    }
+    case "pwmOscillator": {
+      pwmOsc_1.disconnect(player_1_panNode);
+      pwmOsc_1_div.style.display = "none";
+      break;
+    }
+    case "pulseOscillator": {
+      pulseOsc_1.disconnect(player_1_panNode);
+      pulseOsc_1_div.style.display = "none";
+      break;
+    }
+      case "player": {
+      player_1_Node.disconnect(player_1_panNode);
+      player_1_div.style.display = "none";
+      break;
+    }
     case "sampler": {
-      alert("Patch actual Source 1: " + source_1_actual_patch);
       sampler_Node.disconnect(player_1_panNode);
       sampler_div.style.display = "none";
       break;
     }
     case "grainPlayer": {
-      alert("Patch actual Source 1: " + source_1_actual_patch);
       grainPlayer_1_Node.disconnect(player_1_panNode);
       grainPlayer_1_div.style.display = "none";
       break;
@@ -8029,90 +8385,167 @@ function sets_New_Source(source, value) {
       switch (value) {
         case "AMSynth"://
           {
-            fx_1_AutoFilter_Node.connect(fxReturn_1_fader);
-            fx_1_autofilter_div.style.display = "block";
-            fx_1_actual_patch = "fx_1_autofilter";
-            console.log("AutoFilter fx_1_select");
+            //alert("sets_New_Source: " + value);
+            amSynth_1.connect(player_1_panNode);
+            amSynth_1_div.style.display = "block";
+            source_1_actual_patch = "amSynth"
+            console.log("amSynth_1_ source_1_select");
             break;
           }
         case "DuoSynth":  //
           {
-            fx_1_AutoPanner_Node.connect(fxReturn_1_fader);
-            fx_1_actual_patch = "fx_1_autopanner";
-            fx_1_autopanner_div.style.display = "block";
-            console.log("AutoPanner fx_1_select");
+            //alert("sets_New_Source: " + value);
+            duoSynth_1.connect(player_1_panNode);
+            duoSynth_1_div.style.display = "block";
+            source_1_actual_patch = "duoSynth"
+            console.log("duoSynth_1_ source_1_select");
             break;
           }
         case "FMSynth": //
           {
-            fx_1_AutoWah_Node.connect(fxReturn_1_fader);
-            fx_1_actual_patch = "fx_1_autowah";
-            fx_1_autowah_div.style.display = "block";
-            console.log("AutoWah fx_1_select");
+            //alert("sets_New_Source: " + value);
+            fmSynth_1.connect(player_1_panNode);
+            fmSynth_1_div.style.display = "block";
+            source_1_actual_patch = "fmSynth"
+            console.log("fmSynth_1_ source_1_select");
             break;
           }
         case "MembraneSynth":
           {
-            console.log("BitCrusher fx_1_select");
+            //alert("sets_New_Source: " + value);
+            membraneSynth_1.connect(player_1_panNode);
+            membraneSynth_1_div.style.display = "block";
+            source_1_actual_patch = "membraneSynth"
+            console.log("MembraneSynth_ source_1_select");
+            break;
+          }
+        case "MetalSynth":
+          {
+            //alert("sets_New_Source: " + value);
+            metalSynth_1.connect(player_1_panNode);
+            metalSynth_1_div.style.display = "block";
+            source_1_actual_patch = "metalSynth"
+            console.log("metalSynth_1_source_1_select");
             break;
           }
         case "MonoSynth": //
           {
-            console.log("Chebyshev fx_1_select");
+            //alert("sets_New_Source: " + value);
+            monoSynth_1.connect(player_1_panNode);
+            monoSynth_1_div.style.display = "block";
+            source_1_actual_patch = "monoSynth"
+            console.log("monoSynth_1_ source_1_select");
             break;
           }
         case "NoiseSynth": //
           {
-            console.log("NoiseSynth");
+            //alert("sets_New_Source: " + value);
+            noiseSynth_1.connect(player_1_panNode);
+            noiseSynth_1_div.style.display = "block";
+            source_1_actual_patch = "noiseSynth"
+            console.log("noiseSynth_1_ source_1_select");
             break;
           }
-        case "PluckSynth":  //
+        case "PluckSynth":  //se cuelga tutti
           {
+            //alert("sets_New_Source: " + value);
+            pluckSynth_1.connect(player_1_panNode);
+            pluckSynth_1_div.style.display = "block";
+            source_1_actual_patch = "pluckSynth"
+            console.log("pluckSynth_1_ source_1_select");
+            break;
+          }
+        case "PolySynth": //NO ANDA, REVISAR COMO SE ADOSA A OTRO
+          {
+            //alert("sets_New_Source: " + value);
+            polySynth_1.connect(player_1_panNode);
+            polySynth_1_div.style.display = "block";
+            source_1_actual_patch = "polySynth"
+            console.log("polySynth_1_ source_1_select");
+            break;
 
-            break;
-          }
-        case "PolySynth": //
-          {
-            console.log("FeedbackDelay fx_1_select");
-            break;
           }
         case "AMOscillator": // 
           {
+            //alert("sets_New_Source: " + value);
+            amOsc_1.connect(player_1_panNode);
+            amOsc_1_div.style.display = "block";
+            source_1_actual_patch = "amOscillator"
+            console.log("amOsc_1_ source_1_select");
             break;
+
           }
         case "FMOscillator":  //
           {
-            console.log("eeee    FrequencyShifter fx_1_select");
+            //alert("sets_New_Source: " + value);
+            fmOsc_1.connect(player_1_panNode);
+            fmOsc_1_div.style.display = "block";
+            source_1_actual_patch = "fmOscillator"
+            console.log("fmOsc_1_ source_1_select");
             break;
+
           }
         case "FatOscillator":
           {
-            console.log("JCReverb fx_1_select");
+            //alert("sets_New_Source: " + value);
+            fatOsc_1.connect(player_1_panNode);
+            fatOsc_1_div.style.display = "block";
+            source_1_actual_patch = "fatOscillator"
+            console.log("fatOsc_1_ source_1_select");
             break;
+
           }
         case "OmniOscillator":  //
           {
-            console.log("Phaser fx_1_select");
+            //alert("sets_New_Source: " + value);
+            omniOsc_1.connect(player_1_panNode);
+            omniOsc_1_div.style.display = "block";
+            source_1_actual_patch = "omniOscillator"
+            console.log("omniOsc_1_ source_1_select");
             break;
           }
         case "Oscillator": //
           {
-            console.log("Oscillator sets_New_source");
+            //alert("sets_New_Source: " + value);
+            oscillator_1.connect(player_1_panNode);
+            oscillator_1_div.style.display = "block";
+            source_1_actual_patch = "oscillator"
+            console.log("osc_1_ source_1_select");
             break;
+
           }
         case "PWMOscillator":  //
           {
-            console.log("PitchShift fx_1_select");
+            //alert("sets_New_Source: " + value);
+            pwmOsc_1.connect(player_1_panNode);
+            pwmOsc_1_div.style.display = "block";
+            source_1_actual_patch = "pwmOscillator"
+            console.log("pwmOsc_1_ source_1_select");
             break;
+
           }
         case "PulseOscillator": //
           {
-            console.log("Reverb fx_1_select");
+            //alert("sets_New_Source: " + value);
+            pulseOsc_1.connect(player_1_panNode);
+            pulseOsc_1_div.style.display = "block";
+            source_1_actual_patch = "pulseOscillator"
+            console.log("pulseOsc_1_ source_1_select");
+            break;
+
+          }
+        case "Player": //
+          {
+            //       alert("sets_New_Source: " + value);
+            player_1_Node.connect(player_1_panNode);
+            source_1_actual_patch = "player"
+            player_1_div.style.display = "block";
+            console.log("player_1_source_1_select");
             break;
           }
-        case "Sampler":
+          case "Sampler":
           {
-            alert("sets_New_Source: " + value);
+      //      alert("sets_New_Source: " + value);
             sampler_Node.connect(player_1_panNode);
             source_1_actual_patch = "sampler"
             sampler_div.style.display = "block";
@@ -8146,9 +8579,6 @@ function sets_New_Source(source, value) {
     default: { break; }
   }
 }
-
-
-
 
 function mostrarerror(evento) {
   console.log("Error: " + evento.error);
@@ -8409,16 +8839,6 @@ function switchState2(name, value) {
 
     default: { break; }
   }
-}
-
-function allDivsAreNone() {
-  player_1_tascam_424_controls_div.style.display = "none";
-  player_1_peaking_controls_div.style.display = "none";
-  player_1_allpass_controls_div.style.display = "none";
-  player_1_eq3_controls_div.style.display = "none";
-  player_1_shelf_controls_div.style.display = "none";
-  player_1_empty_controls_div.style.display = "none";
-  player_1_bypass_controls_div.style.display = "none";
 }
 
 function removeElement(tagName) {

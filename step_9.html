@@ -110,6 +110,7 @@
   <header>
     Today years old
     <br>
+    <p id="playlist">playlist</p>
     <fieldset>
       Sacado de: https://github.com/drnoir/soundTrigger/blob/main/record.js
       <!-- https://github.com/drnoir/soundTrigger/blob/main/record.js -->
@@ -286,84 +287,94 @@
   <!--PLAYER 1 -->
   <div class="column">
     <h2>1</h2>
+    <div id="player_1_songName_n_duration">
+    <p id="player_1_songName"> </p>
+    <p id="player_1_duration_text"> </p>
+    <p id="player_1_duration_value"> </p>
+</div>
     <div>
-      <label for="player_1_select_Available_Nodes">Choose a source:</label>
-      <select name="player_1_select_Available_Nodes" id="player_1_select_Available_Nodes">
-        <option value="empty">Empty</option>
-        <optgroup label="Instruments">
-          <option value="AMSynth">AMSynth</option>
-          <option value="DuoSynth">DuoSynth</option>
-          <option value="FMSynth">FMSynth</option>
-          <option value="MembraneSynth">MembraneSynth</option>
-          <option value="MetalSynth">MetalSynth</option>
-          <option value="MonoSynth">MonoSynth</option>
-          <option value="NoiseSynth">NoiseSynth</option>
-          <option value="PluckSynth">PluckSynth</option>
-          <option value="PolySynth">PolySynth</option>
-        </optgroup>
-        <optgroup label="Oscillators">
-          <option value="AMOscillator">AMOscillator</option>
-          <option value="FMOscillator">FMOscillator</option>
-          <option value="FatOscillator">FatOscillator</option>
-          <option value="OmniOscillator">OmniOscillator</option>
-          <option value="Oscillator">Oscillator</option>
-          <option value="PWMOscillator">PWMOscillator</option>
-          <option value="PulseOscillator">PulseOscillator</option>
-        </optgroup>
-        <optgroup label="Varios">
-          <option value="Sampler">Sampler</option>
-          <option value="GrainPlayer">GrainPlayer</option>
-        </optgroup>
-      </select>
-      <br><br>
+      <button type="button" class="collapsible">
+        SOURCE
+      </button>
+      <div class="content">
+        <br>
+        <label for="player_1_select_Available_Nodes">Choose a source:</label>
+        <select name="player_1_select_Available_Nodes" id="player_1_select_Available_Nodes">
+          <option value="empty">Empty</option>
+          <optgroup label="Instruments">
+            <option value="AMSynth">AMSynth</option>
+            <option value="DuoSynth">DuoSynth</option>
+            <option value="FMSynth">FMSynth</option>
+            <option value="MembraneSynth">MembraneSynth</option>
+            <option value="MetalSynth">MetalSynth</option>
+            <option value="MonoSynth">MonoSynth</option>
+            <option value="NoiseSynth">NoiseSynth</option>
+            <!-- <option value="PluckSynth">PluckSynth</option>
+          <option value="PolySynth">PolySynth</option>-->
+          </optgroup>
+          <optgroup label="Oscillators">
+            <option value="AMOscillator">AMOscillator</option>
+            <option value="FMOscillator">FMOscillator</option>
+            <option value="FatOscillator">FatOscillator</option>
+            <option value="OmniOscillator">OmniOscillator</option>
+            <option value="Oscillator">Oscillator</option>
+            <option value="PWMOscillator">PWMOscillator</option>
+            <option value="PulseOscillator">PulseOscillator</option>
+          </optgroup>
+          <optgroup label="Varios">
+            <option value="Player">Player</option>
+            <option value="Sampler">Sampler</option>
+            <option value="GrainPlayer">GrainPlayer</option>
+          </optgroup>
+        </select>
+        <br><br>
+        <div id="empty_div">
+          <fieldset>
+            <br> NO SOURCE SELECTED <br><br>
+          </fieldset>
+        </div>
+        <div id="oscillator_1_div">
+          <fieldset>
+            <br> Oscillator <br> <br>
+            <button id="oscillator_1_playButton" value="oscillator_1" onclick="play(value)">Play </button>
+            <button id="oscillator_1_stopButton" value="oscillator_1" onclick="stop(value)">Stop </button>
+            <button id="oscillator_1_muteButton" value="oscillator_1" onclick="mute(value)">Mute </button>
+            <button id="oscillator_1_soloButton" value="oscillator_1" onclick="solo(value)">Solo </button>
 
-      <div id="empty_div">
-        <fieldset>
-          <br> EMPTY <br><br>
-          <br> <br>
-        </fieldset>
-      </div>
-      <div id="oscillator_1_div">
-        <fieldset>
-          <br> Oscillator <br> <br>
-          <button id="oscillator_1_playButton" value="oscillator_1" onclick="play(value)">Play </button>
-          <button id="oscillator_1_stopButton" value="oscillator_1" onclick="stop(value)">Stop </button>
-          <button id="oscillator_1_muteButton" value="oscillator_1" onclick="mute(value)">Mute </button>
-          <button id="oscillator_1_soloButton" value="oscillator_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="oscillator_1_Sync_checkbox"
+              id="oscillator_1_Sync_checkbox">Sync
+            <br> <br>
+            <label for="oscillator_1_select_type"></label>
+            type:
+            <select name="oscillator_1_select_type" id="oscillator_1_select_type">
+              <option name="sine" id="sine" value="sine">sine</option>
+              <option name="square" id="square" value="square">square</option>
+              <option name="triangle" id="triangle" value="triangle">triangle</option>
+              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+            </select>
+            <br>
+            <p id="oscillator_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='oscillator_1_volume'>
+            <p id="oscillator_1_volume_value"> </p>
+            <input id="oscillator_1_volume_rampTo_gain" type="number" min="-50" max="12" />
+            time: <input id="oscillator_1_volume_rampTo_time" type="number" min="0" max="60" />
+            <button id="oscillator_1_volume_rampTo_send_Button" value="oscillator_1_volume"
+              onclick="send(value, oscillator_1_volume_rampTo_gain, oscillator_1_volume_rampTo_time)">Send </button>
+            <br>
+            <p id="oscillator_1_freq_text">Freq </p>
+            <input type='range' min=0 max=22000 step='10' value="20" id='oscillator_1_freq'>
+            <p id="oscillator_1_freq_value"></p>
+            <br>
+            <p id="oscillator_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='oscillator_1_detune'>
+            <p id="oscillator_1_detune_value"></p>
+            <br>
+            <p id="oscillator_1_phase_text">Phase </p>
+            <input type='range' min=0 max=360 step='1' value="0" id='oscillator_1_phase'>
+            <p id="oscillator_1_phase_value"></p>
+            <br>
 
-          <input class="checkbox" type="checkbox" name="oscillator_1_Sync_checkbox" id="oscillator_1_Sync_checkbox">Sync
-          <br> <br>
-          <label for="oscillator_1_select_type"></label>
-          type:
-          <select name="oscillator_1_select_type" id="oscillator_1_select_type">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br>
-          <p id="oscillator_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='oscillator_1_volume'>
-          <p id="oscillator_1_volume_value"> </p>
-          <input id="oscillator_1_volume_rampTo_gain" type="number" min="-50" max="12" />
-          time: <input id="oscillator_1_volume_rampTo_time" type="number" min="0" max="60" />
-          <button id="oscillator_1_volume_rampTo_send_Button" value="oscillator_1_volume"
-            onclick="send(value, oscillator_1_volume_rampTo_gain, oscillator_1_volume_rampTo_time)">Send </button>
-          <br>
-          <p id="oscillator_1_freq_text">Freq </p>
-          <input type='range' min=0 max=22000 step='10' value="20" id='oscillator_1_freq'>
-          <p id="oscillator_1_freq_value"></p>
-          <br>
-          <p id="oscillator_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='oscillator_1_detune'>
-          <p id="oscillator_1_detune_value"></p>
-          <br>
-          <p id="oscillator_1_phase_text">Phase </p>
-          <input type='range' min=0 max=360 step='1' value="0" id='oscillator_1_phase'>
-          <p id="oscillator_1_phase_value"></p>
-          <br>
-
-          <!-- PARA CREAR lUEGO
+            <!-- PARA CREAR lUEGO
           .partials ↝ Array #
 The partials of the waveform. 
 A partial represents the amplitude at a harmonic. 
@@ -376,1084 +387,1075 @@ The value is an empty array when the type is not “custom”.
 EXAMPLE
 osc.partials = [1, 0.2, 0.01];
           -->
-          <!--
+            <!--
           .unsync ( ) 
           .unsyncFrequency ( ) 
 -->
-        </fieldset>
-      </div>
-      <div id="pwmOsc_1_div">
-        <fieldset>
-          <br> Pulse Wide Modulation Osc <br> <br>
-          <button id="pwmOsc_1_playButton" value="pwmOsc_1" onclick="play(value)">Play </button>
-          <button id="pwmOsc_1_stopButton" value="pwmOsc_1" onclick="stop(value)">Stop </button>
-          <button id="pwmOsc_1_muteButton" value="pwmOsc_1" onclick="mute(value)">Mute </button>
-          <button id="pwmOsc_1_soloButton" value="pwmOsc_1" onclick="solo(value)">Solo </button>
-
-          <input class="checkbox" type="checkbox" name="pwmOsc_1_Sync_checkbox" id="pwmOsc_1_Sync_checkbox">Sync
-          <br> <br>
-
-          <p id="pwmOsc_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='pwmOsc_1_volume'>
-          <p id="pwmOsc_1_volume_value"> </p>
-          <br>
-          <p id="pwmOsc_1_freq_text">Freq </p>
-          <input type='range' min=0 max=22000 step='10' value="20" id='pwmOsc_1_freq'>
-          <p id="pwmOsc_1_freq_value"></p>
-          <br>
-          <p id="pwmOsc_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='pwmOsc_1_detune'>
-          <p id="pwmOsc_1_detune_value"></p>
-          <br>
-          <p id="pwmOsc_1_phase_text">Phase </p>
-          <input type='range' min=0 max=360 step='1' value="0" id='pwmOsc_1_phase'>
-          <p id="pwmOsc_1_phase_value"></p>
-          <br>
-          <p id="pwmOsc_1_modulationFrequency_text">Mod Freq </p>
-          <input type='range' min=0 max=120 step='0.01' value="0" id='pwmOsc_1_modulationFrequency'>
-          <p id="pwmOsc_1_modulationFrequency_value"></p>
-          <br>
-
-
-
-        </fieldset>
-      </div>
-      <div id="pulseOsc_1_div">
-        <fieldset>
-          <br> Pulse Osc <br> <br>
-          <button id="pulseOsc_1_playButton" value="pulseOsc_1" onclick="play(value)">Play </button>
-          <button id="pulseOsc_1_stopButton" value="pulseOsc_1" onclick="stop(value)">Stop </button>
-          <button id="pulseOsc_1_muteButton" value="pulseOsc_1" onclick="mute(value)">Mute </button>
-          <button id="pulseOsc_1_soloButton" value="pulseOsc_1" onclick="solo(value)">Solo </button>
-
-          <input class="checkbox" type="checkbox" name="pulseOsc_1_Sync_checkbox" id="pulseOsc_1_Sync_checkbox">Sync
-          <br> <br>
-
-          <p id="pulseOsc_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='pulseOsc_1_volume'>
-          <p id="pulseOsc_1_volume_value"> </p>
-          <br>
-          <p id="pulseOsc_1_freq_text">Freq </p>
-          <input type='range' min=0 max=22000 step='10' value="20" id='pulseOsc_1_freq'>
-          <p id="pulseOsc_1_freq_value"></p>
-          <br>
-          <p id="pulseOsc_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='pulseOsc_1_detune'>
-          <p id="pulseOsc_1_detune_value"></p>
-          <br>
-          <p id="pulseOsc_1_phase_text">Phase </p>
-          <input type='range' min=0 max=360 step='1' value="0" id='pulseOsc_1_phase'>
-          <p id="pulseOsc_1_phase_value"></p>
-          <br>
-          <p id="pulseOsc_1_width_text">Width </p>
-          <input type='range' min=0 max=1 step='0.01' value="0" id='pulseOsc_1_width'>
-          <p id="pulseOsc_1_width_value"></p>
-          <br>
-        </fieldset>
-      </div>
-      <div id="amOsc_1_div">
-        <fieldset>
-          <br> AM Osc <br> <br>
-          <button id="amOsc_1_playButton" value="amOsc_1" onclick="play(value)">Play </button>
-          <button id="amOsc_1_stopButton" value="amOsc_1" onclick="stop(value)">Stop </button>
-          <button id="amOsc_1_muteButton" value="amOsc_1" onclick="mute(value)">Mute </button>
-          <button id="amOsc_1_soloButton" value="amOsc_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="amOsc_1_Sync_checkbox" id="amOsc_1_Sync_checkbox">Sync
-
-          <br> <br>
-          <label for="amOsc_1_select_type"></label>
-          type:
-          <select name="amOsc_1_select_type" id="amOsc_1_select_type">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br> <br>
-
-          <p id="amOsc_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='amOsc_1_volume'>
-          <p id="amOsc_1_volume_value"> </p>
-          <br>
-          <p id="amOsc_1_freq_text">Freq </p>
-          <input type='range' min=10 max=22000 step='10' value="20" id='amOsc_1_freq'>
-          <p id="amOsc_1_freq_value"></p>
-          <br>
-          <p id="amOsc_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='amOsc_1_detune'>
-          <p id="amOsc_1_detune_value"></p>
-          <br>
-          <p id="amOsc_1_phase_text">Phase </p>
-          <input type='range' min=0 max=360 step='1' value="0" id='amOsc_1_phase'>
-          <p id="amOsc_1_phase_value"></p>
-          <br>
-          <p id="amOsc_1_harmonicity_text">Harmonicity </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='amOsc_1_harmonicity'>
-          <p id="amOsc_1_harmonicity_value"></p>
-          <br>
-          <label for="amOsc_1_select_modulationType"></label>
-          Mod Type:
-          <select name="amOsc_1_select_modulationType" id="amOsc_1_select_modulationType">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br> <br>
-        </fieldset>
-      </div>
-      <div id="fmOsc_1_div">
-        <fieldset>
-          <br> FM Osc <br> <br>
-          <button id="fmOsc_1_playButton" value="fmOsc_1" onclick="play(value)">Play </button>
-          <button id="fmOsc_1_stopButton" value="fmOsc_1" onclick="stop(value)">Stop </button>
-          <button id="fmOsc_1_muteButton" value="fmOsc_1" onclick="mute(value)">Mute </button>
-          <button id="fmOsc_1_soloButton" value="fmOsc_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="fmOsc_1_Sync_checkbox" id="fmOsc_1_Sync_checkbox">Sync
-
-          <br> <br>
-          <label for="fmOsc_1_select_type"></label>
-          type:
-          <select name="fmOsc_1_select_type" id="fmOsc_1_select_type">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br> <br>
-
-          <p id="fmOsc_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='fmOsc_1_volume'>
-          <p id="fmOsc_1_volume_value"> </p>
-          <br>
-          <p id="fmOsc_1_freq_text">Freq </p>
-          <input type='range' min=10 max=22000 step='10' value="20" id='fmOsc_1_freq'>
-          <p id="fmOsc_1_freq_value"></p>
-          <br>
-          <p id="fmOsc_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='fmOsc_1_detune'>
-          <p id="fmOsc_1_detune_value"></p>
-          <br>
-          <p id="fmOsc_1_phase_text">Phase </p>
-          <input type='range' min=0 max=360 step='1' value="0" id='fmOsc_1_phase'>
-          <p id="fmOsc_1_phase_value"></p>
-          <br>
-          <p id="fmOsc_1_harmonicity_text">Harmonicity </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='fmOsc_1_harmonicity'>
-          <p id="fmOsc_1_harmonicity_value"></p>
-          <br>
-          <p id="fmOsc_1_modulationIndex_text">Mod Index </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='fmOsc_1_modulationIndex'>
-          <p id="fmOsc_1_modulationIndex_value"></p>
-          <br>
-          <label for="fmOsc_1_select_modulationType"></label>
-          Mod Type:
-          <select name="fmOsc_1_select_modulationType" id="fmOsc_1_select_modulationType">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br> <br>
-        </fieldset>
-      </div>
-      <div id="fatOsc_1_div">
-        <fieldset>
-          <br> Fat Osc <br> <br>
-          <button id="fatOsc_1_playButton" value="fatOsc_1" onclick="play(value)">Play </button>
-          <button id="fatOsc_1_stopButton" value="fatOsc_1" onclick="stop(value)">Stop </button>
-          <button id="fatOsc_1_muteButton" value="fatOsc_1" onclick="mute(value)">Mute </button>
-          <button id="fatOsc_1_soloButton" value="fatOsc_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="fatOsc_1_Sync_checkbox" id="fatOsc_1_Sync_checkbox">Sync
-
-          <br> <br>
-          <label for="fatOsc_1_select_type"></label>
-          type:
-          <select name="fatOsc_1_select_type" id="fatOsc_1_select_type">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br> <br>
-
-          <p id="fatOsc_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='fatOsc_1_volume'>
-          <p id="fatOsc_1_volume_value"> </p>
-          <br>
-          <p id="fatOsc_1_count_text">Count </p>
-          <input type='range' min=1 max=10 step='1' value="0" id='fatOsc_1_count'>
-          <p id="fatOsc_1_count_value"></p>
-          <br>
-          <p id="fatOsc_1_freq_text">Freq </p>
-          <input type='range' min=10 max=22000 step='10' value="20" id='fatOsc_1_freq'>
-          <p id="fatOsc_1_freq_value"></p>
-          <br>
-          <p id="fatOsc_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='fatOsc_1_detune'>
-          <p id="fatOsc_1_detune_value"></p>
-          <br>
-          <p id="fatOsc_1_phase_text">Phase </p>
-          <input type='range' min=0 max=360 step='1' value="0" id='fatOsc_1_phase'>
-          <p id="fatOsc_1_phase_value"></p>
-          <br>
-          <p id="fatOsc_1_spread_text">Spread </p>
-          <input type='range' min=0 max=1 step='0.01' value="0" id='fatOsc_1_spread'>
-          <p id="fatOsc_1_spread_value"></p>
-          <br>
-        </fieldset>
-      </div>
-      <div id="omniOsc_1_div">
-        <fieldset>
-          <br> Omni Osc <br> <br>
-          <button id="omniOsc_1_playButton" value="omniOsc_1" onclick="play(value)">Play </button>
-          <button id="omniOsc_1_stopButton" value="omniOsc_1" onclick="stop(value)">Stop </button>
-          <button id="omniOsc_1_muteButton" value="omniOsc_1" onclick="mute(value)">Mute </button>
-          <button id="omniOsc_1_soloButton" value="omniOsc_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="omniOsc_1_Sync_checkbox" id="omniOsc_1_Sync_checkbox">Sync
-
-          <br> <br>
-          <label for="omniOsc_1_select_type"></label>
-          type:
-          <select name="omniOsc_1_select_type" id="omniOsc_1_select_type">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br> <br>
-
-          <p id="omniOsc_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='omniOsc_1_volume'>
-          <p id="omniOsc_1_volume_value"> </p>
-          <br>
-          <p id="omniOsc_1_count_text">Count </p>
-          <input type='range' min=1 max=10 step='1' value="0" id='omniOsc_1_count'>
-          <p id="omniOsc_1_count_value"></p>
-          <br>
-          <p id="omniOsc_1_freq_text">Freq </p>
-          <input type='range' min=10 max=22000 step='10' value="20" id='omniOsc_1_freq'>
-          <p id="omniOsc_1_freq_value"></p>
-          <br>
-          <p id="omniOsc_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='omniOsc_1_detune'>
-          <p id="omniOsc_1_detune_value"></p>
-          <br>
-          <p id="omniOsc_1_phase_text">Phase </p>
-          <input type='range' min=0 max=360 step='1' value="0" id='omniOsc_1_phase'>
-          <p id="omniOsc_1_phase_value"></p>
-          <br>
-          <p id="omniOsc_1_spread_text">Spread </p>
-          <input type='range' min=0 max=1 step='0.01' value="0" id='omniOsc_1_spread'>
-          <p id="omniOsc_1_spread_value"></p>
-          <br>
-          <p id="omniOsc_1_width_text">Width </p>
-          <input type='range' min=0 max=1 step='0.01' value="0" id='omniOsc_1_width'>
-          <p id="omniOsc_1_width_value"></p>
-          <br>
-          <br>
-        </fieldset>
-      </div>
-      <div id="amSynth_1_div">
-        <fieldset>
-          <br> AM Synth <br> <br>
-          <button id="amSynth_1_playButton" value="amSynth_1" onclick="play(value)">Play </button>
-          <button id="amSynth_1_stopButton" value="amSynth_1" onclick="stop(value)">Stop </button>
-          <button id="amSynth_1_muteButton" value="amSynth_1" onclick="mute(value)">Mute </button>
-          <button id="amSynth_1_soloButton" value="amSynth_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="amSynth_1_Sync_checkbox" id="amSynth_1_Sync_checkbox">Sync
-
-          <br> <br>
-          <label for="amSynth_1_select_type"></label>
-          type:
-          <select name="amSynth_1_select_type" id="amSynth_1_select_type">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br> <br>
-
-          <p id="amSynth_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='amSynth_1_volume'>
-          <p id="amSynth_1_volume_value"> </p>
-          <br>
-          <p id="amSynth_1_freq_text">Freq </p>
-          <input type='range' min=10 max=22000 step='10' value="20" id='amSynth_1_freq'>
-          <p id="amSynth_1_freq_value"></p>
-          <br>
-          <p id="amSynth_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='amSynth_1_detune'>
-          <p id="amSynth_1_detune_value"></p>
-          <br>
-          <p id="amSynth_1_harmonicity_text">Harmonicity </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='amSynth_1_harmonicity'>
-          <p id="amSynth_1_harmonicity_value"></p>
-          <br>
-          <p id="amSynth_1_portamento_text">Portamento </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='amSynth_1_portamento'>
-          <p id="amSynth_1_portamento_value"></p>
-          <br>
+          </fieldset>
+        </div>
+        <div id="pwmOsc_1_div">
           <fieldset>
-            Envelope
+            <br> Pulse Wide Modulation Osc <br> <br>
+            <button id="pwmOsc_1_playButton" value="pwmOsc_1" onclick="play(value)">Play </button>
+            <button id="pwmOsc_1_stopButton" value="pwmOsc_1" onclick="stop(value)">Stop </button>
+            <button id="pwmOsc_1_muteButton" value="pwmOsc_1" onclick="mute(value)">Mute </button>
+            <button id="pwmOsc_1_soloButton" value="pwmOsc_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="pwmOsc_1_Sync_checkbox" id="pwmOsc_1_Sync_checkbox">Sync
+            <br> <br>
+            <p id="pwmOsc_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='pwmOsc_1_volume'>
+            <p id="pwmOsc_1_volume_value"> </p>
             <br>
-            <p id="amSynth_1_envelope_attack_text">Attack </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_envelope_attack'>
-            <p id="amSynth_1_envelope_attack_value"></p>
+            <p id="pwmOsc_1_freq_text">Freq </p>
+            <input type='range' min=0 max=22000 step='10' value="20" id='pwmOsc_1_freq'>
+            <p id="pwmOsc_1_freq_value"></p>
             <br>
-            <p id="amSynth_1_envelope_decay_text">Decay </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_envelope_decay'>
-            <p id="amSynth_1_envelope_decay_value"></p>
+            <p id="pwmOsc_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='pwmOsc_1_detune'>
+            <p id="pwmOsc_1_detune_value"></p>
             <br>
-            <p id="amSynth_1_envelope_sustain_text">Sustain </p>
-            <input type='range' min=0 max=1 step='0.01' value="0" id='amSynth_1_envelope_sustain'>
-            <p id="amSynth_1_envelope_sustain_value"></p>
+            <p id="pwmOsc_1_phase_text">Phase </p>
+            <input type='range' min=0 max=360 step='1' value="0" id='pwmOsc_1_phase'>
+            <p id="pwmOsc_1_phase_value"></p>
             <br>
-            <p id="amSynth_1_envelope_release_text">Release </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_envelope_release'>
-            <p id="amSynth_1_envelope_release_value"></p>
+            <p id="pwmOsc_1Frequency_text">Mod Freq </p>
+            <input type='range' min=0 max=120 step='0.01' value="0" id='pwmOsc_1_modulationFrequency'>
+            <p id="pwmOsc_1_modulationFrequency_value"></p>
             <br>
           </fieldset>
+        </div>
+        <div id="pulseOsc_1_div">
           <fieldset>
-            <label for="amSynth_1_select_type"></label>
-            Modulation:
-            <select name="amSynth_1_select_modulation_type" id="amSynth_1_select_modulation_type">
+            <br> Pulse Osc <br> <br>
+            <button id="pulseOsc_1_playButton" value="pulseOsc_1" onclick="play(value)">Play </button>
+            <button id="pulseOsc_1_stopButton" value="pulseOsc_1" onclick="stop(value)">Stop </button>
+            <button id="pulseOsc_1_muteButton" value="pulseOsc_1" onclick="mute(value)">Mute </button>
+            <button id="pulseOsc_1_soloButton" value="pulseOsc_1" onclick="solo(value)">Solo </button>
+
+            <input class="checkbox" type="checkbox" name="pulseOsc_1_Sync_checkbox" id="pulseOsc_1_Sync_checkbox">Sync
+            <br> <br>
+
+            <p id="pulseOsc_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='pulseOsc_1_volume'>
+            <p id="pulseOsc_1_volume_value"> </p>
+            <br>
+            <p id="pulseOsc_1_freq_text">Freq </p>
+            <input type='range' min=0 max=22000 step='10' value="20" id='pulseOsc_1_freq'>
+            <p id="pulseOsc_1_freq_value"></p>
+            <br>
+            <p id="pulseOsc_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='pulseOsc_1_detune'>
+            <p id="pulseOsc_1_detune_value"></p>
+            <br>
+            <p id="pulseOsc_1_phase_text">Phase </p>
+            <input type='range' min=0 max=360 step='1' value="0" id='pulseOsc_1_phase'>
+            <p id="pulseOsc_1_phase_value"></p>
+            <br>
+            <p id="pulseOsc_1_width_text">Width </p>
+            <input type='range' min=0 max=1 step='0.01' value="0" id='pulseOsc_1_width'>
+            <p id="pulseOsc_1_width_value"></p>
+            <br>
+          </fieldset>
+        </div>
+        <div id="amOsc_1_div">
+          <fieldset>
+            <br> AM Osc <br> <br>
+            <button id="amOsc_1_playButton" value="amOsc_1" onclick="play(value)">Play </button>
+            <button id="amOsc_1_stopButton" value="amOsc_1" onclick="stop(value)">Stop </button>
+            <button id="amOsc_1_muteButton" value="amOsc_1" onclick="mute(value)">Mute </button>
+            <button id="amOsc_1_soloButton" value="amOsc_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="amOsc_1_Sync_checkbox" id="amOsc_1_Sync_checkbox">Sync
+
+            <br> <br>
+            <label for="amOsc_1_select_type"></label>
+            type:
+            <select name="amOsc_1_select_type" id="amOsc_1_select_type">
               <option name="sine" id="sine" value="sine">sine</option>
               <option name="square" id="square" value="square">square</option>
               <option name="triangle" id="triangle" value="triangle">triangle</option>
               <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
             </select>
             <br> <br>
-            Modulation Envelope
+
+            <p id="amOsc_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='amOsc_1_volume'>
+            <p id="amOsc_1_volume_value"> </p>
             <br>
-            <p id="amSynth_1_modulation_envelope_attack_text">Attack </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_modulation_envelope_attack'>
-            <p id="amSynth_1_modulation_envelope_attack_value"></p>
+            <p id="amOsc_1_freq_text">Freq </p>
+            <input type='range' min=10 max=22000 step='10' value="20" id='amOsc_1_freq'>
+            <p id="amOsc_1_freq_value"></p>
             <br>
-            <p id="amSynth_1_modulation_envelope_decay_text">Decay </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_modulation_envelope_decay'>
-            <p id="amSynth_1_modulation_envelope_decay_value"></p>
+            <p id="amOsc_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='amOsc_1_detune'>
+            <p id="amOsc_1_detune_value"></p>
             <br>
-            <p id="amSynth_1_modulation_envelope_sustain_text">Sustain </p>
-            <input type='range' min=0 max=1 step='0.01' value="0" id='amSynth_1_modulation_envelope_sustain'>
-            <p id="amSynth_1_modulation_envelope_sustain_value"></p>
+            <p id="amOsc_1_phase_text">Phase </p>
+            <input type='range' min=0 max=360 step='1' value="0" id='amOsc_1_phase'>
+            <p id="amOsc_1_phase_value"></p>
             <br>
-            <p id="amSynth_1_modulation_envelope_release_text">Release </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_modulation_envelope_release'>
-            <p id="amSynth_1_modulation_envelope_release_value"></p>
+            <p id="amOsc_1_harmonicity_text">Harmonicity </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='amOsc_1_harmonicity'>
+            <p id="amOsc_1_harmonicity_value"></p>
+            <br>
+            <label for="amOsc_1_select_modulationType"></label>
+            Mod Type:
+            <select name="amOsc_1_select_modulationType" id="amOsc_1_select_modulationType">
+              <option name="sine" id="sine" value="sine">sine</option>
+              <option name="square" id="square" value="square">square</option>
+              <option name="triangle" id="triangle" value="triangle">triangle</option>
+              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+            </select>
+            <br> <br>
+          </fieldset>
+        </div>
+        <div id="fmOsc_1_div">
+          <fieldset>
+            <br> FM Osc <br> <br>
+            <button id="fmOsc_1_playButton" value="fmOsc_1" onclick="play(value)">Play </button>
+            <button id="fmOsc_1_stopButton" value="fmOsc_1" onclick="stop(value)">Stop </button>
+            <button id="fmOsc_1_muteButton" value="fmOsc_1" onclick="mute(value)">Mute </button>
+            <button id="fmOsc_1_soloButton" value="fmOsc_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="fmOsc_1_Sync_checkbox" id="fmOsc_1_Sync_checkbox">Sync
+
+            <br> <br>
+            <label for="fmOsc_1_select_type"></label>
+            type:
+            <select name="fmOsc_1_select_type" id="fmOsc_1_select_type">
+              <option name="sine" id="sine" value="sine">sine</option>
+              <option name="square" id="square" value="square">square</option>
+              <option name="triangle" id="triangle" value="triangle">triangle</option>
+              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+            </select>
+            <br> <br>
+
+            <p id="fmOsc_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='fmOsc_1_volume'>
+            <p id="fmOsc_1_volume_value"> </p>
+            <br>
+            <p id="fmOsc_1_freq_text">Freq </p>
+            <input type='range' min=10 max=22000 step='10' value="20" id='fmOsc_1_freq'>
+            <p id="fmOsc_1_freq_value"></p>
+            <br>
+            <p id="fmOsc_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='fmOsc_1_detune'>
+            <p id="fmOsc_1_detune_value"></p>
+            <br>
+            <p id="fmOsc_1_phase_text">Phase </p>
+            <input type='range' min=0 max=360 step='1' value="0" id='fmOsc_1_phase'>
+            <p id="fmOsc_1_phase_value"></p>
+            <br>
+            <p id="fmOsc_1_harmonicity_text">Harmonicity </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='fmOsc_1_harmonicity'>
+            <p id="fmOsc_1_harmonicity_value"></p>
+            <br>
+            <p id="fmOsc_1_modulationIndex_text">Mod Index </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='fmOsc_1_modulationIndex'>
+            <p id="fmOsc_1_modulationIndex_value"></p>
+            <br>
+            <label for="fmOsc_1_select_modulationType"></label>
+            Mod Type:
+            <select name="fmOsc_1_select_modulationType" id="fmOsc_1_select_modulationType">
+              <option name="sine" id="sine" value="sine">sine</option>
+              <option name="square" id="square" value="square">square</option>
+              <option name="triangle" id="triangle" value="triangle">triangle</option>
+              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+            </select>
+            <br> <br>
+          </fieldset>
+        </div>
+        <div id="fatOsc_1_div">
+          <fieldset>
+            <br> Fat Osc <br> <br>
+            <button id="fatOsc_1_playButton" value="fatOsc_1" onclick="play(value)">Play </button>
+            <button id="fatOsc_1_stopButton" value="fatOsc_1" onclick="stop(value)">Stop </button>
+            <button id="fatOsc_1_muteButton" value="fatOsc_1" onclick="mute(value)">Mute </button>
+            <button id="fatOsc_1_soloButton" value="fatOsc_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="fatOsc_1_Sync_checkbox" id="fatOsc_1_Sync_checkbox">Sync
+
+            <br> <br>
+            <label for="fatOsc_1_select_type"></label>
+            type:
+            <select name="fatOsc_1_select_type" id="fatOsc_1_select_type">
+              <option name="sine" id="sine" value="sine">sine</option>
+              <option name="square" id="square" value="square">square</option>
+              <option name="triangle" id="triangle" value="triangle">triangle</option>
+              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+            </select>
+            <br> <br>
+
+            <p id="fatOsc_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='fatOsc_1_volume'>
+            <p id="fatOsc_1_volume_value"> </p>
+            <br>
+            <p id="fatOsc_1_count_text">Count </p>
+            <input type='range' min=1 max=10 step='1' value="0" id='fatOsc_1_count'>
+            <p id="fatOsc_1_count_value"></p>
+            <br>
+            <p id="fatOsc_1_freq_text">Freq </p>
+            <input type='range' min=10 max=22000 step='10' value="20" id='fatOsc_1_freq'>
+            <p id="fatOsc_1_freq_value"></p>
+            <br>
+            <p id="fatOsc_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='fatOsc_1_detune'>
+            <p id="fatOsc_1_detune_value"></p>
+            <br>
+            <p id="fatOsc_1_phase_text">Phase </p>
+            <input type='range' min=0 max=360 step='1' value="0" id='fatOsc_1_phase'>
+            <p id="fatOsc_1_phase_value"></p>
+            <br>
+            <p id="fatOsc_1_spread_text">Spread </p>
+            <input type='range' min=0 max=1 step='0.01' value="0" id='fatOsc_1_spread'>
+            <p id="fatOsc_1_spread_value"></p>
             <br>
           </fieldset>
-          <br>
-        </fieldset>
-      </div>
-      <div id="membraneSynth_1_div">
-        <fieldset>
-          <br> Membrane Synth <br> <br>
-          <button id="membraneSynth_1_playButton" value="membraneSynth_1" onclick="play(value)">Play </button>
-          <button id="membraneSynth_1_stopButton" value="membraneSynth_1" onclick="stop(value)">Stop </button>
-          <button id="membraneSynth_1_muteButton" value="membraneSynth_1" onclick="mute(value)">Mute </button>
-          <button id="membraneSynth_1_soloButton" value="membraneSynth_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="membraneSynth_1_Sync_checkbox"
-            id="membraneSynth_1_Sync_checkbox">Sync
-
-          <br> <br>
-          <label for="membraneSynth_1_select_type"></label>
-          type:
-          <select name="membraneSynth_1_select_type" id="membraneSynth_1_select_type">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br>
-          <p id="membraneSynth_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='membraneSynth_1_volume'>
-          <p id="membraneSynth_1_volume_value"> </p>
-          <br>
-          <p id="membraneSynth_1_pitchDecay_text">Pitch Decay </p>
-          <input type='range' min=0 max=10 step='0.01' value="0" id='membraneSynth_1_pitchDecay'>
-          <p id="membraneSynth_1_pitchDecay_value"></p>
-          <br>
-          <p id="membraneSynth_1_octaves_text">Octaves </p>
-          <input type='range' min=0 max=10 step='0.5' value="0" id='membraneSynth_1_octaves'>
-          <p id="membraneSynth_1_octaves_value"></p>
-          <br>
+        </div>
+        <div id="omniOsc_1_div">
           <fieldset>
-            Envelope
+            <br> Omni Osc <br> <br>
+            <button id="omniOsc_1_playButton" value="omniOsc_1" onclick="play(value)">Play </button>
+            <button id="omniOsc_1_stopButton" value="omniOsc_1" onclick="stop(value)">Stop </button>
+            <button id="omniOsc_1_muteButton" value="omniOsc_1" onclick="mute(value)">Mute </button>
+            <button id="omniOsc_1_soloButton" value="omniOsc_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="omniOsc_1_Sync_checkbox" id="omniOsc_1_Sync_checkbox">Sync
+
+            <br> <br>
+            <label for="omniOsc_1_select_type"></label>
+            type:
+            <select name="omniOsc_1_select_type" id="omniOsc_1_select_type">
+              <option name="sine" id="sine" value="sine">sine</option>
+              <option name="square" id="square" value="square">square</option>
+              <option name="triangle" id="triangle" value="triangle">triangle</option>
+              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+            </select>
+            <br> <br>
+
+            <p id="omniOsc_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='omniOsc_1_volume'>
+            <p id="omniOsc_1_volume_value"> </p>
             <br>
-            <p id="membraneSynth_1_envelope_attack_text">Attack </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='membraneSynth_1_envelope_attack'>
-            <p id="membraneSynth_1_envelope_attack_value"></p>
+            <p id="omniOsc_1_count_text">Count </p>
+            <input type='range' min=1 max=10 step='1' value="0" id='omniOsc_1_count'>
+            <p id="omniOsc_1_count_value"></p>
             <br>
-            <p id="membraneSynth_1_envelope_decay_text">Decay </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='membraneSynth_1_envelope_decay'>
-            <p id="membraneSynth_1_envelope_decay_value"></p>
+            <p id="omniOsc_1_freq_text">Freq </p>
+            <input type='range' min=10 max=22000 step='10' value="20" id='omniOsc_1_freq'>
+            <p id="omniOsc_1_freq_value"></p>
             <br>
-            <p id="membraneSynth_1_envelope_sustain_text">Sustain </p>
-            <input type='range' min=0 max=1 step='0.01' value="0" id='membraneSynth_1_envelope_sustain'>
-            <p id="membraneSynth_1_envelope_sustain_value"></p>
+            <p id="omniOsc_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='omniOsc_1_detune'>
+            <p id="omniOsc_1_detune_value"></p>
             <br>
-            <p id="membraneSynth_1_envelope_release_text">Release </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='membraneSynth_1_envelope_release'>
-            <p id="membraneSynth_1_envelope_release_value"></p>
+            <p id="omniOsc_1_phase_text">Phase </p>
+            <input type='range' min=0 max=360 step='1' value="0" id='omniOsc_1_phase'>
+            <p id="omniOsc_1_phase_value"></p>
+            <br>
+            <p id="omniOsc_1_spread_text">Spread </p>
+            <input type='range' min=0 max=1 step='0.01' value="0" id='omniOsc_1_spread'>
+            <p id="omniOsc_1_spread_value"></p>
+            <br>
+            <p id="omniOsc_1_width_text">Width </p>
+            <input type='range' min=0 max=1 step='0.01' value="0" id='omniOsc_1_width'>
+            <p id="omniOsc_1_width_value"></p>
+            <br>
+            <br>
+          </fieldset>
+        </div>
+        <div id="amSynth_1_div">
+          <fieldset>
+            <br> AM Synth <br> <br>
+            <button id="amSynth_1_playButton" value="amSynth_1" onclick="play(value)">Play </button>
+            <button id="amSynth_1_stopButton" value="amSynth_1" onclick="stop(value)">Stop </button>
+            <button id="amSynth_1_muteButton" value="amSynth_1" onclick="mute(value)">Mute </button>
+            <button id="amSynth_1_soloButton" value="amSynth_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="amSynth_1_Sync_checkbox" id="amSynth_1_Sync_checkbox">Sync
+
+            <br> <br>
+            <label for="amSynth_1_select_type"></label>
+            type:
+            <select name="amSynth_1_select_type" id="amSynth_1_select_type">
+              <option name="sine" id="sine" value="sine">sine</option>
+              <option name="square" id="square" value="square">square</option>
+              <option name="triangle" id="triangle" value="triangle">triangle</option>
+              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+            </select>
+            <br> <br>
+
+            <p id="amSynth_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='amSynth_1_volume'>
+            <p id="amSynth_1_volume_value"> </p>
+            <br>
+            <p id="amSynth_1_freq_text">Freq </p>
+            <input type='range' min=10 max=22000 step='10' value="20" id='amSynth_1_freq'>
+            <p id="amSynth_1_freq_value"></p>
+            <br>
+            <p id="amSynth_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='amSynth_1_detune'>
+            <p id="amSynth_1_detune_value"></p>
+            <br>
+            <p id="amSynth_1_harmonicity_text">Harmonicity </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='amSynth_1_harmonicity'>
+            <p id="amSynth_1_harmonicity_value"></p>
+            <br>
+            <p id="amSynth_1_portamento_text">Portamento </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='amSynth_1_portamento'>
+            <p id="amSynth_1_portamento_value"></p>
+            <br>
+            <fieldset>
+              Envelope
+              <br>
+              <p id="amSynth_1_envelope_attack_text">Attack </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_envelope_attack'>
+              <p id="amSynth_1_envelope_attack_value"></p>
+              <br>
+              <p id="amSynth_1_envelope_decay_text">Decay </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_envelope_decay'>
+              <p id="amSynth_1_envelope_decay_value"></p>
+              <br>
+              <p id="amSynth_1_envelope_sustain_text">Sustain </p>
+              <input type='range' min=0 max=1 step='0.01' value="0" id='amSynth_1_envelope_sustain'>
+              <p id="amSynth_1_envelope_sustain_value"></p>
+              <br>
+              <p id="amSynth_1_envelope_release_text">Release </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_envelope_release'>
+              <p id="amSynth_1_envelope_release_value"></p>
+              <br>
+            </fieldset>
+            <fieldset>
+              <label for="amSynth_1_select_type"></label>
+              Modulation:
+              <select name="amSynth_1_select_modulation_type" id="amSynth_1_select_modulation_type">
+                <option name="sine" id="sine" value="sine">sine</option>
+                <option name="square" id="square" value="square">square</option>
+                <option name="triangle" id="triangle" value="triangle">triangle</option>
+                <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+              </select>
+              <br> <br>
+              Modulation Envelope
+              <br>
+              <p id="amSynth_1_modulation_envelope_attack_text">Attack </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_modulation_envelope_attack'>
+              <p id="amSynth_1_modulation_envelope_attack_value"></p>
+              <br>
+              <p id="amSynth_1_modulation_envelope_decay_text">Decay </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_modulation_envelope_decay'>
+              <p id="amSynth_1_modulation_envelope_decay_value"></p>
+              <br>
+              <p id="amSynth_1_modulation_envelope_sustain_text">Sustain </p>
+              <input type='range' min=0 max=1 step='0.01' value="0" id='amSynth_1_modulation_envelope_sustain'>
+              <p id="amSynth_1_modulation_envelope_sustain_value"></p>
+              <br>
+              <p id="amSynth_1_modulation_envelope_release_text">Release </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='amSynth_1_modulation_envelope_release'>
+              <p id="amSynth_1_modulation_envelope_release_value"></p>
+              <br>
+            </fieldset>
+            <br>
+          </fieldset>
+        </div>
+        <div id="membraneSynth_1_div">
+          <fieldset>
+            <br> Membrane Synth <br> <br>
+            <button id="membraneSynth_1_playButton" value="membraneSynth_1" onclick="play(value)">Play </button>
+            <button id="membraneSynth_1_stopButton" value="membraneSynth_1" onclick="stop(value)">Stop </button>
+            <button id="membraneSynth_1_muteButton" value="membraneSynth_1" onclick="mute(value)">Mute </button>
+            <button id="membraneSynth_1_soloButton" value="membraneSynth_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="membraneSynth_1_Sync_checkbox"
+              id="membraneSynth_1_Sync_checkbox">Sync
+
             <br> <br>
             <label for="membraneSynth_1_select_type"></label>
-            Attack Curve:
-            <select name="membraneSynth_1_select_attackCurve_type" id="membraneSynth_1_select_attackCurve_type">
-              <option name="exponential" id="exponential" value="exponential">exponential</option>
-              <option name="linear" id="linear" value="linear">linear</option>
-            </select>
-            <br> <br>
-          </fieldset>
-          <br>
-        </fieldset>
-      </div>
-      <div id="metalSynth_1_div">
-        <fieldset>
-          <br> Metal Synth <br> <br>
-          <button id="metalSynth_1_playButton" value="metalSynth_1" onclick="play(value)">Play </button>
-          <button id="metalSynth_1_stopButton" value="metalSynth_1" onclick="stop(value)">Stop </button>
-          <button id="metalSynth_1_muteButton" value="metalSynth_1" onclick="mute(value)">Mute </button>
-          <button id="metalSynth_1_soloButton" value="metalSynth_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="metalSynth_1_Sync_checkbox" id="metalSynth_1_Sync_checkbox">Sync
-          <br> <br>
-          <p id="metalSynth_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='metalSynth_1_volume'>
-          <p id="metalSynth_1_volume_value"> </p>
-          <br>
-          <p id="metalSynth_1_freq_text">Freq </p>
-          <input type='range' min=0 max=22000 step='10' value="20" id='metalSynth_1_freq'>
-          <p id="metalSynth_1_freq_value"></p>
-          <br>
-          <p id="metalSynth_1_harmonicity_text">Harmonicity </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='metalSynth_1_harmonicity'>
-          <p id="metalSynth_1_harmonicity_value"></p>
-          <br>
-          <p id="metalSynth_1_modulationIndex_text">Mod Index </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='metalSynth_1_modulationIndex'>
-          <p id="metalSynth_1_modulationIndex_value"></p>
-          <br>
-          <p id="metalSynth_1_resonance_text">Resonance </p>
-          <input type='range' min=1000 max=22000 step='10' value="20" id='metalSynth_1_resonance'>
-          <p id="metalSynth_1_resonance_value"></p>
-          <br>
-          <fieldset>
-            Envelope
-            <br>
-            <p id="metalSynth_1_envelope_attack_text">Attack </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='metalSynth_1_envelope_attack'>
-            <p id="metalSynth_1_envelope_attack_value"></p>
-            <br>
-            <p id="metalSynth_1_envelope_decay_text">Decay </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='metalSynth_1_envelope_decay'>
-            <p id="metalSynth_1_envelope_decay_value"></p>
-            <br>
-            <p id="metalSynth_1_envelope_sustain_text">Sustain </p>
-            <input type='range' min=0 max=1 step='0.01' value="0" id='metalSynth_1_envelope_sustain'>
-            <p id="metalSynth_1_envelope_sustain_value"></p>
-            <br>
-            <p id="metalSynth_1_envelope_release_text">Release </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='metalSynth_1_envelope_release'>
-            <p id="metalSynth_1_envelope_release_value"></p>
-            <br>
-          </fieldset>
-        </fieldset>
-      </div>
-      <div id="duoSynth_1_div">
-        <fieldset>
-          <br> Duo Synth <br> <br>
-          <button id="duoSynth_1_playButton" value="duoSynth_1" onclick="play(value)">Play </button>
-          <button id="duoSynth_1_stopButton" value="duoSynth_1" onclick="stop(value)">Stop </button>
-          <button id="duoSynth_1_muteButton" value="duoSynth_1" onclick="mute(value)">Mute </button>
-          <button id="duoSynth_1_soloButton" value="duoSynth_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="duoSynth_1_Sync_checkbox" id="duoSynth_1_Sync_checkbox">Sync
-          <br>
-          <p id="duoSynth_1_vibratoAmount_text">Vibrato Amount </p>
-          <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_vibratoAmount'>
-          <p id="duoSynth_1_vibratoAmount_value"></p>
-          <br>
-          <p id="duoSynth_1_vibratoRate_text">Vibrato Rate </p>
-          <input type='range' min=0 max=20 step='0.01' value="0" id='duoSynth_1_vibratoRate'>
-          <p id="duoSynth_1_vibratoRate_value"></p>
-          <br>
-          <p id="duoSynth_1_harmonicity_text">Harmonicity </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='duoSynth_1_harmonicity'>
-          <p id="duoSynth_1_harmonicity_value"></p>
-          <br>
-          <br>
-          <fieldset>
-            <!-- VOICE1 --> VOICE0
-            <br> <br>
-            <label for="duoSynth_1_voice0_select_type"> type:</label>
-            <select name="duoSynth_1_voice0_select_type" id="duoSynth_1_voice0_select_type">
+            type:
+            <select name="membraneSynth_1_select_type" id="membraneSynth_1_select_type">
               <option name="sine" id="sine" value="sine">sine</option>
               <option name="square" id="square" value="square">square</option>
               <option name="triangle" id="triangle" value="triangle">triangle</option>
               <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
             </select>
             <br>
-            <p id="duoSynth_1_voice0_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='duoSynth_1_voice0_volume'>
-            <p id="duoSynth_1_voice0_volume_value"> </p>
+            <p id="membraneSynth_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='membraneSynth_1_volume'>
+            <p id="membraneSynth_1_volume_value"> </p>
             <br>
-            <p id="duoSynth_1_portamento_voice0_text">Portamento </p>
-            <input type='range' min=0 max=15 step='0.01' value="0" id='duoSynth_1_portamento_voice0'>
-            <p id="duoSynth_1_portamento_voice0_value"></p>
+            <p id="membraneSynth_1_pitchDecay_text">Pitch Decay </p>
+            <input type='range' min=0 max=10 step='0.01' value="0" id='membraneSynth_1_pitchDecay'>
+            <p id="membraneSynth_1_pitchDecay_value"></p>
             <br>
-            <fieldset>
-              Filter Envelope
-              <br>
-              <p id="duoSynth_1_voice0_filterEnvelope_attack_text">Attack </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_filterEnvelope_attack'>
-              <p id="duoSynth_1_voice0_filterEnvelope_attack_value"></p>
-              <br>
-              <p id="duoSynth_1_voice0_filterEnvelope_decay_text">Decay </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_filterEnvelope_decay'>
-              <p id="duoSynth_1_voice0_filterEnvelope_decay_value"></p>
-              <br>
-              <p id="duoSynth_1_voice0_filterEnvelope_sustain_text">Sustain </p>
-              <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_voice0_filterEnvelope_sustain'>
-              <p id="duoSynth_1_voice0_filterEnvelope_sustain_value"></p>
-              <br>
-              <p id="duoSynth_1_voice0_filterEnvelope_release_text">Release </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_filterEnvelope_release'>
-              <p id="duoSynth_1_voice0_filterEnvelope_release_value"></p>
-              <br>
-            </fieldset>
+            <p id="membraneSynth_1_octaves_text">Octaves </p>
+            <input type='range' min=0 max=10 step='0.5' value="0" id='membraneSynth_1_octaves'>
+            <p id="membraneSynth_1_octaves_value"></p>
             <br>
             <fieldset>
               Envelope
               <br>
-              <p id="duoSynth_1_voice0_envelope_attack_text">Attack </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_envelope_attack'>
-              <p id="duoSynth_1_voice0_envelope_attack_value"></p>
+              <p id="membraneSynth_1_envelope_attack_text">Attack </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='membraneSynth_1_envelope_attack'>
+              <p id="membraneSynth_1_envelope_attack_value"></p>
               <br>
-              <p id="duoSynth_1_voice0_envelope_decay_text">Decay </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_envelope_decay'>
-              <p id="duoSynth_1_voice0_envelope_decay_value"></p>
+              <p id="membraneSynth_1_envelope_decay_text">Decay </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='membraneSynth_1_envelope_decay'>
+              <p id="membraneSynth_1_envelope_decay_value"></p>
               <br>
-              <p id="duoSynth_1_voice0_envelope_sustain_text">Sustain </p>
-              <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_voice0_envelope_sustain'>
-              <p id="duoSynth_1_voice0_envelope_sustain_value"></p>
+              <p id="membraneSynth_1_envelope_sustain_text">Sustain </p>
+              <input type='range' min=0 max=1 step='0.01' value="0" id='membraneSynth_1_envelope_sustain'>
+              <p id="membraneSynth_1_envelope_sustain_value"></p>
               <br>
-              <p id="duoSynth_1_voice0_envelope_release_text">Release </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_envelope_release'>
-              <p id="duoSynth_1_voice0_envelope_release_value"></p>
-              <br>
+              <p id="membraneSynth_1_envelope_release_text">Release </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='membraneSynth_1_envelope_release'>
+              <p id="membraneSynth_1_envelope_release_value"></p>
+              <br> <br>
+              <label for="membraneSynth_1_select_type"></label>
+              Attack Curve:
+              <select name="membraneSynth_1_select_attackCurve_type" id="membraneSynth_1_select_attackCurve_type">
+                <option name="exponential" id="exponential" value="exponential">exponential</option>
+                <option name="linear" id="linear" value="linear">linear</option>
+              </select>
+              <br> <br>
             </fieldset>
+            <br>
           </fieldset>
-          <br> <br>
-
+        </div>
+        <div id="metalSynth_1_div">
           <fieldset>
-            <!-- VOICE1 --> VOICE1
+            <br> Metal Synth <br> <br>
+            <button id="metalSynth_1_playButton" value="metalSynth_1" onclick="play(value)">Play </button>
+            <button id="metalSynth_1_stopButton" value="metalSynth_1" onclick="stop(value)">Stop </button>
+            <button id="metalSynth_1_muteButton" value="metalSynth_1" onclick="mute(value)">Mute </button>
+            <button id="metalSynth_1_soloButton" value="metalSynth_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="metalSynth_1_Sync_checkbox"
+              id="metalSynth_1_Sync_checkbox">Sync
             <br> <br>
-            <label for="duoSynth_1_voice1_select_type"> type:</label>
-            <select name="duoSynth_1_voice1_select_type" id="duoSynth_1_voice1_select_type">
-              <option name="sine" id="sine" value="sine">sine</option>
-              <option name="square" id="square" value="square">square</option>
-              <option name="triangle" id="triangle" value="triangle">triangle</option>
-              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-            </select>
+            <p id="metalSynth_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='metalSynth_1_volume'>
+            <p id="metalSynth_1_volume_value"> </p>
             <br>
-            <p id="duoSynth_1_voice1_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='duoSynth_1_voice1_volume'>
-            <p id="duoSynth_1_voice1_volume_value"> </p>
+            <p id="metalSynth_1_freq_text">Freq </p>
+            <input type='range' min=0 max=22000 step='10' value="20" id='metalSynth_1_freq'>
+            <p id="metalSynth_1_freq_value"></p>
             <br>
-            <p id="duoSynth_1_portamento_voice1_text">Portamento </p>
-            <input type='range' min=0 max=15 step='0.01' value="0" id='duoSynth_1_portamento_voice1'>
-            <p id="duoSynth_1_portamento_voice1_value"></p>
+            <p id="metalSynth_1_harmonicity_text">Harmonicity </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='metalSynth_1_harmonicity'>
+            <p id="metalSynth_1_harmonicity_value"></p>
             <br>
-            <fieldset>
-              Filter Envelope
-              <br>
-              <p id="duoSynth_1_voice1_filterEnvelope_attack_text">Attack </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_filterEnvelope_attack'>
-              <p id="duoSynth_1_voice1_filterEnvelope_attack_value"></p>
-              <br>
-              <p id="duoSynth_1_voice1_filterEnvelope_decay_text">Decay </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_filterEnvelope_decay'>
-              <p id="duoSynth_1_voice1_filterEnvelope_decay_value"></p>
-              <br>
-              <p id="duoSynth_1_voice1_filterEnvelope_sustain_text">Sustain </p>
-              <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_voice1_filterEnvelope_sustain'>
-              <p id="duoSynth_1_voice1_filterEnvelope_sustain_value"></p>
-              <br>
-              <p id="duoSynth_1_voice1_filterEnvelope_release_text">Release </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_filterEnvelope_release'>
-              <p id="duoSynth_1_voice1_filterEnvelope_release_value"></p>
-              <br>
-            </fieldset>
+            <p id="metalSynth_1_modulationIndex_text">Mod Index </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='metalSynth_1_modulationIndex'>
+            <p id="metalSynth_1_modulationIndex_value"></p>
+            <br>
+            <p id="metalSynth_1_resonance_text">Resonance </p>
+            <input type='range' min=1000 max=22000 step='10' value="20" id='metalSynth_1_resonance'>
+            <p id="metalSynth_1_resonance_value"></p>
             <br>
             <fieldset>
               Envelope
               <br>
-              <p id="duoSynth_1_voice1_envelope_attack_text">Attack </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_envelope_attack'>
-              <p id="duoSynth_1_voice1_envelope_attack_value"></p>
+              <p id="metalSynth_1_envelope_attack_text">Attack </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='metalSynth_1_envelope_attack'>
+              <p id="metalSynth_1_envelope_attack_value"></p>
               <br>
-              <p id="duoSynth_1_voice1_envelope_decay_text">Decay </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_envelope_decay'>
-              <p id="duoSynth_1_voice1_envelope_decay_value"></p>
+              <p id="metalSynth_1_envelope_decay_text">Decay </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='metalSynth_1_envelope_decay'>
+              <p id="metalSynth_1_envelope_decay_value"></p>
               <br>
-              <p id="duoSynth_1_voice1_envelope_sustain_text">Sustain </p>
-              <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_voice1_envelope_sustain'>
-              <p id="duoSynth_1_voice1_envelope_sustain_value"></p>
+              <p id="metalSynth_1_envelope_sustain_text">Sustain </p>
+              <input type='range' min=0 max=1 step='0.01' value="0" id='metalSynth_1_envelope_sustain'>
+              <p id="metalSynth_1_envelope_sustain_value"></p>
               <br>
-              <p id="duoSynth_1_voice1_envelope_release_text">Release </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_envelope_release'>
-              <p id="duoSynth_1_voice1_envelope_release_value"></p>
+              <p id="metalSynth_1_envelope_release_text">Release </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='metalSynth_1_envelope_release'>
+              <p id="metalSynth_1_envelope_release_value"></p>
               <br>
             </fieldset>
           </fieldset>
-          <br>
-
-        </fieldset>
-      </div>
-      <div id="noiseSynth_1_div">
-        <fieldset>
-          <br> Noise Synth <br> <br>
-          Type:
-          <select name="noise_select" id="noise_select_type">
-            <option name="white" id="white" value="white">white</option>
-            <option name="pink" id="pink" value="pink">pink</option>
-            <option name="brown" id="brown" value="brown">brown</option>
-          </select>
-          <br> <br>
-          <button id="noiseSynth_1_playButton" value="noiseSynth_1" onclick="play(value)">Play </button>
-          <button id="noiseSynth_1_stopButton" value="noiseSynth_1" onclick="stop(value)">Stop </button>
-          <button id="noiseSynth_1_muteButton" value="noiseSynth_1" onclick="mute(value)">Mute </button>
-          <button id="noiseSynth_1_soloButton" value="noiseSynth_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="noiseSynth_1_Sync_checkbox" id="noiseSynth_1_Sync_checkbox">Sync
-          <br>
-          <p id="noiseSynth_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='noiseSynth_1_volume'>
-          <p id="noiseSynth_1_volume_value"> </p>
-          <br>
+        </div>
+        <div id="duoSynth_1_div">
           <fieldset>
-            Noise Envelope
+            <br> Duo Synth <br> <br>
+            <button id="duoSynth_1_playButton" value="duoSynth_1" onclick="play(value)">Play </button>
+            <button id="duoSynth_1_stopButton" value="duoSynth_1" onclick="stop(value)">Stop </button>
+            <button id="duoSynth_1_muteButton" value="duoSynth_1" onclick="mute(value)">Mute </button>
+            <button id="duoSynth_1_soloButton" value="duoSynth_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="duoSynth_1_Sync_checkbox" id="duoSynth_1_Sync_checkbox">Sync
             <br>
-            <p id="noiseSynth_1_envelope_attack_text">Attack </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='noiseSynth_1_envelope_attack'>
-            <p id="noiseSynth_1_envelope_attack_value"></p>
+            <p id="duoSynth_1_vibratoAmount_text">Vibrato Amount </p>
+            <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_vibratoAmount'>
+            <p id="duoSynth_1_vibratoAmount_value"></p>
             <br>
-            <p id="noiseSynth_1_envelope_decay_text">Decay </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='noiseSynth_1_envelope_decay'>
-            <p id="noiseSynth_1_envelope_decay_value"></p>
+            <p id="duoSynth_1_vibratoRate_text">Vibrato Rate </p>
+            <input type='range' min=0 max=20 step='0.01' value="0" id='duoSynth_1_vibratoRate'>
+            <p id="duoSynth_1_vibratoRate_value"></p>
             <br>
-            <p id="noiseSynth_1_envelope_sustain_text">Sustain </p>
-            <input type='range' min=0 max=1 step='0.01' value="0" id='noiseSynth_1_envelope_sustain'>
-            <p id="noiseSynth_1_envelope_sustain_value"></p>
+            <p id="duoSynth_1_harmonicity_text">Harmonicity </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='duoSynth_1_harmonicity'>
+            <p id="duoSynth_1_harmonicity_value"></p>
             <br>
-          </fieldset>
-          <br>
-
-        </fieldset>
-      </div>
-      <div id="fmSynth_1_div">
-        <fieldset>
-          <br> FM Synth <br> <br>
-          <button id="fmSynth_1_playButton" value="fmSynth_1" onclick="play(value)">Play </button>
-          <button id="fmSynth_1_stopButton" value="fmSynth_1" onclick="stop(value)">Stop </button>
-          <button id="fmSynth_1_muteButton" value="fmSynth_1" onclick="mute(value)">Mute </button>
-          <button id="fmSynth_1_soloButton" value="fmSynth_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="fmSynth_1_Sync_checkbox" id="fmSynth_1_Sync_checkbox">Sync
-          <br> <br>
-          <label for="fmSynth_1_select_type"></label>
-          Osc type:
-          <select name="fmSynth_1_select_type" id="fmSynth_1_select_type">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br>
-          <p id="fmSynth_1_harmonicity_text">Harmonicity </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='fmSynth_1_harmonicity'>
-          <p id="fmSynth_1_harmonicity_value"></p>
-          <br>
-          <p id="fmSynth_1_modulationIndex_text">Mod Index </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='fmSynth_1_modulationIndex'>
-          <p id="fmSynth_1_modulationIndex_value"></p>
-          <br>
-          <p id="fmSynth_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='fmSynth_1_detune'>
-          <p id="fmSynth_1_detune_value"></p>
-          <br>
-          <br>
-          Envelope
-          <br>
-          <p id="fmSynth_1_envelope_attack_text">Attack </p>
-          <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_envelope_attack'>
-          <p id="fmSynth_1_envelope_attack_value"></p>
-          <br>
-          <p id="fmSynth_1_envelope_decay_text">Decay </p>
-          <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_envelope_decay'>
-          <p id="fmSynth_1_envelope_decay_value"></p>
-          <br>
-          <p id="fmSynth_1_envelope_sustain_text">Sustain </p>
-          <input type='range' min=0 max=1 step='0.01' value="0" id='fmSynth_1_envelope_sustain'>
-          <p id="fmSynth_1_envelope_sustain_value"></p>
-          <br>
-          <p id="fmSynth_1_envelope_release_text">Release </p>
-          <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_envelope_release'>
-          <p id="fmSynth_1_envelope_release_value"></p>
-          <br>
-
-          <fieldset>
-            <label for="fmSynth_1_select_type"></label>
-            Mod Type:
-            <select name="fmSynth_1_select_modulation_type" id="fmSynth_1_select_modulation_type">
-              <option name="sine" id="sine" value="sine">sine</option>
-              <option name="square" id="square" value="square">square</option>
-              <option name="triangle" id="triangle" value="triangle">triangle</option>
-              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-            </select>
-            <br> <br>
-            Modulation Envelope
-            <br>
-            <p id="fmSynth_1_modulation_envelope_attack_text">Attack </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_modulation_envelope_attack'>
-            <p id="fmSynth_1_modulation_envelope_attack_value"></p>
-            <br>
-            <p id="fmSynth_1_modulation_envelope_decay_text">Decay </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_modulation_envelope_decay'>
-            <p id="fmSynth_1_modulation_envelope_decay_value"></p>
-            <br>
-            <p id="fmSynth_1_modulation_envelope_sustain_text">Sustain </p>
-            <input type='range' min=0 max=1 step='0.01' value="0" id='fmSynth_1_modulation_envelope_sustain'>
-            <p id="fmSynth_1_modulation_envelope_sustain_value"></p>
-            <br>
-            <p id="fmSynth_1_modulation_envelope_release_text">Release </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_modulation_envelope_release'>
-            <p id="fmSynth_1_modulation_envelope_release_value"></p>
-            <br>
-          </fieldset>
-          <br>
-        </fieldset>
-      </div>
-      <div id="monoSynth_1_div">
-        <fieldset>
-          <br> Mono Synth <br> <br>
-          <button id="monoSynth_1_playButton" value="monoSynth_1" onclick="play(value)">Play </button>
-          <button id="monoSynth_1_stopButton" value="monoSynth_1" onclick="stop(value)">Stop </button>
-          <button id="monoSynth_1_muteButton" value="monoSynth_1" onclick="mute(value)">Mute </button>
-          <button id="monoSynth_1_soloButton" value="monoSynth_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="monoSynth_1_Sync_checkbox" id="monoSynth_1_Sync_checkbox">Sync
-          <br> <br>
-          <label for="monoSynth_1_select_type">Osc type:</label>
-          <select name="monoSynth_1_select_type" id="monoSynth_1_select_type">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br>
-          <p id="monoSynth_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='monoSynth_1_volume'>
-          <p id="monoSynth_1_volume_value"> </p>
-          <input id="monoSynth_1_volume_rampTo_gain" type="number" min="-50" max="12" />
-          time: <input id="monoSynth_1_volume_rampTo_time" type="number" min="0" max="60" />
-          <button id="monoSynth_1_volume_rampTo_send_Button" value="monoSynth_1_volume"
-            onclick="send(value, monoSynth_1_volume_rampTo_gain, monoSynth_1_volume_rampTo_time)">Send </button>
-          <br>
-          <p id="monoSynth_1_freq_text">Freq </p>
-          <input type='range' min=10 max=22000 step='10' value="20" id='monoSynth_1_freq'>
-          <p id="monoSynth_1_freq_value"></p>
-          <br>
-          <p id="monoSynth_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='monoSynth_1_detune'>
-          <p id="monoSynth_1_detune_value"></p>
-          <br>
-          <p id="monoSynth_1_portamento_text">Portamento </p>
-          <input type='range' min=0 max=5 step='0.01' value="0" id='monoSynth_1_portamento'>
-          <p id="monoSynth_1_portamento_value"></p>
-          <br>
-          <fieldset>
-            Filter <br>
-            <select name="monoSynth_1_filter_1_select" id="monoSynth_1_filter_1_select">
-              <option name="empty" id="empty" value="empty">empty</option>
-              <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
-              <option name="highpass" id="highpass" value="highpass">highpass</option>
-              <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
-              <option name="lowshelf" id="lowshelf" value="lowshelf">lowshelf</option>
-              <option name="highshelf" id="highshelf" value="highshelf">highshelf</option>
-              <option name="notch" id="notch" value="notch">notch</option>
-              <option name="allpass" id="allpass" value="allpass">allpass</option>
-              <option name="peaking" id="peaking" value="peaking">peaking</option>
-              <!--
-        <option name="eq3" id="eq3" value="eq3">EQ3</option>
-        <option name="tascam" id="tascam" value="tascam">Tascam</option>
--->
-            </select>
-            <br>
-            <p id="monoSynth_1_Q_text">Q </p>
-            <input type='range' min=0 max=10 step='0.001' value="0" id='monoSynth_1_Q'>
-            <p id="monoSynth_1_Q_value"></p>
-            <br>
-            <p id="monoSynth_1_rolloff_text">Rolloff </p>
-            <input type='range' min=0 max=10 step='0.001' value="0" id='monoSynth_1_rolloff'>
-            <p id="monoSynth_1_rolloff_value"></p>
             <br>
             <fieldset>
-              Filter Envelope
+              <!-- VOICE1 --> VOICE0
+              <br> <br>
+              <label for="duoSynth_1_voice0_select_type"> type:</label>
+              <select name="duoSynth_1_voice0_select_type" id="duoSynth_1_voice0_select_type">
+                <option name="sine" id="sine" value="sine">sine</option>
+                <option name="square" id="square" value="square">square</option>
+                <option name="triangle" id="triangle" value="triangle">triangle</option>
+                <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+              </select>
               <br>
-              <p id="monoSynth_1_filterEnvelope_attack_text">Attack </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_filterEnvelope_attack'>
-              <p id="monoSynth_1_filterEnvelope_attack_value"></p>
+              <p id="duoSynth_1_voice0_volume_text">Vol</p>
+              <input type='range' min=-41 max=12 step='1' value="-40" id='duoSynth_1_voice0_volume'>
+              <p id="duoSynth_1_voice0_volume_value"> </p>
               <br>
-              <p id="monoSynth_1_filterEnvelope_decay_text">Decay </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_filterEnvelope_decay'>
-              <p id="monoSynth_1_filterEnvelope_decay_value"></p>
+              <p id="duoSynth_1_portamento_voice0_text">Portamento </p>
+              <input type='range' min=0 max=15 step='0.01' value="0" id='duoSynth_1_portamento_voice0'>
+              <p id="duoSynth_1_portamento_voice0_value"></p>
               <br>
-              <p id="monoSynth_1_filterEnvelope_sustain_text">Sustain </p>
-              <input type='range' min=0 max=1 step='0.01' value="0" id='monoSynth_1_filterEnvelope_sustain'>
-              <p id="monoSynth_1_filterEnvelope_sustain_value"></p>
+              <fieldset>
+                Filter Envelope
+                <br>
+                <p id="duoSynth_1_voice0_filterEnvelope_attack_text">Attack </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_filterEnvelope_attack'>
+                <p id="duoSynth_1_voice0_filterEnvelope_attack_value"></p>
+                <br>
+                <p id="duoSynth_1_voice0_filterEnvelope_decay_text">Decay </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_filterEnvelope_decay'>
+                <p id="duoSynth_1_voice0_filterEnvelope_decay_value"></p>
+                <br>
+                <p id="duoSynth_1_voice0_filterEnvelope_sustain_text">Sustain </p>
+                <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_voice0_filterEnvelope_sustain'>
+                <p id="duoSynth_1_voice0_filterEnvelope_sustain_value"></p>
+                <br>
+                <p id="duoSynth_1_voice0_filterEnvelope_release_text">Release </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_filterEnvelope_release'>
+                <p id="duoSynth_1_voice0_filterEnvelope_release_value"></p>
+                <br>
+              </fieldset>
               <br>
-              <p id="monoSynth_1_filterEnvelope_release_text">Release </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_filterEnvelope_release'>
-              <p id="monoSynth_1_filterEnvelope_release_value"></p>
-              <br>
-              <p id="monoSynth_1_filterEnvelope_baseFrequency_text">Base Freq </p>
-              <input type='range' min=0 max=22000 step='10' value="0" id='monoSynth_1_filterEnvelope_baseFrequency'>
-              <p id="monoSynth_1_filterEnvelope_baseFrequency_value"></p>
-              <br>
-              <p id="monoSynth_1_filterEnvelope_octaves_text">Octaves </p>
-              <input type='range' min=0 max=12 step='1' value="0" id='monoSynth_1_filterEnvelope_octaves'>
-              <p id="monoSynth_1_filterEnvelope_octaves_value"></p>
-              <br>
-              <p id="monoSynth_1_filterEnvelope_exponent_text">Exponent </p>
-              <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_filterEnvelope_exponent'>
-              <p id="monoSynth_1_filterEnvelope_exponent_value"></p>
+              <fieldset>
+                Envelope
+                <br>
+                <p id="duoSynth_1_voice0_envelope_attack_text">Attack </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_envelope_attack'>
+                <p id="duoSynth_1_voice0_envelope_attack_value"></p>
+                <br>
+                <p id="duoSynth_1_voice0_envelope_decay_text">Decay </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_envelope_decay'>
+                <p id="duoSynth_1_voice0_envelope_decay_value"></p>
+                <br>
+                <p id="duoSynth_1_voice0_envelope_sustain_text">Sustain </p>
+                <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_voice0_envelope_sustain'>
+                <p id="duoSynth_1_voice0_envelope_sustain_value"></p>
+                <br>
+                <p id="duoSynth_1_voice0_envelope_release_text">Release </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice0_envelope_release'>
+                <p id="duoSynth_1_voice0_envelope_release_value"></p>
+                <br>
+              </fieldset>
             </fieldset>
-          </fieldset>
-          <br>
-          <fieldset>
-            Envelope
-            <br>
-            <p id="monoSynth_1_envelope_attack_text">Attack </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_envelope_attack'>
-            <p id="monoSynth_1_envelope_attack_value"></p>
-            <br>
-            <p id="monoSynth_1_envelope_decay_text">Decay </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_envelope_decay'>
-            <p id="monoSynth_1_envelope_decay_value"></p>
-            <br>
-            <p id="monoSynth_1_envelope_sustain_text">Sustain </p>
-            <input type='range' min=0 max=1 step='0.01' value="0" id='monoSynth_1_envelope_sustain'>
-            <p id="monoSynth_1_envelope_sustain_value"></p>
-            <br>
-            <p id="monoSynth_1_envelope_release_text">Release </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_envelope_release'>
-            <p id="monoSynth_1_envelope_release_value"></p>
-            <br>
-          </fieldset>
-          <br>
-        </fieldset>
-      </div>
-
-      <div id="Synth_w_AmpEnv_1_div">
-        <fieldset>
-          <br> Synth + Amplitude Envelope
-          <br> <br>
-          <button id="Synth_w_AmpEnv_1_playButton" value="Synth_w_AmpEnv_1" onclick="play(value)">Play </button>
-          <button id="Synth_w_AmpEnv_1_stopButton" value="Synth_w_AmpEnv_1" onclick="stop(value)">Stop </button>
-          <button id="Synth_w_AmpEnv_1_muteButton" value="Synth_w_AmpEnv_1" onclick="mute(value)">Mute </button>
-          <button id="Synth_w_AmpEnv_1_soloButton" value="Synth_w_AmpEnv_1" onclick="solo(value)">Solo </button>
-          <input class="checkbox" type="checkbox" name="Synth_w_AmpEnv_1_Sync_checkbox"
-            id="Synth_w_AmpEnv_1_Sync_checkbox">Sync
-          <br> <br>
-          <label for="Synth_w_AmpEnv_1_select_type"></label>
-          Osc Type:
-          <select name="Synth_w_AmpEnv_1_select_modulation_type" id="Synth_w_AmpEnv_1_select_modulation_type">
-            <option name="sine" id="sine" value="sine">sine</option>
-            <option name="square" id="square" value="square">square</option>
-            <option name="triangle" id="triangle" value="triangle">triangle</option>
-            <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
-          </select>
-          <br>
-          <p id="Synth_w_AmpEnv_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='Synth_w_AmpEnv_1_volume'>
-          <p id="Synth_w_AmpEnv_1_volume_value"> </p>
-          <br>
-          <p id="Synth_w_AmpEnv_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='1' value="0" id='Synth_w_AmpEnv_1_detune'>
-          <p id="Synth_w_AmpEnv_1_detune_value"></p>
-          <br>
-          <p id="Synth_w_AmpEnv_1_portamento_text">Portamento </p>
-          <input type='range' min=0 max=10 step='0.01' value="0" id='Synth_w_AmpEnv_1_portamento'>
-          <p id="Synth_w_AmpEnv_1_portamento_value"></p>
-          <fieldset>
-            <br>
-            Envelope
-            <br>
-            <p id="Synth_w_AmpEnv_1_modulation_envelope_attack_text">Attack </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='Synth_w_AmpEnv_1_modulation_envelope_attack'>
-            <p id="Synth_w_AmpEnv_1_modulation_envelope_attack_value"></p>
-            <br>
-            <p id="Synth_w_AmpEnv_1_modulation_envelope_decay_text">Decay </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='Synth_w_AmpEnv_1_modulation_envelope_decay'>
-            <p id="Synth_w_AmpEnv_1_modulation_envelope_decay_value"></p>
-            <br>
-            <p id="Synth_w_AmpEnv_1_modulation_envelope_sustain_text">Sustain </p>
-            <input type='range' min=0 max=1 step='0.01' value="0" id='Synth_w_AmpEnv_1_modulation_envelope_sustain'>
-            <p id="Synth_w_AmpEnv_1_modulation_envelope_sustain_value"></p>
-            <br>
-            <p id="Synth_w_AmpEnv_1_modulation_envelope_release_text">Release </p>
-            <input type='range' min=0 max=10 step='0.01' value="0" id='Synth_w_AmpEnv_1_modulation_envelope_release'>
-            <p id="Synth_w_AmpEnv_1_modulation_envelope_release_value"></p>
-            <br>
-          </fieldset>
-          <br>
-        </fieldset>
-      </div>
-
-
-
-      <div id="grainPlayer_1_div">
-        <fieldset>
-          grainPlayer_div <br>
-          RMS <p id="grainPlayer_1_rms_value"> </p>
-          <br>
-          <p id="grainPlayer_1_songName"> </p>
-          <p id="grainPlayer_1_duration_text"> </p>
-          <p id="grainPlayer_1_duration_value"> </p>
-          <div>
-            <button id="grainPlayer_1_loadButton" value="Grain_1" onclick="load_Local(value)">Load local </button>
-            <br>
-            <p id="grainPlayer_1_load_text"></p>
-            <br>
-            <button id="grainPlayer_1_playButton" value="Grain_1" onclick="play(value)">Play </button>
-            <button id="grainPlayer_1_stopButton" value="Grain_1" onclick="stop(value)">Stop </button>
-            <button id="grainPlayer_1_muteButton" value="Grain_1" onclick="mute(value)">Mute </button>
-            <button id="grainPlayer_1_soloButton" value="Grain_1" onclick="solo(value)">Solo </button>
-          </div>
-
-          <p id="grainPlayer_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='grainPlayer_1_volume'>
-          <p id="grainPlayer_1_volume_value"> </p>
-          <input id="grainPlayer_1_volume_rampTo_gain" type="number" min="-50" max="12" />
-          time: <input id="grainPlayer_1_volume_rampTo_time" type="number" min="0" max="60" />
-          <button id="grainPlayer_1_volume_rampTo_send_Button" value="grainPlayer_1_volume"
-            onclick="send(value, grainPlayer_1_volume_rampTo_gain, grainPlayer_1_volume_rampTo_time)">Send </button>
-          <br>
-          <p id="grainPlayer_1_pan_text">Pan
-            <input type='range' min=-1 max=1 step='0.02' value=0 id='grainPlayer_1_pan'>
-          </p>
-          <p id="grainPlayer_1_pan_value"></p>
-          <br>
-          <p id="grainPlayer_1_grainSize_text"> Grain Size </p>
-          <input type='range' min=0.01 step='1' value="0.01" id='grainPlayer_1_grainSize'>
-          <p id="grainPlayer_1_grainSize_value"></p>
-          <br>
-          <p id="grainPlayer_1_overlap_text"> Overlap </p>
-          <input type='range' min=0 step='0.001' value="0" id='grainPlayer_1_overlap'>
-          <p id="grainPlayer_1_overlap_value"></p>
-          <br>
-          <p id="grainPlayer_1_playback_rate_text">Rate
-            <input type='range' min=10 max=100 step='1' value=1 id='grainPlayer_1_playback_rate'>
-          <p id="grainPlayer_1_playback_rate_value"></p>
-          <br>
-          <p id="grainPlayer_1_detune_text">Detune </p>
-          <input type='range' min=0 max=10000 step='10' value="0" id='grainPlayer_1_detune'>
-          <p id="grainPlayer_1_detune_value"></p>
-          <br>
-          <input class="checkbox" type="checkbox" name="grainPlayer_1_reverse_checkbox"
-            id="grainPlayer_1_reverse_checkbox">Reverse
-          <br>
-          <p id="grainPlayer_1_loop_start_text">loop start</p>
-          <input id="grainPlayer_1_loop_start" type="number" min="0" />
-          <p id="grainPlayer_1_loop_start_time"></p>
-          <br>
-          <p id="grainPlayer_1_loop_end_text">loop end</p>
-          <input id="grainPlayer_1_loop_end" type="number" min="0" />
-          <p id="grainPlayer_1_loop_end_time"></p>
-          <br>
-        </fieldset>
-      </div>
-      <!--******************************************************-->
-      <!--******************************************************-->
-      <div id="noise_div">
-        <div>
-          <fieldset>
-            noise_div <br>
-            RMS <p id="noise_rms_value"> </p>
             <br> <br>
 
-            <button id="noise_playButton" value="noise" onclick="play(value)">Play </button>
-            <button id="noise_stopButton" value="noise" onclick="stop(value)">Stop </button>
-            <button id="noise_muteButton" value="noise" onclick="mute(value)">Mute </button>
-            <button id="noise_soloButton" value="noise" onclick="solo(value)">Solo </button>
+            <fieldset>
+              <!-- VOICE1 --> VOICE1
+              <br> <br>
+              <label for="duoSynth_1_voice1_select_type"> type:</label>
+              <select name="duoSynth_1_voice1_select_type" id="duoSynth_1_voice1_select_type">
+                <option name="sine" id="sine" value="sine">sine</option>
+                <option name="square" id="square" value="square">square</option>
+                <option name="triangle" id="triangle" value="triangle">triangle</option>
+                <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+              </select>
+              <br>
+              <p id="duoSynth_1_voice1_volume_text">Vol</p>
+              <input type='range' min=-41 max=12 step='1' value="-40" id='duoSynth_1_voice1_volume'>
+              <p id="duoSynth_1_voice1_volume_value"> </p>
+              <br>
+              <p id="duoSynth_1_portamento_voice1_text">Portamento </p>
+              <input type='range' min=0 max=15 step='0.01' value="0" id='duoSynth_1_portamento_voice1'>
+              <p id="duoSynth_1_portamento_voice1_value"></p>
+              <br>
+              <fieldset>
+                Filter Envelope
+                <br>
+                <p id="duoSynth_1_voice1_filterEnvelope_attack_text">Attack </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_filterEnvelope_attack'>
+                <p id="duoSynth_1_voice1_filterEnvelope_attack_value"></p>
+                <br>
+                <p id="duoSynth_1_voice1_filterEnvelope_decay_text">Decay </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_filterEnvelope_decay'>
+                <p id="duoSynth_1_voice1_filterEnvelope_decay_value"></p>
+                <br>
+                <p id="duoSynth_1_voice1_filterEnvelope_sustain_text">Sustain </p>
+                <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_voice1_filterEnvelope_sustain'>
+                <p id="duoSynth_1_voice1_filterEnvelope_sustain_value"></p>
+                <br>
+                <p id="duoSynth_1_voice1_filterEnvelope_release_text">Release </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_filterEnvelope_release'>
+                <p id="duoSynth_1_voice1_filterEnvelope_release_value"></p>
+                <br>
+              </fieldset>
+              <br>
+              <fieldset>
+                Envelope
+                <br>
+                <p id="duoSynth_1_voice1_envelope_attack_text">Attack </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_envelope_attack'>
+                <p id="duoSynth_1_voice1_envelope_attack_value"></p>
+                <br>
+                <p id="duoSynth_1_voice1_envelope_decay_text">Decay </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_envelope_decay'>
+                <p id="duoSynth_1_voice1_envelope_decay_value"></p>
+                <br>
+                <p id="duoSynth_1_voice1_envelope_sustain_text">Sustain </p>
+                <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_voice1_envelope_sustain'>
+                <p id="duoSynth_1_voice1_envelope_sustain_value"></p>
+                <br>
+                <p id="duoSynth_1_voice1_envelope_release_text">Release </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='duoSynth_1_voice1_envelope_release'>
+                <p id="duoSynth_1_voice1_envelope_release_value"></p>
+                <br>
+              </fieldset>
+            </fieldset>
             <br>
-            <p id="noise_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='noise_volume'>
-            <p id="noise_volume_value"> </p>
-            <input id="noise_volume_rampTo_gain" type="number" min="-50" max="12" />
-            time: <input id="noise_volume_rampTo_time" type="number" min="0" max="60" />
-            <button id="noise_volume_rampTo_send_Button" value="noise_volume"
-              onclick="send(value, noise_volume_rampTo_gain, noise_volume_rampTo_time)">Send </button>
-            <br>
-            <p id="noise_playback_rate_text">Rate
-              <input type='range' min=10 max=100 step='1' value=1 id='noise_playback_rate'>
-            </p>
-            <p id="noise_playback_rate_value"></p>
-            <br>
-            Noise Type
+
+          </fieldset>
+        </div>
+        <div id="noiseSynth_1_div">
+          <fieldset>
+            <br> Noise Synth <br> <br>
+            Type:
             <select name="noise_select" id="noise_select_type">
               <option name="white" id="white" value="white">white</option>
               <option name="pink" id="pink" value="pink">pink</option>
               <option name="brown" id="brown" value="brown">brown</option>
             </select>
-
-            <div class="noise_content">
-              <p id="noise_fadeIn_text">fadeIn</p>
-              <input id="noise_fadeIn" type="number" min="0" />
-              <p id="noise_fadeIn_value"></p>
+            <br> <br>
+            <button id="noiseSynth_1_playButton" value="noiseSynth_1" onclick="play(value)">Play </button>
+            <button id="noiseSynth_1_stopButton" value="noiseSynth_1" onclick="stop(value)">Stop </button>
+            <button id="noiseSynth_1_muteButton" value="noiseSynth_1" onclick="mute(value)">Mute </button>
+            <button id="noiseSynth_1_soloButton" value="noiseSynth_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="noiseSynth_1_Sync_checkbox"
+              id="noiseSynth_1_Sync_checkbox">Sync
+            <br>
+            <p id="noiseSynth_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='noiseSynth_1_volume'>
+            <p id="noiseSynth_1_volume_value"> </p>
+            <br>
+            <fieldset>
+              Noise Envelope
               <br>
-              <p id="noise_fadeOut_text">fadeOut</p>
-              <input id="noise_fadeOut" type="number" min="0" />
-              <p id="noise_fadeOut_value"></p>
+              <p id="noiseSynth_1_envelope_attack_text">Attack </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='noiseSynth_1_envelope_attack'>
+              <p id="noiseSynth_1_envelope_attack_value"></p>
+              <br>
+              <p id="noiseSynth_1_envelope_decay_text">Decay </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='noiseSynth_1_envelope_decay'>
+              <p id="noiseSynth_1_envelope_decay_value"></p>
+              <br>
+              <p id="noiseSynth_1_envelope_sustain_text">Sustain </p>
+              <input type='range' min=0 max=1 step='0.01' value="0" id='noiseSynth_1_envelope_sustain'>
+              <p id="noiseSynth_1_envelope_sustain_value"></p>
+              <br>
+            </fieldset>
+            <br>
+
           </fieldset>
-          <br>
         </div>
-      </div>
-      <!--******************************************************-->
-      <!--******************************************************-->
-      <div id="sampler_div">
-        <fieldset>
-          sampler_div <br> falta bocha de cosas
-          <br>
-          <p id="sampler_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='sampler_volume'>
-          <p id="sampler_volume_value"> </p>
-          <input id="sampler_volume_rampTo_gain" type="number" min="-50" max="12" />
-          time: <input id="sampler_volume_rampTo_time" type="number" min="0" max="60" />
-          <button id="sampler_volume_rampTo_send_Button" value="sampler_volume" -
-            onclick="send(value, sampler_volume_rampTo_gain, sampler_volume_rampTo_time)">now </button>
-          <br>
-          <p id="sampler_attack_text">Attack</p>
-          <input type='range' min=0 max=1 step='0.01' value="-40" id='sampler_attack'>
-          <p id="sampler_attack_value"> </p>
-          <br>
-          <p id="sampler_release_text">Release</p>
-          <input type='range' min=0 max=1 step='0.01' value="-40" id='sampler_release'>
-          <p id="sampler_release_value"> </p>
-          <br>
-          Samples url
-          <input type="text" placeholder="web https where samples are hosted" id="sampler_baseUrl">
-          <button id="send_text_Button" onclick="send_text_Button()">
-            Send </button>
-          <br><br>
+        <div id="fmSynth_1_div">
+          <fieldset>
+            <br> FM Synth <br> <br>
+            <button id="fmSynth_1_playButton" value="fmSynth_1" onclick="play(value)">Play </button>
+            <button id="fmSynth_1_stopButton" value="fmSynth_1" onclick="stop(value)">Stop </button>
+            <button id="fmSynth_1_muteButton" value="fmSynth_1" onclick="mute(value)">Mute </button>
+            <button id="fmSynth_1_soloButton" value="fmSynth_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="fmSynth_1_Sync_checkbox" id="fmSynth_1_Sync_checkbox">Sync
+            <br> <br>
+            <label for="fmSynth_1_select_type"></label>
+            Osc type:
+            <select name="fmSynth_1_select_type" id="fmSynth_1_select_type">
+              <option name="sine" id="sine" value="sine">sine</option>
+              <option name="square" id="square" value="square">square</option>
+              <option name="triangle" id="triangle" value="triangle">triangle</option>
+              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+            </select>
+            <br>
+            <p id="fmSynth_1_harmonicity_text">Harmonicity </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='fmSynth_1_harmonicity'>
+            <p id="fmSynth_1_harmonicity_value"></p>
+            <br>
+            <p id="fmSynth_1_modulationIndex_text">Mod Index </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='fmSynth_1_modulationIndex'>
+            <p id="fmSynth_1_modulationIndex_value"></p>
+            <br>
+            <p id="fmSynth_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='fmSynth_1_detune'>
+            <p id="fmSynth_1_detune_value"></p>
+            <br>
+            <br>
+            Envelope
+            <br>
+            <p id="fmSynth_1_envelope_attack_text">Attack </p>
+            <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_envelope_attack'>
+            <p id="fmSynth_1_envelope_attack_value"></p>
+            <br>
+            <p id="fmSynth_1_envelope_decay_text">Decay </p>
+            <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_envelope_decay'>
+            <p id="fmSynth_1_envelope_decay_value"></p>
+            <br>
+            <p id="fmSynth_1_envelope_sustain_text">Sustain </p>
+            <input type='range' min=0 max=1 step='0.01' value="0" id='fmSynth_1_envelope_sustain'>
+            <p id="fmSynth_1_envelope_sustain_value"></p>
+            <br>
+            <p id="fmSynth_1_envelope_release_text">Release </p>
+            <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_envelope_release'>
+            <p id="fmSynth_1_envelope_release_value"></p>
+            <br>
 
-          Curve
+            <fieldset>
+              <label for="fmSynth_1_select_type"></label>
+              Mod Type:
+              <select name="fmSynth_1_select_modulation_type" id="fmSynth_1_select_modulation_type">
+                <option name="sine" id="sine" value="sine">sine</option>
+                <option name="square" id="square" value="square">square</option>
+                <option name="triangle" id="triangle" value="triangle">triangle</option>
+                <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+              </select>
+              <br> <br>
+              Modulation Envelope
+              <br>
+              <p id="fmSynth_1_modulation_envelope_attack_text">Attack </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_modulation_envelope_attack'>
+              <p id="fmSynth_1_modulation_envelope_attack_value"></p>
+              <br>
+              <p id="fmSynth_1_modulation_envelope_decay_text">Decay </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_modulation_envelope_decay'>
+              <p id="fmSynth_1_modulation_envelope_decay_value"></p>
+              <br>
+              <p id="fmSynth_1_modulation_envelope_sustain_text">Sustain </p>
+              <input type='range' min=0 max=1 step='0.01' value="0" id='fmSynth_1_modulation_envelope_sustain'>
+              <p id="fmSynth_1_modulation_envelope_sustain_value"></p>
+              <br>
+              <p id="fmSynth_1_modulation_envelope_release_text">Release </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='fmSynth_1_modulation_envelope_release'>
+              <p id="fmSynth_1_modulation_envelope_release_value"></p>
+              <br>
+            </fieldset>
+            <br>
+          </fieldset>
+        </div>
+        <div id="monoSynth_1_div">
+          <fieldset>
+            <br> Mono Synth <br> <br>
+            <button id="monoSynth_1_playButton" value="monoSynth_1" onclick="play(value)">Play </button>
+            <button id="monoSynth_1_stopButton" value="monoSynth_1" onclick="stop(value)">Stop </button>
+            <button id="monoSynth_1_muteButton" value="monoSynth_1" onclick="mute(value)">Mute </button>
+            <button id="monoSynth_1_soloButton" value="monoSynth_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="monoSynth_1_Sync_checkbox" id="monoSynth_1_Sync_checkbox">Sync
+            <br> <br>
+            <label for="monoSynth_1_select_type">Osc type:</label>
+            <select name="monoSynth_1_select_type" id="monoSynth_1_select_type">
+              <option name="sine" id="sine" value="sine">sine</option>
+              <option name="square" id="square" value="square">square</option>
+              <option name="triangle" id="triangle" value="triangle">triangle</option>
+              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+            </select>
+            <br>
+            <p id="monoSynth_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='monoSynth_1_volume'>
+            <p id="monoSynth_1_volume_value"> </p>
+            <input id="monoSynth_1_volume_rampTo_gain" type="number" min="-50" max="12" />
+            time: <input id="monoSynth_1_volume_rampTo_time" type="number" min="0" max="60" />
+            <button id="monoSynth_1_volume_rampTo_send_Button" value="monoSynth_1_volume"
+              onclick="send(value, monoSynth_1_volume_rampTo_gain, monoSynth_1_volume_rampTo_time)">Send </button>
+            <br>
+            <p id="monoSynth_1_freq_text">Freq </p>
+            <input type='range' min=10 max=22000 step='10' value="20" id='monoSynth_1_freq'>
+            <p id="monoSynth_1_freq_value"></p>
+            <br>
+            <p id="monoSynth_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='monoSynth_1_detune'>
+            <p id="monoSynth_1_detune_value"></p>
+            <br>
+            <p id="monoSynth_1_portamento_text">Portamento </p>
+            <input type='range' min=0 max=5 step='0.01' value="0" id='monoSynth_1_portamento'>
+            <p id="monoSynth_1_portamento_value"></p>
+            <br>
+            <fieldset>
+              Filter <br>
+              <select name="monoSynth_1_filter_1_select" id="monoSynth_1_filter_1_select">
+                <option name="empty" id="empty" value="empty">empty</option>
+                <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
+                <option name="highpass" id="highpass" value="highpass">highpass</option>
+                <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
+                <option name="lowshelf" id="lowshelf" value="lowshelf">lowshelf</option>
+                <option name="highshelf" id="highshelf" value="highshelf">highshelf</option>
+                <option name="notch" id="notch" value="notch">notch</option>
+                <option name="allpass" id="allpass" value="allpass">allpass</option>
+                <option name="peaking" id="peaking" value="peaking">peaking</option>
+                <!--
+        <option name="eq3" id="eq3" value="eq3">EQ3</option>
+        <option name="tascam" id="tascam" value="tascam">Tascam</option>
+-->
+              </select>
+              <br>
+              <p id="monoSynth_1_Q_text">Q </p>
+              <input type='range' min=0 max=10 step='0.001' value="0" id='monoSynth_1_Q'>
+              <p id="monoSynth_1_Q_value"></p>
+              <br>
+              <p id="monoSynth_1_rolloff_text">Rolloff </p>
+              <input type='range' min=0 max=10 step='0.001' value="0" id='monoSynth_1_rolloff'>
+              <p id="monoSynth_1_rolloff_value"></p>
+              <br>
+              <fieldset>
+                Filter Envelope
+                <br>
+                <p id="monoSynth_1_filterEnvelope_attack_text">Attack </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_filterEnvelope_attack'>
+                <p id="monoSynth_1_filterEnvelope_attack_value"></p>
+                <br>
+                <p id="monoSynth_1_filterEnvelope_decay_text">Decay </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_filterEnvelope_decay'>
+                <p id="monoSynth_1_filterEnvelope_decay_value"></p>
+                <br>
+                <p id="monoSynth_1_filterEnvelope_sustain_text">Sustain </p>
+                <input type='range' min=0 max=1 step='0.01' value="0" id='monoSynth_1_filterEnvelope_sustain'>
+                <p id="monoSynth_1_filterEnvelope_sustain_value"></p>
+                <br>
+                <p id="monoSynth_1_filterEnvelope_release_text">Release </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_filterEnvelope_release'>
+                <p id="monoSynth_1_filterEnvelope_release_value"></p>
+                <br>
+                <p id="monoSynth_1_filterEnvelope_baseFrequency_text">Base Freq </p>
+                <input type='range' min=0 max=22000 step='10' value="0" id='monoSynth_1_filterEnvelope_baseFrequency'>
+                <p id="monoSynth_1_filterEnvelope_baseFrequency_value"></p>
+                <br>
+                <p id="monoSynth_1_filterEnvelope_octaves_text">Octaves </p>
+                <input type='range' min=0 max=12 step='1' value="0" id='monoSynth_1_filterEnvelope_octaves'>
+                <p id="monoSynth_1_filterEnvelope_octaves_value"></p>
+                <br>
+                <p id="monoSynth_1_filterEnvelope_exponent_text">Exponent </p>
+                <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_filterEnvelope_exponent'>
+                <p id="monoSynth_1_filterEnvelope_exponent_value"></p>
+              </fieldset>
+            </fieldset>
+            <br>
+            <fieldset>
+              Envelope
+              <br>
+              <p id="monoSynth_1_envelope_attack_text">Attack </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_envelope_attack'>
+              <p id="monoSynth_1_envelope_attack_value"></p>
+              <br>
+              <p id="monoSynth_1_envelope_decay_text">Decay </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_envelope_decay'>
+              <p id="monoSynth_1_envelope_decay_value"></p>
+              <br>
+              <p id="monoSynth_1_envelope_sustain_text">Sustain </p>
+              <input type='range' min=0 max=1 step='0.01' value="0" id='monoSynth_1_envelope_sustain'>
+              <p id="monoSynth_1_envelope_sustain_value"></p>
+              <br>
+              <p id="monoSynth_1_envelope_release_text">Release </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='monoSynth_1_envelope_release'>
+              <p id="monoSynth_1_envelope_release_value"></p>
+              <br>
+            </fieldset>
+            <br>
+          </fieldset>
+        </div>
+        <div id="Synth_w_AmpEnv_1_div">
+          <fieldset>
+            <br> Synth + Amplitude Envelope
+            <br> <br>
+            <button id="Synth_w_AmpEnv_1_playButton" value="Synth_w_AmpEnv_1" onclick="play(value)">Play </button>
+            <button id="Synth_w_AmpEnv_1_stopButton" value="Synth_w_AmpEnv_1" onclick="stop(value)">Stop </button>
+            <button id="Synth_w_AmpEnv_1_muteButton" value="Synth_w_AmpEnv_1" onclick="mute(value)">Mute </button>
+            <button id="Synth_w_AmpEnv_1_soloButton" value="Synth_w_AmpEnv_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="Synth_w_AmpEnv_1_Sync_checkbox"
+              id="Synth_w_AmpEnv_1_Sync_checkbox">Sync
+            <br> <br>
+            <label for="Synth_w_AmpEnv_1_select_type"></label>
+            Osc Type:
+            <select name="Synth_w_AmpEnv_1_select_modulation_type" id="Synth_w_AmpEnv_1_select_modulation_type">
+              <option name="sine" id="sine" value="sine">sine</option>
+              <option name="square" id="square" value="square">square</option>
+              <option name="triangle" id="triangle" value="triangle">triangle</option>
+              <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+            </select>
+            <br>
+            <p id="Synth_w_AmpEnv_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='Synth_w_AmpEnv_1_volume'>
+            <p id="Synth_w_AmpEnv_1_volume_value"> </p>
+            <br>
+            <p id="Synth_w_AmpEnv_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='1' value="0" id='Synth_w_AmpEnv_1_detune'>
+            <p id="Synth_w_AmpEnv_1_detune_value"></p>
+            <br>
+            <p id="Synth_w_AmpEnv_1_portamento_text">Portamento </p>
+            <input type='range' min=0 max=10 step='0.01' value="0" id='Synth_w_AmpEnv_1_portamento'>
+            <p id="Synth_w_AmpEnv_1_portamento_value"></p>
+            <fieldset>
+              <br>
+              Envelope
+              <br>
+              <p id="Synth_w_AmpEnv_1_envelope_attack_text">Attack </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='Synth_w_AmpEnv_1_envelope_attack'>
+              <p id="Synth_w_AmpEnv_1_envelope_attack_value"></p>
+              <br>
+              <p id="Synth_w_AmpEnv_1_envelope_decay_text">Decay </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='Synth_w_AmpEnv_1_envelope_decay'>
+              <p id="Synth_w_AmpEnv_1_envelope_decay_value"></p>
+              <br>
+              <p id="Synth_w_AmpEnv_1_envelope_sustain_text">Sustain </p>
+              <input type='range' min=0 max=1 step='0.01' value="0" id='Synth_w_AmpEnv_1_envelope_sustain'>
+              <p id="Synth_w_AmpEnv_1_envelope_sustain_value"></p>
+              <br>
+              <p id="Synth_w_AmpEnv_1_envelope_release_text">Release </p>
+              <input type='range' min=0 max=10 step='0.01' value="0" id='Synth_w_AmpEnv_1_envelope_release'>
+              <p id="Synth_w_AmpEnv_1_envelope_release_value"></p>
+              <br>
+            </fieldset>
+            <br>
+          </fieldset>
+        </div>
+        <div id="grainPlayer_1_div">
+          <fieldset>
+            <br>
+            Grain Player <br>
+            RMS <p id="grainPlayer_1_rms_value"> </p>
+            <br>
+            <p id="grainPlayer_1_songName"> </p>
+            <p id="grainPlayer_1_duration_text"> </p>
+            <p id="grainPlayer_1_duration_value"> </p>
+            <div>
+              <button id="grainPlayer_1_loadButton" value="Grain_1" onclick="load_Local(value)">Load local </button>
+              <br>
+              <p id="grainPlayer_1_load_text"></p>
+              <br>
+              <button id="grainPlayer_1_playButton" value="Grain_1" onclick="play(value)">Play </button>
+              <button id="grainPlayer_1_stopButton" value="Grain_1" onclick="stop(value)">Stop </button>
+              <button id="grainPlayer_1_muteButton" value="Grain_1" onclick="mute(value)">Mute </button>
+              <button id="grainPlayer_1_soloButton" value="Grain_1" onclick="solo(value)">Solo </button>
+            </div>
+
+            <p id="grainPlayer_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='grainPlayer_1_volume'>
+            <p id="grainPlayer_1_volume_value"> </p>
+            <input id="grainPlayer_1_volume_rampTo_gain" type="number" min="-50" max="12" />
+            time: <input id="grainPlayer_1_volume_rampTo_time" type="number" min="0" max="60" />
+            <button id="grainPlayer_1_volume_rampTo_send_Button" value="grainPlayer_1_volume"
+              onclick="send(value, grainPlayer_1_volume_rampTo_gain, grainPlayer_1_volume_rampTo_time)">Send </button>
+            <br>
+            <p id="grainPlayer_1_pan_text">Pan
+              <input type='range' min=-1 max=1 step='0.02' value=0 id='grainPlayer_1_pan'>
+            </p>
+            <p id="grainPlayer_1_pan_value"></p>
+            <br>
+            <p id="grainPlayer_1_grainSize_text"> Grain Size </p>
+            <input type='range' min=0.01 step='1' value="0.01" id='grainPlayer_1_grainSize'>
+            <p id="grainPlayer_1_grainSize_value"></p>
+            <br>
+            <p id="grainPlayer_1_overlap_text"> Overlap </p>
+            <input type='range' min=0 step='0.001' value="0" id='grainPlayer_1_overlap'>
+            <p id="grainPlayer_1_overlap_value"></p>
+            <br>
+            <p id="grainPlayer_1_playback_rate_text">Rate
+              <input type='range' min=10 max=100 step='1' value=1 id='grainPlayer_1_playback_rate'>
+            <p id="grainPlayer_1_playback_rate_value"></p>
+            <br>
+            <p id="grainPlayer_1_detune_text">Detune </p>
+            <input type='range' min=0 max=10000 step='10' value="0" id='grainPlayer_1_detune'>
+            <p id="grainPlayer_1_detune_value"></p>
+            <br>
+            <input class="checkbox" type="checkbox" name="grainPlayer_1_reverse_checkbox"
+              id="grainPlayer_1_reverse_checkbox">Reverse
+            <br>
+            <p id="grainPlayer_1_loop_start_text">loop start</p>
+            <input id="grainPlayer_1_loop_start" type="number" min="0" />
+            <p id="grainPlayer_1_loop_start_time"></p>
+            <br>
+            <p id="grainPlayer_1_loop_end_text">loop end</p>
+            <input id="grainPlayer_1_loop_end" type="number" min="0" />
+            <p id="grainPlayer_1_loop_end_time"></p>
+            <br>
+          </fieldset>
+        </div>
+        <div id="noise_div">
           <div>
-            <input type="radio" id="sampler_curve_linear" name="sampler_curve" value="linear" />
-            <label for="linear">Linear</label>
+            <fieldset>
+              noise_div <br>
+              RMS <p id="noise_rms_value"> </p>
+              <br> <br>
 
-            <input type="radio" id="sampler_curve_exponential" name="sampler_curve" value="exponential" checked />
-            <label for="exponential"> Exponential </label>
+              <button id="noise_playButton" value="noise" onclick="play(value)">Play </button>
+              <button id="noise_stopButton" value="noise" onclick="stop(value)">Stop </button>
+              <button id="noise_muteButton" value="noise" onclick="mute(value)">Mute </button>
+              <button id="noise_soloButton" value="noise" onclick="solo(value)">Solo </button>
+              <br>
+              <p id="noise_volume_text">Vol</p>
+              <input type='range' min=-41 max=12 step='1' value="-40" id='noise_volume'>
+              <p id="noise_volume_value"> </p>
+              <input id="noise_volume_rampTo_gain" type="number" min="-50" max="12" />
+              time: <input id="noise_volume_rampTo_time" type="number" min="0" max="60" />
+              <button id="noise_volume_rampTo_send_Button" value="noise_volume"
+                onclick="send(value, noise_volume_rampTo_gain, noise_volume_rampTo_time)">Send </button>
+              <br>
+              <p id="noise_playback_rate_text">Rate
+                <input type='range' min=10 max=100 step='1' value=1 id='noise_playback_rate'>
+              </p>
+              <p id="noise_playback_rate_value"></p>
+              <br>
+              Noise Type
+              <select name="noise_select" id="noise_select_type">
+                <option name="white" id="white" value="white">white</option>
+                <option name="pink" id="pink" value="pink">pink</option>
+                <option name="brown" id="brown" value="brown">brown</option>
+              </select>
+
+              <div class="noise_content">
+                <p id="noise_fadeIn_text">fadeIn</p>
+                <input id="noise_fadeIn" type="number" min="0" />
+                <p id="noise_fadeIn_value"></p>
+                <br>
+                <p id="noise_fadeOut_text">fadeOut</p>
+                <input id="noise_fadeOut" type="number" min="0" />
+                <p id="noise_fadeOut_value"></p>
+            </fieldset>
+            <br>
           </div>
-        </fieldset>
-        <!--
+        </div>
+        <div id="sampler_div">
+          <fieldset>
+            <br>
+            Sampler <br> falta bocha de cosas
+            <br>
+            <p id="sampler_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='sampler_volume'>
+            <p id="sampler_volume_value"> </p>
+            <input id="sampler_volume_rampTo_gain" type="number" min="-50" max="12" />
+            time: <input id="sampler_volume_rampTo_time" type="number" min="0" max="60" />
+            <button id="sampler_volume_rampTo_send_Button" value="sampler_volume" -
+              onclick="send(value, sampler_volume_rampTo_gain, sampler_volume_rampTo_time)">now </button>
+            <br>
+            <p id="sampler_attack_text">Attack</p>
+            <input type='range' min=0 max=1 step='0.01' value="-40" id='sampler_attack'>
+            <p id="sampler_attack_value"> </p>
+            <br>
+            <p id="sampler_release_text">Release</p>
+            <input type='range' min=0 max=1 step='0.01' value="-40" id='sampler_release'>
+            <p id="sampler_release_value"> </p>
+            <br>
+            Samples url
+            <input type="text" placeholder="web https where samples are hosted" id="sampler_baseUrl">
+            <button id="send_text_Button" onclick="send_text_Button()">
+              Send </button>
+            <br><br>
+
+            Curve
+            <div>
+              <input type="radio" id="sampler_curve_linear" name="sampler_curve" value="linear" />
+              <label for="linear">Linear</label>
+
+              <input type="radio" id="sampler_curve_exponential" name="sampler_curve" value="exponential" checked />
+              <label for="exponential"> Exponential </label>
+            </div>
+          </fieldset>
+          <!--
 var sampler = new Tone.Sampler({
       "C3" : "path/to/C3.mp3",
       "D#3" : "path/to/Dsharp3.mp3",
@@ -1464,82 +1466,113 @@ var sampler = new Tone.Sampler({
        sampler.triggerAttack("D3")
 })
 -->
-      </div>
+        </div>
+        <div id="player_1_div">
+          <fieldset>
+            <br>
+            Player
+            <br>
+            <button id="player_1_loadButton" value="1" onclick="load_Local(value)">Load local </button>
+            <br>
+            <p id="player_1_load_text"></p>
+            <br>
+            <button id="player_1_playButton" value="1" onclick="play(value)">Play </button>
+            <button id="player_1_stopButton" value="1" onclick="stop(value)">Stop </button>
+            <button id="player_1_muteButton" value="1" onclick="mute(value)">Mute </button>
+            <button id="player_1_soloButton" value="1" onclick="solo(value)">Solo </button>
+            <br>
+            <p id="player_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='player_1_volume'>
+            <p id="player_1_volume_value"> </p>
+            <input id="player_1_volume_rampTo_gain" type="number" min="-50" max="12" style="width: 35px;" />
+            time: <input id="player_1_volume_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+            <button id="player_1_volume_rampTo_send_Button" value="player_1_volume"
+              onclick="send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time)">go </button>
+            <br>
+            <p id="player_1_pan_text">Pan
+              <input type='range' min=-1 max=1 step='0.01' value=0 id='player_1_pan'>
+            </p>
+            <p id="player_1_pan_value"></p>
+            <input id="player_1_pan_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
+            time: <input id="player_1_pan_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+            <button id="player_1_pan_rampTo_send_Button" value="player_1_pan"
+              onclick="send(value, player_1_pan_rampTo_gain, player_1_pan_rampTo_time)">go </button>
+            <br>
+            <p id="player_1_playback_rate_text">Rate
+              <input type='range' min=0.1 max=5 step='0.01' value=1 id='player_1_playback_rate'>
+            </p>
+            <p id="player_1_playback_rate_value"></p>
+            <br>
+            <input class="checkbox" type="checkbox" name="player_1_loop_checkbox" id="player_1_loop_checkbox">
+            <p id="player_1_loop_checkbox_text">Loop</p>
+            <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="player_1_autoplay_checkbox">
+            <p id="player_1_autoplay_text">Autoplay</p>
+            <input class="checkbox" type="checkbox" name="player_1_reverse_checkbox" id="player_1_reverse_checkbox">
+            <p id="player_1_reverse_text">Reverse</p>
+            <div id="player_1_loop_options_div">
+              <div class="content">
+                <fieldset>
+                  <br>
+                  <p id="player_1_loop_start_text">Loop Start </p>
+                  <input id="player_1_loop_start" type="number" min="0" />
+                  <p id="player_1_loop_start_time"></p>
+                  <p id="player_1_loop_end_text">Loop End</p>
+                  <input id="player_1_loop_end" type="number" min="0" />
+                  <p id="player_1_loop_end_time"></p>
+                  <br>
+                </fieldset>
+              </div>
+            </div>
 
-    </div>
-    <div>
-      RMS_player_1 <p id="player_1_rms_value"> </p>
-      <br>
-      filter_BP <p id="testMeter_1_player_1_filter_Bypass_VALUE"> </p>
-      -
-      filter <p id="testMeter_1_player_1_filter_VALUE"> </p>
-      <br>
-      comp_BP <p id="testMeter_1_player_1_rms_comp_Bypass_value"> </p>
-      -
-      comp <p id="testMeter_1_player_1_rms_comp_value"> </p>
-      <br>
-      gate_BP <p id="testMeter_1_player_1_rms_gate_Bypass_value"> </p>
-      -
-      gate <p id="testMeter_1_player_1_rms_gate_value"> </p>
-      <br>
-      limiter_BP <p id="testMeter_1_player_1_rms_limiter_Bypass_value"> </p>
-      -
-      limiter <p id="testMeter_1_player_1_rms_limiter_value"> </p>
-      <br>
-      RMS_after_volume_value <p id="player_1_rms_after_volume_value"> </p>
-    </div>
-    <p id="player_1_songName"> </p>
-    <p id="player_1_duration_text"> </p>
-    <p id="player_1_duration_value"> </p>
+            <div id="player_1_fade_options_div">
+              <div class="content">
+                <fieldset>
+                  <p id="player_1_fadeIn_text">fadeIn</p>
+                  <input id="player_1_fadeIn" type="number" min="0" />
+                  <p id="player_1_fadeIn_value"></p>
+                  <br>
+                  <p id="player_1_fadeOut_text">fadeOut</p>
+                  <input id="player_1_fadeOut" type="number" min="0" />
+                  <p id="player_1_fadeOut_value"></p>
+                  <br>
+                </fieldset>
+              </div>
 
-    <div>
-      <button type="button" class="collapsible">
-        Player controls
-      </button>
-      <div class="content">
-        <br>
-        <fieldset>
-          <button id="player_1_loadButton" value="1" onclick="load_Local(value)">Load local </button>
+
+            </div>
+
+          </fieldset>
           <br>
-          <p id="player_1_load_text"></p>
-          <br>
-          <button id="player_1_playButton" value="1" onclick="play(value)">Play </button>
-          <button id="player_1_stopButton" value="1" onclick="stop(value)">Stop </button>
-          <button id="player_1_muteButton" value="1" onclick="mute(value)">Mute </button>
-          <button id="player_1_soloButton" value="1" onclick="solo(value)">Solo </button>
-          <br>
-          <p id="player_1_volume_text">Vol</p>
-          <input type='range' min=-41 max=12 step='1' value="-40" id='player_1_volume'>
-          <p id="player_1_volume_value"> </p>
-          <input id="player_1_volume_rampTo_gain" type="number" min="-50" max="12" style="width: 35px;" />
-          time: <input id="player_1_volume_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="player_1_volume_rampTo_send_Button" value="player_1_volume"
-            onclick="send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time)">go </button>
-          <br>
-          <p id="player_1_pan_text">Pan
-            <input type='range' min=-1 max=1 step='0.01' value=0 id='player_1_pan'>
-          </p>
-          <p id="player_1_pan_value"></p>
-          <input id="player_1_pan_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
-          time: <input id="player_1_pan_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="player_1_pan_rampTo_send_Button" value="player_1_pan"
-            onclick="send(value, player_1_pan_rampTo_gain, player_1_pan_rampTo_time)">go </button>
-          <br>
-          <p id="player_1_playback_rate_text">Rate
-            <input type='range' min=0.1 max=5 step='0.01' value=1 id='player_1_playback_rate'>
-          </p>
-          <p id="player_1_playback_rate_value"></p>
-          <br>
-          <input class="checkbox" type="checkbox" name="player_1_loop_checkbox" id="player_1_loop_checkbox">
-          <p id="player_1_loop_checkbox_text">Loop</p>
-          <input class="checkbox" type="checkbox" name="autoplay_checkbox" id="player_1_autoplay_checkbox">
-          <p id="player_1_autoplay_text">Autoplay</p>
-          <input class="checkbox" type="checkbox" name="player_1_reverse_checkbox" id="player_1_reverse_checkbox">
-          <p id="player_1_reverse_text">Reverse</p>
-        </fieldset>
+        </div>
         <br>
       </div>
     </div>
+
+    <div id="RMS_all">
+      <fieldset>
+        RMS All <br>
+        RMS_player_1 <p id="player_1_rms_value"> </p>
+        <br>
+        filter_BP <p id="testMeter_1_player_1_filter_Bypass_VALUE"> </p>
+        -
+        filter <p id="testMeter_1_player_1_filter_VALUE"> </p>
+        <br>
+        comp_BP <p id="testMeter_1_player_1_rms_comp_Bypass_value"> </p>
+        -
+        comp <p id="testMeter_1_player_1_rms_comp_value"> </p>
+        <br>
+        gate_BP <p id="testMeter_1_player_1_rms_gate_Bypass_value"> </p>
+        -
+        gate <p id="testMeter_1_player_1_rms_gate_value"> </p>
+        <br>
+        limiter_BP <p id="testMeter_1_player_1_rms_limiter_Bypass_value"> </p>
+        -
+        limiter <p id="testMeter_1_player_1_rms_limiter_value"> </p>
+        <br>
+        RMS_after_volume_value <p id="player_1_rms_after_volume_value"> </p>
+      </fieldset>
+    </div>
+<!--
     <button type="button" class="collapsible">
       Loop options
     </button>
@@ -1567,6 +1600,7 @@ var sampler = new Tone.Sampler({
       <p id="player_1_fadeOut_value"></p>
       <br>
     </div>
+    -->
     <button type="button" class="collapsible">
       EQ
     </button>
@@ -2357,7 +2391,6 @@ var sampler = new Tone.Sampler({
 
     </div>
   </div>
-
   <!-- 4-->
   <div class="column">
     <h2> 4</h2>
@@ -2450,7 +2483,6 @@ var sampler = new Tone.Sampler({
       <p id="player_4_fxSend_4_text"> </p>
     </div>
   </div>
-
   <!-- FX 1-->
   <div class="column">
     <h2>FX 1</h2>
@@ -3390,9 +3422,6 @@ var sampler = new Tone.Sampler({
     </div>
 
   </div>
-
-
-
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
   integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
