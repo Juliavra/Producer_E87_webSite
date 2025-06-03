@@ -30,7 +30,6 @@ document.querySelector('button')?.addEventListener('click', async () => {
 	console.log('audio is ready')
 })
 
-
 // create two monophonic synths
 const synthA = new Tone.FMSynth().toDestination();
 const synthB = new Tone.AMSynth().toDestination();
@@ -56,12 +55,10 @@ PolySynth.triggerAttack("C5", nowPoly + 1.5);
 PolySynth.triggerAttack("E5", nowPoly + 2);
 PolySynth.triggerRelease(["D4", "F4", "A4", "C5", "E5"], nowPoly + 4);
 
-
 const player = new Tone.Player("https://tonejs.github.io/audio/berklee/gong_1.mp3").toDestination();
 Tone.loaded().then(() => {
 	player.start();
 });
-
 
 const sampler = new Tone.Sampler({
 	urls: {
@@ -78,7 +75,6 @@ Tone.loaded().then(() => {
 	sampler.triggerAttackRelease(["Eb4", "G4", "Bb4"], 4);
 })
 
-
 const player2 = new Tone.Player({
 	url: "https://tonejs.github.io/audio/berklee/gurgling_theremin_1.mp3",
 	loop: true,
@@ -88,7 +84,6 @@ const player2 = new Tone.Player({
 const distortion = new Tone.Distortion(0.4).toDestination();
 //connect a player to the distortion
 player.connect(distortion);
-
 
 const player3 = new Tone.Player({
 	url: "https://tonejs.github.io/audio/drum-samples/loops/ominous.mp3",
@@ -101,7 +96,6 @@ const feedbackDelay = new Tone.FeedbackDelay(0.125, 0.5).toDestination();
 player3.connect(filter);
 player3.connect(feedbackDelay);
 
-
 const osc = new Tone.Oscillator().toDestination();
 // start at "C4"
 osc.frequency.value = "C4";
@@ -109,6 +103,4 @@ osc.frequency.value = "C4";
 osc.frequency.rampTo("C2", 2);
 // start the oscillator for 2 seconds
 osc.start().stop("+3");
-
-
 }

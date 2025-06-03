@@ -288,10 +288,10 @@
   <div class="column">
     <h2>1</h2>
     <div id="player_1_songName_n_duration">
-    <p id="player_1_songName"> </p>
-    <p id="player_1_duration_text"> </p>
-    <p id="player_1_duration_value"> </p>
-</div>
+      <p id="player_1_songName"> </p>
+      <p id="player_1_duration_text"> </p>
+      <p id="player_1_duration_value"> </p>
+    </div>
     <div>
       <button type="button" class="collapsible">
         SOURCE
@@ -663,8 +663,6 @@ osc.partials = [1, 0.2, 0.01];
         <div id="amSynth_1_div">
           <fieldset>
             <br> AM Synth <br> <br>
-            <button id="amSynth_1_playButton" value="amSynth_1" onclick="play(value)">Play </button>
-            <button id="amSynth_1_stopButton" value="amSynth_1" onclick="stop(value)">Stop </button>
             <button id="amSynth_1_muteButton" value="amSynth_1" onclick="mute(value)">Mute </button>
             <button id="amSynth_1_soloButton" value="amSynth_1" onclick="solo(value)">Solo </button>
             <input class="checkbox" type="checkbox" name="amSynth_1_Sync_checkbox" id="amSynth_1_Sync_checkbox">Sync
@@ -875,7 +873,11 @@ osc.partials = [1, 0.2, 0.01];
             <button id="duoSynth_1_soloButton" value="duoSynth_1" onclick="solo(value)">Solo </button>
             <input class="checkbox" type="checkbox" name="duoSynth_1_Sync_checkbox" id="duoSynth_1_Sync_checkbox">Sync
             <br>
-            <p id="duoSynth_1_vibratoAmount_text">Vibrato Amount </p>
+                        <p id="duoSynth_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='duoSynth_1_volume'>
+            <p id="duoSynth_1_volume_value"> </p>
+            <br>
+            <p id="duoSynth_1_vibratoAmount_text">Vibrato Amnt </p>
             <input type='range' min=0 max=1 step='0.01' value="0" id='duoSynth_1_vibratoAmount'>
             <p id="duoSynth_1_vibratoAmount_value"></p>
             <br>
@@ -1074,6 +1076,10 @@ osc.partials = [1, 0.2, 0.01];
               <option name="triangle" id="triangle" value="triangle">triangle</option>
               <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
             </select>
+            <br>
+            <p id="fmSynth_1_volume_text">Vol</p>
+            <input type='range' min=-41 max=12 step='1' value="-40" id='fmSynth_1_volume'>
+            <p id="fmSynth_1_volume_value"> </p>
             <br>
             <p id="fmSynth_1_harmonicity_text">Harmonicity </p>
             <input type='range' min=0 max=5 step='0.01' value="0" id='fmSynth_1_harmonicity'>
@@ -1362,8 +1368,14 @@ osc.partials = [1, 0.2, 0.01];
             <input type='range' min=0 max=10000 step='10' value="0" id='grainPlayer_1_detune'>
             <p id="grainPlayer_1_detune_value"></p>
             <br>
+            <input class="checkbox" type="checkbox" name="grainPlayer_1_loop_checkbox"
+              id="grainPlayer_1_loop_checkbox">Loop
+
             <input class="checkbox" type="checkbox" name="grainPlayer_1_reverse_checkbox"
               id="grainPlayer_1_reverse_checkbox">Reverse
+
+            <input class="checkbox" type="checkbox" name="grainPlayer_1_autoplay_checkbox"
+              id="grainPlayer_1_autoplay_checkbox">Autoplay
             <br>
             <p id="grainPlayer_1_loop_start_text">loop start</p>
             <input id="grainPlayer_1_loop_start" type="number" min="0" />
@@ -1472,6 +1484,8 @@ var sampler = new Tone.Sampler({
             <br>
             Player
             <br>
+            RMS: <p id="player_1_rms_value"> </p>
+            <br>
             <button id="player_1_loadButton" value="1" onclick="load_Local(value)">Load local </button>
             <br>
             <p id="player_1_load_text"></p>
@@ -1551,28 +1565,16 @@ var sampler = new Tone.Sampler({
     <div id="RMS_all">
       <fieldset>
         RMS All <br>
-        RMS_player_1 <p id="player_1_rms_value"> </p>
-        <br>
-        filter_BP <p id="testMeter_1_player_1_filter_Bypass_VALUE"> </p>
-        -
-        filter <p id="testMeter_1_player_1_filter_VALUE"> </p>
-        <br>
         comp_BP <p id="testMeter_1_player_1_rms_comp_Bypass_value"> </p>
-        -
-        comp <p id="testMeter_1_player_1_rms_comp_value"> </p>
-        <br>
         gate_BP <p id="testMeter_1_player_1_rms_gate_Bypass_value"> </p>
-        -
-        gate <p id="testMeter_1_player_1_rms_gate_value"> </p>
-        <br>
         limiter_BP <p id="testMeter_1_player_1_rms_limiter_Bypass_value"> </p>
-        -
-        limiter <p id="testMeter_1_player_1_rms_limiter_value"> </p>
+        <br>
+
         <br>
         RMS_after_volume_value <p id="player_1_rms_after_volume_value"> </p>
       </fieldset>
     </div>
-<!--
+    <!--
     <button type="button" class="collapsible">
       Loop options
     </button>
@@ -1606,6 +1608,7 @@ var sampler = new Tone.Sampler({
     </button>
     <div class="content">
       <br>
+
       <label for="player_1_filter_1_select" name="player_1_filter_1_select"> </label>
       <button id="player_1_filter_eq_bypass_Button" value="bypass"
         onclick="player_1_filter_eq_selection_bypass_on(value)">Bypass
@@ -1644,7 +1647,7 @@ var sampler = new Tone.Sampler({
         <br>
       </div>
       <div id="player_1_bypass_controls_div">
-        <br>
+        RMS: <p id="testMeter_1_player_1_filter_Bypass_VALUE"> </p>
         <fieldset>
           <br>
           EQ BY PASSED
@@ -1653,6 +1656,8 @@ var sampler = new Tone.Sampler({
         <br>
       </div>
       <div id="player_1_allpass_controls_div">
+        <br>
+        RMS: <p id="testMeter_1_player_1_filter_VALUE"> </p>
         <br>
         <fieldset>
           <p id="player_1_filter_frequency_text_allpass">Freq </p>
@@ -1937,8 +1942,10 @@ var sampler = new Tone.Sampler({
           <br>
       </div>
       <div id="player_1_dynamics_compressor_div">
-        Compressor
+        Compressor <br>
         <fieldset>
+          RMS: <p id="testMeter_1_player_1_rms_comp_value"> </p>
+          <br>
           <p id="player_1_dynamics_ratio_text">Ratio </p>
           <input type='range' min=1 max=20 step='1' value="0" id='player_1_dynamics_ratio'>
           <p id="player_1_dynamics_ratio_value"> 0</p>
@@ -2004,8 +2011,10 @@ var sampler = new Tone.Sampler({
         <br>
       </div>
       <div id="player_1_dynamics_gate_div">
-        Gate <br>
+        Gate
         <fieldset>
+          RMS: <p id="testMeter_1_player_1_rms_gate_value"> </p>
+          <br>
           <p id="player_1_gate_threshold_text"> Threshold </p>
           <input type='range' min=-100 max=12 step='1' value="0" id='player_1_gate_threshold'>
           <p id="player_1_gate_threshold_value"></p>
@@ -2035,6 +2044,8 @@ var sampler = new Tone.Sampler({
         Limiter
         <br>
         <fieldset>
+          RMS: <p id="testMeter_1_player_1_rms_limiter_value"> </p>
+          <br>
           <p id="player_1_limiter_threshold_text"> Threshold </p>
           <input type='range' min=-100 max=12 step='1' value="-100" id='player_1_limiter_threshold'>
           <p id="player_1_limiter_threshold_value"></p>

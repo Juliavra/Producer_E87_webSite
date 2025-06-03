@@ -61,6 +61,18 @@ PARA DEVOLVER A LA CANCION AL MUTE.FALSE
 //USAR ESTO PARA CREAR UN AUDIO TAG Y CARGAR EL SRC EN UN BUFFER 
 // Y PASARLO A UN TONE PLAYER, SE PUEDE SACAR LA DURATION Y ALGUNA COSA MAS
 
+// Autoplay policy: start context after user gesture.
+window.addEventListener('click', () => {
+	Tone.context.resume().then(() => {
+		console.log('AudioContext started');
+	});
+}, {
+	once: true,
+	capture: true,
+	passive: true,
+});
+
+
 window.addEventListener("error", mostrarerror);
 
 var cancion_1 = {
@@ -1578,6 +1590,10 @@ noise_div.style.display = "none";
 //---------------------------------------------------------------------
 //GRAIN PLAYER
 const grainPlayer_1_Node = new Tone.GrainPlayer().toDestination();
+const grainPlayer_1_rmsNode = new Tone.Meter(0);
+grainPlayer_1_Node.fan(grainPlayer_1_rmsNode);
+grainPlayer_1_Node.autoplay = false;//POR AHORA ACA
+grainPlayer_1_Node.loop = true;//POR AHORA ACA
 
 const grainPlayer_1_rms_value = document.getElementById("grainPlayer_1_rms_value");
 const grainPlayer_1_songName = document.getElementById("grainPlayer_1_songName");
@@ -1611,7 +1627,9 @@ const grainPlayer_1_playback_rate_value = document.getElementById("grainPlayer_1
 const grainPlayer_1_detune = document.getElementById("grainPlayer_1_detune");
 const grainPlayer_1_detune_value = document.getElementById("grainPlayer_1_detune_value");
 
-//const grainPlayer_1_autoplay_checkbox = document.getElementById("grainPlayer_1_autoplay_checkbox");
+const grainPlayer_1_loop_checkbox = document.getElementById("grainPlayer_1_loop_checkbox");
+grainPlayer_1_loop_checkbox.checked = true;//POR AHORA ACA
+const grainPlayer_1_autoplay_checkbox = document.getElementById("grainPlayer_1_autoplay_checkbox");
 const grainPlayer_1_reverse_checkbox = document.getElementById("grainPlayer_1_reverse_checkbox");
 const grainPlayer_1_loop_start = document.getElementById("grainPlayer_1_loop_start");
 const grainPlayer_1_loop_end = document.getElementById("grainPlayer_1_loop_end");
@@ -1664,18 +1682,25 @@ grainPlayer_1_detune.addEventListener("change", function (e) {
   console.log("grainPlayer_1_Node.detune: " + grainPlayer_1_Node.detune);
   grainPlayer_1_detune_value.innerHTML = `${e.currentTarget.value}`;
 });
-/*
-grainPlayer_autoplay_checkbox.addEventListener("change", function () {
-  if (grainPlayer_autoplay_checkbox.checked) { grainPlayer_1_Node.autoplay = true; }
-  else { grainPlayer_1_Node.autoplay = false; }
-  console.log("grainPlayer_1_Node.grainPlayer_autoplay_checkbox: " + grainPlayer_autoplay_checkbox.checked);
+
+grainPlayer_1_loop_checkbox.addEventListener("change", function () {
+  if (grainPlayer_1_loop_checkbox.checked) { grainPlayer_1_Node.loop = true; }
+  else { grainPlayer_1_Node.loop = false; }
+  console.log("grainPlayer_1_Node.loop: " + grainPlayer_1_loop_checkbox.checked);
 });
-*/
+/**/
 grainPlayer_1_reverse_checkbox.addEventListener("change", function () {
   if (grainPlayer_1_reverse_checkbox.checked) { grainPlayer_1_Node.reverse = true; }
   else { grainPlayer_1_Node.reverse = false; }
   console.log("grainPlayer_1_Node.grainPlayer_reverse_checkbox: " + grainPlayer_1_reverse_checkbox.checked);
 });
+
+grainPlayer_1_autoplay_checkbox.addEventListener("change", function () {
+  if (grainPlayer_1_autoplay_checkbox.checked) { grainPlayer_1_Node.autoplay = true; }
+  else { grainPlayer_1_Node.autoplay = false; }
+  console.log("grainPlayer_1_Node.grainPlayer_autoplay_checkbox: " + grainPlayer_1_autoplay_checkbox.checked);
+});
+/**/
 
 grainPlayer_1_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
@@ -2327,7 +2352,7 @@ const amSynth_1 = new Tone.AMSynth(
       release: 0.5
     }
   });
-amSynth_1.toDestination();
+amSynth_1.connect(masterVolume);
 
 const amSynth_1_Sync_checkbox = document.getElementById("amSynth_1_Sync_checkbox");
 amSynth_1_Sync_checkbox.addEventListener("change", function () {
@@ -2767,7 +2792,21 @@ const fmSynth_1 = new Tone.FMSynth(
       release: 0.5
     }
   });
-fmSynth_1.toDestination();
+fmSynth_1.connect(masterVolume);
+
+const fmSynth_1_volume = document.getElementById("fmSynth_1_volume");
+const fmSynth_1_volume_value = document.getElementById("fmSynth_1_volume_value");
+fmSynth_1_volume.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    fmSynth_1.volume.value = -100;
+    fmSynth_1_volume_value.innerHTML = -100;
+  }
+  else {
+    fmSynth_1.volume.value = e.currentTarget.value;
+    console.log("duoSynth_1_volumen: " + e.currentTarget.value);
+    fmSynth_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  }
+});
 
 const fmSynth_1_harmonicity_text = document.getElementById("fmSynth_1_harmonicity_text");
 const fmSynth_1_harmonicity = document.getElementById("fmSynth_1_harmonicity");
@@ -2943,7 +2982,7 @@ const membraneSynth_1_octaves = document.getElementById("membraneSynth_1_octaves
 const membraneSynth_1_octaves_value = document.getElementById("membraneSynth_1_octaves_value");
 membraneSynth_1_octaves.addEventListener("change", function (e) {
   membraneSynth_1.octaves.value = e.currentTarget.value;
-  console.log("amSynth_1.octaves: " + e.currentTarget.value);
+  console.log("membraneSynth_1.octaves: " + e.currentTarget.value);
   membraneSynth_1_octaves_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -3706,7 +3745,7 @@ const playlist = document.getElementById("playlist");
 var lista = [];
 function muestraLista() {
   console.table(lista);
-  playlist.innerHTML = lista[0].atTime + " " + lista[0].element + " " + lista[0].action;
+  //playlist.innerHTML = lista[0].atTime.value + " " + lista[0].element + " " + lista[0].action;
   //playlist.innerHTML = lista[0].element;
   //playlist.innerHTML = lista[0].action;
   // playlist.innerHTML = lista[0].newValue;
@@ -4514,8 +4553,6 @@ player_1_Node.fan(testMeter_1);
 //para tascam
 player_1_HighShelf_FilterNode.fan(player_1_fxSend_1_postEq_volNode, player_1_fxSend_2_postEq_volNode, player_1_fxSend_3_postEq_volNode, player_1_fxSend_4_postEq_volNode);
 player_1_HighShelf_FilterNode.fan(player_1_fxSend_1_postFdr_volNode, player_1_fxSend_2_postFdr_volNode, player_1_fxSend_3_postFdr_volNode, player_1_fxSend_4_postFdr_volNode);
-//const fmSynth = new Tone.FMSynth();
-
 
 //console.log(player_1_dynamics_compressorNode.get()); console.log("\n");
 //console.log(player_1_dynamics_gateNode.get()); console.log("\n"); 
@@ -6132,12 +6169,6 @@ function play(value) {
       Tone.Transport.start();
       break;
     }
-    case "amSynth_1": {
-      //alert("amSynth_1");
-      //amSynth_1.start();
-      Tone.Transport.start();
-      break;
-    }
     case "amOsc_1": {
       //alert("amOsc_1");
       amOsc_1.start();
@@ -6259,11 +6290,6 @@ function play(value) {
 
 function stop(value) {
   switch (value) {
-    case "amSynth_1": {
-      //alert("amSynth_1");
-      amSynth_1.stop();
-      break;
-    }
     case "amOsc_1": {
       //alert("amOsc_1");
       amOsc_1.stop();
@@ -7604,25 +7630,95 @@ function playsTestSynth() {
 
 async function CustomizedButton() {
 
-  muestraLista();
-
-  //noiseSynth_1 .triggerAttackRelease("C2", "2n");
-  //fmSynth_1.triggerAttackRelease("2n", "2n");
-  //fmSynth_1.triggerAttackRelease('E2', '1n', '2n')
-  // monoSynth_1.triggerAttackRelease('G3', '2n', '4n')
-  /* monoSynth_1.triggerAttackRelease('C4', '2n', '2n')
-  monoSynth_1.triggerAttackRelease('E4', '2n', '1n')
- */
-  /*
-    Synth_w_AmpEnv_1.triggerAttackRelease('G3', '2n', '4n')
-    Synth_w_AmpEnv_1.volume.value = -24;
-    console.log("SYNTH PLAY");
-  */
+  
+  /*  */
   //ACORDE
-  //monoSynth_1.triggerAttackRelease(["C4", "E4", "A4"], "2n");
-  //monoSynth_1.setNote("F3", "+1n");
-  Tone.Transport.start();
+  //fmSynth_1.triggerAttackRelease(["C4", "E4", "A4"], "2n");
+  /*
+const synth = new Tone.Synth().toDestination();
 
+const synth2 = new Tone.Synth().toDestination();
+const now = Tone.now()
+// trigger the attack immediately
+synth2.triggerAttack("C4", now)
+// wait one second before triggering the release
+synth2.triggerRelease(now + 1)
+
+const synth3 = new Tone.Synth().toDestination();
+const now3 = Tone.now()
+synth3.triggerAttackRelease("C4", "8n", now3)
+synth3.triggerAttackRelease("E4", "8n", now3 + 0.5)
+synth3.triggerAttackRelease("G4", "8n", now3 + 1)
+
+setInterval(() => console.log(Tone.now()),100);
+
+//attach a click listener to a play button
+document.querySelector('button')?.addEventListener('click', async () => {
+	await Tone.start()
+	console.log('audio is ready')
+})
+*/
+
+// create two monophonic synths
+//const synthA = new Tone.FMSynth().toDestination();
+//const synthB = new Tone.AMSynth().toDestination();
+//play a note every quarter-note
+const loopA = new Tone.Loop(time => {
+	fmSynth_1.triggerAttackRelease("C2", "8n", time);
+}, "4n").start(0);
+//play another note every off quarter-note, by starting it "8n"
+const loopB = new Tone.Loop(time => {
+	amSynth_1.triggerAttackRelease("C6", "8n", time);
+}, "4n").start("8n");
+
+muestraLista();
+
+// the loops start when the Transport is started
+Tone.Transport.start()
+// ramp up to 800 bpm over 10 seconds
+//Tone.Transport.bpm.rampTo(800, 10);
+/*
+const PolySynth= new Tone.PolySynth(Tone.Synth).toDestination();
+const nowPoly = Tone.now()
+PolySynth.triggerAttack("D4", nowPoly);
+PolySynth.triggerAttack("F4", nowPoly + 0.5);
+PolySynth.triggerAttack("A4", nowPoly + 1);
+PolySynth.triggerAttack("C5", nowPoly + 1.5);
+PolySynth.triggerAttack("E5", nowPoly + 2);
+PolySynth.triggerRelease(["D4", "F4", "A4", "C5", "E5"], nowPoly + 4);
+
+const sampler = new Tone.Sampler({
+	urls: {
+		"C4": "C4.mp3",
+		"D#4": "Ds4.mp3",
+		"F#4": "Fs4.mp3",
+		"A4": "A4.mp3",
+	},
+	release: 1,
+	baseUrl: "https://tonejs.github.io/audio/salamander/",
+}).toDestination();
+
+Tone.loaded().then(() => {
+	sampler.triggerAttackRelease(["Eb4", "G4", "Bb4"], 4);
+})
+
+const osc = new Tone.Oscillator().toDestination();
+// start at "C4"
+osc.frequency.value = "C4";
+// ramp to "C2" over 2 seconds
+osc.frequency.rampTo("C2", 2);
+// start the oscillator for 2 seconds
+osc.start().stop("+3");
+*/
+
+/*
+amSynth_1.volume.value = -2;
+console.log("SYNTH PLAY amSynth_1");
+//Tone.Transport.loopStart = 0;
+//Tone.Transport.loopEnd = 1;
+Tone.Transport.bpm = 230;
+Tone.Transport.start();
+*/
 }
 
 function TransportSTOP() {
@@ -7648,7 +7744,7 @@ function changes_fx_name(channel, effecttype) {
         fx_1_fxSend_1_text.innerHTML =
         fx_2_fxSend_1_text.innerHTML =
         fx_3_fxSend_1_text.innerHTML = effecttype;
-      fx_4_fxSend_1_text.innerHTML = effecttype;
+      //fx_4_fxSend_1_text.innerHTML = effecttype;
       break;
     }
     case "FX2": {
@@ -8386,6 +8482,7 @@ function sets_New_Source(source, value) {
         case "AMSynth"://
           {
             //alert("sets_New_Source: " + value);
+            amSynth_1.disconnect(masterVolume);
             amSynth_1.connect(player_1_panNode);
             amSynth_1_div.style.display = "block";
             source_1_actual_patch = "amSynth"
@@ -8608,6 +8705,10 @@ function updatesMeters() {
   player_2_rms_value.innerHTML = Math.round(`${testMeter_2.getValue()}`);
   player_3_rms_value.innerHTML = Math.round(`${testMeter_3.getValue()}`);
   player_4_rms_value.innerHTML = Math.round(`${testMeter_4.getValue()}`);
+
+
+grainPlayer_1_rms_value.innerHTML = Math.round(`${grainPlayer_1_rmsNode.getValue()}`);
+
 
   player_1_rms_after_volume_value.innerHTML = Math.round(`${testMeter_1_after_volume.getValue()}`);
   testMeter_1_player_1_filter_Bypass_VALUE.innerHTML = Math.round(`${testMeter_1_player_1_filter_Bypass.getValue()}`);
