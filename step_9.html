@@ -112,6 +112,14 @@
     <br>
     <p id="playlist">playlist</p>
     <fieldset>
+Play Simultaneos 
+<input type="checkbox" name="source_1" id="multiple_play_source_1" value="source_1">  1
+<input type="checkbox" name="source_2" id="multiple_play_source_2" value="source_2">  2
+<input type="checkbox" name="source_3" id="multiple_play_source_3" value="source_3">  3
+<input type="checkbox" name="source_4" id="multiple_play_source_4" value="source_4">  4
+<button id="various_plays" onclick="multiPlay()">Play</button>
+<br> <br>
+
       Sacado de: https://github.com/drnoir/soundTrigger/blob/main/record.js
       <!-- https://github.com/drnoir/soundTrigger/blob/main/record.js -->
       <section class="container">
@@ -320,6 +328,8 @@
             <option value="Oscillator">Oscillator</option>
             <option value="PWMOscillator">PWMOscillator</option>
             <option value="PulseOscillator">PulseOscillator</option>
+            <option value="Noise">Noise</option>
+
           </optgroup>
           <optgroup label="Varios">
             <option value="Player">Player</option>
@@ -753,8 +763,6 @@ osc.partials = [1, 0.2, 0.01];
         <div id="membraneSynth_1_div">
           <fieldset>
             <br> Membrane Synth <br> <br>
-            <button id="membraneSynth_1_playButton" value="membraneSynth_1" onclick="play(value)">Play </button>
-            <button id="membraneSynth_1_stopButton" value="membraneSynth_1" onclick="stop(value)">Stop </button>
             <button id="membraneSynth_1_muteButton" value="membraneSynth_1" onclick="mute(value)">Mute </button>
             <button id="membraneSynth_1_soloButton" value="membraneSynth_1" onclick="solo(value)">Solo </button>
             <input class="checkbox" type="checkbox" name="membraneSynth_1_Sync_checkbox"
@@ -815,8 +823,6 @@ osc.partials = [1, 0.2, 0.01];
         <div id="metalSynth_1_div">
           <fieldset>
             <br> Metal Synth <br> <br>
-            <button id="metalSynth_1_playButton" value="metalSynth_1" onclick="play(value)">Play </button>
-            <button id="metalSynth_1_stopButton" value="metalSynth_1" onclick="stop(value)">Stop </button>
             <button id="metalSynth_1_muteButton" value="metalSynth_1" onclick="mute(value)">Mute </button>
             <button id="metalSynth_1_soloButton" value="metalSynth_1" onclick="solo(value)">Solo </button>
             <input class="checkbox" type="checkbox" name="metalSynth_1_Sync_checkbox"
@@ -867,13 +873,11 @@ osc.partials = [1, 0.2, 0.01];
         <div id="duoSynth_1_div">
           <fieldset>
             <br> Duo Synth <br> <br>
-            <button id="duoSynth_1_playButton" value="duoSynth_1" onclick="play(value)">Play </button>
-            <button id="duoSynth_1_stopButton" value="duoSynth_1" onclick="stop(value)">Stop </button>
             <button id="duoSynth_1_muteButton" value="duoSynth_1" onclick="mute(value)">Mute </button>
             <button id="duoSynth_1_soloButton" value="duoSynth_1" onclick="solo(value)">Solo </button>
             <input class="checkbox" type="checkbox" name="duoSynth_1_Sync_checkbox" id="duoSynth_1_Sync_checkbox">Sync
             <br>
-                        <p id="duoSynth_1_volume_text">Vol</p>
+            <p id="duoSynth_1_volume_text">Vol</p>
             <input type='range' min=-41 max=12 step='1' value="-40" id='duoSynth_1_volume'>
             <p id="duoSynth_1_volume_value"> </p>
             <br>
@@ -1020,20 +1024,19 @@ osc.partials = [1, 0.2, 0.01];
         </div>
         <div id="noiseSynth_1_div">
           <fieldset>
-            <br> Noise Synth <br> <br>
+            <br> Noise Synth 
+            <br>
+            <button id="noiseSynth_1_muteButton" value="noiseSynth_1" onclick="mute(value)">Mute </button>
+            <button id="noiseSynth_1_soloButton" value="noiseSynth_1" onclick="solo(value)">Solo </button>
+            <input class="checkbox" type="checkbox" name="noiseSynth_1_Sync_checkbox"
+              id="noiseSynth_1_Sync_checkbox">Sync
+            <br> <br>
             Type:
             <select name="noise_select" id="noise_select_type">
               <option name="white" id="white" value="white">white</option>
               <option name="pink" id="pink" value="pink">pink</option>
               <option name="brown" id="brown" value="brown">brown</option>
             </select>
-            <br> <br>
-            <button id="noiseSynth_1_playButton" value="noiseSynth_1" onclick="play(value)">Play </button>
-            <button id="noiseSynth_1_stopButton" value="noiseSynth_1" onclick="stop(value)">Stop </button>
-            <button id="noiseSynth_1_muteButton" value="noiseSynth_1" onclick="mute(value)">Mute </button>
-            <button id="noiseSynth_1_soloButton" value="noiseSynth_1" onclick="solo(value)">Solo </button>
-            <input class="checkbox" type="checkbox" name="noiseSynth_1_Sync_checkbox"
-              id="noiseSynth_1_Sync_checkbox">Sync
             <br>
             <p id="noiseSynth_1_volume_text">Vol</p>
             <input type='range' min=-41 max=12 step='1' value="-40" id='noiseSynth_1_volume'>
@@ -1062,8 +1065,6 @@ osc.partials = [1, 0.2, 0.01];
         <div id="fmSynth_1_div">
           <fieldset>
             <br> FM Synth <br> <br>
-            <button id="fmSynth_1_playButton" value="fmSynth_1" onclick="play(value)">Play </button>
-            <button id="fmSynth_1_stopButton" value="fmSynth_1" onclick="stop(value)">Stop </button>
             <button id="fmSynth_1_muteButton" value="fmSynth_1" onclick="mute(value)">Mute </button>
             <button id="fmSynth_1_soloButton" value="fmSynth_1" onclick="solo(value)">Solo </button>
             <input class="checkbox" type="checkbox" name="fmSynth_1_Sync_checkbox" id="fmSynth_1_Sync_checkbox">Sync
@@ -1148,8 +1149,6 @@ osc.partials = [1, 0.2, 0.01];
         <div id="monoSynth_1_div">
           <fieldset>
             <br> Mono Synth <br> <br>
-            <button id="monoSynth_1_playButton" value="monoSynth_1" onclick="play(value)">Play </button>
-            <button id="monoSynth_1_stopButton" value="monoSynth_1" onclick="stop(value)">Stop </button>
             <button id="monoSynth_1_muteButton" value="monoSynth_1" onclick="mute(value)">Mute </button>
             <button id="monoSynth_1_soloButton" value="monoSynth_1" onclick="solo(value)">Solo </button>
             <input class="checkbox" type="checkbox" name="monoSynth_1_Sync_checkbox" id="monoSynth_1_Sync_checkbox">Sync
@@ -1268,8 +1267,6 @@ osc.partials = [1, 0.2, 0.01];
           <fieldset>
             <br> Synth + Amplitude Envelope
             <br> <br>
-            <button id="Synth_w_AmpEnv_1_playButton" value="Synth_w_AmpEnv_1" onclick="play(value)">Play </button>
-            <button id="Synth_w_AmpEnv_1_stopButton" value="Synth_w_AmpEnv_1" onclick="stop(value)">Stop </button>
             <button id="Synth_w_AmpEnv_1_muteButton" value="Synth_w_AmpEnv_1" onclick="mute(value)">Mute </button>
             <button id="Synth_w_AmpEnv_1_soloButton" value="Synth_w_AmpEnv_1" onclick="solo(value)">Solo </button>
             <input class="checkbox" type="checkbox" name="Synth_w_AmpEnv_1_Sync_checkbox"
@@ -1324,7 +1321,6 @@ osc.partials = [1, 0.2, 0.01];
             <br>
             Grain Player <br>
             RMS <p id="grainPlayer_1_rms_value"> </p>
-            <br>
             <p id="grainPlayer_1_songName"> </p>
             <p id="grainPlayer_1_duration_text"> </p>
             <p id="grainPlayer_1_duration_value"> </p>
@@ -1387,7 +1383,7 @@ osc.partials = [1, 0.2, 0.01];
             <br>
           </fieldset>
         </div>
-        <div id="noise_div">
+        <div id="noise_1_div">
           <div>
             <fieldset>
               noise_div <br>
