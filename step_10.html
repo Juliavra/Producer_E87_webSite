@@ -4,6 +4,7 @@
 <!--
     <h2>Jugamos como nunca, perdimos como siempre</h2>
     <h2> nuestras nadas poco difieren </h2>
+     <h2>   Today years old </h2>
     -->
 
 
@@ -108,7 +109,6 @@
 
 <body>
   <header>
-    Today years old
     <br>
     <p id="playlist">playlist</p>
     <fieldset>
@@ -291,29 +291,32 @@
     <button id="buscaButton" onclick="busca1()">Buscar </button>
   </header>
 
-
   <!--PLAYER 1 -->
   <div class="column">
     <h2>1</h2>
-    <br>
-    <p id="channel_1_volume_text">Vol</p>
-    <input type='range' min=-41 max=12 step='1' value="-40" id='channel_1_volume'>
-    <p id="channel_1_volume_value"> </p>
-              <br>
-            <p id="channel_1_pan_text">Pan
-              <input type='range' min=-1 max=1 step='0.01' value=0 id='channel_1_pan'>
-            </p>
-            <p id="channel_1_pan_value"></p>
-            <input id="channel_1_pan_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
-            time: <input id="channel_1_pan_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-            <button id="channel_1_pan_rampTo_send_Button" value="channel_1_pan"
-              onclick="send(value, channel_1_pan_rampTo_gain, channel_1_pan_rampTo_time)">go </button>
-    <br>
     <div id="channel_1_songName_n_duration">
       <p id="channel_1_songName"> </p>
       <p id="channel_1_duration_text"> </p>
-      <p id="channel_1_duration_value"> </p>
+
     </div>
+    <p id="channel_1_volume_text">Vol</p>
+    <input type='range' min=-41 max=12 step='1' value="-40" id='channel_1_volume'>
+    <p id="channel_1_volume_value"> </p>
+    <br>
+    <input id="channel_1_volume_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
+    time: <input id="channel_1_volume_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+    <button id="channel_1_volume_rampTo_send_Button" value="channel_1_volume"
+      onclick="send(value, channel_1_volume_rampTo_gain, channel_1_volume_rampTo_time)">go </button>
+    <br>
+    <p id="channel_1_pan_text">Pan
+      <input type='range' min=-1 max=1 step='0.01' value=0 id='channel_1_pan'>
+    </p>
+    <p id="channel_1_pan_value"></p>
+    <input id="channel_1_pan_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
+    time: <input id="channel_1_pan_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+    <button id="channel_1_pan_rampTo_send_Button" value="channel_1_pan"
+      onclick="send(value, channel_1_pan_rampTo_gain, channel_1_pan_rampTo_time)">go </button>
+    <br> <br>
     <div>
       <button type="button" class="collapsible">
         SOURCE
@@ -1350,17 +1353,12 @@ osc.partials = [1, 0.2, 0.01];
             </div>
 
             <p id="grainPlayer_1_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='grainPlayer_1_volume'>
+            <input type='range' min=-41 max=12 step='1' value="-41" id='grainPlayer_1_volume'>
             <p id="grainPlayer_1_volume_value"> </p>
             <input id="grainPlayer_1_volume_rampTo_gain" type="number" min="-50" max="12" />
             time: <input id="grainPlayer_1_volume_rampTo_time" type="number" min="0" max="60" />
             <button id="grainPlayer_1_volume_rampTo_send_Button" value="grainPlayer_1_volume"
               onclick="send(value, grainPlayer_1_volume_rampTo_gain, grainPlayer_1_volume_rampTo_time)">Send </button>
-            <br>
-            <p id="grainPlayer_1_pan_text">Pan
-              <input type='range' min=-1 max=1 step='0.02' value=0 id='grainPlayer_1_pan'>
-            </p>
-            <p id="grainPlayer_1_pan_value"></p>
             <br>
             <p id="grainPlayer_1_grainSize_text"> Grain Size </p>
             <input type='range' min=0.01 step='1' value="0.01" id='grainPlayer_1_grainSize'>
@@ -1499,7 +1497,6 @@ var sampler = new Tone.Sampler({
             <button id="player_1_loadButton" value="player_1" onclick="load_Local(value)">Load local </button>
             <br>
             <p id="player_1_load_text"></p>
-            <br>
             <p id="player_1_duration_value"> </p>
             <br>
             <button id="player_1_playButton" value="1" onclick="play(value)">Play </button>
@@ -1621,10 +1618,11 @@ var sampler = new Tone.Sampler({
       <br>
 
       <label for="channel_1_filter_1_select" name="channel_1_filter_1_select"> </label>
-      <button id="channel_1_filter_eq_bypass_Button" value="bypass"
-        onclick="channel_1_filter_eq_selection_bypass_on(value)">Bypass
+      <button id="channel_1_filter_eq_bypass_Button" value="bypass" name="channel_1"
+        onclick="channel_x_filter_eq_selection_foo(name, value)">Bypass
       </button>
-      <button id="channel_1_filter_eq_On_Button" value="on" onclick="channel_1_filter_eq_selection_bypass_on(value)">EQ1
+      <button id="channel_1_filter_eq_On_Button" value="on" name="channel_1"
+        onclick="channel_x_filter_eq_selection_foo(name, value)">EQ1
       </button>
       <select name="filter_1" id="channel_1_filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
@@ -1641,12 +1639,12 @@ var sampler = new Tone.Sampler({
         <option name="tascam" id="tascam" value="tascam">Tascam</option>
 -->
       </select>
-      <button id="channel_1_filter_eq_On_EQ3_Button" value="eq3"
-        onclick="channel_1_filter_eq_selection_bypass_on(value)">EQ3
+      <button id="channel_1_filter_eq_On_EQ3_Button" value="eq3" name="channel_1"
+        onclick="channel_x_filter_eq_selection_foo(name, value)">EQ3
       </button>
       <br> <br>
-      <button id="channel_1_filter_eq_On_Tascam_Button" value="tascam"
-        onclick="channel_1_filter_eq_selection_bypass_on(value)">Tascam
+      <button id="channel_1_filter_eq_On_Tascam_Button" value="tascam" name="channel_1"
+        onclick="channel_x_filter_eq_selection_foo(name, value)">Tascam
       </button>
       <div id="channel_1_empty_controls_div">
         <br>
@@ -1676,7 +1674,8 @@ var sampler = new Tone.Sampler({
           <p id="channel_1_filter_frequency_value_allpass"></p>
 
           <input id="channel_1_filter_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="channel_1_filter_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          time: <input id="channel_1_filter_frequency_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
           <button id="channel_1_filter_frequency_rampTo_send_Button" value="channel_1_filter_frequency_allpass"
             onclick="send(value, channel_1_filter_frequency_rampTo_gain, channel_1_filter_frequency_rampTo_time)">go
           </button>
@@ -1772,7 +1771,8 @@ var sampler = new Tone.Sampler({
           <p id="channel_1_filter_Q_value_peaking"></p>
 
           <input id="channel_1_filter_Q_peaking_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="channel_1_filter_Q_peaking_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          time: <input id="channel_1_filter_Q_peaking_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
           <button id="channel_1_filter_Q_peaking_rampTo_send_Button" value="channel_1_filter_Q_peaking"
             onclick="send(value, channel_1_filter_Q_peaking_rampTo_gain, channel_1_filter_Q_peaking_rampTo_time)">go
           </button>
@@ -1994,7 +1994,8 @@ var sampler = new Tone.Sampler({
 
           <input id="channel_1_dynamics_release_rampTo_detune" type="number" min="0" max="10000" step='1'
             style="width: 35px;" />
-          time: <input id="channel_1_dynamics_release_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          time: <input id="channel_1_dynamics_release_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
           <button id="channel_1_dynamics_release_rampTo_send_Button" value="channel_1_dynamics_release_compressor"
             onclick="send(value, channel_1_dynamics_release_rampTo_detune, channel_1_dynamics_release_rampTo_time)">go
           </button>
@@ -2101,7 +2102,6 @@ var sampler = new Tone.Sampler({
       <fieldset>
         <h2> 1 <p id="channel_1_fxSend_1_text"> </p>
         </h2>
-
         <button id="channel_1_fxSend_1_On_Off_Button" onclick="channel_1_fxSend_1_On_Off_Button_foo()">Mute
         </button>
         <button id="channel_1_fxSend_1_pre_EQ_Button" name="channel_1_fxSend_1"
@@ -2120,7 +2120,7 @@ var sampler = new Tone.Sampler({
         <input id="channel_1_fxSend_1_rampTo_volume" type="number" min="0" max="10000" step='1' style="width: 35px;" />
         time: <input id="channel_1_fxSend_1_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
         <button id="channel_1_fxSend_1_rampTo_send_Button" value="channel_1_fxSend_1_rampTo_volume"
-          onclick="send(value, channel_1_filter_detune_shelf_rampTo_detune, channel_1_filter_detune_shelf_rampTo_time)">go
+          onclick="send(value, channel_1_fxSend_1_rampTo_volume, channel_1_fxSend_1_rampTo_time)">go
         </button>
         <br>
       </fieldset>
@@ -2141,19 +2141,16 @@ var sampler = new Tone.Sampler({
         <input type='range' min=-40 max=12 step=1 value="-40" id='channel_1_fxSend_2'>
         <p id="channel_1_fxSend_2_value"></p>
 
-        <input id="channel_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
-          style="width: 35px;" />
-        time: <input id="channel_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
-          style="width: 35px;" />
-        <button id="channel_1_filter_detune_shelf_rampTo_send_Button" value="channel_1_filter_detune_shelf"
-          onclick="send(value, channel_1_filter_detune_shelf_rampTo_detune, channel_1_filter_detune_shelf_rampTo_time)">go
+        <input id="channel_1_fxSend_2_rampTo_volume" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+        time: <input id="channel_1_fxSend_2_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="fx_2_filter_detune_shelf_rampTo_send_Button" value="channel_1_fxSend_2_rampTo_volume"
+          onclick="send(value, channel_1_fxSend_2_rampTo_volume, channel_1_fxSend_2_rampTo_time)">go
         </button>
         <br>
       </fieldset>
       <fieldset>
         <h2> 3 FeedBack Delay <p id="channel_1_fxSend_3_text"> </p>
         </h2>
-
         <button id="channel_1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">Mute </button>
         <button id="channel_1_fxSend_3_pre_EQ_Button" name="channel_1_fxSend_3"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
@@ -2168,19 +2165,16 @@ var sampler = new Tone.Sampler({
         <input type='range' min=-40 max=12 step=1 value="-40" id='channel_1_fxSend_3'>
         <p id="channel_1_fxSend_3_value"></p>
 
-        <input id="channel_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
-          style="width: 35px;" />
-        time: <input id="channel_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
-          style="width: 35px;" />
-        <button id="channel_1_filter_detune_shelf_rampTo_send_Button" value="channel_1_filter_detune_shelf"
-          onclick="send(value, channel_1_filter_detune_shelf_rampTo_detune, channel_1_filter_detune_shelf_rampTo_time)">go
+        <input id="channel_1_fxSend_3_rampTo_volume" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+        time: <input id="channel_1_fxSend_3_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="channel_1_filter_detune_shelf_rampTo_send_Button" value="channel_1_fxSend_3_rampTo_volume"
+          onclick="send(value, channel_1_fxSend_3_rampTo_volume, channel_1_fxSend_3_rampTo_time)">go
         </button>
 
       </fieldset>
       <fieldset>
         <h2> 4 Pitch Shift <p id="channel_1_fxSend_4_text"> </p>
         </h2>
-
         <button id="channel_1_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">Mute </button>
         <button id="channel_1_fxSend_4_pre_EQ_Button" name="channel_1_fxSend_4"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
@@ -2195,14 +2189,11 @@ var sampler = new Tone.Sampler({
         <input type='range' min=-40 max=12 step=1 value="-40" id='channel_1_fxSend_4'>
         <p id="channel_1_fxSend_4_value"></p>
 
-        <input id="channel_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
-          style="width: 35px;" />
-        time: <input id="channel_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
-          style="width: 35px;" />
-        <button id="channel_1_filter_detune_shelf_rampTo_send_Button" value="channel_1_filter_detune_shelf"
-          onclick="send(value, channel_1_filter_detune_shelf_rampTo_detune, channel_1_filter_detune_shelf_rampTo_time)">go
+        <input id="channel_1_fxSend_4_volume_rampTo" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+        time: <input id="channel_1_fxSend_4_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="channel_1_filter_detune_shelf_rampTo_send_Button" value="channel_1_fxSend_4_rampTo_volume"
+          onclick="send(value, channel_1_fxSend_4_volume_rampTo, channel_1_fxSend_4_rampTo_time)">go
         </button>
-
       </fieldset>
     </div>
   </div>
@@ -3491,9 +3482,9 @@ var sampler = new Tone.Sampler({
       <br>
       <label for="player_2_filter_1_select" name="player_2_filter_1_select"> </label>
       <button id="player_2_filter_eq_bypass_Button" value="bypass"
-        onclick="player_2_filter_eq_selection_bypass_on(value)">Bypass
+        onclick="channel_x_filter_eq_selection_foo(name, value)">Bypass
       </button>
-      <button id="player_2_filter_eq_On_Button" value="on" onclick="player_2_filter_eq_selection_bypass_on(value)">EQ1
+      <button id="player_2_filter_eq_On_Button" value="on" onclick="channel_x_filter_eq_selection_foo(name, value)">EQ1
       </button>
       <select name="filter_2" id="player_2_filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
@@ -3511,11 +3502,11 @@ var sampler = new Tone.Sampler({
 -->
       </select>
       <button id="player_2_filter_eq_On_EQ3_Button" value="eq3"
-        onclick="player_2_filter_eq_selection_bypass_on(value)">EQ3
+        onclick="channel_x_filter_eq_selection_foo(name, value)">EQ3
       </button>
       <br> <br>
       <button id="player_2_filter_eq_On_Tascam_Button" value="tascam"
-        onclick="player_2_filter_eq_selection_bypass_on(value)">Tascam
+        onclick="channel_x_filter_eq_selection_foo(name, value)">Tascam
       </button>
       <div id="player_2_empty_controls_div">
         <br>
@@ -3981,7 +3972,7 @@ var sampler = new Tone.Sampler({
         <input id="player_2_fxSend_1_rampTo_volume" type="number" min="0" max="10000" step='1' style="width: 35px;" />
         time: <input id="player_2_fxSend_1_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
         <button id="player_2_fxSend_1_rampTo_send_Button" value="player_2_fxSend_1_rampTo_volume"
-          onclick="send(value, player_2_filter_detune_shelf_rampTo_detune, player_2_filter_detune_shelf_rampTo_time)">go
+          onclick="send(value, player_2_fxSend_1_rampTo_volume, player_2_fxSend_1_rampTo_time)">go
         </button>
         <br>
       </fieldset>
@@ -4002,12 +3993,10 @@ var sampler = new Tone.Sampler({
         <input type='range' min=-40 max=12 step=1 value="-40" id='player_2_fxSend_2'>
         <p id="player_2_fxSend_2_value"></p>
 
-        <input id="player_2_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
-          style="width: 35px;" />
-        time: <input id="player_2_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
-          style="width: 35px;" />
+        <input id="player_2_fxSend_2_rampTo" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+        time: <input id="player_2_fxSend_2_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
         <button id="player_2_filter_detune_shelf_rampTo_send_Button" value="player_2_filter_detune_shelf"
-          onclick="send(value, player_2_filter_detune_shelf_rampTo_detune, player_2_filter_detune_shelf_rampTo_time)">go
+          onclick="send(value, player_2_fxSend_2_rampTo, player_2_fxSend_2_rampTo_time)">go
         </button>
         <br>
       </fieldset>
@@ -4029,12 +4018,10 @@ var sampler = new Tone.Sampler({
         <input type='range' min=-40 max=12 step=1 value="-40" id='player_2_fxSend_3'>
         <p id="player_2_fxSend_3_value"></p>
 
-        <input id="player_2_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
-          style="width: 35px;" />
-        time: <input id="player_2_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
-          style="width: 35px;" />
+        <input id="player_2_fxSend_3_rampTo" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+        time: <input id="player_2_fxSend_3_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
         <button id="player_2_filter_detune_shelf_rampTo_send_Button" value="player_2_filter_detune_shelf"
-          onclick="send(value, player_2_filter_detune_shelf_rampTo_detune, player_2_filter_detune_shelf_rampTo_time)">go
+          onclick="send(value, player_2_fxSend_3_rampTo, player_2_fxSend_3_rampTo_time)">go
         </button>
 
       </fieldset>
@@ -4056,21 +4043,15 @@ var sampler = new Tone.Sampler({
         <input type='range' min=-40 max=12 step=1 value="-40" id='player_2_fxSend_4'>
         <p id="player_2_fxSend_4_value"></p>
 
-        <input id="player_2_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
-          style="width: 35px;" />
-        time: <input id="player_2_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
-          style="width: 35px;" />
-        <button id="player_2_filter_detune_shelf_rampTo_send_Button" value="player_2_filter_detune_shelf"
-          onclick="send(value, player_2_filter_detune_shelf_rampTo_detune, player_2_filter_detune_shelf_rampTo_time)">go
+        <input id="player_2_fxSend_4_rampTo" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+        time: <input id="player_2_fxSend_4_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="player_2_fxSend_4_rampTo_send_Button" value="player_2_fxSend_4_rampTo"
+          onclick="send(value, player_2_fxSend_4_rampTo, player_2_fxSend_4_rampTo_time)">go
         </button>
 
       </fieldset>
     </div>
   </div>
-
-
-
-
 
   <!--PLAYER 2 -->
   <!--
@@ -4188,10 +4169,6 @@ var sampler = new Tone.Sampler({
     </div>
   </div>
 -->
-
-
-
-
 
   <!-- 3 -->
   <div class="column">
