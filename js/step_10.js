@@ -1,4 +1,4 @@
-﻿//"use strict";   ES LO IDEAL PERO HAY QUE REHACER TODO EL CODIGO
+﻿"use strict";
 
 /* Revisar si se puede usar to force an input change.
 This event does fire, however, the slider won't visually update.
@@ -62,6 +62,16 @@ PARA DEVOLVER A LA CANCION AL MUTE.FALSE
 // Y PASARLO A UN TONE PLAYER, SE PUEDE SACAR LA DURATION Y ALGUNA COSA MAS
 
 // Autoplay policy: start context after user gesture.
+isShowOpenFilePickerSupported();
+
+
+//Just in case anyone stumbles across this post 
+// running into the same issues, 
+// here is a way to achieve a custom sample rate 
+// audio context in Tone while still retaining the 
+// advantages of standardized-audio-context:
+//Tone.setContext(new Tone.context(new Tone.context.rawContext.constructor({ sampleRate: 96000 })))
+
 window.addEventListener('click', () => {
   Tone.context.resume().then(() => {
     console.log('AudioContext started');
@@ -727,7 +737,52 @@ array_Canciones.push(cancion_107);
 //************************************************************************* */
 //DOM ACQUISITIONS
 
+var lista = [];
 const soundClips_1 = document.querySelector(".sound-clips_1");
+
+//*************************************************************************************
+//*************************************************************************************
+//********     CHANNEL 1 CHANNEL CONTROLS   **************************************************************
+//*************************************************************************************
+//*************************************************************************************
+//CHANNEL 1
+
+const channel_1_volume = document.getElementById("channel_1_volume");
+const channel_1_volume_value = document.getElementById("channel_1_volume_value");
+channel_1_volume.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    channel_1_volNode.volume.value = -100;
+    channel_1_volume_value.innerHTML = -100;
+    mixEvent.logIntoListaAction(Tone.now(), "channel_1_volume", -100);
+  }
+  else {
+    channel_1_volNode.volume.value = e.currentTarget.value;
+    channel_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaAction(Tone.now(), "channel_1_volume", e.currentTarget.value);
+  }
+});
+
+channel_1_volume.ondblclick = function () {
+  channel_1_volNode.volume.rampTo(0, 0.500);
+  channel_1_volume_value.innerHTML = 0;
+  channel_1_volume.value = 0;
+  mixEvent.logIntoListaAction(Tone.now(), "channel_1_volume_rampTo", 0);
+};
+
+const channel_1_pan = document.getElementById("channel_1_pan");
+const channel_1_pan_value = document.getElementById("channel_1_pan_value");
+channel_1_pan.addEventListener("change", function (e) {
+  channel_1_panNode.pan.value = e.currentTarget.value;
+  channel_1_pan_value.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaAction(Tone.now(), "channel_1_pan", e.currentTarget.value);
+});
+
+channel_1_pan.ondblclick = function () {
+  channel_1_panNode.pan.rampTo(0, 2);
+  channel_1_pan_value.innerHTML = 0;
+  channel_1_pan.value = 0;
+  mixEvent.logIntoListaAction(Tone.now(), "channel_1_pan", 0);
+};
 
 //*************************************************************************************
 //MULTIPLE PLAYS
@@ -754,36 +809,17 @@ const player_1_duration_text = document.getElementById("player_1_duration_text")
 //*************************************************************************************
 //PLAYER 1
 
+const player_1_rms_meter_inner = document.getElementById("player_1_rms_meter_inner");
+
 const player_1_loadButton = document.getElementById("player_1_loadButton");
 const player_1_load_text = document.getElementById("player_1_load_text");
+
+const player_1_scramblerButton = document.getElementById("player_1_scramblerButton");
 
 const player_1_playButton = document.getElementById("player_1_playButton");
 const player_1_muteButton = document.getElementById("player_1_muteButton");
 const player_1_soloButton = document.getElementById("player_1_soloButton");
 const player_1_stopButton = document.getElementById("player_1_stopButton");
-
-const channel_1_volume = document.getElementById("channel_1_volume");
-const channel_1_volume_value = document.getElementById("channel_1_volume_value");
-channel_1_volume.addEventListener("change", function (e) {
-  if (e.currentTarget.value <= -40) {
-    channel_1_volNode.volume.value = -100;
-    channel_1_volume_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_volume", -100);
-  }
-  else {
-    channel_1_volNode.volume.value = e.currentTarget.value;
-    console.log("channel_1_volNode: " + e.currentTarget.value);
-    channel_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_volume", e.currentTarget.value);
-  }
-});
-
-channel_1_volume.ondblclick = function () {
-  channel_1_volNode.volume.rampTo(0,0.500);
-  channel_1_volume_value.innerHTML = 0;
-  channel_1_volume.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_volume_rampTo", 0);
-};
 
 const player_1_volume = document.getElementById("player_1_volume");
 const player_1_volume_value = document.getElementById("player_1_volume_value");
@@ -795,7 +831,6 @@ player_1_volume.addEventListener("change", function (e) {
   }
   else {
     player_1_Node.volume.value = e.currentTarget.value;
-    console.log("player_1_volume: " + e.currentTarget.value);
     player_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "player_1_volume", e.currentTarget.value);
   }
@@ -807,12 +842,11 @@ player_1_volume.ondblclick = function () {
   player_1_volume.value = 0;
   mixEvent.logIntoListaAction(Tone.now(), "player_1_volume", 0);
 };
-
+/*
 const player_1_pan = document.getElementById("player_1_pan");
 const player_1_pan_value = document.getElementById("player_1_pan_value");
 player_1_pan.addEventListener("change", function (e) {
   player_1_pan.pan.value = e.currentTarget.value;
-  console.log("player_1.pan: " + player_1_panNode.pan.value)
   player_1_pan_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "player_1_pan", e.currentTarget.value);
 });
@@ -823,23 +857,7 @@ player_1_pan.ondblclick = function () {
   player_1_pan.value = 0;
   mixEvent.logIntoListaAction(Tone.now(), "player_1_pan", 0);
 };
-
-const channel_1_pan = document.getElementById("channel_1_pan");
-const channel_1_pan_value = document.getElementById("channel_1_pan_value");
-channel_1_pan.addEventListener("change", function (e) {
-  channel_1_panNode.pan.value = e.currentTarget.value;
-  console.log("channel_1.pan: " + channel_1_panNode.pan.value)
-  channel_1_pan_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_pan", e.currentTarget.value);
-});
-
-channel_1_pan.ondblclick = function () {
-  channel_1_panNode.pan.rampTo(0,2);
-  channel_1_pan_value.innerHTML = 0;
-  channel_1_pan.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_pan", 0);
-};
-
+*/
 const player_1_playback_rate = document.getElementById("player_1_playback_rate");
 const player_1_playback_rate_value = document.getElementById("player_1_playback_rate_value");
 player_1_playback_rate.addEventListener("change", function (e) {
@@ -868,7 +886,6 @@ player_1_autoplay_checkbox.addEventListener("change", function () {
     player_1_Node.autoplay = false;
   }
   mixEvent.logIntoListaAction(Tone.now(), "player_1_autoplay_checkbox", player_1_Node.autoplay);
-  console.log("player_1_Node.player_1_autoplay_checkbox: " + player_1_autoplay_checkbox.checked);
 });
 
 const player_1_reverse_checkbox = document.getElementById("player_1_reverse_checkbox");
@@ -880,7 +897,6 @@ player_1_reverse_checkbox.addEventListener("change", function () {
     player_1_Node.reverse = false;
   }
   mixEvent.logIntoListaAction(Tone.now(), "player_1_reverse_checkbox", player_1_Node.reverse);
-  console.log("player_1_reverse_checkbox: " + player_1_reverse_checkbox.checked);
 });
 
 const player_1_loop_start = document.getElementById("player_1_loop_start");
@@ -888,7 +904,6 @@ player_1_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 300) {
     player_1_Node.loopStart = e.currentTarget.value;
     mixEvent.logIntoListaAction(Tone.now(), "player_1_loop_start", e.currentTarget.value);
-    console.log("player_1_Node.loopStart = " + e.currentTarget.value);
   }
   else {
     alert("Else player_1_Node.loopStart");
@@ -900,7 +915,6 @@ player_1_loop_end.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 300 && e.currentTarget.value > player_1_Node.loopStart) {
     player_1_Node.loopEnd = e.currentTarget.value;
     mixEvent.logIntoListaAction(Tone.now(), "player_1_loop_end", e.currentTarget.value);
-    console.log("player_1_Node.loopend = " + e.currentTarget.value);
   }
   else {
     alert("Else player_1_Node.loopEnd");
@@ -912,7 +926,6 @@ player_1_fadeIn.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player_1_Node.fadeIn = e.currentTarget.value;
     mixEvent.logIntoListaAction(Tone.now(), "player_1_fadeIn", e.currentTarget.value);
-    console.log("player_1_Node.fadeIn_1 = " + e.currentTarget.value);
   }
   else {
     alert("Else player_1_Node.fadeIn_1");
@@ -924,15 +937,14 @@ player_1_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player_1_Node.fadeOut = e.currentTarget.value;
     mixEvent.logIntoListaAction(Tone.now(), "player_1_fadeOut", e.currentTarget.value);
-    console.log("player_1_Node.fadeOut = " + e.currentTarget.value);
   }
   else {
-    //alert("Else player_1_Node.fadeOut");
+    alert("Else player_1_Node.fadeOut");
   }
 });
 
 const player_1_loop_options_div = document.getElementById("player_1_loop_options_div");
-player_1_loop_options_div.style.display = "none";
+player_1_loop_options_div.style.display = "block";
 
 //IF LOOP=TRUE; LOOP_OPTIONS_DIV = BLOCK -- FADE_DIV = NONE
 //ELSE LOOP=FALSE; LOOP_OPTIONS_DIV = NONE -- FADE_DIV = BLOCK 
@@ -944,7 +956,7 @@ player_1_div.style.display = "none";
 
 //*************************************************************************************
 //*************************************************************************************
-//********     PLAYER 1 FILTER 1    **************************************************************
+//********     CHANNEL 1 FILTER 1    **************************************************************
 //*************************************************************************************
 //*************************************************************************************
 const channel_1_filter_1_select = document.getElementById("channel_1_filter_1_select");
@@ -958,7 +970,7 @@ channel_1_filter_1_select.addEventListener("change", function (e) {
       {
         channel_1_filter.type = e.currentTarget.value;
         channel_1_filter_eq_type = "allpass";
-        mixEvent.logIntoListaAction(Tone.now(), "player_channel_1_filter_1_select", e.currentTarget.value);
+        mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_select", e.currentTarget.value);
         if (channel_1_filter_eq_type == "on") {
           hide_all_EQ_divs("1");
           channel_1_allpass_controls_div.style.display = "block";
@@ -970,14 +982,14 @@ channel_1_filter_1_select.addEventListener("change", function (e) {
       {
         channel_1_filter.type = e.currentTarget.value;
         channel_1_filter_eq_type = "shelf";
-        mixEvent.logIntoListaAction(Tone.now(), "player_channel_1_filter_1_select", e.currentTarget.value);
+        mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
       {
         channel_1_filter.type = e.currentTarget.value;
         channel_1_filter_eq_type = "peaking";
-        mixEvent.logIntoListaAction(Tone.now(), "player_channel_1_filter_1_select", e.currentTarget.value);
+        mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_select", e.currentTarget.value);
         break;
       }
     case "empty": {
@@ -989,11 +1001,11 @@ channel_1_filter_1_select.addEventListener("change", function (e) {
         gain: 0,
         rolloff: -96,
       });
-      mixEvent.logIntoListaAction(Tone.now(), "player_channel_1_filter_1_select", "empty");
+      mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_select", "empty");
       break;
     }
     default:
-      { console.log(" EQ1 DEFAULT channel_1_filter_1_select switch"); }
+      { alert(" EQ1 DEFAULT channel_1_filter_select switch"); }
   }
 });
 
@@ -1002,7 +1014,7 @@ const channel_1_filter_frequency_text_shelf = document.getElementById("channel_1
 const channel_1_filter_frequency_shelf = document.getElementById("channel_1_filter_frequency_shelf");
 const channel_1_filter_frequency_value_shelf = document.getElementById("channel_1_filter_frequency_value_shelf");
 channel_1_filter_frequency_shelf.addEventListener("change", function (e) {
-  channel_1_filter.frequency.value = e.currentTarget.value; console.log("channel_1_filter.frequency_SHELF: " + channel_1_filter.frequency.value);
+  channel_1_filter.frequency.value = e.currentTarget.value;
   channel_1_filter_frequency_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_frequency_text_shelf", e.currentTarget.value);
 });
@@ -1012,10 +1024,8 @@ const channel_1_filter_detune_shelf = document.getElementById("channel_1_filter_
 const channel_1_filter_detune_value_shelf = document.getElementById("channel_1_filter_detune_value_shelf");
 channel_1_filter_detune_shelf.addEventListener("change", function (e) {
   channel_1_filter.detune.value = e.currentTarget.value;
-  console.log("channel_1_filter.detune: " + e.currentTarget.value);
   channel_1_filter_detune_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_detune_text_shelf", e.currentTarget.value);
-
 });
 
 const channel_1_filter_gain_text_shelf = document.getElementById("channel_1_filter_gain_text_shelf");
@@ -1023,7 +1033,6 @@ const channel_1_filter_gain_shelf = document.getElementById("channel_1_filter_ga
 const channel_1_filter_gain_value_shelf = document.getElementById("channel_1_filter_gain_value_shelf");
 channel_1_filter_gain_shelf.addEventListener("change", function (e) {
   channel_1_filter.gain.value = e.currentTarget.value;
-  console.log("channel_1_filter.gain: " + e.currentTarget.value);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_gain_shelf", e.currentTarget.value);
   channel_1_filter_gain_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
@@ -1034,7 +1043,6 @@ const channel_1_filter_frequency_peaking = document.getElementById("channel_1_fi
 const channel_1_filter_frequency_value_peaking = document.getElementById("channel_1_filter_frequency_value_peaking");
 channel_1_filter_frequency_peaking.addEventListener("change", function (e) {
   channel_1_filter.frequency.value = e.currentTarget.value;
-  console.log("channel_1_filter.frequency: " + channel_1_filter.frequency.value);
   channel_1_filter_frequency_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_frequency_peaking", e.currentTarget.value);
 });
@@ -1043,7 +1051,7 @@ const channel_1_filter_Q_text_peaking = document.getElementById("channel_1_filte
 const channel_1_filter_Q_peaking = document.getElementById("channel_1_filter_Q_peaking");
 const channel_1_filter_Q_value_peaking = document.getElementById("channel_1_filter_Q_value_peaking");
 channel_1_filter_Q_peaking.addEventListener("change", function (e) {
-  channel_1_filter.Q.value = e.currentTarget.value; console.log("channel_1_filter.q: " + e.currentTarget.value);
+  channel_1_filter.Q.value = e.currentTarget.value;
   channel_1_filter_Q_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_Q_peaking", e.currentTarget.value);
 });
@@ -1052,7 +1060,7 @@ const channel_1_filter_detune_text_peaking = document.getElementById("channel_1_
 const channel_1_filter_detune_peaking = document.getElementById("channel_1_filter_detune_peaking");
 const channel_1_filter_detune_value_peaking = document.getElementById("channel_1_filter_detune_value_peaking");
 channel_1_filter_detune_peaking.addEventListener("change", function (e) {
-  channel_1_filter.detune.value = e.currentTarget.value; console.log("channel_1_filter.detune: " + e.currentTarget.value);
+  channel_1_filter.detune.value = e.currentTarget.value;
   channel_1_filter_detune_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_detune_peaking", e.currentTarget.value);
 });
@@ -1062,11 +1070,9 @@ const channel_1_filter_gain_peaking = document.getElementById("channel_1_filter_
 const channel_1_filter_gain_value_peaking = document.getElementById("channel_1_filter_gain_value_peaking");
 channel_1_filter_gain_peaking.addEventListener("change", function (e) {
   channel_1_filter.gain.value = e.currentTarget.value;
-  console.log("channel_1_filter.gain: " + e.currentTarget.value);
   channel_1_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_gain_peaking", e.currentTarget.value);
 });
-
 
 //ALLPASS
 const channel_1_filter_frequency_allpass = document.getElementById("channel_1_filter_frequency_allpass");
@@ -1074,7 +1080,6 @@ const channel_1_filter_frequency_value_allpass = document.getElementById("channe
 const channel_1_filter_frequency_text_allpass = document.getElementById("channel_1_filter_frequency_text_allpass");
 channel_1_filter_frequency_allpass.addEventListener("change", function (e) {
   channel_1_filter.frequency.value = e.currentTarget.value;
-  console.log("channel_1_filter.frequency: " + channel_1_filter.frequency.value);
   channel_1_filter_frequency_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_frequency_value_allpass", e.currentTarget.value);
 });
@@ -1084,7 +1089,6 @@ const channel_1_filter_Q_value_allpass = document.getElementById("channel_1_filt
 const channel_1_filter_Q_text_allpass = document.getElementById("channel_1_filter_Q_text_allpass");
 channel_1_filter_Q_allpass.addEventListener("change", function (e) {
   channel_1_filter.Q.value = e.currentTarget.value;
-  console.log("channel_1_filter.q: " + e.currentTarget.value);
   channel_1_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_Q_value_allpass", e.currentTarget.value);
 });
@@ -1094,7 +1098,6 @@ const channel_1_filter_detune_value_allpass = document.getElementById("channel_1
 const channel_1_filter_detune_text_allpass = document.getElementById("channel_1_filter_detune_text_allpass");
 channel_1_filter_detune_allpass.addEventListener("change", function (e) {
   channel_1_filter.detune.value = e.currentTarget.value;
-  console.log("channel_1_filter.detune: " + e.currentTarget.value);
   channel_1_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_detune_value_allpass", e.currentTarget.value);
 });
@@ -1120,7 +1123,7 @@ const channel_1_bypass_controls_div = document.getElementById("channel_1_bypass_
 
 //*************************************************************************************
 //*************************************************************************************
-//********     PLAYER 1 FX SEND     **************************************************************
+//********     CHANNEL 1 FX SEND     **************************************************************
 //*************************************************************************************
 //*************************************************************************************
 const channel_1_fxSend_1_On_Off_Button = document.getElementById("channel_1_fxSend_1_On_Off_Button");
@@ -1150,7 +1153,6 @@ const channel_1_fxSend_1_text = document.getElementById("channel_1_fxSend_1_text
 const channel_1_fxSend_2_text = document.getElementById("channel_1_fxSend_2_text");
 const channel_1_fxSend_3_text = document.getElementById("channel_1_fxSend_3_text");
 const channel_1_fxSend_4_text = document.getElementById("channel_1_fxSend_4_text");
-
 
 const channel_1_fxSend_1 = document.getElementById("channel_1_fxSend_1");
 channel_1_fxSend_1.addEventListener("change", function (e) {
@@ -1222,19 +1224,18 @@ channel_1_fxSend_4.addEventListener("change", function (e) {
 
 //*************************************************************************************
 //*************************************************************************************
-//********     PLAYER 1 RMS METERS     **************************************************************
+//********     CHANNEL 1 RMS METERS     **************************************************************
 //*************************************************************************************
 //*************************************************************************************
 const channel_1_rms_meter_inner = document.getElementById("channel_1_rms_meter_inner");
-const player_1_rms_meter_inner = document.getElementById("player_1_rms_meter_inner");
-
 const channel_1_filter_bypass_meter_inner = document.getElementById("channel_1_filter_bypass_meter_inner");
 const channel_1_filter_allpass_meter_inner = document.getElementById("channel_1_filter_allpass_meter_inner");
 const channel_1_shelf_meter_inner = document.getElementById("channel_1_shelf_meter_inner");
 const channel_1_peaking_meter_inner = document.getElementById("channel_1_peaking_meter_inner");
-const channel_1_tascam_424_meter_inner = document.getElementById("channel_1_tascam_424_meter_inner");
+const channel_1_tascam_424_Hi_meter_inner = document.getElementById("channel_1_tascam_424_Hi_meter_inner");
+const channel_1_tascam_424_Mid_meter_inner = document.getElementById("channel_1_tascam_424_Mid_meter_inner");
+const channel_1_tascam_424_Low_meter_inner = document.getElementById("channel_1_tascam_424_Low_meter_inner");
 const channel_1_eq3_meter_inner = document.getElementById("channel_1_eq3_meter_inner");
-
 const channel_1_filter_meter_inner = document.getElementById("channel_1_filter_meter_inner");
 const channel_1_rms_comp_bypass_meter_inner = document.getElementById("channel_1_rms_comp_bypass_meter_inner");
 const channel_1_rms_comp_meter_inner = document.getElementById("channel_1_rms_comp_meter_inner");
@@ -1245,7 +1246,7 @@ const channel_1_rms_limiter_meter_inner = document.getElementById("channel_1_rms
 
 //*********************************************************************************************** */
 //*********************************************************************************************** */
-//*********     PLAYER 1  COMPRESSOR       *************************************************************** */
+//*********     CHANNEL 1  COMPRESSOR       *************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 const channel_1_compressor_On_Off_Button = document.getElementById("channel_1_compressor_On_Off_Button");
@@ -1257,7 +1258,6 @@ const channel_1_dynamics_ratio = document.getElementById("channel_1_dynamics_rat
 const channel_1_dynamics_ratio_value = document.getElementById("channel_1_dynamics_ratio_value");
 channel_1_dynamics_ratio.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.ratio.value = e.currentTarget.value;
-  console.log("channel_1_dynamics_ratio: " + channel_1_dynamics_compressorNode.ratio.value);
   channel_1_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_dynamics_ratio", e.currentTarget.value);
@@ -1267,7 +1267,6 @@ const channel_1_dynamics_threshold = document.getElementById("channel_1_dynamics
 const channel_1_dynamics_threshold_value = document.getElementById("channel_1_dynamics_threshold_value");
 channel_1_dynamics_threshold.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.threshold.value = e.currentTarget.value;
-  console.log("channel_1_dynamics_threshold: " + channel_1_dynamics_compressorNode.threshold.value);
   channel_1_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_dynamics_threshold", e.currentTarget.value);
@@ -1277,7 +1276,6 @@ const channel_1_dynamics_release = document.getElementById("channel_1_dynamics_r
 const channel_1_dynamics_release_value = document.getElementById("channel_1_dynamics_release_value");
 channel_1_dynamics_release.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.release.value = e.currentTarget.value;
-  console.log("channel_1_dynamics_release: " + channel_1_dynamics_compressorNode.release.value);
   channel_1_dynamics_release_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_dynamics_release", e.currentTarget.value);
@@ -1287,7 +1285,6 @@ const channel_1_dynamics_attack = document.getElementById("channel_1_dynamics_at
 const channel_1_dynamics_attack_value = document.getElementById("channel_1_dynamics_attack_value");
 channel_1_dynamics_attack.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.attack.value = e.currentTarget.value;
-  console.log("channel_1_dynamics_attack: " + channel_1_dynamics_compressorNode.attack.value);
   channel_1_dynamics_attack_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_dynamics_attack", e.currentTarget.value);
@@ -1297,7 +1294,6 @@ const channel_1_dynamics_knee = document.getElementById("channel_1_dynamics_knee
 const channel_1_dynamics_knee_value = document.getElementById("channel_1_dynamics_knee_value");
 channel_1_dynamics_knee.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.knee.value = e.currentTarget.value;
-  console.log("channel_1_dynamics_knee: " + channel_1_dynamics_compressorNode.knee.value);
   channel_1_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_dynamics_knee", e.currentTarget.value);
@@ -1305,7 +1301,7 @@ channel_1_dynamics_knee.addEventListener("change", function (e) {
 
 //*********************************************************************************************** */ */
 //*********************************************************************************************** */
-//************    GATE PLAYER 1            *********************************************************************************** */
+//************    GATE CHANNEL 1            *********************************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
@@ -1317,9 +1313,7 @@ channel_1_dynamics_gate_div.style.display = "none";
 const channel_1_gate_threshold = document.getElementById("channel_1_gate_threshold");
 const channel_1_gate_threshold_value = document.getElementById("channel_1_gate_threshold_value");
 channel_1_gate_threshold.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   channel_1_dynamics_gateNode.threshold = e.currentTarget.value;
-  console.log("channel_1_dynamics_gateNode.threshold: " + channel_1_dynamics_gateNode.threshold);
   channel_1_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_gate_threshold", e.currentTarget.value);
 });
@@ -1327,16 +1321,14 @@ channel_1_gate_threshold.addEventListener("change", function (e) {
 const channel_1_gate_smoothing = document.getElementById("channel_1_gate_smoothing");
 const channel_1_gate_smoothing_value = document.getElementById("channel_1_gate_smoothing_value");
 channel_1_gate_smoothing.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   channel_1_gate_smoothing.smoothing = e.currentTarget.value;
-  console.log("channel_1_gate_smoothing. smoothing: " + channel_1_gate_smoothing.smoothing);
   channel_1_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_gate_smoothing", e.currentTarget.value);
 });
 
 //*********************************************************************************************** */
 //*********************************************************************************************** */
-//***********  PLAYER 1 LIMITER          ******************************************************************** */
+//***********  CHANNEL 1 LIMITER          ******************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 const channel_1_limiter_On_Off_Button = document.getElementById("channel_1_limiter_On_Off_Button");
@@ -1348,20 +1340,14 @@ channel_1_dynamics_limiter_div.style.display = "none";
 const channel_1_limiter_threshold = document.getElementById("channel_1_limiter_threshold");
 const channel_1_limiter_threshold_value = document.getElementById("channel_1_limiter_threshold_value");
 channel_1_limiter_threshold.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  channel_1_dynamics_limiterNode.threshold = e.currentTarget.value;
-  console.log("channel_1_dynamics_limiterNode.threshold: " + channel_1_dynamics_limiterNode.threshold);
-  channel_1_limiter_threshold_value.innerHTML = `${e.currentTarget.value}`;
-  channel_1_limiter_reduction_value.innerHTML = channel_1_dynamics_limiterNode.reduction;
+  channel_1_dynamics_limiterNode.threshold.value = e.currentTarget.value;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_limiter_threshold", e.currentTarget.value);
 });
 
 const channel_1_limiter_smoothing = document.getElementById("channel_1_limiter_smoothing");
 const channel_1_limiter_smoothing_value = document.getElementById("channel_1_limiter_smoothing_value");
 channel_1_limiter_smoothing.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   channel_1_limiter_smoothing.smoothing = e.currentTarget.value;
-  console.log("limiter_smoothing. smoothing: " + channel_1_limiter_smoothing.smoothing);
   channel_1_limiter_smoothing_value.innerHTML = `${e.currentTarget.value}`;
   channel_1_limiter_reduction_value.innerHTML = channel_1_dynamics_limiterNode.reduction;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_limiter_smoothing", e.currentTarget.value);
@@ -1374,95 +1360,106 @@ channel_1_limiter_smoothing.addEventListener("change", function (e) {
 //*********************************************************************************************** */
 const channel_1_filter_eq_On_Tascam_Button = document.getElementById("channel_1_filter_eq_On_Tascam_Button");
 
+const channel_1_tascam_in_Node = new Tone.Volume(0);
+const channel_1_tascam_out_Node = new Tone.Volume(0);
+
 //LOW SHELF
-const channel_1_LowShelf_gain = document.getElementById("channel_1_LowShelf_gain");
-const channel_1_LowShelf_gain_value = document.getElementById("channel_1_LowShelf_gain_value");
-const channel_1_LowShelf_gain_text = document.getElementById("channel_1_LowShelf_gain_text");
-const channel_1_LowShelf_FilterNode = new Tone.Filter();
-channel_1_LowShelf_FilterNode.set({
+const channel_1_tascam_LowShelf_gain = document.getElementById("channel_1_tascam_LowShelf_gain");
+const channel_1_tascam_LowShelf_gain_value = document.getElementById("channel_1_tascam_LowShelf_gain_value");
+const channel_1_tascam_LowShelf_gain_text = document.getElementById("channel_1_tascam_LowShelf_gain_text");
+const channel_1_tascam_LowShelf_FilterNode = new Tone.Filter();
+
+const channel_1_rms_meter = new Tone.Meter(0);
+
+channel_1_tascam_LowShelf_FilterNode.set({
   frequency: 100,
   type: "lowshelf",
   gain: 0,
-  rolloff: -12,
+  rolloff: -24,
 });
-channel_1_LowShelf_gain.addEventListener("change", function (e) {
+channel_1_tascam_LowShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
-    console.log("e: " + e.currentTarget.value);
-    channel_1_LowShelf_FilterNode.gain.value = e.currentTarget.value;
-    channel_1_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_LowShelf_gain", e.currentTarget.value);
-    console.log("channel_1_LowShelf_FilterNode.gain.value: " + channel_1_LowShelf_FilterNode.gain.value);
+    channel_1_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
+    channel_1_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaAction(Tone.now(), "channel_1_tascam_LowShelf_gain", e.currentTarget.value);
   }
   else {
-    alert("ELSE channel_1_LowShelf_gain");
+    alert("ELSE channel_1_tascam_LowShelf_gain");
   }
 });
 
 //SEMI PARAMETRIC
-const channel_1_Mid_SemiParam_gain = document.getElementById("channel_1_Mid_SemiParam_gain");
-const channel_1_Mid_SemiParam_gain_value = document.getElementById("channel_1_Mid_SemiParam_gain_value");
-const channel_1_Mid_SemiParam_gain_text = document.getElementById("channel_1_Mid_SemiParam_gain_text");
-const channel_1_Mid_SemiParam_frequency = document.getElementById("channel_1_Mid_SemiParam_frequency");
-const channel_1_Mid_SemiParam_frequency_value = document.getElementById("channel_1_Mid_SemiParam_frequency_value");
-const channel_1_Mid_SemiParam_frequency_text = document.getElementById("channel_1_Mid_SemiParam_frequency_text");
-channel_1_Mid_SemiParam_gain.addEventListener("change", function (e) {
-  if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
-    channel_1_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
-    channel_1_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_Mid_SemiParam_gain", e.currentTarget.value);
-    console.log("channel_1_Mid_SemiParam_FilterNode.gain.value: " + channel_1_Mid_SemiParam_FilterNode.gain.value);
-  }
-  else {
-    alert("ELSE channel_1_Mid_SemiParam_gain");
-  }
-});
-channel_1_Mid_SemiParam_frequency.addEventListener("change", function (e) {
-  if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
-    channel_1_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
-    channel_1_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    console.log("channel_1_Mid_SemiParam_FilterNode.frequency.value: " + channel_1_Mid_SemiParam_FilterNode.frequency.value);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_Mid_SemiParam_frequency", e.currentTarget.value);
-  }
-  else {
-    alert("ELSE channel_1_Mid_SemiParam_frec");
-  }
-});
-const channel_1_Mid_SemiParam_FilterNode = new Tone.Filter();
-channel_1_Mid_SemiParam_FilterNode.set({
+const channel_1_tascam_Mid_SemiParam_FilterNode = new Tone.Filter();
+channel_1_tascam_Mid_SemiParam_FilterNode.set({
   frequency: 1000,
   type: "bandpass",
   gain: 0,
-  rolloff: -12,
+  q: 2,
+  rolloff: -24,
 });
 
+const channel_1_tascam_Mid_SemiParam_gain = document.getElementById("channel_1_tascam_Mid_SemiParam_gain");
+const channel_1_tascam_Mid_SemiParam_gain_value = document.getElementById("channel_1_tascam_Mid_SemiParam_gain_value");
+const channel_1_tascam_Mid_SemiParam_gain_text = document.getElementById("channel_1_tascam_Mid_SemiParam_gain_text");
+const channel_1_tascam_Mid_SemiParam_frequency = document.getElementById("channel_1_tascam_Mid_SemiParam_frequency");
+const channel_1_tascam_Mid_SemiParam_frequency_value = document.getElementById("channel_1_tascam_Mid_SemiParam_frequency_value");
+const channel_1_tascam_Mid_SemiParam_frequency_text = document.getElementById("channel_1_tascam_Mid_SemiParam_frequency_text");
+channel_1_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
+    channel_1_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
+    channel_1_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaAction(Tone.now(), "channel_1_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+  }
+  else {
+    alert("ELSE channel_1_tascam_Mid_SemiParam_gain");
+  }
+});
+channel_1_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
+    channel_1_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
+    channel_1_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaAction(Tone.now(), "channel_1_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+  }
+  else {
+    alert("ELSE channel_1_tascam_Mid_SemiParam_frec");
+  }
+});
+
+
 //HIGH SHELF
-const channel_1_HighShelf_gain = document.getElementById("channel_1_HighShelf_gain");
-const channel_1_HighShelf_gain_value = document.getElementById("channel_1_HighShelf_gain_value");
-const channel_1_HighShelf_gain_text = document.getElementById("channel_1_HighShelf_gain_text");
-const channel_1_HighShelf_FilterNode = new Tone.Filter();
-channel_1_HighShelf_FilterNode.set({
+const channel_1_tascam_HighShelf_gain = document.getElementById("channel_1_tascam_HighShelf_gain");
+const channel_1_tascam_HighShelf_gain_value = document.getElementById("channel_1_tascam_HighShelf_gain_value");
+const channel_1_tascam_HighShelf_gain_text = document.getElementById("channel_1_tascam_HighShelf_gain_text");
+
+const channel_1_tascam_HighShelf_FilterNode = new Tone.Filter();
+channel_1_tascam_HighShelf_FilterNode.set({
   frequency: 10000,
   type: "highshelf",
   gain: 0,
-  rolloff: -12,
+  rolloff: -24,
 });
-channel_1_HighShelf_gain.addEventListener("change", function (e) {
+
+channel_1_tascam_HighShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
-    channel_1_HighShelf_FilterNode.gain.value = e.currentTarget.value;
-    channel_1_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    console.log("channel_1_HighShelf_FilterNode.gain.value: " + channel_1_HighShelf_FilterNode.gain.value);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_HighShelf_gain", e.currentTarget.value);
+    channel_1_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
+    channel_1_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaAction(Tone.now(), "channel_1_tascam_HighShelf_gain", e.currentTarget.value);
   }
   else {
-    alert("ELSE channel_1_HighShelf_gain");
+    alert("ELSE channel_1_tascam_HighShelf_gain");
   }
 });
-channel_1_LowShelf_FilterNode.connect(channel_1_Mid_SemiParam_FilterNode);
-channel_1_Mid_SemiParam_FilterNode.connect(channel_1_HighShelf_FilterNode);
+//CAMBIAR ESTE SETEO
+channel_1_tascam_LowShelf_FilterNode.connect(channel_1_tascam_out_Node);
+channel_1_tascam_Mid_SemiParam_FilterNode.connect(channel_1_tascam_out_Node);
+channel_1_tascam_HighShelf_FilterNode.connect(channel_1_tascam_out_Node);
+
+channel_1_tascam_in_Node.fan(channel_1_tascam_LowShelf_FilterNode,
+  channel_1_tascam_Mid_SemiParam_FilterNode, channel_1_tascam_HighShelf_FilterNode);
 
 //*************************************************************************************
 //*************************************************************************************
-//*****************   PLAYER 1 SETTINGS         *****************************************************************
+//*****************   CHANNEL 1 SETTINGS         *****************************************************************
 //*************************************************************************************
 //*************************************************************************************
 const channel_1_filter_eq_bypass_Button = document.getElementById("channel_1_filter_eq_bypass_Button");
@@ -1495,7 +1492,7 @@ var player_2_filter_eq_selection = "bypass";
 //*********************************************************************************** */
 //*********************************************************************************** */
 //*******    ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES TO  START          **************************************************************************** */
-//***************     PLAYER 1       ******************************************************************** */
+//***************     CHANNEL 1       ******************************************************************** */
 //*********************************************************************************** */
 channel_1_filter_eq_bypass_Button.style.backgroundColor = "green";
 channel_1_filter_eq_On_Button.style.backgroundColor = "white";
@@ -1551,7 +1548,6 @@ master_volume.addEventListener("change", function (e) {
   }
   else {
     masterVolume.volume.value = e.currentTarget.value;
-    console.log("master_volNode: " + e.currentTarget.value);
     master_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "master_volume", e.currentTarget.value);
   }
@@ -1586,8 +1582,13 @@ const fx_3 = new Tone.FeedbackDelay({
   maxDelay: 10,
   wet: 1
 });
-const fx_4 = new Tone.PitchShift(-14);
-fx_4.wet = 1;
+const fx_4 = new Tone.PitchShift({
+  pitch: 14,
+  windowSize: 0.1,
+  delayTime: 0,
+  feedback: 0,
+  wet: 1
+});
 
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
@@ -1602,9 +1603,7 @@ const sampler_1_curve_exponential = document.getElementById("sampler_1_curve_exp
 const sampler_1_curve = document.getElementsByName("sampler_1_curve");
 
 sampler_1_volume.addEventListener("change", function (e) {
-  console.log("sampler_1_volume e.value: " + e.currentTarget.value);
   const curve = document.getElementsByName("sampler_1_curve");
-  console.log("curve: " + curve);
 });
 
 const sampler_1_div = document.getElementById("sampler_1_div");
@@ -1642,32 +1641,26 @@ const noise_1_select_type = document.getElementById("noise_1_select_type");
 
 noise_1_volume.addEventListener("change", function (e) {
   // agregar if para llegar a -100
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   noise_1_Node.volume.value = e.currentTarget.value;
-  console.log("noise_1_Node.threshold: " + noise_1_Node.volume.value);
   noise_1_volume_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "noise_1_volume", e.currentTarget.value);
 
 });
 
 noise_1_playback_rate.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   noise_1_Node.playbackRate = e.currentTarget.value;
-  console.log("noise_1_Node.playbackRate: " + noise_1_Node.playbackRate);
   noise_1_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "noise_1_playback_rate", e.currentTarget.value);
 });
 
 noise_1_select_type.addEventListener("change", function (e) {
   noise_1_Node.type = e.currentTarget.value;
-  console.log("noise_1_Node.type: " + noise_1_Node.type);
   mixEvent.logIntoListaAction(Tone.now(), "noise_1_select_type", e.currentTarget.value);
 });
 
 noise_1_fadeIn.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     noise_1_Node.fadeIn = e.currentTarget.value;
-    console.log("noise_1_Node.fadeIn_1 = " + e.currentTarget.value);
     mixEvent.logIntoListaAction(Tone.now(), "noise_1_fadeIn", e.currentTarget.value);
 
   }
@@ -1679,7 +1672,6 @@ noise_1_fadeIn.addEventListener("change", function (e) {
 noise_1_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     noise_1_Node.fadeOut = e.currentTarget.value;
-    console.log("noise_1_Node.fadeOut = " + e.currentTarget.value);
     mixEvent.logIntoListaAction(Tone.now(), "noise_1_fadeOut", e.currentTarget.value);
 
   }
@@ -1741,9 +1733,7 @@ const grainPlayer_1_loop_end = document.getElementById("grainPlayer_1_loop_end")
 
 grainPlayer_1_volume.addEventListener("change", function (e) {
   // agregar if para llegar a -100
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_1_Node.volume.value = e.currentTarget.value;
-  console.log("grainPlayer_1_Node.volume: " + grainPlayer_1_Node.volume.value);
   grainPlayer_1_volume_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_volume", e.currentTarget.value);
 });
@@ -1757,34 +1747,26 @@ grainPlayer_1_pan.addEventListener("change", function (e) {
 });
 */
 grainPlayer_1_grainSize.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_1_Node.grainSize = e.currentTarget.value;
-  console.log("grainPlayer_1_Node.grainSize: " + grainPlayer_1_Node.grainSize);
   grainPlayer_1_grainSize_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_grainSize", e.currentTarget.value);
 });
 
 grainPlayer_1_overlap.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_1_Node.overlap = e.currentTarget.value;
-  console.log("grainPlayer_1_Node.overlap: " + grainPlayer_1_Node.overlap);
   grainPlayer_1_overlap_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_overlap", e.currentTarget.value);
 
 });
 
 grainPlayer_1_playback_rate.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_1_Node.playbackRate = e.currentTarget.value;
-  console.log("grainPlayer_1_Node.playbackRate: " + grainPlayer_1_Node.playbackRate);
   grainPlayer_1_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_playback_rate", e.currentTarget.value);
 });
 
 grainPlayer_1_detune.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_1_Node.detune = e.currentTarget.value;
-  console.log("grainPlayer_1_Node.detune: " + grainPlayer_1_Node.detune);
   grainPlayer_1_detune_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_detune", e.currentTarget.value);
 });
@@ -1798,7 +1780,6 @@ grainPlayer_1_loop_checkbox.addEventListener("change", function () {
     grainPlayer_1_Node.loop = false;
     mixEvent.logIntoListaAction(Tone.now(), "player_1_loop_checkbox", false);
   }
-  console.log("grainPlayer_1_Node.loop: " + grainPlayer_1_loop_checkbox.checked);
 });
 /**/
 grainPlayer_1_reverse_checkbox.addEventListener("change", function () {
@@ -1810,7 +1791,6 @@ grainPlayer_1_reverse_checkbox.addEventListener("change", function () {
     grainPlayer_1_Node.reverse = false;
     mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_reverse_checkbox", false);
   }
-  console.log("grainPlayer_1_Node.grainPlayer_reverse_checkbox: " + grainPlayer_1_reverse_checkbox.checked);
 });
 
 grainPlayer_1_autoplay_checkbox.addEventListener("change", function () {
@@ -1822,14 +1802,12 @@ grainPlayer_1_autoplay_checkbox.addEventListener("change", function () {
     grainPlayer_1_Node.autoplay = false;
     mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_autoplay_checkbox", false);
   }
-  console.log("grainPlayer_1_Node.grainPlayer_autoplay_checkbox: " + grainPlayer_1_autoplay_checkbox.checked);
 });
 /**/
 
 grainPlayer_1_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_1_Node.loopStart = e.currentTarget.value;
-    console.log("grainPlayer_1_Node.loopStart = " + grainPlayer_1_Node.loopStart);
     mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_loop_start", e.currentTarget.value);
   }
   else {
@@ -1840,7 +1818,6 @@ grainPlayer_1_loop_start.addEventListener("change", function (e) {
 grainPlayer_1_loop_end.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_1_Node.loopEnd = e.currentTarget.value;
-    console.log("grainPlayer_1_Node.loopend = " + grainPlayer_1_Node.loopEnd);
     mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_loop_end", e.currentTarget.value);
   }
   else {
@@ -1880,14 +1857,13 @@ amOsc_1_Sync_checkbox.addEventListener("change", function () {
     amOsc_1.sync = false;
     mixEvent.logIntoListaAction(Tone.now(), "amOsc_1_sync_checkbox", false);
   }
-  console.log("amOsc_1_sync_checkbox: " + amOsc_1_Sync_checkbox.checked);
+  //console.log("amOsc_1_sync_checkbox: " + amOsc_1_Sync_checkbox.checked);
 });
 
 const amOsc_1_select_type = document.getElementById("amOsc_1_select_type");
 amOsc_1_select_type.addEventListener("change", function (e) {
   amOsc_1.type = e.currentTarget.value;
   mixEvent.logIntoListaAction(Tone.now(), "amOsc_1_select_type", e.currentTarget.value);
-  //  console.log("amOsc_1_select_type: "+amOsc_1.type);
 });
 
 const amOsc_1_volume = document.getElementById("amOsc_1_volume");
@@ -1899,7 +1875,6 @@ amOsc_1_volume.addEventListener("change", function (e) {
   }
   else {
     amOsc_1.volume.value = e.currentTarget.value;
-    console.log("amOsc_1_volumen: " + e.currentTarget.value);
     amOsc_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "amOsc_1_volume", e.currentTarget.value);
   }
@@ -1909,7 +1884,6 @@ const amOsc_1_freq = document.getElementById("amOsc_1_freq");
 const amOsc_1_freq_value = document.getElementById("amOsc_1_freq_value");
 amOsc_1_freq.addEventListener("change", function (e) {
   amOsc_1.frequency.value = e.currentTarget.value;
-  console.log("amOsc_1_freq: " + amOsc_1.frequency.value);
   amOsc_1_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amOsc_1_freq", e.currentTarget.value);
 }
@@ -1919,7 +1893,7 @@ const amOsc_1_detune_text = document.getElementById("amOsc_1_detune_text");
 const amOsc_1_detune = document.getElementById("amOsc_1_detune");
 const amOsc_1_detune_value = document.getElementById("amOsc_1_detune_value");
 amOsc_1_detune.addEventListener("change", function (e) {
-  amOsc_1.detune.value = e.currentTarget.value; console.log("amOsc_1.detune: " + e.currentTarget.value);
+  amOsc_1.detune.value = e.currentTarget.value;
   amOsc_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amOsc_1_detune", e.currentTarget.value);
 });
@@ -1928,8 +1902,7 @@ const amOsc_1_phase_text = document.getElementById("amOsc_1_phase_text");
 const amOsc_1_phase = document.getElementById("amOsc_1_phase");
 const amOsc_1_phase_value = document.getElementById("amOsc_1_phase_value");
 amOsc_1_phase.addEventListener("change", function (e) {
-  amOsc_1.phase.value = e.currentTarget.value;
-  console.log("amOsc_1.phase: " + e.currentTarget.value);
+  amOsc_1.phase = e.currentTarget.value;
   amOsc_1_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amOsc_1_phase", e.currentTarget.value);
 });
@@ -1939,7 +1912,6 @@ const amOsc_1_harmonicity = document.getElementById("amOsc_1_harmonicity");
 const amOsc_1_harmonicity_value = document.getElementById("amOsc_1_harmonicity_value");
 amOsc_1_harmonicity.addEventListener("change", function (e) {
   amOsc_1.harmonicity.value = e.currentTarget.value;
-  console.log("amOsc_1.harmonicity: " + e.currentTarget.value);
   amOsc_1_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amOsc_1_harmonicity", e.currentTarget.value);
 });
@@ -1947,7 +1919,6 @@ amOsc_1_harmonicity.addEventListener("change", function (e) {
 const amOsc_1_select_modulationType = document.getElementById("amOsc_1_select_modulationType");
 amOsc_1_select_modulationType.addEventListener("change", function (e) {
   amOsc_1.modulationType = e.currentTarget.value;
-  console.log("amOsc_1_select_modulationType: " + amOsc_1.modulationType);
   mixEvent.logIntoListaAction(Tone.now(), "amOsc_1_select_modulationType", e.currentTarget.value);
 });
 
@@ -1981,14 +1952,12 @@ fmOsc_1_Sync_checkbox.addEventListener("change", function () {
     fmOsc_1.sync = false;
     mixEvent.logIntoListaAction(Tone.now(), "fmOsc_1_sync_checkbox", false);
   }
-  console.log("fmOsc_1_sync_checkbox: " + fmOsc_1_Sync_checkbox.checked);
 });
 
 const fmOsc_1_select_type = document.getElementById("fmOsc_1_select_type");
 fmOsc_1_select_type.addEventListener("change", function (e) {
   fmOsc_1.type = e.currentTarget.value;
   mixEvent.logIntoListaAction(Tone.now(), "fmOsc_1_select_type", e.currentTarget.value);
-  //  console.log("fmOsc_1_select_type: "+fmOsc_1.type);
 });
 
 const fmOsc_1_volume = document.getElementById("fmOsc_1_volume");
@@ -2002,7 +1971,6 @@ fmOsc_1_volume.addEventListener("change", function (e) {
   }
   else {
     fmOsc_1.volume.value = e.currentTarget.value;
-    console.log("fmOsc_1_volumen: " + e.currentTarget.value);
     fmOsc_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "fmOsc_1_volume", e.currentTarget.value);
 
@@ -2013,7 +1981,6 @@ const fmOsc_1_freq = document.getElementById("fmOsc_1_freq");
 const fmOsc_1_freq_value = document.getElementById("fmOsc_1_freq_value");
 fmOsc_1_freq.addEventListener("change", function (e) {
   fmOsc_1.frequency.value = e.currentTarget.value;
-  console.log("fmOsc_1_freq: " + fmOsc_1.frequency.value);
   fmOsc_1_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmOsc_1_freq", e.currentTarget.value);
 }
@@ -2024,7 +1991,6 @@ const fmOsc_1_detune = document.getElementById("fmOsc_1_detune");
 const fmOsc_1_detune_value = document.getElementById("fmOsc_1_detune_value");
 fmOsc_1_detune.addEventListener("change", function (e) {
   fmOsc_1.detune.value = e.currentTarget.value;
-  console.log("fmOsc_1.detune: " + e.currentTarget.value);
   fmOsc_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmOsc_1_detune", e.currentTarget.value);
 });
@@ -2033,8 +1999,7 @@ const fmOsc_1_phase_text = document.getElementById("fmOsc_1_phase_text");
 const fmOsc_1_phase = document.getElementById("fmOsc_1_phase");
 const fmOsc_1_phase_value = document.getElementById("fmOsc_1_phase_value");
 fmOsc_1_phase.addEventListener("change", function (e) {
-  fmOsc_1.phase.value = e.currentTarget.value;
-  console.log("fmOsc_1.phase: " + e.currentTarget.value);
+  fmOsc_1.phase = e.currentTarget.value;
   fmOsc_1_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmOsc_1_phase", e.currentTarget.value);
 });
@@ -2044,7 +2009,6 @@ const fmOsc_1_harmonicity = document.getElementById("fmOsc_1_harmonicity");
 const fmOsc_1_harmonicity_value = document.getElementById("fmOsc_1_harmonicity_value");
 fmOsc_1_harmonicity.addEventListener("change", function (e) {
   fmOsc_1.harmonicity.value = e.currentTarget.value;
-  console.log("fmOsc_1.harmonicity: " + e.currentTarget.value);
   fmOsc_1_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmOsc_1_harmonicity", e.currentTarget.value);
 });
@@ -2054,7 +2018,6 @@ const fmOsc_1_modulationIndex = document.getElementById("fmOsc_1_modulationIndex
 const fmOsc_1_modulationIndex_value = document.getElementById("fmOsc_1_modulationIndex_value");
 fmOsc_1_modulationIndex.addEventListener("change", function (e) {
   fmOsc_1.modulationIndex.value = e.currentTarget.value;
-  console.log("fmOsc_1.modulationIndex: " + e.currentTarget.value);
   fmOsc_1_modulationIndex_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmOsc_1_modulationIndex", e.currentTarget.value);
 });
@@ -2062,7 +2025,6 @@ fmOsc_1_modulationIndex.addEventListener("change", function (e) {
 const fmOsc_1_select_modulationType = document.getElementById("fmOsc_1_select_modulationType");
 fmOsc_1_select_modulationType.addEventListener("change", function (e) {
   fmOsc_1.modulationType = e.currentTarget.value;
-  console.log("fmOsc_1_select_modulationType: " + fmOsc_1.modulationType);
   mixEvent.logIntoListaAction(Tone.now(), "fmOsc_1_select_modulationTypo", e.currentTarget.value);
 });
 
@@ -2097,14 +2059,12 @@ fatOsc_1_Sync_checkbox.addEventListener("change", function () {
     fatOsc_1.sync = false;
     mixEvent.logIntoListaAction(Tone.now(), "fatOsc_1_sync_checkbox", false);
   }
-  console.log("fatOsc_1_sync_checkbox: " + fatOsc_1_Sync_checkbox.checked);
 });
 
 const fatOsc_1_select_type = document.getElementById("fatOsc_1_select_type");
 fatOsc_1_select_type.addEventListener("change", function (e) {
   fatOsc_1.type = e.currentTarget.value;
   mixEvent.logIntoListaAction(Tone.now(), "fatOsc_1_select_type", e.currentTarget.value);
-  //  console.log("fatOsc_1_select_type: "+fatOsc_1.type);
 });
 
 const fatOsc_1_volume = document.getElementById("fatOsc_1_volume");
@@ -2118,7 +2078,6 @@ fatOsc_1_volume.addEventListener("change", function (e) {
   }
   else {
     fatOsc_1.volume.value = e.currentTarget.value;
-    console.log("fatOsc_1_volumen: " + e.currentTarget.value);
     fatOsc_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "fatOsc_1_volume", e.currentTarget.value);
   }
@@ -2128,7 +2087,6 @@ const fatOsc_1_freq = document.getElementById("fatOsc_1_freq");
 const fatOsc_1_freq_value = document.getElementById("fatOsc_1_freq_value");
 fatOsc_1_freq.addEventListener("change", function (e) {
   fatOsc_1.frequency.value = e.currentTarget.value;
-  console.log("fatOsc_1_freq: " + fatOsc_1.frequency.value);
   fatOsc_1_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fatOsc_1_freq", e.currentTarget.value);
 }
@@ -2138,7 +2096,6 @@ const fatOsc_1_count = document.getElementById("fatOsc_1_count");
 const fatOsc_1_count_value = document.getElementById("fatOsc_1_count_value");
 fatOsc_1_count.addEventListener("change", function (e) {
   fatOsc_1.count = e.currentTarget.value;
-  console.log("fatOsc_1.count: " + fatOsc_1.count);
   fatOsc_1_count_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fatOsc_1_count", e.currentTarget.value);
 }
@@ -2148,7 +2105,7 @@ const fatOsc_1_detune_text = document.getElementById("fatOsc_1_detune_text");
 const fatOsc_1_detune = document.getElementById("fatOsc_1_detune");
 const fatOsc_1_detune_value = document.getElementById("fatOsc_1_detune_value");
 fatOsc_1_detune.addEventListener("change", function (e) {
-  fatOsc_1.detune.value = e.currentTarget.value; console.log("fatOsc_1.detune: " + e.currentTarget.value);
+  fatOsc_1.detune.value = e.currentTarget.value;
   fatOsc_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fatOsc_1_detune", e.currentTarget.value);
 });
@@ -2157,8 +2114,7 @@ const fatOsc_1_phase_text = document.getElementById("fatOsc_1_phase_text");
 const fatOsc_1_phase = document.getElementById("fatOsc_1_phase");
 const fatOsc_1_phase_value = document.getElementById("fatOsc_1_phase_value");
 fatOsc_1_phase.addEventListener("change", function (e) {
-  fatOsc_1.phase.value = e.currentTarget.value;
-  console.log("fatOsc_1.phase: " + e.currentTarget.value);
+  fatOsc_1.phase = e.currentTarget.value;
   fatOsc_1_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fatOsc_1_phase", e.currentTarget.value);
 });
@@ -2167,8 +2123,7 @@ const fatOsc_1_spread_text = document.getElementById("fatOsc_1_spread_text");
 const fatOsc_1_spread = document.getElementById("fatOsc_1_spread");
 const fatOsc_1_spread_value = document.getElementById("fatOsc_1_spread_value");
 fatOsc_1_spread.addEventListener("change", function (e) {
-  fatOsc_1.spread.value = e.currentTarget.value;
-  console.log("fatOsc_1.spread: " + e.currentTarget.value);
+  fatOsc_1.spread = e.currentTarget.value;
   fatOsc_1_spread_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fatOsc_1_spread", e.currentTarget.value);
 });
@@ -2200,14 +2155,12 @@ omniOsc_1_Sync_checkbox.addEventListener("change", function () {
     omniOsc_1.sync = false;
     mixEvent.logIntoListaAction(Tone.now(), "omniOsc_1_sync_checkbox", false);
   }
-  console.log("omniOsc_1_sync_checkbox: " + omniOsc_1_Sync_checkbox.checked);
 });
 
 const omniOsc_1_select_type = document.getElementById("omniOsc_1_select_type");
 omniOsc_1_select_type.addEventListener("change", function (e) {
   omniOsc_1.type = e.currentTarget.value;
   mixEvent.logIntoListaAction(Tone.now(), "omniOsc_1_select_type", e.currentTarget.value);
-  //  console.log("omniOsc_1_select_type: "+omniOsc_1.type);
 });
 
 const omniOsc_1_volume = document.getElementById("omniOsc_1_volume");
@@ -2221,7 +2174,6 @@ omniOsc_1_volume.addEventListener("change", function (e) {
   }
   else {
     omniOsc_1.volume.value = e.currentTarget.value;
-    console.log("omniOsc_1_volumen: " + e.currentTarget.value);
     omniOsc_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "omniOsc_1_volume", e.currentTarget.value);
   }
@@ -2231,7 +2183,6 @@ const omniOsc_1_freq = document.getElementById("omniOsc_1_freq");
 const omniOsc_1_freq_value = document.getElementById("omniOsc_1_freq_value");
 omniOsc_1_freq.addEventListener("change", function (e) {
   omniOsc_1.frequency.value = e.currentTarget.value;
-  console.log("omniOsc_1_freq: " + omniOsc_1.frequency.value);
   omniOsc_1_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "omniOsc_1_freq", e.currentTarget.value);
 }
@@ -2241,7 +2192,6 @@ const omniOsc_1_count = document.getElementById("omniOsc_1_count");
 const omniOsc_1_count_value = document.getElementById("omniOsc_1_count_value");
 omniOsc_1_count.addEventListener("change", function (e) {
   omniOsc_1.count = e.currentTarget.value;
-  //console.log("omniOsc_1.count: " + `${omniOsc_1.count}`);
   omniOsc_1_count_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "omniOsc_1_count", e.currentTarget.value);
 }
@@ -2251,7 +2201,7 @@ const omniOsc_1_detune_text = document.getElementById("omniOsc_1_detune_text");
 const omniOsc_1_detune = document.getElementById("omniOsc_1_detune");
 const omniOsc_1_detune_value = document.getElementById("omniOsc_1_detune_value");
 omniOsc_1_detune.addEventListener("change", function (e) {
-  omniOsc_1.detune.value = e.currentTarget.value; console.log("omniOsc_1.detune: " + e.currentTarget.value);
+  omniOsc_1.detune.value = e.currentTarget.value;
   omniOsc_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "omniOsc_1_detune", e.currentTarget.value);
 });
@@ -2260,8 +2210,7 @@ const omniOsc_1_phase_text = document.getElementById("omniOsc_1_phase_text");
 const omniOsc_1_phase = document.getElementById("omniOsc_1_phase");
 const omniOsc_1_phase_value = document.getElementById("omniOsc_1_phase_value");
 omniOsc_1_phase.addEventListener("change", function (e) {
-  omniOsc_1.phase.value = e.currentTarget.value;
-  console.log("omniOsc_1.phase: " + e.currentTarget.value);
+  omniOsc_1.phase = e.currentTarget.value;
   omniOsc_1_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "omniOsc_1_phase", e.currentTarget.value);
 });
@@ -2271,7 +2220,6 @@ const omniOsc_1_spread = document.getElementById("omniOsc_1_spread");
 const omniOsc_1_spread_value = document.getElementById("omniOsc_1_spread_value");
 omniOsc_1_spread.addEventListener("change", function (e) {
   omniOsc_1.spread = e.currentTarget;
-  console.log("omniOsc_1.spread: " + e.currentTarget.value);
   omniOsc_1_spread_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "omniOsc_1_spread", e.currentTarget.value);
 });
@@ -2280,10 +2228,15 @@ const omniOsc_1_width_text = document.getElementById("omniOsc_1_width_text");
 const omniOsc_1_width = document.getElementById("omniOsc_1_width");
 const omniOsc_1_width_value = document.getElementById("omniOsc_1_width_value");
 omniOsc_1_width.addEventListener("change", function (e) {
-  omniOsc_1.width = e.currentTarget.value;
-  console.log("omniOsc_1.width: " + e.currentTarget.value);
-  omniOsc_1_width_value.innerHTML = (`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "omniOsc_1_width", e.currentTarget.value);
+
+  if (omniOsc_1.type == "pulse") {
+    omniOsc_1.width.value = e.currentTarget.value;
+    omniOsc_1_width_value.innerHTML = (`${e.currentTarget.value}`);
+    mixEvent.logIntoListaAction(Tone.now(), "omniOsc_1_width", e.currentTarget.value);
+  }
+  else { alert("TEST PULSE TYPE"); }
+
+
 });
 
 //FALTA TERMINAR
@@ -2314,13 +2267,11 @@ oscillator_1_Sync_checkbox.addEventListener("change", function () {
     oscillator_1.sync = false;
     mixEvent.logIntoListaAction(Tone.now(), "oscillator_1_sync_checkbox", false);
   }
-  console.log("oscillator_1_sync_checkbox: " + oscillator_1_Sync_checkbox.checked);
 });
 
 const oscillator_1_select_type = document.getElementById("oscillator_1_select_type");
 oscillator_1_select_type.addEventListener("change", function (e) {
   oscillator_1.type = e.currentTarget.value;
-  //  console.log("oscillator_1_select_type: "+oscillator_1.type);
   mixEvent.logIntoListaAction(Tone.now(), "oscillator_1_select_type", e.currentTarget.value);
 });
 
@@ -2334,7 +2285,6 @@ oscillator_1_volume.addEventListener("change", function (e) {
   }
   else {
     oscillator_1.volume.value = e.currentTarget.value;
-    console.log("oscillator_1_volumen: " + e.currentTarget.value);
     oscillator_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "oscillator_1_volume", e.currentTarget.value);
   }
@@ -2346,7 +2296,6 @@ const oscillator_1_freq = document.getElementById("oscillator_1_freq");
 const oscillator_1_freq_value = document.getElementById("oscillator_1_freq_value");
 oscillator_1_freq.addEventListener("change", function (e) {
   oscillator_1.frequency.value = e.currentTarget.value;
-  console.log("oscillator_1_freq: " + oscillator_1.frequency.value);
   oscillator_1_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "oscillator_1_freq", e.currentTarget.value);
 });
@@ -2355,7 +2304,7 @@ const oscillator_1_detune_text = document.getElementById("oscillator_1_detune_te
 const oscillator_1_detune = document.getElementById("oscillator_1_detune");
 const oscillator_1_detune_value = document.getElementById("oscillator_1_detune_value");
 oscillator_1_detune.addEventListener("change", function (e) {
-  oscillator_1.detune.value = e.currentTarget.value; console.log("oscillator_1.detune: " + e.currentTarget.value);
+  oscillator_1.detune.value = e.currentTarget.value;
   oscillator_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "oscillator_1_detune", e.currentTarget.value);
 });
@@ -2364,8 +2313,7 @@ const oscillator_1_phase_text = document.getElementById("oscillator_1_phase_text
 const oscillator_1_phase = document.getElementById("oscillator_1_phase");
 const oscillator_1_phase_value = document.getElementById("oscillator_1_phase_value");
 oscillator_1_phase.addEventListener("change", function (e) {
-  oscillator_1.phase.value = e.currentTarget.value;
-  console.log("oscillator_1.phase: " + e.currentTarget.value);
+  oscillator_1.phase = e.currentTarget.value;
   oscillator_1_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "oscillator_1_phase", e.currentTarget.value);
 });
@@ -2395,7 +2343,6 @@ pwmOsc_1_Sync_checkbox.addEventListener("change", function () {
     pwmOsc_1.sync = false;
     mixEvent.logIntoListaAction(Tone.now(), "pwmOsc_1_sync_checkbox", false);
   }
-  console.log("pwmOsc_1_sync_checkbox: " + pwmOsc_1_Sync_checkbox.checked);
 });
 
 const pwmOsc_1_volume = document.getElementById("pwmOsc_1_volume");
@@ -2408,7 +2355,6 @@ pwmOsc_1_volume.addEventListener("change", function (e) {
   }
   else {
     pwmOsc_1.volume.value = e.currentTarget.value;
-    console.log("pwmOsc_1_volumen: " + e.currentTarget.value);
     pwmOsc_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "pwmOsc_1_volume", e.currentTarget.value);
   }
@@ -2418,7 +2364,6 @@ const pwmOsc_1_freq = document.getElementById("pwmOsc_1_freq");
 const pwmOsc_1_freq_value = document.getElementById("pwmOsc_1_freq_value");
 pwmOsc_1_freq.addEventListener("change", function (e) {
   pwmOsc_1.frequency.value = e.currentTarget.value;
-  console.log("pwmOsc_1_freq: " + pwmOsc_1.frequency.value);
   pwmOsc_1_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "pwmOsc_1_freq", e.currentTarget.value);
 });
@@ -2427,7 +2372,7 @@ const pwmOsc_1_detune_text = document.getElementById("pwmOsc_1_detune_text");
 const pwmOsc_1_detune = document.getElementById("pwmOsc_1_detune");
 const pwmOsc_1_detune_value = document.getElementById("pwmOsc_1_detune_value");
 pwmOsc_1_detune.addEventListener("change", function (e) {
-  pwmOsc_1.detune.value = e.currentTarget.value; console.log("pwmOsc_1.detune: " + e.currentTarget.value);
+  pwmOsc_1.detune.value = e.currentTarget.value;
   pwmOsc_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "pwmOsc_1_detune", e.currentTarget.value);
 });
@@ -2436,8 +2381,7 @@ const pwmOsc_1_phase_text = document.getElementById("pwmOsc_1_phase_text");
 const pwmOsc_1_phase = document.getElementById("pwmOsc_1_phase");
 const pwmOsc_1_phase_value = document.getElementById("pwmOsc_1_phase_value");
 pwmOsc_1_phase.addEventListener("change", function (e) {
-  pwmOsc_1.phase.value = e.currentTarget.value;
-  console.log("pwmOsc_1.phase: " + e.currentTarget.value);
+  pwmOsc_1.phase = e.currentTarget.value;
   pwmOsc_1_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "pwmOsc_1_phase", e.currentTarget.value);
 });
@@ -2446,7 +2390,6 @@ const pwmOsc_1_modulationFrequency = document.getElementById("pwmOsc_1_modulatio
 const pwmOsc_1_modulationFrequency_value = document.getElementById("pwmOsc_1_modulationFrequency_value");
 pwmOsc_1_modulationFrequency.addEventListener("change", function (e) {
   pwmOsc_1.modulationFrequency.value = e.currentTarget.value;
-  console.log("pwmOsc_1_modulationFrequency: " + pwmOsc_1.modulationFrequency.value);
   pwmOsc_1_modulationFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "pwmOsc_1_modulationFrequency", e.currentTarget.value);
 });
@@ -2476,7 +2419,6 @@ pulseOsc_1_Sync_checkbox.addEventListener("change", function () {
     mixEvent.logIntoListaAction(Tone.now(), "pulseOsc_1_sync_checkbox", false);
 
   }
-  console.log("pulseOsc_1_sync_checkbox: " + pulseOsc_1_Sync_checkbox.checked);
 });
 
 const pulseOsc_1_volume = document.getElementById("pulseOsc_1_volume");
@@ -2489,7 +2431,6 @@ pulseOsc_1_volume.addEventListener("change", function (e) {
   }
   else {
     pulseOsc_1.volume.value = e.currentTarget.value;
-    console.log("pulseOsc_1_volumen: " + e.currentTarget.value);
     pulseOsc_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "pulseOsc_1_volume", e.currentTarget.value);
   }
@@ -2499,7 +2440,6 @@ const pulseOsc_1_freq = document.getElementById("pulseOsc_1_freq");
 const pulseOsc_1_freq_value = document.getElementById("pulseOsc_1_freq_value");
 pulseOsc_1_freq.addEventListener("change", function (e) {
   pulseOsc_1.frequency.value = e.currentTarget.value;
-  console.log("pulseOsc_1_freq: " + pulseOsc_1.frequency.value);
   pulseOsc_1_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "pulseOsc_1_freq", e.currentTarget.value);
 
@@ -2509,7 +2449,7 @@ const pulseOsc_1_detune_text = document.getElementById("pulseOsc_1_detune_text")
 const pulseOsc_1_detune = document.getElementById("pulseOsc_1_detune");
 const pulseOsc_1_detune_value = document.getElementById("pulseOsc_1_detune_value");
 pulseOsc_1_detune.addEventListener("change", function (e) {
-  pulseOsc_1.detune.value = e.currentTarget.value; console.log("pulseOsc_1.detune: " + e.currentTarget.value);
+  pulseOsc_1.detune.value = e.currentTarget.value;
   pulseOsc_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "pulseOsc_1_detune", e.currentTarget.value);
 });
@@ -2518,8 +2458,7 @@ const pulseOsc_1_phase_text = document.getElementById("pulseOsc_1_phase_text");
 const pulseOsc_1_phase = document.getElementById("pulseOsc_1_phase");
 const pulseOsc_1_phase_value = document.getElementById("pulseOsc_1_phase_value");
 pulseOsc_1_phase.addEventListener("change", function (e) {
-  pulseOsc_1.phase.value = e.currentTarget.value;
-  console.log("pulseOsc_1.phase: " + e.currentTarget.value);
+  pulseOsc_1.phase = e.currentTarget.value;
   pulseOsc_1_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "pulseOsc_1_phase", e.currentTarget.value);
 });
@@ -2529,7 +2468,6 @@ const pulseOsc_1_width = document.getElementById("pulseOsc_1_width");
 const pulseOsc_1_width_value = document.getElementById("pulseOsc_1_width_value");
 pulseOsc_1_width.addEventListener("change", function (e) {
   pulseOsc_1.width.value = e.currentTarget.value;
-  console.log("pulseOsc_1.width: " + e.currentTarget.value);
   pulseOsc_1_width_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "pulseOsc_1_width", e.currentTarget.value);
 });
@@ -2577,14 +2515,12 @@ amSynth_1_Sync_checkbox.addEventListener("change", function () {
     amSynth_1.sync = false;
     mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_sync_checkbox", false);
   }
-  console.log("amSynth_1_sync_checkbox: " + amSynth_1_Sync_checkbox.checked);
 });
 
 const amSynth_1_select_type = document.getElementById("amSynth_1_select_type");
 amSynth_1_select_type.addEventListener("change", function (e) {
   amSynth_1.type = e.currentTarget.value;
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_select_type", e.currentTarget.value);
-  //  console.log("amSynth_1_select_type: "+amSynth_1.type);
 });
 
 const amSynth_1_volume = document.getElementById("amSynth_1_volume");
@@ -2597,7 +2533,6 @@ amSynth_1_volume.addEventListener("change", function (e) {
   }
   else {
     amSynth_1.volume.value = e.currentTarget.value;
-    console.log("amSynth_1_volumen: " + e.currentTarget.value);
     amSynth_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_volume", e.currentTarget.value);
   }
@@ -2607,7 +2542,6 @@ const amSynth_1_freq = document.getElementById("amSynth_1_freq");
 const amSynth_1_freq_value = document.getElementById("amSynth_1_freq_value");
 amSynth_1_freq.addEventListener("change", function (e) {
   amSynth_1.frequency.value = e.currentTarget.value;
-  console.log("amSynth_1_freq: " + amSynth_1.frequency.value);
   amSynth_1_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_freq", e.currentTarget.value);
 });
@@ -2616,7 +2550,7 @@ const amSynth_1_detune_text = document.getElementById("amSynth_1_detune_text");
 const amSynth_1_detune = document.getElementById("amSynth_1_detune");
 const amSynth_1_detune_value = document.getElementById("amSynth_1_detune_value");
 amSynth_1_detune.addEventListener("change", function (e) {
-  amSynth_1.detune.value = e.currentTarget.value; console.log("amSynth_1.detune: " + e.currentTarget.value);
+  amSynth_1.detune.value = e.currentTarget.value;
   amSynth_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_detune", e.currentTarget.value);
 });
@@ -2626,7 +2560,6 @@ const amSynth_1_harmonicity = document.getElementById("amSynth_1_harmonicity");
 const amSynth_1_harmonicity_value = document.getElementById("amSynth_1_harmonicity_value");
 amSynth_1_harmonicity.addEventListener("change", function (e) {
   amSynth_1.harmonicity.value = e.currentTarget.value;
-  console.log("amSynth_1.harmonicity: " + e.currentTarget.value);
   amSynth_1_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_harmonicity", e.currentTarget.value);
 });
@@ -2636,7 +2569,6 @@ const amSynth_1_portamento = document.getElementById("amSynth_1_portamento");
 const amSynth_1_portamento_value = document.getElementById("amSynth_1_portamento_value");
 amSynth_1_portamento.addEventListener("change", function (e) {
   amSynth_1.portamento.value = e.currentTarget.value;
-  console.log("amSynth_1.portamento: " + e.currentTarget.value);
   amSynth_1_portamento_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_portamento", e.currentTarget.value);
 });
@@ -2644,7 +2576,6 @@ amSynth_1_portamento.addEventListener("change", function (e) {
 const amSynth_1_select_modulation_type = document.getElementById("amSynth_1_select_modulation_type");
 amSynth_1_select_modulation_type.addEventListener("change", function (e) {
   amSynth_1.modulation.type = e.currentTarget.value;
-  console.log("amSynth_1_select_modulation_type: " + amSynth_1.modulation.type);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_select_modulation_type", e.currentTarget.value);
 });
 
@@ -2653,7 +2584,6 @@ const amSynth_1_envelope_attack = document.getElementById("amSynth_1_envelope_at
 const amSynth_1_envelope_attack_value = document.getElementById("amSynth_1_envelope_attack_value");
 amSynth_1_envelope_attack.addEventListener("change", function (e) {
   amSynth_1.envelope.attack = e.currentTarget.value;
-  console.log("amSynth_1.envelope.attack.value: " + e.currentTarget.value);
   amSynth_1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_envelope_attack", e.currentTarget.value);
 });
@@ -2663,7 +2593,6 @@ const amSynth_1_envelope_decay = document.getElementById("amSynth_1_envelope_dec
 const amSynth_1_envelope_decay_value = document.getElementById("amSynth_1_envelope_decay_value");
 amSynth_1_envelope_decay.addEventListener("change", function (e) {
   amSynth_1.envelope.decay = e.currentTarget.value;
-  console.log("amSynth_1.envelope.decay.value: " + e.currentTarget.value);
   amSynth_1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_envelope_decay", e.currentTarget.value);
 });
@@ -2673,7 +2602,6 @@ const amSynth_1_envelope_sustain = document.getElementById("amSynth_1_envelope_s
 const amSynth_1_envelope_sustain_value = document.getElementById("amSynth_1_envelope_sustain_value");
 amSynth_1_envelope_sustain.addEventListener("change", function (e) {
   amSynth_1.envelope.sustain = e.currentTarget.value;
-  console.log("amSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   amSynth_1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_envelope_sustain", e.currentTarget.value);
 });
@@ -2683,7 +2611,6 @@ const amSynth_1_envelope_release = document.getElementById("amSynth_1_envelope_r
 const amSynth_1_envelope_release_value = document.getElementById("amSynth_1_envelope_release_value");
 amSynth_1_envelope_release.addEventListener("change", function (e) {
   amSynth_1.envelope.release = e.currentTarget.value;
-  console.log("amSynth_1.envelope.release.value: " + e.currentTarget.value);
   amSynth_1_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_envelope_release", e.currentTarget.value);
 });
@@ -2694,7 +2621,6 @@ const amSynth_1_modulation_envelope_attack = document.getElementById("amSynth_1_
 const amSynth_1_modulation_envelope_attack_value = document.getElementById("amSynth_1_modulation_envelope_attack_value");
 amSynth_1_modulation_envelope_attack.addEventListener("change", function (e) {
   amSynth_1.envelope.attack = e.currentTarget.value;
-  console.log("amSynth_1.envelope.attack.value: " + e.currentTarget.value);
   amSynth_1_modulation_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_modulation_envelope_attack", e.currentTarget.value);
 });
@@ -2704,7 +2630,6 @@ const amSynth_1_modulation_envelope_decay = document.getElementById("amSynth_1_m
 const amSynth_1_modulation_envelope_decay_value = document.getElementById("amSynth_1_modulation_envelope_decay_value");
 amSynth_1_modulation_envelope_decay.addEventListener("change", function (e) {
   amSynth_1.envelope.decay = e.currentTarget.value;
-  console.log("amSynth_1.envelope.decay.value: " + e.currentTarget.value);
   amSynth_1_modulation_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_modulation_envelope_decay", e.currentTarget.value);
 });
@@ -2714,7 +2639,6 @@ const amSynth_1_modulation_envelope_sustain = document.getElementById("amSynth_1
 const amSynth_1_modulation_envelope_sustain_value = document.getElementById("amSynth_1_modulation_envelope_sustain_value");
 amSynth_1_modulation_envelope_sustain.addEventListener("change", function (e) {
   amSynth_1.envelope.sustain = e.currentTarget.value;
-  console.log("amSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   amSynth_1_modulation_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_modulation_envelope_sustain", e.currentTarget.value);
 });
@@ -2724,7 +2648,6 @@ const amSynth_1_modulation_envelope_release = document.getElementById("amSynth_1
 const amSynth_1_modulation_envelope_release_value = document.getElementById("amSynth_1_modulation_envelope_release_value");
 amSynth_1_modulation_envelope_release.addEventListener("change", function (e) {
   amSynth_1.envelope.release = e.currentTarget.value;
-  console.log("amSynth_1.envelope.release.value: " + e.currentTarget.value);
   amSynth_1_modulation_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "amSynth_1_modulation_envelope_release", e.currentTarget.value);
 });
@@ -2788,7 +2711,6 @@ duoSynth_1_Sync_checkbox.addEventListener("change", function () {
     duoSynth_1.sync = false;
     mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_sync_checkbox", false);
   }
-  console.log("duoSynth_1_sync_checkbox: " + duoSynth_1_Sync_checkbox.checked);
 });
 
 const duoSynth_1_volume = document.getElementById("duoSynth_1_volume");
@@ -2802,7 +2724,6 @@ duoSynth_1_volume.addEventListener("change", function (e) {
   }
   else {
     duoSynth_1.volume.value = e.currentTarget.value;
-    console.log("duoSynth_1_volumen: " + e.currentTarget.value);
     duoSynth_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_volume", e.currentTarget.value);
   }
@@ -2812,7 +2733,6 @@ const duoSynth_1_vibratoAmount = document.getElementById("duoSynth_1_vibratoAmou
 const duoSynth_1_vibratoAmount_value = document.getElementById("duoSynth_1_vibratoAmount_value");
 duoSynth_1_vibratoAmount.addEventListener("change", function (e) {
   duoSynth_1.vibratoAmount.value = e.currentTarget.value;
-  console.log("duoSynth_1_vibratoAmount: " + duoSynth_1.vibratoAmount.value);
   duoSynth_1_vibratoAmount_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_vibratoAmount", e.currentTarget.value);
 });
@@ -2821,7 +2741,6 @@ const duoSynth_1_vibratoRate = document.getElementById("duoSynth_1_vibratoRate")
 const duoSynth_1_vibratoRate_value = document.getElementById("duoSynth_1_vibratoRate_value");
 duoSynth_1_vibratoRate.addEventListener("change", function (e) {
   duoSynth_1.vibratoRate.value = e.currentTarget.value;
-  console.log("duoSynth_1_vibratoRate: " + duoSynth_1.vibratoRate.value);
   duoSynth_1_vibratoRate_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_vibratoRate", e.currentTarget.value);
 });
@@ -2830,7 +2749,6 @@ duoSynth_1_vibratoRate.addEventListener("change", function (e) {
 const duoSynth_1_voice0_select_type = document.getElementById("duoSynth_1_voice0_select_type");
 duoSynth_1_voice0_select_type.addEventListener("change", function (e) {
   duoSynth_1.voice0.type = e.currentTarget.value;
-  console.log("duoSynth_1_select_type: " + duoSynth_1.voice0.type);
 });
 
 const duoSynth_1_voice0_volume = document.getElementById("duoSynth_1_voice0_volume");
@@ -2843,7 +2761,6 @@ duoSynth_1_voice0_volume.addEventListener("change", function (e) {
   }
   else {
     duoSynth_1.voice0.volume.value = e.currentTarget.value;
-    console.log("duoSynth_1_volumen: " + e.currentTarget.value);
     duoSynth_1_voice0_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice0_volume", e.currentTarget.value);
   }
@@ -2854,7 +2771,6 @@ const duoSynth_1_harmonicity = document.getElementById("duoSynth_1_harmonicity")
 const duoSynth_1_harmonicity_value = document.getElementById("duoSynth_1_harmonicity_value");
 duoSynth_1_harmonicity.addEventListener("change", function (e) {
   duoSynth_1.harmonicity.value = e.currentTarget.value;
-  console.log("duoSynth_1.harmonicity: " + e.currentTarget.value);
   duoSynth_1_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_harmonicity", e.currentTarget.value);
 });
@@ -2864,7 +2780,6 @@ const duoSynth_1_portamento_voice0 = document.getElementById("duoSynth_1_portame
 const duoSynth_1_portamento_voice0_value = document.getElementById("duoSynth_1_portamento_voice0_value");
 duoSynth_1_portamento_voice0.addEventListener("change", function (e) {
   duoSynth_1.voice0.portamento.value = e.currentTarget.value;
-  console.log("duoSynth_1.portamento: " + e.currentTarget.value);
   duoSynth_1_portamento_voice0_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_portamento_voice0", e.currentTarget.value);
 });
@@ -2874,7 +2789,6 @@ const duoSynth_1_voice0_filterEnvelope_attack = document.getElementById("duoSynt
 const duoSynth_1_voice0_filterEnvelope_attack_value = document.getElementById("duoSynth_1_voice0_filterEnvelope_attack_value");
 duoSynth_1_voice0_filterEnvelope_attack.addEventListener("change", function (e) {
   duoSynth_1.voice0.filterEnvelope.attack = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.attack.value: " + e.currentTarget.value);
   duoSynth_1_voice0_filterEnvelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice0_filterEnvelope_attack", e.currentTarget.value);
 });
@@ -2884,7 +2798,6 @@ const duoSynth_1_voice0_filterEnvelope_decay = document.getElementById("duoSynth
 const duoSynth_1_voice0_filterEnvelope_decay_value = document.getElementById("duoSynth_1_voice0_filterEnvelope_decay_value");
 duoSynth_1_voice0_filterEnvelope_decay.addEventListener("change", function (e) {
   duoSynth_1.voice0.filterEnvelope.decay = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.decay.value: " + e.currentTarget.value);
   duoSynth_1_voice0_filterEnvelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice0_filterEnvelope_decay", e.currentTarget.value);
 });
@@ -2894,7 +2807,6 @@ const duoSynth_1_voice0_filterEnvelope_sustain = document.getElementById("duoSyn
 const duoSynth_1_voice0_filterEnvelope_sustain_value = document.getElementById("duoSynth_1_voice0_filterEnvelope_sustain_value");
 duoSynth_1_voice0_filterEnvelope_sustain.addEventListener("change", function (e) {
   duoSynth_1.voice0.filterEnvelope.sustain = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   duoSynth_1_voice0_filterEnvelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice0_filterEnvelope_sustain", e.currentTarget.value);
 });
@@ -2904,7 +2816,6 @@ const duoSynth_1_voice0_filterEnvelope_release = document.getElementById("duoSyn
 const duoSynth_1_voice0_filterEnvelope_release_value = document.getElementById("duoSynth_1_voice0_filterEnvelope_release_value");
 duoSynth_1_voice0_filterEnvelope_release.addEventListener("change", function (e) {
   duoSynth_1.voice0.filterEnvelope.release = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.release.value: " + e.currentTarget.value);
   duoSynth_1_voice0_filterEnvelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice0_filterEnvelope_release", e.currentTarget.value);
 });
@@ -2914,7 +2825,6 @@ const duoSynth_1_voice0_envelope_attack = document.getElementById("duoSynth_1_vo
 const duoSynth_1_voice0_envelope_attack_value = document.getElementById("duoSynth_1_voice0_envelope_attack_value");
 duoSynth_1_voice0_envelope_attack.addEventListener("change", function (e) {
   duoSynth_1.voice0.envelope.attack = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.attack.value: " + e.currentTarget.value);
   duoSynth_1_voice0_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice0_envelope_attack", e.currentTarget.value);
 });
@@ -2924,7 +2834,6 @@ const duoSynth_1_voice0_envelope_decay = document.getElementById("duoSynth_1_voi
 const duoSynth_1_voice0_envelope_decay_value = document.getElementById("duoSynth_1_voice0_envelope_decay_value");
 duoSynth_1_voice0_envelope_decay.addEventListener("change", function (e) {
   duoSynth_1.voice0.envelope.decay = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.decay.value: " + e.currentTarget.value);
   duoSynth_1_voice0_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice0_envelope_decay", e.currentTarget.value);
 });
@@ -2934,7 +2843,6 @@ const duoSynth_1_voice0_envelope_sustain = document.getElementById("duoSynth_1_v
 const duoSynth_1_voice0_envelope_sustain_value = document.getElementById("duoSynth_1_voice0_envelope_sustain_value");
 duoSynth_1_voice0_envelope_sustain.addEventListener("change", function (e) {
   duoSynth_1.voice0.envelope.sustain = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   duoSynth_1_voice0_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice0_envelope_sustain", e.currentTarget.value);
 });
@@ -2944,7 +2852,6 @@ const duoSynth_1_voice0_envelope_release = document.getElementById("duoSynth_1_v
 const duoSynth_1_voice0_envelope_release_value = document.getElementById("duoSynth_1_voice0_envelope_release_value");
 duoSynth_1_voice0_envelope_release.addEventListener("change", function (e) {
   duoSynth_1.voice0.envelope.release = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.release.value: " + e.currentTarget.value);
   duoSynth_1_voice0_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice0_envelope_release", e.currentTarget.value);
 });
@@ -2959,7 +2866,6 @@ duoSynth_1_voice1_volume.addEventListener("change", function (e) {
   }
   else {
     duoSynth_1.voice1.volume.value = e.currentTarget.value;
-    console.log("duoSynth_1_volumen: " + e.currentTarget.value);
     duoSynth_1_voice1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice1_volume", e.currentTarget.value);
   }
@@ -2970,7 +2876,6 @@ const duoSynth_1_portamento_voice1 = document.getElementById("duoSynth_1_portame
 const duoSynth_1_portamento_voice1_value = document.getElementById("duoSynth_1_portamento_voice1_value");
 duoSynth_1_portamento_voice1.addEventListener("change", function (e) {
   duoSynth_1.voice1.portamento.value = e.currentTarget.value;
-  console.log("duoSynth_1.portamento: " + e.currentTarget.value);
   duoSynth_1_portamento_voice1_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_portamento_voice1", e.currentTarget.value);
 });
@@ -2980,7 +2885,6 @@ const duoSynth_1_voice1_filterEnvelope_attack = document.getElementById("duoSynt
 const duoSynth_1_voice1_filterEnvelope_attack_value = document.getElementById("duoSynth_1_voice1_filterEnvelope_attack_value");
 duoSynth_1_voice1_filterEnvelope_attack.addEventListener("change", function (e) {
   duoSynth_1.voice1.filterEnvelope.attack = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.attack.value: " + e.currentTarget.value);
   duoSynth_1_voice1_filterEnvelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice1_filterEnvelope_attack", e.currentTarget.value);
 });
@@ -2990,7 +2894,6 @@ const duoSynth_1_voice1_filterEnvelope_decay = document.getElementById("duoSynth
 const duoSynth_1_voice1_filterEnvelope_decay_value = document.getElementById("duoSynth_1_voice1_filterEnvelope_decay_value");
 duoSynth_1_voice1_filterEnvelope_decay.addEventListener("change", function (e) {
   duoSynth_1.voice1.filterEnvelope.decay = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.decay.value: " + e.currentTarget.value);
   duoSynth_1_voice1_filterEnvelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice1_filterEnvelope_decay", e.currentTarget.value);
 });
@@ -3000,7 +2903,6 @@ const duoSynth_1_voice1_filterEnvelope_sustain = document.getElementById("duoSyn
 const duoSynth_1_voice1_filterEnvelope_sustain_value = document.getElementById("duoSynth_1_voice1_filterEnvelope_sustain_value");
 duoSynth_1_voice1_filterEnvelope_sustain.addEventListener("change", function (e) {
   duoSynth_1.voice1.filterEnvelope.sustain = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   duoSynth_1_voice1_filterEnvelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice1_filterEnvelope_sustain", e.currentTarget.value);
 });
@@ -3010,7 +2912,6 @@ const duoSynth_1_voice1_filterEnvelope_release = document.getElementById("duoSyn
 const duoSynth_1_voice1_filterEnvelope_release_value = document.getElementById("duoSynth_1_voice1_filterEnvelope_release_value");
 duoSynth_1_voice1_filterEnvelope_release.addEventListener("change", function (e) {
   duoSynth_1.voice1.filterEnvelope.release = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.release.value: " + e.currentTarget.value);
   duoSynth_1_voice1_filterEnvelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice1_filterEnvelope_release", e.currentTarget.value);
 });
@@ -3020,7 +2921,6 @@ const duoSynth_1_voice1_envelope_attack = document.getElementById("duoSynth_1_vo
 const duoSynth_1_voice1_envelope_attack_value = document.getElementById("duoSynth_1_voice1_envelope_attack_value");
 duoSynth_1_voice1_envelope_attack.addEventListener("change", function (e) {
   duoSynth_1.voice1.envelope.attack = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.attack.value: " + e.currentTarget.value);
   duoSynth_1_voice1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice1_envelope_attack", e.currentTarget.value);
 });
@@ -3030,7 +2930,6 @@ const duoSynth_1_voice1_envelope_decay = document.getElementById("duoSynth_1_voi
 const duoSynth_1_voice1_envelope_decay_value = document.getElementById("duoSynth_1_voice1_envelope_decay_value");
 duoSynth_1_voice1_envelope_decay.addEventListener("change", function (e) {
   duoSynth_1.voice1.envelope.decay = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.decay.value: " + e.currentTarget.value);
   duoSynth_1_voice1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice1_envelope_decay", e.currentTarget.value);
 });
@@ -3040,7 +2939,6 @@ const duoSynth_1_voice1_envelope_sustain = document.getElementById("duoSynth_1_v
 const duoSynth_1_voice1_envelope_sustain_value = document.getElementById("duoSynth_1_voice1_envelope_sustain_value");
 duoSynth_1_voice1_envelope_sustain.addEventListener("change", function (e) {
   duoSynth_1.voice1.envelope.sustain = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   duoSynth_1_voice1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice1_envelope_sustain", e.currentTarget.value);
 });
@@ -3050,7 +2948,6 @@ const duoSynth_1_voice1_envelope_release = document.getElementById("duoSynth_1_v
 const duoSynth_1_voice1_envelope_release_value = document.getElementById("duoSynth_1_voice1_envelope_release_value");
 duoSynth_1_voice1_envelope_release.addEventListener("change", function (e) {
   duoSynth_1.voice1.envelope.release = e.currentTarget.value;
-  console.log("duoSynth_1.envelope.release.value: " + e.currentTarget.value);
   duoSynth_1_voice1_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "duoSynth_1_voice1_envelope_release", e.currentTarget.value);
 });
@@ -3095,7 +2992,6 @@ fmSynth_1_volume.addEventListener("change", function (e) {
   }
   else {
     fmSynth_1.volume.value = e.currentTarget.value;
-    console.log("duoSynth_1_volumen: " + e.currentTarget.value);
     fmSynth_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_volume", e.currentTarget.value);
   }
@@ -3106,7 +3002,6 @@ const fmSynth_1_harmonicity = document.getElementById("fmSynth_1_harmonicity");
 const fmSynth_1_harmonicity_value = document.getElementById("fmSynth_1_harmonicity_value");
 fmSynth_1_harmonicity.addEventListener("change", function (e) {
   fmSynth_1.harmonicity.value = e.currentTarget.value;
-  console.log("fmSynth_1.harmonicity: " + e.currentTarget.value);
   fmSynth_1_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_harmonicity", e.currentTarget.value);
 });
@@ -3116,7 +3011,6 @@ const fmSynth_1_modulationIndex = document.getElementById("fmSynth_1_modulationI
 const fmSynth_1_modulationIndex_value = document.getElementById("fmSynth_1_modulationIndex_value");
 fmSynth_1_modulationIndex.addEventListener("change", function (e) {
   fmSynth_1.modulationIndex.value = e.currentTarget.value;
-  console.log("fmSynth_1.modulationIndex: " + e.currentTarget.value);
   fmSynth_1_modulationIndex_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_modulationIndex", e.currentTarget.value);
 });
@@ -3125,7 +3019,7 @@ const fmSynth_1_detune_text = document.getElementById("fmSynth_1_detune_text");
 const fmSynth_1_detune = document.getElementById("fmSynth_1_detune");
 const fmSynth_1_detune_value = document.getElementById("fmSynth_1_detune_value");
 fmSynth_1_detune.addEventListener("change", function (e) {
-  fmSynth_1.detune.value = e.currentTarget.value; console.log("fmSynth_1.detune: " + e.currentTarget.value);
+  fmSynth_1.detune.value = e.currentTarget.value;
   fmSynth_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_detune", e.currentTarget.value);
 });
@@ -3133,14 +3027,12 @@ fmSynth_1_detune.addEventListener("change", function (e) {
 const fmSynth_1_select_type = document.getElementById("fmSynth_1_select_type");
 fmSynth_1_select_type.addEventListener("change", function (e) {
   fmSynth_1.type = e.currentTarget.value;
-  console.log("fmSynth_1_select_type: " + fmSynth_1.type);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_select_type", e.currentTarget.value);
 });
 
 const fmSynth_1_select_modulation_type = document.getElementById("fmSynth_1_select_modulation_type");
 fmSynth_1_select_modulation_type.addEventListener("change", function (e) {
   fmSynth_1.modulation.type = e.currentTarget.value;
-  console.log("fmSynth_1_select_modulation_type: " + fmSynth_1.modulation.type);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_select_modulation_type", e.currentTarget.value);
 });
 
@@ -3149,7 +3041,6 @@ const fmSynth_1_envelope_attack = document.getElementById("fmSynth_1_envelope_at
 const fmSynth_1_envelope_attack_value = document.getElementById("fmSynth_1_envelope_attack_value");
 fmSynth_1_envelope_attack.addEventListener("change", function (e) {
   fmSynth_1.envelope.attack = e.currentTarget.value;
-  console.log("fmSynth_1.envelope.attack.value: " + e.currentTarget.value);
   fmSynth_1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_envelope_attack", e.currentTarget.value);
 });
@@ -3159,7 +3050,6 @@ const fmSynth_1_envelope_decay = document.getElementById("fmSynth_1_envelope_dec
 const fmSynth_1_envelope_decay_value = document.getElementById("fmSynth_1_envelope_decay_value");
 fmSynth_1_envelope_decay.addEventListener("change", function (e) {
   fmSynth_1.envelope.decay = e.currentTarget.value;
-  console.log("fmSynth_1.envelope.decay.value: " + e.currentTarget.value);
   fmSynth_1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_envelope_decay", e.currentTarget.value);
 });
@@ -3169,7 +3059,6 @@ const fmSynth_1_envelope_sustain = document.getElementById("fmSynth_1_envelope_s
 const fmSynth_1_envelope_sustain_value = document.getElementById("fmSynth_1_envelope_sustain_value");
 fmSynth_1_envelope_sustain.addEventListener("change", function (e) {
   fmSynth_1.envelope.sustain = e.currentTarget.value;
-  console.log("fmSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   fmSynth_1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_envelope_sustain", e.currentTarget.value);
 });
@@ -3179,7 +3068,6 @@ const fmSynth_1_envelope_release = document.getElementById("fmSynth_1_envelope_r
 const fmSynth_1_envelope_release_value = document.getElementById("fmSynth_1_envelope_release_value");
 fmSynth_1_envelope_release.addEventListener("change", function (e) {
   fmSynth_1.envelope.release = e.currentTarget.value;
-  console.log("fmSynth_1.envelope.release.value: " + e.currentTarget.value);
   fmSynth_1_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_envelope_release", e.currentTarget.value);
 });
@@ -3190,7 +3078,6 @@ const fmSynth_1_modulation_envelope_attack = document.getElementById("fmSynth_1_
 const fmSynth_1_modulation_envelope_attack_value = document.getElementById("fmSynth_1_modulation_envelope_attack_value");
 fmSynth_1_modulation_envelope_attack.addEventListener("change", function (e) {
   fmSynth_1.envelope.attack = e.currentTarget.value;
-  console.log("fmSynth_1.envelope.attack.value: " + e.currentTarget.value);
   fmSynth_1_modulation_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_modulation_envelope_attack", e.currentTarget.value);
 });
@@ -3200,7 +3087,6 @@ const fmSynth_1_modulation_envelope_decay = document.getElementById("fmSynth_1_m
 const fmSynth_1_modulation_envelope_decay_value = document.getElementById("fmSynth_1_modulation_envelope_decay_value");
 fmSynth_1_modulation_envelope_decay.addEventListener("change", function (e) {
   fmSynth_1.envelope.decay = e.currentTarget.value;
-  console.log("fmSynth_1.envelope.decay.value: " + e.currentTarget.value);
   fmSynth_1_modulation_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_modulation_envelope_decay", e.currentTarget.value);
 });
@@ -3210,7 +3096,6 @@ const fmSynth_1_modulation_envelope_sustain = document.getElementById("fmSynth_1
 const fmSynth_1_modulation_envelope_sustain_value = document.getElementById("fmSynth_1_modulation_envelope_sustain_value");
 fmSynth_1_modulation_envelope_sustain.addEventListener("change", function (e) {
   fmSynth_1.envelope.sustain = e.currentTarget.value;
-  console.log("fmSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   fmSynth_1_modulation_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_modulation_envelope_sustain", e.currentTarget.value);
 });
@@ -3220,7 +3105,6 @@ const fmSynth_1_modulation_envelope_release = document.getElementById("fmSynth_1
 const fmSynth_1_modulation_envelope_release_value = document.getElementById("fmSynth_1_modulation_envelope_release_value");
 fmSynth_1_modulation_envelope_release.addEventListener("change", function (e) {
   fmSynth_1.envelope.release = e.currentTarget.value;
-  console.log("fmSynth_1.envelope.release.value: " + e.currentTarget.value);
   fmSynth_1_modulation_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_modulation_envelope_release", e.currentTarget.value);
 });
@@ -3256,13 +3140,11 @@ membraneSynth_1_Sync_checkbox.addEventListener("change", function () {
     mixEvent.logIntoListaAction(Tone.now(), "membraneSynth_1_sync_checkbox", false);
 
   }
-  console.log("membraneSynth_1_sync_checkbox: " + membraneSynth_1_Sync_checkbox.checked);
 });
 
 const membraneSynth_1_select_type = document.getElementById("membraneSynth_1_select_type");
 membraneSynth_1_select_type.addEventListener("change", function (e) {
   membraneSynth_1.type = e.currentTarget.value;
-  console.log("membraneSynth_1_select_type: " + membraneSynth_1.type);
   mixEvent.logIntoListaAction(Tone.now(), "fmSynth_1_modulation_envelope_release", e.currentTarget.value);
 });
 
@@ -3276,7 +3158,6 @@ membraneSynth_1_volume.addEventListener("change", function (e) {
   }
   else {
     membraneSynth_1.volume.value = e.currentTarget.value;
-    console.log("membraneSynth_1_volumen: " + e.currentTarget.value);
     membraneSynth_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "membraneSynth_1_volume", e.currentTarget.value);
   }
@@ -3287,7 +3168,6 @@ const membraneSynth_1_pitchDecay = document.getElementById("membraneSynth_1_pitc
 const membraneSynth_1_pitchDecay_value = document.getElementById("membraneSynth_1_pitchDecay_value");
 membraneSynth_1_pitchDecay.addEventListener("change", function (e) {
   membraneSynth_1.pitchDecay.value = e.currentTarget.value;
-  console.log("membraneSynth_1.pitchDecay: " + e.currentTarget.value);
   membraneSynth_1_pitchDecay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "membraneSynth_1_pitchDecay", e.currentTarget.value);
 });
@@ -3297,7 +3177,6 @@ const membraneSynth_1_octaves = document.getElementById("membraneSynth_1_octaves
 const membraneSynth_1_octaves_value = document.getElementById("membraneSynth_1_octaves_value");
 membraneSynth_1_octaves.addEventListener("change", function (e) {
   membraneSynth_1.octaves.value = e.currentTarget.value;
-  console.log("membraneSynth_1.octaves: " + e.currentTarget.value);
   membraneSynth_1_octaves_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "membraneSynth_1_octaves", e.currentTarget.value);
 });
@@ -3307,7 +3186,6 @@ const membraneSynth_1_envelope_attack = document.getElementById("membraneSynth_1
 const membraneSynth_1_envelope_attack_value = document.getElementById("membraneSynth_1_envelope_attack_value");
 membraneSynth_1_envelope_attack.addEventListener("change", function (e) {
   membraneSynth_1.envelope.attack = e.currentTarget.value;
-  console.log("membraneSynth_1.envelope.attack.value: " + e.currentTarget.value);
   membraneSynth_1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "membraneSynth_1_envelope_attack", e.currentTarget.value);
 });
@@ -3317,7 +3195,6 @@ const membraneSynth_1_envelope_decay = document.getElementById("membraneSynth_1_
 const membraneSynth_1_envelope_decay_value = document.getElementById("membraneSynth_1_envelope_decay_value");
 membraneSynth_1_envelope_decay.addEventListener("change", function (e) {
   membraneSynth_1.envelope.decay = e.currentTarget.value;
-  console.log("membraneSynth_1.envelope.decay.value: " + e.currentTarget.value);
   membraneSynth_1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "membraneSynth_1_envelope_decay", e.currentTarget.value);
 });
@@ -3327,7 +3204,6 @@ const membraneSynth_1_envelope_sustain = document.getElementById("membraneSynth_
 const membraneSynth_1_envelope_sustain_value = document.getElementById("membraneSynth_1_envelope_sustain_value");
 membraneSynth_1_envelope_sustain.addEventListener("change", function (e) {
   membraneSynth_1.envelope.sustain = e.currentTarget.value;
-  console.log("membraneSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   membraneSynth_1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "membraneSynth_1_envelope_sustain", e.currentTarget.value);
 });
@@ -3337,7 +3213,6 @@ const membraneSynth_1_envelope_release = document.getElementById("membraneSynth_
 const membraneSynth_1_envelope_release_value = document.getElementById("membraneSynth_1_envelope_release_value");
 membraneSynth_1_envelope_release.addEventListener("change", function (e) {
   membraneSynth_1.envelope.release = e.currentTarget.value;
-  console.log("membraneSynth_1.envelope.release.value: " + e.currentTarget.value);
   membraneSynth_1_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "membraneSynth_1_envelope_release", e.currentTarget.value);
 });
@@ -3371,7 +3246,6 @@ metalSynth_1_volume.addEventListener("change", function (e) {
   }
   else {
     metalSynth_1.volume.value = e.currentTarget.value;
-    console.log("metalSynth_1_volumen: " + e.currentTarget.value);
     metalSynth_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "metalSynth_1_volume", e.currentTarget.value);
   }
@@ -3381,7 +3255,6 @@ const metalSynth_1_freq = document.getElementById("metalSynth_1_freq");
 const metalSynth_1_freq_value = document.getElementById("metalSynth_1_freq_value");
 metalSynth_1_freq.addEventListener("change", function (e) {
   metalSynth_1.frequency.value = e.currentTarget.value;
-  console.log("metalSynth_1_freq: " + metalSynth_1.frequency.value);
   metalSynth_1_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "metalSynth_1_freq", e.currentTarget.value);
 });
@@ -3391,7 +3264,6 @@ const metalSynth_1_harmonicity = document.getElementById("metalSynth_1_harmonici
 const metalSynth_1_harmonicity_value = document.getElementById("metalSynth_1_harmonicity_value");
 metalSynth_1_harmonicity.addEventListener("change", function (e) {
   metalSynth_1.harmonicity.value = e.currentTarget.value;
-  console.log("metalSynth_1.harmonicity: " + e.currentTarget.value);
   metalSynth_1_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "metalSynth_1_harmonicity", e.currentTarget.value);
 });
@@ -3401,7 +3273,6 @@ const metalSynth_1_modulationIndex = document.getElementById("metalSynth_1_modul
 const metalSynth_1_modulationIndex_value = document.getElementById("metalSynth_1_modulationIndex_value");
 metalSynth_1_modulationIndex.addEventListener("change", function (e) {
   metalSynth_1.modulationIndex.value = e.currentTarget.value;
-  console.log("metalSynth_1.modulationIndex: " + e.currentTarget.value);
   metalSynth_1_modulationIndex_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "metalSynth_1_modulationIndex", e.currentTarget.value);
 });
@@ -3410,7 +3281,6 @@ const metalSynth_1_resonance = document.getElementById("metalSynth_1_resonance")
 const metalSynth_1_resonance_value = document.getElementById("metalSynth_1_resonance_value");
 metalSynth_1_resonance.addEventListener("change", function (e) {
   metalSynth_1.resonance = e.currentTarget.value;
-  console.log("metalSynth_1_resonance: " + metalSynth_1.resonance);
   metalSynth_1_resonance_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "metalSynth_1_resonance_value", e.currentTarget.value);
 });
@@ -3420,7 +3290,6 @@ const metalSynth_1_envelope_attack = document.getElementById("metalSynth_1_envel
 const metalSynth_1_envelope_attack_value = document.getElementById("metalSynth_1_envelope_attack_value");
 metalSynth_1_envelope_attack.addEventListener("change", function (e) {
   metalSynth_1.envelope.attack = e.currentTarget.value;
-  console.log("metalSynth_1.envelope.attack.value: " + e.currentTarget.value);
   metalSynth_1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "metalSynth_1_envelope_attack", e.currentTarget.value);
 });
@@ -3430,7 +3299,6 @@ const metalSynth_1_envelope_decay = document.getElementById("metalSynth_1_envelo
 const metalSynth_1_envelope_decay_value = document.getElementById("metalSynth_1_envelope_decay_value");
 metalSynth_1_envelope_decay.addEventListener("change", function (e) {
   metalSynth_1.envelope.decay = e.currentTarget.value;
-  console.log("metalSynth_1.envelope.decay.value: " + e.currentTarget.value);
   metalSynth_1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "metalSynth_1_envelope_decay", e.currentTarget.value);
 });
@@ -3440,7 +3308,6 @@ const metalSynth_1_envelope_sustain = document.getElementById("metalSynth_1_enve
 const metalSynth_1_envelope_sustain_value = document.getElementById("metalSynth_1_envelope_sustain_value");
 metalSynth_1_envelope_sustain.addEventListener("change", function (e) {
   metalSynth_1.envelope.sustain = e.currentTarget.value;
-  console.log("metalSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   metalSynth_1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "metalSynth_1_envelope_sustain", e.currentTarget.value);
 });
@@ -3450,7 +3317,6 @@ const metalSynth_1_envelope_release = document.getElementById("metalSynth_1_enve
 const metalSynth_1_envelope_release_value = document.getElementById("metalSynth_1_envelope_release_value");
 metalSynth_1_envelope_release.addEventListener("change", function (e) {
   metalSynth_1.envelope.release = e.currentTarget.value;
-  console.log("metalSynth_1.envelope.release.value: " + e.currentTarget.value);
   metalSynth_1_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "metalSynth_1_envelope_release", e.currentTarget.value);
 });
@@ -3491,7 +3357,6 @@ const monoSynth_1 = new Tone.MonoSynth(
 const monoSynth_1_select_type = document.getElementById("monoSynth_1_select_type");
 monoSynth_1_select_type.addEventListener("change", function (e) {
   monoSynth_1.type = e.currentTarget.value;
-  console.log("monoSynth_1_select_type: " + monoSynth_1.type);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_select_type", e.currentTarget.value);
 });
 
@@ -3505,7 +3370,6 @@ monoSynth_1_volume.addEventListener("change", function (e) {
   }
   else {
     monoSynth_1.volume.value = e.currentTarget.value;
-    console.log("monoSynth_1_volume: " + e.currentTarget.value);
     monoSynth_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_volume", e.currentTarget.value);
   }
@@ -3515,7 +3379,6 @@ const monoSynth_1_freq = document.getElementById("monoSynth_1_freq");
 const monoSynth_1_freq_value = document.getElementById("monoSynth_1_freq_value");
 monoSynth_1_freq.addEventListener("change", function (e) {
   monoSynth_1.frequency.value = e.currentTarget.value;
-  console.log("monoSynth_1_freq: " + monoSynth_1.frequency.value);
   monoSynth_1_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_freq", e.currentTarget.value);
 });
@@ -3524,7 +3387,7 @@ const monoSynth_1_detune_text = document.getElementById("monoSynth_1_detune_text
 const monoSynth_1_detune = document.getElementById("monoSynth_1_detune");
 const monoSynth_1_detune_value = document.getElementById("monoSynth_1_detune_value");
 monoSynth_1_detune.addEventListener("change", function (e) {
-  monoSynth_1.detune.value = e.currentTarget.value; console.log("monoSynth_1.detune: " + e.currentTarget.value);
+  monoSynth_1.detune.value = e.currentTarget.value;
   monoSynth_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_detune", e.currentTarget.value);
 });
@@ -3534,7 +3397,6 @@ const monoSynth_1_portamento = document.getElementById("monoSynth_1_portamento")
 const monoSynth_1_portamento_value = document.getElementById("monoSynth_1_portamento_value");
 monoSynth_1_portamento.addEventListener("change", function (e) {
   monoSynth_1.portamento.value = e.currentTarget.value;
-  console.log("monoSynth_1.portamento: " + e.currentTarget.value);
   monoSynth_1_portamento_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_portamento", e.currentTarget.value);
 });
@@ -3543,7 +3405,7 @@ const monoSynth_1_Q = document.getElementById("monoSynth_1_Q");
 const monoSynth_1_Q_value = document.getElementById("monoSynth_1_Q_value");
 const monoSynth_1_Q_text = document.getElementById("monoSynth_1_Q_text");
 monoSynth_1_Q.addEventListener("change", function (e) {
-  monoSynth_1.filter.Q.value = e.currentTarget.value; console.log("monoSynth_1_filter.q: " + e.currentTarget.value);
+  monoSynth_1.filter.Q.value = e.currentTarget.value;
   monoSynth_1_Q_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_Q", e.currentTarget.value);
 });
@@ -3555,7 +3417,6 @@ const monoSynth_1_filterEnvelope_attack = document.getElementById("monoSynth_1_f
 const monoSynth_1_filterEnvelope_attack_value = document.getElementById("monoSynth_1_filterEnvelope_attack_value");
 monoSynth_1_filterEnvelope_attack.addEventListener("change", function (e) {
   monoSynth_1.envelope.attack = e.currentTarget.value;
-  console.log("monoSynth_1.envelope.attack.value: " + e.currentTarget.value);
   monoSynth_1_filterEnvelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_filterEnvelope_attack", e.currentTarget.value);
 });
@@ -3565,7 +3426,6 @@ const monoSynth_1_filterEnvelope_decay = document.getElementById("monoSynth_1_fi
 const monoSynth_1_filterEnvelope_decay_value = document.getElementById("monoSynth_1_filterEnvelope_decay_value");
 monoSynth_1_filterEnvelope_decay.addEventListener("change", function (e) {
   monoSynth_1.filterEnvelope.decay = e.currentTarget.value;
-  console.log("monoSynth_1.filterEnvelope.decay.value: " + e.currentTarget.value);
   monoSynth_1_filterEnvelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_filterEnvelope_decay", e.currentTarget.value);
 });
@@ -3575,7 +3435,6 @@ const monoSynth_1_filterEnvelope_sustain = document.getElementById("monoSynth_1_
 const monoSynth_1_filterEnvelope_sustain_value = document.getElementById("monoSynth_1_filterEnvelope_sustain_value");
 monoSynth_1_filterEnvelope_sustain.addEventListener("change", function (e) {
   monoSynth_1.filterEnvelope.sustain = e.currentTarget.value;
-  console.log("monoSynth_1.filterEnvelope.sustain.value: " + e.currentTarget.value);
   monoSynth_1_filterEnvelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_filterEnvelope_sustain", e.currentTarget.value);
 });
@@ -3585,7 +3444,6 @@ const monoSynth_1_filterEnvelope_release = document.getElementById("monoSynth_1_
 const monoSynth_1_filterEnvelope_release_value = document.getElementById("monoSynth_1_filterEnvelope_release_value");
 monoSynth_1_filterEnvelope_release.addEventListener("change", function (e) {
   monoSynth_1.filterEnvelope.release = e.currentTarget.value;
-  console.log("monoSynth_1.filterEnvelope.release.value: " + e.currentTarget.value);
   monoSynth_1_filterEnvelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_filterEnvelope_release", e.currentTarget.value);
 });
@@ -3595,7 +3453,6 @@ const monoSynth_1_filterEnvelope_baseFrequency = document.getElementById("monoSy
 const monoSynth_1_filterEnvelope_baseFrequency_value = document.getElementById("monoSynth_1_filterEnvelope_baseFrequency_value");
 monoSynth_1_filterEnvelope_baseFrequency.addEventListener("change", function (e) {
   monoSynth_1.filterEnvelope.baseFrequency = e.currentTarget.value;
-  console.log("monoSynth_1.filterEnvelope.baseFrequency.value: " + e.currentTarget.value);
   monoSynth_1_filterEnvelope_baseFrequency_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_filterEnvelope_baseFrequency", e.currentTarget.value);
 });
@@ -3605,7 +3462,6 @@ const monoSynth_1_filterEnvelope_octaves = document.getElementById("monoSynth_1_
 const monoSynth_1_filterEnvelope_octaves_value = document.getElementById("monoSynth_1_filterEnvelope_octaves_value");
 monoSynth_1_filterEnvelope_octaves.addEventListener("change", function (e) {
   monoSynth_1.filterEnvelope.octaves = e.currentTarget.value;
-  console.log("monoSynth_1.filterEnvelope.octaves.value: " + e.currentTarget.value);
   monoSynth_1_filterEnvelope_octaves_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_filterEnvelope_octaves", e.currentTarget.value);
 });
@@ -3615,7 +3471,6 @@ const monoSynth_1_filterEnvelope_exponent = document.getElementById("monoSynth_1
 const monoSynth_1_filterEnvelope_exponent_value = document.getElementById("monoSynth_1_filterEnvelope_exponent_value");
 monoSynth_1_filterEnvelope_exponent.addEventListener("change", function (e) {
   monoSynth_1.filterEnvelope.exponent = e.currentTarget.value;
-  console.log("monoSynth_1.filterEnvelope.exponent.value: " + e.currentTarget.value);
   monoSynth_1_filterEnvelope_exponent_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_filterEnvelope_exponent", e.currentTarget.value);
 });
@@ -3625,7 +3480,6 @@ const monoSynth_1_envelope_attack = document.getElementById("monoSynth_1_envelop
 const monoSynth_1_envelope_attack_value = document.getElementById("monoSynth_1_envelope_attack_value");
 monoSynth_1_envelope_attack.addEventListener("change", function (e) {
   monoSynth_1.envelope.attack = e.currentTarget.value;
-  console.log("monoSynth_1.envelope.attack.value: " + e.currentTarget.value);
   monoSynth_1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_envelope_attack", e.currentTarget.value);
 });
@@ -3635,7 +3489,6 @@ const monoSynth_1_envelope_decay = document.getElementById("monoSynth_1_envelope
 const monoSynth_1_envelope_decay_value = document.getElementById("monoSynth_1_envelope_decay_value");
 monoSynth_1_envelope_decay.addEventListener("change", function (e) {
   monoSynth_1.envelope.decay = e.currentTarget.value;
-  console.log("monoSynth_1.envelope.decay.value: " + e.currentTarget.value);
   monoSynth_1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_envelope_decay", e.currentTarget.value);
 });
@@ -3645,7 +3498,6 @@ const monoSynth_1_envelope_sustain = document.getElementById("monoSynth_1_envelo
 const monoSynth_1_envelope_sustain_value = document.getElementById("monoSynth_1_envelope_sustain_value");
 monoSynth_1_envelope_sustain.addEventListener("change", function (e) {
   monoSynth_1.envelope.sustain = e.currentTarget.value;
-  console.log("monoSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   monoSynth_1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_envelope_sustain", e.currentTarget.value);
 });
@@ -3655,7 +3507,6 @@ const monoSynth_1_envelope_release = document.getElementById("monoSynth_1_envelo
 const monoSynth_1_envelope_release_value = document.getElementById("monoSynth_1_envelope_release_value");
 monoSynth_1_envelope_release.addEventListener("change", function (e) {
   monoSynth_1.envelope.release = e.currentTarget.value;
-  console.log("monoSynth_1.envelope.release.value: " + e.currentTarget.value);
   monoSynth_1_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "monoSynth_1_envelope_release", e.currentTarget.value);
 });
@@ -3679,7 +3530,6 @@ const noiseSynth_1 = new Tone.NoiseSynth(
 const noiseSynth_1_select_type = document.getElementById("noiseSynth_1_select_type");
 noiseSynth_1_select_type.addEventListener("change", function (e) {
   noiseSynth_1.type = e.currentTarget.value;
-  console.log("noiseSynth_1_select_type: " + noiseSynth_1.type);
   mixEvent.logIntoListaAction(Tone.now(), "noiseSynth_1_select_type", e.currentTarget.value);
 });
 
@@ -3694,7 +3544,6 @@ noiseSynth_1_volume.addEventListener("change", function (e) {
   }
   else {
     noiseSynth_1.volume.value = e.currentTarget.value;
-    console.log("noiseSynth_1_volume: " + e.currentTarget.value);
     noiseSynth_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "noiseSynth_1_volume", e.currentTarget.value);
   }
@@ -3705,7 +3554,6 @@ const noiseSynth_1_envelope_attack = document.getElementById("noiseSynth_1_envel
 const noiseSynth_1_envelope_attack_value = document.getElementById("noiseSynth_1_envelope_attack_value");
 noiseSynth_1_envelope_attack.addEventListener("change", function (e) {
   noiseSynth_1.envelope.attack = e.currentTarget.value;
-  console.log("noiseSynth_1.envelope.attack.value: " + e.currentTarget.value);
   noiseSynth_1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "noiseSynth_1_envelope_attack", e.currentTarget.value);
 });
@@ -3715,7 +3563,6 @@ const noiseSynth_1_envelope_decay = document.getElementById("noiseSynth_1_envelo
 const noiseSynth_1_envelope_decay_value = document.getElementById("noiseSynth_1_envelope_decay_value");
 noiseSynth_1_envelope_decay.addEventListener("change", function (e) {
   noiseSynth_1.envelope.decay = e.currentTarget.value;
-  console.log("noiseSynth_1.envelope.decay.value: " + e.currentTarget.value);
   noiseSynth_1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "noiseSynth_1_envelope_decay", e.currentTarget.value);
 });
@@ -3725,7 +3572,6 @@ const noiseSynth_1_envelope_sustain = document.getElementById("noiseSynth_1_enve
 const noiseSynth_1_envelope_sustain_value = document.getElementById("noiseSynth_1_envelope_sustain_value");
 noiseSynth_1_envelope_sustain.addEventListener("change", function (e) {
   noiseSynth_1.envelope.sustain = e.currentTarget.value;
-  console.log("noiseSynth_1.envelope.sustain.value: " + e.currentTarget.value);
   noiseSynth_1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "noiseSynth_1_envelope_sustain", e.currentTarget.value);
 });
@@ -3790,7 +3636,6 @@ Synth_w_AmpEnv_1_volume.addEventListener("change", function (e) {
   }
   else {
     Synth_w_AmpEnv_1.volume.value = e.currentTarget.value;
-    console.log("Synth_w_AmpEnv_1_volume: " + e.currentTarget.value);
     Synth_w_AmpEnv_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "Synth_w_AmpEnv_1_volume", e.currentTarget.value);
   }
@@ -3800,7 +3645,7 @@ const Synth_w_AmpEnv_1_detune_text = document.getElementById("Synth_w_AmpEnv_1_d
 const Synth_w_AmpEnv_1_detune = document.getElementById("Synth_w_AmpEnv_1_detune");
 const Synth_w_AmpEnv_1_detune_value = document.getElementById("Synth_w_AmpEnv_1_detune_value");
 Synth_w_AmpEnv_1_detune.addEventListener("change", function (e) {
-  Synth_w_AmpEnv_1.detune.value = e.currentTarget.value; console.log("Synth_w_AmpEnv_1.detune: " + e.currentTarget.value);
+  Synth_w_AmpEnv_1.detune.value = e.currentTarget.value;
   Synth_w_AmpEnv_1_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "Synth_w_AmpEnv_1_detune", e.currentTarget.value);
 });
@@ -3810,7 +3655,6 @@ const Synth_w_AmpEnv_1_portamento = document.getElementById("Synth_w_AmpEnv_1_po
 const Synth_w_AmpEnv_1_portamento_value = document.getElementById("Synth_w_AmpEnv_1_portamento_value");
 Synth_w_AmpEnv_1_portamento.addEventListener("change", function (e) {
   Synth_w_AmpEnv_1.portamento.value = e.currentTarget.value;
-  console.log("Synth_w_AmpEnv_1.portamento: " + e.currentTarget.value);
   Synth_w_AmpEnv_1_portamento_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "Synth_w_AmpEnv_1_portamento", e.currentTarget.value);
 });
@@ -3820,7 +3664,6 @@ const Synth_w_AmpEnv_1_envelope_attack = document.getElementById("Synth_w_AmpEnv
 const Synth_w_AmpEnv_1_envelope_attack_value = document.getElementById("Synth_w_AmpEnv_1_envelope_attack_value");
 Synth_w_AmpEnv_1_envelope_attack.addEventListener("change", function (e) {
   Synth_w_AmpEnv_1.envelope.attack = e.currentTarget.value;
-  console.log("Synth_w_AmpEnv_1.envelope.attack.value: " + e.currentTarget.value);
   Synth_w_AmpEnv_1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "Synth_w_AmpEnv_1_envelope_attack", e.currentTarget.value);
 });
@@ -3830,7 +3673,6 @@ const Synth_w_AmpEnv_1_envelope_decay = document.getElementById("Synth_w_AmpEnv_
 const Synth_w_AmpEnv_1_envelope_decay_value = document.getElementById("Synth_w_AmpEnv_1_envelope_decay_value");
 Synth_w_AmpEnv_1_envelope_decay.addEventListener("change", function (e) {
   Synth_w_AmpEnv_1.envelope.decay = e.currentTarget.value;
-  console.log("Synth_w_AmpEnv_1.envelope.decay.value: " + e.currentTarget.value);
   Synth_w_AmpEnv_1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "Synth_w_AmpEnv_1_envelope_decay", e.currentTarget.value);
 });
@@ -3840,7 +3682,6 @@ const Synth_w_AmpEnv_1_envelope_sustain = document.getElementById("Synth_w_AmpEn
 const Synth_w_AmpEnv_1_envelope_sustain_value = document.getElementById("Synth_w_AmpEnv_1_envelope_sustain_value");
 Synth_w_AmpEnv_1_envelope_sustain.addEventListener("change", function (e) {
   Synth_w_AmpEnv_1.envelope.sustain = e.currentTarget.value;
-  console.log("Synth_w_AmpEnv_1.envelope.sustain.value: " + e.currentTarget.value);
   Synth_w_AmpEnv_1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "Synth_w_AmpEnv_1_envelope_sustain", e.currentTarget.value);
 });
@@ -3850,7 +3691,6 @@ const Synth_w_AmpEnv_1_envelope_release = document.getElementById("Synth_w_AmpEn
 const Synth_w_AmpEnv_1_envelope_release_value = document.getElementById("Synth_w_AmpEnv_1_envelope_release_value");
 Synth_w_AmpEnv_1_envelope_release.addEventListener("change", function (e) {
   Synth_w_AmpEnv_1.envelope.release = e.currentTarget.value;
-  console.log("Synth_w_AmpEnv_1.envelope.release.value: " + e.currentTarget.value);
   Synth_w_AmpEnv_1_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "Synth_w_AmpEnv_1_envelope_release", e.currentTarget.value);
 });
@@ -3883,7 +3723,6 @@ player_2_volume.addEventListener("change", function (e) {
   }
   else {
     player_2_volNode.volume.value = e.currentTarget.value;
-    console.log("player_2_volNode: " + e.currentTarget.value);
     player_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "player_2_volume", e.currentTarget.value);
   }
@@ -3899,7 +3738,6 @@ const player_2_pan = document.getElementById("player_2_pan");
 const player_2_pan_value = document.getElementById("player_2_pan_value");
 player_2_pan.addEventListener("change", function (e) {
   player_2_panNode.pan.value = e.currentTarget.value;
-  console.log("player_1.pan: " + player_2_panNode.pan.value)
   player_2_pan_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -3926,21 +3764,18 @@ const player_2_autoplay_checkbox = document.getElementById("player_2_autoplay_ch
 player_2_autoplay_checkbox.addEventListener("change", function () {
   if (player_2_autoplay_checkbox.checked) { player_2_Node.autoplay = true; }
   else { player_2_Node.autoplay = false; }
-  console.log("player_2_Node.player_2_autoplay_checkbox: " + player_2_autoplay_checkbox.checked);
 });
 
 const player_2_reverse_checkbox = document.getElementById("player_2_reverse_checkbox");
 player_2_reverse_checkbox.addEventListener("change", function () {
   if (player_2_reverse_checkbox.checked) { player_2_Node.reverse = true; }
   else { player_2_Node.reverse = false; }
-  console.log("player_2_reverse_checkbox: " + player_2_reverse_checkbox.checked);
 });
 
 const player_2_loop_start = document.getElementById("player_2_loop_start");
 player_2_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 300) {
     player_2_Node.loopStart = e.currentTarget.value;
-    console.log("player_2_Node.loopStart = " + e.currentTarget.value);
   }
   else {
     alert("errororororor player_2_Node.loopStart");
@@ -3951,7 +3786,6 @@ const player_2_loop_end = document.getElementById("player_2_loop_end");
 player_2_loop_end.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 300 && e.currentTarget.value > player_2_Node.loopStart) {
     player_2_Node.loopEnd = e.currentTarget.value;
-    console.log("player_2_Node.loopend = " + e.currentTarget.value);
   }
   else {
     alert("errororororor player_2_Node.loopEnd");
@@ -3962,7 +3796,6 @@ const player_2_fadeIn = document.getElementById("player_2_fadeIn");
 player_2_fadeIn.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player_2_Node.fadeIn = e.currentTarget.value;
-    console.log("player_2_Node.fadeIn_1 = " + e.currentTarget.value);
   }
   else {
     alert("errororororor player_2_Node.fadeIn_1");
@@ -3973,7 +3806,6 @@ const player_2_fadeOut = document.getElementById("player_2_fadeOut");
 player_2_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player_2_Node.fadeOut = e.currentTarget.value;
-    console.log("player_2_Node.fadeOut = " + e.currentTarget.value);
   }
   else {
     //alert("errororororor player_2_Node.fadeOut");
@@ -4003,11 +3835,7 @@ const sampler_2_curve_exponential = document.getElementById("sampler_2_curve_exp
 const sampler_2_curve = document.getElementsByName("sampler_2_curve");
 
 sampler_2_volume.addEventListener("change", function (e) {
-
-  console.log("sampler_2_volume e.value: " + e.currentTarget.value);
-
   const curve = document.getElementsByName("sampler_2_curve");
-  console.log("curve: " + curve);
 });
 
 const sampler_2_div = document.getElementById("sampler_2_div");
@@ -4046,29 +3874,23 @@ const noise_2_select_type = document.getElementById("noise_2_select_type");
 noise_2_volume.addEventListener("change", function (e) {
 
   // agregar if para llegar a -100
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   noise_2_Node.volume.value = e.currentTarget.value;
-  console.log("noise_2_Node.threshold: " + noise_2_Node.volume.value);
   noise_2_volume_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 noise_2_playback_rate.addEventListener("change", function (e) {
 
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   noise_2_Node.playbackRate = e.currentTarget.value;
-  console.log("noise_2_Node.playbackRate: " + noise_2_Node.playbackRate);
   noise_2_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 noise_2_select_type.addEventListener("change", function (e) {
   noise_2_Node.type = e.currentTarget.value;
-  console.log("noise_2_Node.type: " + noise_2_Node.type);
 });
 
 noise_2_fadeIn.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     noise_2_Node.fadeIn = e.currentTarget.value;
-    console.log("noise_2_Node.fadeIn_1 = " + e.currentTarget.value);
   }
   else {
     alert("errororororor noise_2_Node.fadeIn_1");
@@ -4078,7 +3900,6 @@ noise_2_fadeIn.addEventListener("change", function (e) {
 noise_2_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     noise_2_Node.fadeOut = e.currentTarget.value;
-    console.log("noise_2_Node.fadeOut = " + e.currentTarget.value);
   }
   else {
     alert("errororororor noise_2_Node.fadeOut");
@@ -4139,75 +3960,59 @@ const grainPlayer_2_loop_end = document.getElementById("grainPlayer_2_loop_end")
 grainPlayer_2_volume.addEventListener("change", function (e) {
   // console.clear();
   // agregar if para llegar a -100
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_2_Node.volume.value = e.currentTarget.value;
-  console.log("grainPlayer_2_Node.volume: " + grainPlayer_2_Node.volume.value);
   grainPlayer_2_volume_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 grainPlayer_2_pan.addEventListener("change", function (e) {
   // console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_2_Node.pan = e.currentTarget.value;
-  console.log("grainPlayer_2_Node.pan: " + grainPlayer_2_Node.pan);
   grainPlayer_2_pan_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 grainPlayer_2_grainSize.addEventListener("change", function (e) {
   //  console.clear();
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_2_Node.grainSize = e.currentTarget.value;
-  console.log("grainPlayer_2_Node.grainSize: " + grainPlayer_2_Node.grainSize);
   grainPlayer_2_grainSize_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 grainPlayer_2_overlap.addEventListener("change", function (e) {
 
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_2_Node.overlap = e.currentTarget.value;
-  console.log("grainPlayer_2_Node.overlap: " + grainPlayer_2_Node.overlap);
   grainPlayer_2_overlap_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 grainPlayer_2_playback_rate.addEventListener("change", function (e) {
 
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_2_Node.playbackRate = e.currentTarget.value;
-  console.log("grainPlayer_2_Node.playbackRate: " + grainPlayer_2_Node.playbackRate);
   grainPlayer_2_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 grainPlayer_2_detune.addEventListener("change", function (e) {
 
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   grainPlayer_2_Node.detune = e.currentTarget.value;
-  console.log("grainPlayer_2_Node.detune: " + grainPlayer_2_Node.detune);
   grainPlayer_2_detune_value.innerHTML = `${e.currentTarget.value}`;
 });
 
 grainPlayer_2_loop_checkbox.addEventListener("change", function () {
   if (grainPlayer_2_loop_checkbox.checked) { grainPlayer_2_Node.loop = true; }
   else { grainPlayer_2_Node.loop = false; }
-  console.log("grainPlayer_2_Node.loop: " + grainPlayer_2_loop_checkbox.checked);
 });
 /**/
 grainPlayer_2_reverse_checkbox.addEventListener("change", function () {
   if (grainPlayer_2_reverse_checkbox.checked) { grainPlayer_2_Node.reverse = true; }
   else { grainPlayer_2_Node.reverse = false; }
-  console.log("grainPlayer_2_Node.grainPlayer_reverse_checkbox: " + grainPlayer_2_reverse_checkbox.checked);
 });
 
 grainPlayer_2_autoplay_checkbox.addEventListener("change", function () {
   if (grainPlayer_2_autoplay_checkbox.checked) { grainPlayer_2_Node.autoplay = true; }
   else { grainPlayer_2_Node.autoplay = false; }
-  console.log("grainPlayer_2_Node.grainPlayer_autoplay_checkbox: " + grainPlayer_2_autoplay_checkbox.checked);
 });
 /**/
 
 grainPlayer_2_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_2_Node.loopStart = e.currentTarget.value;
-    console.log("grainPlayer_2_Node.loopStart = " + grainPlayer_2_Node.loopStart);
   }
   else {
     alert("errororororor grainPlayer_2_Node.loopStart");
@@ -4217,7 +4022,6 @@ grainPlayer_2_loop_start.addEventListener("change", function (e) {
 grainPlayer_2_loop_end.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_2_Node.loopEnd = e.currentTarget.value;
-    console.log("grainPlayer_2_Node.loopend = " + grainPlayer_2_Node.loopEnd);
   }
   else {
     alert("errororororor grainPlayer_2_Node.loopStart");
@@ -4250,13 +4054,11 @@ const amOsc_2_Sync_checkbox = document.getElementById("amOsc_2_Sync_checkbox");
 amOsc_2_Sync_checkbox.addEventListener("change", function () {
   if (amOsc_2_Sync_checkbox.checked) { amOsc_2.sync = true; }
   else { amOsc_2.sync = false; }
-  console.log("amOsc_2_sync_checkbox: " + amOsc_2_Sync_checkbox.checked);
 });
 
 const amOsc_2_select_type = document.getElementById("amOsc_2_select_type");
 amOsc_2_select_type.addEventListener("change", function (e) {
   amOsc_2.type = e.currentTarget.value;
-  //  console.log("amOsc_2_select_type: "+amOsc_2.type);
 });
 
 const amOsc_2_volume = document.getElementById("amOsc_2_volume");
@@ -4268,7 +4070,6 @@ amOsc_2_volume.addEventListener("change", function (e) {
   }
   else {
     amOsc_2.volume.value = e.currentTarget.value;
-    console.log("amOsc_2_volumen: " + e.currentTarget.value);
     amOsc_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -4277,7 +4078,6 @@ const amOsc_2_freq = document.getElementById("amOsc_2_freq");
 const amOsc_2_freq_value = document.getElementById("amOsc_2_freq_value");
 amOsc_2_freq.addEventListener("change", function (e) {
   amOsc_2.frequency.value = e.currentTarget.value;
-  console.log("amOsc_2_freq: " + amOsc_2.frequency.value);
   amOsc_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4286,7 +4086,7 @@ const amOsc_2_detune_text = document.getElementById("amOsc_2_detune_text");
 const amOsc_2_detune = document.getElementById("amOsc_2_detune");
 const amOsc_2_detune_value = document.getElementById("amOsc_2_detune_value");
 amOsc_2_detune.addEventListener("change", function (e) {
-  amOsc_2.detune.value = e.currentTarget.value; console.log("amOsc_2.detune: " + e.currentTarget.value);
+  amOsc_2.detune.value = e.currentTarget.value;
   amOsc_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4295,7 +4095,6 @@ const amOsc_2_phase = document.getElementById("amOsc_2_phase");
 const amOsc_2_phase_value = document.getElementById("amOsc_2_phase_value");
 amOsc_2_phase.addEventListener("change", function (e) {
   amOsc_2.phase.value = e.currentTarget.value;
-  console.log("amOsc_2.phase: " + e.currentTarget.value);
   amOsc_2_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4304,14 +4103,12 @@ const amOsc_2_harmonicity = document.getElementById("amOsc_2_harmonicity");
 const amOsc_2_harmonicity_value = document.getElementById("amOsc_2_harmonicity_value");
 amOsc_2_harmonicity.addEventListener("change", function (e) {
   amOsc_2.harmonicity.value = e.currentTarget.value;
-  console.log("amOsc_2.harmonicity: " + e.currentTarget.value);
   amOsc_2_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
 const amOsc_2_select_modulationType = document.getElementById("amOsc_2_select_modulationType");
 amOsc_2_select_modulationType.addEventListener("change", function (e) {
   amOsc_2.modulationType = e.currentTarget.value;
-  console.log("amOsc_2_select_modulationType: " + amOsc_2.modulationType);
 });
 
 //falta partials : [] y partialCount : 0
@@ -4338,13 +4135,11 @@ const fmOsc_2_Sync_checkbox = document.getElementById("fmOsc_2_Sync_checkbox");
 fmOsc_2_Sync_checkbox.addEventListener("change", function () {
   if (fmOsc_2_Sync_checkbox.checked) { fmOsc_2.sync = true; }
   else { fmOsc_2.sync = false; }
-  console.log("fmOsc_2_sync_checkbox: " + fmOsc_2_Sync_checkbox.checked);
 });
 
 const fmOsc_2_select_type = document.getElementById("fmOsc_2_select_type");
 fmOsc_2_select_type.addEventListener("change", function (e) {
   fmOsc_2.type = e.currentTarget.value;
-  //  console.log("fmOsc_2_select_type: "+fmOsc_2.type);
 });
 
 const fmOsc_2_volume = document.getElementById("fmOsc_2_volume");
@@ -4356,7 +4151,6 @@ fmOsc_2_volume.addEventListener("change", function (e) {
   }
   else {
     fmOsc_2.volume.value = e.currentTarget.value;
-    console.log("fmOsc_2_volumen: " + e.currentTarget.value);
     fmOsc_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -4365,7 +4159,6 @@ const fmOsc_2_freq = document.getElementById("fmOsc_2_freq");
 const fmOsc_2_freq_value = document.getElementById("fmOsc_2_freq_value");
 fmOsc_2_freq.addEventListener("change", function (e) {
   fmOsc_2.frequency.value = e.currentTarget.value;
-  console.log("fmOsc_2_freq: " + fmOsc_2.frequency.value);
   fmOsc_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4374,7 +4167,7 @@ const fmOsc_2_detune_text = document.getElementById("fmOsc_2_detune_text");
 const fmOsc_2_detune = document.getElementById("fmOsc_2_detune");
 const fmOsc_2_detune_value = document.getElementById("fmOsc_2_detune_value");
 fmOsc_2_detune.addEventListener("change", function (e) {
-  fmOsc_2.detune.value = e.currentTarget.value; console.log("fmOsc_2.detune: " + e.currentTarget.value);
+  fmOsc_2.detune.value = e.currentTarget.value;
   fmOsc_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4383,7 +4176,6 @@ const fmOsc_2_phase = document.getElementById("fmOsc_2_phase");
 const fmOsc_2_phase_value = document.getElementById("fmOsc_2_phase_value");
 fmOsc_2_phase.addEventListener("change", function (e) {
   fmOsc_2.phase.value = e.currentTarget.value;
-  console.log("fmOsc_2.phase: " + e.currentTarget.value);
   fmOsc_2_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4392,7 +4184,6 @@ const fmOsc_2_harmonicity = document.getElementById("fmOsc_2_harmonicity");
 const fmOsc_2_harmonicity_value = document.getElementById("fmOsc_2_harmonicity_value");
 fmOsc_2_harmonicity.addEventListener("change", function (e) {
   fmOsc_2.harmonicity.value = e.currentTarget.value;
-  console.log("fmOsc_2.harmonicity: " + e.currentTarget.value);
   fmOsc_2_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4401,14 +4192,12 @@ const fmOsc_2_modulationIndex = document.getElementById("fmOsc_2_modulationIndex
 const fmOsc_2_modulationIndex_value = document.getElementById("fmOsc_2_modulationIndex_value");
 fmOsc_2_modulationIndex.addEventListener("change", function (e) {
   fmOsc_2.modulationIndex.value = e.currentTarget.value;
-  console.log("fmOsc_2.modulationIndex: " + e.currentTarget.value);
   fmOsc_2_modulationIndex_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
 const fmOsc_2_select_modulationType = document.getElementById("fmOsc_2_select_modulationType");
 fmOsc_2_select_modulationType.addEventListener("change", function (e) {
   fmOsc_2.modulationType = e.currentTarget.value;
-  console.log("fmOsc_2_select_modulationType: " + fmOsc_2.modulationType);
 });
 
 //falta partials : [] y partialCount : 0
@@ -4436,13 +4225,11 @@ const fatOsc_2_Sync_checkbox = document.getElementById("fatOsc_2_Sync_checkbox")
 fatOsc_2_Sync_checkbox.addEventListener("change", function () {
   if (fatOsc_2_Sync_checkbox.checked) { fatOsc_2.sync = true; }
   else { fatOsc_2.sync = false; }
-  console.log("fatOsc_2_sync_checkbox: " + fatOsc_2_Sync_checkbox.checked);
 });
 
 const fatOsc_2_select_type = document.getElementById("fatOsc_2_select_type");
 fatOsc_2_select_type.addEventListener("change", function (e) {
   fatOsc_2.type = e.currentTarget.value;
-  //  console.log("fatOsc_2_select_type: "+fatOsc_2.type);
 });
 
 const fatOsc_2_volume = document.getElementById("fatOsc_2_volume");
@@ -4454,7 +4241,6 @@ fatOsc_2_volume.addEventListener("change", function (e) {
   }
   else {
     fatOsc_2.volume.value = e.currentTarget.value;
-    console.log("fatOsc_2_volumen: " + e.currentTarget.value);
     fatOsc_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -4463,7 +4249,6 @@ const fatOsc_2_freq = document.getElementById("fatOsc_2_freq");
 const fatOsc_2_freq_value = document.getElementById("fatOsc_2_freq_value");
 fatOsc_2_freq.addEventListener("change", function (e) {
   fatOsc_2.frequency.value = e.currentTarget.value;
-  console.log("fatOsc_2_freq: " + fatOsc_2.frequency.value);
   fatOsc_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4472,7 +4257,6 @@ const fatOsc_2_count = document.getElementById("fatOsc_2_count");
 const fatOsc_2_count_value = document.getElementById("fatOsc_2_count_value");
 fatOsc_2_count.addEventListener("change", function (e) {
   fatOsc_2.count = e.currentTarget.value;
-  console.log("fatOsc_2.count: " + fatOsc_2.count);
   fatOsc_2_count_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4481,7 +4265,7 @@ const fatOsc_2_detune_text = document.getElementById("fatOsc_2_detune_text");
 const fatOsc_2_detune = document.getElementById("fatOsc_2_detune");
 const fatOsc_2_detune_value = document.getElementById("fatOsc_2_detune_value");
 fatOsc_2_detune.addEventListener("change", function (e) {
-  fatOsc_2.detune.value = e.currentTarget.value; console.log("fatOsc_2.detune: " + e.currentTarget.value);
+  fatOsc_2.detune.value = e.currentTarget.value;
   fatOsc_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4490,7 +4274,6 @@ const fatOsc_2_phase = document.getElementById("fatOsc_2_phase");
 const fatOsc_2_phase_value = document.getElementById("fatOsc_2_phase_value");
 fatOsc_2_phase.addEventListener("change", function (e) {
   fatOsc_2.phase.value = e.currentTarget.value;
-  console.log("fatOsc_2.phase: " + e.currentTarget.value);
   fatOsc_2_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4499,7 +4282,6 @@ const fatOsc_2_spread = document.getElementById("fatOsc_2_spread");
 const fatOsc_2_spread_value = document.getElementById("fatOsc_2_spread_value");
 fatOsc_2_spread.addEventListener("change", function (e) {
   fatOsc_2.spread.value = e.currentTarget.value;
-  console.log("fatOsc_2.spread: " + e.currentTarget.value);
   fatOsc_2_spread_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4524,13 +4306,11 @@ const omniOsc_2_Sync_checkbox = document.getElementById("omniOsc_2_Sync_checkbox
 omniOsc_2_Sync_checkbox.addEventListener("change", function () {
   if (omniOsc_2_Sync_checkbox.checked) { omniOsc_2.sync = true; }
   else { omniOsc_2.sync = false; }
-  console.log("omniOsc_2_sync_checkbox: " + omniOsc_2_Sync_checkbox.checked);
 });
 
 const omniOsc_2_select_type = document.getElementById("omniOsc_2_select_type");
 omniOsc_2_select_type.addEventListener("change", function (e) {
   omniOsc_2.type = e.currentTarget.value;
-  //  console.log("omniOsc_2_select_type: "+omniOsc_2.type);
 });
 
 const omniOsc_2_volume = document.getElementById("omniOsc_2_volume");
@@ -4542,7 +4322,6 @@ omniOsc_2_volume.addEventListener("change", function (e) {
   }
   else {
     omniOsc_2.volume.value = e.currentTarget.value;
-    console.log("omniOsc_2_volumen: " + e.currentTarget.value);
     omniOsc_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -4551,7 +4330,6 @@ const omniOsc_2_freq = document.getElementById("omniOsc_2_freq");
 const omniOsc_2_freq_value = document.getElementById("omniOsc_2_freq_value");
 omniOsc_2_freq.addEventListener("change", function (e) {
   omniOsc_2.frequency.value = e.currentTarget.value;
-  console.log("omniOsc_2_freq: " + omniOsc_2.frequency.value);
   omniOsc_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4560,7 +4338,6 @@ const omniOsc_2_count = document.getElementById("omniOsc_2_count");
 const omniOsc_2_count_value = document.getElementById("omniOsc_2_count_value");
 omniOsc_2_count.addEventListener("change", function (e) {
   omniOsc_2.count = e.currentTarget.value;
-  //console.log("omniOsc_2.count: " + `${omniOsc_2.count}`);
   omniOsc_2_count_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4569,7 +4346,7 @@ const omniOsc_2_detune_text = document.getElementById("omniOsc_2_detune_text");
 const omniOsc_2_detune = document.getElementById("omniOsc_2_detune");
 const omniOsc_2_detune_value = document.getElementById("omniOsc_2_detune_value");
 omniOsc_2_detune.addEventListener("change", function (e) {
-  omniOsc_2.detune.value = e.currentTarget.value; console.log("omniOsc_2.detune: " + e.currentTarget.value);
+  omniOsc_2.detune.value = e.currentTarget.value;
   omniOsc_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4578,7 +4355,6 @@ const omniOsc_2_phase = document.getElementById("omniOsc_2_phase");
 const omniOsc_2_phase_value = document.getElementById("omniOsc_2_phase_value");
 omniOsc_2_phase.addEventListener("change", function (e) {
   omniOsc_2.phase.value = e.currentTarget.value;
-  console.log("omniOsc_2.phase: " + e.currentTarget.value);
   omniOsc_2_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4587,7 +4363,6 @@ const omniOsc_2_spread = document.getElementById("omniOsc_2_spread");
 const omniOsc_2_spread_value = document.getElementById("omniOsc_2_spread_value");
 omniOsc_2_spread.addEventListener("change", function (e) {
   omniOsc_2.spread = e.currentTarget;
-  console.log("omniOsc_2.spread: " + e.currentTarget.value);
   omniOsc_2_spread_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4596,7 +4371,6 @@ const omniOsc_2_width = document.getElementById("omniOsc_2_width");
 const omniOsc_2_width_value = document.getElementById("omniOsc_2_width_value");
 omniOsc_2_width.addEventListener("change", function (e) {
   omniOsc_2.width = e.currentTarget.value;
-  console.log("omniOsc_2.width: " + e.currentTarget.value);
   omniOsc_2_width_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4623,13 +4397,11 @@ const oscillator_2_Sync_checkbox = document.getElementById("oscillator_2_Sync_ch
 oscillator_2_Sync_checkbox.addEventListener("change", function () {
   if (oscillator_2_Sync_checkbox.checked) { oscillator_2.sync = true; }
   else { oscillator_2.sync = false; }
-  console.log("oscillator_2_sync_checkbox: " + oscillator_2_Sync_checkbox.checked);
 });
 
 const oscillator_2_select_type = document.getElementById("oscillator_2_select_type");
 oscillator_2_select_type.addEventListener("change", function (e) {
   oscillator_2.type = e.currentTarget.value;
-  //  console.log("oscillator_2_select_type: "+oscillator_2.type);
 });
 
 const oscillator_2_volume = document.getElementById("oscillator_2_volume");
@@ -4641,7 +4413,6 @@ oscillator_2_volume.addEventListener("change", function (e) {
   }
   else {
     oscillator_2.volume.value = e.currentTarget.value;
-    console.log("oscillator_2_volumen: " + e.currentTarget.value);
     oscillator_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -4652,7 +4423,6 @@ const oscillator_2_freq = document.getElementById("oscillator_2_freq");
 const oscillator_2_freq_value = document.getElementById("oscillator_2_freq_value");
 oscillator_2_freq.addEventListener("change", function (e) {
   oscillator_2.frequency.value = e.currentTarget.value;
-  console.log("oscillator_2_freq: " + oscillator_2.frequency.value);
   oscillator_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4661,7 +4431,7 @@ const oscillator_2_detune_text = document.getElementById("oscillator_2_detune_te
 const oscillator_2_detune = document.getElementById("oscillator_2_detune");
 const oscillator_2_detune_value = document.getElementById("oscillator_2_detune_value");
 oscillator_2_detune.addEventListener("change", function (e) {
-  oscillator_2.detune.value = e.currentTarget.value; console.log("oscillator_2.detune: " + e.currentTarget.value);
+  oscillator_2.detune.value = e.currentTarget.value;
   oscillator_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4670,7 +4440,6 @@ const oscillator_2_phase = document.getElementById("oscillator_2_phase");
 const oscillator_2_phase_value = document.getElementById("oscillator_2_phase_value");
 oscillator_2_phase.addEventListener("change", function (e) {
   oscillator_2.phase.value = e.currentTarget.value;
-  console.log("oscillator_2.phase: " + e.currentTarget.value);
   oscillator_2_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4693,7 +4462,6 @@ const pwmOsc_2_Sync_checkbox = document.getElementById("pwmOsc_2_Sync_checkbox")
 pwmOsc_2_Sync_checkbox.addEventListener("change", function () {
   if (pwmOsc_2_Sync_checkbox.checked) { pwmOsc_2.sync = true; }
   else { pwmOsc_2.sync = false; }
-  console.log("pwmOsc_2_sync_checkbox: " + pwmOsc_2_Sync_checkbox.checked);
 });
 
 const pwmOsc_2_volume = document.getElementById("pwmOsc_2_volume");
@@ -4705,7 +4473,6 @@ pwmOsc_2_volume.addEventListener("change", function (e) {
   }
   else {
     pwmOsc_2.volume.value = e.currentTarget.value;
-    console.log("pwmOsc_2_volumen: " + e.currentTarget.value);
     pwmOsc_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -4714,7 +4481,6 @@ const pwmOsc_2_freq = document.getElementById("pwmOsc_2_freq");
 const pwmOsc_2_freq_value = document.getElementById("pwmOsc_2_freq_value");
 pwmOsc_2_freq.addEventListener("change", function (e) {
   pwmOsc_2.frequency.value = e.currentTarget.value;
-  console.log("pwmOsc_2_freq: " + pwmOsc_2.frequency.value);
   pwmOsc_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4723,7 +4489,7 @@ const pwmOsc_2_detune_text = document.getElementById("pwmOsc_2_detune_text");
 const pwmOsc_2_detune = document.getElementById("pwmOsc_2_detune");
 const pwmOsc_2_detune_value = document.getElementById("pwmOsc_2_detune_value");
 pwmOsc_2_detune.addEventListener("change", function (e) {
-  pwmOsc_2.detune.value = e.currentTarget.value; console.log("pwmOsc_2.detune: " + e.currentTarget.value);
+  pwmOsc_2.detune.value = e.currentTarget.value;
   pwmOsc_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4732,7 +4498,6 @@ const pwmOsc_2_phase = document.getElementById("pwmOsc_2_phase");
 const pwmOsc_2_phase_value = document.getElementById("pwmOsc_2_phase_value");
 pwmOsc_2_phase.addEventListener("change", function (e) {
   pwmOsc_2.phase.value = e.currentTarget.value;
-  console.log("pwmOsc_2.phase: " + e.currentTarget.value);
   pwmOsc_2_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4740,7 +4505,6 @@ const pwmOsc_2_modulationFrequency = document.getElementById("pwmOsc_2_modulatio
 const pwmOsc_2_modulationFrequency_value = document.getElementById("pwmOsc_2_modulationFrequency_value");
 pwmOsc_2_modulationFrequency.addEventListener("change", function (e) {
   pwmOsc_2.modulationFrequency.value = e.currentTarget.value;
-  console.log("pwmOsc_2_modulationFrequency: " + pwmOsc_2.modulationFrequency.value);
   pwmOsc_2_modulationFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4763,7 +4527,6 @@ const pulseOsc_2_Sync_checkbox = document.getElementById("pulseOsc_2_Sync_checkb
 pulseOsc_2_Sync_checkbox.addEventListener("change", function () {
   if (pulseOsc_2_Sync_checkbox.checked) { pulseOsc_2.sync = true; }
   else { pulseOsc_2.sync = false; }
-  console.log("pulseOsc_2_sync_checkbox: " + pulseOsc_2_Sync_checkbox.checked);
 });
 
 const pulseOsc_2_volume = document.getElementById("pulseOsc_2_volume");
@@ -4775,7 +4538,6 @@ pulseOsc_2_volume.addEventListener("change", function (e) {
   }
   else {
     pulseOsc_2.volume.value = e.currentTarget.value;
-    console.log("pulseOsc_2_volumen: " + e.currentTarget.value);
     pulseOsc_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -4784,7 +4546,6 @@ const pulseOsc_2_freq = document.getElementById("pulseOsc_2_freq");
 const pulseOsc_2_freq_value = document.getElementById("pulseOsc_2_freq_value");
 pulseOsc_2_freq.addEventListener("change", function (e) {
   pulseOsc_2.frequency.value = e.currentTarget.value;
-  console.log("pulseOsc_2_freq: " + pulseOsc_2.frequency.value);
   pulseOsc_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4793,7 +4554,7 @@ const pulseOsc_2_detune_text = document.getElementById("pulseOsc_2_detune_text")
 const pulseOsc_2_detune = document.getElementById("pulseOsc_2_detune");
 const pulseOsc_2_detune_value = document.getElementById("pulseOsc_2_detune_value");
 pulseOsc_2_detune.addEventListener("change", function (e) {
-  pulseOsc_2.detune.value = e.currentTarget.value; console.log("pulseOsc_2.detune: " + e.currentTarget.value);
+  pulseOsc_2.detune.value = e.currentTarget.value;
   pulseOsc_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4802,7 +4563,6 @@ const pulseOsc_2_phase = document.getElementById("pulseOsc_2_phase");
 const pulseOsc_2_phase_value = document.getElementById("pulseOsc_2_phase_value");
 pulseOsc_2_phase.addEventListener("change", function (e) {
   pulseOsc_2.phase.value = e.currentTarget.value;
-  console.log("pulseOsc_2.phase: " + e.currentTarget.value);
   pulseOsc_2_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4811,7 +4571,6 @@ const pulseOsc_2_width = document.getElementById("pulseOsc_2_width");
 const pulseOsc_2_width_value = document.getElementById("pulseOsc_2_width_value");
 pulseOsc_2_width.addEventListener("change", function (e) {
   pulseOsc_2.width.value = e.currentTarget.value;
-  console.log("pulseOsc_2.width: " + e.currentTarget.value);
   pulseOsc_2_width_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4851,13 +4610,11 @@ const amSynth_2_Sync_checkbox = document.getElementById("amSynth_2_Sync_checkbox
 amSynth_2_Sync_checkbox.addEventListener("change", function () {
   if (amSynth_2_Sync_checkbox.checked) { amSynth_2.sync = true; }
   else { amSynth_2.sync = false; }
-  console.log("amSynth_2_sync_checkbox: " + amSynth_2_Sync_checkbox.checked);
 });
 
 const amSynth_2_select_type = document.getElementById("amSynth_2_select_type");
 amSynth_2_select_type.addEventListener("change", function (e) {
   amSynth_2.type = e.currentTarget.value;
-  //  console.log("amSynth_2_select_type: "+amSynth_2.type);
 });
 
 const amSynth_2_volume = document.getElementById("amSynth_2_volume");
@@ -4869,7 +4626,6 @@ amSynth_2_volume.addEventListener("change", function (e) {
   }
   else {
     amSynth_2.volume.value = e.currentTarget.value;
-    console.log("amSynth_2_volumen: " + e.currentTarget.value);
     amSynth_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -4878,7 +4634,6 @@ const amSynth_2_freq = document.getElementById("amSynth_2_freq");
 const amSynth_2_freq_value = document.getElementById("amSynth_2_freq_value");
 amSynth_2_freq.addEventListener("change", function (e) {
   amSynth_2.frequency.value = e.currentTarget.value;
-  console.log("amSynth_2_freq: " + amSynth_2.frequency.value);
   amSynth_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -4887,7 +4642,7 @@ const amSynth_2_detune_text = document.getElementById("amSynth_2_detune_text");
 const amSynth_2_detune = document.getElementById("amSynth_2_detune");
 const amSynth_2_detune_value = document.getElementById("amSynth_2_detune_value");
 amSynth_2_detune.addEventListener("change", function (e) {
-  amSynth_2.detune.value = e.currentTarget.value; console.log("amSynth_2.detune: " + e.currentTarget.value);
+  amSynth_2.detune.value = e.currentTarget.value;
   amSynth_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -4896,7 +4651,6 @@ const amSynth_2_harmonicity = document.getElementById("amSynth_2_harmonicity");
 const amSynth_2_harmonicity_value = document.getElementById("amSynth_2_harmonicity_value");
 amSynth_2_harmonicity.addEventListener("change", function (e) {
   amSynth_2.harmonicity.value = e.currentTarget.value;
-  console.log("amSynth_2.harmonicity: " + e.currentTarget.value);
   amSynth_2_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4905,14 +4659,12 @@ const amSynth_2_portamento = document.getElementById("amSynth_2_portamento");
 const amSynth_2_portamento_value = document.getElementById("amSynth_2_portamento_value");
 amSynth_2_portamento.addEventListener("change", function (e) {
   amSynth_2.portamento.value = e.currentTarget.value;
-  console.log("amSynth_2.portamento: " + e.currentTarget.value);
   amSynth_2_portamento_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
 const amSynth_2_select_modulation_type = document.getElementById("amSynth_2_select_modulation_type");
 amSynth_2_select_modulation_type.addEventListener("change", function (e) {
   amSynth_2.modulation.type = e.currentTarget.value;
-  console.log("amSynth_2_select_modulation_type: " + amSynth_2.modulation.type);
 });
 
 const amSynth_2_envelope_attack_text = document.getElementById("amSynth_2_envelope_attack_text");
@@ -4920,7 +4672,6 @@ const amSynth_2_envelope_attack = document.getElementById("amSynth_2_envelope_at
 const amSynth_2_envelope_attack_value = document.getElementById("amSynth_2_envelope_attack_value");
 amSynth_2_envelope_attack.addEventListener("change", function (e) {
   amSynth_2.envelope.attack = e.currentTarget.value;
-  console.log("amSynth_2.envelope.attack.value: " + e.currentTarget.value);
   amSynth_2_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4929,7 +4680,6 @@ const amSynth_2_envelope_decay = document.getElementById("amSynth_2_envelope_dec
 const amSynth_2_envelope_decay_value = document.getElementById("amSynth_2_envelope_decay_value");
 amSynth_2_envelope_decay.addEventListener("change", function (e) {
   amSynth_2.envelope.decay = e.currentTarget.value;
-  console.log("amSynth_2.envelope.decay.value: " + e.currentTarget.value);
   amSynth_2_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4938,7 +4688,6 @@ const amSynth_2_envelope_sustain = document.getElementById("amSynth_2_envelope_s
 const amSynth_2_envelope_sustain_value = document.getElementById("amSynth_2_envelope_sustain_value");
 amSynth_2_envelope_sustain.addEventListener("change", function (e) {
   amSynth_2.envelope.sustain = e.currentTarget.value;
-  console.log("amSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   amSynth_2_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4947,7 +4696,6 @@ const amSynth_2_envelope_release = document.getElementById("amSynth_2_envelope_r
 const amSynth_2_envelope_release_value = document.getElementById("amSynth_2_envelope_release_value");
 amSynth_2_envelope_release.addEventListener("change", function (e) {
   amSynth_2.envelope.release = e.currentTarget.value;
-  console.log("amSynth_2.envelope.release.value: " + e.currentTarget.value);
   amSynth_2_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4957,7 +4705,6 @@ const amSynth_2_modulation_envelope_attack = document.getElementById("amSynth_2_
 const amSynth_2_modulation_envelope_attack_value = document.getElementById("amSynth_2_modulation_envelope_attack_value");
 amSynth_2_modulation_envelope_attack.addEventListener("change", function (e) {
   amSynth_2.envelope.attack = e.currentTarget.value;
-  console.log("amSynth_2.envelope.attack.value: " + e.currentTarget.value);
   amSynth_2_modulation_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4966,7 +4713,6 @@ const amSynth_2_modulation_envelope_decay = document.getElementById("amSynth_2_m
 const amSynth_2_modulation_envelope_decay_value = document.getElementById("amSynth_2_modulation_envelope_decay_value");
 amSynth_2_modulation_envelope_decay.addEventListener("change", function (e) {
   amSynth_2.envelope.decay = e.currentTarget.value;
-  console.log("amSynth_2.envelope.decay.value: " + e.currentTarget.value);
   amSynth_2_modulation_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4975,7 +4721,6 @@ const amSynth_2_modulation_envelope_sustain = document.getElementById("amSynth_2
 const amSynth_2_modulation_envelope_sustain_value = document.getElementById("amSynth_2_modulation_envelope_sustain_value");
 amSynth_2_modulation_envelope_sustain.addEventListener("change", function (e) {
   amSynth_2.envelope.sustain = e.currentTarget.value;
-  console.log("amSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   amSynth_2_modulation_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -4984,7 +4729,6 @@ const amSynth_2_modulation_envelope_release = document.getElementById("amSynth_2
 const amSynth_2_modulation_envelope_release_value = document.getElementById("amSynth_2_modulation_envelope_release_value");
 amSynth_2_modulation_envelope_release.addEventListener("change", function (e) {
   amSynth_2.envelope.release = e.currentTarget.value;
-  console.log("amSynth_2.envelope.release.value: " + e.currentTarget.value);
   amSynth_2_modulation_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5042,7 +4786,6 @@ const duoSynth_2_Sync_checkbox = document.getElementById("duoSynth_2_Sync_checkb
 duoSynth_2_Sync_checkbox.addEventListener("change", function () {
   if (duoSynth_2_Sync_checkbox.checked) { duoSynth_2.sync = true; }
   else { duoSynth_2.sync = false; }
-  console.log("duoSynth_2_sync_checkbox: " + duoSynth_2_Sync_checkbox.checked);
 });
 
 const duoSynth_2_volume = document.getElementById("duoSynth_2_volume");
@@ -5054,7 +4797,6 @@ duoSynth_2_volume.addEventListener("change", function (e) {
   }
   else {
     duoSynth_2.volume.value = e.currentTarget.value;
-    console.log("duoSynth_2_volumen: " + e.currentTarget.value);
     duoSynth_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -5064,7 +4806,6 @@ const duoSynth_2_vibratoAmount = document.getElementById("duoSynth_2_vibratoAmou
 const duoSynth_2_vibratoAmount_value = document.getElementById("duoSynth_2_vibratoAmount_value");
 duoSynth_2_vibratoAmount.addEventListener("change", function (e) {
   duoSynth_2.vibratoAmount.value = e.currentTarget.value;
-  console.log("duoSynth_2_vibratoAmount: " + duoSynth_2.vibratoAmount.value);
   duoSynth_2_vibratoAmount_value.innerHTML = (`${e.currentTarget.value}`);
 }
 );
@@ -5073,7 +4814,6 @@ const duoSynth_2_vibratoRate = document.getElementById("duoSynth_2_vibratoRate")
 const duoSynth_2_vibratoRate_value = document.getElementById("duoSynth_2_vibratoRate_value");
 duoSynth_2_vibratoRate.addEventListener("change", function (e) {
   duoSynth_2.vibratoRate.value = e.currentTarget.value;
-  console.log("duoSynth_2_vibratoRate: " + duoSynth_2.vibratoRate.value);
   duoSynth_2_vibratoRate_value.innerHTML = (`${e.currentTarget.value}`);
 }
 );
@@ -5082,7 +4822,6 @@ duoSynth_2_vibratoRate.addEventListener("change", function (e) {
 const duoSynth_2_voice0_select_type = document.getElementById("duoSynth_2_voice0_select_type");
 duoSynth_2_voice0_select_type.addEventListener("change", function (e) {
   duoSynth_2.voice0.type = e.currentTarget.value;
-  console.log("duoSynth_2_select_type: " + duoSynth_2.voice0.type);
 });
 
 const duoSynth_2_voice0_volume = document.getElementById("duoSynth_2_voice0_volume");
@@ -5094,7 +4833,6 @@ duoSynth_2_voice0_volume.addEventListener("change", function (e) {
   }
   else {
     duoSynth_2.voice0.volume.value = e.currentTarget.value;
-    console.log("duoSynth_2_volumen: " + e.currentTarget.value);
     duoSynth_2_voice0_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -5104,7 +4842,6 @@ const duoSynth_2_harmonicity = document.getElementById("duoSynth_2_harmonicity")
 const duoSynth_2_harmonicity_value = document.getElementById("duoSynth_2_harmonicity_value");
 duoSynth_2_harmonicity.addEventListener("change", function (e) {
   duoSynth_2.harmonicity.value = e.currentTarget.value;
-  console.log("duoSynth_2.harmonicity: " + e.currentTarget.value);
   duoSynth_2_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5113,7 +4850,6 @@ const duoSynth_2_portamento_voice0 = document.getElementById("duoSynth_2_portame
 const duoSynth_2_portamento_voice0_value = document.getElementById("duoSynth_2_portamento_voice0_value");
 duoSynth_2_portamento_voice0.addEventListener("change", function (e) {
   duoSynth_2.voice0.portamento.value = e.currentTarget.value;
-  console.log("duoSynth_2.portamento: " + e.currentTarget.value);
   duoSynth_2_portamento_voice0_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5122,7 +4858,6 @@ const duoSynth_2_voice0_filterEnvelope_attack = document.getElementById("duoSynt
 const duoSynth_2_voice0_filterEnvelope_attack_value = document.getElementById("duoSynth_2_voice0_filterEnvelope_attack_value");
 duoSynth_2_voice0_filterEnvelope_attack.addEventListener("change", function (e) {
   duoSynth_2.voice0.filterEnvelope.attack = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.attack.value: " + e.currentTarget.value);
   duoSynth_2_voice0_filterEnvelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5131,7 +4866,6 @@ const duoSynth_2_voice0_filterEnvelope_decay = document.getElementById("duoSynth
 const duoSynth_2_voice0_filterEnvelope_decay_value = document.getElementById("duoSynth_2_voice0_filterEnvelope_decay_value");
 duoSynth_2_voice0_filterEnvelope_decay.addEventListener("change", function (e) {
   duoSynth_2.voice0.filterEnvelope.decay = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.decay.value: " + e.currentTarget.value);
   duoSynth_2_voice0_filterEnvelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5140,7 +4874,6 @@ const duoSynth_2_voice0_filterEnvelope_sustain = document.getElementById("duoSyn
 const duoSynth_2_voice0_filterEnvelope_sustain_value = document.getElementById("duoSynth_2_voice0_filterEnvelope_sustain_value");
 duoSynth_2_voice0_filterEnvelope_sustain.addEventListener("change", function (e) {
   duoSynth_2.voice0.filterEnvelope.sustain = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   duoSynth_2_voice0_filterEnvelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5149,7 +4882,6 @@ const duoSynth_2_voice0_filterEnvelope_release = document.getElementById("duoSyn
 const duoSynth_2_voice0_filterEnvelope_release_value = document.getElementById("duoSynth_2_voice0_filterEnvelope_release_value");
 duoSynth_2_voice0_filterEnvelope_release.addEventListener("change", function (e) {
   duoSynth_2.voice0.filterEnvelope.release = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.release.value: " + e.currentTarget.value);
   duoSynth_2_voice0_filterEnvelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5158,7 +4890,6 @@ const duoSynth_2_voice0_envelope_attack = document.getElementById("duoSynth_2_vo
 const duoSynth_2_voice0_envelope_attack_value = document.getElementById("duoSynth_2_voice0_envelope_attack_value");
 duoSynth_2_voice0_envelope_attack.addEventListener("change", function (e) {
   duoSynth_2.voice0.envelope.attack = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.attack.value: " + e.currentTarget.value);
   duoSynth_2_voice0_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5167,7 +4898,6 @@ const duoSynth_2_voice0_envelope_decay = document.getElementById("duoSynth_2_voi
 const duoSynth_2_voice0_envelope_decay_value = document.getElementById("duoSynth_2_voice0_envelope_decay_value");
 duoSynth_2_voice0_envelope_decay.addEventListener("change", function (e) {
   duoSynth_2.voice0.envelope.decay = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.decay.value: " + e.currentTarget.value);
   duoSynth_2_voice0_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5176,7 +4906,6 @@ const duoSynth_2_voice0_envelope_sustain = document.getElementById("duoSynth_2_v
 const duoSynth_2_voice0_envelope_sustain_value = document.getElementById("duoSynth_2_voice0_envelope_sustain_value");
 duoSynth_2_voice0_envelope_sustain.addEventListener("change", function (e) {
   duoSynth_2.voice0.envelope.sustain = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   duoSynth_2_voice0_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5185,7 +4914,6 @@ const duoSynth_2_voice0_envelope_release = document.getElementById("duoSynth_2_v
 const duoSynth_2_voice0_envelope_release_value = document.getElementById("duoSynth_2_voice0_envelope_release_value");
 duoSynth_2_voice0_envelope_release.addEventListener("change", function (e) {
   duoSynth_2.voice0.envelope.release = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.release.value: " + e.currentTarget.value);
   duoSynth_2_voice0_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5198,7 +4926,6 @@ duoSynth_2_voice1_volume.addEventListener("change", function (e) {
   }
   else {
     duoSynth_2.voice1.volume.value = e.currentTarget.value;
-    console.log("duoSynth_2_volumen: " + e.currentTarget.value);
     duoSynth_2_voice1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -5208,7 +4935,6 @@ const duoSynth_2_portamento_voice1 = document.getElementById("duoSynth_2_portame
 const duoSynth_2_portamento_voice1_value = document.getElementById("duoSynth_2_portamento_voice1_value");
 duoSynth_2_portamento_voice1.addEventListener("change", function (e) {
   duoSynth_2.voice1.portamento.value = e.currentTarget.value;
-  console.log("duoSynth_2.portamento: " + e.currentTarget.value);
   duoSynth_2_portamento_voice1_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5217,7 +4943,6 @@ const duoSynth_2_voice1_filterEnvelope_attack = document.getElementById("duoSynt
 const duoSynth_2_voice1_filterEnvelope_attack_value = document.getElementById("duoSynth_2_voice1_filterEnvelope_attack_value");
 duoSynth_2_voice1_filterEnvelope_attack.addEventListener("change", function (e) {
   duoSynth_2.voice1.filterEnvelope.attack = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.attack.value: " + e.currentTarget.value);
   duoSynth_2_voice1_filterEnvelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5226,7 +4951,6 @@ const duoSynth_2_voice1_filterEnvelope_decay = document.getElementById("duoSynth
 const duoSynth_2_voice1_filterEnvelope_decay_value = document.getElementById("duoSynth_2_voice1_filterEnvelope_decay_value");
 duoSynth_2_voice1_filterEnvelope_decay.addEventListener("change", function (e) {
   duoSynth_2.voice1.filterEnvelope.decay = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.decay.value: " + e.currentTarget.value);
   duoSynth_2_voice1_filterEnvelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5235,7 +4959,6 @@ const duoSynth_2_voice1_filterEnvelope_sustain = document.getElementById("duoSyn
 const duoSynth_2_voice1_filterEnvelope_sustain_value = document.getElementById("duoSynth_2_voice1_filterEnvelope_sustain_value");
 duoSynth_2_voice1_filterEnvelope_sustain.addEventListener("change", function (e) {
   duoSynth_2.voice1.filterEnvelope.sustain = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   duoSynth_2_voice1_filterEnvelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5244,7 +4967,6 @@ const duoSynth_2_voice1_filterEnvelope_release = document.getElementById("duoSyn
 const duoSynth_2_voice1_filterEnvelope_release_value = document.getElementById("duoSynth_2_voice1_filterEnvelope_release_value");
 duoSynth_2_voice1_filterEnvelope_release.addEventListener("change", function (e) {
   duoSynth_2.voice1.filterEnvelope.release = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.release.value: " + e.currentTarget.value);
   duoSynth_2_voice1_filterEnvelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5253,7 +4975,6 @@ const duoSynth_2_voice1_envelope_attack = document.getElementById("duoSynth_2_vo
 const duoSynth_2_voice1_envelope_attack_value = document.getElementById("duoSynth_2_voice1_envelope_attack_value");
 duoSynth_2_voice1_envelope_attack.addEventListener("change", function (e) {
   duoSynth_2.voice1.envelope.attack = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.attack.value: " + e.currentTarget.value);
   duoSynth_2_voice1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5262,7 +4983,6 @@ const duoSynth_2_voice1_envelope_decay = document.getElementById("duoSynth_2_voi
 const duoSynth_2_voice1_envelope_decay_value = document.getElementById("duoSynth_2_voice1_envelope_decay_value");
 duoSynth_2_voice1_envelope_decay.addEventListener("change", function (e) {
   duoSynth_2.voice1.envelope.decay = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.decay.value: " + e.currentTarget.value);
   duoSynth_2_voice1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5271,7 +4991,6 @@ const duoSynth_2_voice1_envelope_sustain = document.getElementById("duoSynth_2_v
 const duoSynth_2_voice1_envelope_sustain_value = document.getElementById("duoSynth_2_voice1_envelope_sustain_value");
 duoSynth_2_voice1_envelope_sustain.addEventListener("change", function (e) {
   duoSynth_2.voice1.envelope.sustain = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   duoSynth_2_voice1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5280,7 +4999,6 @@ const duoSynth_2_voice1_envelope_release = document.getElementById("duoSynth_2_v
 const duoSynth_2_voice1_envelope_release_value = document.getElementById("duoSynth_2_voice1_envelope_release_value");
 duoSynth_2_voice1_envelope_release.addEventListener("change", function (e) {
   duoSynth_2.voice1.envelope.release = e.currentTarget.value;
-  console.log("duoSynth_2.envelope.release.value: " + e.currentTarget.value);
   duoSynth_2_voice1_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5323,7 +5041,6 @@ fmSynth_2_volume.addEventListener("change", function (e) {
   }
   else {
     fmSynth_2.volume.value = e.currentTarget.value;
-    console.log("fmSynth_2_volumen: " + e.currentTarget.value);
     fmSynth_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -5333,7 +5050,6 @@ const fmSynth_2_harmonicity = document.getElementById("fmSynth_2_harmonicity");
 const fmSynth_2_harmonicity_value = document.getElementById("fmSynth_2_harmonicity_value");
 fmSynth_2_harmonicity.addEventListener("change", function (e) {
   fmSynth_2.harmonicity.value = e.currentTarget.value;
-  console.log("fmSynth_2.harmonicity: " + e.currentTarget.value);
   fmSynth_2_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5342,7 +5058,6 @@ const fmSynth_2_modulationIndex = document.getElementById("fmSynth_2_modulationI
 const fmSynth_2_modulationIndex_value = document.getElementById("fmSynth_2_modulationIndex_value");
 fmSynth_2_modulationIndex.addEventListener("change", function (e) {
   fmSynth_2.modulationIndex.value = e.currentTarget.value;
-  console.log("fmSynth_2.modulationIndex: " + e.currentTarget.value);
   fmSynth_2_modulationIndex_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5350,20 +5065,18 @@ const fmSynth_2_detune_text = document.getElementById("fmSynth_2_detune_text");
 const fmSynth_2_detune = document.getElementById("fmSynth_2_detune");
 const fmSynth_2_detune_value = document.getElementById("fmSynth_2_detune_value");
 fmSynth_2_detune.addEventListener("change", function (e) {
-  fmSynth_2.detune.value = e.currentTarget.value; console.log("fmSynth_2.detune: " + e.currentTarget.value);
+  fmSynth_2.detune.value = e.currentTarget.value;
   fmSynth_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 const fmSynth_2_select_type = document.getElementById("fmSynth_2_select_type");
 fmSynth_2_select_type.addEventListener("change", function (e) {
   fmSynth_2.type = e.currentTarget.value;
-  console.log("fmSynth_2_select_type: " + fmSynth_2.type);
 });
 
 const fmSynth_2_select_modulation_type = document.getElementById("fmSynth_2_select_modulation_type");
 fmSynth_2_select_modulation_type.addEventListener("change", function (e) {
   fmSynth_2.modulation.type = e.currentTarget.value;
-  console.log("fmSynth_2_select_modulation_type: " + fmSynth_2.modulation.type);
 });
 
 const fmSynth_2_envelope_attack_text = document.getElementById("fmSynth_2_envelope_attack_text");
@@ -5371,7 +5084,6 @@ const fmSynth_2_envelope_attack = document.getElementById("fmSynth_2_envelope_at
 const fmSynth_2_envelope_attack_value = document.getElementById("fmSynth_2_envelope_attack_value");
 fmSynth_2_envelope_attack.addEventListener("change", function (e) {
   fmSynth_2.envelope.attack = e.currentTarget.value;
-  console.log("fmSynth_2.envelope.attack.value: " + e.currentTarget.value);
   fmSynth_2_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5380,7 +5092,6 @@ const fmSynth_2_envelope_decay = document.getElementById("fmSynth_2_envelope_dec
 const fmSynth_2_envelope_decay_value = document.getElementById("fmSynth_2_envelope_decay_value");
 fmSynth_2_envelope_decay.addEventListener("change", function (e) {
   fmSynth_2.envelope.decay = e.currentTarget.value;
-  console.log("fmSynth_2.envelope.decay.value: " + e.currentTarget.value);
   fmSynth_2_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5389,7 +5100,6 @@ const fmSynth_2_envelope_sustain = document.getElementById("fmSynth_2_envelope_s
 const fmSynth_2_envelope_sustain_value = document.getElementById("fmSynth_2_envelope_sustain_value");
 fmSynth_2_envelope_sustain.addEventListener("change", function (e) {
   fmSynth_2.envelope.sustain = e.currentTarget.value;
-  console.log("fmSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   fmSynth_2_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5398,7 +5108,6 @@ const fmSynth_2_envelope_release = document.getElementById("fmSynth_2_envelope_r
 const fmSynth_2_envelope_release_value = document.getElementById("fmSynth_2_envelope_release_value");
 fmSynth_2_envelope_release.addEventListener("change", function (e) {
   fmSynth_2.envelope.release = e.currentTarget.value;
-  console.log("fmSynth_2.envelope.release.value: " + e.currentTarget.value);
   fmSynth_2_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5408,7 +5117,6 @@ const fmSynth_2_modulation_envelope_attack = document.getElementById("fmSynth_2_
 const fmSynth_2_modulation_envelope_attack_value = document.getElementById("fmSynth_2_modulation_envelope_attack_value");
 fmSynth_2_modulation_envelope_attack.addEventListener("change", function (e) {
   fmSynth_2.envelope.attack = e.currentTarget.value;
-  console.log("fmSynth_2.envelope.attack.value: " + e.currentTarget.value);
   fmSynth_2_modulation_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5417,7 +5125,6 @@ const fmSynth_2_modulation_envelope_decay = document.getElementById("fmSynth_2_m
 const fmSynth_2_modulation_envelope_decay_value = document.getElementById("fmSynth_2_modulation_envelope_decay_value");
 fmSynth_2_modulation_envelope_decay.addEventListener("change", function (e) {
   fmSynth_2.envelope.decay = e.currentTarget.value;
-  console.log("fmSynth_2.envelope.decay.value: " + e.currentTarget.value);
   fmSynth_2_modulation_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5426,7 +5133,6 @@ const fmSynth_2_modulation_envelope_sustain = document.getElementById("fmSynth_2
 const fmSynth_2_modulation_envelope_sustain_value = document.getElementById("fmSynth_2_modulation_envelope_sustain_value");
 fmSynth_2_modulation_envelope_sustain.addEventListener("change", function (e) {
   fmSynth_2.envelope.sustain = e.currentTarget.value;
-  console.log("fmSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   fmSynth_2_modulation_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5435,7 +5141,6 @@ const fmSynth_2_modulation_envelope_release = document.getElementById("fmSynth_2
 const fmSynth_2_modulation_envelope_release_value = document.getElementById("fmSynth_2_modulation_envelope_release_value");
 fmSynth_2_modulation_envelope_release.addEventListener("change", function (e) {
   fmSynth_2.envelope.release = e.currentTarget.value;
-  console.log("fmSynth_2.envelope.release.value: " + e.currentTarget.value);
   fmSynth_2_modulation_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5464,13 +5169,11 @@ const membraneSynth_2_Sync_checkbox = document.getElementById("membraneSynth_2_S
 membraneSynth_2_Sync_checkbox.addEventListener("change", function () {
   if (membraneSynth_2_Sync_checkbox.checked) { membraneSynth_2.sync = true; }
   else { membraneSynth_2.sync = false; }
-  console.log("membraneSynth_2_sync_checkbox: " + membraneSynth_2_Sync_checkbox.checked);
 });
 
 const membraneSynth_2_select_type = document.getElementById("membraneSynth_2_select_type");
 membraneSynth_2_select_type.addEventListener("change", function (e) {
   membraneSynth_2.type = e.currentTarget.value;
-  console.log("membraneSynth_2_select_type: " + membraneSynth_2.type);
 });
 
 const membraneSynth_2_volume = document.getElementById("membraneSynth_2_volume");
@@ -5482,7 +5185,6 @@ membraneSynth_2_volume.addEventListener("change", function (e) {
   }
   else {
     membraneSynth_2.volume.value = e.currentTarget.value;
-    console.log("membraneSynth_2_volumen: " + e.currentTarget.value);
     membraneSynth_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -5492,7 +5194,6 @@ const membraneSynth_2_pitchDecay = document.getElementById("membraneSynth_2_pitc
 const membraneSynth_2_pitchDecay_value = document.getElementById("membraneSynth_2_pitchDecay_value");
 membraneSynth_2_pitchDecay.addEventListener("change", function (e) {
   membraneSynth_2.pitchDecay.value = e.currentTarget.value;
-  console.log("membraneSynth_2.pitchDecay: " + e.currentTarget.value);
   membraneSynth_2_pitchDecay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5501,7 +5202,6 @@ const membraneSynth_2_octaves = document.getElementById("membraneSynth_2_octaves
 const membraneSynth_2_octaves_value = document.getElementById("membraneSynth_2_octaves_value");
 membraneSynth_2_octaves.addEventListener("change", function (e) {
   membraneSynth_2.octaves.value = e.currentTarget.value;
-  console.log("membraneSynth_2.octaves: " + e.currentTarget.value);
   membraneSynth_2_octaves_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5510,7 +5210,6 @@ const membraneSynth_2_envelope_attack = document.getElementById("membraneSynth_2
 const membraneSynth_2_envelope_attack_value = document.getElementById("membraneSynth_2_envelope_attack_value");
 membraneSynth_2_envelope_attack.addEventListener("change", function (e) {
   membraneSynth_2.envelope.attack = e.currentTarget.value;
-  console.log("membraneSynth_2.envelope.attack.value: " + e.currentTarget.value);
   membraneSynth_2_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5519,7 +5218,6 @@ const membraneSynth_2_envelope_decay = document.getElementById("membraneSynth_2_
 const membraneSynth_2_envelope_decay_value = document.getElementById("membraneSynth_2_envelope_decay_value");
 membraneSynth_2_envelope_decay.addEventListener("change", function (e) {
   membraneSynth_2.envelope.decay = e.currentTarget.value;
-  console.log("membraneSynth_2.envelope.decay.value: " + e.currentTarget.value);
   membraneSynth_2_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5528,7 +5226,6 @@ const membraneSynth_2_envelope_sustain = document.getElementById("membraneSynth_
 const membraneSynth_2_envelope_sustain_value = document.getElementById("membraneSynth_2_envelope_sustain_value");
 membraneSynth_2_envelope_sustain.addEventListener("change", function (e) {
   membraneSynth_2.envelope.sustain = e.currentTarget.value;
-  console.log("membraneSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   membraneSynth_2_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5537,7 +5234,6 @@ const membraneSynth_2_envelope_release = document.getElementById("membraneSynth_
 const membraneSynth_2_envelope_release_value = document.getElementById("membraneSynth_2_envelope_release_value");
 membraneSynth_2_envelope_release.addEventListener("change", function (e) {
   membraneSynth_2.envelope.release = e.currentTarget.value;
-  console.log("membraneSynth_2.envelope.release.value: " + e.currentTarget.value);
   membraneSynth_2_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5570,7 +5266,6 @@ metalSynth_2_volume.addEventListener("change", function (e) {
   }
   else {
     metalSynth_2.volume.value = e.currentTarget.value;
-    console.log("metalSynth_2_volumen: " + e.currentTarget.value);
     metalSynth_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -5579,7 +5274,6 @@ const metalSynth_2_freq = document.getElementById("metalSynth_2_freq");
 const metalSynth_2_freq_value = document.getElementById("metalSynth_2_freq_value");
 metalSynth_2_freq.addEventListener("change", function (e) {
   metalSynth_2.frequency.value = e.currentTarget.value;
-  console.log("metalSynth_2_freq: " + metalSynth_2.frequency.value);
   metalSynth_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -5589,7 +5283,6 @@ const metalSynth_2_harmonicity = document.getElementById("metalSynth_2_harmonici
 const metalSynth_2_harmonicity_value = document.getElementById("metalSynth_2_harmonicity_value");
 metalSynth_2_harmonicity.addEventListener("change", function (e) {
   metalSynth_2.harmonicity.value = e.currentTarget.value;
-  console.log("metalSynth_2.harmonicity: " + e.currentTarget.value);
   metalSynth_2_harmonicity_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5598,7 +5291,6 @@ const metalSynth_2_modulationIndex = document.getElementById("metalSynth_2_modul
 const metalSynth_2_modulationIndex_value = document.getElementById("metalSynth_2_modulationIndex_value");
 metalSynth_2_modulationIndex.addEventListener("change", function (e) {
   metalSynth_2.modulationIndex.value = e.currentTarget.value;
-  console.log("metalSynth_2.modulationIndex: " + e.currentTarget.value);
   metalSynth_2_modulationIndex_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5606,7 +5298,6 @@ const metalSynth_2_resonance = document.getElementById("metalSynth_2_resonance")
 const metalSynth_2_resonance_value = document.getElementById("metalSynth_2_resonance_value");
 metalSynth_2_resonance.addEventListener("change", function (e) {
   metalSynth_2.resonance = e.currentTarget.value;
-  console.log("metalSynth_2_resonance: " + metalSynth_2.resonance);
   metalSynth_2_resonance_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -5615,7 +5306,6 @@ const metalSynth_2_envelope_attack = document.getElementById("metalSynth_2_envel
 const metalSynth_2_envelope_attack_value = document.getElementById("metalSynth_2_envelope_attack_value");
 metalSynth_2_envelope_attack.addEventListener("change", function (e) {
   metalSynth_2.envelope.attack = e.currentTarget.value;
-  console.log("metalSynth_2.envelope.attack.value: " + e.currentTarget.value);
   metalSynth_2_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5624,7 +5314,6 @@ const metalSynth_2_envelope_decay = document.getElementById("metalSynth_2_envelo
 const metalSynth_2_envelope_decay_value = document.getElementById("metalSynth_2_envelope_decay_value");
 metalSynth_2_envelope_decay.addEventListener("change", function (e) {
   metalSynth_2.envelope.decay = e.currentTarget.value;
-  console.log("metalSynth_2.envelope.decay.value: " + e.currentTarget.value);
   metalSynth_2_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5633,7 +5322,6 @@ const metalSynth_2_envelope_sustain = document.getElementById("metalSynth_2_enve
 const metalSynth_2_envelope_sustain_value = document.getElementById("metalSynth_2_envelope_sustain_value");
 metalSynth_2_envelope_sustain.addEventListener("change", function (e) {
   metalSynth_2.envelope.sustain = e.currentTarget.value;
-  console.log("metalSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   metalSynth_2_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5642,7 +5330,6 @@ const metalSynth_2_envelope_release = document.getElementById("metalSynth_2_enve
 const metalSynth_2_envelope_release_value = document.getElementById("metalSynth_2_envelope_release_value");
 metalSynth_2_envelope_release.addEventListener("change", function (e) {
   metalSynth_2.envelope.release = e.currentTarget.value;
-  console.log("metalSynth_2.envelope.release.value: " + e.currentTarget.value);
   metalSynth_2_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5683,7 +5370,6 @@ const monoSynth_2 = new Tone.MonoSynth(
 const monoSynth_2_select_type = document.getElementById("monoSynth_2_select_type");
 monoSynth_2_select_type.addEventListener("change", function (e) {
   monoSynth_2.type = e.currentTarget.value;
-  console.log("monoSynth_2_select_type: " + monoSynth_2.type);
 });
 
 const monoSynth_2_volume = document.getElementById("monoSynth_2_volume");
@@ -5695,7 +5381,6 @@ monoSynth_2_volume.addEventListener("change", function (e) {
   }
   else {
     monoSynth_2.volume.value = e.currentTarget.value;
-    console.log("monoSynth_2_volume: " + e.currentTarget.value);
     monoSynth_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -5704,7 +5389,6 @@ const monoSynth_2_freq = document.getElementById("monoSynth_2_freq");
 const monoSynth_2_freq_value = document.getElementById("monoSynth_2_freq_value");
 monoSynth_2_freq.addEventListener("change", function (e) {
   monoSynth_2.frequency.value = e.currentTarget.value;
-  console.log("monoSynth_2_freq: " + monoSynth_2.frequency.value);
   monoSynth_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
@@ -5713,7 +5397,7 @@ const monoSynth_2_detune_text = document.getElementById("monoSynth_2_detune_text
 const monoSynth_2_detune = document.getElementById("monoSynth_2_detune");
 const monoSynth_2_detune_value = document.getElementById("monoSynth_2_detune_value");
 monoSynth_2_detune.addEventListener("change", function (e) {
-  monoSynth_2.detune.value = e.currentTarget.value; console.log("monoSynth_2.detune: " + e.currentTarget.value);
+  monoSynth_2.detune.value = e.currentTarget.value;
   monoSynth_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -5722,7 +5406,6 @@ const monoSynth_2_portamento = document.getElementById("monoSynth_2_portamento")
 const monoSynth_2_portamento_value = document.getElementById("monoSynth_2_portamento_value");
 monoSynth_2_portamento.addEventListener("change", function (e) {
   monoSynth_2.portamento.value = e.currentTarget.value;
-  console.log("monoSynth_2.portamento: " + e.currentTarget.value);
   monoSynth_2_portamento_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5730,7 +5413,7 @@ const monoSynth_2_Q = document.getElementById("monoSynth_2_Q");
 const monoSynth_2_Q_value = document.getElementById("monoSynth_2_Q_value");
 const monoSynth_2_Q_text = document.getElementById("monoSynth_2_Q_text");
 monoSynth_2_Q.addEventListener("change", function (e) {
-  monoSynth_2.filter.Q.value = e.currentTarget.value; console.log("monoSynth_2_filter.q: " + e.currentTarget.value);
+  monoSynth_2.filter.Q.value = e.currentTarget.value;
   monoSynth_2_Q_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -5741,7 +5424,6 @@ const monoSynth_2_filterEnvelope_attack = document.getElementById("monoSynth_2_f
 const monoSynth_2_filterEnvelope_attack_value = document.getElementById("monoSynth_2_filterEnvelope_attack_value");
 monoSynth_2_filterEnvelope_attack.addEventListener("change", function (e) {
   monoSynth_2.envelope.attack = e.currentTarget.value;
-  console.log("monoSynth_2.envelope.attack.value: " + e.currentTarget.value);
   monoSynth_2_filterEnvelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5750,7 +5432,6 @@ const monoSynth_2_filterEnvelope_decay = document.getElementById("monoSynth_2_fi
 const monoSynth_2_filterEnvelope_decay_value = document.getElementById("monoSynth_2_filterEnvelope_decay_value");
 monoSynth_2_filterEnvelope_decay.addEventListener("change", function (e) {
   monoSynth_2.filterEnvelope.decay = e.currentTarget.value;
-  console.log("monoSynth_2.filterEnvelope.decay.value: " + e.currentTarget.value);
   monoSynth_2_filterEnvelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5759,7 +5440,6 @@ const monoSynth_2_filterEnvelope_sustain = document.getElementById("monoSynth_2_
 const monoSynth_2_filterEnvelope_sustain_value = document.getElementById("monoSynth_2_filterEnvelope_sustain_value");
 monoSynth_2_filterEnvelope_sustain.addEventListener("change", function (e) {
   monoSynth_2.filterEnvelope.sustain = e.currentTarget.value;
-  console.log("monoSynth_2.filterEnvelope.sustain.value: " + e.currentTarget.value);
   monoSynth_2_filterEnvelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5768,7 +5448,6 @@ const monoSynth_2_filterEnvelope_release = document.getElementById("monoSynth_2_
 const monoSynth_2_filterEnvelope_release_value = document.getElementById("monoSynth_2_filterEnvelope_release_value");
 monoSynth_2_filterEnvelope_release.addEventListener("change", function (e) {
   monoSynth_2.filterEnvelope.release = e.currentTarget.value;
-  console.log("monoSynth_2.filterEnvelope.release.value: " + e.currentTarget.value);
   monoSynth_2_filterEnvelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5777,7 +5456,6 @@ const monoSynth_2_filterEnvelope_baseFrequency = document.getElementById("monoSy
 const monoSynth_2_filterEnvelope_baseFrequency_value = document.getElementById("monoSynth_2_filterEnvelope_baseFrequency_value");
 monoSynth_2_filterEnvelope_baseFrequency.addEventListener("change", function (e) {
   monoSynth_2.filterEnvelope.baseFrequency = e.currentTarget.value;
-  console.log("monoSynth_2.filterEnvelope.baseFrequency.value: " + e.currentTarget.value);
   monoSynth_2_filterEnvelope_baseFrequency_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5786,7 +5464,6 @@ const monoSynth_2_filterEnvelope_octaves = document.getElementById("monoSynth_2_
 const monoSynth_2_filterEnvelope_octaves_value = document.getElementById("monoSynth_2_filterEnvelope_octaves_value");
 monoSynth_2_filterEnvelope_octaves.addEventListener("change", function (e) {
   monoSynth_2.filterEnvelope.octaves = e.currentTarget.value;
-  console.log("monoSynth_2.filterEnvelope.octaves.value: " + e.currentTarget.value);
   monoSynth_2_filterEnvelope_octaves_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5795,7 +5472,6 @@ const monoSynth_2_filterEnvelope_exponent = document.getElementById("monoSynth_2
 const monoSynth_2_filterEnvelope_exponent_value = document.getElementById("monoSynth_2_filterEnvelope_exponent_value");
 monoSynth_2_filterEnvelope_exponent.addEventListener("change", function (e) {
   monoSynth_2.filterEnvelope.exponent = e.currentTarget.value;
-  console.log("monoSynth_2.filterEnvelope.exponent.value: " + e.currentTarget.value);
   monoSynth_2_filterEnvelope_exponent_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5804,7 +5480,6 @@ const monoSynth_2_envelope_attack = document.getElementById("monoSynth_2_envelop
 const monoSynth_2_envelope_attack_value = document.getElementById("monoSynth_2_envelope_attack_value");
 monoSynth_2_envelope_attack.addEventListener("change", function (e) {
   monoSynth_2.envelope.attack = e.currentTarget.value;
-  console.log("monoSynth_2.envelope.attack.value: " + e.currentTarget.value);
   monoSynth_2_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5813,7 +5488,6 @@ const monoSynth_2_envelope_decay = document.getElementById("monoSynth_2_envelope
 const monoSynth_2_envelope_decay_value = document.getElementById("monoSynth_2_envelope_decay_value");
 monoSynth_2_envelope_decay.addEventListener("change", function (e) {
   monoSynth_2.envelope.decay = e.currentTarget.value;
-  console.log("monoSynth_2.envelope.decay.value: " + e.currentTarget.value);
   monoSynth_2_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5822,7 +5496,6 @@ const monoSynth_2_envelope_sustain = document.getElementById("monoSynth_2_envelo
 const monoSynth_2_envelope_sustain_value = document.getElementById("monoSynth_2_envelope_sustain_value");
 monoSynth_2_envelope_sustain.addEventListener("change", function (e) {
   monoSynth_2.envelope.sustain = e.currentTarget.value;
-  console.log("monoSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   monoSynth_2_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5831,7 +5504,6 @@ const monoSynth_2_envelope_release = document.getElementById("monoSynth_2_envelo
 const monoSynth_2_envelope_release_value = document.getElementById("monoSynth_2_envelope_release_value");
 monoSynth_2_envelope_release.addEventListener("change", function (e) {
   monoSynth_2.envelope.release = e.currentTarget.value;
-  console.log("monoSynth_2.envelope.release.value: " + e.currentTarget.value);
   monoSynth_2_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5855,7 +5527,6 @@ const noiseSynth_2 = new Tone.NoiseSynth(
 const noiseSynth_2_select_type = document.getElementById("noiseSynth_2_select_type");
 noiseSynth_2_select_type.addEventListener("change", function (e) {
   noiseSynth_2.type = e.currentTarget.value;
-  console.log("noiseSynth_2_select_type: " + noiseSynth_2.type);
 });
 
 const noiseSynth_2_volume = document.getElementById("noiseSynth_2_volume");
@@ -5867,7 +5538,6 @@ noiseSynth_2_volume.addEventListener("change", function (e) {
   }
   else {
     noiseSynth_2.volume.value = e.currentTarget.value;
-    console.log("noiseSynth_2_volume: " + e.currentTarget.value);
     noiseSynth_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -5877,7 +5547,6 @@ const noiseSynth_2_envelope_attack = document.getElementById("noiseSynth_2_envel
 const noiseSynth_2_envelope_attack_value = document.getElementById("noiseSynth_2_envelope_attack_value");
 noiseSynth_2_envelope_attack.addEventListener("change", function (e) {
   noiseSynth_2.envelope.attack = e.currentTarget.value;
-  console.log("noiseSynth_2.envelope.attack.value: " + e.currentTarget.value);
   noiseSynth_2_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5886,7 +5555,6 @@ const noiseSynth_2_envelope_decay = document.getElementById("noiseSynth_2_envelo
 const noiseSynth_2_envelope_decay_value = document.getElementById("noiseSynth_2_envelope_decay_value");
 noiseSynth_2_envelope_decay.addEventListener("change", function (e) {
   noiseSynth_2.envelope.decay = e.currentTarget.value;
-  console.log("noiseSynth_2.envelope.decay.value: " + e.currentTarget.value);
   noiseSynth_2_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5895,7 +5563,6 @@ const noiseSynth_2_envelope_sustain = document.getElementById("noiseSynth_2_enve
 const noiseSynth_2_envelope_sustain_value = document.getElementById("noiseSynth_2_envelope_sustain_value");
 noiseSynth_2_envelope_sustain.addEventListener("change", function (e) {
   noiseSynth_2.envelope.sustain = e.currentTarget.value;
-  console.log("noiseSynth_2.envelope.sustain.value: " + e.currentTarget.value);
   noiseSynth_2_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5958,7 +5625,6 @@ Synth_w_AmpEnv_2_volume.addEventListener("change", function (e) {
   }
   else {
     Synth_w_AmpEnv_2.volume.value = e.currentTarget.value;
-    console.log("Synth_w_AmpEnv_2_volume: " + e.currentTarget.value);
     Synth_w_AmpEnv_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
@@ -5967,7 +5633,7 @@ const Synth_w_AmpEnv_2_detune_text = document.getElementById("Synth_w_AmpEnv_2_d
 const Synth_w_AmpEnv_2_detune = document.getElementById("Synth_w_AmpEnv_2_detune");
 const Synth_w_AmpEnv_2_detune_value = document.getElementById("Synth_w_AmpEnv_2_detune_value");
 Synth_w_AmpEnv_2_detune.addEventListener("change", function (e) {
-  Synth_w_AmpEnv_2.detune.value = e.currentTarget.value; console.log("Synth_w_AmpEnv_2.detune: " + e.currentTarget.value);
+  Synth_w_AmpEnv_2.detune.value = e.currentTarget.value;
   Synth_w_AmpEnv_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -5976,7 +5642,6 @@ const Synth_w_AmpEnv_2_portamento = document.getElementById("Synth_w_AmpEnv_2_po
 const Synth_w_AmpEnv_2_portamento_value = document.getElementById("Synth_w_AmpEnv_2_portamento_value");
 Synth_w_AmpEnv_2_portamento.addEventListener("change", function (e) {
   Synth_w_AmpEnv_2.portamento.value = e.currentTarget.value;
-  console.log("Synth_w_AmpEnv_2.portamento: " + e.currentTarget.value);
   Synth_w_AmpEnv_2_portamento_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5985,7 +5650,6 @@ const Synth_w_AmpEnv_2_envelope_attack = document.getElementById("Synth_w_AmpEnv
 const Synth_w_AmpEnv_2_envelope_attack_value = document.getElementById("Synth_w_AmpEnv_2_envelope_attack_value");
 Synth_w_AmpEnv_2_envelope_attack.addEventListener("change", function (e) {
   Synth_w_AmpEnv_2.envelope.attack = e.currentTarget.value;
-  console.log("Synth_w_AmpEnv_2.envelope.attack.value: " + e.currentTarget.value);
   Synth_w_AmpEnv_2_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -5994,7 +5658,6 @@ const Synth_w_AmpEnv_2_envelope_decay = document.getElementById("Synth_w_AmpEnv_
 const Synth_w_AmpEnv_2_envelope_decay_value = document.getElementById("Synth_w_AmpEnv_2_envelope_decay_value");
 Synth_w_AmpEnv_2_envelope_decay.addEventListener("change", function (e) {
   Synth_w_AmpEnv_2.envelope.decay = e.currentTarget.value;
-  console.log("Synth_w_AmpEnv_2.envelope.decay.value: " + e.currentTarget.value);
   Synth_w_AmpEnv_2_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -6003,7 +5666,6 @@ const Synth_w_AmpEnv_2_envelope_sustain = document.getElementById("Synth_w_AmpEn
 const Synth_w_AmpEnv_2_envelope_sustain_value = document.getElementById("Synth_w_AmpEnv_2_envelope_sustain_value");
 Synth_w_AmpEnv_2_envelope_sustain.addEventListener("change", function (e) {
   Synth_w_AmpEnv_2.envelope.sustain = e.currentTarget.value;
-  console.log("Synth_w_AmpEnv_2.envelope.sustain.value: " + e.currentTarget.value);
   Synth_w_AmpEnv_2_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -6012,7 +5674,6 @@ const Synth_w_AmpEnv_2_envelope_release = document.getElementById("Synth_w_AmpEn
 const Synth_w_AmpEnv_2_envelope_release_value = document.getElementById("Synth_w_AmpEnv_2_envelope_release_value");
 Synth_w_AmpEnv_2_envelope_release.addEventListener("change", function (e) {
   Synth_w_AmpEnv_2.envelope.release = e.currentTarget.value;
-  console.log("Synth_w_AmpEnv_2.envelope.release.value: " + e.currentTarget.value);
   Synth_w_AmpEnv_2_envelope_release_value.innerHTML = (`${e.currentTarget.value}`);
 });
 
@@ -6221,11 +5882,7 @@ player_1_Node.connect(testNormalize);
 //***************************************************************
 //***************************************************************
 
-const mixEventFinal = Object();
-mixEventFinal.atTime = 1234;
-mixEventFinal.element = "papiri";
-mixEventFinal.action = "sukasca";
-//const mixEvent = Object();
+//MIX EVENT OBJECT
 const mixEvent = {
   atTime: 0,
   element: "player_1",
@@ -6247,7 +5904,7 @@ const mixEvent = {
     event.element = element;
     event.action = action;
     lista.push(event);
-
+    this.console_log(event);
   },
   logIntoListaRampValue: function (atTime, element, newValue, rampTime) {
     const event = Object();
@@ -6257,20 +5914,15 @@ const mixEvent = {
     event.rampTime = rampTime;
     lista.push(event);
     /**/
+  },
+  console_log: function (event) {
+    console.log("NOw: " + event.atTime + "\n" + "element: " + event.element + "\n" +
+      "newValue: " + event.action);
   }
 };
 
-//mixEvent.alerting();
-
-const playlist = document.getElementById("playlist");
-var lista = [];
 function muestraLista() {
   console.table(lista);
-  //playlist.innerHTML = lista[0].atTime.value + " " + lista[0].element + " " + lista[0].action;
-  //playlist.innerHTML = lista[0].element;
-  //playlist.innerHTML = lista[0].action;
-  // playlist.innerHTML = lista[0].newValue;
-  /**/
 }
 
 const RMS_all = document.getElementById("RMS_all");
@@ -6282,7 +5934,6 @@ RMS_all.style.display = "none";
 //*****************************************************************************************
 //INNER HTML player 1
 player_1_volume_value.innerHTML = "-40";
-player_1_pan_value.innerHTML = 0;
 player_1_playback_rate_value.innerHTML = 100;
 player_1_loop_checkbox_text.innerHTML = "Loop";
 player_1_autoplay_text.innerHTML = "AutoPlay";
@@ -6323,8 +5974,21 @@ channel_1_dynamics_knee_value.innerHTML = 0;
 //***********************  FX 1  AUTO FILTER    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const fx_1_AutoFilter_Node = new Tone.AutoFilter(4);
-fx_1_AutoFilter_Node.wet = 1;
+//const fx_1_AutoFilter_Node = new Tone.AutoFilter(4);
+const fx_1_AutoFilter_Node = new Tone.AutoFilter(
+  {
+    frequency: 1,
+    type: "sine",
+    depth: 1,
+    baseFrequency: 200,
+    octaves: 2.6,
+    filter: {
+      type: "lowpass",
+      rolloff: -12,
+      Q: 1,
+      wet: 1
+    }
+  });
 
 const fx_1_autofilter_div = document.getElementById("fx_1_autofilter_div");
 fx_1_autofilter_div.style.display = "none";
@@ -6332,9 +5996,7 @@ fx_1_autofilter_div.style.display = "none";
 const fx_1_autofilter_baseFrequency = document.getElementById("fx_1_autofilter_baseFrequency");
 const fx_1_autofilter_baseFrequency_value = document.getElementById("fx_1_autofilter_baseFrequency_value");
 fx_1_autofilter_baseFrequency.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoFilter_Node.baseFrequency = e.currentTarget.value;
-  console.log("fx_1_AutoFilter_Node. baseFrequency: " + fx_1_AutoFilter_Node.baseFrequency);
   fx_1_autofilter_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autofilter_baseFrequency", e.currentTarget.value);
 });
@@ -6343,7 +6005,6 @@ const fx_1_autofilter_depth = document.getElementById("fx_1_autofilter_depth");
 const fx_1_autofilter_depth_value = document.getElementById("fx_1_autofilter_depth_value");
 fx_1_autofilter_depth.addEventListener("change", function (e) {
   fx_1_AutoFilter_Node.depth.value = e.currentTarget.value;
-  console.log("fx_1_AutoFilter_Node: " + fx_1_AutoFilter_Node.depth.value);
   fx_1_autofilter_depth_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autofilter_depth", e.currentTarget.value);
 });
@@ -6352,7 +6013,6 @@ const fx_1_autofilter_frequency = document.getElementById("fx_1_autofilter_frequ
 const fx_1_autofilter_frequency_value = document.getElementById("fx_1_autofilter_frequency_value");
 fx_1_autofilter_frequency.addEventListener("change", function (e) {
   fx_1_AutoFilter_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_1_AutoFilter_Node: " + fx_1_AutoFilter_Node.frequency.value);
   fx_1_autofilter_frequency_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autofilter_frequency", e.currentTarget.value);
 });
@@ -6360,9 +6020,7 @@ fx_1_autofilter_frequency.addEventListener("change", function (e) {
 const fx_1_autofilter_octaves = document.getElementById("fx_1_autofilter_octaves");
 const fx_1_autofilter_octaves_value = document.getElementById("fx_1_autofilter_octaves_value");
 fx_1_autofilter_octaves.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoFilter_Node.octaves = e.currentTarget.value;
-  console.log("fx_1_autoWah_Node. octaves: " + fx_1_AutoFilter_Node.octaves);
   fx_1_autofilter_octaves_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autofilter_octaves", e.currentTarget.value);
 });
@@ -6370,7 +6028,6 @@ fx_1_autofilter_octaves.addEventListener("change", function (e) {
 const fx_1_autofilter_select_type = document.getElementById("fx_1_autofilter_select_type");
 fx_1_autofilter_select_type.addEventListener("change", function (e) {
   fx_1_AutoFilter_Node.type = e.currentTarget.value;
-  console.log("fx_1_AutoFilter_Node.type: " + fx_1_AutoFilter_Node.type);
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autofilter_select_type", e.currentTarget.value);
 });
 
@@ -6388,9 +6045,12 @@ interface AutoFilterOptions {
 //************************************************************************** */
 //************************************************************************** */
 
-const fx_1_AutoPanner_Node = new Tone.AutoPanner(4);
-fx_1_AutoPanner_Node.wet = 1;
-
+const fx_1_AutoPanner_Node = new Tone.AutoPanner({
+  frequency: 1,
+  type: "sine",
+  depth: 1,
+  wet: 1
+});
 const fx_1_autopanner_div = document.getElementById("fx_1_autopanner_div");
 fx_1_autopanner_div.style.display = "none";
 
@@ -6398,7 +6058,6 @@ const fx_1_autoPanner_frequency = document.getElementById("fx_1_autoPanner_frequ
 const fx_1_autoPanner_frequency_value = document.getElementById("fx_1_autoPanner_frequency_value");
 fx_1_autoPanner_frequency.addEventListener("change", function (e) {
   fx_1_AutoPanner_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_1_AutoPanner_Node: " + fx_1_AutoPanner_Node.frequency.value);
   fx_1_autoPanner_frequency_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoPanner_frequency", e.currentTarget.value);
 });
@@ -6407,7 +6066,6 @@ const fx_1_autoPanner_depth = document.getElementById("fx_1_autoPanner_depth");
 const fx_1_autoPanner_depth_value = document.getElementById("fx_1_autoPanner_depth_value");
 fx_1_autoPanner_depth.addEventListener("change", function (e) {
   fx_1_AutoPanner_Node.depth.value = e.currentTarget.value;
-  console.log("fx_1_AutoPanner_Node: " + fx_1_AutoPanner_Node.depth.value);
   fx_1_autoPanner_depth_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoPanner_depth", e.currentTarget.value);
 });
@@ -6416,7 +6074,6 @@ const fx_1_autoPanner_select_type = document.getElementById("fx_1_autoPanner_sel
 const fx_1_autoPanner_select_type_value = document.getElementById("fx_1_autoPanner_select_type_value");
 fx_1_autoPanner_select_type.addEventListener("change", function (e) {
   fx_1_AutoPanner_Node.type = e.currentTarget.value;
-  console.log("fx_1_AutoPanner_Node.type: " + fx_1_AutoPanner_Node.type);
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoPanner_select_type", e.currentTarget.value);
 });
 
@@ -6425,18 +6082,25 @@ fx_1_autoPanner_select_type.addEventListener("change", function (e) {
 //***********************  FX 1  AUTO WAH    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const fx_1_AutoWah_Node = new Tone.AutoWah(4);
-fx_1_AutoWah_Node.wet = 1;
-
+const fx_1_AutoWah_Node = new Tone.AutoWah({
+  wet: 1,
+  baseFrequency: 100,
+  octaves: 6,
+  sensitivity: 0,
+  Q: 2,
+  gain: 2,
+  follower: {
+    attack: 0.3,
+    release: 0.5,
+  }
+});
 const fx_1_autowah_div = document.getElementById("fx_1_autowah_div");
 fx_1_autowah_div.style.display = "none";
 
 const fx_1_autoWah_octaves = document.getElementById("fx_1_autoWah_octaves");
 const fx_1_autoWah_octaves_value = document.getElementById("fx_1_autoWah_octaves_value");
 fx_1_autoWah_octaves.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.octaves = e.currentTarget.value;
-  console.log("fx_1_autoWah_Node. octaves: " + fx_1_AutoWah_Node.octaves);
   fx_1_autoWah_octaves_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_octaves", e.currentTarget.value);
 });
@@ -6444,9 +6108,7 @@ fx_1_autoWah_octaves.addEventListener("change", function (e) {
 const fx_1_autoWah_sensitivity = document.getElementById("fx_1_autoWah_sensitivity");
 const fx_1_autoWah_sensitivity_value = document.getElementById("fx_1_autoWah_sensitivity_value");
 fx_1_autoWah_sensitivity.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.sensitivity = e.currentTarget.value;
-  console.log("fx_1_autoWah_Node. sensitivity: " + fx_1_AutoWah_Node.sensitivity);
   fx_1_autoWah_sensitivity_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_sensitivity", e.currentTarget.value);
 });
@@ -6454,9 +6116,7 @@ fx_1_autoWah_sensitivity.addEventListener("change", function (e) {
 const fx_1_autoWah_Q = document.getElementById("fx_1_autoWah_Q");
 const fx_1_autoWah_Q_value = document.getElementById("fx_1_autoWah_Q_value");
 fx_1_autoWah_Q.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.Q.value = e.currentTarget.value;
-  console.log("fx_1_AutoWah_Node. Q: " + fx_1_AutoWah_Node.Q.value);
   fx_1_autoWah_Q_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_Q", e.currentTarget.value);
 });
@@ -6464,9 +6124,7 @@ fx_1_autoWah_Q.addEventListener("change", function (e) {
 const fx_1_autoWah_gain = document.getElementById("fx_1_autoWah_gain");
 const fx_1_autoWah_gain_value = document.getElementById("fx_1_autoWah_gain_value");
 fx_1_autoWah_gain.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.gain.value = e.currentTarget.value;
-  console.log("fx_1_AutoWah_Node. gain: " + fx_1_AutoWah_Node.gain.value);
   fx_1_autoWah_gain_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_gain", e.currentTarget.value);
 });
@@ -6474,9 +6132,7 @@ fx_1_autoWah_gain.addEventListener("change", function (e) {
 const fx_1_autoWah_follower_attack = document.getElementById("fx_1_autoWah_follower_attack");
 const fx_1_autoWah_follower_attack_value = document.getElementById("fx_1_autoWah_follower_attack_value");
 fx_1_autoWah_follower_attack.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.follower.attack = e.currentTarget.value;
-  console.log("fx_1_AutoWah_Node.follower.attack: " + fx_1_AutoWah_Node.follower.attack);
   fx_1_autoWah_follower_attack_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_follower_attack", e.currentTarget.value);
 });
@@ -6484,9 +6140,7 @@ fx_1_autoWah_follower_attack.addEventListener("change", function (e) {
 const fx_1_autoWah_follower_release = document.getElementById("fx_1_autoWah_follower_release");
 const fx_1_autoWah_follower_release_value = document.getElementById("fx_1_autoWah_follower_release_value");
 fx_1_autoWah_follower_release.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.follower.release.value = e.currentTarget.value;
-  console.log("fx_1_AutoWah_Node.follower.release: " + fx_1_AutoWah_Node.follower.release);
   fx_1_autoWah_follower_release_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_follower_release", e.currentTarget.value);
 });
@@ -6494,9 +6148,7 @@ fx_1_autoWah_follower_release.addEventListener("change", function (e) {
 const fx_1_autoWah_baseFrequency = document.getElementById("fx_1_autoWah_baseFrequency");
 const fx_1_autoWah_baseFrequency_value = document.getElementById("fx_1_autoWah_baseFrequency_value");
 fx_1_autoWah_baseFrequency.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_AutoWah_Node.baseFrequency = e.currentTarget.value;
-  console.log("fx_1_AutoWah_Node. baseFrequency: " + fx_1_AutoWah_Node.baseFrequency);
   fx_1_autoWah_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_baseFrequency", e.currentTarget.value);
 });
@@ -6522,8 +6174,12 @@ fx_1_bitCrusher_div.style.display = "none";
 //*********************** FX 1   CHEBYSHEV    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const fx_1_Chebyshev_Node = new Tone.Chebyshev();
-fx_1_Chebyshev_Node.wet = 1;
+const fx_1_Chebyshev_Node = new Tone.Chebyshev({
+  //order : 1 ,
+  //oversample : "none",
+  wet: 1
+});
+
 
 const fx_1_Chebyshev_div = document.getElementById("fx_1_Chebyshev_div");
 fx_1_Chebyshev_div.style.display = "none";
@@ -6532,7 +6188,6 @@ const fx_1_Chebyshev_order = document.getElementById("fx_1_Chebyshev_order");
 const fx_1_Chebyshev_order_value = document.getElementById("fx_1_Chebyshev_order_value");
 fx_1_Chebyshev_order.addEventListener("change", function (e) {
   fx_1_Chebyshev_Node.order = Math.round(`${e.currentTarget.value}`);
-  console.log("fx_1_Chebyshev_Node: " + fx_1_Chebyshev_Node.order);
   fx_1_Chebyshev_order_value.innerHTML = `${e.currentTarget.value}`;
 });
 
@@ -6540,7 +6195,6 @@ const fx_1_Chebyshev_select_type = document.getElementById("fx_1_Chebyshev_selec
 const fx_1_Chebyshev_select_type_value = document.getElementById("fx_1_Chebyshev_select_type_value");
 fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
   fx_1_Chebyshev_Node.type = e.currentTarget.value;
-  console.log("fx_1_Chebyshev_Node.type: " + e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -6548,8 +6202,9 @@ fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
 //*********************** FX 1   CHORUS    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const fx_1_chorus_Node = new Tone.Chorus();
-fx_1_chorus_Node.wet = 1;
+const fx_1_chorus_Node = new Tone.Chorus({
+  wet: 1
+});
 
 const fx_1_chorus_div = document.getElementById("fx_1_chorus_div");
 fx_1_chorus_div.style.display = "none";
@@ -6558,7 +6213,6 @@ const fx_1_chorus_delayTime = document.getElementById("fx_1_chorus_delayTime");
 const fx_1_chorus_delayTime_value = document.getElementById("fx_1_chorus_delayTime_value");
 fx_1_chorus_delayTime.addEventListener("change", function (e) {
   fx_1_chorus_Node.delayTime = e.currentTarget.value;
-  console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.delayTime);
   fx_1_chorus_delayTime_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_delayTime", e.currentTarget.value);
 });
@@ -6567,7 +6221,6 @@ const fx_1_chorus_freq = document.getElementById("fx_1_chorus_freq");
 const fx_1_chorus_freq_value = document.getElementById("fx_1_chorus_freq_value");
 fx_1_chorus_freq.addEventListener("change", function (e) {
   fx_1_chorus_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.frequency.value);
   fx_1_chorus_freq_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_freq", e.currentTarget.value);
 });
@@ -6575,8 +6228,7 @@ fx_1_chorus_freq.addEventListener("change", function (e) {
 const fx_1_chorus_depth = document.getElementById("fx_1_chorus_depth");
 const fx_1_chorus_depth_value = document.getElementById("fx_1_chorus_depth_value");
 fx_1_chorus_depth.addEventListener("change", function (e) {
-  fx_1_chorus_Node.depth.value = e.currentTarget.value;
-  console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.depth.value);
+  fx_1_chorus_Node.depth = e.currentTarget.value;
   fx_1_chorus_depth_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_depth", e.currentTarget.value);
 });
@@ -6585,7 +6237,6 @@ const fx_1_chorus_spread = document.getElementById("fx_1_chorus_spread");
 const fx_1_chorus_spread_value = document.getElementById("fx_1_chorus_spread_value");
 fx_1_chorus_spread.addEventListener("change", function (e) {
   fx_1_chorus_Node.spread = e.currentTarget.value;
-  console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.spread);
   fx_1_chorus_spread_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_spread", e.currentTarget.value);
 });
@@ -6594,7 +6245,6 @@ const fx_1_chorus_feedback = document.getElementById("fx_1_chorus_feedback");
 const fx_1_chorus_feedback_value = document.getElementById("fx_1_chorus_feedback_value");
 fx_1_chorus_feedback.addEventListener("change", function (e) {
   fx_1_chorus_Node.feedback.value = e.currentTarget.value;
-  console.log("fx_1_chorus_Node: " + fx_1_chorus_Node.feedback.value);
   fx_1_chorus_feedback_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_feedback", e.currentTarget.value);
 });
@@ -6602,7 +6252,6 @@ fx_1_chorus_feedback.addEventListener("change", function (e) {
 const fx_1_chorus_select_type = document.getElementById("fx_1_chorus_select_type");
 fx_1_chorus_select_type.addEventListener("change", function (e) {
   fx_1_chorus_Node.type = e.currentTarget.value;
-  console.log("fx_1_chorus_Node.type: " + e.currentTarget.value);
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_select_type", e.currentTarget.value);
 });
 
@@ -6611,8 +6260,9 @@ fx_1_chorus_select_type.addEventListener("change", function (e) {
 //*********************** FX 1   DISTORTION       ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const fx_1_distortion_Node = new Tone.Distortion();
-fx_1_distortion_Node.wet = 1;
+const fx_1_distortion_Node = new Tone.Distortion({
+  wet: 1
+});
 
 const fx_1_distortion_div = document.getElementById("fx_1_distortion_div");
 fx_1_distortion_div.style.display = "none";
@@ -6628,7 +6278,6 @@ fx_1_distortion.addEventListener("change", function (e) {
 const fx_1_distortion_select_type = document.getElementById("fx_1_distortion_select_type");
 fx_1_distortion_select_type.addEventListener("change", function (e) {
   fx_1_distortion_Node.type = e.currentTarget.value;
-  console.log("fx_1_distortion_Node.type: " + e.currentTarget.value);
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_distortion_select_type", e.currentTarget.value);
 });
 
@@ -6638,8 +6287,9 @@ fx_1_distortion_select_type.addEventListener("change", function (e) {
 //************************************************************************** */
 //************************************************************************** */
 
-const fx_1_feedback_Node = new Tone.FeedbackDelay();
-fx_1_feedback_Node.wet = 1;
+const fx_1_feedback_Node = new Tone.FeedbackDelay({
+  wet: 1
+});
 
 const fx_1_feedback_div = document.getElementById("fx_1_feedback_div");
 fx_1_feedback_div.style.display = "none";
@@ -6647,9 +6297,7 @@ fx_1_feedback_div.style.display = "none";
 const fx_1_feedback = document.getElementById("fx_1_feedback");
 const fx_1_feedback_value = document.getElementById("fx_1_feedback_value");
 fx_1_feedback.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_feedback_Node.feedback.value = e.currentTarget.value;
-  console.log("fx1_feedback_Node: " + fx_1_feedback_Node.feedback.value);
   fx_1_feedback_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_feedback", e.currentTarget.value);
 });
@@ -6657,9 +6305,7 @@ fx_1_feedback.addEventListener("change", function (e) {
 const fx_1_feedback_delayTime = document.getElementById("fx_1_feedback_delayTime");
 const fx_1_feedback_delayTime_value = document.getElementById("fx_1_feedback_delayTime_value");
 fx_1_feedback_delayTime.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_feedback_Node.delayTime.value = e.currentTarget.value;
-  console.log("fx1_feedback_Node: " + fx_1_feedback_Node.delayTime.value);
   fx_1_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_feedback_delayTime", e.currentTarget.value);
 });
@@ -6667,9 +6313,7 @@ fx_1_feedback_delayTime.addEventListener("change", function (e) {
 const fx_1_feedback_maxDelay = document.getElementById("fx_1_feedback_maxDelay");
 const fx_1_feedback_maxDelay_value = document.getElementById("fx_1_feedback_maxDelay_value");
 fx_1_feedback_maxDelay.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_feedback_Node.maxDelay = e.currentTarget.value;
-  console.log("fx1_feedback_Node: " + fx_1_feedback_Node.maxDelay);
   fx_1_feedback_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_feedback_maxDelay", e.currentTarget.value);
 });
@@ -6689,9 +6333,7 @@ fx_1_freeVerb_div.style.display = "none";
 const fx_1_freeVerb_dampening = document.getElementById("fx_1_freeVerb_dampening");
 const fx_1_freeVerb_dampening_value = document.getElementById("fx_1_freeVerb_dampening_value");
 fx_1_freeVerb_dampening.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_freeVerb_Node.dampening = e.currentTarget.value;
-  console.log("fx1_dampening_Node: " + fx_1_freeVerb_Node.dampening);
   fx_1_freeVerb_dampening_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_freeVerb_dampening", e.currentTarget.value);
 });
@@ -6699,9 +6341,7 @@ fx_1_freeVerb_dampening.addEventListener("change", function (e) {
 const fx_1_freeVerb_roomSize = document.getElementById("fx_1_freeVerb_roomSize");
 const fx_1_freeVerb_roomSize_value = document.getElementById("fx_1_freeVerb_roomSize_value");
 fx_1_freeVerb_roomSize.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_freeVerb_Node.roomSize.value = e.currentTarget.value;
-  console.log("fx1_roomSize_Node: " + fx_1_freeVerb_Node.roomSize.value);
   fx_1_freeVerb_roomSize_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_freeVerb_roomSize", e.currentTarget.value);
 });
@@ -6711,18 +6351,16 @@ fx_1_freeVerb_roomSize.addEventListener("change", function (e) {
 //******************************  FX 1   fx_1_FrequencyShifter     ****************************************
 //*****************************************************************************************************
 //*****************************************************************************************************
-const fx_1_FrequencyShifter_Node = new Tone.FrequencyShifter();
-fx_1_FrequencyShifter_Node.wet = 1;
-
+const fx_1_FrequencyShifter_Node = new Tone.FrequencyShifter({
+  wet: 1
+});
 const fx_1_frequencyShifter_div = document.getElementById("fx_1_frequencyShifter_div");
 fx_1_frequencyShifter_div.style.display = "none";
 
 const fx_1_frequencyShifter = document.getElementById("fx_1_frequencyShifter");
 const fx_1_frequencyShifter_value = document.getElementById("fx_1_frequencyShifter_value");
 fx_1_frequencyShifter.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_FrequencyShifter_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_1_FrequencyShifter_Node: " + fx_1_FrequencyShifter_Node.frequency.value);
   fx_1_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_frequencyShifter", e.currentTarget.value);
 });
@@ -6757,18 +6395,16 @@ fx_1_JCReverb_div.style.display = "none";
 //***********************  FX 1  PHASER    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const fx_1_phaser_Node = new Tone.Phaser();
-fx_1_phaser_Node.wet = 1;
-
+const fx_1_phaser_Node = new Tone.Phaser({
+  wet: 1
+});
 const fx_1_phaser_div = document.getElementById("fx_1_phaser_div");
 fx_1_phaser_div.style.display = "none";
 
 const fx_1_phaser_frequency = document.getElementById("fx_1_phaser_frequency");
 const fx_1_phaser_frequency_value = document.getElementById("fx_1_phaser_frequency_value");
 fx_1_phaser_frequency.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_phaser_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_1_phaser_Node: " + fx_1_phaser_Node.frequency.value);
   fx_1_phaser_frequency_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_phaser_frequency", e.currentTarget.value);
 });
@@ -6776,9 +6412,7 @@ fx_1_phaser_frequency.addEventListener("change", function (e) {
 const fx_1_phaser_octaves = document.getElementById("fx_1_phaser_octaves");
 const fx_1_phaser_octaves_value = document.getElementById("fx_1_phaser_octaves_value");
 fx_1_phaser_octaves.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_phaser_Node.octaves = e.currentTarget.value;
-  console.log("fx_1_phaser_Node. octaves: " + fx_1_phaser_Node.octaves);
   fx_1_phaser_octaves_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_phaser_octaves", e.currentTarget.value);
 });
@@ -6786,9 +6420,7 @@ fx_1_phaser_octaves.addEventListener("change", function (e) {
 const fx_1_phaser_Q = document.getElementById("fx_1_phaser_Q");
 const fx_1_phaser_Q_value = document.getElementById("fx_1_phaser_Q_value");
 fx_1_phaser_Q.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_phaser_Node.Q.value = e.currentTarget.value;
-  console.log("fx_1_phaser_Node. Q: " + fx_1_phaser_Node.Q.value);
   fx_1_phaser_Q_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_phaser_Q", e.currentTarget.value);
 });
@@ -6796,9 +6428,7 @@ fx_1_phaser_Q.addEventListener("change", function (e) {
 const fx_1_phaser_baseFrequency = document.getElementById("fx_1_phaser_baseFrequency");
 const fx_1_phaser_baseFrequency_value = document.getElementById("fx_1_phaser_baseFrequency_value");
 fx_1_phaser_baseFrequency.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
   fx_1_phaser_Node.baseFrequency = e.currentTarget.value;
-  console.log("fx_1_phaser_Node. baseFrequency: " + fx_1_phaser_Node.baseFrequency);
   fx_1_phaser_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_phaser_baseFrequency", e.currentTarget.value);
 });
@@ -6809,8 +6439,9 @@ fx_1_phaser_baseFrequency.addEventListener("change", function (e) {
 //************************************************************************** */
 //************************************************************************** */
 
-const fx_1_pingpong_Node = new Tone.PingPongDelay();
-fx_1_pingpong_Node.wet = 1;
+const fx_1_pingpong_Node = new Tone.PingPongDelay({
+  wet: 1
+});
 
 const fx_1_pingpong_div = document.getElementById("fx_1_pingpong_div");
 fx_1_pingpong_div.style.display = "none";
@@ -6819,7 +6450,6 @@ const fx_1_pingpong_feedback = document.getElementById("fx_1_pingpong_feedback")
 const fx_1_pingpong_feedback_value = document.getElementById("fx_1_pingpong_feedback_value");
 fx_1_pingpong_feedback.addEventListener("change", function (e) {
   fx_1_pingpong_Node.feedback.value = e.currentTarget.value;
-  console.log("fx_1_pingpong_Node: " + fx_1_pingpong_Node.feedback.value);
   fx_1_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_pingpong_feedback", e.currentTarget.value);
 });
@@ -6828,7 +6458,6 @@ const fx_1_pingpong_delayTime = document.getElementById("fx_1_pingpong_delayTime
 const fx_1_pingpong_delayTime_value = document.getElementById("fx_1_pingpong_delayTime_value");
 fx_1_pingpong_delayTime.addEventListener("change", function (e) {
   fx_1_pingpong_Node.delayTime.value = e.currentTarget.value;
-  console.log("fx_1_pingpong_Node: " + fx_1_pingpong_Node.delayTime.value);
   fx_1_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_pingpong_delayTime", e.currentTarget.value);
 });
@@ -6837,7 +6466,6 @@ const fx_1_pingpong_maxDelay = document.getElementById("fx_1_pingpong_maxDelay")
 const fx_1_pingpong_maxDelay_value = document.getElementById("fx_1_pingpong_maxDelay_value");
 fx_1_pingpong_maxDelay.addEventListener("change", function (e) {
   fx_1_pingpong_Node.maxDelay = e.currentTarget.value;
-  console.log("fx_1_pingpong_Node: " + fx_1_pingpong_Node.maxDelay);
   fx_1_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_pingpong_maxDelay", e.currentTarget.value);
 });
@@ -6848,8 +6476,9 @@ fx_1_pingpong_maxDelay.addEventListener("change", function (e) {
 //************************************************************************** */
 //************************************************************************** */
 
-const fx_1_pitchshift_Node = new Tone.PitchShift();
-fx_1_pitchshift_Node.wet = 1;
+const fx_1_pitchshift_Node = new Tone.PitchShift({
+  wet: 1
+});
 const fx_1_pitchshift_div = document.getElementById("fx_1_pitchshift_div");
 fx_1_pitchshift_div.style.display = "none";
 
@@ -6857,7 +6486,6 @@ const fx_1_pitchshift_feedback = document.getElementById("fx_1_pitchshift_feedba
 const fx_1_pitchshift_feedback_value = document.getElementById("fx_1_pitchshift_feedback_value");
 fx_1_pitchshift_feedback.addEventListener("change", function (e) {
   fx_1_pitchshift_Node.feedback.value = e.currentTarget.value;
-  console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.feedback.value);
   fx_1_pitchshift_feedback_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_pitchshift_feedback", e.currentTarget.value);
 });
@@ -6866,7 +6494,6 @@ const fx_1_pitchshift_delayTime = document.getElementById("fx_1_pitchshift_delay
 const fx_1_pitchshift_delayTime_value = document.getElementById("fx_1_pitchshift_delayTime_value");
 fx_1_pitchshift_delayTime.addEventListener("change", function (e) {
   fx_1_pitchshift_Node.delayTime.value = e.currentTarget.value;
-  console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.delayTime.value);
   fx_1_pitchshift_delayTime_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_pitchshift_delayTime", e.currentTarget.value);
 });
@@ -6875,7 +6502,6 @@ const fx_1_pitchshift_pitch = document.getElementById("fx_1_pitchshift_pitch");
 const fx_1_pitchshift_pitch_value = document.getElementById("fx_1_pitchshift_pitch_value");
 fx_1_pitchshift_pitch.addEventListener("change", function (e) {
   fx_1_pitchshift_Node.pitch = e.currentTarget.value;
-  console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.pitch);
   fx_1_pitchshift_pitch_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_pitchshift_pitch", e.currentTarget.value);
 });
@@ -6884,7 +6510,6 @@ const fx_1_pitchshift_windowSize = document.getElementById("fx_1_pitchshift_wind
 const fx_1_pitchshift_windowSize_value = document.getElementById("fx_1_pitchshift_windowSize_value");
 fx_1_pitchshift_windowSize.addEventListener("change", function (e) {
   fx_1_pitchshift_Node.windowSize = e.currentTarget.value;
-  console.log("fx_1_pitchshift_Node: " + fx_1_pitchshift_Node.windowSize);
   fx_1_pitchshift_windowSize_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_pitchshift_windowSize", e.currentTarget.value);
 });
@@ -6894,8 +6519,9 @@ fx_1_pitchshift_windowSize.addEventListener("change", function (e) {
 //***********************  FX 1  REVERB    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const fx_1_reverb_Node = new Tone.Reverb();
-fx_1_reverb_Node.wet = 1;
+const fx_1_reverb_Node = new Tone.Reverb({
+  wet: 1
+});
 fx_1_reverb_Node.generate();
 fx_1_reverb_Node.normalize = true;
 
@@ -6906,7 +6532,6 @@ const fx_1_reverb_preDelay = document.getElementById("fx_1_reverb_preDelay");
 const fx_1_reverb_preDelay_value = document.getElementById("fx_1_reverb_preDelay_value");
 fx_1_reverb_preDelay.addEventListener("change", function (e) {
   fx_1_reverb_Node.preDelay = e.currentTarget.value;
-  console.log("fx_1_reverb_Node: " + fx_1_reverb_Node.preDelay);
   fx_1_reverb_preDelay_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_reverb_preDelay", e.currentTarget.value);
 });
@@ -6915,7 +6540,6 @@ const fx_1_reverb_decay = document.getElementById("fx_1_reverb_decay");
 const fx_1_reverb_decay_value = document.getElementById("fx_1_reverb_decay_value");
 fx_1_reverb_decay.addEventListener("change", function (e) {
   fx_1_reverb_Node.decay = e.currentTarget.value;
-  console.log("fx_1_reverb_Node: " + fx_1_reverb_Node.decay);
   fx_1_reverb_decay_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_reverb_decay", e.currentTarget.value);
 });
@@ -6925,8 +6549,9 @@ fx_1_reverb_decay.addEventListener("change", function (e) {
 //*********************** FX 1   Stereo Widener    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const fx_1_StereoWidener_Node = new Tone.StereoWidener();
-fx_1_StereoWidener_Node.wet = 1;
+const fx_1_StereoWidener_Node = new Tone.StereoWidener({
+  wet: 1
+});
 //The width control. 0 = 100% mid. 1 = 100% side. 0.5 = no change.
 const fx_1_StereoWidener_div = document.getElementById("fx_1_StereoWidener_div");
 fx_1_StereoWidener_div.style.display = "none";
@@ -6935,7 +6560,6 @@ const fx_1_StereoWidener_width = document.getElementById("fx_1_StereoWidener_wid
 const fx_1_StereoWidener_width_value = document.getElementById("fx_1_StereoWidener_width_value");
 fx_1_StereoWidener_width.addEventListener("change", function (e) {
   fx_1_StereoWidener_Node.width = e.currentTarget.value;
-  console.log("fx_1_StereoWidener_Node: " + fx_1_StereoWidener_Node.width);
   fx_1_StereoWidener_width_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_StereoWidener_width", e.currentTarget.value);
 });
@@ -6945,8 +6569,9 @@ fx_1_StereoWidener_width.addEventListener("change", function (e) {
 //***********************  FX 1  TREMOLO    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const fx_1_tremolo_Node = new Tone.Tremolo();
-fx_1_tremolo_Node.wet = 1;
+const fx_1_tremolo_Node = new Tone.Tremolo({
+  wet: 1
+});
 const fx_1_tremolo_div = document.getElementById("fx_1_tremolo_div");
 fx_1_tremolo_div.style.display = "none";
 
@@ -6954,7 +6579,6 @@ const fx_1_tremolo_frequency = document.getElementById("fx_1_tremolo_frequency")
 const fx_1_tremolo_frequency_value = document.getElementById("fx_1_tremolo_frequency_value");
 fx_1_tremolo_frequency.addEventListener("change", function (e) {
   fx_1_tremolo_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_1_tremolo_Node: " + `${fx_1_tremolo_Node.frequency.value}`);
   fx_1_tremolo_frequency_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_tremolo_frequency", e.currentTarget.value);
 });
@@ -6963,7 +6587,6 @@ const fx_1_tremolo_depth = document.getElementById("fx_1_tremolo_depth");
 const fx_1_tremolo_depth_value = document.getElementById("fx_1_tremolo_depth_value");
 fx_1_tremolo_depth.addEventListener("change", function (e) {
   fx_1_tremolo_Node.depth.value = e.currentTarget.value;
-  console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.depth.value);
   fx_1_tremolo_depth_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_tremolo_depth", e.currentTarget.value);
 });
@@ -6972,7 +6595,6 @@ const fx_1_tremolo_spread = document.getElementById("fx_1_tremolo_spread");
 const fx_1_tremolo_spread_value = document.getElementById("fx_1_tremolo_spread_value");
 fx_1_tremolo_spread.addEventListener("change", function (e) {
   fx_1_tremolo_Node.spread = e.currentTarget.value;
-  console.log("fx_1_tremolo_Node: " + fx_1_tremolo_Node.spread);
   fx_1_tremolo_spread_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_tremolo_spread", e.currentTarget.value);
 });
@@ -6983,8 +6605,9 @@ fx_1_tremolo_spread.addEventListener("change", function (e) {
 //************************************************************************** */
 //************************************************************************** */
 
-const fx_1_vibrato_Node = new Tone.Vibrato();
-fx_1_vibrato_Node.wet = 1;
+const fx_1_vibrato_Node = new Tone.Vibrato({
+  wet: 1
+});
 const fx_1_vibrato_div = document.getElementById("fx_1_vibrato_div");
 fx_1_vibrato_div.style.display = "none";
 
@@ -6992,7 +6615,6 @@ const fx_1_vibrato_frequency = document.getElementById("fx_1_vibrato_frequency")
 const fx_1_vibrato_frequency_value = document.getElementById("fx_1_vibrato_frequency_value");
 fx_1_vibrato_frequency.addEventListener("change", function (e) {
   fx_1_vibrato_Node.frequency.value = e.currentTarget.value;
-  console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.frequency.value);
   fx_1_vibrato_frequency_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_vibrato_frequency", e.currentTarget.value);
 });
@@ -7001,7 +6623,6 @@ const fx_1_vibrato_depth = document.getElementById("fx_1_vibrato_depth");
 const fx_1_vibrato_depth_value = document.getElementById("fx_1_vibrato_depth_value");
 fx_1_vibrato_depth.addEventListener("change", function (e) {
   fx_1_vibrato_Node.depth.value = e.currentTarget.value;
-  console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.depth.value);
   fx_1_vibrato_depth_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_vibrato_depth", e.currentTarget.value);
 });
@@ -7010,14 +6631,13 @@ const fx_1_vibrato_maxDelay = document.getElementById("fx_1_vibrato_maxDelay");
 const fx_1_vibrato_maxDelay_value = document.getElementById("fx_1_vibrato_maxDelay_value");
 fx_1_vibrato_maxDelay.addEventListener("change", function (e) {
   fx_1_vibrato_Node.maxDelay = e.currentTarget.value;
-  console.log("fx_1_vibrato_Node: " + fx_1_vibrato_Node.maxDelay);
   fx_1_vibrato_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_vibrato_maxDelay", e.currentTarget.value);
 });
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************    NODE CONSTRUCTION PLAYER 1    ******************* */
+//***********************    NODE CONSTRUCTION CHANNEL 1    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 
@@ -7069,20 +6689,15 @@ channel_1_filter.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postE
 channel_1_volNode.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_postFdr_volNode, channel_1_fxSend_3_postFdr_volNode, channel_1_fxSend_4_postFdr_volNode);
 
 //para tascam
-channel_1_HighShelf_FilterNode.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postEq_volNode, channel_1_fxSend_3_postEq_volNode, channel_1_fxSend_4_postEq_volNode);
-channel_1_HighShelf_FilterNode.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_postFdr_volNode, channel_1_fxSend_3_postFdr_volNode, channel_1_fxSend_4_postFdr_volNode);
-
-
-//console.log(channel_1_dynamics_compressorNode.get()); console.log("\n");
-//console.log(channel_1_dynamics_gateNode.get()); console.log("\n"); 
-//console.log(channel_1_dynamics_limiterNode.get()); 
+channel_1_tascam_out_Node.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postEq_volNode, channel_1_fxSend_3_postEq_volNode, channel_1_fxSend_4_postEq_volNode);
+channel_1_tascam_out_Node.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_postFdr_volNode, channel_1_fxSend_3_postFdr_volNode, channel_1_fxSend_4_postFdr_volNode);
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************    PLAYER 1 EQ3    ******************* */
+//***********************    CHANNEL 1 EQ3    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const player_1_filter_eq_On_EQ3_Button = document.getElementById("player_1_filter_eq_On_EQ3_Button");
+//const player_1_filter_eq_On_EQ3_Button = document.getElementById("player_1_filter_eq_On_EQ3_Button");
 const channel_1_filter_eq3 = new Tone.EQ3;
 
 channel_1_filter_eq3.set(
@@ -7104,7 +6719,7 @@ channel_1_EQ3_low_fader_gain.addEventListener("change", function (e) {
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_low_fader_gain", -100);
   }
   else {
-    channel_1_filter_eq3.low.value = e.currentTarget.value; console.log("channel_1_filter_eq3.low: " + e.currentTarget.value);
+    channel_1_filter_eq3.low.value = e.currentTarget.value;
     channel_1_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_low_fader_gain", e.currentTarget.value);
   }
@@ -7119,7 +6734,7 @@ channel_1_EQ3_low_frequency_fader.addEventListener("change", function (e) {
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_low_frequency_fader", -100);
   }
   else {
-    channel_1_filter_eq3.lowFrequency.value = e.currentTarget.value; console.log("channel_1_filter_eq3.low: " + e.currentTarget.value);
+    channel_1_filter_eq3.lowFrequency.value = e.currentTarget.value;
     channel_1_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_low_frequency_fader", e.currentTarget.value);
   }
@@ -7134,7 +6749,7 @@ channel_1_EQ3_mid_fader_gain.addEventListener("change", function (e) {
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_mid_fader_gain", -100);
   }
   else {
-    channel_1_filter_eq3.mid.value = e.currentTarget.value; console.log("channel_1_filter_eq3.mid: " + e.currentTarget.value);
+    channel_1_filter_eq3.mid.value = e.currentTarget.value;
     channel_1_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_mid_fader_gain", e.currentTarget.value);
   }
@@ -7149,7 +6764,7 @@ channel_1_EQ3_hi_fader_gain.addEventListener("change", function (e) {
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_hi_fader_gain", -100);
   }
   else {
-    channel_1_filter_eq3.high.value = e.currentTarget.value; console.log("channel_1_filter_eq3.hi: " + e.currentTarget.value);
+    channel_1_filter_eq3.high.value = e.currentTarget.value;
     channel_1_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_hi_fader_gain", e.currentTarget.value);
   }
@@ -7164,7 +6779,7 @@ channel_1_EQ3_high_frequency_fader.addEventListener("change", function (e) {
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_high_frequency_fader", -100);
   }
   else {
-    channel_1_filter_eq3.highFrequency.value = e.currentTarget.value; console.log("channel_1_filter_eq3.low: " + e.currentTarget.value);
+    channel_1_filter_eq3.highFrequency.value = e.currentTarget.value;
     channel_1_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_high_frequency_fader", e.currentTarget.value);
   }
@@ -7173,7 +6788,7 @@ channel_1_EQ3_high_frequency_fader.addEventListener("change", function (e) {
 const channel_1_EQ3_Q_fader = document.getElementById("channel_1_EQ3_Q_fader");
 const channel_1_EQ3_Q_value = document.getElementById("channel_1_EQ3_Q_value");
 channel_1_EQ3_Q_fader.addEventListener("change", function (e) {
-  channel_1_filter_eq3.Q.value = e.currentTarget.value; console.log("channel_1_filter.q: " + e.currentTarget.value);
+  channel_1_filter_eq3.Q.value = e.currentTarget.value;
   channel_1_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_Q_fader", e.currentTarget.value);
 });
@@ -7183,7 +6798,7 @@ channel_1_filter_eq3.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************    TEST METER VARIOUS PLAYER 1    ******************* */
+//***********************    TEST METER VARIOUS CHANNEL 1    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 const player_1_rms_meter = new Tone.Meter(0);
@@ -7210,8 +6825,14 @@ channel_1_dynamics_limiterNode_Bypass.connect(channel_1_rms_limiter_bypass_meter
 const channel_1_rms_limiter_meter = new Tone.Meter(0);
 channel_1_dynamics_limiterNode.connect(channel_1_rms_limiter_meter);
 
-const channel_1_tascam_424_meter = new Tone.Meter(0);
-channel_1_HighShelf_FilterNode.fan(channel_1_tascam_424_meter);
+const channel_1_tascam_424_Hi_meter = new Tone.Meter(0);
+channel_1_tascam_HighShelf_FilterNode.fan(channel_1_tascam_424_Hi_meter);
+
+const channel_1_tascam_424_Mid_meter = new Tone.Meter(0);
+channel_1_tascam_Mid_SemiParam_FilterNode.fan(channel_1_tascam_424_Mid_meter);
+
+const channel_1_tascam_424_Low_meter = new Tone.Meter(0);
+channel_1_tascam_LowShelf_FilterNode.fan(channel_1_tascam_424_Low_meter);
 
 const player_1_filter_meter = new Tone.Meter(0);
 channel_1_filter.connect(player_1_filter_meter);
@@ -7225,10 +6846,14 @@ channel_1_filter_eq3.connect(channel_1_eq3_meter);
 //************************************************************************** */
 //************************************************************************** */
 
-const fx_1_peaking_controls = document.getElementById("fx_1_peaking_controls");
-const fx_1_tascam_424_controls = document.getElementById("fx_1_tascam_424_controls");
-const fx_1_shelf_controls = document.getElementById("fx_1_shelf_controls");
-const fx_1_allpass_controls = document.getElementById("fx_1_allpass_controls");
+const fx_1_peaking_controls_div = document.getElementById("fx_1_peaking_controls_div");
+const fx_1_tascam_424_controls_div = document.getElementById("fx_1_tascam_424_controls_div");
+const fx_1_shelf_controls_div = document.getElementById("fx_1_shelf_controls_div");
+const fx_1_allpass_controls_div = document.getElementById("fx_1_allpass_controls_div");
+const fx_1_empty_controls_div = document.getElementById("fx_1_empty_controls_div");
+const fx_1_bypass_controls_div = document.getElementById("fx_1_bypass_controls_div");
+const fx_1_eq3_controls_div = document.getElementById("fx_1_eq3_controls_div");
+
 
 //*************************************************************************** */
 //*************************************************************************** */
@@ -7329,7 +6954,7 @@ player_2_filter.connect(testMeter_2_player_2_filter); //BORRAR ESTO LUEGO
 
 //*************************************************************************************
 //*************************************************************************************
-//********     PLAYER 1 RMS METERS     **************************************************************
+//********     PLAYER 2 RMS METERS     **************************************************************
 //*************************************************************************************
 //*************************************************************************************
 const player_2_rms_value = document.getElementById("player_2_rms_value");
@@ -7469,19 +7094,15 @@ setInterval('updatesMeters()', 100);
 //*****************************************************************************************
 //*****************************************************************************************
 //fx 1
-fx_1_allpass_controls.style.display = "none";
-fx_1_shelf_controls.style.display = "none";
-fx_1_peaking_controls.style.display = "none";
-fx_1_tascam_424_controls.style.display = "none";
-
+fx_1_allpass_controls_div.style.display = "none";
+fx_1_shelf_controls_div.style.display = "none";
+fx_1_peaking_controls_div.style.display = "none";
+fx_1_tascam_424_controls_div.style.display = "none";
+fx_1_empty_controls_div.style.display = "none";
+fx_1_bypass_controls_div.style.display = "block";
+fx_1_eq3_controls_div.style.display = "none";
 const gate_div = document.getElementById("gate_div");
 const limiter_div = document.getElementById("limiter_div");
-
-//*****************************************************************************************
-//*****************************************************************************************
-//*****************************************************************************************
-//*****************************************************************************************
-//ALL PLAYER 2 3 & 4
 
 //************************************************************************************* */
 //************************************************************************************* */
@@ -7496,7 +7117,7 @@ fx1_volume.addEventListener("change", function (e) {
     mixEvent.logIntoListaAction(Tone.now(), "fx1_volume", -100);
   }
   else {
-    fxReturn_1_fader.volume.value = e.currentTarget.value; console.log("volumen: " + e.currentTarget.value);
+    fxReturn_1_fader.volume.value = e.currentTarget.value;
     fx1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "fx1_volume", e.currentTarget.value);
   }
@@ -7504,7 +7125,6 @@ fx1_volume.addEventListener("change", function (e) {
 
 fx1_pan_fader.addEventListener("change", function (e) {
   fx1_pan.pan.value = e.currentTarget.value;
-  console.log("fx1_pan.pan: " + fx1_pan.pan.value)
   fx1_pan_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fx1_pan_fader", e.currentTarget.value);
 });
@@ -7567,838 +7187,628 @@ function send_text_Button() {
 }
 
 function send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time) {
-  if(player_1_volume_rampTo_gain.value!="" && player_1_volume_rampTo_time.value!="" ){
-  switch (value) {
-    case "player_1_volume": {
-      channel_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_volume.value = player_1_volume_rampTo_gain;
-      player_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
-      //  logIntoListaRampValue(atTime, element, newValue,rampTime);
-      break
-    }
-    case "player_1_pan": {
-      channel_1_panNode.pan.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_pan.value = player_1_volume_rampTo_gain.value;
-      player_1_pan_value.innerHTML = player_1_pan.value;
-      break;
-    }
-    case "channel_1_volume": {
-      channel_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      channel_1_volume.value = player_1_volume_rampTo_gain;
-      channel_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
-      //  logIntoListaRampValue(atTime, element, newValue,rampTime);
-      break
-    }
-    case "channel_1_pan": {
-      channel_1_panNode.pan.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      channel_1_pan.value = player_1_volume_rampTo_gain.value;
-      channel_1_pan_value.innerHTML = channel_1_pan.value;
-      break;
-    }
-    case "player_1_filter_frequency_shelf": {
-      channel_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_filter_frequency_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_filter_frequency_shelf.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_filter_gain_shelf": {
-      channel_1_filter.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_filter_gain_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_filter_gain_shelf.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_filter_detune_shelf": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_filter_detune_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_filter_detune_shelf.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_chorus_freq": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_chorus_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_chorus_freq_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_chorus_freq.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_chorus_feedback": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_chorus_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_chorus_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_chorus_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_feedback": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_feedback_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_feedback_delayTime": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_feedback_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_feedback_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_feedback_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_frequencyShifter": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_FrequencyShifter_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_frequencyShifter_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_frequencyShifter.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_phaser_frequency": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_phaser_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_phaser_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_phaser_frequency.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_phaser_octaves": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_phaser_Node.octaves.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_phaser_octaves_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_phaser_octaves.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_phaser_Q": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_phaser_Node.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_phaser_Q_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_phaser_Q.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_pingpong_feedback": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_pingpong_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_pingpong_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_pingpong_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_pingpong_delayTime": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_pingpong_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_pingpong_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_pingpong_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_pitchshift_feedback": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_pitchshift_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_pingpong_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_pingpong_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_pitchshift_delayTime": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_pitchshift_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_pitchshift_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_pitchshift_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_reverb_preDelay": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_reverb_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_reverb_preDelay_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_reverb_preDelay.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_reverb_decay": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_reverb_Node.decay.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_reverb_decay_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_reverb_decay.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_tremolo_frequency": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_tremolo_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_tremolo_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_tremolo_frequency.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_tremolo_depth": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_tremolo_Node.depth.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_tremolo_depth_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_tremolo_depth.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_tremolo_spread": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_tremolo_Node.spread.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_tremolo_spread_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_tremolo_spread.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_vibrato_frequency": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_vibrato_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_vibrato_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_vibrato_frequency.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "fx_1_vibrato_depth": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      fx_1_vibrato_Node.depth.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      fx_1_vibrato_depth_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      fx_1_vibrato_depth.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    //Player 1
-    case "player_1_filter_frequency_allpass": {
-      console.log("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_filter_frequency_value_allpass.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_filter_frequency_allpass.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_filter_Q_allpass": {
-      console.log("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_filter_Q_value_allpass.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_filter_Q_allpass.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_filter_detune_allpass": {
-      console.log("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
 
-      channel_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_filter_detune_value_allpass.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_filter_detune_allpass.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_filter_gain_shelf": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_filter_gain_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_filter_gain_value_shelf.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_filter_frequency_peaking": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_filter_frequency_value_peaking.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_filter_frequency_peaking.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_filter_Q_peaking": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_filter_Q_value_peaking.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_filter_Q_peaking.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_filter_gain_peaking": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_filter_detune_value_peaking.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_filter_detune_peaking.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    //TASCAM
-    case "player_1_HighShelf_gain_tascam": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_HighShelf_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_HighShelf_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_HighShelf_gain.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_Mid_SemiParam_gain_tascam": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      player_1_Mid_SemiParam_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_Mid_SemiParam_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_Mid_SemiParam_gain.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_Mid_SemiParam_frequency_tascam": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_HighShelf_FilterNode.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_Mid_SemiParam_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_Mid_SemiParam_frequency.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_LowShelf_gain_tascam": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      player_1_LowShelf_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_LowShelf_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_LowShelf_gain.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    //EQ3    
-    case "player_1_EQ3_low_frequency": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter_eq3.lowFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_EQ3_low_frequency_fader_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_EQ3_low_frequency_fader.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_EQ3_low_fader_gain": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter_eq3.low.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_EQ3_low_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_EQ3_low_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_EQ3_mid_fader_gain": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter_eq3.mid.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_EQ3_mid_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_EQ3_mid_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_EQ3_mid_fader_gain": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter_eq3.high.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_EQ3_hi_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_EQ3_hi_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_EQ3_high_frequency": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter_eq3.highFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_EQ3_high_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_EQ3_high_frequency.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_EQ3_Q": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_filter_eq3.highFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_EQ3_Q_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      channel_1_filter_eq3.Q.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    // Dynamics Compressor
-    case "player_1_dynamics_ratio_compressor": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_dynamics_compressorNode.ratio.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_dynamics_ratio_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_dynamics_ratio.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_dynamics_threshold_compressor": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_dynamics_compressorNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_dynamics_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_dynamics_threshold.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_dynamics_release_compressor": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_dynamics_compressorNode.release.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_dynamics_release_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_dynamics_release.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_dynamics_attack_compressor": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_dynamics_compressorNode.attack.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_dynamics_attack_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_dynamics_attack.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_dynamics_knee_compressor": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_dynamics_compressorNode.knee.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_dynamics_knee_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_dynamics_knee.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    //Gate
-    case "player_1_gate_threshold": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_dynamics_gateNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_gate_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_gate_threshold.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_gate_smoothing": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_dynamics_gateNode.smoothing.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_gate_smoothing_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_gate_smoothing.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    // Limiter
-    case "player_1_limiter_threshold": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_dynamics_limiterNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_limiter_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_limiter_threshold.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_1_limiter_smoothing": {
-      alert("value:   " + value + "\n" +
-        "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
-        "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
-      );
-      channel_1_dynamics_limiterNode.smoothing.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_limiter_smoothing_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-      player_1_limiter_smoothing.value = `${player_1_volume_rampTo_gain.value}`;
-      break;
-    }
-    //HAY QUE RESOLVER EL ENVIOS LOS 4 EFECTOS
-    case "player_1_fxSend_1_rampTo_volume": {
-      channel_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_1_volume.value = player_1_volume_rampTo_gain;
-      player_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
-      break;
-    }
-    //PLAYER 2 
-    case "player_2_volume": {
-      player_2_volNode.volume.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_volume.value = player_2_volume_rampTo_gain;
-      player_2_volume_value.innerHTML = player_2_volume_rampTo_gain.value;
-      break;
-    }
-    case "player_2_pan": {
-      player_2_panNode.pan.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_pan.value = player_2_volume_rampTo_gain.value;
-      player_2_pan_value.innerHTML = player_2_pan.value;
-      break;
-    }
-    case "player_2_filter_frequency_shelf": {
-      player_2_filter.frequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_filter_frequency_value_shelf.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_frequency_shelf.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_filter_gain_shelf": {
-      player_2_filter.gain.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_filter_gain_value_shelf.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_gain_shelf.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_filter_detune_shelf": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter.detune.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_filter_detune_value_shelf.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_detune_shelf.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_filter_frequency_allpass": {
-      console.log("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter.frequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_filter_frequency_value_allpass.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_frequency_allpass.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_filter_Q_allpass": {
-      console.log("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter.Q.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_filter_Q_value_allpass.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_Q_allpass.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_filter_detune_allpass": {
-      console.log("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
+  alert("value:   " + value + "\n" +
+    "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+    "\n" + "player_1_volume_rampTo_gain_time:   " + player_1_volume_rampTo_time.value
+  );
 
-      player_2_filter.detune.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_filter_detune_value_allpass.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_detune_allpass.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_filter_gain_shelf": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter.gain.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_filter_gain_shelf.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_gain_value_shelf.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_filter_frequency_peaking": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter.frequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_filter_frequency_value_peaking.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_frequency_peaking.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_filter_Q_peaking": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter.Q.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_filter_Q_value_peaking.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_Q_peaking.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_filter_gain_peaking": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter.detune.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_filter_detune_value_peaking.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_detune_peaking.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    //TASCAM
-    case "player_2_HighShelf_gain_tascam": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_HighShelf_FilterNode.gain.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-      player_2_HighShelf_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_HighShelf_gain.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_Mid_SemiParam_gain_tascam": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_Mid_SemiParam_FilterNode.gain.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_Mid_SemiParam_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_Mid_SemiParam_gain.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_Mid_SemiParam_frequency_tascam": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_HighShelf_FilterNode.frequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_Mid_SemiParam_frequency_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_Mid_SemiParam_frequency.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_LowShelf_gain_tascam": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_LowShelf_FilterNode.gain.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_LowShelf_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_LowShelf_gain.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    //EQ3    
-    case "player_2_EQ3_low_frequency": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter_eq3.lowFrequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_EQ3_low_frequency_fader_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_EQ3_low_frequency_fader.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_EQ3_low_fader_gain": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter_eq3.low.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_EQ3_low_fader_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_EQ3_low_fader_gain.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_EQ3_mid_fader_gain": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter_eq3.mid.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_EQ3_mid_fader_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_EQ3_mid_fader_gain.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_EQ3_mid_fader_gain": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter_eq3.high.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_EQ3_hi_fader_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_EQ3_hi_fader_gain.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_EQ3_high_frequency": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter_eq3.highFrequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_EQ3_high_frequency_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_EQ3_high_frequency.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_EQ3_Q": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_filter_eq3.highFrequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_EQ3_Q_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_filter_eq3.Q.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    // Dynamics Compressor
-    case "player_2_dynamics_ratio_compressor": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_dynamics_compressorNode.ratio.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_dynamics_ratio_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_dynamics_ratio.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_dynamics_threshold_compressor": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_dynamics_compressorNode.threshold.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_dynamics_threshold_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_dynamics_threshold.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_dynamics_release_compressor": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_dynamics_compressorNode.release.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_dynamics_release_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_dynamics_release.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_dynamics_attack_compressor": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_dynamics_compressorNode.attack.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_dynamics_attack_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_dynamics_attack.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_dynamics_knee_compressor": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_dynamics_compressorNode.knee.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_dynamics_knee_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_dynamics_knee.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    //Gate
-    case "player_2_gate_threshold": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_dynamics_gateNode.threshold.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_gate_threshold_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_gate_threshold.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_gate_smoothing": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_dynamics_gateNode.smoothing.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_gate_smoothing_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_gate_smoothing.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    // Limiter
-    case "player_2_limiter_threshold": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_dynamics_limiterNode.threshold.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_limiter_threshold_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_limiter_threshold.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    case "player_2_limiter_smoothing": {
-      alert("value:   " + value + "\n" +
-        "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
-        "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
-      );
-      player_2_dynamics_limiterNode.smoothing.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_limiter_smoothing_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
-      player_2_limiter_smoothing.value = `${player_2_volume_rampTo_gain.value}`;
-      break;
-    }
-    //HAY QUE RESOLVER EL ENVIOS LOS 4 EFECTOS
-    case "player_2_fxSend_1_rampTo_volume": {
-      player_2_volNode.volume.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-      player_2_volume.value = player_2_volume_rampTo_gain;
-      player_2_volume_value.innerHTML = player_2_volume_rampTo_gain.value;
-      break;
-    }
-  }//CLOSES switch
+  if (player_1_volume_rampTo_gain.value != "" && player_1_volume_rampTo_time.value != "") {
+    switch (value) {
+      case "player_1_volume": {
+        channel_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        player_1_volume.value = player_1_volume_rampTo_gain;
+        player_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
+        //  logIntoListaRampValue(atTime, element, newValue,rampTime);
+        break
+      }
+      case "channel_1_volume": {
+        channel_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_volume.value = player_1_volume_rampTo_gain;
+        channel_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
+        //  logIntoListaRampValue(atTime, element, newValue,rampTime);
+        break
+      }
+      case "channel_1_pan": {
+        channel_1_panNode.pan.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_pan.value = player_1_volume_rampTo_gain.value;
+        channel_1_pan_value.innerHTML = channel_1_pan.value;
+        break;
+      }
+      case "channel_1_filter_frequency_shelf": {
+        channel_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_filter_frequency_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_filter_frequency_shelf.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_filter_gain_shelf": {
+        channel_1_filter.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_filter_gain_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_filter_gain_shelf.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_filter_detune_shelf": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        channel_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_filter_detune_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_filter_detune_shelf.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_chorus_freq": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_chorus_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_chorus_freq_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_chorus_freq.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_chorus_feedback": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_chorus_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_chorus_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_chorus_feedback.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_feedback": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_feedback_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_feedback.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_feedback_delayTime": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_feedback_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_feedback_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_feedback_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_frequencyShifter": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_FrequencyShifter_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_frequencyShifter_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_frequencyShifter.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_phaser_frequency": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_phaser_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_phaser_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_phaser_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_phaser_octaves": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_phaser_Node.octaves.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_phaser_octaves_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_phaser_octaves.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_phaser_Q": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_phaser_Node.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_phaser_Q_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_phaser_Q.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_pingpong_feedback": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_pingpong_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_pingpong_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_pingpong_feedback.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_pingpong_delayTime": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_pingpong_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_pingpong_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_pingpong_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_pitchshift_feedback": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_pitchshift_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_pingpong_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_pingpong_feedback.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_pitchshift_delayTime": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_pitchshift_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_pitchshift_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_pitchshift_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_reverb_preDelay": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_reverb_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_reverb_preDelay_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_reverb_preDelay.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_reverb_decay": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_reverb_Node.decay.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_reverb_decay_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_reverb_decay.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_tremolo_frequency": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_tremolo_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_tremolo_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_tremolo_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_tremolo_depth": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_tremolo_Node.depth.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_tremolo_depth_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_tremolo_depth.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_tremolo_spread": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_tremolo_Node.spread.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_tremolo_spread_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_tremolo_spread.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_vibrato_frequency": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_vibrato_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_vibrato_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_vibrato_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_vibrato_depth": {
+        alert("value:   " + value + "\n" +
+          "player_1_volume_rampTo_gain:   " + player_1_volume_rampTo_gain.value +
+          "\n" + "player_1_volume_rampTo_time:   " + player_1_volume_rampTo_time.value
+        );
+        fx_1_vibrato_Node.depth.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        fx_1_vibrato_depth_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        fx_1_vibrato_depth.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      //Player 1
+      case "channel_1_filter_frequency_allpass": {
+        channel_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_filter_frequency_value_allpass.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
+        channel_1_filter_frequency_allpass.value = `${channel_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_filter_Q_allpass": {
+        channel_1_filter.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_filter_Q_value_allpass.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
+        channel_1_filter_Q_allpass.value = `${channel_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_filter_detune_allpass": {
+        channel_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_filter_detune_value_allpass.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
+        channel_1_filter_detune_allpass.value = `${channel_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_filter_gain_shelf": {
+        channel_1_filter.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_filter_gain_shelf.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
+        channel_1_filter_gain_value_shelf.value = `${channel_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_filter_frequency_peaking": {
+        channel_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_filter_frequency_value_peaking.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
+        channel_1_filter_frequency_peaking.value = `${channel_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_filter_Q_peaking": {
+        channel_1_filter.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_filter_Q_value_peaking.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
+        channel_1_filter_Q_peaking.value = `${channel_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_filter_gain_peaking": {
+        channel_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_filter_detune_value_peaking.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
+        channel_1_filter_detune_peaking.value = `${channel_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      //TASCAM
+      case "channel_1_HighShelf_gain_tascam": {
+        channel_1_tascam_HighShelf_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_tascam_HighShelf_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_tascam_HighShelf_gain.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_Mid_SemiParam_gain_tascam": {
+        channel_1_tascam_Mid_SemiParam_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_tascam_Mid_SemiParam_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_tascam_Mid_SemiParam_gain.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_Mid_SemiParam_frequency_tascam": {
+        channel_1_tascam_HighShelf_FilterNode.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_tascam_Mid_SemiParam_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_tascam_Mid_SemiParam_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_LowShelf_gain_tascam": {
+        channel_1_tascam_LowShelf_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_tascam_LowShelf_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_tascam_LowShelf_gain.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      //EQ3    
+      case "channel_1_EQ3_low_frequency": {
+        channel_1_filter_eq3.lowFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_EQ3_low_frequency_fader_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_EQ3_low_frequency_fader.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_EQ3_low_fader_gain": {
+        channel_1_filter_eq3.low.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_EQ3_low_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_EQ3_low_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_EQ3_mid_fader_gain": {
+        channel_1_filter_eq3.mid.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_EQ3_mid_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_EQ3_mid_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_EQ3_mid_fader_gain": {
+        channel_1_filter_eq3.high.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_EQ3_hi_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_EQ3_hi_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_EQ3_high_frequency": {
+        channel_1_filter_eq3.highFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_EQ3_high_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_EQ3_high_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_EQ3_Q": {
+        channel_1_filter_eq3.highFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_EQ3_Q_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_filter_eq3.Q.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      // Dynamics Compressor
+      case "channel_1_dynamics_ratio_compressor": {
+        channel_1_dynamics_compressorNode.ratio.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_dynamics_ratio_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_dynamics_ratio.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_dynamics_threshold_compressor": {
+        channel_1_dynamics_compressorNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_dynamics_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_dynamics_threshold.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_dynamics_release_compressor": {
+        channel_1_dynamics_compressorNode.release.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_dynamics_release_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_dynamics_release.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_dynamics_attack_compressor": {
+        channel_1_dynamics_compressorNode.attack.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_dynamics_attack_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_dynamics_attack.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_dynamics_knee_compressor": {
+        channel_1_dynamics_compressorNode.knee.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_dynamics_knee_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_dynamics_knee.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      //Gate
+      case "channel_1_gate_threshold": {
+        channel_1_dynamics_gateNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_gate_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_gate_threshold.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_gate_smoothing": {
+        channel_1_dynamics_gateNode.smoothing.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_gate_smoothing_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_gate_smoothing.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      // Limiter
+      case "channel_1_limiter_threshold": {
+        channel_1_dynamics_limiterNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_limiter_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_limiter_threshold.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_limiter_smoothing": {
+        channel_1_dynamics_limiterNode.smoothing.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_limiter_smoothing_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
+        channel_1_limiter_smoothing.value = `${player_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      //HAY QUE RESOLVER EL ENVIOS LOS 4 EFECTOS
+      case "channel_1_fxSend_1_rampTo_volume": {
+        channel_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        channel_1_volume.value = player_1_volume_rampTo_gain;
+        channel_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
+        break;
+      }
+      //PLAYER 2 
+      case "player_2_volume": {
+        player_2_volNode.volume.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_volume.value = player_2_volume_rampTo_gain;
+        player_2_volume_value.innerHTML = player_2_volume_rampTo_gain.value;
+        break;
+      }
+      case "player_2_pan": {
+        player_2_panNode.pan.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_pan.value = player_2_volume_rampTo_gain.value;
+        player_2_pan_value.innerHTML = player_2_pan.value;
+        break;
+      }
+      case "player_2_filter_frequency_shelf": {
+        player_2_filter.frequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_filter_frequency_value_shelf.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_frequency_shelf.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_filter_gain_shelf": {
+        player_2_filter.gain.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_filter_gain_value_shelf.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_gain_shelf.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_filter_detune_shelf": {
+        alert("value:   " + value + "\n" +
+          "player_2_volume_rampTo_gain:   " + player_2_volume_rampTo_gain.value +
+          "\n" + "player_2_volume_rampTo_time:   " + player_2_volume_rampTo_time.value
+        );
+        player_2_filter.detune.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_filter_detune_value_shelf.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_detune_shelf.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_filter_frequency_allpass": {
+        player_2_filter.frequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_filter_frequency_value_allpass.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_frequency_allpass.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_filter_Q_allpass": {
+        player_2_filter.Q.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_filter_Q_value_allpass.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_Q_allpass.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_filter_detune_allpass": {
+        player_2_filter.detune.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_filter_detune_value_allpass.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_detune_allpass.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_filter_gain_shelf": {
+        player_2_filter.gain.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_filter_gain_shelf.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_gain_value_shelf.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_filter_frequency_peaking": {
+        player_2_filter.frequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_filter_frequency_value_peaking.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_frequency_peaking.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_filter_Q_peaking": {
+        player_2_filter.Q.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_filter_Q_value_peaking.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_Q_peaking.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_filter_gain_peaking": {
+        player_2_filter.detune.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_filter_detune_value_peaking.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_detune_peaking.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      //TASCAM
+      case "player_2_HighShelf_gain_tascam": {
+        player_2_HighShelf_FilterNode.gain.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+        player_2_HighShelf_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_HighShelf_gain.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_Mid_SemiParam_gain_tascam": {
+        player_2_Mid_SemiParam_FilterNode.gain.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_Mid_SemiParam_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_Mid_SemiParam_gain.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_Mid_SemiParam_frequency_tascam": {
+        player_2_HighShelf_FilterNode.frequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_Mid_SemiParam_frequency_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_Mid_SemiParam_frequency.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_LowShelf_gain_tascam": {
+        player_2_LowShelf_FilterNode.gain.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_LowShelf_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_LowShelf_gain.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      //EQ3    
+      case "player_2_EQ3_low_frequency": {
+        player_2_filter_eq3.lowFrequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_EQ3_low_frequency_fader_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_EQ3_low_frequency_fader.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_EQ3_low_fader_gain": {
+        player_2_filter_eq3.low.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_EQ3_low_fader_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_EQ3_low_fader_gain.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_EQ3_mid_fader_gain": {
+        player_2_filter_eq3.mid.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_EQ3_mid_fader_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_EQ3_mid_fader_gain.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_EQ3_mid_fader_gain": {
+        player_2_filter_eq3.high.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_EQ3_hi_fader_gain_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_EQ3_hi_fader_gain.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_EQ3_high_frequency": {
+        player_2_filter_eq3.highFrequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_EQ3_high_frequency_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_EQ3_high_frequency.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_EQ3_Q": {
+        player_2_filter_eq3.highFrequency.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_EQ3_Q_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_filter_eq3.Q.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      // Dynamics Compressor
+      case "player_2_dynamics_ratio_compressor": {
+        player_2_dynamics_compressorNode.ratio.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_dynamics_ratio_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_dynamics_ratio.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_dynamics_threshold_compressor": {
+        player_2_dynamics_compressorNode.threshold.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_dynamics_threshold_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_dynamics_threshold.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_dynamics_release_compressor": {
+        player_2_dynamics_compressorNode.release.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_dynamics_release_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_dynamics_release.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_dynamics_attack_compressor": {
+        player_2_dynamics_compressorNode.attack.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_dynamics_attack_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_dynamics_attack.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_dynamics_knee_compressor": {
+        player_2_dynamics_compressorNode.knee.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_dynamics_knee_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_dynamics_knee.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      //Gate
+      case "player_2_gate_threshold": {
+        player_2_dynamics_gateNode.threshold.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_gate_threshold_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_gate_threshold.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_gate_smoothing": {
+        player_2_dynamics_gateNode.smoothing.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_gate_smoothing_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_gate_smoothing.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      // Limiter
+      case "player_2_limiter_threshold": {
+        player_2_dynamics_limiterNode.threshold.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_limiter_threshold_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_limiter_threshold.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "player_2_limiter_smoothing": {
+        player_2_dynamics_limiterNode.smoothing.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_limiter_smoothing_value.innerHTML = `${player_2_volume_rampTo_gain.value}`;
+        player_2_limiter_smoothing.value = `${player_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      //HAY QUE RESOLVER EL ENVIOS LOS 4 EFECTOS
+      case "player_2_fxSend_1_rampTo_volume": {
+        player_2_volNode.volume.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
+        player_2_volume.value = player_2_volume_rampTo_gain;
+        player_2_volume_value.innerHTML = player_2_volume_rampTo_gain.value;
+        break;
+      }
+    }//CLOSES switch
   }
-  else{console.log("ELSE player_1_volume_rampTo_gain.value!= && player_1_volume_rampTo_time.value!=")
+  else {
+    alert("ELSE player_1_volume_rampTo_gain.value!= && player_1_volume_rampTo_time.value!=")
   }
   mixEvent.logIntoListaRampValue(Tone.now(), value, `${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
 }
 
 async function load_Local(value) {
   const ctx = new window.AudioContext();
-  console.log("ASYNC load_Local");
   const [fileHandle] = await window.showOpenFilePicker({
     multiple: false,
     types: [
@@ -8410,9 +7820,9 @@ async function load_Local(value) {
       },
     ],
     excludeAcceptAllOption: true,
+    startIn: 'downloads'
   });
 
-  console.log("Local Loading");
   const file = await fileHandle.getFile();
   const arrayBuffer = await file.arrayBuffer();
   const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
@@ -8435,7 +7845,50 @@ async function load_Local(value) {
       }
     case "player_1":
       {
-        player_1_Node.buffer.set(decodedBuffer);
+        // player_1_Node.buffer.set(decodedBuffer);
+        let tamanio = decodedBuffer.length;
+        let tamanio2 = decodedBuffer.length;
+        let randomPosition = 0;
+        /*       const tempFloat32Array = new Float32Array(decodedBuffer.length);
+               */
+        /*
+                for (i = 0; i < decodedBuffer.length - 1; i++) {
+                  for (let channel = 0; channel < 2; channel++) {
+                    tempFloat32Array[i] = decodedBuffer.getChannelData(channel)[i];
+                    tamanio--;
+                    // console.log("tamanio:  " + tamanio);
+                  }
+                }
+                /**/
+
+        const Float32 = new Float32Array(decodedBuffer.length);
+        let k = 0;
+        do {
+          randomPosition = getRndInteger(0, tamanio2);
+          if (randomPosition + 48000 < decodedBuffer.length) {
+            for (i = 0; i < 48000 - 1; i++) {
+              for (let channel = 0; channel < 2; channel++) {
+                Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
+                k++; tamanio2--;
+              }
+            }
+          }
+        }
+        while (k < decodedBuffer.length);
+        /**/
+        // console.log("Float32:  " + Float32);
+        const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+        //   const decodedBuffer_Scrambled = Tone.Buffer.fromArray(tempFloat32Array);
+
+        //   const decodedBuffer_Scrambled = Tone.Buffer.fromArray(newFloat32Array2);
+
+        //console.log("tempFloat32Array:  " + tempFloat32Array);
+        // console.log("randomPosition: " + randomPosition);
+        // console.log("i: " + i + "\n" + "channel: "  + channel);
+        //  player_1_Node.buffer.set(decodedBuffer);
+        //player_1_Node.buffer.set(decodedBuffer_Scrambled);
+        player_1_Node.buffer.set(decodedBuffer_twosecs);
+
         player_1_load_text.innerHTML = fileHandle.name;
         channel_1_songName.innerHTML = fileHandle.name;
         channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
@@ -8473,7 +7926,6 @@ async function load_Local(value) {
 }
 
 function play(value) {
-  console.log("PLAY FOO VALUE: " + value);
   switch (value) {
     case "amOsc_1": {
       amOsc_1.start();
@@ -8518,12 +7970,8 @@ function play(value) {
         }
         else {
           var duration = grainPlayer_1_Node.buffer.duration;
-          console.log("else  grainPlayer_1_Node.buffer.duration: "
-            + grainPlayer_1_Node.buffer.duration);
           grainPlayer_1_duration_value.innerHTML = Math.round(`${duration}`);
-          console.log("grainPlayer_1_Node.state: " + grainPlayer_1_Node.state);
           grainPlayer_1_Node.start();
-          console.log("grainPlayer_1_Node.state: " + grainPlayer_1_Node.state);
           grainPlayer_1_playButton.style.backgroundColor = "green";
           mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1", "play");
         }
@@ -8572,12 +8020,8 @@ function play(value) {
         }
         else {
           var duration = grainPlayer_2_Node.buffer.duration;
-          console.log("else  grainPlayer_2_Node.buffer.duration: "
-            + grainPlayer_2_Node.buffer.duration);
           grainPlayer_2_duration_value.innerHTML = Math.round(`${duration}`);
-          console.log("grainPlayer_2_Node.state: " + grainPlayer_2_Node.state);
           grainPlayer_2_Node.start();
-          console.log("grainPlayer_2_Node.state: " + grainPlayer_2_Node.state);
           grainPlayer_2_playButton.style.backgroundColor = "green";
           mixEvent.logIntoListaAction(Tone.now(), "Grain_2", "play");
         }
@@ -8590,8 +8034,6 @@ function play(value) {
         }
         else {
           var duration = player_1_Node.buffer.duration;
-          console.log("else  player_1_Node.buffer.duration:     "
-            + player_1_Node.buffer.duration);
           channel_1_duration_text.innerHTML = Math.round(`${duration}`);
           player_1_Node.start();
           player_1_playButton.style.backgroundColor = "green";
@@ -8607,8 +8049,6 @@ function play(value) {
         }
         else {
           var duration = player_2_Node.buffer.duration;
-          console.log("else  player_2.buffer.duration:     " +
-            player_2_Node.buffer.duration);
           player_2_duration_value.innerHTML = Math.round(`${duration}`);
           player_2_Node.start();
           mixEvent.logIntoListaAction(Tone.now(), "player_2", "play");
@@ -8617,12 +8057,11 @@ function play(value) {
       }
     case "3":
       {
-        console.log("function play(value) CASE 3 ")
         if (!player_3.loaded) {
           player_3_duration_value.innerHTML = "loading P3 (PLAY FOO)";
         }
         else {
-          var duration = player_3.buffer.duration; console.log("else  player_3.buffer.duration:     " + player_3.buffer.duration);
+          var duration = player_3.buffer.duration;
           player_3_duration_value.innerHTML = Math.round(`${duration}`);
           player_3.start();
         }
@@ -8630,12 +8069,11 @@ function play(value) {
       }
     case "4":
       {
-        console.log("function play(value) CASE 4 ")
         if (!player_4.loaded) {
           player_4_duration_value.innerHTML = "loading P4 (PLAY FOO)";
         }
         else {
-          var duration = player_4.buffer.duration; console.log("else  player_4.buffer.duration:     " + player_4.buffer.duration);
+          var duration = player_4.buffer.duration;
           player_4_duration_value.innerHTML = Math.round(`${duration}`);
           player_4.start();
         }
@@ -8784,19 +8222,17 @@ function stop(value) {
         break;
       }
     default:
-      { console.log("DEFAULT function stop(value)"); break; }
+      { alert("DEFAULT function stop(value)"); break; }
   }
 }
 
 function mute(value) {
-  //console.log("mute(value)" + value);
   switch (value) {
     case "oscillator_1": {
       oscillator_1.mute();
       break;
     }
     case "pwmOsc_1": {
-      //alert("pwmOsc_1");
       if (pwmOsc_1.mute == true) {
         pwmOsc_1_muteButton.style.backgroundColor = "green";
         pwmOsc_1.mute();
@@ -8811,7 +8247,6 @@ function mute(value) {
         channel_1_volNode.mute = !channel_1_volNode.mute;
         player_1_muteButton.style.backgroundColor = "green";
         player_1_volume.value = -100;
-        console.log("mute: " + channel_1_volNode.mute);
         if (channel_1_volNode.mute == true) {
           player_1_muteButton.style.backgroundColor = "green";
         }
@@ -8844,12 +8279,11 @@ function mute(value) {
         break;
       }
     default:
-      { console.log("DEFAULT function stop(value)"); break; } 9
+      { alert("DEFAULT function stop(value)"); break; } 9
   }
 }
 
 function solo(value) {
-  console.log("solo(value): " + value);
   switch (value) {
     case "1":
       { channel_1_volNode.solo = !channel_1_volNode.solo; break; }
@@ -8864,13 +8298,11 @@ function solo(value) {
     case "4":
       { player_4_volNode.solo = !player_4_volNode.solo; break; }
     default:
-      { console.log("DEFAULT function stop(value)"); break; }
+      { alert("DEFAULT function stop(value)"); break; }
   }
 }
 
 function busca1() {
-  //player_1_duration_value.innerHTML = "Unknown";
-  //player_1_songName.innerHTML = `busca1foo No Song Loaded`;
   let songNumber = "", playerNumber = "";
   let cadena = validateForm();
   var doesItInclude = cadena.includes("-", 0);
@@ -8921,7 +8353,7 @@ function busca1() {
         break;
       }
     default:
-      { console.log("DEFAULT"); }
+      { alert("DEFAULT busca1 "); }
   }
 }// CLOSES busca1
 
@@ -8942,12 +8374,10 @@ function validateForm() {
     else { mensaje = "song_trim.length >= 1 && song_trim.value != undefined" }
   }
   else { mensaje = "SONG TRIM no es !=" }
-
   if (mensaje == "todoOk") {
     var cadena = (song_trim + "-" + player_trim).toString();
   }
   else { alert("else mensaje == todoOk: " + mensaje); }
-
   return cadena;
 }
 
@@ -8964,12 +8394,10 @@ function recieves_Number_Returns_url(song) {
 
 //************************************************************************* */
 //********************************************************************* */
-//*********    EQ PLAYER 1     ************************************************************ */
+//*********    EQ CHANNEL X     ************************************************************ */
 //********************************************************************* */
 //********************************************************************* */
 function channel_x_filter_eq_selection_foo(name, value) {
-  console.log("value: " + "\n" + value + "\n" + "channel_1_filter_eq_selection: " +
-    "\n" + channel_1_filter_eq_selection + "\n");
   if (channel_1_filter_eq_selection != value) {
     switch (name) {
       case "channel_1": {
@@ -9001,15 +8429,15 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (channel_1_filter_eq_selection == "tascam") {
-              channel_1_panNode.disconnect(channel_1_LowShelf_FilterNode);
+              channel_1_panNode.disconnect(channel_1_tascam_in_Node);
               channel_1_panNode.connect(channel_1_filter);
               if (channel_1_compressor_On_Off_Button_State == "off") {
-                channel_1_HighShelf_FilterNode.disconnect(channel_1_dynamics_compressorNode_Bypass);
+                channel_1_tascam_out_Node.disconnect(channel_1_dynamics_compressorNode_Bypass);
                 channel_1_filter.connect(channel_1_dynamics_compressorNode_Bypass);
 
               }
               if (channel_1_compressor_On_Off_Button_State == "on") {
-                channel_1_HighShelf_FilterNode.disconnect(channel_1_dynamics_compressorNode);
+                channel_1_tascam_out_Node.disconnect(channel_1_dynamics_compressorNode);
                 channel_1_filter.connect(channel_1_dynamics_compressorNode);
               }
             }
@@ -9034,7 +8462,6 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
               default: { break; }
             }
-            console.log("player_1_filter_eq_selection_bypass_on  ON");
             break;
           }
           case "bypass": {
@@ -9064,18 +8491,17 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (channel_1_filter_eq_selection == "tascam") {
-              channel_1_panNode.disconnect(channel_1_LowShelf_FilterNode);
+              channel_1_panNode.disconnect(channel_1_tascam_in_Node);
               channel_1_panNode.connect(channel_1_filter_Bypass);
               if (channel_1_compressor_On_Off_Button_State == "off") {
-                channel_1_HighShelf_FilterNode.disconnect(channel_1_dynamics_compressorNode_Bypass);
+                channel_1_tascam_out_Node.disconnect(channel_1_dynamics_compressorNode_Bypass);
                 channel_1_filter_Bypass.connect(channel_1_dynamics_compressorNode_Bypass);
               }
               if (channel_1_compressor_On_Off_Button_State == "on") {
-                channel_1_HighShelf_FilterNode.disconnect(channel_1_dynamics_compressorNode);
+                channel_1_tascam_out_Node.disconnect(channel_1_dynamics_compressorNode);
                 channel_1_filter_Bypass.connect(channel_1_dynamics_compressorNode);
               }
             }
-            console.log("channel_x_filter_eq_selection_foo  BYPASS");
             hide_all_EQ_divs("1");
             channel_1_bypass_controls_div.style.display = "block";
             switchState_filter_eq_selection("channel_1_filter_eq_selection", "bypass");
@@ -9108,14 +8534,14 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (channel_1_filter_eq_selection == "tascam") {
-              channel_1_panNode.disconnect(channel_1_LowShelf_FilterNode);
+              channel_1_panNode.disconnect(channel_1_tascam_in_Node);
               channel_1_panNode.connect(channel_1_filter_eq3);
               if (channel_1_compressor_On_Off_Button_State == "off") {
-                channel_1_HighShelf_FilterNode.disconnect(channel_1_dynamics_compressorNode_Bypass);
+                channel_1_tascam_out_Node.disconnect(channel_1_dynamics_compressorNode_Bypass);
                 channel_1_filter_eq3.connect(channel_1_dynamics_compressorNode_Bypass);
               }
               if (channel_1_compressor_On_Off_Button_State == "on") {
-                channel_1_HighShelf_FilterNode.disconnect(channel_1_dynamics_compressorNode);
+                channel_1_tascam_out_Node.disconnect(channel_1_dynamics_compressorNode);
                 channel_1_filter_eq3.connect(channel_1_dynamics_compressorNode);
               }
             }
@@ -9128,38 +8554,38 @@ function channel_x_filter_eq_selection_foo(name, value) {
             mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_eq_selection", value);
             if (channel_1_filter_eq_selection == "on") {
               channel_1_panNode.disconnect(channel_1_filter);
-              channel_1_panNode.connect(channel_1_LowShelf_FilterNode);
+              channel_1_panNode.connect(channel_1_tascam_in_Node);
               if (channel_1_compressor_On_Off_Button_State == "off") {
                 channel_1_filter.disconnect(channel_1_dynamics_compressorNode_Bypass);
-                channel_1_HighShelf_FilterNode.connect(channel_1_dynamics_compressorNode_Bypass);
+                channel_1_tascam_out_Node.connect(channel_1_dynamics_compressorNode_Bypass);
               }
               if (channel_1_compressor_On_Off_Button_State == "on") {
                 channel_1_filter.disconnect(channel_1_dynamics_compressorNode);
-                channel_1_HighShelf_FilterNode.connect(channel_1_dynamics_compressorNode);
+                channel_1_tascam_out_Node.connect(channel_1_dynamics_compressorNode);
               }
             }
             else if (channel_1_filter_eq_selection == "bypass") {
               channel_1_panNode.disconnect(channel_1_filter_Bypass);
-              channel_1_panNode.connect(channel_1_LowShelf_FilterNode);
+              channel_1_panNode.connect(channel_1_tascam_in_Node);
               if (channel_1_compressor_On_Off_Button_State == "off") {
                 channel_1_filter_Bypass.disconnect(channel_1_dynamics_compressorNode_Bypass);
-                channel_1_HighShelf_FilterNode.connect(channel_1_dynamics_compressorNode_Bypass);
+                channel_1_tascam_out_Node.connect(channel_1_dynamics_compressorNode_Bypass);
               }
               if (channel_1_compressor_On_Off_Button_State == "on") {
                 channel_1_filter_Bypass.disconnect(channel_1_dynamics_compressorNode);
-                channel_1_HighShelf_FilterNode.connect(channel_1_dynamics_compressorNode);
+                channel_1_tascam_out_Node.connect(channel_1_dynamics_compressorNode);
               }
             }
             else if (channel_1_filter_eq_selection == "eq3") {
               channel_1_panNode.disconnect(channel_1_filter_eq3);
-              channel_1_panNode.connect(channel_1_LowShelf_FilterNode);
+              channel_1_panNode.connect(channel_1_tascam_in_Node);
               if (channel_1_compressor_On_Off_Button_State == "off") {
                 channel_1_filter_eq3.disconnect(channel_1_dynamics_compressorNode_Bypass);
-                channel_1_HighShelf_FilterNode.connect(channel_1_dynamics_compressorNode_Bypass);
+                channel_1_tascam_out_Node.connect(channel_1_dynamics_compressorNode_Bypass);
               }
               if (channel_1_compressor_On_Off_Button_State == "on") {
                 channel_1_filter_eq3.disconnect(channel_1_dynamics_compressorNode);
-                channel_1_HighShelf_FilterNode.connect(channel_1_dynamics_compressorNode);
+                channel_1_tascam_out_Node.connect(channel_1_dynamics_compressorNode);
               }
             }
             hide_all_EQ_divs("1");
@@ -9188,219 +8614,16 @@ function channel_x_filter_eq_selection_foo(name, value) {
       }
     }
   }
-  else { console.log("channel_1_filter_eq_selection != value ELSE"); }
-}
-
-function player_2_filter_eq_selection_bypass_on(value) {
-  console.log("value: " + "\n" + value + "\n" + "player_2_filter_eq_selection: " + "\n" + player_2_filter_eq_selection + "\n");
-  if (player_2_filter_eq_selection != value) {
-    switch (value) {
-      case "on": {
-        if (player_2_filter_eq_selection == "bypass") {
-          player_2_panNode.disconnect(player_2_filter_Bypass);
-          player_2_panNode.connect(player_2_filter);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_filter_Bypass.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_filter.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_filter_Bypass.disconnect(player_2_dynamics_compressorNode);
-            player_2_filter.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        else if (player_2_filter_eq_selection == "eq3") {
-          player_2_panNode.disconnect(player_2_filter_eq3);
-          player_2_panNode.connect(player_2_filter);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_filter_eq3.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_filter.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_filter_eq3.disconnect(player_2_dynamics_compressorNode);
-            player_2_filter.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        else if (player_2_filter_eq_selection == "tascam") {
-          player_2_panNode.disconnect(player_2_LowShelf_FilterNode);
-          player_2_panNode.connect(player_2_filter);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_HighShelf_FilterNode.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_filter.connect(player_2_dynamics_compressorNode_Bypass);
-
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_HighShelf_FilterNode.disconnect(player_2_dynamics_compressorNode);
-            player_2_filter.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        switchState_filter_eq_selection("player_2_filter_eq_selection", "on");
-        hide_all_EQ_divs("2");
-        switch (player_2_filter_eq_type) {
-          case "empty": {
-            player_2_empty_controls_div.style.display = "block";
-            break;
-          }
-          case "allpass": {
-            player_2_allpass_controls_div.style.display = "block";
-            break;
-          }
-          case "shelf": {
-            player_2_shelf_controls_div.style.display = "block";
-            break;
-          }
-          case "peaking": {
-            player_2_peaking_controls_div.style.display = "block";
-            break;
-          }
-          default: { break; }
-        }
-        console.log("player_2_filter_eq_selection_bypass_on  ON");
-        break;
-      }
-      case "bypass": {
-        if (player_2_filter_eq_selection == "on") {
-          player_2_panNode.disconnect(player_2_filter);
-          player_2_panNode.connect(player_2_filter_Bypass);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_filter.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_filter_Bypass.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_filter.disconnect(player_2_dynamics_compressorNode);
-            player_2_filter_Bypass.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        else if (player_2_filter_eq_selection == "eq3") {
-          player_2_panNode.disconnect(player_2_filter_eq3);
-          player_2_panNode.connect(player_2_filter_Bypass);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_filter_eq3.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_filter_Bypass.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_filter_eq3.disconnect(player_2_dynamics_compressorNode);
-            player_2_filter_Bypass.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        else if (player_2_filter_eq_selection == "tascam") {
-          player_2_panNode.disconnect(player_2_LowShelf_FilterNode);
-          player_2_panNode.connect(player_2_filter_Bypass);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_HighShelf_FilterNode.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_filter_Bypass.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_HighShelf_FilterNode.disconnect(player_2_dynamics_compressorNode);
-            player_2_filter_Bypass.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        console.log("player_2_filter_eq_selection_bypass_on  BYPASS");
-        hide_all_EQ_divs("2");
-        player_2_bypass_controls_div.style.display = "block";
-        switchState_filter_eq_selection("player_2_filter_eq_selection", "bypass");
-        break;
-      }
-      case "eq3": {
-        if (player_2_filter_eq_selection == "on") {
-          player_2_panNode.disconnect(player_2_filter);
-          player_2_panNode.connect(player_2_filter_eq3);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_filter.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_filter_eq3.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_filter.disconnect(player_2_dynamics_compressorNode);
-            player_2_filter_eq3.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        else if (player_2_filter_eq_selection == "bypass") {
-          player_2_panNode.disconnect(player_2_filter_Bypass);
-          player_2_panNode.connect(player_2_filter_eq3);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_filter_Bypass.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_filter_eq3.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_filter_Bypass.disconnect(player_2_dynamics_compressorNode);
-            player_2_filter_eq3.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        else if (player_2_filter_eq_selection == "tascam") {
-          player_2_panNode.disconnect(player_2_LowShelf_FilterNode);
-          player_2_panNode.connect(player_2_filter_eq3);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_HighShelf_FilterNode.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_filter_eq3.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_HighShelf_FilterNode.disconnect(player_2_dynamics_compressorNode);
-            player_2_filter_eq3.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        hide_all_EQ_divs("2");
-        player_2_eq3_controls_div.style.display = "block";
-        switchState_filter_eq_selection("player_2_filter_eq_selection", "eq3");
-        break;
-      }
-      case "tascam": {
-        if (player_2_filter_eq_selection == "on") {
-          player_2_panNode.disconnect(player_2_filter);
-          player_2_panNode.connect(player_2_LowShelf_FilterNode);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_filter.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_HighShelf_FilterNode.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_filter.disconnect(player_2_dynamics_compressorNode);
-            player_2_HighShelf_FilterNode.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        else if (player_2_filter_eq_selection == "bypass") {
-          player_2_panNode.disconnect(player_2_filter_Bypass);
-          player_2_panNode.connect(player_2_LowShelf_FilterNode);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_filter_Bypass.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_HighShelf_FilterNode.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_filter_Bypass.disconnect(player_2_dynamics_compressorNode);
-            player_2_HighShelf_FilterNode.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        else if (player_2_filter_eq_selection == "eq3") {
-          player_2_panNode.disconnect(player_2_filter_eq3);
-          player_2_panNode.connect(player_2_LowShelf_FilterNode);
-          if (player_2_compressor_On_Off_Button_State == "off") {
-            player_2_filter_eq3.disconnect(player_2_dynamics_compressorNode_Bypass);
-            player_2_HighShelf_FilterNode.connect(player_2_dynamics_compressorNode_Bypass);
-          }
-          if (player_2_compressor_On_Off_Button_State == "on") {
-            player_2_filter_eq3.disconnect(player_2_dynamics_compressorNode);
-            player_2_HighShelf_FilterNode.connect(player_2_dynamics_compressorNode);
-          }
-        }
-        hide_all_EQ_divs("2");
-        player_2_tascam_424_controls_div.style.display = "block";
-
-        switchState_filter_eq_selection("channel_1_filter_eq_selection", "tascam");
-        break;
-      }
-      default: { console.log("default value: " + value); break; }
-    }
-  }
-  else { console.log("channel_1_filter_eq_selection != value ELSE"); }
+  else { alert("channel_1_filter_eq_selection != value ELSE"); }
 }
 
 //************************************************************************* */
 //********************************************************************* */
-//PLAYER 1 FX SEND  ON OFF BUTTONS
+//CHANNEL 1 FX SEND  ON OFF BUTTONS
 //********************************************************************* */
 //************************************************************
 
 function player_x_fxSend_x_state_foo(name, value) {
-  console.log("name: " + name);
-  console.log("actual: " + channel_1_fxSend_1_state);
-  console.log("nuevo:" + value);
   switch (name) {
     case "channel_1_fxSend_1":
       {
@@ -9465,7 +8688,7 @@ function player_x_fxSend_x_state_foo(name, value) {
           mixEvent.logIntoListaAction(Tone.now(), "channel_1_fxSend_1_state", value);
           break;
         }
-        else { console.log("is_player_1_fxSend_1_On == FALSE"); }
+        else { alert("is_player_1_fxSend_1_On == FALSE"); }
       }
     case "channel_1_fxSend_2":
       {
@@ -9530,7 +8753,7 @@ function player_x_fxSend_x_state_foo(name, value) {
           mixEvent.logIntoListaAction(Tone.now(), "channel_1_fxSend_2_state", value);
           break;
         }
-        else { console.log("is_player_1_fxSend_1_On == FALSE"); }
+        else { alert("is_player_1_fxSend_1_On == FALSE"); }
       }
     case "channel_1_fxSend_3":
       {
@@ -9595,7 +8818,7 @@ function player_x_fxSend_x_state_foo(name, value) {
           mixEvent.logIntoListaAction(Tone.now(), "channel_1_fxSend_3_state", value);
           break;
         }
-        else { console.log("is_player_1_fxSend_1_On == FALSE"); }
+        else { alert("is_player_1_fxSend_1_On == FALSE"); }
       }
     case "channel_1_fxSend_4":
       {
@@ -9660,280 +8883,19 @@ function player_x_fxSend_x_state_foo(name, value) {
           mixEvent.logIntoListaAction(Tone.now(), "channel_1_fxSend_4_state", value);
           break;
         }
-        else { console.log("is_player_1_fxSend_1_On == FALSE"); }
+        else { alert("is_player_1_fxSend_1_On == FALSE"); }
       }
     case "fx1_fxSend_1":
       {
         alert("fx1_fxSend_1");
         break;
       }
-    /*
-        case "player_1_fxSend_1":
-          {
-            if (is_player_1_fxSend_1_On == true) {
-              if (channel_1_fxSend_1_state != value) {
-                switch (channel_1_fxSend_1_state) {
-                  case "PreEQ": {
-                    if (value == "PostEQ") {
-                      channel_1_fxSend_1_postEq_volNode.volume.value = channel_1_fxSend_1_preEq_volNode.volume.value;
-                      channel_1_fxSend_1_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_1_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      channel_1_fxSend_1_state = "PostEQ";
-                    }
-                    else if (value == "PostFdr") {
-                      channel_1_fxSend_1_postFdr_volNode.volume.value = channel_1_fxSend_1_preEq_volNode.volume.value;
-                      channel_1_fxSend_1_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_1_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      channel_1_fxSend_1_state = "PostFdr";
-                    }
-                    break;
-                  }
-                  case "PostEQ": {
-                    if (value == "PreEQ") {
-                      channel_1_fxSend_1_preEq_volNode.volume.value = channel_1_fxSend_1_postEq_volNode.volume.value;
-                      channel_1_fxSend_1_postEq_volNode.volume.value = -100;
-                      channel_1_fxSend_1_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      channel_1_fxSend_1_state = "PreEQ";
-                    }
-                    else if (value == "PostFdr") {
-                      channel_1_fxSend_1_postFdr_volNode.volume.value = channel_1_fxSend_1_postEq_volNode.volume.value;
-                      channel_1_fxSend_1_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_1_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      channel_1_fxSend_1_state = "PostFdr";
-                    }
-                    break;
-                  }
-                  case "PostFdr": {
-                    if (value == "PostEQ") {
-                      channel_1_fxSend_1_postEq_volNode.volume.value = channel_1_fxSend_1_postFdr_volNode.volume.value;
-                      channel_1_fxSend_1_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_1_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      channel_1_fxSend_1_state = "PostEQ";
-                    }
-                    else if (value == "PreEQ") {
-                      channel_1_fxSend_1_preEq_volNode.volume.value = channel_1_fxSend_1_postFdr_volNode.volume.value;
-                      channel_1_fxSend_1_postFdr_volNode.volume.value = -100;
-                      channel_1_fxSend_1_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      channel_1_fxSend_1_state = "PreEQ";
-                    }
-                    break;
-                  }
-                  default: { alert("DEFAULT switch(channel_1_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
-                }
-              }
-              else { }
-              break;
-            }
-            else { console.log("is_player_1_fxSend_1_On == FALSE"); }
-          }
-        case "player_1_fxSend_2":
-          {
-            if (is_player_1_fxSend_2_On == true) {
-              if (player_1_fxSend_2_state != value) {
-                switch (player_1_fxSend_2_state) {
-                  case "PreEQ": {
-                    if (value == "PostEQ") {
-                      channel_1_fxSend_2_postEq_volNode.volume.value = channel_1_fxSend_2_preEq_volNode.volume.value;
-                      channel_1_fxSend_2_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_2_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_2_state = "PostEQ";
-                    }
-                    else if (value == "PostFdr") {
-                      channel_1_fxSend_2_postFdr_volNode.volume.value = channel_1_fxSend_2_preEq_volNode.volume.value;
-                      channel_1_fxSend_2_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_2_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_2_state = "PostFdr";
-                    }
-                    break;
-                  }
-                  case "PostEQ": {
-                    if (value == "PreEQ") {
-                      channel_1_fxSend_2_preEq_volNode.volume.value = channel_1_fxSend_2_postEq_volNode.volume.value;
-                      channel_1_fxSend_2_postEq_volNode.volume.value = -100;
-                      channel_1_fxSend_2_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_2_state = "PreEQ";
-                    }
-                    else if (value == "PostFdr") {
-                      channel_1_fxSend_2_postFdr_volNode.volume.value = channel_1_fxSend_2_postEq_volNode.volume.value;
-                      channel_1_fxSend_2_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_2_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_2_state = "PostFdr";
-                    }
-                    break;
-                  }
-                  case "PostFdr": {
-                    if (value == "PostEQ") {
-                      channel_1_fxSend_2_postEq_volNode.volume.value = channel_1_fxSend_2_postFdr_volNode.volume.value;
-                      channel_1_fxSend_2_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_2_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_2_state = "PostEQ";
-                    }
-                    else if (value == "PreEQ") {
-                      channel_1_fxSend_2_preEq_volNode.volume.value = channel_1_fxSend_2_postFdr_volNode.volume.value;
-                      channel_1_fxSend_2_postFdr_volNode.volume.value = -100;
-                      channel_1_fxSend_2_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_2_state = "PreEQ";
-                    }
-                    break;
-                  }
-                  default: { alert("DEFAULT switch(player_1_fxSend_2_state) EN player_x_fxSend_x_state_foo ") }
-                }
-              }
-              else { }
-              break;
-            }
-            else { console.log("is_player_1_fxSend_1_On == FALSE"); }
-          }
-        case "player_1_fxSend_3":
-          {
-            if (is_player_1_fxSend_3_On == true) {
-              if (player_1_fxSend_3_state != value) {
-                switch (player_1_fxSend_3_state) {
-                  case "PreEQ": {
-                    if (value == "PostEQ") {
-                      channel_1_fxSend_3_postEq_volNode.volume.value = channel_1_fxSend_3_preEq_volNode.volume.value;
-                      channel_1_fxSend_3_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_3_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_3_state = "PostEQ";
-                    }
-                    else if (value == "PostFdr") {
-                      channel_1_fxSend_3_postFdr_volNode.volume.value = channel_1_fxSend_3_preEq_volNode.volume.value;
-                      channel_1_fxSend_3_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_3_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_3_state = "PostFdr";
-                    }
-                    break;
-                  }
-                  case "PostEQ": {
-                    if (value == "PreEQ") {
-                      channel_1_fxSend_3_preEq_volNode.volume.value = channel_1_fxSend_3_postEq_volNode.volume.value;
-                      channel_1_fxSend_3_postEq_volNode.volume.value = -100;
-                      channel_1_fxSend_3_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_3_state = "PreEQ";
-                    }
-                    else if (value == "PostFdr") {
-                      channel_1_fxSend_3_postFdr_volNode.volume.value = channel_1_fxSend_3_postEq_volNode.volume.value;
-                      channel_1_fxSend_3_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_3_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_3_state = "PostFdr";
-                    }
-                    break;
-                  }
-                  case "PostFdr": {
-                    if (value == "PostEQ") {
-                      channel_1_fxSend_3_postEq_volNode.volume.value = channel_1_fxSend_3_postFdr_volNode.volume.value;
-                      channel_1_fxSend_3_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_3_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_3_state = "PostEQ";
-                    }
-                    else if (value == "PreEQ") {
-                      channel_1_fxSend_3_preEq_volNode.volume.value = channel_1_fxSend_3_postFdr_volNode.volume.value;
-                      channel_1_fxSend_3_postFdr_volNode.volume.value = -100;
-                      channel_1_fxSend_3_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_3_state = "PreEQ";
-                    }
-                    break;
-                  }
-                  default: { alert("DEFAULT switch(player_1_fxSend_3_state) EN player_x_fxSend_x_state_foo ") }
-                }
-              }
-              else { }
-              break;
-            }
-            else { console.log("is_player_1_fxSend_1_On == FALSE"); }
-          }
-        case "player_1_fxSend_4":
-          {
-            if (is_player_1_fxSend_4_On == true) {
-              if (player_1_fxSend_4_state != value) {
-                switch (player_1_fxSend_4_state) {
-                  case "PreEQ": {
-                    if (value == "PostEQ") {
-                      channel_1_fxSend_4_postEq_volNode.volume.value = channel_1_fxSend_4_preEq_volNode.volume.value;
-                      channel_1_fxSend_4_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_4_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_4_state = "PostEQ";
-                    }
-                    else if (value == "PostFdr") {
-                      channel_1_fxSend_4_postFdr_volNode.volume.value = channel_1_fxSend_4_preEq_volNode.volume.value;
-                      channel_1_fxSend_4_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_4_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_4_state = "PostFdr";
-                    }
-                    break;
-                  }
-                  case "PostEQ": {
-                    if (value == "PreEQ") {
-                      channel_1_fxSend_4_preEq_volNode.volume.value = channel_1_fxSend_4_postEq_volNode.volume.value;
-                      channel_1_fxSend_4_postEq_volNode.volume.value = -100;
-                      channel_1_fxSend_4_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_4_state = "PreEQ";
-                    }
-                    else if (value == "PostFdr") {
-                      channel_1_fxSend_4_postFdr_volNode.volume.value = channel_1_fxSend_4_postEq_volNode.volume.value;
-                      channel_1_fxSend_4_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_4_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_4_state = "PostFdr";
-                    }
-                    break;
-                  }
-                  case "PostFdr": {
-                    if (value == "PostEQ") {
-                      channel_1_fxSend_4_postEq_volNode.volume.value = channel_1_fxSend_4_postFdr_volNode.volume.value;
-                      channel_1_fxSend_4_preEq_volNode.volume.value = -100;
-                      channel_1_fxSend_4_postFdr_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_4_state = "PostEQ";
-                    }
-                    else if (value == "PreEQ") {
-                      channel_1_fxSend_4_preEq_volNode.volume.value = channel_1_fxSend_4_postFdr_volNode.volume.value;
-                      channel_1_fxSend_4_postFdr_volNode.volume.value = -100;
-                      channel_1_fxSend_4_postEq_volNode.volume.value = -100;
-                      send_state_player_1_background_change(name, value);
-                      player_1_fxSend_4_state = "PreEQ";
-                    }
-                    break;
-                  }
-                  default: { alert("DEFAULT switch(player_1_fxSend_4_state) EN player_x_fxSend_x_state_foo ") }
-                }
-              }
-              else { }
-              break;
-            }
-            else { console.log("is_player_1_fxSend_1_On == FALSE"); }
-          }
-    /**/
+
   }//CLOSES switch
 }
 
 function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
   const state = channel_1_fxSend_1_state;
-  //console.log("NOW player_x_fxSend_x_state : " + state);
-  console.log("NOW e : " + e);
-  console.log("NOW name: " + name);
-  //alert("NOW e : " + e + "    " + "NOW name: " + name);
   switch (name) {
     case "channel_1_fxSend_1":
       {
@@ -9941,17 +8903,14 @@ function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
           channel_1_fxSend_1_postEq_volNode.volume.value = e;
           channel_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
           channel_1_fxSend_1.value = e;
-          console.log("PostEQ: " + e);
         }
         else if (channel_1_fxSend_1_state == "PreEQ") {
           channel_1_fxSend_1_preEq_volNode.volume.value = e;
           channel_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
-          console.log("PreEQ: " + e);
         }
         else {
           channel_1_fxSend_1_postFdr_volNode.volume.value = e;
           channel_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
-          console.log("PostFDR: " + e);
         }
         break;
       }
@@ -9961,17 +8920,14 @@ function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
           channel_1_fxSend_2_postEq_volNode.volume.value = e;
           channel_1_fxSend_2_value.innerHTML = Math.round(`${e}`);
           channel_1_fxSend_2.value = e;
-          console.log("PostEQ: " + e);
         }
         else if (channel_1_fxSend_2_state == "PreEQ") {
           channel_1_fxSend_2_preEq_volNode.volume.value = e;
           channel_1_fxSend_2_value.innerHTML = Math.round(`${e}`);
-          console.log("PreEQ: " + e);
         }
         else {
           channel_1_fxSend_2_postFdr_volNode.volume.value = e;
           channel_1_fxSend_2_value.innerHTML = Math.round(`${e}`);
-          console.log("PostFDR: " + e);
         }
         break;
       }
@@ -9981,17 +8937,14 @@ function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
           channel_1_fxSend_3_postEq_volNode.volume.value = e;
           channel_1_fxSend_3_value.innerHTML = Math.round(`${e}`);
           channel_1_fxSend_3.value = e;
-          console.log("PostEQ: " + e);
         }
         else if (channel_1_fxSend_3_state == "PreEQ") {
           channel_1_fxSend_3_preEq_volNode.volume.value = e;
           channel_1_fxSend_3_value.innerHTML = Math.round(`${e}`);
-          console.log("PreEQ: " + e);
         }
         else {
           channel_1_fxSend_3_postFdr_volNode.volume.value = e;
           channel_1_fxSend_3_value.innerHTML = Math.round(`${e}`);
-          console.log("PostFDR: " + e);
         }
         break;
       }
@@ -10001,17 +8954,14 @@ function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
           channel_1_fxSend_4_postEq_volNode.volume.value = e;
           channel_1_fxSend_4_value.innerHTML = Math.round(`${e}`);
           channel_1_fxSend_4.value = e;
-          console.log("PostEQ: " + e);
         }
         else if (channel_1_fxSend_4_state == "PreEQ") {
           channel_1_fxSend_4_preEq_volNode.volume.value = e;
           channel_1_fxSend_4_value.innerHTML = Math.round(`${e}`);
-          console.log("PreEQ: " + e);
         }
         else {
           channel_1_fxSend_4_postFdr_volNode.volume.value = e;
           channel_1_fxSend_4_value.innerHTML = Math.round(`${e}`);
-          console.log("PostFDR: " + e);
         }
         break;
       }
@@ -10128,8 +9078,6 @@ function send_state_player_1_background_change(name, value) {
 }//CLOSES send_state_channel_1_background_change
 
 function player_x_dynamics_select_unit(name, value) {
-  console.log("name: " + name);
-  console.log("value: " + value);
   switch (name) {
     case "channel_1":
       {
@@ -10155,7 +9103,7 @@ function player_x_dynamics_select_unit(name, value) {
               channel_1_dynamics_limiter_div.style.display = "block";
               break;
             }
-          default: { console.log("DEFAULT  (value) player_1  player_x_dynamics_select_unit "); break; }
+          default: { alert("DEFAULT  (value) player_1  player_x_dynamics_select_unit "); break; }
         }
         break;
       }
@@ -10183,19 +9131,16 @@ function player_x_dynamics_select_unit(name, value) {
               player_2_dynamics_limiter_div.style.display = "block";
               break;
             }
-          default: { console.log("DEFAULT  (value) player_2  player_x_dynamics_select_unit "); break; }
+          default: { alert("DEFAULT  (value) player_2  player_x_dynamics_select_unit "); break; }
         }
         break;
       }
-    default: { console.log("DEFAULT (name) player_x_dynamics_select_unit "); break; }
+    default: { alert("DEFAULT (name) player_x_dynamics_select_unit "); break; }
   }
   mixEvent.logIntoListaAction(Tone.now(), name, value);
 }
 
 function player_x_dynamics_On_Off(name, value) {
-  //consoleClear();
-  console.log("player_x_dynamics name: " + name);
-  console.log("player_x_dynamics value: " + value);
   switch (name) {
     case "channel_1":
       {
@@ -10284,8 +9229,8 @@ function player_x_dynamics_On_Off(name, value) {
 
               else if (channel_1_compressor_On_Off_Button_State == "off"
                 && channel_1_filter_eq_selection == "tascam") {
-                channel_1_HighShelf_FilterNode.disconnect(channel_1_dynamics_compressorNode_Bypass);
-                channel_1_HighShelf_FilterNode.connect(channel_1_dynamics_compressorNode);
+                channel_1_tascam_out_Node.disconnect(channel_1_dynamics_compressorNode_Bypass);
+                channel_1_tascam_out_Node.connect(channel_1_dynamics_compressorNode);
                 if (channel_1_gate_On_Off_Button_State == "on") {
                   channel_1_dynamics_compressorNode_Bypass.disconnect(channel_1_dynamics_gateNode);
                   channel_1_dynamics_compressorNode.connect(channel_1_dynamics_gateNode);
@@ -10297,8 +9242,8 @@ function player_x_dynamics_On_Off(name, value) {
               }
               else if (channel_1_compressor_On_Off_Button_State == "on"
                 && channel_1_filter_eq_selection == "tascam") {
-                channel_1_HighShelf_FilterNode.disconnect(channel_1_dynamics_compressorNode);
-                channel_1_HighShelf_FilterNode.connect(channel_1_dynamics_compressorNode_Bypass);
+                channel_1_tascam_out_Node.disconnect(channel_1_dynamics_compressorNode);
+                channel_1_tascam_out_Node.connect(channel_1_dynamics_compressorNode_Bypass);
                 if (channel_1_gate_On_Off_Button_State == "on") {
                   channel_1_dynamics_compressorNode.disconnect(channel_1_dynamics_gateNode);
                   channel_1_dynamics_compressorNode_Bypass.connect(channel_1_dynamics_gateNode);
@@ -10394,7 +9339,7 @@ function player_x_dynamics_On_Off(name, value) {
               }
               else if (channel_1_limiter_On_Off_Button_State == "on"
                 && channel_1_gate_On_Off_Button_State == "on") {
-// alert("GATE ON / ON EN EL     player_x_dynamics_On_Off");
+                // alert("GATE ON / ON EN EL     player_x_dynamics_On_Off");
                 channel_1_dynamics_gateNode.disconnect(channel_1_dynamics_limiterNode);
                 channel_1_dynamics_gateNode.connect(channel_1_dynamics_limiterNode_Bypass);
                 channel_1_dynamics_limiterNode.disconnect(channel_1_volNode);
@@ -10411,7 +9356,7 @@ function player_x_dynamics_On_Off(name, value) {
               switchState_dynamics("channel_1_limiter_On_Off_Button");
               break;
             }
-          default: { console.log("DEFAULT switch(value) player_1  player_x_dynamics_On_Off "); break; }
+          default: { alert("DEFAULT switch(value) player_1  player_x_dynamics_On_Off "); break; }
         }
         break;
       }
@@ -10624,7 +9569,7 @@ function player_x_dynamics_On_Off(name, value) {
               }
               else if (player_2_limiter_On_Off_Button_State == "on"
                 && player_2_gate_On_Off_Button_State == "on") {
-// alert("GATE ON / ON EN EL     player_x_dynamics_On_Off");
+                // alert("GATE ON / ON EN EL     player_x_dynamics_On_Off");
                 player_2_dynamics_gateNode.disconnect(player_2_dynamics_limiterNode);
                 player_2_dynamics_gateNode.connect(player_2_dynamics_limiterNode_Bypass);
                 player_2_dynamics_limiterNode.disconnect(player_2_volNode);
@@ -10641,16 +9586,16 @@ function player_x_dynamics_On_Off(name, value) {
               switchState_dynamics("player_2_limiter_On_Off_Button");
               break;
             }
-          default: { console.log("DEFAULT switch(value) player_1  player_x_dynamics_On_Off "); break; }
+          default: { alert("DEFAULT switch(value) player_1  player_x_dynamics_On_Off "); break; }
         }
         break;
       }
-    default: { console.log("DEFAULT switch(name) player_1  player_x_dynamics_On_Off "); break; }
+    default: { alert("DEFAULT switch(name) player_1  player_x_dynamics_On_Off "); break; }
   }
 }
 
 function player_x_source_select(name, value) {
-  ggg
+
 
 }
 
@@ -10708,7 +9653,7 @@ function callbackLoaded(songNumber, playerNumber) {
       player_4_songName.innerHTML = array_Canciones[songNumber - 1].title;
       break;
     }
-    default: { console.log("DEFAULT switch(playerNumber)") }
+    default: { alert("DEFAULT switch(playerNumber)") }
   }
 }
 
@@ -10796,13 +9741,41 @@ async function CustomizedButton() {
 }
 
 function TransportSTOP() {
-  Tone.Transport.stop();
+  //alert("Tone.Transport.state: " + Tone.Transport.state);
+  //Tone.Transport.stop();
+  if (Tone.Transport.state == "stopped") {
+    const bassline = [
+      { 'time': '0:0', 'note': 'A1', 'duration': '0:2' },
+      { 'time': '0:2', 'note': 'F1', 'duration': '0:2' },
+      { 'time': '1:2', 'note': 'D1', 'duration': '1:1' },
+      { 'time': '2:1', 'note': 'D0', 'duration': '0:1' },
+/*       { 'time': '2:2', 'note': 'D0', 'duration': '0:1' },
+    */  { 'time': '2:3', 'note': 'F1', 'duration': '1:0' },
+    ];
+    const bassPart = new Tone.Part(function (time, note) {
+      fmSynth_1.triggerAttackRelease(note.note, note.duration, time);
+    }, bassline).start(0);
+    Tone.Transport.start();
+  }
+  else {
+    const bassline = [
+      { 'time': '0:0', 'note': 'A1', 'duration': '0:2' },
+      { 'time': '0:2', 'note': 'F1', 'duration': '0:2' },
+      { 'time': '1:2', 'note': 'D2', 'duration': '0:2' },
+      { 'time': '2:3', 'note': 'F2', 'duration': '0:5' },
+    ];
+    const bassPart = new Tone.Part(function (time, note) {
+      fmSynth_1.triggerAttackRelease(note.note, note.duration, time);
+    }, bassline).start();
+
+  }
+
 }
 /**/
 function Sinte() {
-  fmSynth.triggerAttackRelease("C3", "4n");
-  fmSynth.connect(masterVolume);
-  fmSynth.volume.value = -20;
+  fmSynth_1.triggerAttackRelease("C3", "4n");
+  fmSynth_1.connect(masterVolume);
+  fmSynth_1.volume.value = -9;
   Tone.Transport.start();
 }
 
@@ -10812,7 +9785,7 @@ function changes_fx_name(channel, effecttype) {
       channel_1_fxSend_1_text.innerHTML =
         player_2_fxSend_1_text.innerHTML =
         player_3_fxSend_1_text.innerHTML =
-        player_4_fxSend_1_text.innerHTML =
+        //  player_4_fxSend_1_text.innerHTML =
         fx_1_fxSend_1_text.innerHTML =
         fx_2_fxSend_1_text.innerHTML =
         fx_3_fxSend_1_text.innerHTML = effecttype;
@@ -10854,8 +9827,6 @@ function changes_fx_name(channel, effecttype) {
 }
 
 function removes_previous_effect(fx_1_actual_patch) {
-  console.log("removes_previous_effect foo \n" +
-    "fx_1_actual_patch:" + fx_1_actual_patch);
   switch (fx_1_actual_patch) {
     case "fx_1_autofilter": {
       fx_1_AutoFilter_Node.disconnect(fxReturn_1_fader);
@@ -10941,121 +9912,7 @@ function removes_previous_effect(fx_1_actual_patch) {
   }
 }
 
-/*
-function removes_previous_source(source_1_actual_patch) {
-  console.log("removes_previous_source foo \n" +
-    "source_1_actual_patch:" + source_1_actual_patch);
-  //alert("source_1_actual_patch:    " + source_1_actual_patch);
-  switch (source_1_actual_patch) {
-    case "empty": {
-      empty_1_div.style.display = "none";
-      break;
-    }
-    case "amSynth": {
-      amSynth_1.disconnect(channel_1_panNode);
-      amSynth_1_div.style.display = "none";
-      break;
-    }
-    case "duoSynth": {
-      duoSynth_2.disconnect(channel_1_panNode);
-      duoSynth_1_div.style.display = "none";
-      break;
-    }
-    case "fmSynth": {
-      fmSynth_1.disconnect(channel_1_panNode);
-      fmSynth_1_div.style.display = "none";
-      break;
-    }
-    case "membraneSynth": {
-      membraneSynth_1.disconnect(channel_1_panNode);
-      membraneSynth_1_div.style.display = "none";
-      break;
-    }
-    case "metalSynth": {
-      metalSynth_1.disconnect(channel_1_panNode);
-      metalSynth_1_div.style.display = "none";
-      break;
-    }
-    case "monoSynth": {
-      monoSynth_1.disconnect(channel_1_panNode);
-      monoSynth_1_div.style.display = "none";
-      break;
-    }
-    case "noiseSynth": {
-      noiseSynth_1.disconnect(channel_1_panNode);
-      noiseSynth_1_div.style.display = "none";
-      break;
-    }
-    case "pluckSynth": {
-      pluckSynth_1.disconnect(channel_1_panNode);
-      pluckSynth_1_div.style.display = "none";
-      break;
-    }
-    case "polySynth": {
-      polySynth_2.disconnect(channel_1_panNode);
-      polySynth_2_div.style.display = "none";
-      break;
-    }
-    case "amOscillator": {
-      amOsc_1.disconnect(channel_1_panNode);
-      amOsc_1_div.style.display = "none";
-      break;
-    }
-    case "fmOscillator": {
-      fmOsc_1.disconnect(channel_1_panNode);
-      fmOsc_1_div.style.display = "none";
-      break;
-    }
-    case "fatOscillator": {
-      fatOsc_1.disconnect(channel_1_panNode);
-      fatOsc_1_div.style.display = "none";
-      break;
-    }
-    case "omniOscillator": {
-      omniOsc_1.disconnect(channel_1_panNode);
-      omniOsc_1_div.style.display = "none";
-      break;
-    }
-    case "oscillator": {
-      oscillator_1.disconnect(channel_1_panNode);
-      oscillator_1_div.style.display = "none";
-      break;
-    }
-    case "pwmOscillator": {
-      pwmOsc_1.disconnect(channel_1_panNode);
-      pwmOsc_1_div.style.display = "none";
-      break;
-    }
-    case "pulseOscillator": {
-      pulseOsc_1.disconnect(channel_1_panNode);
-      pulseOsc_1_div.style.display = "none";
-      break;
-    }
-    case "player": {
-      player_1_Node.disconnect(channel_1_panNode);
-      player_1_div.style.display = "none";
-      break;
-    }
-    case "sampler": {
-      sampler_Node.disconnect(channel_1_panNode);
-      sampler_div.style.display = "none";
-      break;
-    }
-    case "grainPlayer": {
-      grainPlayer_1_Node.disconnect(channel_1_panNode);
-      grainPlayer_1_div.style.display = "none";
-      break;
-    }
-    default: { break; }
-  }
-}
-*/
-
 function removes_previous_source(source) {
-  console.log("removes_previous_source foo \n" +
-    "source:" + source);
-  //alert("source:    " + source);
-
   switch (source) {
     case "source_1": {
       switch (source_1_actual_patch) {
@@ -11073,7 +9930,7 @@ function removes_previous_source(source) {
           duoSynth_1_div.style.display = "none";
           break;
         }
-        case "fmSynth": {
+        case "fmSynth_1": {
           fmSynth_1.disconnect(channel_1_panNode);
           fmSynth_1_div.style.display = "none";
           break;
@@ -11278,16 +10135,12 @@ function removes_previous_source(source) {
       break;
     }
     default: {
-      console.log("removes_previous_source DEFAULT");
-}
+      alert("removes_previous_source DEFAULT");
+    }
   }
 }
 
 function sets_New_FX(channel, effecttype) {
-  // consoleClear();
-  //console.log("sets_New_FX channel: " + channel);
-  // alert("sets_New_FX effecttype: " + effecttype);
-  //console.log("sets_New_FX effecttype: " + effecttype);
   switch (channel) {
     case "FX1": {
       removes_previous_effect(fx_1_actual_patch);
@@ -11313,7 +10166,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_autofilter_div.style.display = "block";
             fx_1_actual_patch = "fx_1_autofilter";
-            console.log("AutoFilter fx_1_select");
             break;
           }
         case "AutoPanner":  //NO FUNCA
@@ -11337,7 +10189,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_autopanner";
             fx_1_autopanner_div.style.display = "block";
-            console.log("AutoPanner fx_1_select");
             break;
           }
         case "AutoWah": //TEST
@@ -11361,7 +10212,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_autowah";
             fx_1_autowah_div.style.display = "block";
-            console.log("AutoWah fx_1_select");
             break;
           }
         case "BitCrusher":
@@ -11386,8 +10236,6 @@ function sets_New_FX(channel, effecttype) {
 */
             fx_1_actual_patch = "fx_1_bitCrusher";
             fx_1_bitCrusher_div.style.display = "block";
-            console.log("BitCrusher fx_1_select");
-
             break;
           }
         case "Chebyshev": //OK PERO PARECE UNA DISTORTION
@@ -11411,7 +10259,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_chebyshev";
             fx_1_Chebyshev_div.style.display = "block";
-            console.log("Chebyshev fx_1_select");
             break;
           }
         case "Chorus": //OK
@@ -11436,7 +10283,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_chorus";
             fx_1_chorus_div.style.display = "block";
-            console.log("Chorus fx_1_select");
             break;
           }
         case "Distortion":  //OK
@@ -11457,7 +10303,6 @@ function sets_New_FX(channel, effecttype) {
             player_4_fxSend_1_preEq_volNode.connect(fx_1_distortion_Node);
             player_4_fxSend_1_postEq_volNode.connect(fx_1_distortion_Node);
             player_4_fxSend_1_postFdr_volNode.connect(fx_1_distortion_Node);
-            console.log("Distortion fx_1_select");
 
             fx_1_actual_patch = "fx_1_Distortion";
             fx_1_distortion_div.style.display = "block";
@@ -11485,7 +10330,6 @@ function sets_New_FX(channel, effecttype) {
             */
             fx_1_feedback_div.style.display = "block";
             fx_1_actual_patch = "fx_1_Feedback";
-            console.log("FeedbackDelay fx_1_select");
             break;
           }
         case "Freeverb": // TIRA ERROR VIOLENTO
@@ -11510,7 +10354,6 @@ function sets_New_FX(channel, effecttype) {
             
             fx_1_actual_patch = "fx_1_freeVerb";
             fx_1_freeVerb_div.style.display = "block";
-            console.log("Freeverb fx_1_select");
             */
             break;
           }
@@ -11536,7 +10379,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_frequencyShifter";
             fx_1_frequencyShifter_div.style.display = "block";
-            console.log("eeee    FrequencyShifter fx_1_select");
             break;
           }
         case "JCReverb":
@@ -11580,8 +10422,6 @@ function sets_New_FX(channel, effecttype) {
               fx_1_JCReverb_value.innerHTML = `${e.currentTarget.value}`;
             });
                         */
-
-            console.log("JCReverb fx_1_select");
             break;
           }
         case "Phaser":  //Testear NO ANDA NADA
@@ -11605,7 +10445,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_phaser";
             fx_1_phaser_div.style.display = "block";
-            console.log("Phaser fx_1_select");
             break;
           }
         case "PingPongDelay": //OK
@@ -11630,7 +10469,6 @@ function sets_New_FX(channel, effecttype) {
             /**/
             fx_1_actual_patch = "fx_1_pingpong";
             fx_1_pingpong_div.style.display = "block";
-            console.log("PingPongDelay fx_1_select");
 
             break;
           }
@@ -11655,7 +10493,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_pitchshift";
             fx_1_pitchshift_div.style.display = "block";
-            console.log("PitchShift fx_1_select");
             break;
           }
         case "Reverb": //REVISAR CUELGA TODO
@@ -11680,7 +10517,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_reverb";
             fx_1_reverb_div.style.display = "block";
-            console.log("Reverb fx_1_select");
             break;
           }
         case "StereoWidener":
@@ -11704,7 +10540,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_stereoWidener";
             fx_1_StereoWidener_div.style.display = "block";
-            console.log("StereoWidener fx_1_select");
             break;
           }
         case "Tremolo": //TEST NO FUNCA
@@ -11728,7 +10563,6 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_tremolo";
             fx_1_tremolo_div.style.display = "block";
-            console.log("Tremolo fx_1_select");
             break;
           }
         case "Vibrato": //Test NO FUNCA
@@ -11752,10 +10586,9 @@ function sets_New_FX(channel, effecttype) {
 
             fx_1_actual_patch = "fx_1_vibrato";
             fx_1_vibrato_div.style.display = "block";
-            console.log("Vibrato fx_1_select");
             break;
           }
-        default: { console.log("default fx_1_select"); break; }
+        default: { alert("default fx_1_select"); break; }
       }
       break;
     }
@@ -11776,9 +10609,6 @@ function sets_New_FX(channel, effecttype) {
 }
 
 function sets_New_Source(source, value) {
-  //console.log("sets_New_Source source: " + source);
-  // alert("sets_New_Source source: " + source + "\n" + "sets_New_Source value: " + value);
-  //console.log("sets_New_Source value: " + value);
   switch (source) {
     case "source_1": {
       //alert("source: " + source);
@@ -11786,12 +10616,10 @@ function sets_New_Source(source, value) {
       switch (value) {
         case "AMSynth"://
           {
-            //alert("sets_New_Source: " + value);
             //  amSynth_1.disconnect(masterVolume);
             amSynth_1.connect(channel_1_panNode);
             amSynth_1_div.style.display = "block";
             source_1_actual_patch = "amSynth"
-            console.log("amSynth_1_ source_1_select");
             break;
           }
         case "DuoSynth":  //
@@ -11800,7 +10628,6 @@ function sets_New_Source(source, value) {
             duoSynth_1.connect(channel_1_panNode);
             duoSynth_1_div.style.display = "block";
             source_1_actual_patch = "duoSynth"
-            console.log("duoSynth_1_ source_1_select");
             break;
           }
         case "FMSynth": //
@@ -11809,7 +10636,6 @@ function sets_New_Source(source, value) {
             fmSynth_1.connect(channel_1_panNode);
             fmSynth_1_div.style.display = "block";
             source_1_actual_patch = "fmSynth"
-            console.log("fmSynth_1_ source_1_select");
             break;
           }
         case "MembraneSynth":
@@ -11818,7 +10644,6 @@ function sets_New_Source(source, value) {
             membraneSynth_1.connect(channel_1_panNode);
             membraneSynth_1_div.style.display = "block";
             source_1_actual_patch = "membraneSynth"
-            console.log("MembraneSynth_ source_1_select");
             break;
           }
         case "MetalSynth":
@@ -11827,7 +10652,6 @@ function sets_New_Source(source, value) {
             metalSynth_1.connect(channel_1_panNode);
             metalSynth_1_div.style.display = "block";
             source_1_actual_patch = "metalSynth"
-            console.log("metalSynth_1_source_1_select");
             break;
           }
         case "MonoSynth": //
@@ -11836,7 +10660,6 @@ function sets_New_Source(source, value) {
             monoSynth_1.connect(channel_1_panNode);
             monoSynth_1_div.style.display = "block";
             source_1_actual_patch = "monoSynth"
-            console.log("monoSynth_1_ source_1_select");
             break;
           }
         case "NoiseSynth": //
@@ -11845,7 +10668,6 @@ function sets_New_Source(source, value) {
             noiseSynth_1.connect(channel_1_panNode);
             noiseSynth_1_div.style.display = "block";
             source_1_actual_patch = "noiseSynth"
-            console.log("noiseSynth_1_ source_1_select");
             break;
           }
         case "PluckSynth":  //se cuelga tutti
@@ -11854,7 +10676,6 @@ function sets_New_Source(source, value) {
             pluckSynth_1.connect(channel_1_panNode);
             pluckSynth_1_div.style.display = "block";
             source_1_actual_patch = "pluckSynth"
-            console.log("pluckSynth_1_ source_1_select");
             break;
           }
         case "PolySynth": //NO ANDA, REVISAR COMO SE ADOSA A OTRO
@@ -11863,7 +10684,6 @@ function sets_New_Source(source, value) {
             polySynth_2.connect(channel_1_panNode);
             polySynth_1_div.style.display = "block";
             source_1_actual_patch = "polySynth"
-            console.log("polySynth_1_ source_1_select");
             break;
 
           }
@@ -11873,7 +10693,6 @@ function sets_New_Source(source, value) {
             amOsc_1.connect(channel_1_panNode);
             amOsc_1_div.style.display = "block";
             source_1_actual_patch = "amOscillator"
-            console.log("amOsc_1_ source_1_select");
             break;
 
           }
@@ -11883,7 +10702,6 @@ function sets_New_Source(source, value) {
             fmOsc_1.connect(channel_1_panNode);
             fmOsc_1_div.style.display = "block";
             source_1_actual_patch = "fmOscillator"
-            console.log("fmOsc_1_ source_1_select");
             break;
 
           }
@@ -11893,7 +10711,6 @@ function sets_New_Source(source, value) {
             fatOsc_1.connect(channel_1_panNode);
             fatOsc_1_div.style.display = "block";
             source_1_actual_patch = "fatOscillator"
-            console.log("fatOsc_1_ source_1_select");
             break;
 
           }
@@ -11903,7 +10720,6 @@ function sets_New_Source(source, value) {
             omniOsc_1.connect(channel_1_panNode);
             omniOsc_1_div.style.display = "block";
             source_1_actual_patch = "omniOscillator"
-            console.log("omniOsc_1_ source_1_select");
             break;
           }
         case "Oscillator": //
@@ -11912,7 +10728,6 @@ function sets_New_Source(source, value) {
             oscillator_1.connect(channel_1_panNode);
             oscillator_1_div.style.display = "block";
             source_1_actual_patch = "oscillator"
-            console.log("osc_1_ source_1_select");
             break;
 
           }
@@ -11922,7 +10737,6 @@ function sets_New_Source(source, value) {
             noise_1_Node.connect(channel_1_panNode);
             noise_1_div.style.display = "block";
             source_1_actual_patch = "noise"
-            console.log("osc_1_ source_1_select");
             break;
           }
         case "PWMOscillator":  //
@@ -11931,7 +10745,6 @@ function sets_New_Source(source, value) {
             pwmOsc_1.connect(channel_1_panNode);
             pwmOsc_1_div.style.display = "block";
             source_1_actual_patch = "pwmOscillator"
-            console.log("pwmOsc_1_ source_1_select");
             break;
 
           }
@@ -11941,7 +10754,6 @@ function sets_New_Source(source, value) {
             pulseOsc_1.connect(channel_1_panNode);
             pulseOsc_1_div.style.display = "block";
             source_1_actual_patch = "pulseOscillator"
-            console.log("pulseOsc_1_ source_1_select");
             break;
 
           }
@@ -11951,7 +10763,6 @@ function sets_New_Source(source, value) {
             player_1_Node.connect(channel_1_panNode);
             source_1_actual_patch = "player"
             player_1_div.style.display = "block";
-            console.log("player_1_source_1_select");
             break;
           }
         case "Sampler":
@@ -11960,7 +10771,6 @@ function sets_New_Source(source, value) {
             sampler_1_Node.connect(channel_1_panNode);
             source_1_actual_patch = "sampler"
             sampler_1_div.style.display = "block";
-            console.log("sampler_ source_1_select");
             break;
           }
         case "GrainPlayer": //
@@ -11969,7 +10779,6 @@ function sets_New_Source(source, value) {
             grainPlayer_1_Node.connect(channel_1_panNode);
             source_1_actual_patch = "grainPlayer"
             grainPlayer_1_div.style.display = "block";
-            console.log("grainPlayer_ source_1_select");
             break;
           }
         case "empty": //
@@ -11977,10 +10786,9 @@ function sets_New_Source(source, value) {
             // alert("sets_New_Source: " + value);
             source_1_actual_patch = "empty"
             empty_1_div.style.display = "block";
-            console.log("empty_ source_1_select");
             break;
           }
-        default: { console.log("default fx_1_select"); break; }
+        default: { alert("default fx_1_select"); break; }
       }
       break;
     }
@@ -11995,7 +10803,6 @@ function sets_New_Source(source, value) {
             amSynth_2.connect(player_2_panNode);
             amSynth_2_div.style.display = "block";
             source_2_actual_patch = "amSynth"
-            console.log("amSynth_2_ source_2_select");
             break;
           }
         case "DuoSynth":  //
@@ -12004,7 +10811,6 @@ function sets_New_Source(source, value) {
             duoSynth_2.connect(player_2_panNode);
             duoSynth_2_div.style.display = "block";
             source_2_actual_patch = "duoSynth"
-            console.log("duoSynth_2_ source_2_select");
             break;
           }
         case "FMSynth": //
@@ -12013,7 +10819,6 @@ function sets_New_Source(source, value) {
             fmSynth_2.connect(player_2_panNode);
             fmSynth_2_div.style.display = "block";
             source_2_actual_patch = "fmSynth"
-            console.log("fmSynth_2_ source_2_select");
             break;
           }
         case "MembraneSynth":
@@ -12022,7 +10827,6 @@ function sets_New_Source(source, value) {
             membraneSynth_2.connect(player_2_panNode);
             membraneSynth_2_div.style.display = "block";
             source_2_actual_patch = "membraneSynth"
-            console.log("MembraneSynth_ source_2_select");
             break;
           }
         case "MetalSynth":
@@ -12031,7 +10835,6 @@ function sets_New_Source(source, value) {
             metalSynth_2.connect(player_2_panNode);
             metalSynth_2_div.style.display = "block";
             source_2_actual_patch = "metalSynth"
-            console.log("metalSynth_2_source_2_select");
             break;
           }
         case "MonoSynth": //
@@ -12040,7 +10843,6 @@ function sets_New_Source(source, value) {
             monoSynth_2.connect(player_2_panNode);
             monoSynth_2_div.style.display = "block";
             source_2_actual_patch = "monoSynth"
-            console.log("monoSynth_2_ source_2_select");
             break;
           }
         case "NoiseSynth": //
@@ -12049,7 +10851,6 @@ function sets_New_Source(source, value) {
             noiseSynth_2.connect(player_2_panNode);
             noiseSynth_2_div.style.display = "block";
             source_2_actual_patch = "noiseSynth"
-            console.log("noiseSynth_2_ source_2_select");
             break;
           }
         case "PluckSynth":  //se cuelga tutti
@@ -12058,7 +10859,6 @@ function sets_New_Source(source, value) {
             pluckSynth_2.connect(player_2_panNode);
             pluckSynth_2_div.style.display = "block";
             source_2_actual_patch = "pluckSynth"
-            console.log("pluckSynth_2_ source_2_select");
             break;
           }
         case "PolySynth": //NO ANDA, REVISAR COMO SE ADOSA A OTRO
@@ -12067,7 +10867,6 @@ function sets_New_Source(source, value) {
             polySynth_2.connect(player_2_panNode);
             polySynth_2_div.style.display = "block";
             source_2_actual_patch = "polySynth"
-            console.log("polySynth_2_ source_2_select");
             break;
 
           }
@@ -12077,7 +10876,6 @@ function sets_New_Source(source, value) {
             amOsc_2.connect(player_2_panNode);
             amOsc_2_div.style.display = "block";
             source_2_actual_patch = "amOscillator"
-            console.log("amOsc_2_ source_2_select");
             break;
 
           }
@@ -12087,7 +10885,6 @@ function sets_New_Source(source, value) {
             fmOsc_2.connect(player_2_panNode);
             fmOsc_2_div.style.display = "block";
             source_2_actual_patch = "fmOscillator"
-            console.log("fmOsc_2_ source_2_select");
             break;
 
           }
@@ -12097,9 +10894,7 @@ function sets_New_Source(source, value) {
             fatOsc_2.connect(player_2_panNode);
             fatOsc_2_div.style.display = "block";
             source_2_actual_patch = "fatOscillator"
-            console.log("fatOsc_2_ source_2_select");
             break;
-
           }
         case "OmniOscillator":  //
           {
@@ -12107,7 +10902,6 @@ function sets_New_Source(source, value) {
             omniOsc_2.connect(player_2_panNode);
             omniOsc_2_div.style.display = "block";
             source_2_actual_patch = "omniOscillator"
-            console.log("omniOsc_2_ source_2_select");
             break;
           }
         case "Oscillator": //
@@ -12116,9 +10910,7 @@ function sets_New_Source(source, value) {
             oscillator_2.connect(player_2_panNode);
             oscillator_2_div.style.display = "block";
             source_2_actual_patch = "oscillator"
-            console.log("osc_2_ source_2_select");
             break;
-
           }
         case "Noise": //
           {
@@ -12126,9 +10918,7 @@ function sets_New_Source(source, value) {
             noise_2_Node.connect(player_2_panNode);
             noise_2_div.style.display = "block";
             source_2_actual_patch = "noise"
-            console.log("osc_2_ source_2_select");
             break;
-
           }
         case "PWMOscillator":  //
           {
@@ -12136,9 +10926,7 @@ function sets_New_Source(source, value) {
             pwmOsc_2.connect(player_2_panNode);
             pwmOsc_2_div.style.display = "block";
             source_2_actual_patch = "pwmOscillator"
-            console.log("pwmOsc_2_ source_2_select");
             break;
-
           }
         case "PulseOscillator": //
           {
@@ -12146,9 +10934,7 @@ function sets_New_Source(source, value) {
             pulseOsc_2.connect(player_2_panNode);
             pulseOsc_2_div.style.display = "block";
             source_2_actual_patch = "pulseOscillator"
-            console.log("pulseOsc_2_ source_2_select");
             break;
-
           }
         case "Player": //
           {
@@ -12156,7 +10942,6 @@ function sets_New_Source(source, value) {
             player_2_Node.connect(player_2_panNode);
             source_2_actual_patch = "player"
             player_2_div.style.display = "block";
-            console.log("player_2_source_2_select");
             break;
           }
         case "Sampler":
@@ -12165,7 +10950,6 @@ function sets_New_Source(source, value) {
             sampler_2_Node.connect(player_2_panNode);
             source_2_actual_patch = "sampler"
             sampler_2_div.style.display = "block";
-            console.log("sampler_ source_2_select");
             break;
           }
         case "GrainPlayer": //
@@ -12174,7 +10958,6 @@ function sets_New_Source(source, value) {
             grainPlayer_2_Node.connect(player_2_panNode);
             source_2_actual_patch = "grainPlayer"
             grainPlayer_2_div.style.display = "block";
-            console.log("grainPlayer_ source_2_select");
             break;
           }
         case "empty": //
@@ -12182,10 +10965,9 @@ function sets_New_Source(source, value) {
             // alert("sets_New_Source: " + value);
             source_2_actual_patch = "empty"
             empty_2_div.style.display = "block";
-            console.log("empty_ source_2_select");
             break;
           }
-        default: { console.log("default fx_2_select"); break; }
+        default: { alert("default fx_2_select"); break; }
       }
       break;
     }
@@ -12196,30 +10978,32 @@ function sets_New_Source(source, value) {
 }
 
 function mostrarerror(evento) {
-  console.log("Error: " + evento.error);
-  console.log("Mensaje: " + evento.message);
-  console.log("Línea: " + evento.lineno);
-  console.log("Columna: " + evento.colno);
-  console.log("URL: " + evento.filename);
-  console.log("\n");
-  console.log("DOMError.name: " + DOMError.name);
   /*
-const button = document.querySelector("button");
-
-button.onclick = () => {
-  try {
-    throw new DOMException("Custom DOM Exception Triggered.");
-  } catch (error) {
-    document.querySelector("#output").textContent = `Error: ${error.message}`;
-  }
-};
-  */
+    console.log("Error: " + evento.error);
+    console.log("Mensaje: " + evento.message);
+    console.log("Línea: " + evento.lineno);
+    console.log("Columna: " + evento.colno);
+    console.log("URL: " + evento.filename);
+    console.log("\n");
+    console.log("DOMError.name: " + DOMError.name);
+    /*
+  const button = document.querySelector("button");
+  
+  button.onclick = () => {
+    try {
+      throw new DOMException("Custom DOM Exception Triggered.");
+    } catch (error) {
+      document.querySelector("#output").textContent = `Error: ${error.message}`;
+    }
+  };
+    */
 
 
 }
 
 function updatesMeters() {
   player_1_rms_meter_inner.innerHTML = Math.round(`${player_1_rms_meter.getValue()}`);
+  channel_1_rms_meter_inner.innerHTML = Math.round(`${channel_1_rms_meter.getValue()}`);
   channel_1_filter_bypass_meter_inner.innerHTML = Math.round(`${channel_1_filter_bypass_meter.getValue()}`);
   channel_1_filter_allpass_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
   channel_1_shelf_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
@@ -12231,7 +11015,10 @@ function updatesMeters() {
   channel_1_rms_gate_meter_inner.innerHTML = Math.round(`${channel_1_rms_gate_meter.getValue()}`);
   channel_1_rms_limiter_meter_inner.innerHTML = Math.round(`${channel_1_rms_limiter_meter.getValue()}`);
   // player_1_filter_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
-  channel_1_tascam_424_meter_inner.innerHTML = Math.round(`${channel_1_tascam_424_meter.getValue()}`);
+  channel_1_tascam_424_Hi_meter_inner.innerHTML = Math.round(`${channel_1_tascam_424_Hi_meter.getValue()}`);
+  channel_1_tascam_424_Mid_meter_inner.innerHTML = Math.round(`${channel_1_tascam_424_Mid_meter.getValue()}`);
+  channel_1_tascam_424_Low_meter_inner.innerHTML = Math.round(`${channel_1_tascam_424_Low_meter.getValue()}`);
+
   channel_1_eq3_meter_inner.innerHTML = Math.round(`${channel_1_eq3_meter.getValue()}`);
 
   player_2_rms_value.innerHTML = Math.round(`${testMeter_2.getValue()}`);
@@ -12295,8 +11082,6 @@ function hide_all_divs(value) {
 }
 
 function switchState_dynamics(name) {
-  //console.log("name: " + name);
-  //alert("switchState_dynamics FOO\n" + "name: " + name);
   switch (name) {
     /*
         case "channel_1_filter_eq_selection":
@@ -12328,14 +11113,12 @@ function switchState_dynamics(name) {
           channel_1_compressor_On_Off_Button.innerText = "Off";
           channel_1_compressor_On_Off_Button.style.backgroundColor = "white";
           mixEvent.logIntoListaAction(Tone.now(), "channel_1_compressor_On_Off_Button", "off");
-          console.log("channel_1_compressor_On_Off_Button = off");
         }
         else if (channel_1_compressor_On_Off_Button_State == "off") {
           channel_1_compressor_On_Off_Button_State = "on";
           channel_1_compressor_On_Off_Button.innerText = "On"
           channel_1_compressor_On_Off_Button.style.backgroundColor = "green";
           mixEvent.logIntoListaAction(Tone.now(), "channel_1_compressor_On_Off_Button", "on");
-          console.log("channel_1_compressor_On_Off_Button = on");
         }
         break;
       }
@@ -12377,13 +11160,12 @@ function switchState_dynamics(name) {
 }
 
 function channel_x_filter_eq_selection(name, value) {
- // alert("value: " + value + "\n" + "name: " + name);
+  // alert("value: " + value + "\n" + "name: " + name);
 }
 
 
 function switchState_filter_eq_selection(name, value) {
   //alert("value: " + value + "\n" + "name: " + name);
-  console.log("value: " + value);
   switch (name) {
     case "channel_1_filter_eq_selection":
       {
@@ -12562,42 +11344,14 @@ function removeElement(tagName) {
   elementToRemove.remove(elementToRemove);
 }
 
-async function asyncSong() {
-  console.log("ASYNC SONG");
-  //Taken from https://gist.github.com/Anoesj/7d560cfb51223dfb7120827fe9f153c6
-  const [fileHandle] = await window.showOpenFilePicker({
-    multiple: false,
-    types: [
-      {
-        description: 'Audio files',
-        accept: {
-          'audio/*': ['.wav', '.ogg', '.mp3', '.mp4', '.aac', '.flac', '.webm'],
-        }
-      },
-    ],
-    excludeAcceptAllOption: true,
-  });
-  // Do something with the file handle.
-  const file = await fileHandle.getFile();
-  const arrayBuffer = await file.arrayBuffer();
-  const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
-  // Create source node
-  const source = ctx.createBufferSource();
-  source.buffer = decodedBuffer; alert("")
-  source.connect(ctx.destination);
-  source.start();
-}
-
 const channel_1_select_Available_Nodes = document.getElementById("channel_1_select_Available_Nodes");
 channel_1_select_Available_Nodes.addEventListener("change", function (e) {
   sets_New_Source("source_1", e.currentTarget.value);
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_select_Available_Nodes", e.currentTarget.value);
-
 });
 
 const player_2_select_Available_Nodes = document.getElementById("player_2_select_Available_Nodes");
 player_2_select_Available_Nodes.addEventListener("change", function (e) {
-  //consoleClear();
   sets_New_Source("source_2", e.currentTarget.value);
 });
 const empty_1_div = document.getElementById("empty_1_div");
@@ -12631,6 +11385,164 @@ function multiPlay() {
     "4: " + multiple_play_source_4.checked);
 }
 
+function scramble(value) {
+  switch (value) {
+    case "player_1":
+      {
+        console.log("scramble value: " + value);
+        scramble2(player_1_Node.buffer);
+        break;
+      }
+
+    default:
+      { break; }
+  }
+  /*
+    const sarasa = player_1_Node.buffer;
+    console.log("sarasa: " + sarasa);
+    scramble2(sarasa);
+    /**/
+}
+
+
+function scramble2(buffer) {
+  console.log("buffer: " + buffer);
+  console.log("buffer samplerate: " + buffer.sampleRate);
+  console.log("Tone.context samplerate: " + Tone.context.sampleRate);
+
+  const arrayTest = buffer.toArray();
+/*
+  console.log("arrayTest: " + arrayTest);
+  console.log("arrayTest: " + arrayTest.name);
+  console.log("arrayTest length: " + arrayTest.length);
+*/
+  
+  let tamanio2 = buffer.length;
+  let randomPosition = 0;
+  const Float32 = new Float32Array(buffer.length);
+  let k = 0;
+let max = tamanio2/96000;
+console.log("max: " + max);
+
+  const matriz = createMatrix(2,5);
+  matriz[0][1]="papiri";
+console.log("matriz: " + matriz[0][1]);
+alert("");
+  do {
+    randomPosition = getRndInteger(0, tamanio2);
+    if (randomPosition + 96000 < buffer.length) {
+      for (i = 0; i < 96000 - 1; i++) {
+        for (let channel = 0; channel < 2; channel++) {
+          Float32[k] = arrayTest[randomPosition + i];
+          k++; tamanio2--;
+          console.log("k: " + k);
+        }
+      }
+    }
+  }
+  while (k < buffer.length);
+
+
+const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+player_1_Node.buffer.set(decodedBuffer_twosecs);
+player_1_Node.volume.value = -12;
+player_1_Node.start();
+}
+
+
+
+function scrambler(tempScramblerFloat32Array) {
+  console.log("tempScramblerFloat32Array SCRAMBLE FOO: " + tempScramblerFloat32Array);
+  //console.log("tempScramblerFloat32Array SCRAMBLE FOO lenmgth: " + tempScramblerFloat32Array.length);
+  // console.log("tempScramblerFloat32Array channels: " + tempScramblerFloat32Array.numberOfChannels);
+  // console.log("player_1_Node channels: " + player_1_Node.buffer.numberOfChannels);
+  // console.log("tempScramblerFloat32Array type: " + tempScramblerFloat32Array.type);
+
+  let randomPosition = 0;
+  const bufferScrambled = new Float32Array(player_1_Node.buffer.length);
+  let tamanio3 = tempScramblerFloat32Array.length;
+  //  console.log("tamanio3: " + tamanio3);
+  // console.log("bufferScrambled.length SCRAMBLE FOO: " + bufferScrambled.length);
+  const buff = tempScramblerFloat32Array.toArray();
+  console.log("buff: " + buff);
+
+  let k = 0;
+  do {
+    //console.log("test test test ");
+    randomPosition = getRndInteger(0, tamanio3);
+    if (randomPosition + 48000 < bufferScrambled.length) {
+      for (i = 0; i < 48000 - 1; i++) {
+        for (let channel = 0; channel < 2; channel++) {
+          bufferScrambled[k] = buff.getChannelData(channel)[randomPosition + i];
+          k++;
+          tamanio3--;
+          console.log("channel:" + channel);
+          console.log("k:" + k);
+          console.log("tamanio3:" + tamanio3);
+        }
+      }
+    }
+  }
+  while (k < bufferScrambled.length);
+  const decodedBuffer_twosecs = Tone.Buffer.fromArray(bufferScrambled)
+  player_1_Node.buffer.set(decodedBuffer_twosecs);
+  console.log("test test test ");
+  console.log("bufferScrambled SCRAMBLE FOO: " + bufferScrambled);
+
+  return bufferScrambled;
+}
+
+
+/*
+        const Float32 = new Float32Array(decodedBuffer.length);
+        let k = 0;
+        do {
+          randomPosition = getRndInteger(0, tamanio2);
+          if (randomPosition + 48000 < decodedBuffer.length) {
+            for (i = 0; i < 48000 - 1; i++) {
+              for (let channel = 0; channel < 2; channel++) {
+                Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
+                k++; tamanio2--;
+              }
+            }
+          }
+        }
+        while (k < decodedBuffer.length);
+
+
+
+/**/
+
+
+function createMatrix(N, M) {
+    var matrix = new Array(N); 
+    // Array with initial size of N, not fixed!
+    for (var i = 0; i < N; ++i) {
+        matrix[i] = new Array(M);
+    }
+    return matrix;
+}
+
+
+
+
+
+
+
+function isShowOpenFilePickerSupported() {
+  if ('showOpenFilePicker' in self) {
+    console.log("showOpenFilePicker is Supported");
+
+  }
+  else {
+    console.log("showOpenFilePicker is NOT Supported");
+
+  }
+}
+
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 //************************************************************************
 //************************************************************************
 //EQ high/mid/low values are all in Decibels, so 0 would mean no change.

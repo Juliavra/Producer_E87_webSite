@@ -95,7 +95,6 @@ const changeSmoothingTimeConstant = (smoothingTimeConstant) => {
 	analyserNode.smoothingTimeConstant = smoothingTimeConstant / 100;
 }
 
-
 async function asyncSong() {
 	console.log("ASYNC SONG");
 	//Taken from https://gist.github.com/Anoesj/7d560cfb51223dfb7120827fe9f153c6
@@ -124,7 +123,7 @@ async function asyncSong() {
 }
 /**/
 
-/*
+/*  sync function asyncSong
 async function asyncSong() {
 	console.log("ASYNC SONG");
 	//Taken from https://gist.github.com/Anoesj/7d560cfb51223dfb7120827fe9f153c6
@@ -154,8 +153,15 @@ async function asyncSong() {
 
 
 
-/*
-async function directoryHandle() {
+function test_Directorios(){
+	//const dirName = "Producer_E87";
+	//const subDir = currentDirHandle(dirName, {create: false});
+	FileSystemDirectoryHandle.getDirectoryHandle();
+}
+
+
+//MUESTRA CONTENIDO DE CARPETAS Y ARCHIVOS DENTRO DE UNA CARPETA ELEGIDA
+async function loadSong() {
 	const dirHandle = await window.showDirectoryPicker();
 	for await (const entry of dirHandle.values()) {
 		console.log(entry.kind, entry.name);
@@ -241,8 +247,6 @@ async function directoryHandle() {
 		}
 	</script>
 /**/
-
-
 
 /*
 Crea un archivo nuevo
@@ -367,7 +371,8 @@ const fileHandle = await self.showOpenFilePicker({
 Cómo abrir un directorio y enumerar su contenido
 
 Para enumerar todos los archivos de un directorio, 
-llama a showDirectoryPicker(). El usuario selecciona un directorio en 
+llama a showDirectoryPicker(). 
+El usuario selecciona un directorio en 
 un selector y, luego, se muestra un FileSystemDirectoryHandle, 
 que te permite enumerar y acceder a los archivos del directorio. 
 De forma predeterminada, tendrás acceso de lectura a 
@@ -382,7 +387,8 @@ butDir.addEventListener('click', async () => {
 });
 
 
-Si, además, necesitas acceder a cada archivo con getFile() para, por ejemplo, 
+Si, además, necesitas acceder a cada archivo con getFile() para,
+por ejemplo, 
 obtener los tamaños de archivo individuales, 
 no uses await en cada resultado de forma secuencial, 
 sino que procesa todos los archivos en paralelo, por ejemplo, 
@@ -399,7 +405,5 @@ butDir.addEventListener('click', async () => {
   }
   console.log(await Promise.all(promises));
 });
-
-
 
 */
