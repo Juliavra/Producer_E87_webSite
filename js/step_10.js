@@ -73,7 +73,7 @@ const whiteNoiseNode = new AudioWorkletNode(
 whiteNoiseNode.connect(audioContext.destination);
 /**/
 
-agregaReverbWorklet();
+//agregaReverbWorklet();
 
 isShowOpenFilePickerSupported();
 
@@ -7791,8 +7791,8 @@ async function load_Local(value) {
           let k = 0;
           do {
             randomPosition = getRndInteger(0, tamanio);
-            if (randomPosition + 96000 < decodedBuffer.length) {
-              for (i = 0; i < 96000 - 1; i++) {
+            if (randomPosition + 192000 < decodedBuffer.length) {
+              for (i = 0; i < 192000 - 1; i++) {
                 for (let channel = 0; channel < 2; channel++) {
                   Float32[k] = toneBuffer.getChannelData(channel)[randomPosition + i];
                   k++; tamanio--;
@@ -11336,11 +11336,61 @@ function multiPlay() {
     "4: " + multiple_play_source_4.checked);
 }
 
-function scramble(value, decodedBuffer) {
+function scramble(value) {
   switch (value) {
     case "player_1":
       {
-        scramble2(decodedBuffer);
+        const buff = new Tone.Buffer(player_1_Node.buffer);
+        console.log("buff: ", buff);
+        console.log("player_1_Node,buff.numberOfChannels: " + buff.numberOfChannels);
+        console.log("buff samplerate: " + buff.sampleRate);
+        console.log("Tone.context samplerate: " + Tone.context.sampleRate);
+let tamanio2 = buff.length;
+  let randomPosition = 0;
+  const Float32 = new Float32Array(tamanio2);
+        console.log("Float32: ", Float32);
+  
+  let k = 0;
+  /*
+  do {
+    randomPosition = getRndInteger(0, tamanio2);
+    if (randomPosition + 96000 < buff.length) {
+      for (i = 0; i < 96000 - 1; i++) {
+        for (let channel = 0; channel < 2; channel++) {
+          Float32[k] = buff.getChannelData(channel)[randomPosition + i];
+          k++; tamanio2--;
+        }
+      }
+    }
+  }
+  while (k < buff.length);
+/**/
+
+  do {
+    randomPosition = getRndInteger(0, buff.duration);
+    console.log("randomPosition: ", randomPosition);
+      for (i = 0; i < buff.length; i++) {
+        for (let channel = 0; channel < 2; channel++) {
+          Float32[i] = buff.getChannelData(channel)[i];
+        }
+      }
+    }
+  while (k < buff.length);
+console.log("k: "+k)
+//randomPosition = getRndInteger(0, buff.duration);
+       // console.log("randomPosition: ", randomPosition);
+
+const testslice = buff.slice(randomPosition,randomPosition+2);
+        console.log("testslice: ", testslice);
+
+
+ const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+  player_1_Node.buffer.set(testslice);
+  
+  
+  //player_1_Node.volume.value = -12;
+
+        //scramble2(decodedBuffer);
         break;
       }
     default:
@@ -11354,7 +11404,7 @@ function scramble2(buffer) {
   console.log("buffer.numberOfChannels : " + buffer.numberOfChannels);
   console.log("buffer samplerate: " + buffer.sampleRate);
   console.log("Tone.context samplerate: " + Tone.context.sampleRate);
-  alert("")
+ // alert("")
   let tamanio2 = buffer.length;
   let randomPosition = 0;
   const Float32 = new Float32Array(buffer.length);
