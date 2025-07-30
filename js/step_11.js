@@ -7759,11 +7759,11 @@ async function load_Local(value) {
   const file = await fileHandle.getFile();
   const arrayBuffer = await file.arrayBuffer();
   const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
-  console.log("decodedBuffer: " + decodedBuffer);
+  //console.log("decodedBuffer: " + decodedBuffer);
   var toneBuffer = new Tone.Buffer(decodedBuffer);
-  console.log("toneBuffer", toneBuffer);
+  //console.log("toneBuffer", toneBuffer);
 
-  alerta("decodedBuffer");
+  //alerta("decodedBuffer");
   switch (value) {
     case "Grain_1":
       {
@@ -7786,7 +7786,7 @@ async function load_Local(value) {
         if (player_1_scrambler == true && decodedBuffer.duration < 180) {
           let tamanio = decodedBuffer.length;
           let randomPosition = 0;
-          alerta("scram")
+          //alerta("scram")
           const Float32 = new Float32Array(decodedBuffer.length);
           let k = 0;
           do {
@@ -7848,7 +7848,7 @@ async function load_Local(value) {
           console.log("testaudiobuff: " + testaudiobuff);
           player_1_Node.buffer.set(testaudiobuff);
           player_1_Node.sampleRate = 100;
-          alerta("sono io");
+          //alerta("sono io");
           player_1_load_text.innerHTML = fileHandle.name;
           channel_1_songName.innerHTML = fileHandle.name;
           channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
@@ -11335,60 +11335,82 @@ function multiPlay() {
     "3: " + multiple_play_source_3.checked + "   " +
     "4: " + multiple_play_source_4.checked);
 }
-
+//https://youtube.com/shorts/SnHiWFh0Aco?si=TIXRTiJJpOvFq3wo
 function scramble(value) {
   switch (value) {
     case "player_1":
       {
         const buff = new Tone.Buffer(player_1_Node.buffer);
-        console.log("buff: ", buff);
-        console.log("player_1_Node,buff.numberOfChannels: " + buff.numberOfChannels);
-        console.log("buff samplerate: " + buff.sampleRate);
-        console.log("Tone.context samplerate: " + Tone.context.sampleRate);
-let tamanio2 = buff.length;
-  let randomPosition = 0;
-  const Float32 = new Float32Array(tamanio2);
+        /* console.log("buff: ", buff);
+         console.log("player_1_Node,buff.numberOfChannels: " + buff.numberOfChannels);
+         console.log("buff samplerate: " + buff.sampleRate);
+         console.log("Tone.context samplerate: " + Tone.context.sampleRate);
+   /**/
+        let tamanio2 = buff.length;
+        let randomPosition = 0;
+        const Float32 = new Float32Array(tamanio2);
         console.log("Float32: ", Float32);
-  
-  let k = 0;
-  /*
-  do {
-    randomPosition = getRndInteger(0, tamanio2);
-    if (randomPosition + 96000 < buff.length) {
-      for (i = 0; i < 96000 - 1; i++) {
-        for (let channel = 0; channel < 2; channel++) {
-          Float32[k] = buff.getChannelData(channel)[randomPosition + i];
-          k++; tamanio2--;
+        let k = 0;
+        /*
+        do {
+          randomPosition = getRndInteger(0, tamanio2);
+          if (randomPosition + 96000 < buff.length) {
+            for (i = 0; i < 96000 - 1; i++) {
+              for (let channel = 0; channel < 2; channel++) {
+                Float32[k] = buff.getChannelData(channel)[randomPosition + i];
+                k++; tamanio2--;
+              }
+            }
+          }
         }
-      }
-    }
-  }
-  while (k < buff.length);
-/**/
-
-  do {
-    randomPosition = getRndInteger(0, buff.duration);
-    console.log("randomPosition: ", randomPosition);
-      for (i = 0; i < buff.length; i++) {
-        for (let channel = 0; channel < 2; channel++) {
-          Float32[i] = buff.getChannelData(channel)[i];
+        while (k < buff.length);
+      /**/
+        alert("druuuu: " + buff.duration * 1000)
+        do {
+          randomPosition = getRndInteger(0, buff.duration);
+          console.log("randomPosition: ", randomPosition);
+          for (i = 0; i < buff.length; i++) {
+            for (let channel = 0; channel < 2; channel++) {
+              Float32[i] = buff.getChannelData(channel)[i];
+            }
+          }
         }
-      }
-    }
-  while (k < buff.length);
-console.log("k: "+k)
-//randomPosition = getRndInteger(0, buff.duration);
-       // console.log("randomPosition: ", randomPosition);
+        while (i < buff.length);
+        //console.log("k: " + k)
+        console.log("i: " + i)
 
-const testslice = buff.slice(randomPosition,randomPosition+2);
+        //randomPosition = getRndInteger(0, buff.duration);
+        // console.log("randomPosition: ", randomPosition);
+console.log("Float32: ", Float32);
+        const testslice = buff.slice(randomPosition, randomPosition + 2);
         console.log("testslice: ", testslice);
 
 
- const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
-  player_1_Node.buffer.set(testslice);
-  
-  
-  //player_1_Node.volume.value = -12;
+        const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+        player_1_Node.buffer.set(decodedBuffer_twosecs);
+
+        /*
+
+function concatFloat32Arrays(array1, array2) {
+  const resultLength = array1.length + array2.length;
+  const resultArray = new Float32Array(resultLength);
+
+  resultArray.set(array1, 0); // Copy elements of array1 starting at index 0
+  resultArray.set(array2, array1.length); // Copy elements of array2 starting after array1's elements
+
+  return resultArray;
+}
+
+// Example usage:
+const arr1 = new Float32Array([1.1, 2.2, 3.3]);
+const arr2 = new Float32Array([4.4, 5.5, 6.6]);
+
+const concatenatedArray = concatFloat32Arrays(arr1, arr2);
+console.log(concatenatedArray); // Output: Float32Array [1.1, 2.2, 3.3, 4.4, 5.5, 6.6]
+
+        /**/
+
+        //player_1_Node.volume.value = -12;
 
         //scramble2(decodedBuffer);
         break;
@@ -11404,7 +11426,7 @@ function scramble2(buffer) {
   console.log("buffer.numberOfChannels : " + buffer.numberOfChannels);
   console.log("buffer samplerate: " + buffer.sampleRate);
   console.log("Tone.context samplerate: " + Tone.context.sampleRate);
- // alert("")
+  // alert("")
   let tamanio2 = buffer.length;
   let randomPosition = 0;
   const Float32 = new Float32Array(buffer.length);
