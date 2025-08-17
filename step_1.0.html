@@ -110,6 +110,8 @@
 <body>
   <header>
     <br>
+    meter_test_Node RMS: <p id="meter_test_Node_RMS"></p>
+    <br>
     <fieldset>
       Play Simultaneos
       <input type="checkbox" name="source_1" id="multiple_play_source_1" value="source_1"> 1
@@ -117,6 +119,7 @@
       <input type="checkbox" name="source_3" id="multiple_play_source_3" value="source_3"> 3
       <input type="checkbox" name="source_4" id="multiple_play_source_4" value="source_4"> 4
       <button id="various_plays" onclick="multiPlay()">Play</button>
+      <button id="various_stops" onclick="multiStop()">Stop</button>
       <br> <br>
 
       Sacado de: https://github.com/drnoir/soundTrigger/blob/main/record.js
@@ -144,6 +147,8 @@
         <button id="Sinte" onclick="Sinte()"> Sinte </button>
         <button id="CustomizedButton" onclick="CustomizedButton()"> Boton a customizar</button>
         <button id="TransportSTOP" onclick="TransportSTOP()"> Transport STOP </button>
+        <button id="save_txt_file" onclick="saveFile()">Save File </button>
+        <button id="save_table_as_CSV" onclick="guardarTabla()">guardarTabla </button>
       </section>
     </fieldset>
     <br> <br>
@@ -323,7 +328,6 @@
             <br> NO SOURCE SELECTED <br><br>
           </fieldset>
         </div>
-
         <div id="noiseSynth_1_div">
           <fieldset>
             <br> Noise Synth
@@ -482,8 +486,6 @@
             <br>
             <input class="checkbox" type="checkbox" name="player_1_scrambler_checkbox"
               id="player_1_scrambler_checkbox">Scrambler
-
-
             <br>
             <p id="player_1_load_text"></p>
             <p id="player_1_duration_value"> </p>
@@ -808,14 +810,6 @@
               channel_1_filter_frequency_shelf_rampTo_time)">go
           </button>
 -->
-
-
-
-
-
-
-
-
           <br>
 
           <p id="channel_1_tascam_Mid_SemiParam_gain_text">Mid Gain </p>
@@ -1123,7 +1117,7 @@
         <br>
       </fieldset>
       <fieldset>
-        <h2> 2 Reverb <p id="channel_1_fxSend_2_text"> </p>
+        <h2> 2 <p id="channel_1_fxSend_2_text"> </p>
         </h2>
         <button id="channel_1_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">Mute </button>
         <button id="channel_1_fxSend_2_pre_EQ_Button" name="channel_1_fxSend_2"
@@ -1147,7 +1141,7 @@
         <br>
       </fieldset>
       <fieldset>
-        <h2> 3 FeedBack Delay <p id="channel_1_fxSend_3_text"> </p>
+        <h2> 3 <p id="channel_1_fxSend_3_text"> </p>
         </h2>
         <button id="channel_1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">Mute </button>
         <button id="channel_1_fxSend_3_pre_EQ_Button" name="channel_1_fxSend_3"
@@ -1171,7 +1165,7 @@
 
       </fieldset>
       <fieldset>
-        <h2> 4 Pitch Shift <p id="channel_1_fxSend_4_text"> </p>
+        <h2> 4 <p id="channel_1_fxSend_4_text"> </p>
         </h2>
         <button id="channel_1_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">Mute </button>
         <button id="channel_1_fxSend_4_pre_EQ_Button" name="channel_1_fxSend_4"
@@ -2047,7 +2041,7 @@
         <br>
       </fieldset>
       <fieldset>
-        <h2> 2 Reverb <p id="channel_2_fxSend_2_text"> </p>
+        <h2> 2 <p id="channel_2_fxSend_2_text"> </p>
         </h2>
         <button id="channel_2_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">Mute </button>
         <button id="channel_2_fxSend_2_pre_EQ_Button" name="channel_2_fxSend_2"
@@ -2071,7 +2065,7 @@
         <br>
       </fieldset>
       <fieldset>
-        <h2> 3 FeedBack Delay <p id="channel_2_fxSend_3_text"> </p>
+        <h2> 3 <p id="channel_2_fxSend_3_text"> </p>
         </h2>
         <button id="channel_2_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">Mute </button>
         <button id="channel_2_fxSend_3_pre_EQ_Button" name="channel_2_fxSend_3"
@@ -2095,7 +2089,7 @@
 
       </fieldset>
       <fieldset>
-        <h2> 4 Pitch Shift <p id="channel_2_fxSend_4_text"> </p>
+        <h2> 4 <p id="channel_2_fxSend_4_text"> </p>
         </h2>
         <button id="channel_2_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">Mute </button>
         <button id="channel_2_fxSend_4_pre_EQ_Button" name="channel_2_fxSend_4"
@@ -2974,7 +2968,7 @@
         <br>
       </fieldset>
       <fieldset>
-        <h2> 2 Reverb <p id="channel_3_fxSend_2_text"> </p>
+        <h2> 2 <p id="channel_3_fxSend_2_text"> </p>
         </h2>
         <button id="channel_3_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">Mute </button>
         <button id="channel_3_fxSend_2_pre_EQ_Button" name="channel_3_fxSend_2"
@@ -2998,7 +2992,7 @@
         <br>
       </fieldset>
       <fieldset>
-        <h2> 3 FeedBack Delay <p id="channel_3_fxSend_3_text"> </p>
+        <h2> 3 <p id="channel_3_fxSend_3_text"> </p>
         </h2>
         <button id="channel_3_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">Mute </button>
         <button id="channel_3_fxSend_3_pre_EQ_Button" name="channel_3_fxSend_3"
@@ -3022,7 +3016,7 @@
 
       </fieldset>
       <fieldset>
-        <h2> 4 Pitch Shift <p id="channel_3_fxSend_4_text"> </p>
+        <h2> 4 <p id="channel_3_fxSend_4_text"> </p>
         </h2>
         <button id="channel_3_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">Mute </button>
         <button id="channel_3_fxSend_4_pre_EQ_Button" name="channel_3_fxSend_4"
@@ -3900,7 +3894,7 @@
         <br>
       </fieldset>
       <fieldset>
-        <h2> 2 Reverb <p id="channel_4_fxSend_2_text"> </p>
+        <h2> 2 <p id="channel_4_fxSend_2_text"> </p>
         </h2>
         <button id="channel_4_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">Mute </button>
         <button id="channel_4_fxSend_2_pre_EQ_Button" name="channel_4_fxSend_2"
@@ -3924,7 +3918,7 @@
         <br>
       </fieldset>
       <fieldset>
-        <h2> 3 FeedBack Delay <p id="channel_4_fxSend_3_text"> </p>
+        <h2> 3 <p id="channel_4_fxSend_3_text"> </p>
         </h2>
         <button id="channel_4_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">Mute </button>
         <button id="channel_4_fxSend_3_pre_EQ_Button" name="channel_4_fxSend_3"
@@ -3948,7 +3942,7 @@
 
       </fieldset>
       <fieldset>
-        <h2> 4 Pitch Shift <p id="channel_4_fxSend_4_text"> </p>
+        <h2> 4 <p id="channel_4_fxSend_4_text"> </p>
         </h2>
         <button id="channel_4_fxSend_4_On_Off_Button" onclick="fxSend_4_OnOff1()">Mute </button>
         <button id="channel_4_fxSend_4_pre_EQ_Button" name="channel_4_fxSend_4"
@@ -3979,6 +3973,18 @@
     <h2>FX 1</h2>
     rms: <p id="fx_1_rms_value"> </p>
     <br>
+        <div id="fx_1_RMS_all">
+      <fieldset>
+        RMS All <br>
+        comp_BP <p id="fx_1_rms_comp_bypass_meter_inner"> </p>
+        gate_BP <p id="fx_1_rms_gate_bypass_meter_inner"> </p>
+        limiter_BP <p id="fx_1_rms_limiter_bypass_meter_inner"> </p>
+        <br>
+
+        <br>
+        RMS_after_volume_value <p id="fx_1_rms_after_volume_value"> </p>
+      </fieldset>
+    </div>
     <div>
       <p id="fx_1_volume_text"> </p>
       Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx_1_volume'>
@@ -4203,7 +4209,7 @@
       <button id="fx_1_filter_eq_On_Button" value="on" name="fx_1"
         onclick="channel_x_filter_eq_selection_foo(name, value)">EQ1
       </button>
-      <select name="fx_1_filter" id="fx_1_filter_select">
+      <select name="fx_1_filter" id="fx_1_filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
         <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
         <option name="highpass" id="highpass" value="highpass">highpass</option>
@@ -4380,47 +4386,47 @@
         RMS: <p id="fx_1_tascam_424_meter_inner"> </p>
         <br>
         <fieldset>
-          <p id="fx_1_HighShelf_gain_text">Hi Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_1_HighShelf_gain'>
-          <p id="fx_1_HighShelf_gain_value"></p>
+          <p id="fx_1_tascam_HighShelf_gain_text">Hi Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_1_tascam_HighShelf_gain'>
+          <p id="fx_1_tascam_HighShelf_gain_value"></p>
 
-          <input id="fx_1_HighShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_1_HighShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_1_HighShelf_gain_rampTo_send_Button" value="fx_1_HighShelf_gain_tascam"
+          <input id="fx_1_tascam_HighShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_1_tascam_HighShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_1_tascam_HighShelf_gain_rampTo_send_Button" value="fx_1_tascam_HighShelf_gain_tascam"
             onclick="send(value, fx_1_HighShelf_gain_rampTo_gain, fx_1_HighShelf_gain_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_1_Mid_SemiParam_gain_text">Mid Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_1_Mid_SemiParam_gain'>
-          <p id="fx_1_Mid_SemiParam_gain_value"></p>
+          <p id="fx_1_tascam_Mid_SemiParam_gain_text">Mid Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_1_tascam_Mid_SemiParam_gain'>
+          <p id="fx_1_tascam_Mid_SemiParam_gain_value"></p>
 
-          <input id="fx_1_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_1_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_1_Mid_SemiParam_gain_send_Button" value="fx_1_Mid_SemiParam_gain_tascam"
+          <input id="fx_1_tascam_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_1_tascam_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_1_tascam_Mid_SemiParam_gain_send_Button" value="fx_1_tascam_Mid_SemiParam_gain"
             onclick="send(value, fx_1_Mid_SemiParam_gain_rampTo_gain, fx_1_Mid_SemiParam_gain_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_1_Mid_SemiParam_frequency_text">Mid Freq </p>
-          <input type='range' min=250 max=5000 step='10' value="250" id='fx_1_Mid_SemiParam_frequency'>
-          <p id="fx_1_Mid_SemiParam_frequency_value"></p>
+          <p id="fx_1_tascam_Mid_SemiParam_frequency_text">Mid Freq </p>
+          <input type='range' min=250 max=5000 step='10' value="250" id='fx_1_tascam_Mid_SemiParam_frequency'>
+          <p id="fx_1_tascam_Mid_SemiParam_frequency_value"></p>
 
-          <input id="fx_1_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_1_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60"
+          <input id="fx_1_tascam_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_1_tascam_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="fx_1_Mid_SemiParam_frequency_rampTo_send_Button" value="fx_1_Mid_SemiParam_frequency_tascam"
+          <button id="fx_1_tascam_Mid_SemiParam_frequency_rampTo_send_Button" value="fx_1_tascam_Mid_SemiParam_frequency"
             onclick="send(value, fx_1_Mid_SemiParam_frequency_rampTo_gain, fx_1_Mid_SemiParam_frequency_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_1_LowShelf_gain_text">Low Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_1_LowShelf_gain'>
-          <p id="fx_1_LowShelf_gain_value"></p>
+          <p id="fx_1_tascam_LowShelf_gain_text">Low Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_1_tascam_LowShelf_gain'>          
+          <p id="fx_1_tascam_LowShelf_gain_value"></p>
 
-          <input id="fx_1_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_1_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_1_LowShelf_gain_rampTo_send_Button" value="fx_1_LowShelf_gain_tascam"
+          <input id="fx_1_tascam_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_1_tascam_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_1_tascam_LowShelf_gain_rampTo_send_Button" value="fx_1_tascam_LowShelf_gain_tascam"
             onclick="send(value, fx_1_LowShelf_gain_rampTo_gain, fx_1_LowShelf_gain_rampTo_time)">go
           </button>
           <br>
@@ -4512,7 +4518,7 @@
           <button id="fx_1_dynamics_select_unit_Button" name="fx_1" value="limiter"
             onclick="player_x_dynamics_select_unit(name, value)">Limiter </button>
           <br>
-          <button id="fx_1_dynamics_On_Off_Button" name="fx_1" value="compressor"
+          <button id="fx_1_compressor_On_Off_Button" name="fx_1" value="compressor"
             onclick="player_x_dynamics_On_Off(name, value)">On </button>
           ----------------------|>
           <button id="fx_1_gate_On_Off_Button" name="fx_1" value="gate"
@@ -4606,8 +4612,8 @@
         <br>
       </fieldset>
       <fieldset>
-        <p id="channel_1_fxSend_2_text">
-        <h2> 2 Reverb
+        <p id="fx_1_fxSend_2_text">
+        <h2> 2
           <button id="channel_1_fxSend_2_On_Off_Button" onclick="fx_1_fxSend_2_OnOff()">On </button>
         </h2>
         </p>
@@ -4625,8 +4631,8 @@
         <br>
       </fieldset>
       <fieldset>
-        <p id="channel_1_fxSend_3_text">
-        <h2>3 FeedBack Delay <button id="channel_1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
+        <p id="fx_1_fxSend_3_text">
+        <h2>3 <button id="channel_1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
         </h2>
         </p>
         <button id="fx_1_fxSend_3_pre_EQ_Button" name="fx_1_fxSend_3" onclick="player_x_fxSend_x_state_foo(name, value)"
@@ -4871,13 +4877,11 @@
         <br>
       </fieldset>
     </div>
-
     <br>
-    <!--
     <button type="button" class="collapsible">
       EQ
     </button>
-    -->
+    
     <div class="content">
       <br>
       <label for="fx_2_filter_1_select" name="fx_2_filter_1_select"> </label>
@@ -4887,7 +4891,7 @@
       <button id="fx_2_filter_eq_On_Button" value="on" name="fx_2"
         onclick="channel_x_filter_eq_selection_foo(name, value)">EQ1
       </button>
-      <select name="fx_2_filter" id="fx_2_filter_select">
+      <select name="fx_2_filter" id="fx_2_filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
         <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
         <option name="highpass" id="highpass" value="highpass">highpass</option>
@@ -5064,47 +5068,47 @@
         RMS: <p id="fx_2_tascam_424_meter_inner"> </p>
         <br>
         <fieldset>
-          <p id="fx_2_HighShelf_gain_text">Hi Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_2_HighShelf_gain'>
-          <p id="fx_2_HighShelf_gain_value"></p>
+          <p id="fx_2_tascam_HighShelf_gain_text">Hi Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_2_tascam_HighShelf_gain'>
+          <p id="fx_2_tascam_HighShelf_gain_value"></p>
 
-          <input id="fx_2_HighShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_2_HighShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_2_HighShelf_gain_rampTo_send_Button" value="fx_2_HighShelf_gain_tascam"
+          <input id="fx_2_tascam_HighShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_2_tascam_HighShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_2_tascam_HighShelf_gain_rampTo_send_Button" value="fx_2_tascam_HighShelf_gain_tascam"
             onclick="send(value, fx_2_HighShelf_gain_rampTo_gain, fx_2_HighShelf_gain_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_2_Mid_SemiParam_gain_text">Mid Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_2_Mid_SemiParam_gain'>
-          <p id="fx_2_Mid_SemiParam_gain_value"></p>
+          <p id="fx_2_tascam_Mid_SemiParam_gain_text">Mid Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_2_tascam_Mid_SemiParam_gain'>
+          <p id="fx_2_tascam_Mid_SemiParam_gain_value"></p>
 
-          <input id="fx_2_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_2_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_2_Mid_SemiParam_gain_send_Button" value="fx_2_Mid_SemiParam_gain_tascam"
+          <input id="fx_2_tascam_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_2_tascam_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_2_tascam_Mid_SemiParam_gain_send_Button" value="fx_2_tascam_Mid_SemiParam_gain_tascam"
             onclick="send(value, fx_2_Mid_SemiParam_gain_rampTo_gain, fx_2_Mid_SemiParam_gain_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_2_Mid_SemiParam_frequency_text">Mid Freq </p>
-          <input type='range' min=250 max=5000 step='10' value="250" id='fx_2_Mid_SemiParam_frequency'>
-          <p id="fx_2_Mid_SemiParam_frequency_value"></p>
+          <p id="fx_2_tascam_Mid_SemiParam_frequency_text">Mid Freq </p>
+          <input type='range' min=250 max=5000 step='10' value="250" id='fx_2_tascam_Mid_SemiParam_frequency'>
+          <p id="fx_2_tascam_Mid_SemiParam_frequency_value"></p>
 
-          <input id="fx_2_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_2_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60"
+          <input id="fx_2_tascam_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_2_tascam_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="fx_2_Mid_SemiParam_frequency_rampTo_send_Button" value="fx_2_Mid_SemiParam_frequency_tascam"
+          <button id="fx_2_tascam_Mid_SemiParam_frequency_rampTo_send_Button" value="fx_2_tascam_Mid_SemiParam_frequency_tascam"
             onclick="send(value, fx_2_Mid_SemiParam_frequency_rampTo_gain, fx_2_Mid_SemiParam_frequency_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_2_LowShelf_gain_text">Low Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_2_LowShelf_gain'>
-          <p id="fx_2_LowShelf_gain_value"></p>
+          <p id="fx_2_tascam_LowShelf_gain_text">Low Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_2_tascam_LowShelf_gain'>
+          <p id="fx_2_tascam_LowShelf_gain_value"></p>
 
-          <input id="fx_2_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_2_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_2_LowShelf_gain_rampTo_send_Button" value="fx_2_LowShelf_gain_tascam"
+          <input id="fx_2_tascam_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_2_tascam_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_2_tascam_LowShelf_gain_rampTo_send_Button" value="fx_2_tascam_LowShelf_gain_tascam"
             onclick="send(value, fx_2_LowShelf_gain_rampTo_gain, fx_2_LowShelf_gain_rampTo_time)">go
           </button>
           <br>
@@ -5196,7 +5200,7 @@
           <button id="fx_2_dynamics_select_unit_Button" name="fx_2" value="limiter"
             onclick="player_x_dynamics_select_unit(name, value)">Limiter </button>
           <br>
-          <button id="fx_2_dynamics_On_Off_Button" name="fx_2" value="compressor"
+          <button id="fx_2_compressor_On_Off_Button" name="fx_2" value="compressor"
             onclick="player_x_dynamics_On_Off(name, value)">On </button>
           ----------------------|>
           <button id="fx_2_gate_On_Off_Button" name="fx_2" value="gate"
@@ -5290,8 +5294,8 @@
         <br>
       </fieldset>
       <fieldset>
-        <p id="channel_1_fxSend_2_text">
-        <h2> 2 Reverb
+        <p id="fx_2_fxSend_2_text">
+        <h2> 2
           <button id="channel_1_fxSend_2_On_Off_Button" onclick="fx_2_fxSend_2_OnOff()">On </button>
         </h2>
         </p>
@@ -5309,8 +5313,8 @@
         <br>
       </fieldset>
       <fieldset>
-        <p id="channel_1_fxSend_3_text">
-        <h2>3 FeedBack Delay <button id="channel_1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
+        <p id="fx_2_fxSend_3_text">
+        <h2>3 <button id="channel_1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
         </h2>
         </p>
         <button id="fx_2_fxSend_3_pre_EQ_Button" name="fx_2_fxSend_3" onclick="player_x_fxSend_x_state_foo(name, value)"
@@ -5575,7 +5579,7 @@
       <button id="fx_3_filter_eq_On_Button" value="on" name="fx_3"
         onclick="channel_x_filter_eq_selection_foo(name, value)">EQ1
       </button>
-      <select name="fx_3_filter" id="fx_3_filter_select">
+      <select name="fx_3_filter" id="fx_3_filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
         <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
         <option name="highpass" id="highpass" value="highpass">highpass</option>
@@ -5752,48 +5756,48 @@
         RMS: <p id="fx_3_tascam_424_meter_inner"> </p>
         <br>
         <fieldset>
-          <p id="fx_3_HighShelf_gain_text">Hi Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_3_HighShelf_gain'>
-          <p id="fx_3_HighShelf_gain_value"></p>
+          <p id="fx_3_tascam_HighShelf_gain_text">Hi Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_3_tascam_HighShelf_gain'>
+          <p id="fx_3_tascam_HighShelf_gain_value"></p>
 
-          <input id="fx_3_HighShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_3_HighShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_3_HighShelf_gain_rampTo_send_Button" value="fx_3_HighShelf_gain_tascam"
-            onclick="send(value, fx_3_HighShelf_gain_rampTo_gain, fx_3_HighShelf_gain_rampTo_time)">go
+          <input id="fx_3_tascam_HighShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_3_tascam_HighShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_3_tascam_HighShelf_gain_rampTo_send_Button" value="fx_3_tascam_HighShelf_gain_tascam"
+            onclick="send(value, fx_3_tascam_HighShelf_gain_rampTo_gain, fx_3_tascam_HighShelf_gain_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_3_Mid_SemiParam_gain_text">Mid Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_3_Mid_SemiParam_gain'>
-          <p id="fx_3_Mid_SemiParam_gain_value"></p>
+          <p id="fx_3_tascam_Mid_SemiParam_gain_text">Mid Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_3_tascam_Mid_SemiParam_gain'>
+          <p id="fx_3_tascam_Mid_SemiParam_gain_value"></p>
 
-          <input id="fx_3_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_3_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_3_Mid_SemiParam_gain_send_Button" value="fx_3_Mid_SemiParam_gain_tascam"
-            onclick="send(value, fx_3_Mid_SemiParam_gain_rampTo_gain, fx_3_Mid_SemiParam_gain_rampTo_time)">go
+          <input id="fx_3_tascam_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_3_tascam_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_3_tascam_Mid_SemiParam_gain_send_Button" value="fx_3_tascam_Mid_SemiParam_gain_tascam"
+            onclick="send(value, fx_3_tascam_Mid_SemiParam_gain_rampTo_gain, fx_3_tascam_Mid_SemiParam_gain_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_3_Mid_SemiParam_frequency_text">Mid Freq </p>
-          <input type='range' min=250 max=5000 step='10' value="250" id='fx_3_Mid_SemiParam_frequency'>
-          <p id="fx_3_Mid_SemiParam_frequency_value"></p>
+          <p id="fx_3_tascam_Mid_SemiParam_frequency_text">Mid Freq </p>
+          <input type='range' min=250 max=5000 step='10' value="250" id='fx_3_tascam_Mid_SemiParam_frequency'>
+          <p id="fx_3_tascam_Mid_SemiParam_frequency_value"></p>
 
-          <input id="fx_3_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_3_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60"
+          <input id="fx_3_tascam_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_3_tascam_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="fx_3_Mid_SemiParam_frequency_rampTo_send_Button" value="fx_3_Mid_SemiParam_frequency_tascam"
-            onclick="send(value, fx_3_Mid_SemiParam_frequency_rampTo_gain, fx_3_Mid_SemiParam_frequency_rampTo_time)">go
+          <button id="fx_3_tascam_Mid_SemiParam_frequency_rampTo_send_Button" value="fx_3_tascam_Mid_SemiParam_frequency_tascam"
+            onclick="send(value, fx_3_tascam_Mid_SemiParam_frequency_rampTo_gain, fx_3_tascam_Mid_SemiParam_frequency_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_3_LowShelf_gain_text">Low Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_3_LowShelf_gain'>
-          <p id="fx_3_LowShelf_gain_value"></p>
+          <p id="fx_3_tascam_LowShelf_gain_text">Low Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_3_tascam_LowShelf_gain'>
+          <p id="fx_3_tascam_LowShelf_gain_value"></p>
 
-          <input id="fx_3_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_3_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_3_LowShelf_gain_rampTo_send_Button" value="fx_3_LowShelf_gain_tascam"
-            onclick="send(value, fx_3_LowShelf_gain_rampTo_gain, fx_3_LowShelf_gain_rampTo_time)">go
+          <input id="fx_3_tascam_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_3_tascam_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_3_tascam_LowShelf_gain_rampTo_send_Button" value="fx_3_tascam_LowShelf_gain_tascam"
+            onclick="send(value, fx_3_tascam_LowShelf_gain_rampTo_gain, fx_3_tascam_LowShelf_gain_rampTo_time)">go
           </button>
           <br>
         </fieldset>
@@ -5885,7 +5889,7 @@
           <button id="fx_3_dynamics_select_unit_Button" name="fx_3" value="limiter"
             onclick="player_x_dynamics_select_unit(name, value)">Limiter </button>
           <br>
-          <button id="fx_3_dynamics_On_Off_Button" name="fx_3" value="compressor"
+          <button id="fx_3_compressor_On_Off_Button" name="fx_3" value="compressor"
             onclick="player_x_dynamics_On_Off(name, value)">On </button>
           ----------------------|>
           <button id="fx_3_gate_On_Off_Button" name="fx_3" value="gate"
@@ -5979,8 +5983,8 @@
         <br>
       </fieldset>
       <fieldset>
-        <p id="channel_1_fxSend_2_text">
-        <h2> 2 Reverb
+        <p id="fx_3_fxSend_2_text">
+        <h2> 2 
           <button id="channel_1_fxSend_2_On_Off_Button" onclick="fx_3_fxSend_2_OnOff()">On </button>
         </h2>
         </p>
@@ -5998,8 +6002,8 @@
         <br>
       </fieldset>
       <fieldset>
-        <p id="channel_1_fxSend_3_text">
-        <h2>3 FeedBack Delay <button id="channel_1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
+        <p id="fx_3_fxSend_3_text">
+        <h2>3 <button id="channel_1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
         </h2>
         </p>
         <button id="fx_3_fxSend_3_pre_EQ_Button" name="fx_3_fxSend_3" onclick="player_x_fxSend_x_state_foo(name, value)"
@@ -6271,7 +6275,7 @@
       <button id="fx_4_filter_eq_On_Button" value="on" name="fx_4"
         onclick="channel_x_filter_eq_selection_foo(name, value)">EQ1
       </button>
-      <select name="fx_4_filter" id="fx_4_filter_select">
+      <select name="fx_4_filter" id="fx_4_filter_1_select">
         <option name="empty" id="empty" value="empty">empty</option>
         <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
         <option name="highpass" id="highpass" value="highpass">highpass</option>
@@ -6445,51 +6449,51 @@
       </div>
       <div id="fx_4_tascam_424_controls_div">
         <br>
-        RMS: <p id="fx_4_tascam_424_meter_inner"> </p>
+        RMS: <p id="fx_4_tascam_tascam_424_meter_inner"> </p>
         <br>
         <fieldset>
-          <p id="fx_4_HighShelf_gain_text">Hi Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_4_HighShelf_gain'>
-          <p id="fx_4_HighShelf_gain_value"></p>
+          <p id="fx_4_tascam_HighShelf_gain_text">Hi Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_4_tascam_HighShelf_gain'>
+          <p id="fx_4_tascam_HighShelf_gain_value"></p>
 
-          <input id="fx_4_HighShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_4_HighShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_4_HighShelf_gain_rampTo_send_Button" value="fx_4_HighShelf_gain_tascam"
-            onclick="send(value, fx_4_HighShelf_gain_rampTo_gain, fx_4_HighShelf_gain_rampTo_time)">go
+          <input id="fx_4_tascam_HighShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_4_tascam_HighShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_4_tascam_HighShelf_gain_rampTo_send_Button" value="fx_4_tascam_HighShelf_gain_tascam"
+            onclick="send(value, fx_4_tascam_HighShelf_gain_rampTo_gain, fx_4_tascam_HighShelf_gain_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_4_Mid_SemiParam_gain_text">Mid Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_4_Mid_SemiParam_gain'>
-          <p id="fx_4_Mid_SemiParam_gain_value"></p>
+          <p id="fx_4_tascam_Mid_SemiParam_gain_text">Mid Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_4_tascam_Mid_SemiParam_gain'>
+          <p id="fx_4_tascam_Mid_SemiParam_gain_value"></p>
 
-          <input id="fx_4_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_4_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_4_Mid_SemiParam_gain_send_Button" value="fx_4_Mid_SemiParam_gain_tascam"
-            onclick="send(value, fx_4_Mid_SemiParam_gain_rampTo_gain, fx_4_Mid_SemiParam_gain_rampTo_time)">go
+          <input id="fx_4_tascam_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_4_tascam_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_4_tascam_Mid_SemiParam_gain_send_Button" value="fx_4_tascam_Mid_SemiParam_gain_tascam"
+            onclick="send(value, fx_4_tascam_Mid_SemiParam_gain_rampTo_gain, fx_4_tascam_Mid_SemiParam_gain_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_4_Mid_SemiParam_frequency_text">Mid Freq </p>
-          <input type='range' min=250 max=5000 step='10' value="250" id='fx_4_Mid_SemiParam_frequency'>
-          <p id="fx_4_Mid_SemiParam_frequency_value"></p>
+          <p id="fx_4_tascam_Mid_SemiParam_frequency_text">Mid Freq </p>
+          <input type='range' min=250 max=5000 step='10' value="250" id='fx_4_tascam_Mid_SemiParam_frequency'>
+          <p id="fx_4_tascam_Mid_SemiParam_frequency_value"></p>
 
-          <input id="fx_4_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_4_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60"
+          <input id="fx_4_tascam_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_4_tascam_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="fx_4_Mid_SemiParam_frequency_rampTo_send_Button" value="fx_4_Mid_SemiParam_frequency_tascam"
+          <button id="fx_4_tascam_Mid_SemiParam_frequency_rampTo_send_Button" value="fx_4_tascam_Mid_SemiParam_frequency_tascam"
             onclick="send(value, fx_4_Mid_SemiParam_frequency_rampTo_gain, fx_4_Mid_SemiParam_frequency_rampTo_time)">go
           </button>
           <br>
 
-          <p id="fx_4_LowShelf_gain_text">Low Gain </p>
-          <input type='range' min=-100 max=100 step='1' value="0" id='fx_4_LowShelf_gain'>
-          <p id="fx_4_LowShelf_gain_value"></p>
+          <p id="fx_4_tascam_LowShelf_gain_text">Low Gain </p>
+          <input type='range' min=-100 max=100 step='1' value="0" id='fx_4_tascam_LowShelf_gain'>
+          <p id="fx_4_tascam_LowShelf_gain_value"></p>
 
-          <input id="fx_4_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="fx_4_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="fx_4_LowShelf_gain_rampTo_send_Button" value="fx_4_LowShelf_gain_tascam"
-            onclick="send(value, fx_4_LowShelf_gain_rampTo_gain, fx_4_LowShelf_gain_rampTo_time)">go
+          <input id="fx_4_tascam_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          time: <input id="fx_4_tascam_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          <button id="fx_4_tascam_LowShelf_gain_rampTo_send_Button" value="fx_4_tascam_LowShelf_gain_tascam"
+            onclick="send(value, fx_4_tascam_LowShelf_gain_rampTo_gain, fx_4_tascam_LowShelf_gain_rampTo_time)">go
           </button>
           <br>
         </fieldset>
@@ -6580,7 +6584,7 @@
           <button id="fx_4_dynamics_select_unit_Button" name="fx_4" value="limiter"
             onclick="player_x_dynamics_select_unit(name, value)">Limiter </button>
           <br>
-          <button id="fx_4_dynamics_On_Off_Button" name="fx_4" value="compressor"
+          <button id="fx_4_compressor_On_Off_Button" name="fx_4" value="compressor"
             onclick="player_x_dynamics_On_Off(name, value)">On </button>
           ----------------------|>
           <button id="fx_4_gate_On_Off_Button" name="fx_4" value="gate"
@@ -6674,8 +6678,8 @@
         <br>
       </fieldset>
       <fieldset>
-        <p id="channel_1_fxSend_2_text">
-        <h2> 2 Reverb
+        <p id="fx_4_fxSend_2_text">
+        <h2> 2 
           <button id="channel_1_fxSend_2_On_Off_Button" onclick="fx_4_fxSend_2_OnOff()">On </button>
         </h2>
         </p>
@@ -6693,8 +6697,8 @@
         <br>
       </fieldset>
       <fieldset>
-        <p id="channel_1_fxSend_3_text">
-        <h2>3 FeedBack Delay <button id="channel_1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
+        <p id="fx_4_fxSend_3_text">
+        <h2>3 <button id="channel_1_fxSend_3_On_Off_Button" onclick="fxSend_3_OnOff1()">On </button>
         </h2>
         </p>
         <button id="fx_4_fxSend_3_pre_EQ_Button" name="fx_4_fxSend_3" onclick="player_x_fxSend_x_state_foo(name, value)"
