@@ -6700,11 +6700,6 @@ const mixEvent = {
   console_log: function (event) {
     console.log("NOw: " + event.atTime + "\n" + "element: " + event.element + "\n" +
       "newValue: " + event.action);
-  },
-  cadena_join: function (lista) {
-    cadena = "NOw:" + "," + lista[i].atTime + "," + "element:" + "," + lista[i].element + "," +
-      "newValue:" + "," + lista[i].action + "\n";
-    return cadena
   }
 };
 
@@ -10412,150 +10407,148 @@ function send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time) {
 }
 
 async function load_Local(value) {
-  const ctx = new window.AudioContext();
-  const [fileHandle] = await window.showOpenFilePicker({
-    multiple: false,
-    types: [
-      {
-        description: 'Audio files',
-        accept: {
-          'audio/*': ['.wav', '.ogg', '.mp3', '.mp4', '.aac', '.flac', '.webm'],
-        }
-      },
-    ],
-    excludeAcceptAllOption: true,
-    startIn: 'downloads'
-  });
+  try {
+    const ctx = new window.AudioContext();
+    const [fileHandle] = await window.showOpenFilePicker({
+      multiple: false,
+      types: [
+        {
+          description: 'Audio files',
+          accept: {
+            'audio/*': ['.wav', '.ogg', '.mp3', '.mp4', '.aac', '.flac', '.webm'],
+          }
+        },
+      ],
+      excludeAcceptAllOption: true,
+      startIn: 'downloads'
+    });
 
-  const file = await fileHandle.getFile();
-  const arrayBuffer = await file.arrayBuffer();
-  const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
-  //console.log("decodedBuffer: " + decodedBuffer);
-  var toneBuffer = new Tone.Buffer(decodedBuffer);
-  //console.log("toneBuffer", toneBuffer);
-  //alerta("decodedBuffer");
-  switch (value) {
-    case "Grain_1":
-      {
-        grainPlayer_1_Node.buffer.set(decodedBuffer);
-        grainPlayer_1_load_text.innerHTML = fileHandle.name;
-        channel_1_songName.innerHTML = fileHandle.name;
-        channel_1_duration_text.innerHTML = Math.round(`${grainPlayer_1_Node.buffer.duration}`);
-        mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1", fileHandle.name);
-        break;
-      }
-    case "Grain_2":
-      {
-        grainPlayer_2_Node.buffer.set(decodedBuffer);
-        grainPlayer_2_load_text.innerHTML = fileHandle.name;
-        alert("load_Local grainPlayer_2");
-        break;
-      }
-    case "player_1":
-      {
-        if (player_1_scrambler == true && decodedBuffer.duration < 180) {
+    const file = await fileHandle.getFile();
+    const arrayBuffer = await file.arrayBuffer();
+    const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
+    //console.log("decodedBuffer: " + decodedBuffer);
+    var toneBuffer = new Tone.Buffer(decodedBuffer);
+    //console.log("toneBuffer", toneBuffer);
+    //alerta("decodedBuffer");
+    switch (value) {
+      case "Grain_1":
+        {
+          grainPlayer_1_Node.buffer.set(decodedBuffer);
+          grainPlayer_1_load_text.innerHTML = fileHandle.name;
+          channel_1_songName.innerHTML = fileHandle.name;
+          channel_1_duration_text.innerHTML = Math.round(`${grainPlayer_1_Node.buffer.duration}`);
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1", fileHandle.name);
+          break;
+        }
+      case "Grain_2":
+        {
+          grainPlayer_2_Node.buffer.set(decodedBuffer);
+          grainPlayer_2_load_text.innerHTML = fileHandle.name;
+          alert("load_Local grainPlayer_2");
+          break;
+        }
+      case "player_1":
+        {
+          if (player_1_scrambler == true && decodedBuffer.duration < 180) {
+            let tamanio = decodedBuffer.length;
+            let randomPosition = 0;
+            const Float32 = new Float32Array(decodedBuffer.length);
+            let k = 0;
+            do {
+              randomPosition = getRndInteger(0, tamanio);
+              if (randomPosition + 96000 < decodedBuffer.length) {
+                for (i = 0; i < 96000 - 1; i++) {
+                  for (let channel = 0; channel < 2; channel++) {
+                    Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
+                    tamanio--;
+                  }
+                  k++;
+                }
+              }
+            }
+            while (k < decodedBuffer.length);
+            //  console.log("testSliceaudiobuff: "+testSliceaudiobuff)
+            // console.log("Float32: " + Float32)
+            const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+            // player_1_Node.buffer.set(decodedBuffer_twosecs);
+            const testSliceaudiobuff = Tone.Buffer.fromArray(Float32);
+            //  console.log("testSliceaudiobuff: " + testSliceaudiobuff)
+            player_1_Node.buffer.set(testSliceaudiobuff);
+            player_1_load_text.innerHTML = fileHandle.name;
+            channel_1_songName.innerHTML = fileHandle.name;
+            channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
+            player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
+          }
+          else {
+            const player_1_buffer = new Tone.Buffer();
+            player_1_buffer.set(toneBuffer);
+            player_1_Node.buffer.set(player_1_buffer);
+            player_1_load_text.innerHTML = fileHandle.name;
+            channel_1_songName.innerHTML = fileHandle.name;
+            channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
+            player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
+            if (player_1_scrambler_checkbox.checked == true) {
+              player_1_scrambler_checkbox.checked = false
+            }
+          }
+
+          /*
           let tamanio = decodedBuffer.length;
           let randomPosition = 0;
           const Float32 = new Float32Array(decodedBuffer.length);
           let k = 0;
           do {
             randomPosition = getRndInteger(0, tamanio);
-            if (randomPosition + 96000 < decodedBuffer.length) {
-              for (i = 0; i < 96000 - 1; i++) {
+            if (randomPosition + 48000 < decodedBuffer.length) {
+              for (i = 0; i < 48000 - 1; i++) {
                 for (let channel = 0; channel < 2; channel++) {
                   Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
-                  tamanio--;
+                  k++; tamanio--;
                 }
-                k++;
               }
             }
           }
           while (k < decodedBuffer.length);
-          //  console.log("testSliceaudiobuff: "+testSliceaudiobuff)
-          // console.log("Float32: " + Float32)
           const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
-          // player_1_Node.buffer.set(decodedBuffer_twosecs);
-          const testSliceaudiobuff = Tone.Buffer.fromArray(Float32);
-          //  console.log("testSliceaudiobuff: " + testSliceaudiobuff)
-          player_1_Node.buffer.set(testSliceaudiobuff);
-          player_1_load_text.innerHTML = fileHandle.name;
-          channel_1_songName.innerHTML = fileHandle.name;
-          channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
-          player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
+          player_1_Node.buffer.set(decodedBuffer_twosecs);
+          /**/
+          mixEvent.logIntoListaAction(Tone.now(), "player_1", fileHandle.name);
+          break;
         }
-        else {
-          //player_1_Node.buffer.set(decodedBuffer);
-          const player_1_buffer = new Tone.Buffer();
-          player_1_buffer.set(toneBuffer);
-          player_1_Node.buffer.set(player_1_buffer);
-          player_1_load_text.innerHTML = fileHandle.name;
-          channel_1_songName.innerHTML = fileHandle.name;
-          channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
-          player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
-          if (player_1_scrambler_checkbox.checked == true) {
-            player_1_scrambler_checkbox.checked = false
-          }
+      case "player_2":
+        {
+          player_2_Node.buffer.set(decodedBuffer);
+          player_2_load_text.innerHTML = fileHandle.name;
+          mixEvent.logIntoListaAction(Tone.now(), "player_2", fileHandle.name);
+          break;
         }
+      case "player_3":
+        {
+          player_3_Node.buffer.set(decodedBuffer);
+          player_3_load_text.innerHTML = fileHandle.name;
+          mixEvent.logIntoListaAction(Tone.now(), "player_3", fileHandle.name);
+          break;
+        }
+      case "player_4":
+        {
+          player_4_Node.buffer.set(decodedBuffer);
+          player_4_load_text.innerHTML = fileHandle.name;
+          mixEvent.logIntoListaAction(Tone.now(), "player_4", fileHandle.name);
+          break;
+        }
+      default:
+        { break; }
 
-        /*
-        let tamanio = decodedBuffer.length;
-        let randomPosition = 0;
-        const Float32 = new Float32Array(decodedBuffer.length);
-        let k = 0;
-        do {
-          randomPosition = getRndInteger(0, tamanio);
-          if (randomPosition + 48000 < decodedBuffer.length) {
-            for (i = 0; i < 48000 - 1; i++) {
-              for (let channel = 0; channel < 2; channel++) {
-                Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
-                k++; tamanio--;
-              }
-            }
-          }
-        }
-        while (k < decodedBuffer.length);
-        const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
-        player_1_Node.buffer.set(decodedBuffer_twosecs);
-        /**/
-
-        /*
-        async function getFile(audioContext, filepath) {
-          const response = await fetch(filepath);
-          const arrayBuffer = await response.arrayBuffer();
-          const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-          return audioBuffer;
-        }
-                /**/
-        mixEvent.logIntoListaAction(Tone.now(), "player_1", fileHandle.name);
-        break;
-      }
-    case "player_2":
-      {
-        player_2_Node.buffer.set(decodedBuffer);
-        player_2_load_text.innerHTML = fileHandle.name;
-        mixEvent.logIntoListaAction(Tone.now(), "player_2", fileHandle.name);
-        break;
-      }
-    case "player_3":
-      {
-        player_3_Node.buffer.set(decodedBuffer);
-        player_3_load_text.innerHTML = fileHandle.name;
-        mixEvent.logIntoListaAction(Tone.now(), "player_3", fileHandle.name);
-        break;
-      }
-    case "player_4":
-      {
-        player_4_Node.buffer.set(decodedBuffer);
-        player_4_load_text.innerHTML = fileHandle.name;
-        mixEvent.logIntoListaAction(Tone.now(), "player_4", fileHandle.name);
-        break;
-      }
-    default:
-      { break; }
-
-  }//CLOSES SWT6CH
-  //dispose ctx REVISAR
-  //  ctx.destination.close(); DA ERROR
+    }//CLOSES SWT6CH
+    //dispose ctx REVISAR
+    //  ctx.destination.close(); DA ERROR
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log('User dismissed the file picker.');
+    } else {
+      console.error('Error loading file:', error);
+    }
+  }
 }
 
 function play(value) {
@@ -20754,33 +20747,33 @@ channel_4_select_Available_Nodes.addEventListener("change", function (e) {
   mixEvent.logIntoListaAction(Tone.now(), "channel_4_select_Available_Nodes", e.currentTarget.value);
 });
 
-//DEBE PREGUNTAR EL ESTADO DEL SOURCE 1
 function multiPlay() {
   if (multiple_play_source_1.checked == true) {
     if (player_1_Node.buffer.duration != 0) {
       player_1_Node.start();
       player_1_playButton.style.backgroundColor = "green";
-
+      mixEvent.logIntoListaAction(Tone.now(), "player_1_multiPlay", fileHandle.name);
     }
   }
   if (multiple_play_source_2.checked == true) {
     if (player_2_Node.buffer.duration != 0) {
       player_2_Node.start();
       player_2_playButton.style.backgroundColor = "green";
-
+      mixEvent.logIntoListaAction(Tone.now(), "player_2_multiPlay", fileHandle.name);
     }
   }
   if (multiple_play_source_3.checked == true) {
     if (player_3_Node.buffer.duration != 0) {
       player_3_Node.start();
       player_3_playButton.style.backgroundColor = "green";
+      mixEvent.logIntoListaAction(Tone.now(), "player_3_multiPlay", fileHandle.name);
     }
   }
   if (multiple_play_source_4.checked == true) {
     if (player_4_Node.buffer.duration != 0) {
       player_4_Node.start();
       player_4_playButton.style.backgroundColor = "green";
-
+      mixEvent.logIntoListaAction(Tone.now(), "player_4_multiPlay", fileHandle.name);
     }
   }
   /*
@@ -20796,27 +20789,28 @@ function multiStop() {
     if (player_1_Node.buffer.duration != 0) {
       player_1_Node.stop();
       player_1_playButton.style.backgroundColor = "white";
-
+      mixEvent.logIntoListaAction(Tone.now(), "player_1_multiStop", fileHandle.name);
     }
   }
   if (multiple_play_source_2.checked == true) {
     if (player_2_Node.buffer.duration != 0) {
       player_2_Node.stop();
       player_2_playButton.style.backgroundColor = "white";
-
+      mixEvent.logIntoListaAction(Tone.now(), "player_2_multiStop", fileHandle.name);
     }
   }
   if (multiple_play_source_3.checked == true) {
     if (player_3_Node.buffer.duration != 0) {
       player_3_Node.stop();
       player_3_playButton.style.backgroundColor = "white";
+      mixEvent.logIntoListaAction(Tone.now(), "player_3_multiStop", fileHandle.name);
     }
   }
   if (multiple_play_source_4.checked == true) {
     if (player_4_Node.buffer.duration != 0) {
       player_4_Node.stop();
       player_4_playButton.style.backgroundColor = "white";
-
+      mixEvent.logIntoListaAction(Tone.now(), "player_4_multiStop", fileHandle.name);
     }
   }
   /*
@@ -21162,12 +21156,9 @@ async function saveFile() {
     const fileHandle = await window.showSaveFilePicker(options);
     const writableStream = await fileHandle.createWritable();
     var cadena = table_to_String(lista);
-    await writableStream.write(cadena);
-
     // Write content to the file
-    //await writableStream.write('This is the content of my document.');
+    await writableStream.write(cadena);
     await writableStream.close();
-
     console.log('File saved successfully!');
   } catch (error) {
     if (error.name === 'AbortError') {
@@ -21182,14 +21173,14 @@ function table_to_String(lista) {
   var cadena = "", temp = "";
   for (let i = 0; i < lista.length; i++) {
     temp = "NOw:" + ", " + lista[i].atTime + ", " + "element:" + ", " + lista[i].element + ", " +
-      "newValue:" + ", " + lista[i].action + "\n";
+      "newValue:" + ", " + lista[i].newValue + ", " + "action:" + ", " + lista[i].action + "\n";
     cadena = cadena.concat("", temp);
   }
-  //  console.log(cadena);
   return cadena;
 }
 
 //USAR ESTO PARA BAJAR ARCHIVOS DE AUDIO QUIZAS
+/*
 function guardarTablaComoCSV(lista, nombreArchivo) {
   const tabla = document.getElementById(lista);
   let csv = [];
@@ -21210,11 +21201,10 @@ function guardarTablaComoCSV(lista, nombreArchivo) {
   a.click();
   document.body.removeChild(a);
 }
-
 // Ejemplo de uso:
 // <table id="miTabla">...</table>
 // <button onclick="guardarTablaComoCSV('miTabla', 'datosTabla')">Guardar como CSV</button>
-
+/**/
 
 //************************************************************************
 //************************************************************************
