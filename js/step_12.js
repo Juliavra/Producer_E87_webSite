@@ -1,5 +1,616 @@
 ﻿"use strict";
 
+
+var currentAudioControlKeys = 1;
+const teclaApretada = document.getElementById("teclaApretada");
+
+document.onkeydown = function (e) {
+  e = e || window.event;
+  var test_key = e.key;
+  //alert("test_key: " + test_key)
+  switch (test_key) {
+    case '1':
+      {
+        teclaApretada.innerHTML = "1";
+        currentAudioControlKeys = 1;
+        break;
+      }
+    case '2':
+      {
+        teclaApretada.innerHTML = "2";
+        currentAudioControlKeys = 2;
+        break;
+      }
+    case '3':
+      {
+        teclaApretada.innerHTML = "3";
+        currentAudioControlKeys = 3;
+        break;
+      }
+    case '4':
+      {
+        teclaApretada.innerHTML = "4";
+        currentAudioControlKeys = 4;
+        break;
+      }
+    case 'c':
+    case 'C':
+      {
+        var value_track = prompt('Ingresa el track', '01 - 100');
+        if (value_track >= 1 && value_track <= 100) {
+          var value_player = prompt('Ingresa el player', '1 - 4');
+          if (value_player >= 1 && value_player <= 4) {
+            switch (value_player) {
+              case "1":
+                {
+                  if (audio.currentTime > 0 && audio.paused == false && audio.ended == false && audio.volume > 0) {
+                    alert("EL Player esta reproduciendo musica")
+                  }
+                  else {
+                    array_Canciones.forEach(element => {
+                      if (element.id.includes(value_track)) {
+                        var player_1 = document.getElementById("myAudio");
+                        //console.log("element.url_src: "+element.url_src)
+                        fixed_song_1_name.innerHTML = document.getElementById("player_1_label").innerHTML = element.id;
+                        if (local == true) {
+                          player_1.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
+                        }
+                        else { player_1.src = element.url_src; }
+                        duration_1_value.innerHTML = Math.round(`${audio.duration}`);
+                        player_1.load();
+                        currentAudioControlKeys = 1;
+                        if (autoplay_1 == true) {
+                          player_1.play();
+                          lista = lista + "p_1: " + getsId(player_1.src) + `<br>`;
+                          muestraLista();
+                        }
+                      }
+                    });
+                  }
+                  break;
+                }
+              case "2":
+                {
+                  if (audio2.currentTime > 0 && audio2.paused == false && audio2.ended == false && audio2.volume > 0) {
+                    alert("EL Player 2 esta reproduciendo musica")
+                  }
+                  else {
+                    array_Canciones.forEach(element => {
+                      if (element.id.includes(value_track)) {
+                        var player_2 = document.getElementById("myAudio2");
+                        //console.log("element.url_src: "+element.url_src)
+                        fixed_song_2_name.innerHTML = document.getElementById("player_2_label").innerHTML = element.id;
+                        if (local == true) {
+                          player_2.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
+                        }
+                        else { player_2.src = element.url_src; }
+                        duration_2_value.innerHTML = Math.round(`${audio2.duration}`);
+                        player_2.load();
+                        currentAudioControlKeys = 2;
+                        if (autoplay_2 == true) {
+                          lista = lista + "p_2: " + getsId(player_2.src) + `<br>`;
+                          muestraLista();
+                          player_2.play();
+                        }
+                      }
+                    });
+                  }
+                  break;
+                }
+              case "3":
+                {
+                  if (audio3.currentTime > 0 && audio3.paused == false && audio3.ended == false && audio3.volume > 0) {
+                    alert("EL Player 3 esta reproduciendo musica")
+                  }
+                  else {
+                    array_Canciones.forEach(element => {
+                      if (element.id.includes(value_track)) {
+                        var player_3 = document.getElementById("myAudio3");
+                        //console.log("element.url_src: "+element.url_src)
+                        fixed_song_3_name.innerHTML = document.getElementById("player_3_label").innerHTML = element.id;
+                        if (local == true) {
+                          player_3.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
+                        }
+                        else { player_3.src = element.url_src; }
+                        duration_3_value.innerHTML = Math.round(`${audio3.duration}`);
+                        player_3.load();
+                        currentAudioControlKeys = 3;
+                        if (autoplay_3 == true) {
+                          lista = lista + "p_3: " + getsId(player_3.src) + `<br>`;
+                          muestraLista();
+                          player_3.play();
+                        }
+                      }
+                    });
+                  }
+                  break;
+                }
+              case "4":
+                {
+                  if (audio4.currentTime > 0 && audio4.paused == false && audio4.ended == false && audio4.volume > 0) {
+                    alert("EL Player 4 esta reproduciendo musica")
+                  }
+                  else {
+                    array_Canciones.forEach(element => {
+                      if (element.id.includes(value_track)) {
+                        var player_4 = document.getElementById("myAudio4");
+                        //console.log("element.url_src: "+element.url_src)
+                        fixed_song_4_name.innerHTML = document.getElementById("player_4_label").innerHTML = element.id;
+                        if (local == true) {
+                          player_4.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
+                        }
+                        else { player_4.src = element.url_src; }
+                        duration_4_value.innerHTML = Math.round(`${audio4.duration}`);
+                        player_4.load();
+                        currentAudioControlKeys = 4;
+                        if (autoplay_4 == true) {
+                          lista = lista + "p_4: " + getsId(player_4.src) + `<br>`;
+                          muestraLista();
+                          player_4.play();
+                        }
+                      }
+                    });
+                  }
+                  break;
+                }
+              default: {
+                alert("SOY DEFAULT")
+                break;
+              }
+            }
+          }
+          else { alert("Ingreso un player erroneo") }
+        }
+        else { alert("Ingreso un track erroneo") }
+        break;
+      }
+    case 'l':
+    case 'L':
+      {
+
+
+
+
+        teclaApretada.innerHTML = "L l ";
+        if (currentAudioControlKeys == 1) {
+          audio.loop = (!audio.loop);
+          loop_checkbox.checked = (!loop_checkbox.checked);
+        }
+        else if (currentAudioControlKeys == 2) {
+          audio2.loop = (!audio.loop);
+          loop_checkbox2.checked = (!loop_checkbox2.checked);
+        }
+        else if (currentAudioControlKeys == 3) {
+          audio3.loop = (!audio3.loop);
+          loop_checkbox3.checked = (!loop_checkbox3.checked);
+        }
+        else if (currentAudioControlKeys == 4) {
+          audio4.loop = (!audio4.loop);
+          loop_checkbox4.checked = (!loop_checkbox4.checked);
+        }
+        break;
+      }
+    case 'k':
+    case 'K':
+      {
+        teclaApretada.innerHTML = "K k ";
+        if (currentAudioControlKeys == 1) {
+          autoplay_1 = (!autoplay_1);
+          autoplay_checkbox.checked = (!autoplay_checkbox.checked);
+        }
+        else if (currentAudioControlKeys == 2) {
+          autoplay_2 = (!autoplay_2);
+          autoplay_checkbox2.checked = (!autoplay_checkbox2.checked);
+
+        }
+        else if (currentAudioControlKeys == 3) {
+          autoplay_3 = (!autoplay_3);
+          autoplay_checkbox3.checked = (!autoplay_checkbox3.checked);
+
+        }
+        else if (currentAudioControlKeys == 4) {
+          autoplay_4 = (!autoplay_4);
+          autoplay_checkbox4.checked = (!autoplay_checkbox4.checked);
+
+        }
+        break;
+      }
+    case 'p':
+    case 'P':
+      {
+        teclaApretada.innerHTML = "p";
+        if (currentAudioControlKeys == 1) {
+          switch (source_1_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              // console.log("player");
+              if (player_1_Node.buffer.duration != 0) {
+                if (!player_1_Node.loaded) {
+                  player_1_duration_value.innerHTML = "!loaded";
+                }
+                else {
+                  var duration = player_1_Node.buffer.duration;
+                  player_1_duration_value.innerHTML = Math.round(`${duration}`);
+                  player_1_Node.start();
+                  player_1_playButton.style.backgroundColor = "green";
+                  mixEvent.logIntoListaAction(Tone.now(), "player_1", "play");
+                }
+              }
+              break;
+            }
+            case "grainPlayer": {
+              // console.log("grainPlayer");
+              if (grainPlayer_1_Node.buffer.duration != 0) {
+                if (!grainPlayer_1_Node.loaded) {
+                  grainPlayer_1_duration_value.innerHTML = "!loaded";
+                }
+                else {
+                  var duration = grainPlayer_1_Node.buffer.duration;
+                  grainPlayer_1_duration_value.innerHTML = Math.round(`${duration}`);
+                  grainPlayer_1_Node.start();
+                  grainPlayer_1_playButton.style.backgroundColor = "green";
+                  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1", "play");
+                }
+              }
+              break;
+            }
+            default: { break; }
+          }
+        }
+        if (currentAudioControlKeys == 2) {
+          switch (source_2_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              // console.log("player");
+              if (player_2_Node.buffer.duration != 0) {
+                if (!player_2_Node.loaded) {
+                  player_2_duration_value.innerHTML = "!loaded";
+                }
+                else {
+                  var duration = player_2_Node.buffer.duration;
+                  player_2_duration_value.innerHTML = Math.round(`${duration}`);
+                  player_2_Node.start();
+                  player_2_playButton.style.backgroundColor = "green";
+                  mixEvent.logIntoListaAction(Tone.now(), "player_2", "play");
+                }
+              }
+              break;
+            }
+            case "grainPlayer": {
+              // console.log("grainPlayer");
+              if (grainPlayer_2_Node.buffer.duration != 0) {
+                if (!grainPlayer_2_Node.loaded) {
+                  grainPlayer_2_duration_value.innerHTML = "!loaded";
+                }
+                else {
+                  var duration = grainPlayer_2_Node.buffer.duration;
+                  grainPlayer_2_duration_value.innerHTML = Math.round(`${duration}`);
+                  grainPlayer_2_Node.start();
+                  grainPlayer_2_playButton.style.backgroundColor = "green";
+                  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_2", "play");
+                }
+              }
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else if (currentAudioControlKeys == 3) {
+          switch (source_3_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              // console.log("player");
+              if (player_3_Node.buffer.duration != 0) {
+                if (!player_3_Node.loaded) {
+                  player_3_duration_value.innerHTML = "!loaded";
+                }
+                else {
+                  var duration = player_3_Node.buffer.duration;
+                  player_3_duration_value.innerHTML = Math.round(`${duration}`);
+                  player_3_Node.start();
+                  player_3_playButton.style.backgroundColor = "green";
+                  mixEvent.logIntoListaAction(Tone.now(), "player_3", "play");
+                }
+              }
+              break;
+            }
+            case "grainPlayer": {
+              // console.log("grainPlayer");
+              if (grainPlayer_3_Node.buffer.duration != 0) {
+                if (!grainPlayer_3_Node.loaded) {
+                  grainPlayer_3_duration_value.innerHTML = "!loaded";
+                }
+                else {
+                  var duration = grainPlayer_3_Node.buffer.duration;
+                  grainPlayer_3_duration_value.innerHTML = Math.round(`${duration}`);
+                  grainPlayer_3_Node.start();
+                  grainPlayer_3_playButton.style.backgroundColor = "green";
+                  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_3", "play");
+                }
+              }
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else if (currentAudioControlKeys == 4) {
+          switch (source_4_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              // console.log("player");
+              if (player_4_Node.buffer.duration != 0) {
+                if (!player_4_Node.loaded) {
+                  player_4_duration_value.innerHTML = "!loaded";
+                }
+                else {
+                  var duration = player_4_Node.buffer.duration;
+                  player_4_duration_value.innerHTML = Math.round(`${duration}`);
+                  player_4_Node.start();
+                  player_4_playButton.style.backgroundColor = "green";
+                  mixEvent.logIntoListaAction(Tone.now(), "player_4", "play");
+                }
+              }
+              break;
+            }
+            case "grainPlayer": {
+              // console.log("grainPlayer");
+              if (grainPlayer_4_Node.buffer.duration != 0) {
+                if (!grainPlayer_4_Node.loaded) {
+                  grainPlayer_4_duration_value.innerHTML = "!loaded";
+                }
+                else {
+                  var duration = grainPlayer_4_Node.buffer.duration;
+                  grainPlayer_4_duration_value.innerHTML = Math.round(`${duration}`);
+                  grainPlayer_4_Node.start();
+                  grainPlayer_4_playButton.style.backgroundColor = "green";
+                  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_4", "play");
+                }
+              }
+              break;
+            }
+            default: { break; }
+          }
+        }
+        break;
+      }
+    case 'o':
+    case 'O':
+      {
+        teclaApretada.innerHTML = "o";
+        if (currentAudioControlKeys == 1) { audio.load(); }
+        else if (currentAudioControlKeys == 2) { audio2.load(); }
+        else if (currentAudioControlKeys == 3) { audio3.load(); }
+        else if (currentAudioControlKeys == 4) { audio4.load(); }
+        break;
+      }
+    case 'Q':
+    case 'q':
+      {
+        teclaApretada.innerHTML = "q";
+        switch (source_1_actual_patch) {
+          case "empty": {
+            console.log("empty");
+            break;
+          }
+          case "noiseSynth": {
+            console.log("noiseSynth");
+            break;
+          }
+          case "noise": {
+            console.log("noise");
+            break;
+          }
+          case "player": {
+            // console.log("player");
+            if (player_1_Node.volume.value < 11) {
+              player_1_Node.volume.value += 1;
+              player_1_volume.value = Math.round(`${player_1_Node.volume.value}`);
+              player_1_volume_value.innerHTML = Math.round(`${player_1_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "player_1_volume", player_1_Node.volume.value);
+            }
+            break;
+          }
+          case "grainPlayer": {
+            // console.log("grainPlayer");
+            if (grainPlayer_1_Node.volume.value < 11) {
+              grainPlayer_1_Node.volume.value += 1;
+              grainPlayer_1_volume_value.innerHTML = Math.round(`${grainPlayer_1_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_1_volume", player_1_Node.volume.value);
+            }
+            break;
+          }
+          default: { break; }
+        }
+        break;
+      }
+    case 'A':
+    case 'a':
+      {
+        teclaApretada.innerHTML = "a";
+        switch (source_1_actual_patch) {
+          case "empty": {
+            console.log("empty");
+            break;
+          }
+          case "noiseSynth": {
+            console.log("noiseSynth");
+            break;
+          }
+          case "noise": {
+            console.log("noise");
+            break;
+          }
+          case "player": {
+            // console.log("player");
+            if (player_1_Node.volume.value > -100 &&
+              player_1_Node.volume.value <= 11) {
+              player_1_Node.volume.value -= 1;
+              player_1_volume.value = Math.round(`${player_1_Node.volume.value}`);
+              player_1_volume_value.innerHTML = Math.round(`${player_1_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "player_1_volume", player_1_Node.volume.value);
+            }
+            break;
+          }
+          case "grainPlayer": {
+            // console.log("grainPlayer");
+            if (grainPlayer_1_Node.volume.value < 11 && grainPlayer_1_Node.volume.value >-100) {
+              grainPlayer_1_Node.volume.value += 1;
+              grainPlayer_1_volume_value.innerHTML = Math.round(`${grainPlayer_1_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_1_volume", player_1_Node.volume.value);
+            }
+            break;
+          }
+          default: { break; }
+        }
+        break;
+      }
+    case 'W':
+    case 'w':
+      {
+        teclaApretada.innerHTML = "w";
+        if (audio2.volume < 0.99) {
+          audio2.volume = audio2.volume + 0.01;
+          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
+          volume_2.value = audio2.volume;
+        }
+        else {
+          audio2.volume = 1;
+          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
+          volume_2.value = audio2.volume;
+        }
+        break;
+      }
+    case 's':
+    case 'S':
+      {
+        teclaApretada.innerHTML = "s";
+        if (audio2.volume > 0.01) {
+          audio2.volume -= 0.01;
+          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
+          volume_2.value = audio2.volume;
+        }
+        else {
+          audio2.volume = 0;
+          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
+          volume_2.value = audio2.volume;
+          Math.round(`${audio2.volume * 100}`);
+        }
+        break;
+      }
+    case 'e':
+    case 'E':
+      {
+        teclaApretada.innerHTML = "e";
+        if (audio3.volume < 0.99) {
+          audio3.volume = audio3.volume + 0.01;
+          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
+          volume_3.value = audio3.volume;
+        }
+        else {
+          audio3.volume = 1;
+          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
+          volume_3.value = audio3.volume;
+        }
+        break;
+      }
+    case 'd':
+    case 'D':
+      {
+        teclaApretada.innerHTML = "d";
+        if (audio3.volume > 0.01) {
+          audio3.volume -= 0.01;
+          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
+          volume_3.value = audio3.volume;
+        }
+        else {
+          audio3.volume = 0;
+          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
+          volume_3.value = audio3.volume;
+        }
+        break;
+      }
+    case 'r':
+    case 'R':
+      {
+        teclaApretada.innerHTML = "r";
+        if (audio4.volume < 0.99) {
+          audio4.volume = audio4.volume + 0.01;
+          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
+          volume_4.value = audio4.volume;
+        }
+        else {
+          audio4.volume = 1;
+          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
+          volume_4.value = audio4.volume;
+        }
+        break;
+      }
+    case 'f':
+    case 'F':
+      {
+        teclaApretada.innerHTML = "f";
+        if (audio4.volume > 0.01) {
+          audio4.volume -= 0.01;
+          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
+          volume_4.value = audio4.volume;
+        }
+        else {
+          audio4.volume = 0;
+          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
+          volume_4.value = audio4.volume;
+        }
+        break;
+      }
+  }
+};
+
+/**/
+
+
 /* Revisar si se puede usar to force an input change.
 This event does fire, however, the slider won't visually update.
 element.dispatchEvent(new Event('input'))
@@ -39,18 +650,24 @@ player.onstop = () => console.log('invoked when the audio buffer is finished')
 //*********************************************************** */
 /* TODO LIST
 
----> REVISAR AUTOPLAY A VER SI FUNCIONA
----> REVISAR fadeIn
----> REVISAR fadeOut
----> AGREGAR .seek() A LOS 4 PLAYERS 
----> REVISAR .sync() PARA USAR EN LOS PLAYERS //.unsync() TAMBIEN 
----> REVISAR .solo
----> AGREGAR BUTTON PARA   rolloff: -12, -24, -48, -96,  
---->  
-
-***PLAYER UNO MUTE VOLUMEN ANTERIOR A MUTE IMPORTANTE
+// REVISAR AUTOPLAY A VER SI FUNCIONA
+// REVISAR fadeIn
+// REVISAR fadeOut
+// AGREGAR .seek() A LOS 4 PLAYERS 
+// REVISAR .sync() PARA USAR EN LOS PLAYERS //.unsync() TAMBIEN 
+// REVISAR .solo
+// AGREGAR BUTTON PARA   rolloff: -12, -24, -48, -96,  
+// noiseSynth_1_Sync_checkbox: Sync no hace NADA 
+// channel_1_Mid_SemiParam_gain_tascam_rampTo NO FUNCA EL MID EQ AT ALL
+// NOISE SYNTH NO TIENE NINGUN SEND
+// NO HACE PLAY noiseSynth_1.triggerAttack("D4", Tone.now);
+// TASCAM MID SEMI PARAM NOT WORKING AT ALL
+// NINGUN MUTE DE NOISE OSC 1-4 FUNCA //TypeError: mute is not a function
+//PLAYER UNO MUTE VOLUMEN ANTERIOR A MUTE IMPORTANTE
 PARA DEVOLVER A LA CANCION AL MUTE.FALSE
-
+// NOISE SYNTH 1-4 NO TEST AT ALL
+//
+ 
 */
 
 //************************************************************************* */
@@ -80,11 +697,13 @@ whiteNoiseNode.connect(audioContext.destination);
 //https://github.com/GoogleChromeLabs/web-audio-samples/blob/main/src/audio-worklet/basic/hello-audio-worklet/main.js
 //https://gist.github.com/miselaytes-anton/fa683b0309e5cf05afe78f95aa881aee#file-audio-worklet-delay-example-js
 
-const player_test_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/103_Fuegos_de_Octubre.mp3");
+const player_test_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3");
 const meter_test_Node = new Tone.Meter(0);
+player_test_Node.fan(meter_test_Node);
 const meter_test_Node_RMS = document.getElementById("meter_test_Node_RMS");
 //ENVIO A EFECTO 1 NO FUNCIONA 
 
+//Tone.context.latencyHint = "playback";
 
 isShowOpenFilePickerSupported();
 
@@ -763,7 +1382,7 @@ const multiple_play_source_1 = document.getElementById("multiple_play_source_1")
 const multiple_play_source_2 = document.getElementById("multiple_play_source_2");
 const multiple_play_source_3 = document.getElementById("multiple_play_source_3");
 const multiple_play_source_4 = document.getElementById("multiple_play_source_4");
-
+const multiple_play_test_player = document.getElementById("multiple_play_test_player");
 //*************************************************************************************
 //*************************************************************************************
 //********     CHANNEL 1 - 4 CHANNEL CONTROLS   **************************************************************
@@ -777,12 +1396,12 @@ channel_1_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_volNode.volume.value = -100;
     channel_1_volume_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_volume", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_volume", -100);
   }
   else {
     channel_1_volNode.volume.value = e.currentTarget.value;
     channel_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_volume", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_volume", e.currentTarget.value);
   }
 });
 
@@ -790,7 +1409,7 @@ channel_1_volume.ondblclick = function () {
   channel_1_volNode.volume.rampTo(0, 0.500);
   channel_1_volume_value.innerHTML = 0;
   channel_1_volume.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_volume_rampTo", 0);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_volume_rampTo", 0);
 };
 
 const channel_2_volume = document.getElementById("channel_2_volume");
@@ -799,12 +1418,12 @@ channel_2_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_volNode.volume.value = -100;
     channel_2_volume_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_volume", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_volume", -100);
   }
   else {
     channel_2_volNode.volume.value = e.currentTarget.value;
     channel_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_volume", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_volume", e.currentTarget.value);
   }
 });
 
@@ -812,7 +1431,7 @@ channel_2_volume.ondblclick = function () {
   channel_2_volNode.volume.rampTo(0, 0.500);
   channel_2_volume_value.innerHTML = 0;
   channel_2_volume.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_volume_rampTo", 0);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_volume_rampTo", 0);
 };
 
 const channel_3_volume = document.getElementById("channel_3_volume");
@@ -821,12 +1440,12 @@ channel_3_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_3_volNode.volume.value = -100;
     channel_3_volume_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_3_volume", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_volume", -100);
   }
   else {
     channel_3_volNode.volume.value = e.currentTarget.value;
     channel_3_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_3_volume", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_volume", e.currentTarget.value);
   }
 });
 
@@ -834,7 +1453,7 @@ channel_3_volume.ondblclick = function () {
   channel_3_volNode.volume.rampTo(0, 0.500);
   channel_3_volume_value.innerHTML = 0;
   channel_3_volume.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_volume_rampTo", 0);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_volume_rampTo", 0);
 };
 
 const channel_4_volume = document.getElementById("channel_4_volume");
@@ -843,12 +1462,12 @@ channel_4_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_4_volNode.volume.value = -100;
     channel_4_volume_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_4_volume", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_4_volume", -100);
   }
   else {
     channel_4_volNode.volume.value = e.currentTarget.value;
     channel_4_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_4_volume", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_4_volume", e.currentTarget.value);
   }
 });
 
@@ -856,7 +1475,7 @@ channel_4_volume.ondblclick = function () {
   channel_4_volNode.volume.rampTo(0, 0.500);
   channel_4_volume_value.innerHTML = 0;
   channel_4_volume.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_4_volume_rampTo", 0);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_4_volume_rampTo", 0);
 };
 
 const channel_1_pan = document.getElementById("channel_1_pan");
@@ -864,14 +1483,14 @@ const channel_1_pan_value = document.getElementById("channel_1_pan_value");
 channel_1_pan.addEventListener("change", function (e) {
   channel_1_panNode.pan.value = e.currentTarget.value;
   channel_1_pan_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_pan", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_pan", e.currentTarget.value);
 });
 
 channel_1_pan.ondblclick = function () {
   channel_1_panNode.pan.rampTo(0, 2);
   channel_1_pan_value.innerHTML = 0;
   channel_1_pan.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_pan", 0);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_pan", 0);
 };
 
 const channel_2_pan = document.getElementById("channel_2_pan");
@@ -879,42 +1498,42 @@ const channel_2_pan_value = document.getElementById("channel_2_pan_value");
 channel_2_pan.addEventListener("change", function (e) {
   channel_2_panNode.pan.value = e.currentTarget.value;
   channel_2_pan_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_pan", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_pan", e.currentTarget.value);
 });
 
 channel_2_pan.ondblclick = function () {
   channel_2_panNode.pan.rampTo(0, 2);
   channel_2_pan_value.innerHTML = 0;
   channel_2_pan.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_pan", 0);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_pan", 0);
 };
 const channel_3_pan = document.getElementById("channel_3_pan");
 const channel_3_pan_value = document.getElementById("channel_3_pan_value");
 channel_3_pan.addEventListener("change", function (e) {
   channel_3_panNode.pan.value = e.currentTarget.value;
   channel_3_pan_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_pan", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_pan", e.currentTarget.value);
 });
 
 channel_3_pan.ondblclick = function () {
   channel_3_panNode.pan.rampTo(0, 2);
   channel_3_pan_value.innerHTML = 0;
   channel_3_pan.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_pan", 0);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_pan", 0);
 };
 const channel_4_pan = document.getElementById("channel_4_pan");
 const channel_4_pan_value = document.getElementById("channel_4_pan_value");
 channel_4_pan.addEventListener("change", function (e) {
   channel_4_panNode.pan.value = e.currentTarget.value;
   channel_4_pan_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_4_pan", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_4_pan", e.currentTarget.value);
 });
 
 channel_4_pan.ondblclick = function () {
   channel_4_panNode.pan.rampTo(0, 2);
   channel_4_pan_value.innerHTML = 0;
   channel_4_pan.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_4_pan", 0);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_4_pan", 0);
 };
 
 //*************************************************************************************
@@ -926,6 +1545,7 @@ channel_4_pan.ondblclick = function () {
 //*************************************************************************************
 const channel_1_filter_1_select = document.getElementById("channel_1_filter_1_select");
 channel_1_filter_1_select.addEventListener("change", function (e) {
+
   switch (e.currentTarget.value) {
     case "lowpass":
     case "highpass":
@@ -981,7 +1601,7 @@ const channel_1_filter_frequency_value_shelf = document.getElementById("channel_
 channel_1_filter_frequency_shelf.addEventListener("change", function (e) {
   channel_1_filter.frequency.value = e.currentTarget.value;
   channel_1_filter_frequency_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_frequency_text_shelf", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const channel_1_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -990,7 +1610,7 @@ const channel_1_filter_detune_value_shelf = document.getElementById("channel_1_f
 channel_1_filter_detune_shelf.addEventListener("change", function (e) {
   channel_1_filter.detune.value = e.currentTarget.value;
   channel_1_filter_detune_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_detune_text_shelf", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const channel_1_filter_gain_text_shelf = document.getElementById("channel_1_filter_gain_text_shelf");
@@ -998,7 +1618,7 @@ const channel_1_filter_gain_shelf = document.getElementById("channel_1_filter_ga
 const channel_1_filter_gain_value_shelf = document.getElementById("channel_1_filter_gain_value_shelf");
 channel_1_filter_gain_shelf.addEventListener("change", function (e) {
   channel_1_filter.gain.value = e.currentTarget.value;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_gain_shelf", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_filter_gain_shelf", e.currentTarget.value);
   channel_1_filter_gain_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -1009,7 +1629,7 @@ const channel_1_filter_frequency_value_peaking = document.getElementById("channe
 channel_1_filter_frequency_peaking.addEventListener("change", function (e) {
   channel_1_filter.frequency.value = e.currentTarget.value;
   channel_1_filter_frequency_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_frequency_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const channel_1_filter_Q_text_peaking = document.getElementById("channel_1_filter_Q_text_peaking");
@@ -1018,7 +1638,7 @@ const channel_1_filter_Q_value_peaking = document.getElementById("channel_1_filt
 channel_1_filter_Q_peaking.addEventListener("change", function (e) {
   channel_1_filter.Q.value = e.currentTarget.value;
   channel_1_filter_Q_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_Q_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_filter_Q_peaking", e.currentTarget.value);
 });
 
 const channel_1_filter_detune_text_peaking = document.getElementById("channel_1_filter_detune_text_peaking");
@@ -1027,7 +1647,7 @@ const channel_1_filter_detune_value_peaking = document.getElementById("channel_1
 channel_1_filter_detune_peaking.addEventListener("change", function (e) {
   channel_1_filter.detune.value = e.currentTarget.value;
   channel_1_filter_detune_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_detune_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_filter_detune_peaking", e.currentTarget.value);
 });
 
 const channel_1_filter_gain_text_peaking = document.getElementById("channel_1_filter_gain_text_peaking");
@@ -1036,7 +1656,7 @@ const channel_1_filter_gain_value_peaking = document.getElementById("channel_1_f
 channel_1_filter_gain_peaking.addEventListener("change", function (e) {
   channel_1_filter.gain.value = e.currentTarget.value;
   channel_1_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_gain_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -1055,7 +1675,7 @@ const channel_1_filter_Q_text_allpass = document.getElementById("channel_1_filte
 channel_1_filter_Q_allpass.addEventListener("change", function (e) {
   channel_1_filter.Q.value = e.currentTarget.value;
   channel_1_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_Q_value_allpass", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_filter_Q_value_allpass", e.currentTarget.value);
 });
 
 const channel_1_filter_detune_allpass = document.getElementById("channel_1_filter_detune_allpass");
@@ -1064,7 +1684,7 @@ const channel_1_filter_detune_text_allpass = document.getElementById("channel_1_
 channel_1_filter_detune_allpass.addEventListener("change", function (e) {
   channel_1_filter.detune.value = e.currentTarget.value;
   channel_1_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_filter_detune_value_allpass", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_filter_detune_value_allpass", e.currentTarget.value);
 });
 /*
 const channel_1_filter_gain_allpass = document.getElementById("channel_1_filter_gain_allpass");
@@ -1072,7 +1692,6 @@ const channel_1_filter_gain_value_allpass = document.getElementById("channel_1_f
 const channel_1_filter_gain_text_allpass = document.getElementById("channel_1_filter_gain_text_allpass");
 */
 const channel_1_filter_eq_On_Button = document.getElementById("channel_1_filter_eq_On_Button");
-
 
 const channel_2_filter_1_select = document.getElementById("channel_2_filter_1_select");
 channel_2_filter_1_select.addEventListener("change", function (e) {
@@ -1131,7 +1750,7 @@ const channel_2_filter_frequency_value_shelf = document.getElementById("channel_
 channel_2_filter_frequency_shelf.addEventListener("change", function (e) {
   channel_2_filter.frequency.value = e.currentTarget.value;
   channel_2_filter_frequency_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_filter_frequency_text_shelf", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const channel_2_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -1140,7 +1759,7 @@ const channel_2_filter_detune_value_shelf = document.getElementById("channel_2_f
 channel_2_filter_detune_shelf.addEventListener("change", function (e) {
   channel_2_filter.detune.value = e.currentTarget.value;
   channel_2_filter_detune_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_filter_detune_text_shelf", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const channel_2_filter_gain_text_shelf = document.getElementById("channel_2_filter_gain_text_shelf");
@@ -1148,7 +1767,7 @@ const channel_2_filter_gain_shelf = document.getElementById("channel_2_filter_ga
 const channel_2_filter_gain_value_shelf = document.getElementById("channel_2_filter_gain_value_shelf");
 channel_2_filter_gain_shelf.addEventListener("change", function (e) {
   channel_2_filter.gain.value = e.currentTarget.value;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_filter_gain_shelf", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_filter_gain_shelf", e.currentTarget.value);
   channel_2_filter_gain_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -1159,7 +1778,7 @@ const channel_2_filter_frequency_value_peaking = document.getElementById("channe
 channel_2_filter_frequency_peaking.addEventListener("change", function (e) {
   channel_2_filter.frequency.value = e.currentTarget.value;
   channel_2_filter_frequency_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_filter_frequency_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const channel_2_filter_Q_text_peaking = document.getElementById("channel_2_filter_Q_text_peaking");
@@ -1168,7 +1787,7 @@ const channel_2_filter_Q_value_peaking = document.getElementById("channel_2_filt
 channel_2_filter_Q_peaking.addEventListener("change", function (e) {
   channel_2_filter.Q.value = e.currentTarget.value;
   channel_2_filter_Q_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_filter_Q_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_filter_Q_peaking", e.currentTarget.value);
 });
 
 const channel_2_filter_detune_text_peaking = document.getElementById("channel_2_filter_detune_text_peaking");
@@ -1177,7 +1796,7 @@ const channel_2_filter_detune_value_peaking = document.getElementById("channel_2
 channel_2_filter_detune_peaking.addEventListener("change", function (e) {
   channel_2_filter.detune.value = e.currentTarget.value;
   channel_2_filter_detune_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_filter_detune_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_filter_detune_peaking", e.currentTarget.value);
 });
 
 const channel_2_filter_gain_text_peaking = document.getElementById("channel_2_filter_gain_text_peaking");
@@ -1186,7 +1805,7 @@ const channel_2_filter_gain_value_peaking = document.getElementById("channel_2_f
 channel_2_filter_gain_peaking.addEventListener("change", function (e) {
   channel_2_filter.gain.value = e.currentTarget.value;
   channel_2_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_filter_gain_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -1205,7 +1824,7 @@ const channel_2_filter_Q_text_allpass = document.getElementById("channel_2_filte
 channel_2_filter_Q_allpass.addEventListener("change", function (e) {
   channel_2_filter.Q.value = e.currentTarget.value;
   channel_2_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_filter_Q_value_allpass", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_filter_Q_value_allpass", e.currentTarget.value);
 });
 
 const channel_2_filter_detune_allpass = document.getElementById("channel_2_filter_detune_allpass");
@@ -1214,7 +1833,7 @@ const channel_2_filter_detune_text_allpass = document.getElementById("channel_2_
 channel_2_filter_detune_allpass.addEventListener("change", function (e) {
   channel_2_filter.detune.value = e.currentTarget.value;
   channel_2_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_filter_detune_value_allpass", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_filter_detune_value_allpass", e.currentTarget.value);
 });
 /*
 const channel_2_filter_gain_allpass = document.getElementById("channel_2_filter_gain_allpass");
@@ -1280,7 +1899,7 @@ const channel_3_filter_frequency_value_shelf = document.getElementById("channel_
 channel_3_filter_frequency_shelf.addEventListener("change", function (e) {
   channel_3_filter.frequency.value = e.currentTarget.value;
   channel_3_filter_frequency_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_filter_frequency_text_shelf", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const channel_3_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -1289,7 +1908,7 @@ const channel_3_filter_detune_value_shelf = document.getElementById("channel_3_f
 channel_3_filter_detune_shelf.addEventListener("change", function (e) {
   channel_3_filter.detune.value = e.currentTarget.value;
   channel_3_filter_detune_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_filter_detune_text_shelf", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const channel_3_filter_gain_text_shelf = document.getElementById("channel_3_filter_gain_text_shelf");
@@ -1297,7 +1916,7 @@ const channel_3_filter_gain_shelf = document.getElementById("channel_3_filter_ga
 const channel_3_filter_gain_value_shelf = document.getElementById("channel_3_filter_gain_value_shelf");
 channel_3_filter_gain_shelf.addEventListener("change", function (e) {
   channel_3_filter.gain.value = e.currentTarget.value;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_filter_gain_shelf", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_filter_gain_shelf", e.currentTarget.value);
   channel_3_filter_gain_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -1308,7 +1927,7 @@ const channel_3_filter_frequency_value_peaking = document.getElementById("channe
 channel_3_filter_frequency_peaking.addEventListener("change", function (e) {
   channel_3_filter.frequency.value = e.currentTarget.value;
   channel_3_filter_frequency_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_filter_frequency_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const channel_3_filter_Q_text_peaking = document.getElementById("channel_3_filter_Q_text_peaking");
@@ -1317,7 +1936,7 @@ const channel_3_filter_Q_value_peaking = document.getElementById("channel_3_filt
 channel_3_filter_Q_peaking.addEventListener("change", function (e) {
   channel_3_filter.Q.value = e.currentTarget.value;
   channel_3_filter_Q_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_filter_Q_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_filter_Q_peaking", e.currentTarget.value);
 });
 
 const channel_3_filter_detune_text_peaking = document.getElementById("channel_3_filter_detune_text_peaking");
@@ -1326,7 +1945,7 @@ const channel_3_filter_detune_value_peaking = document.getElementById("channel_3
 channel_3_filter_detune_peaking.addEventListener("change", function (e) {
   channel_3_filter.detune.value = e.currentTarget.value;
   channel_3_filter_detune_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_filter_detune_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_filter_detune_peaking", e.currentTarget.value);
 });
 
 const channel_3_filter_gain_text_peaking = document.getElementById("channel_3_filter_gain_text_peaking");
@@ -1335,7 +1954,7 @@ const channel_3_filter_gain_value_peaking = document.getElementById("channel_3_f
 channel_3_filter_gain_peaking.addEventListener("change", function (e) {
   channel_3_filter.gain.value = e.currentTarget.value;
   channel_3_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_filter_gain_peaking", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -1354,7 +1973,7 @@ const channel_3_filter_Q_text_allpass = document.getElementById("channel_3_filte
 channel_3_filter_Q_allpass.addEventListener("change", function (e) {
   channel_3_filter.Q.value = e.currentTarget.value;
   channel_3_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_filter_Q_value_allpass", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_filter_Q_value_allpass", e.currentTarget.value);
 });
 
 const channel_3_filter_detune_allpass = document.getElementById("channel_3_filter_detune_allpass");
@@ -1363,7 +1982,7 @@ const channel_3_filter_detune_text_allpass = document.getElementById("channel_3_
 channel_3_filter_detune_allpass.addEventListener("change", function (e) {
   channel_3_filter.detune.value = e.currentTarget.value;
   channel_3_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_filter_detune_value_allpass", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_filter_detune_value_allpass", e.currentTarget.value);
 });
 /*
 const channel_3_filter_gain_allpass = document.getElementById("channel_3_filter_gain_allpass");
@@ -2150,7 +2769,6 @@ const channel_4_allpass_controls_div = document.getElementById("channel_4_allpas
 const channel_4_eq3_controls_div = document.getElementById("channel_4_eq3_controls_div");
 const channel_4_empty_controls_div = document.getElementById("channel_4_empty_controls_div");
 const channel_4_bypass_controls_div = document.getElementById("channel_4_bypass_controls_div");
-
 
 //*************************************************************************************
 //*************************************************************************************
@@ -3010,7 +3628,7 @@ const channel_1_dynamics_release = document.getElementById("channel_1_dynamics_r
 const channel_1_dynamics_release_value = document.getElementById("channel_1_dynamics_release_value");
 channel_1_dynamics_release.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.release.value = e.currentTarget.value;
-  channel_1_dynamics_release_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_dynamics_release_value.innerHTML = `${e.currentTarget.value}`;
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_dynamics_release", e.currentTarget.value);
 });
@@ -3019,7 +3637,7 @@ const channel_1_dynamics_attack = document.getElementById("channel_1_dynamics_at
 const channel_1_dynamics_attack_value = document.getElementById("channel_1_dynamics_attack_value");
 channel_1_dynamics_attack.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.attack.value = e.currentTarget.value;
-  channel_1_dynamics_attack_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_dynamics_attack_value.innerHTML = `${e.currentTarget.value}`;
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_dynamics_attack", e.currentTarget.value);
 });
@@ -3404,7 +4022,7 @@ channel_1_gate_threshold.addEventListener("change", function (e) {
 const channel_1_gate_smoothing = document.getElementById("channel_1_gate_smoothing");
 const channel_1_gate_smoothing_value = document.getElementById("channel_1_gate_smoothing_value");
 channel_1_gate_smoothing.addEventListener("change", function (e) {
-  channel_1_gate_smoothing.smoothing = e.currentTarget.value;
+  channel_1_dynamics_gateNode.smoothing = e.currentTarget.value;
   channel_1_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_gate_smoothing", e.currentTarget.value);
 });
@@ -3424,7 +4042,7 @@ channel_2_gate_threshold.addEventListener("change", function (e) {
 const channel_2_gate_smoothing = document.getElementById("channel_2_gate_smoothing");
 const channel_2_gate_smoothing_value = document.getElementById("channel_2_gate_smoothing_value");
 channel_2_gate_smoothing.addEventListener("change", function (e) {
-  channel_2_gate_smoothing.smoothing = e.currentTarget.value;
+  channel_2_dynamics_gateNode.smoothing = e.currentTarget.value;
   channel_2_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "channel_2_gate_smoothing", e.currentTarget.value);
 });
@@ -3444,7 +4062,7 @@ channel_3_gate_threshold.addEventListener("change", function (e) {
 const channel_3_gate_smoothing = document.getElementById("channel_3_gate_smoothing");
 const channel_3_gate_smoothing_value = document.getElementById("channel_3_gate_smoothing_value");
 channel_3_gate_smoothing.addEventListener("change", function (e) {
-  channel_3_gate_smoothing.smoothing = e.currentTarget.value;
+  channel_3_dynamics_gateNode.smoothing = e.currentTarget.value;
   channel_3_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "channel_3_gate_smoothing", e.currentTarget.value);
 });
@@ -3464,14 +4082,101 @@ channel_4_gate_threshold.addEventListener("change", function (e) {
 const channel_4_gate_smoothing = document.getElementById("channel_4_gate_smoothing");
 const channel_4_gate_smoothing_value = document.getElementById("channel_4_gate_smoothing_value");
 channel_4_gate_smoothing.addEventListener("change", function (e) {
-  channel_4_gate_smoothing.smoothing = e.currentTarget.value;
+  channel_4_dynamics_gateNode.smoothing = e.currentTarget.value;
   channel_4_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "channel_4_gate_smoothing", e.currentTarget.value);
 });
 
+//*********************************************************************************************** */ */
+//*********************************************************************************************** */
+//************    GATE FX 1-4            *********************************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
-//***********  CHANNEL 1 LIMITER          ******************************************************************** */
+//*********************************************************************************************** */
+//Gate player 1
+const fx_1_gate_On_Off_Button = document.getElementById("fx_1_gate_On_Off_Button");
+const fx_1_dynamics_gate_div = document.getElementById("fx_1_dynamics_gate_div");
+fx_1_dynamics_gate_div.style.display = "none";
+
+const fx_1_gate_threshold = document.getElementById("fx_1_gate_threshold");
+const fx_1_gate_threshold_value = document.getElementById("fx_1_gate_threshold_value");
+fx_1_gate_threshold.addEventListener("change", function (e) {
+  fx_1_dynamics_gateNode.threshold = e.currentTarget.value;
+  fx_1_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_1_gate_threshold", e.currentTarget.value);
+});
+
+const fx_1_gate_smoothing = document.getElementById("fx_1_gate_smoothing");
+const fx_1_gate_smoothing_value = document.getElementById("fx_1_gate_smoothing_value");
+fx_1_gate_smoothing.addEventListener("change", function (e) {
+  fx_1_dynamics_gateNode.smoothing = e.currentTarget.value;
+  fx_1_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_1_gate_smoothing", e.currentTarget.value);
+});
+//------------------
+const fx_2_gate_On_Off_Button = document.getElementById("fx_2_gate_On_Off_Button");
+const fx_2_dynamics_gate_div = document.getElementById("fx_2_dynamics_gate_div");
+fx_2_dynamics_gate_div.style.display = "none";
+
+const fx_2_gate_threshold = document.getElementById("fx_2_gate_threshold");
+const fx_2_gate_threshold_value = document.getElementById("fx_2_gate_threshold_value");
+fx_2_gate_threshold.addEventListener("change", function (e) {
+  fx_2_dynamics_gateNode.threshold = e.currentTarget.value;
+  fx_2_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_2_gate_threshold", e.currentTarget.value);
+});
+
+const fx_2_gate_smoothing = document.getElementById("fx_2_gate_smoothing");
+const fx_2_gate_smoothing_value = document.getElementById("fx_2_gate_smoothing_value");
+fx_2_gate_smoothing.addEventListener("change", function (e) {
+  fx_2_dynamics_gateNode.smoothing = e.currentTarget.value;
+  fx_2_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_2_gate_smoothing", e.currentTarget.value);
+});
+//------------------
+const fx_3_gate_On_Off_Button = document.getElementById("fx_3_gate_On_Off_Button");
+const fx_3_dynamics_gate_div = document.getElementById("fx_3_dynamics_gate_div");
+fx_3_dynamics_gate_div.style.display = "none";
+
+const fx_3_gate_threshold = document.getElementById("fx_3_gate_threshold");
+const fx_3_gate_threshold_value = document.getElementById("fx_3_gate_threshold_value");
+fx_3_gate_threshold.addEventListener("change", function (e) {
+  fx_3_dynamics_gateNode.threshold = e.currentTarget.value;
+  fx_3_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_3_gate_threshold", e.currentTarget.value);
+});
+
+const fx_3_gate_smoothing = document.getElementById("fx_3_gate_smoothing");
+const fx_3_gate_smoothing_value = document.getElementById("fx_3_gate_smoothing_value");
+fx_3_gate_smoothing.addEventListener("change", function (e) {
+  fx_3_dynamics_gateNode.smoothing = e.currentTarget.value;
+  fx_3_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_3_gate_smoothing", e.currentTarget.value);
+});
+//------------------
+const fx_4_gate_On_Off_Button = document.getElementById("fx_4_gate_On_Off_Button");
+const fx_4_dynamics_gate_div = document.getElementById("fx_4_dynamics_gate_div");
+fx_4_dynamics_gate_div.style.display = "none";
+
+const fx_4_gate_threshold = document.getElementById("fx_4_gate_threshold");
+const fx_4_gate_threshold_value = document.getElementById("fx_4_gate_threshold_value");
+fx_4_gate_threshold.addEventListener("change", function (e) {
+  fx_4_dynamics_gateNode.threshold = e.currentTarget.value;
+  fx_4_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_4_gate_threshold", e.currentTarget.value);
+});
+
+const fx_4_gate_smoothing = document.getElementById("fx_4_gate_smoothing");
+const fx_4_gate_smoothing_value = document.getElementById("fx_4_gate_smoothing_value");
+fx_4_gate_smoothing.addEventListener("change", function (e) {
+  fx_4_dynamics_gateNode.smoothing = e.currentTarget.value;
+  fx_4_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_4_gate_smoothing", e.currentTarget.value);
+});
+
+//*********************************************************************************************** */
+//*********************************************************************************************** */
+//***********  CHANNEL 1-4 LIMITER          ******************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 const channel_1_limiter_On_Off_Button = document.getElementById("channel_1_limiter_On_Off_Button");
@@ -3484,17 +4189,21 @@ const channel_1_limiter_threshold = document.getElementById("channel_1_limiter_t
 const channel_1_limiter_threshold_value = document.getElementById("channel_1_limiter_threshold_value");
 channel_1_limiter_threshold.addEventListener("change", function (e) {
   channel_1_dynamics_limiterNode.threshold.value = e.currentTarget.value;
+  channel_1_limiter_threshold_value.innerHTML = channel_1_dynamics_limiterNode.threshold.value;
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_limiter_threshold", e.currentTarget.value);
 });
 
+//NO VA SMOOTHING VA REDUCTION
+/*
 const channel_1_limiter_smoothing = document.getElementById("channel_1_limiter_smoothing");
 const channel_1_limiter_smoothing_value = document.getElementById("channel_1_limiter_smoothing_value");
 channel_1_limiter_smoothing.addEventListener("change", function (e) {
-  channel_1_limiter_smoothing.smoothing = e.currentTarget.value;
+  channel_1_dynamics_limiterNode.smoothing = e.currentTarget.value;
   channel_1_limiter_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  channel_1_limiter_reduction_value.innerHTML = channel_1_dynamics_limiterNode.reduction;
+  //EL REDUCTION NO VA ACA O VA EN AMBOS
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_limiter_smoothing", e.currentTarget.value);
 });
+/**/
 //------------------
 const channel_2_limiter_On_Off_Button = document.getElementById("channel_2_limiter_On_Off_Button");
 const channel_2_limiter_reduction_value = document.getElementById("channel_2_limiter_reduction_value");
@@ -3506,17 +4215,10 @@ const channel_2_limiter_threshold = document.getElementById("channel_2_limiter_t
 const channel_2_limiter_threshold_value = document.getElementById("channel_2_limiter_threshold_value");
 channel_2_limiter_threshold.addEventListener("change", function (e) {
   channel_2_dynamics_limiterNode.threshold.value = e.currentTarget.value;
+  channel_2_limiter_threshold_value.innerHTML = channel_2_dynamics_limiterNode.threshold.value;
   mixEvent.logIntoListaAction(Tone.now(), "channel_2_limiter_threshold", e.currentTarget.value);
 });
 
-const channel_2_limiter_smoothing = document.getElementById("channel_2_limiter_smoothing");
-const channel_2_limiter_smoothing_value = document.getElementById("channel_2_limiter_smoothing_value");
-channel_2_limiter_smoothing.addEventListener("change", function (e) {
-  channel_2_limiter_smoothing.smoothing = e.currentTarget.value;
-  channel_2_limiter_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  channel_2_limiter_reduction_value.innerHTML = channel_2_dynamics_limiterNode.reduction;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_limiter_smoothing", e.currentTarget.value);
-});
 //------------------
 const channel_3_limiter_On_Off_Button = document.getElementById("channel_3_limiter_On_Off_Button");
 const channel_3_limiter_reduction_value = document.getElementById("channel_3_limiter_reduction_value");
@@ -3528,17 +4230,10 @@ const channel_3_limiter_threshold = document.getElementById("channel_3_limiter_t
 const channel_3_limiter_threshold_value = document.getElementById("channel_3_limiter_threshold_value");
 channel_3_limiter_threshold.addEventListener("change", function (e) {
   channel_3_dynamics_limiterNode.threshold.value = e.currentTarget.value;
+  channel_3_limiter_threshold_value.innerHTML = channel_3_dynamics_limiterNode.threshold.value;
   mixEvent.logIntoListaAction(Tone.now(), "channel_3_limiter_threshold", e.currentTarget.value);
 });
 
-const channel_3_limiter_smoothing = document.getElementById("channel_3_limiter_smoothing");
-const channel_3_limiter_smoothing_value = document.getElementById("channel_3_limiter_smoothing_value");
-channel_3_limiter_smoothing.addEventListener("change", function (e) {
-  channel_3_limiter_smoothing.smoothing = e.currentTarget.value;
-  channel_3_limiter_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  channel_3_limiter_reduction_value.innerHTML = channel_3_dynamics_limiterNode.reduction;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_3_limiter_smoothing", e.currentTarget.value);
-});
 //------------------
 const channel_4_limiter_On_Off_Button = document.getElementById("channel_4_limiter_On_Off_Button");
 const channel_4_limiter_reduction_value = document.getElementById("channel_4_limiter_reduction_value");
@@ -3550,17 +4245,87 @@ const channel_4_limiter_threshold = document.getElementById("channel_4_limiter_t
 const channel_4_limiter_threshold_value = document.getElementById("channel_4_limiter_threshold_value");
 channel_4_limiter_threshold.addEventListener("change", function (e) {
   channel_4_dynamics_limiterNode.threshold.value = e.currentTarget.value;
+  channel_4_limiter_threshold_value.innerHTML = channel_4_dynamics_limiterNode.threshold.value;
   mixEvent.logIntoListaAction(Tone.now(), "channel_4_limiter_threshold", e.currentTarget.value);
 });
 
-const channel_4_limiter_smoothing = document.getElementById("channel_4_limiter_smoothing");
-const channel_4_limiter_smoothing_value = document.getElementById("channel_4_limiter_smoothing_value");
-channel_4_limiter_smoothing.addEventListener("change", function (e) {
-  channel_4_limiter_smoothing.smoothing = e.currentTarget.value;
-  channel_4_limiter_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  channel_4_limiter_reduction_value.innerHTML = channel_4_dynamics_limiterNode.reduction;
-  mixEvent.logIntoListaAction(Tone.now(), "channel_4_limiter_smoothing", e.currentTarget.value);
+//*********************************************************************************************** */
+//*********************************************************************************************** */
+//***********  FX 1-4 LIMITER          ******************************************************************** */
+//*********************************************************************************************** */
+//*********************************************************************************************** */
+
+const fx_1_limiter_On_Off_Button = document.getElementById("fx_1_limiter_On_Off_Button");
+const fx_1_limiter_reduction_value = document.getElementById("fx_1_limiter_reduction_value");
+const fx_1_limiter_reduction_text = document.getElementById("fx_1_limiter_reduction_text");
+const fx_1_dynamics_limiter_div = document.getElementById("fx_1_dynamics_limiter_div");
+fx_1_dynamics_limiter_div.style.display = "none";
+
+const fx_1_limiter_threshold = document.getElementById("fx_1_limiter_threshold");
+const fx_1_limiter_threshold_value = document.getElementById("fx_1_limiter_threshold_value");
+fx_1_limiter_threshold.addEventListener("change", function (e) {
+  fx_1_dynamics_limiterNode.threshold.value = e.currentTarget.value;
+  fx_1_limiter_threshold_value.innerHTML = fx_1_dynamics_limiterNode.threshold.value;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_1_limiter_threshold", e.currentTarget.value);
 });
+
+//NO VA SMOOTHING VA REDUCTION
+/*
+const fx_1_limiter_smoothing = document.getElementById("fx_1_limiter_smoothing");
+const fx_1_limiter_smoothing_value = document.getElementById("fx_1_limiter_smoothing_value");
+fx_1_limiter_smoothing.addEventListener("change", function (e) {
+  fx_1_dynamics_limiterNode.smoothing = e.currentTarget.value;
+  fx_1_limiter_smoothing_value.innerHTML = `${e.currentTarget.value}`;
+  //EL REDUCTION NO VA ACA O VA EN AMBOS
+  mixEvent.logIntoListaAction(Tone.now(), "fx_1_limiter_smoothing", e.currentTarget.value);
+});
+/**/
+//------------------
+const fx_2_limiter_On_Off_Button = document.getElementById("fx_2_limiter_On_Off_Button");
+const fx_2_limiter_reduction_value = document.getElementById("fx_2_limiter_reduction_value");
+const fx_2_limiter_reduction_text = document.getElementById("fx_2_limiter_reduction_text");
+const fx_2_dynamics_limiter_div = document.getElementById("fx_2_dynamics_limiter_div");
+fx_2_dynamics_limiter_div.style.display = "none";
+
+const fx_2_limiter_threshold = document.getElementById("fx_2_limiter_threshold");
+const fx_2_limiter_threshold_value = document.getElementById("fx_2_limiter_threshold_value");
+fx_2_limiter_threshold.addEventListener("change", function (e) {
+  fx_2_dynamics_limiterNode.threshold.value = e.currentTarget.value;
+  fx_2_limiter_threshold_value.innerHTML = fx_2_dynamics_limiterNode.threshold.value;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_2_limiter_threshold", e.currentTarget.value);
+});
+
+//------------------
+const fx_3_limiter_On_Off_Button = document.getElementById("fx_3_limiter_On_Off_Button");
+const fx_3_limiter_reduction_value = document.getElementById("fx_3_limiter_reduction_value");
+const fx_3_limiter_reduction_text = document.getElementById("fx_3_limiter_reduction_text");
+const fx_3_dynamics_limiter_div = document.getElementById("fx_3_dynamics_limiter_div");
+fx_3_dynamics_limiter_div.style.display = "none";
+
+const fx_3_limiter_threshold = document.getElementById("fx_3_limiter_threshold");
+const fx_3_limiter_threshold_value = document.getElementById("fx_3_limiter_threshold_value");
+fx_3_limiter_threshold.addEventListener("change", function (e) {
+  fx_3_dynamics_limiterNode.threshold.value = e.currentTarget.value;
+  fx_3_limiter_threshold_value.innerHTML = fx_3_dynamics_limiterNode.threshold.value;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_3_limiter_threshold", e.currentTarget.value);
+});
+
+//------------------
+const fx_4_limiter_On_Off_Button = document.getElementById("fx_4_limiter_On_Off_Button");
+const fx_4_limiter_reduction_value = document.getElementById("fx_4_limiter_reduction_value");
+const fx_4_limiter_reduction_text = document.getElementById("fx_4_limiter_reduction_text");
+const fx_4_dynamics_limiter_div = document.getElementById("fx_4_dynamics_limiter_div");
+fx_4_dynamics_limiter_div.style.display = "none";
+
+const fx_4_limiter_threshold = document.getElementById("fx_4_limiter_threshold");
+const fx_4_limiter_threshold_value = document.getElementById("fx_4_limiter_threshold_value");
+fx_4_limiter_threshold.addEventListener("change", function (e) {
+  fx_4_dynamics_limiterNode.threshold.value = e.currentTarget.value;
+  fx_4_limiter_threshold_value.innerHTML = fx_4_dynamics_limiterNode.threshold.value;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_4_limiter_threshold", e.currentTarget.value);
+});
+
+
 
 //*********************************************************************************************** */
 //*********************************************************************************************** */
@@ -3578,8 +4343,6 @@ const channel_1_tascam_LowShelf_gain = document.getElementById("channel_1_tascam
 const channel_1_tascam_LowShelf_gain_value = document.getElementById("channel_1_tascam_LowShelf_gain_value");
 const channel_1_tascam_LowShelf_gain_text = document.getElementById("channel_1_tascam_LowShelf_gain_text");
 const channel_1_tascam_LowShelf_FilterNode = new Tone.Filter();
-
-const channel_1_rms_meter = new Tone.Meter(0);
 
 channel_1_tascam_LowShelf_FilterNode.set({
   frequency: 100,
@@ -3603,8 +4366,8 @@ const channel_1_tascam_Mid_SemiParam_FilterNode = new Tone.Filter();
 channel_1_tascam_Mid_SemiParam_FilterNode.set({
   frequency: 1000,
   type: "bandpass",
-  gain: 0,
-  q: 2,
+  gain: 10,
+  q: 0.2,
   rolloff: -24,
 });
 
@@ -3617,6 +4380,7 @@ const channel_1_tascam_Mid_SemiParam_frequency_text = document.getElementById("c
 channel_1_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_1_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
+    console.log("channel_1_tascam_Mid_SemiParam_FilterNode.gain.value:  " + channel_1_tascam_Mid_SemiParam_FilterNode.gain.value)
     channel_1_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "channel_1_tascam_Mid_SemiParam_gain", e.currentTarget.value);
   }
@@ -3634,7 +4398,6 @@ channel_1_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e)
     alert("ELSE channel_1_tascam_Mid_SemiParam_frec");
   }
 });
-
 
 //HIGH SHELF
 const channel_1_tascam_HighShelf_gain = document.getElementById("channel_1_tascam_HighShelf_gain");
@@ -3982,6 +4745,8 @@ const fx_1_tascam_LowShelf_gain_text = document.getElementById("fx_1_tascam_LowS
 const fx_1_tascam_LowShelf_FilterNode = new Tone.Filter();
 
 const fx_1_rms_meter = new Tone.Meter(0);
+const fx_1_filter_bypass_meter = new Tone.Meter(0);
+const fx_1_eq3_meter = new Tone.Meter(0);
 
 fx_1_tascam_LowShelf_FilterNode.set({
   frequency: 100,
@@ -4383,7 +5148,6 @@ const fx_2_filter_eq_bypass_Button = document.getElementById("fx_2_filter_eq_byp
 const fx_3_filter_eq_bypass_Button = document.getElementById("fx_3_filter_eq_bypass_Button");
 const fx_4_filter_eq_bypass_Button = document.getElementById("fx_4_filter_eq_bypass_Button");
 
-
 //*********************************************************************************** */
 //*********************************************************************************** */
 //*******    GLOBAL VARs          **************************************************************************** */
@@ -4604,9 +5368,6 @@ fx_1_filter_eq_On_Button.style.backgroundColor = "white";
 fx_1_compressor_On_Off_Button.style.backgroundColor = "white";
 fx_1_compressor_On_Off_Button.innerText = "Off";
 
-const fx_1_gate_On_Off_Button = document.getElementById("fx_1_gate_On_Off_Button");
-const fx_1_limiter_On_Off_Button = document.getElementById("fx_1_limiter_On_Off_Button");
-
 fx_1_gate_On_Off_Button.style.backgroundColor = "white";
 fx_1_gate_On_Off_Button.innerText = "Off";
 
@@ -4625,8 +5386,6 @@ fx_2_filter_eq_On_Button.style.backgroundColor = "white";
 fx_2_compressor_On_Off_Button.style.backgroundColor = "white";
 fx_2_compressor_On_Off_Button.innerText = "Off";
 
-const fx_2_gate_On_Off_Button = document.getElementById("fx_2_gate_On_Off_Button");
-const fx_2_limiter_On_Off_Button = document.getElementById("fx_2_limiter_On_Off_Button");
 fx_2_gate_On_Off_Button.style.backgroundColor = "white";
 fx_2_gate_On_Off_Button.innerText = "Off";
 
@@ -4644,9 +5403,6 @@ fx_3_filter_eq_On_Button.style.backgroundColor = "white";
 fx_3_compressor_On_Off_Button.style.backgroundColor = "white";
 fx_3_compressor_On_Off_Button.innerText = "Off";
 
-const fx_3_gate_On_Off_Button = document.getElementById("fx_3_gate_On_Off_Button");
-const fx_3_limiter_On_Off_Button = document.getElementById("fx_3_limiter_On_Off_Button");
-
 fx_3_gate_On_Off_Button.style.backgroundColor = "white";
 fx_3_gate_On_Off_Button.innerText = "Off";
 
@@ -4663,10 +5419,6 @@ fx_4_filter_eq_On_Button.style.backgroundColor = "white";
 
 fx_4_compressor_On_Off_Button.style.backgroundColor = "white";
 fx_4_compressor_On_Off_Button.innerText = "Off";
-
-const fx_4_gate_On_Off_Button = document.getElementById("fx_4_gate_On_Off_Button");
-const fx_4_limiter_On_Off_Button = document.getElementById("fx_4_limiter_On_Off_Button");
-
 
 fx_4_gate_On_Off_Button.style.backgroundColor = "white";
 fx_4_gate_On_Off_Button.innerText = "Off";
@@ -4862,6 +5614,34 @@ const player_4_duration_text = document.getElementById("player_4_duration_text")
 
 //*************************************************************************************
 //*************************************************************************************
+//********     CHANNEL 1-4 SONG DATA   **************************************************************
+//*************************************************************************************
+//*************************************************************************************
+
+//channel_1
+const channel_1_songName = document.getElementById("channel_1_songName");
+const channel_1_duration_text = document.getElementById("channel_1_duration_text");
+
+//channel_2
+const channel_2_songName = document.getElementById("channel_2_songName");
+const channel_2_duration_value = document.getElementById("channel_2_duration_value");
+const channel_2_duration_text = document.getElementById("channel_2_duration_text");
+
+//channel_3
+const channel_3_songName = document.getElementById("channel_3_songName");
+const channel_3_duration_value = document.getElementById("channel_3_duration_value");
+const channel_3_duration_text = document.getElementById("channel_3_duration_text");
+
+//channel_4
+const channel_4_songName = document.getElementById("channel_4_songName");
+const channel_4_duration_value = document.getElementById("channel_4_duration_value");
+const channel_4_duration_text = document.getElementById("channel_4_duration_text");
+
+
+
+
+//*************************************************************************************
+//*************************************************************************************
 //********     PLAYER 1 PLAYER CONTROLS   **************************************************************
 //*************************************************************************************
 //*************************************************************************************
@@ -4895,12 +5675,12 @@ player_1_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     player_1_Node.volume.value = -100;
     player_1_volume_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "player_1_volume", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "player_1_volume", -100);
   }
   else {
     player_1_Node.volume.value = e.currentTarget.value;
     player_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "player_1_volume", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "player_1_volume", e.currentTarget.value);
   }
 });
 
@@ -4908,7 +5688,7 @@ player_1_volume.ondblclick = function () {
   player_1_Node.volume.value = 0;
   player_1_volume_value.innerHTML = 0;
   player_1_volume.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "player_1_volume", 0);
+  mixEvent.logIntoListaNewValue(Tone.now(), "player_1_volume", 0);
 };
 /*
 const player_1_pan = document.getElementById("player_1_pan");
@@ -4931,7 +5711,7 @@ const player_1_playback_rate_value = document.getElementById("player_1_playback_
 player_1_playback_rate.addEventListener("change", function (e) {
   player_1_Node.playbackRate = `${e.currentTarget.value}`;
   player_1_playback_rate_value.innerHTML = Math.round(`${e.currentTarget.value}` * 100);
-  mixEvent.logIntoListaAction(Tone.now(), "player_1_playback_rate", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "player_1_playback_rate", e.currentTarget.value);
 });
 
 const player_1_loop_checkbox = document.getElementById("player_1_loop_checkbox");
@@ -4971,7 +5751,7 @@ const player_1_loop_start = document.getElementById("player_1_loop_start");
 player_1_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 300) {
     player_1_Node.loopStart = e.currentTarget.value;
-    mixEvent.logIntoListaAction(Tone.now(), "player_1_loop_start", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "player_1_loop_start", e.currentTarget.value);
   }
   else {
     alert("Else player_1_Node.loopStart");
@@ -4982,7 +5762,7 @@ const player_1_loop_end = document.getElementById("player_1_loop_end");
 player_1_loop_end.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 300 && e.currentTarget.value > player_1_Node.loopStart) {
     player_1_Node.loopEnd = e.currentTarget.value;
-    mixEvent.logIntoListaAction(Tone.now(), "player_1_loop_end", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "player_1_loop_end", e.currentTarget.value);
   }
   else {
     alert("Else player_1_Node.loopEnd");
@@ -5043,8 +5823,8 @@ const grainPlayer_1_soloButton = document.getElementById("grainPlayer_1_soloButt
 
 const grainPlayer_1_volume = document.getElementById("grainPlayer_1_volume");
 const grainPlayer_1_volume_value = document.getElementById("grainPlayer_1_volume_value");
-const grainPlayer_1_volume_rampTo_gain = document.getElementById("grainPlayer_1_volume_rampTo_gain");
-const grainPlayer_1_volume_rampTo_gain_value = document.getElementById("grainPlayer_1_volume_rampTo_gain_value");
+const grainrampTo_newValue = document.getElementById("grainrampTo_newValue");
+const grainrampTo_newValue_value = document.getElementById("grainrampTo_newValue_value");
 const grainPlayer_1_volume_rampTo_time = document.getElementById("grainPlayer_1_volume_rampTo_time");
 const grainPlayer_1_volume_rampTo_time_value = document.getElementById("grainPlayer_1_volume_rampTo_time_value");
 
@@ -5663,9 +6443,8 @@ noiseSynth_1_div.style.display = "none";
 //******************         PLAYER 2 TODO         ***************************************************************************
 //****************************************************************************************************************************
 //****************************************************************************************************************************
-//PLAYER 1
+//PLAYER 2
 
-const player_2_rms_meter_inner = document.getElementById("player_2_rms_meter_inner");
 const player_2_loadButton = document.getElementById("player_2_loadButton");
 const player_2_load_text = document.getElementById("player_2_load_text");
 
@@ -5764,7 +6543,7 @@ player_2_fadeOut.addEventListener("change", function (e) {
 });
 
 const player_2_loop_options_div = document.getElementById("player_2_loop_options_div");
-player_2_loop_options_div.style.display = "none";
+player_2_loop_options_div.style.display = "block";
 
 //IF LOOP=TRUE; LOOP_OPTIONS_DIV = BLOCK -- FADE_DIV = NONE
 //ELSE LOOP=FALSE; LOOP_OPTIONS_DIV = NONE -- FADE_DIV = BLOCK 
@@ -5773,6 +6552,33 @@ player_2_fade_options_div.style.display = "none";
 
 const player_2_div = document.getElementById("player_2_div");
 player_2_div.style.display = "none";
+
+//************************************************************************** */
+//************************************************************************** */
+//***********************    PLAYER 2 RMS METERS    ******************* */
+//************************************************************************** */
+//************************************************************************** */
+const player_2_rms_meter = new Tone.Meter(0);
+const player_2_rms_meter_after_volume = new Tone.Meter(0);
+const player_2_rms_meter_player_2_filter_Bypass = new Tone.Meter(0);
+const player_2_rms_meter_player_2_filter = new Tone.Meter(0);
+const player_2_rms_meter_inner = document.getElementById("player_2_rms_meter_inner");
+const player_2_filter_Bypass_VALUE = document.getElementById("player_2_filter_Bypass_VALUE");
+const player_2_rms_after_volume_value = document.getElementById("player_2_rms_after_volume_value");
+const player_2_filter_VALUE = document.getElementById("player_2_filter_VALUE");
+const player_2_rms_comp_Bypass_value = document.getElementById("player_2_rms_comp_Bypass_value");
+const player_2_rms_comp_value = document.getElementById("player_2_rms_comp_value");
+const player_2_rms_gate_Bypass_value = document.getElementById("player_2_rms_gate_Bypass_value");
+const player_2_rms_gate_value = document.getElementById("player_2_rms_gate_value");
+const player_2_rms_limiter_Bypass_value = document.getElementById("player_2_rms_limiter_Bypass_value");
+const player_2_rms_limiter_value = document.getElementById("player_2_rms_limiter_value");
+
+const player_2_rms_meter_player_2_rms_comp_Bypass = new Tone.Meter(0);
+const player_2_rms_meter_player_2_rms_comp = new Tone.Meter(0);
+const player_2_rms_meter_player_2_rms_gate_Bypass = new Tone.Meter(0);
+const player_2_rms_meter_player_2_rms_gate = new Tone.Meter(0);
+const player_2_rms_meter_player_2_rms_limiter_Bypass = new Tone.Meter(0);
+const player_2_rms_meter_player_2_rms_limiter = new Tone.Meter(0);
 
 //--------------------------------
 const player_3_rms_meter_inner = document.getElementById("player_3_rms_meter_inner");
@@ -5804,20 +6610,7 @@ player_3_volume.ondblclick = function () {
   player_3_volume_value.innerHTML = 0;
   player_3_volume.value = 0;
 };
-/*
-const player_3_pan = document.getElementById("player_3_pan");
-const player_3_pan_value = document.getElementById("player_3_pan_value");
-player_3_pan.addEventListener("change", function (e) {
-  player_3_panNode.pan.value = e.currentTarget.value;
-  player_3_pan_value.innerHTML = `${e.currentTarget.value}`;
-});
 
-player_3_pan.ondblclick = function () {
-  player_3_panNode.pan.value = 0;
-  player_3_pan_value.innerHTML = 0;
-  player_3_pan.value = 0;
-};
-*/
 const player_3_playback_rate = document.getElementById("player_3_playback_rate");
 const player_3_playback_rate_value = document.getElementById("player_3_playback_rate_value");
 player_3_playback_rate.addEventListener("change", function (e) {
@@ -5884,7 +6677,7 @@ player_3_fadeOut.addEventListener("change", function (e) {
 });
 
 const player_3_loop_options_div = document.getElementById("player_3_loop_options_div");
-player_3_loop_options_div.style.display = "none";
+player_3_loop_options_div.style.display = "block";
 
 //IF LOOP=TRUE; LOOP_OPTIONS_DIV = BLOCK -- FADE_DIV = NONE
 //ELSE LOOP=FALSE; LOOP_OPTIONS_DIV = NONE -- FADE_DIV = BLOCK 
@@ -5992,7 +6785,7 @@ player_4_fadeOut.addEventListener("change", function (e) {
 });
 
 const player_4_loop_options_div = document.getElementById("player_4_loop_options_div");
-player_4_loop_options_div.style.display = "none";
+player_4_loop_options_div.style.display = "block";
 
 //IF LOOP=TRUE; LOOP_OPTIONS_DIV = BLOCK -- FADE_DIV = NONE
 //ELSE LOOP=FALSE; LOOP_OPTIONS_DIV = NONE -- FADE_DIV = BLOCK 
@@ -6033,7 +6826,6 @@ const noise_2_fadeOut = document.getElementById("noise_2_fadeOut");
 const noise_2_select_type = document.getElementById("noise_2_select_type");
 
 noise_2_volume.addEventListener("change", function (e) {
-
   // agregar if para llegar a -100
   noise_2_Node.volume.value = e.currentTarget.value;
   noise_2_volume_value.innerHTML = `${e.currentTarget.value}`;
@@ -6670,9 +7462,11 @@ const mixEvent = {
   element: "player_1",
   action: "play",
   newValue: 100,
+  rampTime: 0,
+  filename: "No File Loaded",
   logging: function () {
     return this.atTime + " " + this.element + " " + this.action +
-      " " + this.newValue
+      " " + this.newValue + " " + this.rampTime
   },
   alerting: function () {
     alert(this.logging());
@@ -6688,6 +7482,24 @@ const mixEvent = {
     lista.push(event);
     this.console_log(event);
   },
+  /*
+  logIntoListaAction: function (atTime, element, filename) {
+    const event = Object();
+    event.atTime = atTime;
+    event.element = element;
+    event.filename = filename;
+    lista.push(event);
+    this.console_log(event);
+  },
+  /**/
+  logIntoListaNewValue: function (atTime, element, newValue) {
+    const event = Object();
+    event.atTime = atTime;
+    event.element = element;
+    event.newValue = newValue;
+    lista.push(event);
+    this.console_log(event);
+  },
   logIntoListaRampValue: function (atTime, element, newValue, rampTime) {
     const event = Object();
     event.atTime = atTime;
@@ -6695,11 +7507,22 @@ const mixEvent = {
     event.newValue = newValue;
     event.rampTime = rampTime;
     lista.push(event);
+    this.console_log(event);
     /**/
   },
   console_log: function (event) {
-    console.log("NOw: " + event.atTime + "\n" + "element: " + event.element + "\n" +
-      "newValue: " + event.action);
+    if (event.rampTime != undefined) {
+      console.log("Now: " + event.atTime + "\n" + "element: " + event.element + "\n" +
+        "newValue: " + event.newValue + "\n" + "rampTime: " + event.rampTime);
+    }
+    else if (event.newValue != undefined) {
+      console.log("Now: " + event.atTime + "\n" + "element: " + event.element + "\n" +
+        "newValue: " + event.newValue);
+    }
+    else {
+      console.log("Now: " + event.atTime + "\n" + "element: " + event.element + "\n" +
+        "action: " + event.action);
+    }
   }
 };
 
@@ -6723,7 +7546,9 @@ fx_1_RMS_all.style.display = "block";
 //********  INNER HTML player 1            ************************************************
 //*****************************************************************************************
 //INNER HTML channel 1
-player_1_volume_value.innerHTML = "-40";
+//player_1_Node.volume.value = -6;
+player_1_volume.value = -6;
+player_1_volume_value.innerHTML = "-6";
 player_1_playback_rate_value.innerHTML = 100;
 channel_1_songName.innerHTML = `No Song Loaded`;
 //channel_1_duration_value.innerHTML = "Unk";
@@ -6752,7 +7577,7 @@ channel_1_dynamics_release_value.innerHTML = 0;
 channel_1_dynamics_attack_value.innerHTML = 0;
 channel_1_dynamics_knee_value.innerHTML = 0;
 
-//INNER HTML channel 1
+//INNER HTML channel 2
 player_2_volume_value.innerHTML = "-40";
 player_2_playback_rate_value.innerHTML = 100;
 channel_2_songName.innerHTML = `No Song Loaded`;
@@ -7001,21 +7826,15 @@ fx_1_autoWah_gain.addEventListener("change", function (e) {
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_gain", e.currentTarget.value);
 });
 
-const fx_1_autoWah_follower_attack = document.getElementById("fx_1_autoWah_follower_attack");
-const fx_1_autoWah_follower_attack_value = document.getElementById("fx_1_autoWah_follower_attack_value");
-fx_1_autoWah_follower_attack.addEventListener("change", function (e) {
-  fx_1_AutoWah_Node.follower.attack = e.currentTarget.value;
-  fx_1_autoWah_follower_attack_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_follower_attack", e.currentTarget.value);
+const fx_1_autoWah_follower = document.getElementById("fx_1_autoWah_follower");
+const fx_1_autoWah_follower_value = document.getElementById("fx_1_autoWah_follower_value");
+fx_1_autoWah_follower.addEventListener("change", function (e) {
+  fx_1_AutoWah_Node.follower = e.currentTarget.value;
+  fx_1_autoWah_follower_value.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_follower", e.currentTarget.value);
 });
 
-const fx_1_autoWah_follower_release = document.getElementById("fx_1_autoWah_follower_release");
-const fx_1_autoWah_follower_release_value = document.getElementById("fx_1_autoWah_follower_release_value");
-fx_1_autoWah_follower_release.addEventListener("change", function (e) {
-  fx_1_AutoWah_Node.follower.release.value = e.currentTarget.value;
-  fx_1_autoWah_follower_release_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_follower_release", e.currentTarget.value);
-});
+
 
 const fx_1_autoWah_baseFrequency = document.getElementById("fx_1_autoWah_baseFrequency");
 const fx_1_autoWah_baseFrequency_value = document.getElementById("fx_1_autoWah_baseFrequency_value");
@@ -7618,7 +8437,7 @@ const fx_3_pingpong_feedback_value = document.getElementById("fx_3_pingpong_feed
 fx_3_pingpong_feedback.addEventListener("change", function (e) {
   fx_3_pingpong_Node.feedback.value = e.currentTarget.value;
   fx_3_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_3_pingpong_feedback", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_3_pingpong_feedback", e.currentTarget.value);
 });
 
 const fx_3_pingpong_delayTime = document.getElementById("fx_3_pingpong_delayTime");
@@ -7626,7 +8445,7 @@ const fx_3_pingpong_delayTime_value = document.getElementById("fx_3_pingpong_del
 fx_3_pingpong_delayTime.addEventListener("change", function (e) {
   fx_3_pingpong_Node.delayTime.value = e.currentTarget.value;
   fx_3_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_3_pingpong_delayTime", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_3_pingpong_delayTime", e.currentTarget.value);
 });
 
 const fx_3_pingpong_maxDelay = document.getElementById("fx_3_pingpong_maxDelay");
@@ -7634,7 +8453,7 @@ const fx_3_pingpong_maxDelay_value = document.getElementById("fx_3_pingpong_maxD
 fx_3_pingpong_maxDelay.addEventListener("change", function (e) {
   fx_3_pingpong_Node.maxDelay = e.currentTarget.value;
   fx_3_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_3_pingpong_maxDelay", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_3_pingpong_maxDelay", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -7654,7 +8473,7 @@ const fx_3_pitchshift_feedback_value = document.getElementById("fx_3_pitchshift_
 fx_3_pitchshift_feedback.addEventListener("change", function (e) {
   fx_3_pitchshift_Node.feedback.value = e.currentTarget.value;
   fx_3_pitchshift_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_3_pitchshift_feedback", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_3_pitchshift_feedback", e.currentTarget.value);
 });
 
 const fx_3_pitchshift_delayTime = document.getElementById("fx_3_pitchshift_delayTime");
@@ -7662,7 +8481,7 @@ const fx_3_pitchshift_delayTime_value = document.getElementById("fx_3_pitchshift
 fx_3_pitchshift_delayTime.addEventListener("change", function (e) {
   fx_3_pitchshift_Node.delayTime.value = e.currentTarget.value;
   fx_3_pitchshift_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_3_pitchshift_delayTime", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_3_pitchshift_delayTime", e.currentTarget.value);
 });
 
 const fx_3_pitchshift_pitch = document.getElementById("fx_3_pitchshift_pitch");
@@ -7670,7 +8489,7 @@ const fx_3_pitchshift_pitch_value = document.getElementById("fx_3_pitchshift_pit
 fx_3_pitchshift_pitch.addEventListener("change", function (e) {
   fx_3_pitchshift_Node.pitch = e.currentTarget.value;
   fx_3_pitchshift_pitch_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_3_pitchshift_pitch", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_3_pitchshift_pitch", e.currentTarget.value);
 });
 
 const fx_3_pitchshift_windowSize = document.getElementById("fx_3_pitchshift_windowSize");
@@ -7678,7 +8497,7 @@ const fx_3_pitchshift_windowSize_value = document.getElementById("fx_3_pitchshif
 fx_3_pitchshift_windowSize.addEventListener("change", function (e) {
   fx_3_pitchshift_Node.windowSize = e.currentTarget.value;
   fx_3_pitchshift_windowSize_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_3_pitchshift_windowSize", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_3_pitchshift_windowSize", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -7700,7 +8519,7 @@ const fx_3_reverb_preDelay_value = document.getElementById("fx_3_reverb_preDelay
 fx_3_reverb_preDelay.addEventListener("change", function (e) {
   fx_3_reverb_Node.preDelay = e.currentTarget.value;
   fx_3_reverb_preDelay_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_3_reverb_preDelay", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_3_reverb_preDelay", e.currentTarget.value);
 });
 
 const fx_3_reverb_decay = document.getElementById("fx_3_reverb_decay");
@@ -7708,7 +8527,7 @@ const fx_3_reverb_decay_value = document.getElementById("fx_3_reverb_decay_value
 fx_3_reverb_decay.addEventListener("change", function (e) {
   fx_3_reverb_Node.decay = e.currentTarget.value;
   fx_3_reverb_decay_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_3_reverb_decay", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_3_reverb_decay", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -7728,7 +8547,7 @@ const fx_4_chorus_delayTime_value = document.getElementById("fx_4_chorus_delayTi
 fx_4_chorus_delayTime.addEventListener("change", function (e) {
   fx_4_chorus_Node.delayTime = e.currentTarget.value;
   fx_4_chorus_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_chorus_delayTime", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_chorus_delayTime", e.currentTarget.value);
 });
 
 const fx_4_chorus_freq = document.getElementById("fx_4_chorus_freq");
@@ -7736,7 +8555,7 @@ const fx_4_chorus_freq_value = document.getElementById("fx_4_chorus_freq_value")
 fx_4_chorus_freq.addEventListener("change", function (e) {
   fx_4_chorus_Node.frequency.value = e.currentTarget.value;
   fx_4_chorus_freq_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_chorus_freq", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_chorus_freq", e.currentTarget.value);
 });
 
 const fx_4_chorus_depth = document.getElementById("fx_4_chorus_depth");
@@ -7744,7 +8563,7 @@ const fx_4_chorus_depth_value = document.getElementById("fx_4_chorus_depth_value
 fx_4_chorus_depth.addEventListener("change", function (e) {
   fx_4_chorus_Node.depth = e.currentTarget.value;
   fx_4_chorus_depth_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_chorus_depth", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_chorus_depth", e.currentTarget.value);
 });
 
 const fx_4_chorus_spread = document.getElementById("fx_4_chorus_spread");
@@ -7752,7 +8571,7 @@ const fx_4_chorus_spread_value = document.getElementById("fx_4_chorus_spread_val
 fx_4_chorus_spread.addEventListener("change", function (e) {
   fx_4_chorus_Node.spread = e.currentTarget.value;
   fx_4_chorus_spread_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_chorus_spread", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_chorus_spread", e.currentTarget.value);
 });
 
 const fx_4_chorus_feedback = document.getElementById("fx_4_chorus_feedback");
@@ -7760,13 +8579,13 @@ const fx_4_chorus_feedback_value = document.getElementById("fx_4_chorus_feedback
 fx_4_chorus_feedback.addEventListener("change", function (e) {
   fx_4_chorus_Node.feedback.value = e.currentTarget.value;
   fx_4_chorus_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_chorus_feedback", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_chorus_feedback", e.currentTarget.value);
 });
 
 const fx_4_chorus_select_type = document.getElementById("fx_4_chorus_select_type");
 fx_4_chorus_select_type.addEventListener("change", function (e) {
   fx_4_chorus_Node.type = e.currentTarget.value;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_chorus_select_type", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_chorus_select_type", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -7786,7 +8605,7 @@ const fx_4_feedback_value = document.getElementById("fx_4_feedback_value");
 fx_4_feedback.addEventListener("change", function (e) {
   fx_4_feedback_Node.feedback.value = e.currentTarget.value;
   fx_4_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_feedback", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_feedback", e.currentTarget.value);
 });
 
 const fx_4_feedback_delayTime = document.getElementById("fx_4_feedback_delayTime");
@@ -7794,7 +8613,7 @@ const fx_4_feedback_delayTime_value = document.getElementById("fx_4_feedback_del
 fx_4_feedback_delayTime.addEventListener("change", function (e) {
   fx_4_feedback_Node.delayTime.value = e.currentTarget.value;
   fx_4_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_feedback_delayTime", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_feedback_delayTime", e.currentTarget.value);
 });
 
 const fx_4_feedback_maxDelay = document.getElementById("fx_4_feedback_maxDelay");
@@ -7802,7 +8621,7 @@ const fx_4_feedback_maxDelay_value = document.getElementById("fx_4_feedback_maxD
 fx_4_feedback_maxDelay.addEventListener("change", function (e) {
   fx_4_feedback_Node.maxDelay = e.currentTarget.value;
   fx_4_feedback_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_feedback_maxDelay", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_feedback_maxDelay", e.currentTarget.value);
 });
 
 //*****************************************************************************************************
@@ -7821,7 +8640,7 @@ const fx_4_frequencyShifter_value = document.getElementById("fx_4_frequencyShift
 fx_4_frequencyShifter.addEventListener("change", function (e) {
   fx_4_FrequencyShifter_Node.frequency.value = e.currentTarget.value;
   fx_4_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_frequencyShifter", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_frequencyShifter", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -7848,7 +8667,7 @@ const fx_4_phaser_octaves_value = document.getElementById("fx_4_phaser_octaves_v
 fx_4_phaser_octaves.addEventListener("change", function (e) {
   fx_4_phaser_Node.octaves = e.currentTarget.value;
   fx_4_phaser_octaves_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_phaser_octaves", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_phaser_octaves", e.currentTarget.value);
 });
 
 const fx_4_phaser_Q = document.getElementById("fx_4_phaser_Q");
@@ -7856,7 +8675,7 @@ const fx_4_phaser_Q_value = document.getElementById("fx_4_phaser_Q_value");
 fx_4_phaser_Q.addEventListener("change", function (e) {
   fx_4_phaser_Node.Q.value = e.currentTarget.value;
   fx_4_phaser_Q_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_phaser_Q", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_phaser_Q", e.currentTarget.value);
 });
 
 const fx_4_phaser_baseFrequency = document.getElementById("fx_4_phaser_baseFrequency");
@@ -7864,7 +8683,7 @@ const fx_4_phaser_baseFrequency_value = document.getElementById("fx_4_phaser_bas
 fx_4_phaser_baseFrequency.addEventListener("change", function (e) {
   fx_4_phaser_Node.baseFrequency = e.currentTarget.value;
   fx_4_phaser_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_phaser_baseFrequency", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_phaser_baseFrequency", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -7885,7 +8704,7 @@ const fx_4_pingpong_feedback_value = document.getElementById("fx_4_pingpong_feed
 fx_4_pingpong_feedback.addEventListener("change", function (e) {
   fx_4_pingpong_Node.feedback.value = e.currentTarget.value;
   fx_4_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_pingpong_feedback", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_pingpong_feedback", e.currentTarget.value);
 });
 
 const fx_4_pingpong_delayTime = document.getElementById("fx_4_pingpong_delayTime");
@@ -7893,7 +8712,7 @@ const fx_4_pingpong_delayTime_value = document.getElementById("fx_4_pingpong_del
 fx_4_pingpong_delayTime.addEventListener("change", function (e) {
   fx_4_pingpong_Node.delayTime.value = e.currentTarget.value;
   fx_4_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_pingpong_delayTime", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_pingpong_delayTime", e.currentTarget.value);
 });
 
 const fx_4_pingpong_maxDelay = document.getElementById("fx_4_pingpong_maxDelay");
@@ -7901,7 +8720,7 @@ const fx_4_pingpong_maxDelay_value = document.getElementById("fx_4_pingpong_maxD
 fx_4_pingpong_maxDelay.addEventListener("change", function (e) {
   fx_4_pingpong_Node.maxDelay = e.currentTarget.value;
   fx_4_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_pingpong_maxDelay", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_pingpong_maxDelay", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -7924,7 +8743,7 @@ const fx_4_reverb_preDelay_value = document.getElementById("fx_4_reverb_preDelay
 fx_4_reverb_preDelay.addEventListener("change", function (e) {
   fx_4_reverb_Node.preDelay = e.currentTarget.value;
   fx_4_reverb_preDelay_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_reverb_preDelay", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_reverb_preDelay", e.currentTarget.value);
 });
 
 const fx_4_reverb_decay = document.getElementById("fx_4_reverb_decay");
@@ -7932,7 +8751,7 @@ const fx_4_reverb_decay_value = document.getElementById("fx_4_reverb_decay_value
 fx_4_reverb_decay.addEventListener("change", function (e) {
   fx_4_reverb_Node.decay = e.currentTarget.value;
   fx_4_reverb_decay_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "fx_4_reverb_decay", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "fx_4_reverb_decay", e.currentTarget.value);
 });
 /**/
 
@@ -7943,6 +8762,8 @@ fx_4_reverb_decay.addEventListener("change", function (e) {
 //************************************************************************** */
 
 const channel_1_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
+const channel_1_rms_meter = new Tone.Meter(0);
+channel_1_volNode.fan(channel_1_rms_meter);
 
 const channel_1_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(channel_1_volNode);
 const channel_1_dynamics_gateNode_Bypass = new Tone.Volume(0).connect(channel_1_dynamics_limiterNode_Bypass);
@@ -7960,7 +8781,6 @@ channel_1_filter.set({
 });
 
 const channel_1_panNode = new Tone.Panner(0).connect(channel_1_filter_Bypass);
-//ESTA PARA EVITAR ACOPLE
 
 const channel_1_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const channel_1_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
@@ -7991,7 +8811,7 @@ channel_1_volNode.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_pos
 
 //para tascam
 channel_1_tascam_out_Node.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postEq_volNode, channel_1_fxSend_3_postEq_volNode, channel_1_fxSend_4_postEq_volNode);
-channel_1_tascam_out_Node.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_postFdr_volNode, channel_1_fxSend_3_postFdr_volNode, channel_1_fxSend_4_postFdr_volNode);
+//channel_1_tascam_out_Node.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_postFdr_volNode, channel_1_fxSend_3_postFdr_volNode, channel_1_fxSend_4_postFdr_volNode);
 
 //----------------------------------
 const channel_2_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
@@ -8012,7 +8832,11 @@ channel_2_filter.set({
 });
 
 const channel_2_panNode = new Tone.Panner(0).connect(channel_2_filter_Bypass);
-//ESTA PARA EVITAR ACOPLE
+
+
+const player_2_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(channel_2_panNode);
+//player_2_Node.debug = true;
+player_2_Node.fan(player_2_rms_meter);
 
 const channel_2_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const channel_2_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
@@ -8033,8 +8857,7 @@ const channel_2_dynamics_limiterNode = new Tone.Limiter();
 const channel_2_dynamics_gateNode = new Tone.Gate();
 const channel_2_dynamics_compressorNode = new Tone.Compressor();
 
-const player_2_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(channel_2_panNode);
-//player_1_Node.debug = true;
+
 
 channel_2_panNode.fan(channel_2_fxSend_1_preEq_volNode, channel_2_fxSend_2_preEq_volNode, channel_2_fxSend_3_preEq_volNode, channel_2_fxSend_4_preEq_volNode);
 channel_2_filter.fan(channel_2_fxSend_1_postEq_volNode, channel_2_fxSend_2_postEq_volNode, channel_2_fxSend_3_postEq_volNode, channel_2_fxSend_4_postEq_volNode);
@@ -8084,8 +8907,12 @@ const channel_3_dynamics_limiterNode = new Tone.Limiter();
 const channel_3_dynamics_gateNode = new Tone.Gate();
 const channel_3_dynamics_compressorNode = new Tone.Compressor();
 
+
+
+//player_3_rms_value
+
 const player_3_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(channel_3_panNode);
-//player_1_Node.debug = true;
+//player_3_Node.debug = true;
 
 channel_3_panNode.fan(channel_3_fxSend_1_preEq_volNode, channel_3_fxSend_2_preEq_volNode, channel_3_fxSend_3_preEq_volNode, channel_3_fxSend_4_preEq_volNode);
 channel_3_filter.fan(channel_3_fxSend_1_postEq_volNode, channel_3_fxSend_2_postEq_volNode, channel_3_fxSend_3_postEq_volNode, channel_3_fxSend_4_postEq_volNode);
@@ -8148,14 +8975,30 @@ channel_4_volNode.fan(channel_4_fxSend_1_postFdr_volNode, channel_4_fxSend_2_pos
 channel_4_tascam_out_Node.fan(channel_4_fxSend_1_postEq_volNode, channel_4_fxSend_2_postEq_volNode, channel_4_fxSend_3_postEq_volNode, channel_4_fxSend_4_postEq_volNode);
 channel_4_tascam_out_Node.fan(channel_4_fxSend_1_postFdr_volNode, channel_4_fxSend_2_postFdr_volNode, channel_4_fxSend_3_postFdr_volNode, channel_4_fxSend_4_postFdr_volNode);
 
-//----------------------------------
-const fx_1_volNode = new Tone.Volume(0).connect(masterVolumeNode);
-//fx_1_volume.value = 0;
-//fx_1_volume_value = 0;
-const fx_1_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(fx_1_volNode);
+//*****************************************************************************************
+//*****************************************************************************************
+//const fx_1_pan = new Tone.Panner(0).toDestination();
+const TEST_fx_1_pan = new Tone.Panner(0);
+
+const fx_2_pan = new Tone.Panner(0).toDestination();
+const fx_3_pan = new Tone.Panner(0).toDestination();
+const fx_4_pan = new Tone.Panner(0).toDestination();
+
+const TEST_fx_1_volNode = new Tone.Volume(0).connect(masterVolumeNode);
+//const fx_1_volNode = new Tone.Volume(0)//.connect(masterVolumeNode);
+//TEST_fx_1_pan.connect(TEST_fx_1_volNode);
+
+const fx_1_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(TEST_fx_1_volNode);
+//const fx_1_dynamics_limiterNode_Bypass = new Tone.Volume(0).toDestination();
+//const fx_1_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(fx_1_volNode);
 const fx_1_dynamics_gateNode_Bypass = new Tone.Volume(0).connect(fx_1_dynamics_limiterNode_Bypass);
+//const fx_1_dynamics_gateNode_Bypass = new Tone.Volume(0).toDestination();
 const fx_1_dynamics_compressorNode_Bypass = new Tone.Volume(0).connect(fx_1_dynamics_gateNode_Bypass);
+//const fx_1_dynamics_compressorNode_Bypass = new Tone.Volume(0).toDestination();
 const fx_1_filter_Bypass = new Tone.Volume(0).connect(fx_1_dynamics_compressorNode_Bypass);
+//const fx_1_filter_Bypass = new Tone.Volume(0).toDestination();
+
+
 
 const fx_1_filter = new Tone.Filter();
 //fx_1_filter.debug = true;
@@ -8167,42 +9010,36 @@ fx_1_filter.set({
   rolloff: -96,
 });
 
-
-const fx_1_panNode = new Tone.Panner(0).connect(fx_1_filter_Bypass);
-
 //ESTA PARA EVITAR ACOPLE
-
 const fx_1_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const fx_1_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const fx_1_fxSend_3_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const fx_1_fxSend_4_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
+const fx_1_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
+const fx_1_fxSend_3_preEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
+const fx_1_fxSend_4_preEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
 
 const fx_1_fxSend_1_postEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const fx_1_fxSend_2_postEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const fx_1_fxSend_3_postEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const fx_1_fxSend_4_postEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
+const fx_1_fxSend_2_postEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
+const fx_1_fxSend_3_postEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
+const fx_1_fxSend_4_postEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
 
 const fx_1_fxSend_1_postFdr_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const fx_1_fxSend_2_postFdr_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const fx_1_fxSend_3_postFdr_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const fx_1_fxSend_4_postFdr_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
+const fx_1_fxSend_2_postFdr_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
+const fx_1_fxSend_3_postFdr_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
+const fx_1_fxSend_4_postFdr_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
 
 const fx_1_dynamics_limiterNode = new Tone.Limiter();
 const fx_1_dynamics_gateNode = new Tone.Gate();
 const fx_1_dynamics_compressorNode = new Tone.Compressor();
 
-fx_1_panNode.fan(fx_1_fxSend_1_preEq_volNode, fx_1_fxSend_2_preEq_volNode, fx_1_fxSend_3_preEq_volNode, fx_1_fxSend_4_preEq_volNode);
 fx_1_filter.fan(fx_1_fxSend_1_postEq_volNode, fx_1_fxSend_2_postEq_volNode, fx_1_fxSend_3_postEq_volNode, fx_1_fxSend_4_postEq_volNode);
-
-fx_1_volNode.fan(fx_1_fxSend_1_postFdr_volNode, fx_1_fxSend_2_postFdr_volNode, fx_1_fxSend_3_postFdr_volNode, fx_1_fxSend_4_postFdr_volNode);
 
 //para tascam
 fx_1_tascam_out_Node.fan(fx_1_fxSend_1_postEq_volNode, fx_1_fxSend_2_postEq_volNode, fx_1_fxSend_3_postEq_volNode, fx_1_fxSend_4_postEq_volNode);
 fx_1_tascam_out_Node.fan(fx_1_fxSend_1_postFdr_volNode, fx_1_fxSend_2_postFdr_volNode, fx_1_fxSend_3_postFdr_volNode, fx_1_fxSend_4_postFdr_volNode);
 
-
 //----------------------------------
 const fx_2_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
+fx_2_volNode.volume.value = -6;
+//fx_2_volume.value = 0;
 
 const fx_2_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(fx_2_volNode);
 const fx_2_dynamics_gateNode_Bypass = new Tone.Volume(0).connect(fx_2_dynamics_limiterNode_Bypass);
@@ -8275,17 +9112,17 @@ const fx_3_panNode = new Tone.Panner(0).connect(fx_3_filter_Bypass);
 const fx_3_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const fx_3_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
 const fx_3_fxSend_3_preEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const fx_3_fxSend_4_preEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
+const fx_3_fxSend_4_preEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
 
 const fx_3_fxSend_1_postEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const fx_3_fxSend_2_postEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
 const fx_3_fxSend_3_postEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const fx_3_fxSend_4_postEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
+const fx_3_fxSend_4_postEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
 
 const fx_3_fxSend_1_postFdr_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const fx_3_fxSend_2_postFdr_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
 const fx_3_fxSend_3_postFdr_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const fx_3_fxSend_4_postFdr_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
+const fx_3_fxSend_4_postFdr_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
 
 const fx_3_dynamics_limiterNode = new Tone.Limiter();
 const fx_3_dynamics_gateNode = new Tone.Gate();
@@ -8374,12 +9211,12 @@ channel_1_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_filter_eq3.low.value = -100;
     channel_1_EQ3_low_fader_gain_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_low_fader_gain", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_low_fader_gain", -100);
   }
   else {
     channel_1_filter_eq3.low.value = e.currentTarget.value;
     channel_1_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_low_fader_gain", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -8389,12 +9226,12 @@ channel_1_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_filter_eq3.lowFrequency.value = -100;
     channel_1_EQ3_low_frequency_fader_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_low_frequency_fader", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_low_frequency_fader", -100);
   }
   else {
     channel_1_filter_eq3.lowFrequency.value = e.currentTarget.value;
     channel_1_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_low_frequency_fader", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -8404,12 +9241,12 @@ channel_1_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_filter_eq3.mid.value = -100;
     channel_1_EQ3_mid_fader_gain_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_mid_fader_gain", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_mid_fader_gain", -100);
   }
   else {
     channel_1_filter_eq3.mid.value = e.currentTarget.value;
     channel_1_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_mid_fader_gain", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -8419,12 +9256,12 @@ channel_1_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_filter_eq3.mid.value = -100;
     channel_1_EQ3_hi_fader_gain_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_hi_fader_gain", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_hi_fader_gain", -100);
   }
   else {
     channel_1_filter_eq3.high.value = e.currentTarget.value;
     channel_1_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_hi_fader_gain", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -8434,12 +9271,12 @@ channel_1_EQ3_high_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_filter_eq3.highFrequency.value = -100;
     channel_1_EQ3_high_frequency_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_high_frequency_fader", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_high_frequency_fader", -100);
   }
   else {
     channel_1_filter_eq3.highFrequency.value = e.currentTarget.value;
     channel_1_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_high_frequency_fader", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -8448,11 +9285,11 @@ const channel_1_EQ3_Q_value = document.getElementById("channel_1_EQ3_Q_value");
 channel_1_EQ3_Q_fader.addEventListener("change", function (e) {
   channel_1_filter_eq3.Q.value = e.currentTarget.value;
   channel_1_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_EQ3_Q_fader", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_EQ3_Q_fader", e.currentTarget.value);
 });
 
 channel_1_filter_eq3.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postEq_volNode, channel_1_fxSend_3_postEq_volNode, channel_1_fxSend_4_postEq_volNode);
-channel_1_filter_eq3.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_postFdr_volNode, channel_1_fxSend_3_postFdr_volNode, channel_1_fxSend_4_postFdr_volNode);
+//channel_1_filter_eq3.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_postFdr_volNode, channel_1_fxSend_3_postFdr_volNode, channel_1_fxSend_4_postFdr_volNode);
 
 //----------------------------------------------------
 const channel_2_filter_eq3 = new Tone.EQ3;
@@ -8473,12 +9310,12 @@ channel_2_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_filter_eq3.low.value = -100;
     channel_2_EQ3_low_fader_gain_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_low_fader_gain", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_low_fader_gain", -100);
   }
   else {
     channel_2_filter_eq3.low.value = e.currentTarget.value;
     channel_2_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_low_fader_gain", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -8488,12 +9325,12 @@ channel_2_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_filter_eq3.lowFrequency.value = -100;
     channel_2_EQ3_low_frequency_fader_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_low_frequency_fader", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_low_frequency_fader", -100);
   }
   else {
     channel_2_filter_eq3.lowFrequency.value = e.currentTarget.value;
     channel_2_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_low_frequency_fader", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -8503,12 +9340,12 @@ channel_2_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_filter_eq3.mid.value = -100;
     channel_2_EQ3_mid_fader_gain_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_mid_fader_gain", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_mid_fader_gain", -100);
   }
   else {
     channel_2_filter_eq3.mid.value = e.currentTarget.value;
     channel_2_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_mid_fader_gain", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -8518,12 +9355,12 @@ channel_2_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_filter_eq3.mid.value = -100;
     channel_2_EQ3_hi_fader_gain_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_hi_fader_gain", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_hi_fader_gain", -100);
   }
   else {
     channel_2_filter_eq3.high.value = e.currentTarget.value;
     channel_2_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_hi_fader_gain", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -8533,12 +9370,12 @@ channel_2_EQ3_high_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_filter_eq3.highFrequency.value = -100;
     channel_2_EQ3_high_frequency_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_high_frequency_fader", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_high_frequency_fader", -100);
   }
   else {
     channel_2_filter_eq3.highFrequency.value = e.currentTarget.value;
     channel_2_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_high_frequency_fader", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -8547,7 +9384,7 @@ const channel_2_EQ3_Q_value = document.getElementById("channel_2_EQ3_Q_value");
 channel_2_EQ3_Q_fader.addEventListener("change", function (e) {
   channel_2_filter_eq3.Q.value = e.currentTarget.value;
   channel_2_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  mixEvent.logIntoListaAction(Tone.now(), "channel_2_EQ3_Q_fader", e.currentTarget.value);
+  mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_EQ3_Q_fader", e.currentTarget.value);
 });
 
 channel_2_filter_eq3.fan(channel_2_fxSend_1_postEq_volNode, channel_2_fxSend_2_postEq_volNode, channel_2_fxSend_3_postEq_volNode, channel_2_fxSend_4_postEq_volNode);
@@ -8572,12 +9409,12 @@ channel_3_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_3_filter_eq3.low.value = -100;
     channel_3_EQ3_low_fader_gain_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_3_EQ3_low_fader_gain", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_EQ3_low_fader_gain", -100);
   }
   else {
     channel_3_filter_eq3.low.value = e.currentTarget.value;
     channel_3_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    mixEvent.logIntoListaAction(Tone.now(), "channel_3_EQ3_low_fader_gain", e.currentTarget.value);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -8587,7 +9424,7 @@ channel_3_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_3_filter_eq3.lowFrequency.value = -100;
     channel_3_EQ3_low_frequency_fader_value.innerHTML = -100;
-    mixEvent.logIntoListaAction(Tone.now(), "channel_3_EQ3_low_frequency_fader", -100);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_EQ3_low_frequency_fader", -100);
   }
   else {
     channel_3_filter_eq3.lowFrequency.value = e.currentTarget.value;
@@ -8754,7 +9591,8 @@ channel_4_filter_eq3.fan(channel_4_fxSend_1_postFdr_volNode, channel_4_fxSend_2_
 //------------------------------------------
 //----------------------------------------
 //const player_1_filter_eq_On_EQ3_Button = document.getElementById("player_1_filter_eq_On_EQ3_Button");
-const fx_1_filter_eq3 = new Tone.EQ3;
+//const fx_1_filter_eq3 = new Tone.EQ3;
+const fx_1_filter_eq3 = new Tone.EQ3();
 
 fx_1_filter_eq3.set(
   {
@@ -8850,7 +9688,7 @@ fx_1_EQ3_Q_fader.addEventListener("change", function (e) {
 });
 
 fx_1_filter_eq3.fan(fx_1_fxSend_1_postEq_volNode, fx_1_fxSend_2_postEq_volNode, fx_1_fxSend_3_postEq_volNode, fx_1_fxSend_4_postEq_volNode);
-fx_1_filter_eq3.fan(fx_1_fxSend_1_postFdr_volNode, fx_1_fxSend_2_postFdr_volNode, fx_1_fxSend_3_postFdr_volNode, fx_1_fxSend_4_postFdr_volNode);
+//fx_1_filter_eq3.fan(fx_1_fxSend_1_postFdr_volNode, fx_1_fxSend_2_postFdr_volNode, fx_1_fxSend_3_postFdr_volNode, fx_1_fxSend_4_postFdr_volNode);
 
 //----------------------------------------------------
 const fx_2_filter_eq3 = new Tone.EQ3;
@@ -9194,6 +10032,10 @@ channel_1_filter.connect(player_1_filter_meter);
 const channel_1_eq3_meter = new Tone.Meter(0);
 channel_1_filter_eq3.connect(channel_1_eq3_meter);
 
+
+TEST_fx_1_volNode.fan(fx_1_rms_meter);
+fx_1_filter_Bypass.fan(fx_1_filter_bypass_meter)
+fx_1_filter_eq3.fan(fx_1_eq3_meter);
 //************************************************************************** */
 //************************************************************************** */
 //***********************    FX 1 EQ CONTROLS     ******************* */
@@ -9232,128 +10074,7 @@ const fx_4_empty_controls_div = document.getElementById("fx_4_empty_controls_div
 const fx_4_bypass_controls_div = document.getElementById("fx_4_bypass_controls_div");
 const fx_4_eq3_controls_div = document.getElementById("fx_4_eq3_controls_div");
 
-//*************************************************************************** */
-//*************************************************************************** */
-//***********     PLAYER 2 3 & 4  BULLSHIT           **************************************************************** */
-//*************************************************************************** */
-//*************************************************************************** */
-//*****************************************************************************************
-//*****************************************************************************************
-//*******   NODE CONSTRUCTION PLAYER 2 3 & 4            **********************************************************************************
-//*****************************************************************************************
-//*****************************************************************************************
 
-//const player_2_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
-//const player_3_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
-//const player_4_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
-/*
-const player_2_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const player_2_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
-const player_2_fxSend_3_preEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const player_2_fxSend_4_preEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
-
-const player_2_fxSend_1_postEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const player_2_fxSend_2_postEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
-const player_2_fxSend_3_postEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const player_2_fxSend_4_postEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
-
-const player_2_filter = new Tone.Filter();
-//player_2_filter.debug = true;
-player_2_filter.set({
-  frequency: 20000,
-  type: "lowpass",
-  Q: 0,
-  gain: 0,
-  rolloff: -96,
-});
-
-player_2_filter.fan(player_2_fxSend_1_postEq_volNode, player_2_fxSend_2_postEq_volNode, player_2_fxSend_3_postEq_volNode, player_2_fxSend_4_postEq_volNode);
-
-const player_2_fxSend_1_postFdr_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const player_2_fxSend_2_postFdr_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
-const player_2_fxSend_3_postFdr_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const player_2_fxSend_4_postFdr_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
-
-//const player_2_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(player_2_volNode);
-//const player_2_dynamics_gateNode_Bypass = new Tone.Volume(0).connect(player_2_dynamics_limiterNode_Bypass);
-//const player_2_dynamics_compressorNode_Bypass = new Tone.Volume(0).connect(player_2_dynamics_gateNode_Bypass);
-//const player_2_filter_Bypass = new Tone.Volume(0).connect(player_2_dynamics_compressorNode_Bypass);
-
-const player_3_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const player_3_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
-const player_3_fxSend_3_preEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const player_3_fxSend_4_preEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
-
-const player_3_fxSend_1_postEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const player_3_fxSend_2_postEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
-const player_3_fxSend_3_postEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const player_3_fxSend_4_postEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
-
-const player_3_fxSend_1_postFdr_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const player_3_fxSend_2_postFdr_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
-const player_3_fxSend_3_postFdr_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const player_3_fxSend_4_postFdr_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
-
-const player_4_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const player_4_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
-const player_4_fxSend_3_preEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const player_4_fxSend_4_preEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
-
-const player_4_fxSend_1_postEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const player_4_fxSend_2_postEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
-const player_4_fxSend_3_postEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const player_4_fxSend_4_postEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
-
-const player_4_fxSend_1_postFdr_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
-const player_4_fxSend_2_postFdr_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
-const player_4_fxSend_3_postFdr_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
-const player_4_fxSend_4_postFdr_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
-/**/
-//************************************************************************** */
-//************************************************************************** */
-//***********************    TEST METER VARIOUS PLAYER 2    ******************* */
-//************************************************************************** */
-//************************************************************************** */
-const testMeter_2 = new Tone.Meter(0);
-const testMeter_2_after_volume = new Tone.Meter(0);
-const testMeter_2_player_2_filter_Bypass = new Tone.Meter(0);
-//player_2_filter_Bypass.connect(testMeter_2_player_2_filter_Bypass); //BORRAR ESTO LUEGO
-const testMeter_2_player_2_filter = new Tone.Meter(0);
-//player_2_filter.connect(testMeter_2_player_2_filter); //BORRAR ESTO LUEGO
-
-//*************************************************************************************
-//*************************************************************************************
-//********     PLAYER 2 RMS METERS     **************************************************************
-//*************************************************************************************
-//*************************************************************************************
-const player_2_rms_value = document.getElementById("player_2_rms_value");
-const player_2_filter_Bypass_VALUE = document.getElementById("player_2_filter_Bypass_VALUE");
-const player_2_rms_after_volume_value = document.getElementById("player_2_rms_after_volume_value");
-const player_2_filter_VALUE = document.getElementById("player_2_filter_VALUE");
-const player_2_rms_comp_Bypass_value = document.getElementById("player_2_rms_comp_Bypass_value");
-const player_2_rms_comp_value = document.getElementById("player_2_rms_comp_value");
-const player_2_rms_gate_Bypass_value = document.getElementById("player_2_rms_gate_Bypass_value");
-const player_2_rms_gate_value = document.getElementById("player_2_rms_gate_value");
-const player_2_rms_limiter_Bypass_value = document.getElementById("player_2_rms_limiter_Bypass_value");
-const player_2_rms_limiter_value = document.getElementById("player_2_rms_limiter_value");
-
-
-//************************************************************************** */
-//************************************************************************** */
-//***********************  connection  TEST METER VARIOUS PLAYER 2    ******************* */
-//************************************************************************** */
-//************************************************************************** */
-const testMeter_2_player_2_rms_comp_Bypass = new Tone.Meter(0);
-const testMeter_2_player_2_rms_comp = new Tone.Meter(0);
-const testMeter_2_player_2_rms_gate_Bypass = new Tone.Meter(0);
-const testMeter_2_player_2_rms_gate = new Tone.Meter(0);
-const testMeter_2_player_2_rms_limiter_Bypass = new Tone.Meter(0);
-const testMeter_2_player_2_rms_limiter = new Tone.Meter(0);
-
-
-//player_2_volNode.fan(player_2_fxSend_1_postFdr_volNode, player_2_fxSend_2_postFdr_volNode, player_2_fxSend_3_postFdr_volNode, player_2_fxSend_4_postFdr_volNode);
-//player_2_volNode.fan(testMeter_2_after_volume);
-player_2_Node.fan(testMeter_2);
 
 //*************************************************************************** */
 //*************************************************************************** */
@@ -9449,40 +10170,39 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 
-//*****************************************************************************************
-//*****************************************************************************************
-
-
-const fx_1_pan = new Tone.Panner(0).toDestination();
-const fx_2_pan = new Tone.Panner(0).toDestination();
-const fx_3_pan = new Tone.Panner(0).toDestination();
-const fx_4_pan = new Tone.Panner(0).toDestination();
-
 //********************************************************************************************
-const fxReturn_1_fader = new Tone.Volume(0).connect(fx_1_pan); //fx_1_panNode
+//const fxReturn_1_fader = new Tone.Volume(0).connect(fx_1_pan); //fx_1_pan
+//const fxReturn_1_fader = new Tone.Volume(0).connect(TEST_fx_1_pan);
+const fxReturn_1_fader = new Tone.Volume(0).connect(fx_1_filter_Bypass);
+
 const fxReturn_2_fader = new Tone.Volume(0).connect(fx_2_pan);
 const fxReturn_3_fader = new Tone.Volume(0).connect(fx_3_pan);
 const fxReturn_4_fader = new Tone.Volume(0).connect(fx_4_pan);
 
 //*****************************************************************************************
 //LOS EFECTOS TIENEN QUE ESTAR FANEADOS A LOS SEND Y AL MASTERFADER
-fx_1_pingpong_Node.connect(fxReturn_1_fader);
-fx_2_pingpong_Node.connect(fxReturn_2_fader);
-fx_3_pingpong_Node.connect(fxReturn_3_fader);
-fx_4_pingpong_Node.connect(fxReturn_4_fader);
+
+//fx_1_pingpong_Node.connect(fxReturn_1_fader);
+//fx_2_pingpong_Node.connect(fxReturn_2_fader);
+//fx_3_pingpong_Node.connect(fxReturn_3_fader);
+//fx_4_pingpong_Node.connect(fxReturn_4_fader);
 
 //*****************************************************************************************
 //*****************************************************************************************
 //CODIGO DE PRUEBA DE RMS 
-const testMeter_fx_1 = new Tone.Meter(0);
-const testMeter_fx_2 = new Tone.Meter(0);
-const testMeter_fx_3 = new Tone.Meter(0);
-const testMeter_fx_4 = new Tone.Meter(0);
+const fxReturn_1_fader_meter = new Tone.Meter(0);
+const fxReturn_2_meter = new Tone.Meter(0);
+const fxReturn_3_meter = new Tone.Meter(0);
+const fxReturn_4_meter = new Tone.Meter(0);
 
-fxReturn_1_fader.fan(testMeter_fx_1);
-fxReturn_2_fader.fan(testMeter_fx_2);
-fxReturn_3_fader.fan(testMeter_fx_3);
-fxReturn_4_fader.fan(testMeter_fx_4);
+fxReturn_1_fader.fan(fxReturn_1_fader_meter);
+fxReturn_2_fader.fan(fxReturn_2_meter);
+fxReturn_3_fader.fan(fxReturn_3_meter);
+fxReturn_4_fader.fan(fxReturn_4_meter);
+
+//SE USA FXRETURN_1
+fxReturn_1_fader.fan(fx_1_fxSend_2_preEq_volNode, fx_1_fxSend_3_preEq_volNode, fx_1_fxSend_4_preEq_volNode);
+TEST_fx_1_pan.fan(fx_1_fxSend_2_preEq_volNode, fx_1_fxSend_3_preEq_volNode, fx_1_fxSend_4_preEq_volNode);
 
 
 setInterval('updatesMeters()', 100);
@@ -9545,21 +10265,21 @@ fx_4_eq3_controls_div.style.display = "none";
 
 fx_1_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
-    fx_1_volNode.volume.value = -100;
     //ESTO NO TIENE QUE CAMBIAR
-    // DEBE CAMBIAR EL VALOR DE FX_1_VOLNODE
+    // DEBE CAMBIAR EL VALOR DE FX_1_VOL NODE
+    TEST_fx_1_volNode.volume.value = -100;
     fx_1_volume_value.innerHTML = -100;
     mixEvent.logIntoListaAction(Tone.now(), "fx_1_volume", -100);
   }
   else {
-    fx_1_volNode.volume.value = e.currentTarget.value;
+    TEST_fx_1_volNode.volume.value = e.currentTarget.value;
     fx_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "fx_1_volume", e.currentTarget.value);
   }
 });
 
 fx_1_pan_fader.addEventListener("change", function (e) {
-  fx_1_panNode.pan.value = e.currentTarget.value; //fx_1_pan
+  TEST_fx_1_pan.pan.value = e.currentTarget.value; //fx_1_pan
   fx_1_pan_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_pan_fader", e.currentTarget.value);
 });
@@ -9627,7 +10347,7 @@ fx_4_pan_fader.addEventListener("change", function (e) {
 //*********************************************************************************** */
 //*********************************************************************************** */
 
-fx_1_rms_value.innerHTML = 0;
+//fx_1_rms_value.innerHTML = 0;
 fx_2_rms_value.innerHTML = 0;
 fx_3_rms_value.innerHTML = 0;
 fx_4_rms_value.innerHTML = 0;
@@ -9668,11 +10388,20 @@ fx_4_select.addEventListener("change", function (e) {
 //**********     (SO CALL PROGRAM)          ************************************************************************* */
 //*********************************************************************************** */
 //*********************************************************************************** */
-multiple_play_source_1.checked = true;
-multiple_play_source_2.checked = true;
-multiple_play_source_3.checked = true;
-multiple_play_source_4.checked = true;
+var local_or_web = document.getElementById("local_checkbox");
+local_or_web.checked = false;  //BORRAR ESTO PARA LA LOGICA ANTERIOR
+local_or_web.addEventListener("change", function () {
+  if (local_or_web.checked) { local = true; alert("local = true"); }
+  else { local = false; alert("local = false"); }
+});
 
+var local = true;
+
+multiple_play_source_1.checked = false;
+multiple_play_source_2.checked = false;
+multiple_play_source_3.checked = false;
+multiple_play_source_4.checked = false;
+multiple_play_test_player.checked = true;
 player_1_loop_checkbox.checked = true;
 player_1_Node.loop = true;
 player_1_Node.volume.value = -12;
@@ -9700,7 +10429,7 @@ player_4_Node.volume.value = -12;
 channel_4_volNode.volume.value = -6;
 channel_4_volume_value.innerHTML = -6;
 channel_4_volume.value = -6;
-fx_1_volNode.volume.value = -6;
+//fx_1_volNode.volume.value = -6;
 fx_1_volume.value = -6;
 fx_1_volume_value.innerHTML = -6;
 fx_2_volNode.volume.value = -6;
@@ -9715,6 +10444,9 @@ fx_4_volNode.volume.value = -6;
 fx_4_volume.value = -6;
 fx_4_volume_value.innerHTML = -6;
 
+fx_1_dynamics_compressor_div.style.display = "block";
+fx_1_dynamics_gate_div.style.display = "none";
+fx_1_dynamics_limiter_div.style.display = "none";
 
 //player_1_Node.loopStart = 0.3;    player_1_loop_start.value = 0.3;
 //player_1_Node.loopEnd = 22.8;     player_1_loop_end.value = 22.8;
@@ -9785,625 +10517,2396 @@ function send_text_Button() {
   console.log("value en sampler_baseUrl.value: " + sampler_baseUrl.value);
 }
 
-function send(value, player_1_volume_rampTo_gain, player_1_volume_rampTo_time) {
-
-  if (player_1_volume_rampTo_gain.value != "" && player_1_volume_rampTo_time.value != "") {
+function send(value, rampTo_newValue, rampTo_time) {
+  console.log("SEND foo" + "\n" + "value: " + value + "\n" +
+    "rampTo_newValue: "
+    + rampTo_newValue.value + "\n"
+    + "rampTo_time: " +
+    rampTo_time.value + "\n"
+  );
+  if (rampTo_newValue.value != "" && rampTo_time.value != "") {
+    console.log("SEND value: " + value);
     switch (value) {
-      case "player_1_volume": {
-        channel_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        player_1_volume.value = player_1_volume_rampTo_gain;
-        player_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
-        //  logIntoListaRampValue(atTime, element, newValue,rampTime);
-        break
-      }
-      case "channel_1_volume": {
-        channel_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_volume.value = player_1_volume_rampTo_gain;
-        channel_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
-        //  logIntoListaRampValue(atTime, element, newValue,rampTime);
-        break
-      }
-      case "channel_1_pan": {
-        channel_1_panNode.pan.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_pan.value = player_1_volume_rampTo_gain.value;
-        channel_1_pan_value.innerHTML = channel_1_pan.value;
-        break;
-      }
-      case "channel_1_filter_frequency_shelf": {
-        channel_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_filter_frequency_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_filter_frequency_shelf.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "channel_1_filter_gain_shelf": {
-        channel_1_filter.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_filter_gain_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_filter_gain_shelf.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "channel_1_filter_detune_shelf": {
-
-        channel_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_filter_detune_value_shelf.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_filter_detune_shelf.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_chorus_freq": {
-
-        fx_1_chorus_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_chorus_freq_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_chorus_freq.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_chorus_feedback": {
-        fx_1_chorus_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_chorus_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_chorus_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_feedback": {
-
-        fx_1_feedback_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_feedback_delayTime": {
-
-        fx_1_feedback_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_feedback_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_feedback_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_frequencyShifter": {
-        fx_1_FrequencyShifter_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_frequencyShifter_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_frequencyShifter.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_phaser_frequency": {
-        fx_1_phaser_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_phaser_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_phaser_frequency.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_phaser_octaves": {
-        fx_1_phaser_Node.octaves.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_phaser_octaves_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_phaser_octaves.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_phaser_Q": {
-        fx_1_phaser_Node.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_phaser_Q_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_phaser_Q.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_pingpong_feedback": {
-        fx_1_pingpong_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_pingpong_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_pingpong_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_pingpong_delayTime": {
-        fx_1_pingpong_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_pingpong_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_pingpong_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_pitchshift_feedback": {
-        fx_1_pitchshift_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_pingpong_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_pingpong_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_pitchshift_delayTime": {
-        fx_1_pitchshift_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_pitchshift_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_pitchshift_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_reverb_preDelay": {
-        fx_1_reverb_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_reverb_preDelay_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_reverb_preDelay.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_reverb_decay": {
-        fx_1_reverb_Node.decay.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_reverb_decay_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_reverb_decay.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_tremolo_frequency": {
-        fx_1_tremolo_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_tremolo_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_tremolo_frequency.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_tremolo_depth": {
-        fx_1_tremolo_Node.depth.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_tremolo_depth_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_tremolo_depth.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_tremolo_spread": {
-        fx_1_tremolo_Node.spread.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_tremolo_spread_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_tremolo_spread.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_vibrato_frequency": {
-        fx_1_vibrato_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_vibrato_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_vibrato_frequency.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_1_vibrato_depth": {
-        fx_1_vibrato_Node.depth.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_1_vibrato_depth_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_1_vibrato_depth.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_chorus_freq": {
-
-        fx_2_chorus_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_chorus_freq_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_chorus_freq.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_chorus_feedback": {
-        fx_2_chorus_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_chorus_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_chorus_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_feedback": {
-
-        fx_2_feedback_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_feedback_delayTime": {
-
-        fx_2_feedback_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_feedback_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_feedback_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_frequencyShifter": {
-        fx_2_FrequencyShifter_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_frequencyShifter_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_frequencyShifter.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_phaser_frequency": {
-        fx_2_phaser_Node.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_phaser_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_phaser_frequency.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_phaser_octaves": {
-        fx_2_phaser_Node.octaves.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_phaser_octaves_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_phaser_octaves.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_phaser_Q": {
-        fx_2_phaser_Node.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_phaser_Q_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_phaser_Q.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_pingpong_feedback": {
-        fx_2_pingpong_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_pingpong_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_pingpong_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_pingpong_delayTime": {
-        fx_2_pingpong_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_pingpong_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_pingpong_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_pitchshift_feedback": {
-        fx_2_pitchshift_Node.feedback.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_pitchshift_feedback_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_pitchshift_feedback.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_pitchshift_delayTime": {
-        fx_2_pitchshift_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_pitchshift_delayTime_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_pitchshift_delayTime.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_reverb_preDelay": {
-        fx_2_reverb_Node.delayTime.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_reverb_preDelay_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_reverb_preDelay.value = `${player_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "fx_2_reverb_decay": {
-        fx_2_reverb_Node.decay.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        fx_2_reverb_decay_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        fx_2_reverb_decay.value = `${player_1_volume_rampTo_gain.value}`;
+      case "master_volume_rampTo": {
+        masterVolumeNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        master_volume.value = rampTo_newValue.value;
+        master_volume_value.innerHTML = rampTo_newValue.value;
         break;
       }
       //channel 1
-      case "channel_1_filter_frequency_allpass": {
-        channel_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      case "channel_1_volume_rampTo": {
+        channel_1_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_volume.value = rampTo_newValue.value;
+        channel_1_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "channel_1_pan_rampTo": {
+        channel_1_panNode.pan.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_pan.value = rampTo_newValue.value;
+        channel_1_pan_value.innerHTML = channel_1_pan.value;
+        break;
+      }
+      case "channel_1_filter_frequency_shelf_rampTo": {
+        channel_1_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_filter_frequency_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_filter_frequency_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_1_filter_gain_shelf_rampTo": {
+        channel_1_filter.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_filter_gain_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_filter_gain_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_1_filter_detune_shelf_rampTo": {
+
+        channel_1_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_filter_detune_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_filter_detune_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_1_filter_frequency_allpass_rampTo": {
+        channel_1_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_1_filter_frequency_value_allpass.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
         channel_1_filter_frequency_allpass.value = `${channel_1_volume_rampTo_gain.value}`;
         break;
       }
-      case "channel_1_filter_Q_allpass": {
-        channel_1_filter.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      case "channel_1_filter_Q_allpass_rampTo": {
+        channel_1_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_1_filter_Q_value_allpass.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
         channel_1_filter_Q_allpass.value = `${channel_1_volume_rampTo_gain.value}`;
         break;
       }
-      case "channel_1_filter_detune_allpass": {
-        channel_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      case "channel_1_filter_detune_allpass_rampTo": {
+        channel_1_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_1_filter_detune_value_allpass.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
         channel_1_filter_detune_allpass.value = `${channel_1_volume_rampTo_gain.value}`;
         break;
       }
-      case "channel_1_filter_gain_shelf": {
-        channel_1_filter.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_filter_gain_shelf.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
-        channel_1_filter_gain_value_shelf.value = `${channel_1_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "channel_1_filter_frequency_peaking": {
-        channel_1_filter.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      case "channel_1_filter_frequency_peaking_rampTo": {
+        channel_1_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_1_filter_frequency_value_peaking.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
         channel_1_filter_frequency_peaking.value = `${channel_1_volume_rampTo_gain.value}`;
         break;
       }
-      case "channel_1_filter_Q_peaking": {
-        channel_1_filter.Q.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      case "channel_1_filter_Q_peaking_rampTo": {
+        channel_1_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_1_filter_Q_value_peaking.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
         channel_1_filter_Q_peaking.value = `${channel_1_volume_rampTo_gain.value}`;
         break;
       }
-      case "channel_1_filter_gain_peaking": {
-        channel_1_filter.detune.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+      case "channel_1_filter_gain_peaking_rampTo": {
+        channel_1_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_filter_detune_value_peaking.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
+        channel_1_filter_detune_peaking.value = `${channel_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_1_filter_detune_peaking_rampTo": {
+        channel_1_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_1_filter_detune_value_peaking.innerHTML = `${channel_1_volume_rampTo_gain.value}`;
         channel_1_filter_detune_peaking.value = `${channel_1_volume_rampTo_gain.value}`;
         break;
       }
       //TASCAM
-      case "channel_1_HighShelf_gain_tascam": {
-        channel_1_tascam_HighShelf_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_tascam_HighShelf_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_tascam_HighShelf_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_HighShelf_gain_tascam_rampTo": {
+        channel_1_tascam_HighShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_tascam_HighShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_tascam_HighShelf_gain.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_Mid_SemiParam_gain_tascam": {
-        channel_1_tascam_Mid_SemiParam_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_tascam_Mid_SemiParam_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_tascam_Mid_SemiParam_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_Mid_SemiParam_gain_tascam_rampTo": {
+        channel_1_tascam_Mid_SemiParam_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_tascam_Mid_SemiParam_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_tascam_Mid_SemiParam_gain.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_Mid_SemiParam_frequency_tascam": {
-        channel_1_tascam_HighShelf_FilterNode.frequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_tascam_Mid_SemiParam_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_tascam_Mid_SemiParam_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_Mid_SemiParam_frequency_tascam_rampTo": {
+        channel_1_tascam_HighShelf_FilterNode.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_tascam_Mid_SemiParam_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_tascam_Mid_SemiParam_frequency.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_LowShelf_gain_tascam": {
-        channel_1_tascam_LowShelf_FilterNode.gain.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_tascam_LowShelf_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_tascam_LowShelf_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_LowShelf_gain_tascam_rampTo": {
+        channel_1_tascam_LowShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_tascam_LowShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_tascam_LowShelf_gain.value = `${rampTo_newValue.value}`;
         break;
       }
       //EQ3    
-      case "channel_1_EQ3_low_frequency": {
-        channel_1_filter_eq3.lowFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_EQ3_low_frequency_fader_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_EQ3_low_frequency_fader.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_EQ3_low_frequency_rampTo": {
+        channel_1_filter_eq3.lowFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_EQ3_low_frequency_fader_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_EQ3_low_frequency_fader.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_EQ3_low_fader_gain": {
-        channel_1_filter_eq3.low.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_EQ3_low_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_EQ3_low_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_EQ3_low_fader_gain_rampTo": {
+        channel_1_filter_eq3.low.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_EQ3_low_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_EQ3_low_fader_gain.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_EQ3_mid_fader_gain": {
-        channel_1_filter_eq3.mid.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_EQ3_mid_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_EQ3_mid_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_EQ3_mid_fader_gain_rampTo": {
+        channel_1_filter_eq3.mid.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_EQ3_mid_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_EQ3_mid_fader_gain.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_EQ3_mid_fader_gain": {
-        channel_1_filter_eq3.high.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_EQ3_hi_fader_gain_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_EQ3_hi_fader_gain.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_EQ3_hi_fader_gain_rampTo": {
+        channel_1_filter_eq3.high.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_EQ3_hi_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_EQ3_hi_fader_gain.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_EQ3_high_frequency": {
-        channel_1_filter_eq3.highFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_EQ3_high_frequency_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_EQ3_high_frequency.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_EQ3_high_frequency_rampTo": {
+        channel_1_filter_eq3.highFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_EQ3_high_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_EQ3_high_frequency_fader.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_EQ3_Q": {
-        channel_1_filter_eq3.highFrequency.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_EQ3_Q_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_filter_eq3.Q.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_EQ3_Q_rampTo": {
+        channel_1_filter_eq3.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_EQ3_Q_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_EQ3_Q_fader.value = `${rampTo_newValue.value}`;
         break;
       }
       // Dynamics Compressor
-      case "channel_1_dynamics_ratio_compressor": {
-        channel_1_dynamics_compressorNode.ratio.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_dynamics_ratio_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_dynamics_ratio.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_dynamics_ratio_compressor_rampTo": {
+        channel_1_dynamics_compressorNode.ratio.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_dynamics_ratio_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_dynamics_ratio.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_dynamics_threshold_compressor": {
-        channel_1_dynamics_compressorNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_dynamics_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_dynamics_threshold.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_dynamics_threshold_compressor_rampTo": {
+        channel_1_dynamics_compressorNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_dynamics_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_dynamics_threshold.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_dynamics_release_compressor": {
-        channel_1_dynamics_compressorNode.release.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_dynamics_release_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_dynamics_release.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_dynamics_release_compressor_rampTo": {
+        channel_1_dynamics_compressorNode.release.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_dynamics_release_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_dynamics_release.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_dynamics_attack_compressor": {
-        channel_1_dynamics_compressorNode.attack.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_dynamics_attack_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_dynamics_attack.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_dynamics_attack_compressor_rampTo": {
+        channel_1_dynamics_compressorNode.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_dynamics_attack_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_dynamics_attack.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_dynamics_knee_compressor": {
-        channel_1_dynamics_compressorNode.knee.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_dynamics_knee_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_dynamics_knee.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_dynamics_knee_compressor_rampTo": {
+        channel_1_dynamics_compressorNode.knee.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_dynamics_knee_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_dynamics_knee.value = `${rampTo_newValue.value}`;
         break;
       }
       //Gate
-      case "channel_1_gate_threshold": {
-        channel_1_dynamics_gateNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_gate_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_gate_threshold.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_gate_threshold_rampTo": {
+        channel_1_dynamics_gateNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_gate_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_gate_threshold.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_1_gate_smoothing": {
-        channel_1_dynamics_gateNode.smoothing.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_gate_smoothing_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_gate_smoothing.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_gate_smoothing_rampTo": {
+        channel_1_dynamics_gateNode.smoothing.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_1_gate_smoothing_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_1_gate_smoothing.value = `${rampTo_newValue.value}`;
         break;
       }
       // Limiter
-      case "channel_1_limiter_threshold": {
-        channel_1_dynamics_limiterNode.threshold.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_limiter_threshold_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_limiter_threshold.value = `${player_1_volume_rampTo_gain.value}`;
+      case "channel_1_limiter_threshold_rampTo": {
+        try {
+          channel_1_dynamics_limiterNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+          channel_1_limiter_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+          channel_1_limiter_threshold.value = `${rampTo_newValue.value}`;
+        } catch (error) {
+          console.log("error.name: " + error.name)
+        }
         break;
       }
-      case "channel_1_limiter_smoothing": {
-        channel_1_dynamics_limiterNode.smoothing.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_limiter_smoothing_value.innerHTML = `${player_1_volume_rampTo_gain.value}`;
-        channel_1_limiter_smoothing.value = `${player_1_volume_rampTo_gain.value}`;
+      //channel 1 fxSend
+      case "channel_1_fxSend_1_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_1_fxSend_1_state == "PostEQ") {
+            channel_1_fxSend_1.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_1_fxSend_1_state == "PreEQ") {
+            channel_1_fxSend_1.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_1_fxSend_1_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_1_fxSend_1.value = `${rampTo_newValue.value}`;
+          }
+        }
         break;
       }
-      //HAY QUE RESOLVER EL ENVIOS LOS 4 EFECTOS
-      case "channel_1_fxSend_1_rampTo_volume": {
-        channel_1_volNode.volume.rampTo(`${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_1_volume.value = player_1_volume_rampTo_gain;
-        channel_1_volume_value.innerHTML = player_1_volume_rampTo_gain.value;
+      case "channel_1_fxSend_2_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_1_fxSend_2_state == "PostEQ") {
+            channel_1_fxSend_2.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_1_fxSend_2_state == "PreEQ") {
+            channel_1_fxSend_2.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_1_fxSend_2_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_1_fxSend_2.value = `${rampTo_newValue.value}`;
+          }
+        }
         break;
       }
-      //PLAYER 2 
-      /*
-      case "player_2_volume": {
-        player_2_volNode.volume.rampTo(`${player_2_volume_rampTo_gain.value}`, `${player_2_volume_rampTo_time.value}`);
-        player_2_volume.value = player_2_volume_rampTo_gain;
-        player_2_volume_value.innerHTML = player_2_volume_rampTo_gain.value;
-        //  logIntoListaRampValue(atTime, element, newValue,rampTime);
+      case "channel_1_fxSend_3_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_1_fxSend_3_state == "PostEQ") {
+            channel_1_fxSend_3.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_1_fxSend_3_state == "PreEQ") {
+            channel_1_fxSend_3.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_1_fxSend_3_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_1_fxSend_3.value = `${rampTo_newValue.value}`;
+          }
+        }
         break;
       }
-        */
-      case "channel_2_filter_frequency_shelf": {
-        channel_2_filter.frequency.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_filter_frequency_value_shelf.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_filter_frequency_shelf.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_1_fxSend_4_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_1_fxSend_4_state == "PostEQ") {
+            channel_1_fxSend_4.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_1_fxSend_4_state == "PreEQ") {
+            channel_1_fxSend_4.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_1_fxSend_4_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_1_fxSend_4.value = `${rampTo_newValue.value}`;
+          }
+        }
         break;
       }
-      case "channel_2_filter_gain_shelf": {
-        channel_2_filter.gain.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_filter_gain_value_shelf.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_filter_gain_shelf.value = `${channel_2_volume_rampTo_gain.value}`;
+      //sources
+      case "noise_1_volume_rampTo": {
+        noise_1_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        noise_1_volume.value = rampTo_newValue.value;
+        noise_1_volume_value.innerHTML = `${e.currentTarget.value}`;
         break;
       }
-      case "channel_2_filter_detune_shelf": {
+      case "grainPlayer_1_volume_rampTo": {
+        grainPlayer_1_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        grainPlayer_1_volume.value = rampTo_newValue.value;
+        grainPlayer_1_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "player_1_volume_rampTo": {
+        player_1_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        player_1_volume.value = rampTo_newValue.value;
+        player_1_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "noiseSynth_1_volume_rampTo": {
+        noiseSynth_1.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        noiseSynth_1_volume.value = rampTo_newValue.value;
+        noiseSynth_1_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "noiseSynth_1_envelope_attack_rampTo": {
+        noiseSynth_1.envelope.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        //synth.set({ envelope: { attack: 0.1 } });
+        noiseSynth_1_envelope_attack.value = rampTo_newValue.value;
+        noiseSynth_1_envelope_attack_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
 
-        channel_2_filter.detune.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_filter_detune_value_shelf.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_filter_detune_shelf.value = `${channel_2_volume_rampTo_gain.value}`;
+      //channel 2
+      case "channel_2_volume_rampTo": {
+        channel_2_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_volume.value = rampTo_newValue.value;
+        channel_2_volume_value.innerHTML = rampTo_newValue.value;
         break;
       }
-      case "channel_2_filter_frequency_allpass": {
-        channel_2_filter.frequency.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
+      case "channel_2_pan_rampTo": {
+        channel_2_panNode.pan.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_pan.value = rampTo_newValue.value;
+        channel_2_pan_value.innerHTML = channel_2_pan.value;
+        break;
+      }
+      case "channel_2_filter_frequency_shelf_rampTo": {
+        channel_2_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_filter_frequency_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_filter_frequency_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_2_filter_gain_shelf_rampTo": {
+        channel_2_filter.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_filter_gain_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_filter_gain_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_2_filter_detune_shelf_rampTo": {
+
+        channel_2_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_filter_detune_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_filter_detune_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_2_filter_frequency_allpass_rampTo": {
+        channel_2_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_2_filter_frequency_value_allpass.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
         channel_2_filter_frequency_allpass.value = `${channel_2_volume_rampTo_gain.value}`;
         break;
       }
-      case "channel_2_filter_Q_allpass": {
-        channel_2_filter.Q.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
+      case "channel_2_filter_Q_allpass_rampTo": {
+        channel_2_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_2_filter_Q_value_allpass.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
         channel_2_filter_Q_allpass.value = `${channel_2_volume_rampTo_gain.value}`;
         break;
       }
-      case "channel_2_filter_detune_allpass": {
-        channel_2_filter.detune.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
+      case "channel_2_filter_detune_allpass_rampTo": {
+        channel_2_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_2_filter_detune_value_allpass.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
         channel_2_filter_detune_allpass.value = `${channel_2_volume_rampTo_gain.value}`;
         break;
       }
-      case "channel_2_filter_gain_shelf": {
-        channel_2_filter.gain.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_filter_gain_shelf.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_filter_gain_value_shelf.value = `${channel_2_volume_rampTo_gain.value}`;
-        break;
-      }
-      case "channel_2_filter_frequency_peaking": {
-        channel_2_filter.frequency.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
+      case "channel_2_filter_frequency_peaking_rampTo": {
+        channel_2_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_2_filter_frequency_value_peaking.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
         channel_2_filter_frequency_peaking.value = `${channel_2_volume_rampTo_gain.value}`;
         break;
       }
-      case "channel_2_filter_Q_peaking": {
-        channel_2_filter.Q.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
+      case "channel_2_filter_Q_peaking_rampTo": {
+        channel_2_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_2_filter_Q_value_peaking.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
         channel_2_filter_Q_peaking.value = `${channel_2_volume_rampTo_gain.value}`;
         break;
       }
-      case "channel_2_filter_gain_peaking": {
-        channel_2_filter.detune.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
+      case "channel_2_filter_gain_peaking_rampTo": {
+        channel_2_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_filter_detune_value_peaking.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
+        channel_2_filter_detune_peaking.value = `${channel_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_2_filter_detune_peaking_rampTo": {
+        channel_2_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         channel_2_filter_detune_value_peaking.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
         channel_2_filter_detune_peaking.value = `${channel_2_volume_rampTo_gain.value}`;
         break;
       }
       //TASCAM
-      case "channel_2_HighShelf_gain_tascam": {
-        channel_2_HighShelf_FilterNode.gain.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
-        channel_2_HighShelf_gain_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_HighShelf_gain.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_HighShelf_gain_tascam_rampTo": {
+        channel_2_tascam_HighShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_tascam_HighShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_tascam_HighShelf_gain.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_Mid_SemiParam_gain_tascam": {
-        channel_2_Mid_SemiParam_FilterNode.gain.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_Mid_SemiParam_gain_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_Mid_SemiParam_gain.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_Mid_SemiParam_gain_tascam_rampTo": {
+        channel_2_tascam_Mid_SemiParam_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_tascam_Mid_SemiParam_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_tascam_Mid_SemiParam_gain.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_Mid_SemiParam_frequency_tascam": {
-        channel_2_HighShelf_FilterNode.frequency.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_Mid_SemiParam_frequency_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_Mid_SemiParam_frequency.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_Mid_SemiParam_frequency_tascam_rampTo": {
+        channel_2_tascam_HighShelf_FilterNode.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_tascam_Mid_SemiParam_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_tascam_Mid_SemiParam_frequency.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_LowShelf_gain_tascam": {
-        channel_2_LowShelf_FilterNode.gain.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_LowShelf_gain_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_LowShelf_gain.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_LowShelf_gain_tascam_rampTo": {
+        channel_2_tascam_LowShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_tascam_LowShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_tascam_LowShelf_gain.value = `${rampTo_newValue.value}`;
         break;
       }
       //EQ3    
-      case "channel_2_EQ3_low_frequency": {
-        channel_2_filter_eq3.lowFrequency.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_EQ3_low_frequency_fader_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_EQ3_low_frequency_fader.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_EQ3_low_frequency_rampTo": {
+        channel_2_filter_eq3.lowFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_EQ3_low_frequency_fader_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_EQ3_low_frequency_fader.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_EQ3_low_fader_gain": {
-        channel_2_filter_eq3.low.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_EQ3_low_fader_gain_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_EQ3_low_fader_gain.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_EQ3_low_fader_gain_rampTo": {
+        channel_2_filter_eq3.low.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_EQ3_low_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_EQ3_low_fader_gain.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_EQ3_mid_fader_gain": {
-        channel_2_filter_eq3.mid.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_EQ3_mid_fader_gain_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_EQ3_mid_fader_gain.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_EQ3_mid_fader_gain_rampTo": {
+        channel_2_filter_eq3.mid.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_EQ3_mid_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_EQ3_mid_fader_gain.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_EQ3_mid_fader_gain": {
-        channel_2_filter_eq3.high.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_EQ3_hi_fader_gain_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_EQ3_hi_fader_gain.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_EQ3_hi_fader_gain_rampTo": {
+        channel_2_filter_eq3.high.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_EQ3_hi_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_EQ3_hi_fader_gain.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_EQ3_high_frequency": {
-        channel_2_filter_eq3.highFrequency.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_EQ3_high_frequency_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_EQ3_high_frequency.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_EQ3_high_frequency_rampTo": {
+        channel_2_filter_eq3.highFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_EQ3_high_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_EQ3_high_frequency_fader.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_EQ3_Q": {
-        channel_2_filter_eq3.highFrequency.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_EQ3_Q_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_filter_eq3.Q.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_EQ3_Q_rampTo": {
+        channel_2_filter_eq3.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_EQ3_Q_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_EQ3_Q_fader.value = `${rampTo_newValue.value}`;
         break;
       }
       // Dynamics Compressor
-      case "channel_2_dynamics_ratio_compressor": {
-        channel_2_dynamics_compressorNode.ratio.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_dynamics_ratio_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_dynamics_ratio.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_dynamics_ratio_compressor_rampTo": {
+        channel_2_dynamics_compressorNode.ratio.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_dynamics_ratio_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_dynamics_ratio.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_dynamics_threshold_compressor": {
-        channel_2_dynamics_compressorNode.threshold.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_dynamics_threshold_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_dynamics_threshold.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_dynamics_threshold_compressor_rampTo": {
+        channel_2_dynamics_compressorNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_dynamics_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_dynamics_threshold.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_dynamics_release_compressor": {
-        channel_2_dynamics_compressorNode.release.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_dynamics_release_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_dynamics_release.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_dynamics_release_compressor_rampTo": {
+        channel_2_dynamics_compressorNode.release.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_dynamics_release_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_dynamics_release.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_dynamics_attack_compressor": {
-        channel_2_dynamics_compressorNode.attack.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_dynamics_attack_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_dynamics_attack.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_dynamics_attack_compressor_rampTo": {
+        channel_2_dynamics_compressorNode.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_dynamics_attack_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_dynamics_attack.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_dynamics_knee_compressor": {
-        channel_2_dynamics_compressorNode.knee.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_dynamics_knee_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_dynamics_knee.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_dynamics_knee_compressor_rampTo": {
+        channel_2_dynamics_compressorNode.knee.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_dynamics_knee_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_dynamics_knee.value = `${rampTo_newValue.value}`;
         break;
       }
       //Gate
-      case "channel_2_gate_threshold": {
-        channel_2_dynamics_gateNode.threshold.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_gate_threshold_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_gate_threshold.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_gate_threshold_rampTo": {
+        channel_2_dynamics_gateNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_gate_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_gate_threshold.value = `${rampTo_newValue.value}`;
         break;
       }
-      case "channel_2_gate_smoothing": {
-        channel_2_dynamics_gateNode.smoothing.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_gate_smoothing_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_gate_smoothing.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_gate_smoothing_rampTo": {
+        channel_2_dynamics_gateNode.smoothing.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_2_gate_smoothing_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_2_gate_smoothing.value = `${rampTo_newValue.value}`;
         break;
       }
       // Limiter
-      case "channel_2_limiter_threshold": {
-        channel_2_dynamics_limiterNode.threshold.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_limiter_threshold_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_limiter_threshold.value = `${channel_2_volume_rampTo_gain.value}`;
+      case "channel_2_limiter_threshold_rampTo": {
+        try {
+          channel_2_dynamics_limiterNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+          channel_2_limiter_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+          channel_2_limiter_threshold.value = `${rampTo_newValue.value}`;
+        } catch (error) {
+          console.log("error.name: " + error.name)
+        }
         break;
       }
-      case "channel_2_limiter_smoothing": {
-        channel_2_dynamics_limiterNode.smoothing.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_limiter_smoothing_value.innerHTML = `${channel_2_volume_rampTo_gain.value}`;
-        channel_2_limiter_smoothing.value = `${channel_2_volume_rampTo_gain.value}`;
+      //channel 2 fxSend
+      case "channel_2_fxSend_1_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_2_fxSend_1_state == "PostEQ") {
+            channel_2_fxSend_1.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_2_fxSend_1_state == "PreEQ") {
+            channel_2_fxSend_1.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_2_fxSend_1_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_2_fxSend_1.value = `${rampTo_newValue.value}`;
+
+          }
+        }
         break;
       }
-      //HAY QUE RESOLVER EL ENVIOS LOS 4 EFECTOS
-      case "channel_2_fxSend_1_rampTo_volume": {
-        channel_2_volNode.volume.rampTo(`${channel_2_volume_rampTo_gain.value}`, `${channel_2_volume_rampTo_time.value}`);
-        channel_2_volume.value = channel_2_volume_rampTo_gain;
-        channel_2_volume_value.innerHTML = channel_2_volume_rampTo_gain.value;
+      case "channel_2_fxSend_2_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_2_fxSend_2_state == "PostEQ") {
+            channel_2_fxSend_2.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_2_fxSend_2_state == "PreEQ") {
+            channel_2_fxSend_2.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_2_fxSend_2_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_2_fxSend_2.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      case "channel_2_fxSend_3_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_2_fxSend_3_state == "PostEQ") {
+            channel_2_fxSend_3.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_2_fxSend_3_state == "PreEQ") {
+            channel_2_fxSend_3.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_2_fxSend_3_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_2_fxSend_3.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      case "channel_2_fxSend_4_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_2_fxSend_4_state == "PostEQ") {
+            channel_2_fxSend_4.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_2_fxSend_4_state == "PreEQ") {
+            channel_2_fxSend_4.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_2_fxSend_4_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_2_fxSend_4.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      //sources
+      case "noise_2_volume_rampTo": {
+        noise_2_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        noise_2_volume.value = rampTo_newValue.value;
+        noise_2_volume_value.innerHTML = `${rampTo_newValue.value}`
+        break;
+      }
+      case "grainPlayer_2_volume_rampTo": {
+        grainPlayer_2_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        grainPlayer_2_volume.value = rampTo_newValue.value;
+        grainPlayer_2_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "player_2_volume_rampTo": {
+        player_2_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        player_2_volume.value = rampTo_newValue.value;
+        player_2_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "noiseSynth_2_volume_rampTo": {
+        noiseSynth_2.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        noiseSynth_2_volume.value = rampTo_newValue.value;
+        noiseSynth_2_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "noiseSynth_2_envelope_attack_rampTo": {
+        noiseSynth_2.envelope.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        //synth.set({ envelope: { attack: 0.1 } });
+        noiseSynth_2_envelope_attack.value = rampTo_newValue.value;
+        noiseSynth_2_envelope_attack_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      //channel_3
+      case "channel_3_volume_rampTo": {
+        channel_3_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_volume.value = rampTo_newValue.value;
+        channel_3_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "channel_3_pan_rampTo": {
+        channel_3_panNode.pan.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_pan.value = rampTo_newValue.value;
+        channel_3_pan_value.innerHTML = channel_3_pan.value;
+        break;
+      }
+      case "channel_3_filter_frequency_shelf_rampTo": {
+        channel_3_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_filter_frequency_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_filter_frequency_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_filter_gain_shelf_rampTo": {
+        channel_3_filter.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_filter_gain_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_filter_gain_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_filter_detune_shelf_rampTo": {
+
+        channel_3_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_filter_detune_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_filter_detune_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_filter_frequency_allpass_rampTo": {
+        channel_3_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_filter_frequency_value_allpass.innerHTML = `${channel_3_volume_rampTo_gain.value}`;
+        channel_3_filter_frequency_allpass.value = `${channel_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_3_filter_Q_allpass_rampTo": {
+        channel_3_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_filter_Q_value_allpass.innerHTML = `${channel_3_volume_rampTo_gain.value}`;
+        channel_3_filter_Q_allpass.value = `${channel_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_3_filter_detune_allpass_rampTo": {
+        channel_3_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_filter_detune_value_allpass.innerHTML = `${channel_3_volume_rampTo_gain.value}`;
+        channel_3_filter_detune_allpass.value = `${channel_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_3_filter_frequency_peaking_rampTo": {
+        channel_3_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_filter_frequency_value_peaking.innerHTML = `${channel_3_volume_rampTo_gain.value}`;
+        channel_3_filter_frequency_peaking.value = `${channel_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_3_filter_Q_peaking_rampTo": {
+        channel_3_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_filter_Q_value_peaking.innerHTML = `${channel_3_volume_rampTo_gain.value}`;
+        channel_3_filter_Q_peaking.value = `${channel_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_3_filter_gain_peaking_rampTo": {
+        channel_3_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_filter_detune_value_peaking.innerHTML = `${channel_3_volume_rampTo_gain.value}`;
+        channel_3_filter_detune_peaking.value = `${channel_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_3_filter_detune_peaking_rampTo": {
+        channel_3_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_filter_detune_value_peaking.innerHTML = `${channel_3_volume_rampTo_gain.value}`;
+        channel_3_filter_detune_peaking.value = `${channel_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      //TASCAM
+      case "channel_3_HighShelf_gain_tascam_rampTo": {
+        channel_3_tascam_HighShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_tascam_HighShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_tascam_HighShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_Mid_SemiParam_gain_tascam_rampTo": {
+        channel_3_tascam_Mid_SemiParam_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_tascam_Mid_SemiParam_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_tascam_Mid_SemiParam_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_Mid_SemiParam_frequency_tascam_rampTo": {
+        channel_3_tascam_HighShelf_FilterNode.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_tascam_Mid_SemiParam_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_tascam_Mid_SemiParam_frequency.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_LowShelf_gain_tascam_rampTo": {
+        channel_3_tascam_LowShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_tascam_LowShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_tascam_LowShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //EQ3    
+      case "channel_3_EQ3_low_frequency_rampTo": {
+        channel_3_filter_eq3.lowFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_EQ3_low_frequency_fader_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_EQ3_low_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_EQ3_low_fader_gain_rampTo": {
+        channel_3_filter_eq3.low.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_EQ3_low_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_EQ3_low_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_EQ3_mid_fader_gain_rampTo": {
+        channel_3_filter_eq3.mid.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_EQ3_mid_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_EQ3_mid_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_EQ3_hi_fader_gain_rampTo": {
+        channel_3_filter_eq3.high.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_EQ3_hi_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_EQ3_hi_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_EQ3_high_frequency_rampTo": {
+        channel_3_filter_eq3.highFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_EQ3_high_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_EQ3_high_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_EQ3_Q_rampTo": {
+        channel_3_filter_eq3.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_EQ3_Q_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_EQ3_Q_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Dynamics Compressor
+      case "channel_3_dynamics_ratio_compressor_rampTo": {
+        channel_3_dynamics_compressorNode.ratio.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_dynamics_ratio_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_dynamics_ratio.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_dynamics_threshold_compressor_rampTo": {
+        channel_3_dynamics_compressorNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_dynamics_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_dynamics_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_dynamics_release_compressor_rampTo": {
+        channel_3_dynamics_compressorNode.release.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_dynamics_release_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_dynamics_release.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_dynamics_attack_compressor_rampTo": {
+        channel_3_dynamics_compressorNode.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_dynamics_attack_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_dynamics_attack.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_dynamics_knee_compressor_rampTo": {
+        channel_3_dynamics_compressorNode.knee.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_dynamics_knee_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_dynamics_knee.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //Gate
+      case "channel_3_gate_threshold_rampTo": {
+        channel_3_dynamics_gateNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_gate_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_gate_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_3_gate_smoothing_rampTo": {
+        channel_3_dynamics_gateNode.smoothing.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_3_gate_smoothing_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_3_gate_smoothing.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Limiter
+      case "channel_3_limiter_threshold_rampTo": {
+        try {
+          channel_3_dynamics_limiterNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+          channel_3_limiter_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+          channel_3_limiter_threshold.value = `${rampTo_newValue.value}`;
+        } catch (error) {
+          console.log("error.name: " + error.name)
+        }
+        break;
+      }
+      //channel 3 fxSend
+      case "channel_3_fxSend_1_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_3_fxSend_1_state == "PostEQ") {
+            channel_3_fxSend_1.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_3_fxSend_1_state == "PreEQ") {
+            channel_3_fxSend_1.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_3_fxSend_1_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_3_fxSend_1.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      case "channel_3_fxSend_2_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_3_fxSend_2_state == "PostEQ") {
+            channel_3_fxSend_2.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_3_fxSend_2_state == "PreEQ") {
+            channel_3_fxSend_2.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_3_fxSend_2_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_3_fxSend_2.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      case "channel_3_fxSend_3_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_3_fxSend_3_state == "PostEQ") {
+            channel_3_fxSend_3.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_3_fxSend_3_state == "PreEQ") {
+            channel_3_fxSend_3.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_3_fxSend_3_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_3_fxSend_3.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      case "channel_3_fxSend_4_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_3_fxSend_4_state == "PostEQ") {
+            channel_3_fxSend_4.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_3_fxSend_4_state == "PreEQ") {
+            channel_3_fxSend_4.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_3_fxSend_4_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_3_fxSend_4.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      //sources
+      case "noise_3_volume_rampTo": {
+        noise_3_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        noise_3_volume.value = rampTo_newValue.value;
+        noise_3_volume_value.innerHTML = `${e.currentTarget.value}`;
+        break;
+      }
+      case "grainPlayer_3_volume_rampTo": {
+        grainPlayer_3_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        grainPlayer_3_volume.value = rampTo_newValue.value;
+        grainPlayer_3_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "player_3_volume_rampTo": {
+        player_3_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        player_3_volume.value = rampTo_newValue.value;
+        player_3_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "noiseSynth_3_volume_rampTo": {
+        noiseSynth_3.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        noiseSynth_3_volume.value = rampTo_newValue.value;
+        noiseSynth_3_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "noiseSynth_3_envelope_attack_rampTo": {
+        noiseSynth_3.envelope.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        //synth.set({ envelope: { attack: 0.1 } });
+        noiseSynth_3_envelope_attack.value = rampTo_newValue.value;
+        noiseSynth_3_envelope_attack_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      //channel 4
+      case "channel_4_volume_rampTo": {
+        channel_4_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_volume.value = rampTo_newValue.value;
+        channel_4_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "channel_4_pan_rampTo": {
+        channel_4_panNode.pan.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_pan.value = rampTo_newValue.value;
+        channel_4_pan_value.innerHTML = channel_4_pan.value;
+        break;
+      }
+      case "channel_4_filter_frequency_shelf_rampTo": {
+        channel_4_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_filter_frequency_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_filter_frequency_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_filter_gain_shelf_rampTo": {
+        channel_4_filter.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_filter_gain_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_filter_gain_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_filter_detune_shelf_rampTo": {
+
+        channel_4_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_filter_detune_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_filter_detune_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_filter_frequency_allpass_rampTo": {
+        channel_4_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_filter_frequency_value_allpass.innerHTML = `${channel_4_volume_rampTo_gain.value}`;
+        channel_4_filter_frequency_allpass.value = `${channel_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_4_filter_Q_allpass_rampTo": {
+        channel_4_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_filter_Q_value_allpass.innerHTML = `${channel_4_volume_rampTo_gain.value}`;
+        channel_4_filter_Q_allpass.value = `${channel_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_4_filter_detune_allpass_rampTo": {
+        channel_4_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_filter_detune_value_allpass.innerHTML = `${channel_4_volume_rampTo_gain.value}`;
+        channel_4_filter_detune_allpass.value = `${channel_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_4_filter_frequency_peaking_rampTo": {
+        channel_4_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_filter_frequency_value_peaking.innerHTML = `${channel_4_volume_rampTo_gain.value}`;
+        channel_4_filter_frequency_peaking.value = `${channel_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_4_filter_Q_peaking_rampTo": {
+        channel_4_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_filter_Q_value_peaking.innerHTML = `${channel_4_volume_rampTo_gain.value}`;
+        channel_4_filter_Q_peaking.value = `${channel_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_4_filter_gain_peaking_rampTo": {
+        channel_4_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_filter_detune_value_peaking.innerHTML = `${channel_4_volume_rampTo_gain.value}`;
+        channel_4_filter_detune_peaking.value = `${channel_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "channel_4_filter_detune_peaking_rampTo": {
+        channel_4_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_filter_detune_value_peaking.innerHTML = `${channel_4_volume_rampTo_gain.value}`;
+        channel_4_filter_detune_peaking.value = `${channel_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      //TASCAM
+      case "channel_4_HighShelf_gain_tascam_rampTo": {
+        channel_4_tascam_HighShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_tascam_HighShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_tascam_HighShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_Mid_SemiParam_gain_tascam_rampTo": {
+        channel_4_tascam_Mid_SemiParam_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_tascam_Mid_SemiParam_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_tascam_Mid_SemiParam_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_Mid_SemiParam_frequency_tascam_rampTo": {
+        channel_4_tascam_HighShelf_FilterNode.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_tascam_Mid_SemiParam_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_tascam_Mid_SemiParam_frequency.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_LowShelf_gain_tascam_rampTo": {
+        channel_4_tascam_LowShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_tascam_LowShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_tascam_LowShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //EQ3    
+      case "channel_4_EQ3_low_frequency_rampTo": {
+        channel_4_filter_eq3.lowFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_EQ3_low_frequency_fader_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_EQ3_low_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_EQ3_low_fader_gain_rampTo": {
+        channel_4_filter_eq3.low.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_EQ3_low_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_EQ3_low_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_EQ3_mid_fader_gain_rampTo": {
+        channel_4_filter_eq3.mid.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_EQ3_mid_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_EQ3_mid_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_EQ3_hi_fader_gain_rampTo": {
+        channel_4_filter_eq3.high.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_EQ3_hi_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_EQ3_hi_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_EQ3_high_frequency_rampTo": {
+        channel_4_filter_eq3.highFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_EQ3_high_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_EQ3_high_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_EQ3_Q_rampTo": {
+        channel_4_filter_eq3.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_EQ3_Q_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_EQ3_Q_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Dynamics Compressor
+      case "channel_4_dynamics_ratio_compressor_rampTo": {
+        channel_4_dynamics_compressorNode.ratio.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_dynamics_ratio_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_dynamics_ratio.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_dynamics_threshold_compressor_rampTo": {
+        channel_4_dynamics_compressorNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_dynamics_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_dynamics_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_dynamics_release_compressor_rampTo": {
+        channel_4_dynamics_compressorNode.release.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_dynamics_release_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_dynamics_release.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_dynamics_attack_compressor_rampTo": {
+        channel_4_dynamics_compressorNode.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_dynamics_attack_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_dynamics_attack.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_dynamics_knee_compressor_rampTo": {
+        channel_4_dynamics_compressorNode.knee.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_dynamics_knee_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_dynamics_knee.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //Gate
+      case "channel_4_gate_threshold_rampTo": {
+        channel_4_dynamics_gateNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_gate_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_gate_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "channel_4_gate_smoothing_rampTo": {
+        channel_4_dynamics_gateNode.smoothing.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        channel_4_gate_smoothing_value.innerHTML = `${rampTo_newValue.value}`;
+        channel_4_gate_smoothing.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Limiter
+      case "channel_4_limiter_threshold_rampTo": {
+        try {
+          channel_4_dynamics_limiterNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+          channel_4_limiter_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+          channel_4_limiter_threshold.value = `${rampTo_newValue.value}`;
+        } catch (error) {
+          console.log("error.name: " + error.name)
+        }
+        break;
+      }
+      //channel 4 fxSend
+      case "channel_4_fxSend_1_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_4_fxSend_1_state == "PostEQ") {
+            channel_4_fxSend_1.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_4_fxSend_1_state == "PreEQ") {
+            channel_4_fxSend_1.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_4_fxSend_1_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_4_fxSend_1.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      case "channel_4_fxSend_2_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_4_fxSend_2_state == "PostEQ") {
+            channel_4_fxSend_2.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_4_fxSend_2_state == "PreEQ") {
+            channel_4_fxSend_2.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_4_fxSend_2_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_4_fxSend_2.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      case "channel_4_fxSend_3_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_4_fxSend_3_state == "PostEQ") {
+            channel_4_fxSend_3.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_4_fxSend_3_state == "PreEQ") {
+            channel_4_fxSend_3.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_4_fxSend_3_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_4_fxSend_3.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      case "channel_4_fxSend_4_volume_rampTo": {
+        if (rampTo_newValue.value <= 12) {
+          if (channel_4_fxSend_4_state == "PostEQ") {
+            channel_4_fxSend_4.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_4_fxSend_4_state == "PreEQ") {
+            channel_4_fxSend_4.value = `${rampTo_newValue.value}`;
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          }
+          else if (channel_4_fxSend_4_state == "PostFdr") {
+            recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+            channel_4_fxSend_4.value = `${rampTo_newValue.value}`;
+          }
+        }
+        break;
+      }
+      //sources
+      case "noise_4_volume_rampTo": {
+        noise_4_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        noise_4_volume.value = rampTo_newValue.value;
+        noise_4_volume_value.innerHTML = `${e.currentTarget.value}`;
+        break;
+      }
+      case "grainPlayer_4_volume_rampTo": {
+        grainPlayer_4_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        grainPlayer_4_volume.value = rampTo_newValue.value;
+        grainPlayer_4_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "player_4_volume_rampTo": {
+        player_4_Node.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        player_4_volume.value = rampTo_newValue.value;
+        player_4_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "noiseSynth_4_volume_rampTo": {
+        noiseSynth_4.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        noiseSynth_4_volume.value = rampTo_newValue.value;
+        noiseSynth_4_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "noiseSynth_4_envelope_attack_rampTo": {
+        noiseSynth_4.envelope.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        //synth.set({ envelope: { attack: 0.1 } });
+        noiseSynth_4_envelope_attack.value = rampTo_newValue.value;
+        noiseSynth_4_envelope_attack_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+
+      //fx 1
+      case "fx_1_volume_rampTo": {
+        //        fx_1_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        TEST_fx_1_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_volume.value = rampTo_newValue.value;
+        fx_1_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "fx_1_pan_rampTo": {
+        TEST_fx_1_pan.pan.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_pan_fader.value = rampTo_newValue.value;
+        fx_1_pan_value.innerHTML = TEST_fx_1_pan.pan.value;
+        break;
+      }
+      case "fx_1_filter_frequency_shelf_rampTo": {
+        fx_1_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_filter_frequency_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_filter_frequency_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_filter_gain_shelf_rampTo": {
+        fx_1_filter.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_filter_gain_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_filter_gain_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_filter_detune_shelf_rampTo": {
+        fx_1_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_filter_detune_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_filter_detune_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_filter_frequency_allpass_rampTo": {
+        fx_1_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_filter_frequency_value_allpass.innerHTML = `${fx_1_volume_rampTo_gain.value}`;
+        fx_1_filter_frequency_allpass.value = `${fx_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_filter_Q_allpass_rampTo": {
+        fx_1_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_filter_Q_value_allpass.innerHTML = `${fx_1_volume_rampTo_gain.value}`;
+        fx_1_filter_Q_allpass.value = `${fx_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_filter_detune_allpass_rampTo": {
+        fx_1_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_filter_detune_value_allpass.innerHTML = `${fx_1_volume_rampTo_gain.value}`;
+        fx_1_filter_detune_allpass.value = `${fx_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_filter_frequency_peaking_rampTo": {
+        fx_1_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_filter_frequency_value_peaking.innerHTML = `${fx_1_volume_rampTo_gain.value}`;
+        fx_1_filter_frequency_peaking.value = `${fx_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_filter_Q_peaking_rampTo": {
+        fx_1_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_filter_Q_value_peaking.innerHTML = `${fx_1_volume_rampTo_gain.value}`;
+        fx_1_filter_Q_peaking.value = `${fx_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_filter_gain_peaking_rampTo": {
+        fx_1_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_filter_detune_value_peaking.innerHTML = `${fx_1_volume_rampTo_gain.value}`;
+        fx_1_filter_detune_peaking.value = `${fx_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_1_filter_detune_peaking_rampTo": {
+        fx_1_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_filter_detune_value_peaking.innerHTML = `${fx_1_volume_rampTo_gain.value}`;
+        fx_1_filter_detune_peaking.value = `${fx_1_volume_rampTo_gain.value}`;
+        break;
+      }
+      //TASCAM
+      case "fx_1_HighShelf_gain_tascam_rampTo": {
+        fx_1_tascam_HighShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_tascam_HighShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_tascam_HighShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_Mid_SemiParam_gain_tascam_rampTo": {
+        fx_1_tascam_Mid_SemiParam_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_tascam_Mid_SemiParam_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_tascam_Mid_SemiParam_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_Mid_SemiParam_frequency_tascam_rampTo": {
+        fx_1_tascam_HighShelf_FilterNode.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_tascam_Mid_SemiParam_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_tascam_Mid_SemiParam_frequency.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_LowShelf_gain_tascam_rampTo": {
+        fx_1_tascam_LowShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_tascam_LowShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_tascam_LowShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //EQ3    
+      case "fx_1_EQ3_low_frequency_rampTo": {
+        fx_1_filter_eq3.lowFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_EQ3_low_frequency_fader_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_EQ3_low_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_EQ3_low_fader_gain_rampTo": {
+        fx_1_filter_eq3.low.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_EQ3_low_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_EQ3_low_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_EQ3_mid_fader_gain_rampTo": {
+        fx_1_filter_eq3.mid.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_EQ3_mid_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_EQ3_mid_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_EQ3_hi_fader_gain_rampTo": {
+        fx_1_filter_eq3.high.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_EQ3_hi_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_EQ3_hi_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_EQ3_high_frequency_rampTo": {
+        fx_1_filter_eq3.highFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_EQ3_high_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_EQ3_high_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_EQ3_Q_rampTo": {
+        fx_1_filter_eq3.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_EQ3_Q_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_EQ3_Q_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Dynamics Compressor
+      case "fx_1_dynamics_ratio_compressor_rampTo": {
+        fx_1_dynamics_compressorNode.ratio.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_dynamics_ratio_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_dynamics_ratio.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_dynamics_threshold_compressor_rampTo": {
+        fx_1_dynamics_compressorNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_dynamics_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_dynamics_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_dynamics_release_compressor_rampTo": {
+        fx_1_dynamics_compressorNode.release.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_dynamics_release_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_dynamics_release.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_dynamics_attack_compressor_rampTo": {
+        fx_1_dynamics_compressorNode.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_dynamics_attack_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_dynamics_attack.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_dynamics_knee_compressor_rampTo": {
+        fx_1_dynamics_compressorNode.knee.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_dynamics_knee_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_dynamics_knee.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //Gate
+      case "fx_1_gate_threshold_rampTo": {
+        fx_1_dynamics_gateNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_gate_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_gate_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_gate_smoothing_rampTo": {
+        fx_1_dynamics_gateNode.smoothing.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_gate_smoothing_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_gate_smoothing.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Limiter
+      case "fx_1_limiter_threshold_rampTo": {
+        fx_1_dynamics_limiterNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_limiter_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_limiter_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //fx 1 fxSend
+      case "fx_1_fxSend_1_volume_rampTo": {
+        if (fx_1_fxSend_1_state == "PostEQ") {
+          fx_1_fxSend_1.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_1_fxSend_1_state == "PreEQ") {
+          fx_1_fxSend_1.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_1_fxSend_1_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_1_fxSend_1.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_1_fxSend_2_volume_rampTo": {
+        if (fx_1_fxSend_2_state == "PostEQ") {
+          fx_1_fxSend_2.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_1_fxSend_2_state == "PreEQ") {
+          fx_1_fxSend_2.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_1_fxSend_2_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_1_fxSend_2.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_1_fxSend_3_volume_rampTo": {
+        if (fx_1_fxSend_3_state == "PostEQ") {
+          fx_1_fxSend_3.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_1_fxSend_3_state == "PreEQ") {
+          fx_1_fxSend_3.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_1_fxSend_3_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_1_fxSend_3.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_1_fxSend_4_volume_rampTo": {
+        if (fx_1_fxSend_4_state == "PostEQ") {
+          fx_1_fxSend_4.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_1_fxSend_4_state == "PreEQ") {
+          fx_1_fxSend_4.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_1_fxSend_4_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_1_fxSend_4.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+
+      //fx 2
+      case "fx_2_volume_rampTo": {
+        fx_2_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_volume.value = rampTo_newValue.value;
+        fx_2_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "fx_2_pan_rampTo": {
+        fx_2_panNode.pan.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_pan.value = rampTo_newValue.value;
+        fx_2_pan_value.innerHTML = fx_2_pan.value;
+        break;
+      }
+      case "fx_2_filter_frequency_shelf_rampTo": {
+        fx_2_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_filter_frequency_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_filter_frequency_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_filter_gain_shelf_rampTo": {
+        fx_2_filter.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_filter_gain_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_filter_gain_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_filter_detune_shelf_rampTo": {
+        fx_2_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_filter_detune_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_filter_detune_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_filter_frequency_allpass_rampTo": {
+        fx_2_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_filter_frequency_value_allpass.innerHTML = `${fx_2_volume_rampTo_gain.value}`;
+        fx_2_filter_frequency_allpass.value = `${fx_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_2_filter_Q_allpass_rampTo": {
+        fx_2_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_filter_Q_value_allpass.innerHTML = `${fx_2_volume_rampTo_gain.value}`;
+        fx_2_filter_Q_allpass.value = `${fx_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_2_filter_detune_allpass_rampTo": {
+        fx_2_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_filter_detune_value_allpass.innerHTML = `${fx_2_volume_rampTo_gain.value}`;
+        fx_2_filter_detune_allpass.value = `${fx_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_2_filter_frequency_peaking_rampTo": {
+        fx_2_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_filter_frequency_value_peaking.innerHTML = `${fx_2_volume_rampTo_gain.value}`;
+        fx_2_filter_frequency_peaking.value = `${fx_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_2_filter_Q_peaking_rampTo": {
+        fx_2_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_filter_Q_value_peaking.innerHTML = `${fx_2_volume_rampTo_gain.value}`;
+        fx_2_filter_Q_peaking.value = `${fx_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_2_filter_gain_peaking_rampTo": {
+        fx_2_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_filter_detune_value_peaking.innerHTML = `${fx_2_volume_rampTo_gain.value}`;
+        fx_2_filter_detune_peaking.value = `${fx_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_2_filter_detune_peaking_rampTo": {
+        fx_2_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_filter_detune_value_peaking.innerHTML = `${fx_2_volume_rampTo_gain.value}`;
+        fx_2_filter_detune_peaking.value = `${fx_2_volume_rampTo_gain.value}`;
+        break;
+      }
+      //TASCAM
+      case "fx_2_HighShelf_gain_tascam_rampTo": {
+        fx_2_tascam_HighShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_tascam_HighShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_tascam_HighShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_Mid_SemiParam_gain_tascam_rampTo": {
+        fx_2_tascam_Mid_SemiParam_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_tascam_Mid_SemiParam_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_tascam_Mid_SemiParam_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_Mid_SemiParam_frequency_tascam_rampTo": {
+        fx_2_tascam_HighShelf_FilterNode.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_tascam_Mid_SemiParam_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_tascam_Mid_SemiParam_frequency.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_LowShelf_gain_tascam_rampTo": {
+        fx_2_tascam_LowShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_tascam_LowShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_tascam_LowShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //EQ3    
+      case "fx_2_EQ3_low_frequency_rampTo": {
+        fx_2_filter_eq3.lowFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_EQ3_low_frequency_fader_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_EQ3_low_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_EQ3_low_fader_gain_rampTo": {
+        fx_2_filter_eq3.low.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_EQ3_low_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_EQ3_low_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_EQ3_mid_fader_gain_rampTo": {
+        fx_2_filter_eq3.mid.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_EQ3_mid_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_EQ3_mid_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_EQ3_hi_fader_gain_rampTo": {
+        fx_2_filter_eq3.high.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_EQ3_hi_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_EQ3_hi_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_EQ3_high_frequency_rampTo": {
+        fx_2_filter_eq3.highFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_EQ3_high_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_EQ3_high_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_EQ3_Q_rampTo": {
+        fx_2_filter_eq3.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_EQ3_Q_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_EQ3_Q_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Dynamics Compressor
+      case "fx_2_dynamics_ratio_compressor_rampTo": {
+        fx_2_dynamics_compressorNode.ratio.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_dynamics_ratio_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_dynamics_ratio.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_dynamics_threshold_compressor_rampTo": {
+        fx_2_dynamics_compressorNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_dynamics_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_dynamics_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_dynamics_release_compressor_rampTo": {
+        fx_2_dynamics_compressorNode.release.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_dynamics_release_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_dynamics_release.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_dynamics_attack_compressor_rampTo": {
+        fx_2_dynamics_compressorNode.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_dynamics_attack_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_dynamics_attack.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_dynamics_knee_compressor_rampTo": {
+        fx_2_dynamics_compressorNode.knee.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_dynamics_knee_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_dynamics_knee.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //Gate
+      case "fx_2_gate_threshold_rampTo": {
+        fx_2_dynamics_gateNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_gate_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_gate_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_gate_smoothing_rampTo": {
+        fx_2_dynamics_gateNode.smoothing.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_gate_smoothing_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_gate_smoothing.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Limiter
+      case "fx_2_limiter_threshold_rampTo": {
+        fx_2_dynamics_limiterNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_limiter_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_limiter_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //fx 2 fxSend
+      case "fx_2_fxSend_1_volume_rampTo": {
+        if (fx_2_fxSend_1_state == "PostEQ") {
+          fx_2_fxSend_1.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_2_fxSend_1_state == "PreEQ") {
+          fx_2_fxSend_1.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_2_fxSend_1_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_2_fxSend_1.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_2_fxSend_2_volume_rampTo": {
+        if (fx_2_fxSend_2_state == "PostEQ") {
+          fx_2_fxSend_2.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_2_fxSend_2_state == "PreEQ") {
+          fx_2_fxSend_2.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_2_fxSend_2_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_2_fxSend_2.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_2_fxSend_3_volume_rampTo": {
+        if (fx_2_fxSend_3_state == "PostEQ") {
+          fx_2_fxSend_3.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_2_fxSend_3_state == "PreEQ") {
+          fx_2_fxSend_3.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_2_fxSend_3_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_2_fxSend_3.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_2_fxSend_4_volume_rampTo": {
+        if (fx_2_fxSend_4_state == "PostEQ") {
+          fx_2_fxSend_4.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_2_fxSend_4_state == "PreEQ") {
+          fx_2_fxSend_4.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_2_fxSend_4_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_2_fxSend_4.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+
+      //fx 3
+      case "fx_3_volume_rampTo": {
+        fx_3_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_volume.value = rampTo_newValue.value;
+        fx_3_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "fx_3_pan_rampTo": {
+        fx_3_panNode.pan.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_pan.value = rampTo_newValue.value;
+        fx_3_pan_value.innerHTML = fx_3_pan.value;
+        break;
+      }
+      case "fx_3_filter_frequency_shelf_rampTo": {
+        fx_3_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_filter_frequency_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_filter_frequency_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_filter_gain_shelf_rampTo": {
+        fx_3_filter.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_filter_gain_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_filter_gain_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_filter_detune_shelf_rampTo": {
+        fx_3_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_filter_detune_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_filter_detune_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_filter_frequency_allpass_rampTo": {
+        fx_3_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_filter_frequency_value_allpass.innerHTML = `${fx_3_volume_rampTo_gain.value}`;
+        fx_3_filter_frequency_allpass.value = `${fx_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_3_filter_Q_allpass_rampTo": {
+        fx_3_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_filter_Q_value_allpass.innerHTML = `${fx_3_volume_rampTo_gain.value}`;
+        fx_3_filter_Q_allpass.value = `${fx_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_3_filter_detune_allpass_rampTo": {
+        fx_3_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_filter_detune_value_allpass.innerHTML = `${fx_3_volume_rampTo_gain.value}`;
+        fx_3_filter_detune_allpass.value = `${fx_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_3_filter_frequency_peaking_rampTo": {
+        fx_3_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_filter_frequency_value_peaking.innerHTML = `${fx_3_volume_rampTo_gain.value}`;
+        fx_3_filter_frequency_peaking.value = `${fx_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_3_filter_Q_peaking_rampTo": {
+        fx_3_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_filter_Q_value_peaking.innerHTML = `${fx_3_volume_rampTo_gain.value}`;
+        fx_3_filter_Q_peaking.value = `${fx_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_3_filter_gain_peaking_rampTo": {
+        fx_3_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_filter_detune_value_peaking.innerHTML = `${fx_3_volume_rampTo_gain.value}`;
+        fx_3_filter_detune_peaking.value = `${fx_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_3_filter_detune_peaking_rampTo": {
+        fx_3_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_filter_detune_value_peaking.innerHTML = `${fx_3_volume_rampTo_gain.value}`;
+        fx_3_filter_detune_peaking.value = `${fx_3_volume_rampTo_gain.value}`;
+        break;
+      }
+      //TASCAM
+      case "fx_3_HighShelf_gain_tascam_rampTo": {
+        fx_3_tascam_HighShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_tascam_HighShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_tascam_HighShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_Mid_SemiParam_gain_tascam_rampTo": {
+        fx_3_tascam_Mid_SemiParam_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_tascam_Mid_SemiParam_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_tascam_Mid_SemiParam_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_Mid_SemiParam_frequency_tascam_rampTo": {
+        fx_3_tascam_HighShelf_FilterNode.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_tascam_Mid_SemiParam_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_tascam_Mid_SemiParam_frequency.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_LowShelf_gain_tascam_rampTo": {
+        fx_3_tascam_LowShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_tascam_LowShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_tascam_LowShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //EQ3    
+      case "fx_3_EQ3_low_frequency_rampTo": {
+        fx_3_filter_eq3.lowFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_EQ3_low_frequency_fader_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_EQ3_low_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_EQ3_low_fader_gain_rampTo": {
+        fx_3_filter_eq3.low.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_EQ3_low_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_EQ3_low_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_EQ3_mid_fader_gain_rampTo": {
+        fx_3_filter_eq3.mid.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_EQ3_mid_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_EQ3_mid_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_EQ3_hi_fader_gain_rampTo": {
+        fx_3_filter_eq3.high.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_EQ3_hi_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_EQ3_hi_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_EQ3_high_frequency_rampTo": {
+        fx_3_filter_eq3.highFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_EQ3_high_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_EQ3_high_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_EQ3_Q_rampTo": {
+        fx_3_filter_eq3.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_EQ3_Q_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_EQ3_Q_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Dynamics Compressor
+      case "fx_3_dynamics_ratio_compressor_rampTo": {
+        fx_3_dynamics_compressorNode.ratio.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_dynamics_ratio_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_dynamics_ratio.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_dynamics_threshold_compressor_rampTo": {
+        fx_3_dynamics_compressorNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_dynamics_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_dynamics_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_dynamics_release_compressor_rampTo": {
+        fx_3_dynamics_compressorNode.release.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_dynamics_release_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_dynamics_release.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_dynamics_attack_compressor_rampTo": {
+        fx_3_dynamics_compressorNode.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_dynamics_attack_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_dynamics_attack.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_dynamics_knee_compressor_rampTo": {
+        fx_3_dynamics_compressorNode.knee.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_dynamics_knee_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_dynamics_knee.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //Gate
+      case "fx_3_gate_threshold_rampTo": {
+        fx_3_dynamics_gateNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_gate_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_gate_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_3_gate_smoothing_rampTo": {
+        fx_3_dynamics_gateNode.smoothing.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_gate_smoothing_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_gate_smoothing.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Limiter
+      case "fx_3_limiter_threshold_rampTo": {
+        fx_3_dynamics_limiterNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_3_limiter_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_3_limiter_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //fx 3 fxSend
+      case "fx_3_fxSend_1_volume_rampTo": {
+        if (fx_3_fxSend_1_state == "PostEQ") {
+          fx_3_fxSend_1.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_3_fxSend_1_state == "PreEQ") {
+          fx_3_fxSend_1.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_3_fxSend_1_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_3_fxSend_1.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_3_fxSend_2_volume_rampTo": {
+        if (fx_3_fxSend_2_state == "PostEQ") {
+          fx_3_fxSend_2.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_3_fxSend_2_state == "PreEQ") {
+          fx_3_fxSend_2.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_3_fxSend_2_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_3_fxSend_2.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_3_fxSend_3_volume_rampTo": {
+        if (fx_3_fxSend_3_state == "PostEQ") {
+          fx_3_fxSend_3.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_3_fxSend_3_state == "PreEQ") {
+          fx_3_fxSend_3.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_3_fxSend_3_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_3_fxSend_3.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_3_fxSend_4_volume_rampTo": {
+        if (fx_3_fxSend_4_state == "PostEQ") {
+          fx_3_fxSend_4.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_3_fxSend_4_state == "PreEQ") {
+          fx_3_fxSend_4.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_3_fxSend_4_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_3_fxSend_4.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+
+      //fx 4
+      case "fx_4_volume_rampTo": {
+        fx_4_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_volume.value = rampTo_newValue.value;
+        fx_4_volume_value.innerHTML = rampTo_newValue.value;
+        break;
+      }
+      case "fx_4_pan_rampTo": {
+        fx_4_panNode.pan.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_pan.value = rampTo_newValue.value;
+        fx_4_pan_value.innerHTML = fx_4_pan.value;
+        break;
+      }
+      case "fx_4_filter_frequency_shelf_rampTo": {
+        fx_4_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_filter_frequency_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_filter_frequency_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_filter_gain_shelf_rampTo": {
+        fx_4_filter.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_filter_gain_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_filter_gain_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_filter_detune_shelf_rampTo": {
+        fx_4_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_filter_detune_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_filter_detune_shelf.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_filter_frequency_allpass_rampTo": {
+        fx_4_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_filter_frequency_value_allpass.innerHTML = `${fx_4_volume_rampTo_gain.value}`;
+        fx_4_filter_frequency_allpass.value = `${fx_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_4_filter_Q_allpass_rampTo": {
+        fx_4_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_filter_Q_value_allpass.innerHTML = `${fx_4_volume_rampTo_gain.value}`;
+        fx_4_filter_Q_allpass.value = `${fx_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_4_filter_detune_allpass_rampTo": {
+        fx_4_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_filter_detune_value_allpass.innerHTML = `${fx_4_volume_rampTo_gain.value}`;
+        fx_4_filter_detune_allpass.value = `${fx_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_4_filter_frequency_peaking_rampTo": {
+        fx_4_filter.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_filter_frequency_value_peaking.innerHTML = `${fx_4_volume_rampTo_gain.value}`;
+        fx_4_filter_frequency_peaking.value = `${fx_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_4_filter_Q_peaking_rampTo": {
+        fx_4_filter.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_filter_Q_value_peaking.innerHTML = `${fx_4_volume_rampTo_gain.value}`;
+        fx_4_filter_Q_peaking.value = `${fx_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_4_filter_gain_peaking_rampTo": {
+        fx_4_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_filter_detune_value_peaking.innerHTML = `${fx_4_volume_rampTo_gain.value}`;
+        fx_4_filter_detune_peaking.value = `${fx_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      case "fx_4_filter_detune_peaking_rampTo": {
+        fx_4_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_filter_detune_value_peaking.innerHTML = `${fx_4_volume_rampTo_gain.value}`;
+        fx_4_filter_detune_peaking.value = `${fx_4_volume_rampTo_gain.value}`;
+        break;
+      }
+      //TASCAM
+      case "fx_4_HighShelf_gain_tascam_rampTo": {
+        fx_4_tascam_HighShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_tascam_HighShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_tascam_HighShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_Mid_SemiParam_gain_tascam_rampTo": {
+        fx_4_tascam_Mid_SemiParam_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_tascam_Mid_SemiParam_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_tascam_Mid_SemiParam_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_Mid_SemiParam_frequency_tascam_rampTo": {
+        fx_4_tascam_HighShelf_FilterNode.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_tascam_Mid_SemiParam_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_tascam_Mid_SemiParam_frequency.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_LowShelf_gain_tascam_rampTo": {
+        fx_4_tascam_LowShelf_FilterNode.gain.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_tascam_LowShelf_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_tascam_LowShelf_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //EQ3    
+      case "fx_4_EQ3_low_frequency_rampTo": {
+        fx_4_filter_eq3.lowFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_EQ3_low_frequency_fader_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_EQ3_low_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_EQ3_low_fader_gain_rampTo": {
+        fx_4_filter_eq3.low.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_EQ3_low_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_EQ3_low_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_EQ3_mid_fader_gain_rampTo": {
+        fx_4_filter_eq3.mid.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_EQ3_mid_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_EQ3_mid_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_EQ3_hi_fader_gain_rampTo": {
+        fx_4_filter_eq3.high.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_EQ3_hi_fader_gain_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_EQ3_hi_fader_gain.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_EQ3_high_frequency_rampTo": {
+        fx_4_filter_eq3.highFrequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_EQ3_high_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_EQ3_high_frequency_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_EQ3_Q_rampTo": {
+        fx_4_filter_eq3.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_EQ3_Q_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_EQ3_Q_fader.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Dynamics Compressor
+      case "fx_4_dynamics_ratio_compressor_rampTo": {
+        fx_4_dynamics_compressorNode.ratio.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_dynamics_ratio_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_dynamics_ratio.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_dynamics_threshold_compressor_rampTo": {
+        fx_4_dynamics_compressorNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_dynamics_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_dynamics_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_dynamics_release_compressor_rampTo": {
+        fx_4_dynamics_compressorNode.release.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_dynamics_release_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_dynamics_release.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_dynamics_attack_compressor_rampTo": {
+        fx_4_dynamics_compressorNode.attack.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_dynamics_attack_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_dynamics_attack.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_dynamics_knee_compressor_rampTo": {
+        fx_4_dynamics_compressorNode.knee.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_dynamics_knee_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_dynamics_knee.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //Gate
+      case "fx_4_gate_threshold_rampTo": {
+        fx_4_dynamics_gateNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_gate_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_gate_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_4_gate_smoothing_rampTo": {
+        fx_4_dynamics_gateNode.smoothing.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_gate_smoothing_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_gate_smoothing.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      // Limiter
+      case "fx_4_limiter_threshold_rampTo": {
+        fx_4_dynamics_limiterNode.threshold.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_4_limiter_threshold_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_limiter_threshold.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      //fx 4 fxSend
+      case "fx_4_fxSend_1_volume_rampTo": {
+        if (fx_4_fxSend_1_state == "PostEQ") {
+          fx_4_fxSend_1.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_4_fxSend_1_state == "PreEQ") {
+          fx_4_fxSend_1.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_4_fxSend_1_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_4_fxSend_1.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_4_fxSend_2_volume_rampTo": {
+        if (fx_4_fxSend_2_state == "PostEQ") {
+          fx_4_fxSend_2.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_4_fxSend_2_state == "PreEQ") {
+          fx_4_fxSend_2.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_4_fxSend_2_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_4_fxSend_2.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_4_fxSend_3_volume_rampTo": {
+        if (fx_4_fxSend_3_state == "PostEQ") {
+          fx_4_fxSend_3.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_4_fxSend_3_state == "PreEQ") {
+          fx_4_fxSend_3.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_4_fxSend_3_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_4_fxSend_3.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+      case "fx_4_fxSend_4_volume_rampTo": {
+        if (fx_4_fxSend_4_state == "PostEQ") {
+          fx_4_fxSend_4.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_4_fxSend_4_state == "PreEQ") {
+          fx_4_fxSend_4.value = `${rampTo_newValue.value}`;
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+        }
+        else if (fx_4_fxSend_4_state == "PostFdr") {
+          recieves_player_x_fxSend_x_value_Sets_Volume_value(rampTo_newValue.value, value);
+          fx_4_fxSend_4.value = `${rampTo_newValue.value}`;
+        }
+        break;
+      }
+
+      case "fx_1_chorus_freq_rampTo": {
+
+        fx_1_chorus_Node.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_chorus_freq_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_chorus_freq.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_chorus_feedback_rampTo": {
+        fx_1_chorus_Node.feedback.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_chorus_feedback_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_chorus_feedback.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_feedback_rampTo": {
+
+        fx_1_feedback_Node.feedback.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_feedback_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_feedback.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_feedback_delayTime_rampTo": {
+
+        fx_1_feedback_Node.delayTime.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_feedback_delayTime_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_feedback_delayTime.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_frequencyShifter_rampTo": {
+        fx_1_FrequencyShifter_Node.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_frequencyShifter_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_frequencyShifter.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_phaser_frequency_rampTo": {
+        fx_1_phaser_Node.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_phaser_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_phaser_frequency.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_phaser_octaves_rampTo": {
+        fx_1_phaser_Node.octaves.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_phaser_octaves_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_phaser_octaves.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_phaser_Q_rampTo": {
+        fx_1_phaser_Node.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_phaser_Q_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_phaser_Q.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_pingpong_feedback_rampTo": {
+        fx_1_pingpong_Node.feedback.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_pingpong_feedback_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_pingpong_feedback.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_pingpong_delayTime_rampTo": {
+        fx_1_pingpong_Node.delayTime.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_pingpong_delayTime_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_pingpong_delayTime.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_pitchshift_feedback_rampTo": {
+        fx_1_pitchshift_Node.feedback.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_pingpong_feedback_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_pingpong_feedback.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_pitchshift_delayTime_rampTo": {
+        fx_1_pitchshift_Node.delayTime.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_pitchshift_delayTime_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_pitchshift_delayTime.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_reverb_preDelay_rampTo": {
+        fx_1_reverb_Node.delayTime.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_reverb_preDelay_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_reverb_preDelay.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_reverb_decay_rampTo": {
+        fx_1_reverb_Node.decay.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_reverb_decay_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_reverb_decay.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_tremolo_frequency_rampTo": {
+        fx_1_tremolo_Node.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_tremolo_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_tremolo_frequency.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_tremolo_depth_rampTo": {
+        fx_1_tremolo_Node.depth.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_tremolo_depth_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_tremolo_depth.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_tremolo_spread_rampTo": {
+        fx_1_tremolo_Node.spread.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_tremolo_spread_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_tremolo_spread.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_vibrato_frequency_rampTo": {
+        fx_1_vibrato_Node.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_vibrato_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_vibrato_frequency.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_1_vibrato_depth_rampTo": {
+        fx_1_vibrato_Node.depth.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_vibrato_depth_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_1_vibrato_depth.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_chorus_freq_rampTo": {
+
+        fx_2_chorus_Node.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_chorus_freq_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_chorus_freq.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_chorus_feedback_rampTo": {
+        fx_2_chorus_Node.feedback.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_chorus_feedback_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_chorus_feedback.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_feedback_rampTo": {
+
+        fx_2_feedback_Node.feedback.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_feedback_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_feedback.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_feedback_delayTime_rampTo": {
+
+        fx_2_feedback_Node.delayTime.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_feedback_delayTime_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_feedback_delayTime.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_frequencyShifter_rampTo": {
+        fx_2_FrequencyShifter_Node.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_frequencyShifter_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_frequencyShifter.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_phaser_frequency_rampTo": {
+        fx_2_phaser_Node.frequency.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_phaser_frequency_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_phaser_frequency.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_phaser_octaves_rampTo": {
+        fx_2_phaser_Node.octaves.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_phaser_octaves_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_phaser_octaves.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_phaser_Q_rampTo": {
+        fx_2_phaser_Node.Q.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_phaser_Q_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_phaser_Q.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_pingpong_feedback_rampTo": {
+        fx_2_pingpong_Node.feedback.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_pingpong_feedback_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_pingpong_feedback.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_pingpong_delayTime_rampTo": {
+        fx_2_pingpong_Node.delayTime.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_pingpong_delayTime_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_pingpong_delayTime.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_pitchshift_feedback_rampTo": {
+        fx_2_pitchshift_Node.feedback.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_pitchshift_feedback_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_pitchshift_feedback.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_pitchshift_delayTime_rampTo": {
+        fx_2_pitchshift_Node.delayTime.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_pitchshift_delayTime_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_pitchshift_delayTime.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_reverb_preDelay_rampTo": {
+        fx_2_reverb_Node.delayTime.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_reverb_preDelay_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_reverb_preDelay.value = `${rampTo_newValue.value}`;
+        break;
+      }
+      case "fx_2_reverb_decay_rampTo": {
+        fx_2_reverb_Node.decay.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_2_reverb_decay_value.innerHTML = `${rampTo_newValue.value}`;
+        fx_2_reverb_decay.value = `${rampTo_newValue.value}`;
         break;
       }
     }//CLOSES switch
   }
   else {
-    alert("ELSE player_1_volume_rampTo_gain.value!= && player_1_volume_rampTo_time.value!=")
+    alert("ELSE rampTo_newValue.value!= && rampTo_time.value!=")
   }
-  mixEvent.logIntoListaRampValue(Tone.now(), value, `${player_1_volume_rampTo_gain.value}`, `${player_1_volume_rampTo_time.value}`);
+  mixEvent.logIntoListaRampValue(Tone.now(), value, `${rampTo_newValue.value}`, `${rampTo_time.value}`);
 }
 
 async function load_Local(value) {
@@ -10426,10 +12929,7 @@ async function load_Local(value) {
     const file = await fileHandle.getFile();
     const arrayBuffer = await file.arrayBuffer();
     const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
-    //console.log("decodedBuffer: " + decodedBuffer);
-    var toneBuffer = new Tone.Buffer(decodedBuffer);
-    //console.log("toneBuffer", toneBuffer);
-    //alerta("decodedBuffer");
+    //    var toneBuffer = new Tone.Buffer(decodedBuffer);
     switch (value) {
       case "Grain_1":
         {
@@ -10444,9 +12944,34 @@ async function load_Local(value) {
         {
           grainPlayer_2_Node.buffer.set(decodedBuffer);
           grainPlayer_2_load_text.innerHTML = fileHandle.name;
-          alert("load_Local grainPlayer_2");
+          channel_2_songName.innerHTML = fileHandle.name;
+          channel_2_duration_text.innerHTML = Math.round(`${grainPlayer_2_Node.buffer.duration}`);
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_2", fileHandle.name);
           break;
         }
+      case "Grain_3":
+        {
+          grainPlayer_3_Node.buffer.set(decodedBuffer);
+          grainPlayer_3_load_text.innerHTML = fileHandle.name;
+          channel_3_songName.innerHTML = fileHandle.name;
+          channel_3_duration_text.innerHTML = Math.round(`${grainPlayer_3_Node.buffer.duration}`);
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_3", fileHandle.name);
+          break;
+        }
+      case "Grain_4":
+        {
+          grainPlayer_4_Node.buffer.set(decodedBuffer);
+          grainPlayer_4_load_text.innerHTML = fileHandle.name;
+          channel_4_songName.innerHTML = fileHandle.name;
+          channel_4_duration_text.innerHTML = Math.round(`${grainPlayer_4_Node.buffer.duration}`);
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_4", fileHandle.name);
+          break;
+        }
+
+
+
+
+
       case "player_1":
         {
           if (player_1_scrambler == true && decodedBuffer.duration < 180) {
@@ -10480,9 +13005,10 @@ async function load_Local(value) {
             player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
           }
           else {
-            const player_1_buffer = new Tone.Buffer();
-            player_1_buffer.set(toneBuffer);
-            player_1_Node.buffer.set(player_1_buffer);
+            //const player_1_buffer = new Tone.Buffer();
+            //  player_1_buffer.set(toneBuffer);
+            //  player_1_Node.buffer.set(player_1_buffer);
+            player_1_Node.buffer.set(decodedBuffer);
             player_1_load_text.innerHTML = fileHandle.name;
             channel_1_songName.innerHTML = fileHandle.name;
             channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
@@ -10517,22 +13043,208 @@ async function load_Local(value) {
         }
       case "player_2":
         {
-          player_2_Node.buffer.set(decodedBuffer);
-          player_2_load_text.innerHTML = fileHandle.name;
+          if (player_2_scrambler == true && decodedBuffer.duration < 180) {
+            let tamanio = decodedBuffer.length;
+            let randomPosition = 0;
+            const Float32 = new Float32Array(decodedBuffer.length);
+            let k = 0;
+            do {
+              randomPosition = getRndInteger(0, tamanio);
+              if (randomPosition + 96000 < decodedBuffer.length) {
+                for (i = 0; i < 96000 - 1; i++) {
+                  for (let channel = 0; channel < 2; channel++) {
+                    Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
+                    tamanio--;
+                  }
+                  k++;
+                }
+              }
+            }
+            while (k < decodedBuffer.length);
+            //  console.log("testSliceaudiobuff: "+testSliceaudiobuff)
+            // console.log("Float32: " + Float32)
+            const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+            // player_2_Node.buffer.set(decodedBuffer_twosecs);
+            const testSliceaudiobuff = Tone.Buffer.fromArray(Float32);
+            //  console.log("testSliceaudiobuff: " + testSliceaudiobuff)
+            player_2_Node.buffer.set(testSliceaudiobuff);
+            player_2_load_text.innerHTML = fileHandle.name;
+            channel_2_songName.innerHTML = fileHandle.name;
+            channel_2_duration_text.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
+            player_2_duration_value.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
+          }
+          else {
+            //const player_2_buffer = new Tone.Buffer();
+            //  player_2_buffer.set(toneBuffer);
+            //  player_2_Node.buffer.set(player_2_buffer);
+            player_2_Node.buffer.set(decodedBuffer);
+            player_2_load_text.innerHTML = fileHandle.name;
+            channel_2_songName.innerHTML = fileHandle.name;
+            channel_2_duration_text.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
+            player_2_duration_value.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
+            if (player_2_scrambler_checkbox.checked == true) {
+              player_2_scrambler_checkbox.checked = false
+            }
+          }
+
+          /*
+          let tamanio = decodedBuffer.length;
+          let randomPosition = 0;
+          const Float32 = new Float32Array(decodedBuffer.length);
+          let k = 0;
+          do {
+            randomPosition = getRndInteger(0, tamanio);
+            if (randomPosition + 48000 < decodedBuffer.length) {
+              for (i = 0; i < 48000 - 1; i++) {
+                for (let channel = 0; channel < 2; channel++) {
+                  Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
+                  k++; tamanio--;
+                }
+              }
+            }
+          }
+          while (k < decodedBuffer.length);
+          const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+          player_2_Node.buffer.set(decodedBuffer_twosecs);
+          /**/
           mixEvent.logIntoListaAction(Tone.now(), "player_2", fileHandle.name);
           break;
         }
       case "player_3":
         {
-          player_3_Node.buffer.set(decodedBuffer);
-          player_3_load_text.innerHTML = fileHandle.name;
+          if (player_3_scrambler == true && decodedBuffer.duration < 180) {
+            let tamanio = decodedBuffer.length;
+            let randomPosition = 0;
+            const Float32 = new Float32Array(decodedBuffer.length);
+            let k = 0;
+            do {
+              randomPosition = getRndInteger(0, tamanio);
+              if (randomPosition + 96000 < decodedBuffer.length) {
+                for (i = 0; i < 96000 - 1; i++) {
+                  for (let channel = 0; channel < 2; channel++) {
+                    Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
+                    tamanio--;
+                  }
+                  k++;
+                }
+              }
+            }
+            while (k < decodedBuffer.length);
+            //  console.log("testSliceaudiobuff: "+testSliceaudiobuff)
+            // console.log("Float32: " + Float32)
+            const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+            // player_3_Node.buffer.set(decodedBuffer_twosecs);
+            const testSliceaudiobuff = Tone.Buffer.fromArray(Float32);
+            //  console.log("testSliceaudiobuff: " + testSliceaudiobuff)
+            player_3_Node.buffer.set(testSliceaudiobuff);
+            player_3_load_text.innerHTML = fileHandle.name;
+            channel_3_songName.innerHTML = fileHandle.name;
+            channel_3_duration_text.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
+            player_3_duration_value.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
+          }
+          else {
+            //const player_3_buffer = new Tone.Buffer();
+            //  player_3_buffer.set(toneBuffer);
+            //  player_3_Node.buffer.set(player_3_buffer);
+            player_3_Node.buffer.set(decodedBuffer);
+            player_3_load_text.innerHTML = fileHandle.name;
+            channel_3_songName.innerHTML = fileHandle.name;
+            channel_3_duration_text.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
+            player_3_duration_value.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
+            if (player_3_scrambler_checkbox.checked == true) {
+              player_3_scrambler_checkbox.checked = false
+            }
+          }
+
+          /*
+          let tamanio = decodedBuffer.length;
+          let randomPosition = 0;
+          const Float32 = new Float32Array(decodedBuffer.length);
+          let k = 0;
+          do {
+            randomPosition = getRndInteger(0, tamanio);
+            if (randomPosition + 48000 < decodedBuffer.length) {
+              for (i = 0; i < 48000 - 1; i++) {
+                for (let channel = 0; channel < 2; channel++) {
+                  Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
+                  k++; tamanio--;
+                }
+              }
+            }
+          }
+          while (k < decodedBuffer.length);
+          const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+          player_3_Node.buffer.set(decodedBuffer_twosecs);
+          /**/
           mixEvent.logIntoListaAction(Tone.now(), "player_3", fileHandle.name);
           break;
         }
       case "player_4":
         {
-          player_4_Node.buffer.set(decodedBuffer);
-          player_4_load_text.innerHTML = fileHandle.name;
+          if (player_4_scrambler == true && decodedBuffer.duration < 180) {
+            let tamanio = decodedBuffer.length;
+            let randomPosition = 0;
+            const Float32 = new Float32Array(decodedBuffer.length);
+            let k = 0;
+            do {
+              randomPosition = getRndInteger(0, tamanio);
+              if (randomPosition + 96000 < decodedBuffer.length) {
+                for (i = 0; i < 96000 - 1; i++) {
+                  for (let channel = 0; channel < 2; channel++) {
+                    Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
+                    tamanio--;
+                  }
+                  k++;
+                }
+              }
+            }
+            while (k < decodedBuffer.length);
+            //  console.log("testSliceaudiobuff: "+testSliceaudiobuff)
+            // console.log("Float32: " + Float32)
+            const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+            // player_4_Node.buffer.set(decodedBuffer_twosecs);
+            const testSliceaudiobuff = Tone.Buffer.fromArray(Float32);
+            //  console.log("testSliceaudiobuff: " + testSliceaudiobuff)
+            player_4_Node.buffer.set(testSliceaudiobuff);
+            player_4_load_text.innerHTML = fileHandle.name;
+            channel_4_songName.innerHTML = fileHandle.name;
+            channel_4_duration_text.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
+            player_4_duration_value.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
+          }
+          else {
+            //const player_4_buffer = new Tone.Buffer();
+            //  player_4_buffer.set(toneBuffer);
+            //  player_4_Node.buffer.set(player_4_buffer);
+            player_4_Node.buffer.set(decodedBuffer);
+            player_4_load_text.innerHTML = fileHandle.name;
+            channel_4_songName.innerHTML = fileHandle.name;
+            channel_4_duration_text.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
+            player_4_duration_value.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
+            if (player_4_scrambler_checkbox.checked == true) {
+              player_4_scrambler_checkbox.checked = false
+            }
+          }
+
+          /*
+          let tamanio = decodedBuffer.length;
+          let randomPosition = 0;
+          const Float32 = new Float32Array(decodedBuffer.length);
+          let k = 0;
+          do {
+            randomPosition = getRndInteger(0, tamanio);
+            if (randomPosition + 48000 < decodedBuffer.length) {
+              for (i = 0; i < 48000 - 1; i++) {
+                for (let channel = 0; channel < 2; channel++) {
+                  Float32[k] = decodedBuffer.getChannelData(channel)[randomPosition + i];
+                  k++; tamanio--;
+                }
+              }
+            }
+          }
+          while (k < decodedBuffer.length);
+          const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
+          player_4_Node.buffer.set(decodedBuffer_twosecs);
+          /**/
           mixEvent.logIntoListaAction(Tone.now(), "player_4", fileHandle.name);
           break;
         }
@@ -10590,6 +13302,36 @@ function play(value) {
           grainPlayer_2_Node.start();
           grainPlayer_2_playButton.style.backgroundColor = "green";
           mixEvent.logIntoListaAction(Tone.now(), "Grain_2", "play");
+        }
+        break;
+      }
+    case "Grain_3":
+      {
+        if (!grainPlayer_3_Node.loaded) {
+          grainPlayer_3_duration_value.innerHTML = "!loaded";
+          // alert("Grain_3 !loaded")
+        }
+        else {
+          var duration = grainPlayer_3_Node.buffer.duration;
+          grainPlayer_3_duration_value.innerHTML = Math.round(`${duration}`);
+          grainPlayer_3_Node.start();
+          grainPlayer_3_playButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "Grain_3", "play");
+        }
+        break;
+      }
+    case "Grain_4":
+      {
+        if (!grainPlayer_4_Node.loaded) {
+          grainPlayer_4_duration_value.innerHTML = "!loaded";
+          // alert("Grain_4 !loaded")
+        }
+        else {
+          var duration = grainPlayer_4_Node.buffer.duration;
+          grainPlayer_4_duration_value.innerHTML = Math.round(`${duration}`);
+          grainPlayer_4_Node.start();
+          grainPlayer_4_playButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "Grain_4", "play");
         }
         break;
       }
@@ -10661,6 +13403,18 @@ function play(value) {
         mixEvent.logIntoListaAction(Tone.now(), "noise_2", "play");
         break;
       }
+    case "noise_3":
+      {
+        noise_3_Node.start();
+        mixEvent.logIntoListaAction(Tone.now(), "noise_3", "play");
+        break;
+      }
+    case "noise_4":
+      {
+        noise_4_Node.start();
+        mixEvent.logIntoListaAction(Tone.now(), "noise_4", "play");
+        break;
+      }
     default:
       { break; }
 
@@ -10691,6 +13445,20 @@ function stop(value) {
         grainPlayer_2_Node.stop();
         grainPlayer_2_playButton.style.backgroundColor = "white";
         mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_2", "stop");
+        break;
+      }
+    case "Grain_3":
+      {
+        grainPlayer_3_Node.stop();
+        grainPlayer_3_playButton.style.backgroundColor = "white";
+        mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_3", "stop");
+        break;
+      }
+    case "Grain_4":
+      {
+        grainPlayer_4_Node.stop();
+        grainPlayer_4_playButton.style.backgroundColor = "white";
+        mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_4", "stop");
         break;
       }
     case "player_1":
@@ -10733,6 +13501,18 @@ function stop(value) {
         mixEvent.logIntoListaAction(Tone.now(), "noise_2", "stop");
         break;
       }
+    case "noise_3":
+      {
+        noise_3_Node.stop();
+        mixEvent.logIntoListaAction(Tone.now(), "noise_3", "stop");
+        break;
+      }
+    case "noise_4":
+      {
+        noise_4_Node.stop();
+        mixEvent.logIntoListaAction(Tone.now(), "noise_4", "stop");
+        break;
+      }
     default:
       { alert("DEFAULT function stop(value)"); break; }
   }
@@ -10746,83 +13526,147 @@ function mute(value) {
     }
     case "player_1":
       {
-        channel_1_volNode.mute = !channel_1_volNode.mute;
-        player_1_muteButton.style.backgroundColor = "green";
-        player_1_volume.value = -100;
-        if (channel_1_volNode.mute == true) {
+        player_1_Node.mute = !player_1_Node.mute;
+        if (player_1_Node.mute == true) {
           player_1_muteButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "player_1_mute", "on");
         }
         else {
           player_1_muteButton.style.backgroundColor = "white";
-          player_1_volume.value = 0;
-          //CORRESPONDE CREAR VAR GLOBAL PARA MANEJAR EL ESTADO
+          mixEvent.logIntoListaAction(Tone.now(), "player_1_mute", "off");
         }
         break;
       }
     case "player_2":
       {
-        channel_2_volNode.mute = !channel_2_volNode.mute;
-        player_2_muteButton.style.backgroundColor = "green";
-        player_2_volume.value = -100;
-        if (channel_2_volNode.mute == true) {
+        player_2_Node.mute = !player_2_Node.mute;
+        if (player_2_Node.mute == true) {
           player_2_muteButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "player_1_mute", "on");
         }
         else {
           player_2_muteButton.style.backgroundColor = "white";
-          player_2_volume.value = 0;
-          //CORRESPONDE CREAR VAR GLOBAL PARA MANEJAR EL ESTADO
+          mixEvent.logIntoListaAction(Tone.now(), "player_1_mute", "off");
         }
         break;
       }
     case "player_3":
       {
-        channel_3_volNode.mute = !channel_3_volNode.mute;
-        player_3_muteButton.style.backgroundColor = "green";
-        player_3_volume.value = -100;
-        if (channel_3_volNode.mute == true) {
+        player_3_Node.mute = !player_3_Node.mute;
+        if (player_3_Node.mute == true) {
           player_3_muteButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "player_3_mute", "on");
         }
         else {
           player_3_muteButton.style.backgroundColor = "white";
-          player_3_volume.value = 0;
-          //CORRESPONDE CREAR VAR GLOBAL PARA MANEJAR EL ESTADO
+          mixEvent.logIntoListaAction(Tone.now(), "player_3_mute", "off");
         }
         break;
       }
     case "player_4":
       {
-        channel_4_volNode.mute = !channel_4_volNode.mute;
-        player_4_muteButton.style.backgroundColor = "green";
-        player_4_volume.value = -100;
-        if (channel_4_volNode.mute == true) {
+        player_4_Node.mute = !player_4_Node.mute;
+        if (player_4_Node.mute == true) {
           player_4_muteButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "player_4_mute", "on");
         }
         else {
           player_4_muteButton.style.backgroundColor = "white";
-          player_4_volume.value = 0;
-          //CORRESPONDE CREAR VAR GLOBAL PARA MANEJAR EL ESTADO
+          mixEvent.logIntoListaAction(Tone.now(), "player_4_mute", "off");
         }
         break;
       }
-    case "Noise":
+    case "Grain_1":
       {
-        alert("noise_1_Node.mute: " + noise_1_Node.mute);
-        if (noise_1_Node.mute == true) {
-          noise_muteButton.style.backgroundColor = "green";
-          noise_volume.value = -100;
+        grainPlayer_1_Node.mute = !grainPlayer_1_Node.mute;
+        if (grainPlayer_1_Node.mute == true) {
+          grainPlayer_1_muteButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_mute", "on");
         }
-        else { noise_muteButton.style.backgroundColor = "white"; }
-
-        noise_1_Node.mute = !noise_1_Node.mute;
+        else {
+          grainPlayer_1_muteButton.style.backgroundColor = "white";
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_mute", "off");
+        }
         break;
       }
+    case "Grain_2":
+      {
+        grainPlayer_2_Node.mute = !grainPlayer_2_Node.mute;
+        if (grainPlayer_2_Node.mute == true) {
+          grainPlayer_2_muteButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_2_mute", "on");
+        }
+        else {
+          grainPlayer_2_muteButton.style.backgroundColor = "white";
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_2_mute", "off");
+        }
+        break;
+      }
+    case "Grain_3":
+      {
+        grainPlayer_3_Node.mute = !grainPlayer_3_Node.mute;
+        if (grainPlayer_3_Node.mute == true) {
+          grainPlayer_3_muteButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_3_mute", "on");
+        }
+        else {
+          grainPlayer_3_muteButton.style.backgroundColor = "white";
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_3_mute", "off");
+        }
+        break;
+      }
+    case "Grain_4":
+      {
+        grainPlayer_4_Node.mute = !grainPlayer_4_Node.mute;
+        if (grainPlayer_4_Node.mute == true) {
+          grainPlayer_4_muteButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_4_mute", "on");
+        }
+        else {
+          grainPlayer_4_muteButton.style.backgroundColor = "white";
+          mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_4_mute", "off");
+        }
+        break;
+      }
+    case "noise_1":
+      /*      {
+              alert("noise_1_Node.mute: " + noise_1_Node.mute);
+              if (noise_1_Node.mute == true) {
+                noise_muteButton.style.backgroundColor = "green";
+                noise_volume.value = -100;
+              }
+              else { noise_muteButton.style.backgroundColor = "white"; }
+      
+              noise_1_Node.mute = !noise_1_Node.mute;
+              break;
+            }
+      /**/
+      {
+        noise_1_Node.mute = !noise_1_Node.mute;
+        if (noise_1_Node.mute == true) {
+          noise_1_muteButton.style.backgroundColor = "green";
+          mixEvent.logIntoListaAction(Tone.now(), "noise_1_mute", "on");
+        }
+        else {
+          noise_1_muteButton.style.backgroundColor = "white";
+          mixEvent.logIntoListaAction(Tone.now(), "noise_1_mute", "off");
+        }
+        break;
+      }
+    /**/
+
+
+
+
+
     default:
-      { alert("DEFAULT function stop(value)"); break; } 9
+      { alert("DEFAULT function mute(value)"); break; } 9
   }
 }
 
 function busca1() {
   let songNumber = "", playerNumber = "";
+  let i = 0, j = 0;
   let cadena = validateForm();
   var doesItInclude = cadena.includes("-", 0);
   if (doesItInclude) {
@@ -10910,10 +13754,10 @@ function recieves_Number_Returns_url(song) {
 //********************************************************************* */
 //********************************************************************* */
 function channel_x_filter_eq_selection_foo(name, value) {
-
-  alert("channel_x_filter_eq_selection_foo: " + value
-    + "\n" + "name:  " + name);
-  /* */
+  /*
+      alert("channel_x_filter_eq_selection_foo: " + value
+        + "\n" + "name:  " + name);
+      /* */
   switch (name) {
     case "channel_1": {
       if (channel_1_filter_eq_selection != value) {
@@ -11716,20 +14560,23 @@ function channel_x_filter_eq_selection_foo(name, value) {
           case "on": {
             mixEvent.logIntoListaAction(Tone.now(), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "bypass") {
-              fx_1_panNode.disconnect(fx_1_filter_Bypass);
-              fx_1_panNode.connect(fx_1_filter);
+              fxReturn_1_fader.disconnect(fx_1_filter_Bypass);
+              fxReturn_1_fader.connect(fx_1_filter);
+              alert(".disconnect(fx_1_filter_Bypass); .connect(fx_1_filter);");
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_Bypass.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter.connect(fx_1_dynamics_compressorNode_Bypass);
+                alert("AAA2")
               }
               if (fx_1_compressor_On_Off_Button_State == "on") {
                 fx_1_filter_Bypass.disconnect(fx_1_dynamics_compressorNode);
                 fx_1_filter.connect(fx_1_dynamics_compressorNode);
+                alert("AAA3")
               }
             }
             else if (fx_1_filter_eq_selection == "eq3") {
-              fx_1_panNode.disconnect(fx_1_filter_eq3);
-              fx_1_panNode.connect(fx_1_filter);
+              fxReturn_1_fader.disconnect(fx_1_filter_eq3);
+              fxReturn_1_fader.connect(fx_1_filter);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_eq3.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -11740,8 +14587,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "tascam") {
-              fx_1_panNode.disconnect(fx_1_tascam_in_Node);
-              fx_1_panNode.connect(fx_1_filter);
+              fxReturn_1_fader.disconnect(fx_1_tascam_in_Node);
+              fxReturn_1_fader.connect(fx_1_filter);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_tascam_out_Node.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -11778,8 +14625,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
           case "bypass": {
             mixEvent.logIntoListaAction(Tone.now(), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "on") {
-              fx_1_panNode.disconnect(fx_1_filter);
-              fx_1_panNode.connect(fx_1_filter_Bypass);
+              fxReturn_1_fader.disconnect(fx_1_filter);
+              fxReturn_1_fader.connect(fx_1_filter_Bypass);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_Bypass.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -11790,8 +14637,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "eq3") {
-              fx_1_panNode.disconnect(fx_1_filter_eq3);
-              fx_1_panNode.connect(fx_1_filter_Bypass);
+              fxReturn_1_fader.disconnect(fx_1_filter_eq3);
+              fxReturn_1_fader.connect(fx_1_filter_Bypass);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_eq3.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_Bypass.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -11802,8 +14649,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "tascam") {
-              fx_1_panNode.disconnect(fx_1_tascam_in_Node);
-              fx_1_panNode.connect(fx_1_filter_Bypass);
+              fxReturn_1_fader.disconnect(fx_1_tascam_in_Node);
+              fxReturn_1_fader.connect(fx_1_filter_Bypass);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_tascam_out_Node.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_Bypass.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -11821,32 +14668,39 @@ function channel_x_filter_eq_selection_foo(name, value) {
           case "eq3": {
             mixEvent.logIntoListaAction(Tone.now(), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "on") {
-              fx_1_panNode.disconnect(fx_1_filter);
-              fx_1_panNode.connect(fx_1_filter_eq3);
+              fxReturn_1_fader.disconnect(fx_1_filter);
+              fxReturn_1_fader.connect(fx_1_filter_eq3);
+              alert("BBB1");
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_eq3.connect(fx_1_dynamics_compressorNode_Bypass);
+                alert("BBB2");
               }
               if (fx_1_compressor_On_Off_Button_State == "on") {
                 fx_1_filter.disconnect(fx_1_dynamics_compressorNode);
                 fx_1_filter_eq3.connect(fx_1_dynamics_compressorNode);
+                alert("BBB3");
               }
             }
             else if (fx_1_filter_eq_selection == "bypass") {
-              fx_1_panNode.disconnect(fx_1_filter_Bypass);
-              fx_1_panNode.connect(fx_1_filter_eq3);
+              alert("BBBypass 1");
+              fxReturn_1_fader.disconnect(fx_1_filter_Bypass);
+              fxReturn_1_fader.connect(fx_1_filter_eq3);
+
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_Bypass.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_eq3.connect(fx_1_dynamics_compressorNode_Bypass);
+                alert("BBBypass 2");
               }
               if (fx_1_compressor_On_Off_Button_State == "on") {
                 fx_1_filter_Bypass.disconnect(fx_1_dynamics_compressorNode);
                 fx_1_filter_eq3.connect(fx_1_dynamics_compressorNode);
+                alert("BBBypass 3");
               }
             }
             else if (fx_1_filter_eq_selection == "tascam") {
-              fx_1_panNode.disconnect(fx_1_tascam_in_Node);
-              fx_1_panNode.connect(fx_1_filter_eq3);
+              fxReturn_1_fader.disconnect(fx_1_tascam_in_Node);
+              fxReturn_1_fader.connect(fx_1_filter_eq3);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_tascam_out_Node.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_eq3.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -11864,8 +14718,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
           case "tascam": {
             mixEvent.logIntoListaAction(Tone.now(), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "on") {
-              fx_1_panNode.disconnect(fx_1_filter);
-              fx_1_panNode.connect(fx_1_tascam_in_Node);
+              fxReturn_1_fader.disconnect(fx_1_filter);
+              fxReturn_1_fader.connect(fx_1_tascam_in_Node);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_tascam_out_Node.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -11876,8 +14730,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "bypass") {
-              fx_1_panNode.disconnect(fx_1_filter_Bypass);
-              fx_1_panNode.connect(fx_1_tascam_in_Node);
+              fxReturn_1_fader.disconnect(fx_1_filter_Bypass);
+              fxReturn_1_fader.connect(fx_1_tascam_in_Node);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_Bypass.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_tascam_out_Node.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -11888,8 +14742,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "eq3") {
-              fx_1_panNode.disconnect(fx_1_filter_eq3);
-              fx_1_panNode.connect(fx_1_tascam_in_Node);
+              fxReturn_1_fader.disconnect(fx_1_filter_eq3);
+              fxReturn_1_fader.connect(fx_1_tascam_in_Node);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_eq3.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_tascam_out_Node.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -11907,7 +14761,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
           default: { alert("DEFAULT fx_x_filter_eq_selection_foo value: " + value); break; }
         }
       }
-      else { alert("fx_x_filter_eq_selection != value ELSE"); }
+      else { console.log("fx_x_filter_eq_selection != value ELSE"); }
       break;
     }
     case "fx_2": {
@@ -14605,7 +17459,8 @@ function player_x_fxSend_x_state_foo(name, value) {
 function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
   const state = channel_1_fxSend_1_state;
   switch (name) {
-    case "channel_1_fxSend_1":
+
+    case "channel_1_fxSend_1_volume_rampTo":
       {
         if (channel_1_fxSend_1_state == "PostEQ") {
           channel_1_fxSend_1_postEq_volNode.volume.value = e;
@@ -14619,6 +17474,281 @@ function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
         else {
           channel_1_fxSend_1_postFdr_volNode.volume.value = e;
           channel_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_1_fxSend_2_volume_rampTo":
+      {
+        if (channel_1_fxSend_2_state == "PostEQ") {
+          channel_1_fxSend_2_postEq_volNode.volume.value = e;
+          channel_1_fxSend_2_value.innerHTML = Math.round(`${e}`);
+          channel_1_fxSend_2.value = e;
+        }
+        else if (channel_1_fxSend_2_state == "PreEQ") {
+          channel_1_fxSend_2_preEq_volNode.volume.value = e;
+          channel_1_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_1_fxSend_2_postFdr_volNode.volume.value = e;
+          channel_1_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_1_fxSend_3_volume_rampTo":
+      {
+        if (channel_1_fxSend_3_state == "PostEQ") {
+          channel_1_fxSend_3_postEq_volNode.volume.value = e;
+          channel_1_fxSend_3_value.innerHTML = Math.round(`${e}`);
+          channel_1_fxSend_3.value = e;
+        }
+        else if (channel_1_fxSend_3_state == "PreEQ") {
+          channel_1_fxSend_3_preEq_volNode.volume.value = e;
+          channel_1_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_1_fxSend_3_postFdr_volNode.volume.value = e;
+          channel_1_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_1_fxSend_4_volume_rampTo":
+      {
+        if (channel_1_fxSend_4_state == "PostEQ") {
+          channel_1_fxSend_4_postEq_volNode.volume.value = e;
+          channel_1_fxSend_4_value.innerHTML = Math.round(`${e}`);
+          channel_1_fxSend_4.value = e;
+        }
+        else if (channel_1_fxSend_4_state == "PreEQ") {
+          channel_1_fxSend_4_preEq_volNode.volume.value = e;
+          channel_1_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_1_fxSend_4_postFdr_volNode.volume.value = e;
+          channel_1_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_2_fxSend_1_volume_rampTo":
+      {
+        if (channel_2_fxSend_1_state == "PostEQ") {
+          channel_2_fxSend_1_postEq_volNode.volume.value = e;
+          channel_2_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          channel_2_fxSend_1.value = e;
+        }
+        else if (channel_2_fxSend_1_state == "PreEQ") {
+          channel_2_fxSend_1_preEq_volNode.volume.value = e;
+          channel_2_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_2_fxSend_1_postFdr_volNode.volume.value = e;
+          channel_2_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_2_fxSend_2_volume_rampTo":
+      {
+        if (channel_2_fxSend_2_state == "PostEQ") {
+          channel_2_fxSend_2_postEq_volNode.volume.value = e;
+          channel_2_fxSend_2_value.innerHTML = Math.round(`${e}`);
+          channel_2_fxSend_2.value = e;
+        }
+        else if (channel_2_fxSend_2_state == "PreEQ") {
+          channel_2_fxSend_2_preEq_volNode.volume.value = e;
+          channel_2_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_2_fxSend_2_postFdr_volNode.volume.value = e;
+          channel_2_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_2_fxSend_3_volume_rampTo":
+      {
+        if (channel_2_fxSend_3_state == "PostEQ") {
+          channel_2_fxSend_3_postEq_volNode.volume.value = e;
+          channel_2_fxSend_3_value.innerHTML = Math.round(`${e}`);
+          channel_2_fxSend_3.value = e;
+        }
+        else if (channel_2_fxSend_3_state == "PreEQ") {
+          channel_2_fxSend_3_preEq_volNode.volume.value = e;
+          channel_2_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_2_fxSend_3_postFdr_volNode.volume.value = e;
+          channel_2_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_2_fxSend_4_volume_rampTo":
+      {
+        if (channel_2_fxSend_4_state == "PostEQ") {
+          channel_2_fxSend_4_postEq_volNode.volume.value = e;
+          channel_2_fxSend_4_value.innerHTML = Math.round(`${e}`);
+          channel_2_fxSend_4.value = e;
+        }
+        else if (channel_2_fxSend_4_state == "PreEQ") {
+          channel_2_fxSend_4_preEq_volNode.volume.value = e;
+          channel_2_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_2_fxSend_4_postFdr_volNode.volume.value = e;
+          channel_2_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_3_fxSend_1_volume_rampTo":
+      {
+        if (channel_3_fxSend_1_state == "PostEQ") {
+          channel_3_fxSend_1_postEq_volNode.volume.value = e;
+          channel_3_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          channel_3_fxSend_1.value = e;
+        }
+        else if (channel_3_fxSend_1_state == "PreEQ") {
+          channel_3_fxSend_1_preEq_volNode.volume.value = e;
+          channel_3_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_3_fxSend_1_postFdr_volNode.volume.value = e;
+          channel_3_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_3_fxSend_2_volume_rampTo":
+      {
+        if (channel_3_fxSend_2_state == "PostEQ") {
+          channel_3_fxSend_2_postEq_volNode.volume.value = e;
+          channel_3_fxSend_2_value.innerHTML = Math.round(`${e}`);
+          channel_3_fxSend_2.value = e;
+        }
+        else if (channel_3_fxSend_2_state == "PreEQ") {
+          channel_3_fxSend_2_preEq_volNode.volume.value = e;
+          channel_3_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_3_fxSend_2_postFdr_volNode.volume.value = e;
+          channel_3_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_3_fxSend_3_volume_rampTo":
+      {
+        if (channel_3_fxSend_3_state == "PostEQ") {
+          channel_3_fxSend_3_postEq_volNode.volume.value = e;
+          channel_3_fxSend_3_value.innerHTML = Math.round(`${e}`);
+          channel_3_fxSend_3.value = e;
+        }
+        else if (channel_3_fxSend_3_state == "PreEQ") {
+          channel_3_fxSend_3_preEq_volNode.volume.value = e;
+          channel_3_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_3_fxSend_3_postFdr_volNode.volume.value = e;
+          channel_3_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_3_fxSend_4_volume_rampTo":
+      {
+        if (channel_3_fxSend_4_state == "PostEQ") {
+          channel_3_fxSend_4_postEq_volNode.volume.value = e;
+          channel_3_fxSend_4_value.innerHTML = Math.round(`${e}`);
+          channel_3_fxSend_4.value = e;
+        }
+        else if (channel_3_fxSend_4_state == "PreEQ") {
+          channel_3_fxSend_4_preEq_volNode.volume.value = e;
+          channel_3_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_3_fxSend_4_postFdr_volNode.volume.value = e;
+          channel_3_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_4_fxSend_1_volume_rampTo":
+      {
+        if (channel_4_fxSend_1_state == "PostEQ") {
+          channel_4_fxSend_1_postEq_volNode.volume.value = e;
+          channel_4_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          channel_4_fxSend_1.value = e;
+        }
+        else if (channel_4_fxSend_1_state == "PreEQ") {
+          channel_4_fxSend_1_preEq_volNode.volume.value = e;
+          channel_4_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_4_fxSend_1_postFdr_volNode.volume.value = e;
+          channel_4_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_4_fxSend_2_volume_rampTo":
+      {
+        if (channel_4_fxSend_2_state == "PostEQ") {
+          channel_4_fxSend_2_postEq_volNode.volume.value = e;
+          channel_4_fxSend_2_value.innerHTML = Math.round(`${e}`);
+          channel_4_fxSend_2.value = e;
+        }
+        else if (channel_4_fxSend_2_state == "PreEQ") {
+          channel_4_fxSend_2_preEq_volNode.volume.value = e;
+          channel_4_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_4_fxSend_2_postFdr_volNode.volume.value = e;
+          channel_4_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_4_fxSend_3_volume_rampTo":
+      {
+        if (channel_4_fxSend_3_state == "PostEQ") {
+          channel_4_fxSend_3_postEq_volNode.volume.value = e;
+          channel_4_fxSend_3_value.innerHTML = Math.round(`${e}`);
+          channel_4_fxSend_3.value = e;
+        }
+        else if (channel_4_fxSend_3_state == "PreEQ") {
+          channel_4_fxSend_3_preEq_volNode.volume.value = e;
+          channel_4_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_4_fxSend_3_postFdr_volNode.volume.value = e;
+          channel_4_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_4_fxSend_4_volume_rampTo":
+      {
+        if (channel_4_fxSend_4_state == "PostEQ") {
+          channel_4_fxSend_4_postEq_volNode.volume.value = e;
+          channel_4_fxSend_4_value.innerHTML = Math.round(`${e}`);
+          channel_4_fxSend_4.value = e;
+        }
+        else if (channel_4_fxSend_4_state == "PreEQ") {
+          channel_4_fxSend_4_preEq_volNode.volume.value = e;
+          channel_4_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          channel_4_fxSend_4_postFdr_volNode.volume.value = e;
+          channel_4_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "channel_1_fxSend_1":
+      {
+        if (channel_1_fxSend_1_state == "PostEQ") {
+          channel_1_fxSend_1_postEq_volNode.volume.value = e;
+          channel_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          channel_1_fxSend_1.value = e;
+          alert("PostEQ");
+        }
+        else if (channel_1_fxSend_1_state == "PreEQ") {
+          channel_1_fxSend_1_preEq_volNode.volume.value = e;
+          channel_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          alert("PreEQ");
+        }
+        else {
+          channel_1_fxSend_1_postFdr_volNode.volume.value = e;
+          channel_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          alert("PostFDR");
         }
         break;
       }
@@ -15133,6 +18263,279 @@ function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
         break;
       }
     case "fx_4_fxSend_4":
+      {
+        if (fx_4_fxSend_4_state == "PostEQ") {
+          fx_4_fxSend_4_postEq_volNode.volume.value = e;
+          fx_4_fxSend_4_value.innerHTML = Math.round(`${e}`);
+          fx_4_fxSend_4.value = e;
+        }
+        else if (fx_4_fxSend_4_state == "PreEQ") {
+          fx_4_fxSend_4_preEq_volNode.volume.value = e;
+          fx_4_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_4_fxSend_4_postFdr_volNode.volume.value = e;
+          fx_4_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+
+    case "fx_1_fxSend_1_volume_rampTo":
+      {
+        if (fx_1_fxSend_1_state == "PostEQ") {
+          fx_1_fxSend_1_postEq_volNode.volume.value = e;
+          fx_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          fx_1_fxSend_1.value = e;
+        }
+        else if (fx_1_fxSend_1_state == "PreEQ") {
+          fx_1_fxSend_1_preEq_volNode.volume.value = e;
+          fx_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_1_fxSend_1_postFdr_volNode.volume.value = e;
+          fx_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_1_fxSend_2_volume_rampTo":
+      {
+        if (fx_1_fxSend_2_state == "PostEQ") {
+          fx_1_fxSend_2_postEq_volNode.volume.value = e;
+          fx_1_fxSend_2_value.innerHTML = Math.round(`${e}`);
+          fx_1_fxSend_2.value = e;
+        }
+        else if (fx_1_fxSend_2_state == "PreEQ") {
+          fx_1_fxSend_2_preEq_volNode.volume.value = e;
+          fx_1_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_1_fxSend_2_postFdr_volNode.volume.value = e;
+          fx_1_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_1_fxSend_3_volume_rampTo":
+      {
+        if (fx_1_fxSend_3_state == "PostEQ") {
+          fx_1_fxSend_3_postEq_volNode.volume.value = e;
+          fx_1_fxSend_3_value.innerHTML = Math.round(`${e}`);
+          fx_1_fxSend_3.value = e;
+        }
+        else if (fx_1_fxSend_3_state == "PreEQ") {
+          fx_1_fxSend_3_preEq_volNode.volume.value = e;
+          fx_1_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_1_fxSend_3_postFdr_volNode.volume.value = e;
+          fx_1_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_1_fxSend_4_volume_rampTo":
+      {
+        if (fx_1_fxSend_4_state == "PostEQ") {
+          fx_1_fxSend_4_postEq_volNode.volume.value = e;
+          fx_1_fxSend_4_value.innerHTML = Math.round(`${e}`);
+          fx_1_fxSend_4.value = e;
+        }
+        else if (fx_1_fxSend_4_state == "PreEQ") {
+          fx_1_fxSend_4_preEq_volNode.volume.value = e;
+          fx_1_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_1_fxSend_4_postFdr_volNode.volume.value = e;
+          fx_1_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_2_fxSend_1_volume_rampTo":
+      {
+        if (fx_2_fxSend_1_state == "PostEQ") {
+          fx_2_fxSend_1_postEq_volNode.volume.value = e;
+          fx_2_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          fx_2_fxSend_1.value = e;
+        }
+        else if (fx_2_fxSend_1_state == "PreEQ") {
+          fx_2_fxSend_1_preEq_volNode.volume.value = e;
+          fx_2_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_2_fxSend_1_postFdr_volNode.volume.value = e;
+          fx_2_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_2_fxSend_2_volume_rampTo":
+      {
+        if (fx_2_fxSend_2_state == "PostEQ") {
+          fx_2_fxSend_2_postEq_volNode.volume.value = e;
+          fx_2_fxSend_2_value.innerHTML = Math.round(`${e}`);
+          fx_2_fxSend_2.value = e;
+        }
+        else if (fx_2_fxSend_2_state == "PreEQ") {
+          fx_2_fxSend_2_preEq_volNode.volume.value = e;
+          fx_2_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_2_fxSend_2_postFdr_volNode.volume.value = e;
+          fx_2_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_2_fxSend_3_volume_rampTo":
+      {
+        if (fx_2_fxSend_3_state == "PostEQ") {
+          fx_2_fxSend_3_postEq_volNode.volume.value = e;
+          fx_2_fxSend_3_value.innerHTML = Math.round(`${e}`);
+          fx_2_fxSend_3.value = e;
+        }
+        else if (fx_2_fxSend_3_state == "PreEQ") {
+          fx_2_fxSend_3_preEq_volNode.volume.value = e;
+          fx_2_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_2_fxSend_3_postFdr_volNode.volume.value = e;
+          fx_2_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_2_fxSend_4_volume_rampTo":
+      {
+        if (fx_2_fxSend_4_state == "PostEQ") {
+          fx_2_fxSend_4_postEq_volNode.volume.value = e;
+          fx_2_fxSend_4_value.innerHTML = Math.round(`${e}`);
+          fx_2_fxSend_4.value = e;
+        }
+        else if (fx_2_fxSend_4_state == "PreEQ") {
+          fx_2_fxSend_4_preEq_volNode.volume.value = e;
+          fx_2_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_2_fxSend_4_postFdr_volNode.volume.value = e;
+          fx_2_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_3_fxSend_1_volume_rampTo":
+      {
+        if (fx_3_fxSend_1_state == "PostEQ") {
+          fx_3_fxSend_1_postEq_volNode.volume.value = e;
+          fx_3_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          fx_3_fxSend_1.value = e;
+        }
+        else if (fx_3_fxSend_1_state == "PreEQ") {
+          fx_3_fxSend_1_preEq_volNode.volume.value = e;
+          fx_3_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_3_fxSend_1_postFdr_volNode.volume.value = e;
+          fx_3_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_3_fxSend_2_volume_rampTo":
+      {
+        if (fx_3_fxSend_2_state == "PostEQ") {
+          fx_3_fxSend_2_postEq_volNode.volume.value = e;
+          fx_3_fxSend_2_value.innerHTML = Math.round(`${e}`);
+          fx_3_fxSend_2.value = e;
+        }
+        else if (fx_3_fxSend_2_state == "PreEQ") {
+          fx_3_fxSend_2_preEq_volNode.volume.value = e;
+          fx_3_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_3_fxSend_2_postFdr_volNode.volume.value = e;
+          fx_3_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_3_fxSend_3_volume_rampTo":
+      {
+        if (fx_3_fxSend_3_state == "PostEQ") {
+          fx_3_fxSend_3_postEq_volNode.volume.value = e;
+          fx_3_fxSend_3_value.innerHTML = Math.round(`${e}`);
+          fx_3_fxSend_3.value = e;
+        }
+        else if (fx_3_fxSend_3_state == "PreEQ") {
+          fx_3_fxSend_3_preEq_volNode.volume.value = e;
+          fx_3_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_3_fxSend_3_postFdr_volNode.volume.value = e;
+          fx_3_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_3_fxSend_4_volume_rampTo":
+      {
+        if (fx_3_fxSend_4_state == "PostEQ") {
+          fx_3_fxSend_4_postEq_volNode.volume.value = e;
+          fx_3_fxSend_4_value.innerHTML = Math.round(`${e}`);
+          fx_3_fxSend_4.value = e;
+        }
+        else if (fx_3_fxSend_4_state == "PreEQ") {
+          fx_3_fxSend_4_preEq_volNode.volume.value = e;
+          fx_3_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_3_fxSend_4_postFdr_volNode.volume.value = e;
+          fx_3_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_4_fxSend_1_volume_rampTo":
+      {
+        if (fx_4_fxSend_1_state == "PostEQ") {
+          fx_4_fxSend_1_postEq_volNode.volume.value = e;
+          fx_4_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          fx_4_fxSend_1.value = e;
+        }
+        else if (fx_4_fxSend_1_state == "PreEQ") {
+          fx_4_fxSend_1_preEq_volNode.volume.value = e;
+          fx_4_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_4_fxSend_1_postFdr_volNode.volume.value = e;
+          fx_4_fxSend_1_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_4_fxSend_2_volume_rampTo":
+      {
+        if (fx_4_fxSend_2_state == "PostEQ") {
+          fx_4_fxSend_2_postEq_volNode.volume.value = e;
+          fx_4_fxSend_2_value.innerHTML = Math.round(`${e}`);
+          fx_4_fxSend_2.value = e;
+        }
+        else if (fx_4_fxSend_2_state == "PreEQ") {
+          fx_4_fxSend_2_preEq_volNode.volume.value = e;
+          fx_4_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_4_fxSend_2_postFdr_volNode.volume.value = e;
+          fx_4_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_4_fxSend_3_volume_rampTo":
+      {
+        if (fx_4_fxSend_3_state == "PostEQ") {
+          fx_4_fxSend_3_postEq_volNode.volume.value = e;
+          fx_4_fxSend_3_value.innerHTML = Math.round(`${e}`);
+          fx_4_fxSend_3.value = e;
+        }
+        else if (fx_4_fxSend_3_state == "PreEQ") {
+          fx_4_fxSend_3_preEq_volNode.volume.value = e;
+          fx_4_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          fx_4_fxSend_3_postFdr_volNode.volume.value = e;
+          fx_4_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "fx_4_fxSend_4_volume_rampTo":
       {
         if (fx_4_fxSend_4_state == "PostEQ") {
           fx_4_fxSend_4_postEq_volNode.volume.value = e;
@@ -17228,29 +20631,29 @@ function player_x_dynamics_On_Off(name, value) {
                 && fx_1_gate_On_Off_Button_State == "on") {
                 fx_1_dynamics_gateNode.disconnect(fx_1_dynamics_limiterNode_Bypass);
                 fx_1_dynamics_gateNode.connect(fx_1_dynamics_limiterNode);
-                fx_1_dynamics_limiterNode_Bypass.disconnect(fx_1_volNode);
-                fx_1_dynamics_limiterNode.connect(fx_1_volNode);
+                fx_1_dynamics_limiterNode_Bypass.disconnect(TEST_fx_1_volNode);
+                fx_1_dynamics_limiterNode.connect(TEST_fx_1_volNode);
               }
               else if (fx_1_limiter_On_Off_Button_State == "off"
                 && fx_1_gate_On_Off_Button_State == "off") {
                 fx_1_dynamics_gateNode_Bypass.disconnect(fx_1_dynamics_limiterNode_Bypass);
                 fx_1_dynamics_gateNode_Bypass.connect(fx_1_dynamics_limiterNode);
-                fx_1_dynamics_limiterNode_Bypass.disconnect(fx_1_volNode);
-                fx_1_dynamics_limiterNode.connect(fx_1_volNode);
+                fx_1_dynamics_limiterNode_Bypass.disconnect(TEST_fx_1_volNode);
+                fx_1_dynamics_limiterNode.connect(TEST_fx_1_volNode);
               }
               else if (fx_1_limiter_On_Off_Button_State == "on"
                 && fx_1_gate_On_Off_Button_State == "on") {
                 fx_1_dynamics_gateNode.disconnect(fx_1_dynamics_limiterNode);
                 fx_1_dynamics_gateNode.connect(fx_1_dynamics_limiterNode_Bypass);
-                fx_1_dynamics_limiterNode.disconnect(fx_1_volNode);
-                fx_1_dynamics_limiterNode_Bypass.connect(fx_1_volNode);
+                fx_1_dynamics_limiterNode.disconnect(TEST_fx_1_volNode);
+                fx_1_dynamics_limiterNode_Bypass.connect(TEST_fx_1_volNode);
               }
               else if (fx_1_limiter_On_Off_Button_State == "on"
                 && fx_1_gate_On_Off_Button_State == "off") {
                 fx_1_dynamics_gateNode_Bypass.disconnect(fx_1_dynamics_limiterNode);
                 fx_1_dynamics_gateNode_Bypass.connect(fx_1_dynamics_limiterNode_Bypass);
-                fx_1_dynamics_limiterNode.disconnect(fx_1_volNode);
-                fx_1_dynamics_limiterNode_Bypass.connect(fx_1_volNode);
+                fx_1_dynamics_limiterNode.disconnect(TEST_fx_1_volNode);
+                fx_1_dynamics_limiterNode_Bypass.connect(TEST_fx_1_volNode);
               }
 
               switchState_dynamics("fx_1_limiter_On_Off_Button");
@@ -18107,7 +21510,7 @@ function TransportSTOP() {
   //alert("Tone.Transport.state: " + Tone.Transport.state);
   //Tone.Transport.stop();
 
-  scramble("player_1");
+  //scramble("player_1");
 
   if (Tone.Transport.state == "stopped") {
     const bassline = [
@@ -18119,7 +21522,7 @@ function TransportSTOP() {
     */  { 'time': '2:3', 'note': 'F1', 'duration': '1:0' },
     ];
     const bassPart = new Tone.Part(function (time, note) {
-      fmSynth_1.triggerAttackRelease(note.note, note.duration, time);
+      Synth_1.triggerAttackRelease(note.note, note.duration, time);
     }, bassline).start(0);
     Tone.Transport.start();
   }
@@ -18133,27 +21536,29 @@ function TransportSTOP() {
     const bassPart = new Tone.Part(function (time, note) {
       fmSynth_1.triggerAttackRelease(note.note, note.duration, time);
     }, bassline).start();
-
   }
-
 }
 /**/
 function Sinte() {
-  player_test_Node.connect(fx_1_panNode);
-  fx_1_volNode.volume.value = 2;
-  //  player_test_Node.connect(Tone.Destination);
+  player_test_Node.volume.value = -18;
+  player_test_Node.connect(fxReturn_1_fader);
 
-  player_test_Node.volume.value = -12;
+  //  player_test_Node.connect(fx_1_dynamics_compressorNode);
+  player_test_Node.fan(fx_1_eq3_meter);
+
+  //player_test_Node.connect(fx_1_filter);
+  //player_test_Node.connect(fx_1_dynamics_compressorNode_Bypass);
+  //player_test_Node.connect(fx_1_pingpong_Node);
+
+  console.log("TEST_fx_1_volNode.volume.value: " + TEST_fx_1_volNode.volume.value)
+
+  player_test_Node.loop = true;
+
   if (!player_test_Node.loaded) {
-    //player_1_duration_value.innerHTML = "!loaded";
-    //alert("!player_test_Node.loaded")
+    console.log("player_test_Node: NOT LOADED")
   }
   else {
-    //var duration = player_test_Node.buffer.duration;
-    //channel_1_duration_text.innerHTML = Math.round(`${duration}`);
     player_test_Node.start();
-    //  alert("player_test_Node.start()")
-    //player_1_playButton.style.backgroundColor = "green";
   }
 }
 
@@ -18538,6 +21943,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_AutoFilter_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_AutoFilter_Node);
 
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_AutoFilter_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_AutoFilter_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_AutoFilter_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_AutoFilter_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_AutoFilter_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_AutoFilter_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_AutoFilter_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_AutoFilter_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_AutoFilter_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_AutoFilter_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_AutoFilter_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_AutoFilter_Node);
+
             fx_1_autofilter_div.style.display = "block";
             fx_1_actual_patch = "fx_1_autofilter";
             break;
@@ -18561,6 +21982,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_AutoPanner_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_AutoPanner_Node);
 
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_AutoPanner_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_AutoPanner_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_AutoPanner_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_AutoPanner_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_AutoPanner_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_AutoPanner_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_AutoPanner_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_AutoPanner_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_AutoPanner_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_AutoPanner_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_AutoPanner_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_AutoPanner_Node);
+
             fx_1_actual_patch = "fx_1_autopanner";
             fx_1_autopanner_div.style.display = "block";
             break;
@@ -18583,6 +22020,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_preEq_volNode.connect(fx_1_AutoWah_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_AutoWah_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_AutoWah_Node);
+
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_AutoWah_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_AutoWah_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_AutoWah_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_AutoWah_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_AutoWah_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_AutoWah_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_AutoWah_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_AutoWah_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_AutoWah_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_AutoWah_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_AutoWah_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_AutoWah_Node);
 
             fx_1_actual_patch = "fx_1_autowah";
             fx_1_autowah_div.style.display = "block";
@@ -18631,6 +22084,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_Chebyshev_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_Chebyshev_Node);
 
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_Chebyshev_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_Chebyshev_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_Chebyshev_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_Chebyshev_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_Chebyshev_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_Chebyshev_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_Chebyshev_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_Chebyshev_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_Chebyshev_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_Chebyshev_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_Chebyshev_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_Chebyshev_Node);
+
             fx_1_actual_patch = "fx_1_chebyshev";
             fx_1_Chebyshev_div.style.display = "block";
             break;
@@ -18655,6 +22124,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_chorus_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_chorus_Node);
 
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_chorus_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_chorus_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_chorus_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_chorus_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_chorus_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_chorus_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_chorus_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_chorus_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_chorus_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_chorus_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_chorus_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_chorus_Node);
+
             fx_1_actual_patch = "fx_1_chorus";
             fx_1_chorus_div.style.display = "block";
             break;
@@ -18677,6 +22162,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_preEq_volNode.connect(fx_1_distortion_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_distortion_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_distortion_Node);
+
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_distortion_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_distortion_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_distortion_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_distortion_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_distortion_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_distortion_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_distortion_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_distortion_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_distortion_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_distortion_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_distortion_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_distortion_Node);
 
             fx_1_actual_patch = "fx_1_Distortion";
             fx_1_distortion_div.style.display = "block";
@@ -18701,7 +22202,23 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_preEq_volNode.connect(fx_1_feedback_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_feedback_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_feedback_Node);
-            /**/
+
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_feedback_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_feedback_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_feedback_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_feedback_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_feedback_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_feedback_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_feedback_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_feedback_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_feedback_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_feedback_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_feedback_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_feedback_Node);
+
             fx_1_feedback_div.style.display = "block";
             fx_1_actual_patch = "fx_1_Feedback";
             break;
@@ -18726,6 +22243,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
 
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_FrequencyShifter_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_FrequencyShifter_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_FrequencyShifter_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_FrequencyShifter_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_FrequencyShifter_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_FrequencyShifter_Node);
+
             fx_1_actual_patch = "fx_1_frequencyShifter";
             fx_1_frequencyShifter_div.style.display = "block";
             break;
@@ -18748,6 +22281,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_preEq_volNode.connect(fx_1_phaser_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_phaser_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_phaser_Node);
+
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_phaser_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_phaser_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_phaser_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_phaser_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_phaser_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_phaser_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_phaser_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_phaser_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_phaser_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_phaser_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_phaser_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_phaser_Node);
 
             fx_1_actual_patch = "fx_1_phaser";
             fx_1_phaser_div.style.display = "block";
@@ -18772,7 +22321,23 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_preEq_volNode.connect(fx_1_pingpong_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_pingpong_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_pingpong_Node);
-            /**/
+
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_pingpong_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_pingpong_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_pingpong_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_pingpong_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_pingpong_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_pingpong_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_pingpong_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_pingpong_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_pingpong_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_pingpong_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_pingpong_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_pingpong_Node);
+
             fx_1_actual_patch = "fx_1_pingpong";
             fx_1_pingpong_div.style.display = "block";
 
@@ -18796,6 +22361,23 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_preEq_volNode.connect(fx_1_pitchshift_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_pitchshift_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_pitchshift_Node);
+
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_pitchshift_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_pitchshift_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_pitchshift_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_pitchshift_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_pitchshift_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_pitchshift_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_pitchshift_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_pitchshift_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_pitchshift_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_pitchshift_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_pitchshift_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_pitchshift_Node);
+
 
             fx_1_actual_patch = "fx_1_pitchshift";
             fx_1_pitchshift_div.style.display = "block";
@@ -18821,6 +22403,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_reverb_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_reverb_Node);
 
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_reverb_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_reverb_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_reverb_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_reverb_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_reverb_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_reverb_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_reverb_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_reverb_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_reverb_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_reverb_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_reverb_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_reverb_Node);
+
             fx_1_actual_patch = "fx_1_reverb";
             fx_1_reverb_div.style.display = "block";
             break;
@@ -18828,6 +22426,7 @@ function sets_New_FX(channel, effecttype) {
         case "Tremolo": //TEST NO FUNCA
           {
             fx_1_tremolo_Node.connect(fxReturn_1_fader);
+
             channel_1_fxSend_1_preEq_volNode.connect(fx_1_tremolo_Node);
             channel_1_fxSend_1_postEq_volNode.connect(fx_1_tremolo_Node);
             channel_1_fxSend_1_postFdr_volNode.connect(fx_1_tremolo_Node);
@@ -18843,6 +22442,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_preEq_volNode.connect(fx_1_tremolo_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_tremolo_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_tremolo_Node);
+
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_tremolo_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_tremolo_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_tremolo_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_tremolo_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_tremolo_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_tremolo_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_tremolo_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_tremolo_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_tremolo_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_tremolo_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_tremolo_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_tremolo_Node);
 
             fx_1_actual_patch = "fx_1_tremolo";
             fx_1_tremolo_div.style.display = "block";
@@ -18866,6 +22481,23 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_preEq_volNode.connect(fx_1_vibrato_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_vibrato_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_vibrato_Node);
+
+
+            fx_1_fxSend_1_preEq_volNode.connect(fx_1_vibrato_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_1_vibrato_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_1_vibrato_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_1_vibrato_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_1_vibrato_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_1_vibrato_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_1_vibrato_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_1_vibrato_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_1_vibrato_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_1_vibrato_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_1_vibrato_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_1_vibrato_Node);
 
             fx_1_actual_patch = "fx_1_vibrato";
             fx_1_vibrato_div.style.display = "block";
@@ -18897,6 +22529,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_2_postEq_volNode.connect(fx_2_distortion_Node);
             channel_4_fxSend_2_postFdr_volNode.connect(fx_2_distortion_Node);
 
+            fx_1_fxSend_2_preEq_volNode.connect(fx_2_distortion_Node);
+            fx_1_fxSend_2_postEq_volNode.connect(fx_2_distortion_Node);
+            fx_1_fxSend_2_postFdr_volNode.connect(fx_2_distortion_Node);
+
+            fx_2_fxSend_2_preEq_volNode.connect(fx_2_distortion_Node);
+            fx_2_fxSend_2_postEq_volNode.connect(fx_2_distortion_Node);
+            fx_2_fxSend_2_postFdr_volNode.connect(fx_2_distortion_Node);
+
+            fx_3_fxSend_2_preEq_volNode.connect(fx_2_distortion_Node);
+            fx_3_fxSend_2_postEq_volNode.connect(fx_2_distortion_Node);
+            fx_3_fxSend_2_postFdr_volNode.connect(fx_2_distortion_Node);
+
+            fx_4_fxSend_2_preEq_volNode.connect(fx_2_distortion_Node);
+            fx_4_fxSend_2_postEq_volNode.connect(fx_2_distortion_Node);
+            fx_4_fxSend_2_postFdr_volNode.connect(fx_2_distortion_Node);
+
             fx_2_actual_patch = "fx_2_Distortion";
             fx_2_distortion_div.style.display = "block";
             break;
@@ -18921,6 +22569,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_2_postEq_volNode.connect(fx_2_feedback_Node);
             channel_4_fxSend_2_postFdr_volNode.connect(fx_2_feedback_Node);
 
+            fx_1_fxSend_2_preEq_volNode.connect(fx_2_feedback_Node);
+            fx_1_fxSend_2_postEq_volNode.connect(fx_2_feedback_Node);
+            fx_1_fxSend_2_postFdr_volNode.connect(fx_2_feedback_Node);
+
+            fx_2_fxSend_2_preEq_volNode.connect(fx_2_feedback_Node);
+            fx_2_fxSend_2_postEq_volNode.connect(fx_2_feedback_Node);
+            fx_2_fxSend_2_postFdr_volNode.connect(fx_2_feedback_Node);
+
+            fx_3_fxSend_2_preEq_volNode.connect(fx_2_feedback_Node);
+            fx_3_fxSend_2_postEq_volNode.connect(fx_2_feedback_Node);
+            fx_3_fxSend_2_postFdr_volNode.connect(fx_2_feedback_Node);
+
+            fx_4_fxSend_2_preEq_volNode.connect(fx_2_feedback_Node);
+            fx_4_fxSend_2_postEq_volNode.connect(fx_2_feedback_Node);
+            fx_4_fxSend_2_postFdr_volNode.connect(fx_2_feedback_Node);
+
             fx_2_feedback_div.style.display = "block";
             fx_2_actual_patch = "fx_2_Feedback";
             break;
@@ -18943,6 +22607,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_2_preEq_volNode.connect(fx_2_phaser_Node);
             channel_4_fxSend_2_postEq_volNode.connect(fx_2_phaser_Node);
             channel_4_fxSend_2_postFdr_volNode.connect(fx_2_phaser_Node);
+
+            fx_1_fxSend_2_preEq_volNode.connect(fx_2_phaser_Node);
+            fx_1_fxSend_2_postEq_volNode.connect(fx_2_phaser_Node);
+            fx_1_fxSend_2_postFdr_volNode.connect(fx_2_phaser_Node);
+
+            fx_2_fxSend_2_preEq_volNode.connect(fx_2_phaser_Node);
+            fx_2_fxSend_2_postEq_volNode.connect(fx_2_phaser_Node);
+            fx_2_fxSend_2_postFdr_volNode.connect(fx_2_phaser_Node);
+
+            fx_3_fxSend_2_preEq_volNode.connect(fx_2_phaser_Node);
+            fx_3_fxSend_2_postEq_volNode.connect(fx_2_phaser_Node);
+            fx_3_fxSend_2_postFdr_volNode.connect(fx_2_phaser_Node);
+
+            fx_4_fxSend_2_preEq_volNode.connect(fx_2_phaser_Node);
+            fx_4_fxSend_2_postEq_volNode.connect(fx_2_phaser_Node);
+            fx_4_fxSend_2_postFdr_volNode.connect(fx_2_phaser_Node);
 
             fx_2_actual_patch = "fx_2_phaser";
             fx_2_phaser_div.style.display = "block";
@@ -18967,7 +22647,23 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_2_preEq_volNode.connect(fx_2_pingpong_Node);
             channel_4_fxSend_2_postEq_volNode.connect(fx_2_pingpong_Node);
             channel_4_fxSend_2_postFdr_volNode.connect(fx_2_pingpong_Node);
-            /**/
+
+            fx_1_fxSend_2_preEq_volNode.connect(fx_2_pingpong_Node);
+            fx_1_fxSend_2_postEq_volNode.connect(fx_2_pingpong_Node);
+            fx_1_fxSend_2_postFdr_volNode.connect(fx_2_pingpong_Node);
+
+            fx_2_fxSend_2_preEq_volNode.connect(fx_2_pingpong_Node);
+            fx_2_fxSend_2_postEq_volNode.connect(fx_2_pingpong_Node);
+            fx_2_fxSend_2_postFdr_volNode.connect(fx_2_pingpong_Node);
+
+            fx_3_fxSend_2_preEq_volNode.connect(fx_2_pingpong_Node);
+            fx_3_fxSend_2_postEq_volNode.connect(fx_2_pingpong_Node);
+            fx_3_fxSend_2_postFdr_volNode.connect(fx_2_pingpong_Node);
+
+            fx_4_fxSend_2_preEq_volNode.connect(fx_2_pingpong_Node);
+            fx_4_fxSend_2_postEq_volNode.connect(fx_2_pingpong_Node);
+            fx_4_fxSend_2_postFdr_volNode.connect(fx_2_pingpong_Node);
+
             fx_2_actual_patch = "fx_2_pingpong";
             fx_2_pingpong_div.style.display = "block";
 
@@ -18992,6 +22688,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_2_postEq_volNode.connect(fx_2_pitchshift_Node);
             channel_4_fxSend_2_postFdr_volNode.connect(fx_2_pitchshift_Node);
 
+            fx_1_fxSend_2_preEq_volNode.connect(fx_2_pitchshift_Node);
+            fx_1_fxSend_2_postEq_volNode.connect(fx_2_pitchshift_Node);
+            fx_1_fxSend_2_postFdr_volNode.connect(fx_2_pitchshift_Node);
+
+            fx_2_fxSend_2_preEq_volNode.connect(fx_2_pitchshift_Node);
+            fx_2_fxSend_2_postEq_volNode.connect(fx_2_pitchshift_Node);
+            fx_2_fxSend_2_postFdr_volNode.connect(fx_2_pitchshift_Node);
+
+            fx_3_fxSend_2_preEq_volNode.connect(fx_2_pitchshift_Node);
+            fx_3_fxSend_2_postEq_volNode.connect(fx_2_pitchshift_Node);
+            fx_3_fxSend_2_postFdr_volNode.connect(fx_2_pitchshift_Node);
+
+            fx_4_fxSend_2_preEq_volNode.connect(fx_2_pitchshift_Node);
+            fx_4_fxSend_2_postEq_volNode.connect(fx_2_pitchshift_Node);
+            fx_4_fxSend_2_postFdr_volNode.connect(fx_2_pitchshift_Node);
+
             fx_2_actual_patch = "fx_2_pitchshift";
             fx_2_pitchshift_div.style.display = "block";
             break;
@@ -19015,6 +22727,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_2_preEq_volNode.connect(fx_2_reverb_Node);
             channel_4_fxSend_2_postEq_volNode.connect(fx_2_reverb_Node);
             channel_4_fxSend_2_postFdr_volNode.connect(fx_2_reverb_Node);
+
+            fx_1_fxSend_2_preEq_volNode.connect(fx_2_reverb_Node);
+            fx_1_fxSend_2_postEq_volNode.connect(fx_2_reverb_Node);
+            fx_1_fxSend_2_postFdr_volNode.connect(fx_2_reverb_Node);
+
+            fx_2_fxSend_2_preEq_volNode.connect(fx_2_reverb_Node);
+            fx_2_fxSend_2_postEq_volNode.connect(fx_2_reverb_Node);
+            fx_2_fxSend_2_postFdr_volNode.connect(fx_2_reverb_Node);
+
+            fx_3_fxSend_2_preEq_volNode.connect(fx_2_reverb_Node);
+            fx_3_fxSend_2_postEq_volNode.connect(fx_2_reverb_Node);
+            fx_3_fxSend_2_postFdr_volNode.connect(fx_2_reverb_Node);
+
+            fx_4_fxSend_2_preEq_volNode.connect(fx_2_reverb_Node);
+            fx_4_fxSend_2_postEq_volNode.connect(fx_2_reverb_Node);
+            fx_4_fxSend_2_postFdr_volNode.connect(fx_2_reverb_Node);
 
             fx_2_actual_patch = "fx_2_reverb";
             fx_2_reverb_div.style.display = "block";
@@ -19047,6 +22775,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_3_postEq_volNode.connect(fx_3_chorus_Node);
             channel_4_fxSend_3_postFdr_volNode.connect(fx_3_chorus_Node);
 
+            fx_1_fxSend_3_preEq_volNode.connect(fx_3_chorus_Node);
+            fx_1_fxSend_3_postEq_volNode.connect(fx_3_chorus_Node);
+            fx_1_fxSend_3_postFdr_volNode.connect(fx_3_chorus_Node);
+
+            fx_2_fxSend_3_preEq_volNode.connect(fx_3_chorus_Node);
+            fx_2_fxSend_3_postEq_volNode.connect(fx_3_chorus_Node);
+            fx_2_fxSend_3_postFdr_volNode.connect(fx_3_chorus_Node);
+
+            fx_3_fxSend_3_preEq_volNode.connect(fx_3_chorus_Node);
+            fx_3_fxSend_3_postEq_volNode.connect(fx_3_chorus_Node);
+            fx_3_fxSend_3_postFdr_volNode.connect(fx_3_chorus_Node);
+
+            fx_4_fxSend_3_preEq_volNode.connect(fx_3_chorus_Node);
+            fx_4_fxSend_3_postEq_volNode.connect(fx_3_chorus_Node);
+            fx_4_fxSend_3_postFdr_volNode.connect(fx_3_chorus_Node);
+
             fx_3_actual_patch = "fx_3_chorus";
             fx_3_chorus_div.style.display = "block";
             break;
@@ -19070,6 +22814,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_3_preEq_volNode.connect(fx_3_feedback_Node);
             channel_4_fxSend_3_postEq_volNode.connect(fx_3_feedback_Node);
             channel_4_fxSend_3_postFdr_volNode.connect(fx_3_feedback_Node);
+
+            fx_1_fxSend_3_preEq_volNode.connect(fx_3_feedback_Node);
+            fx_1_fxSend_3_postEq_volNode.connect(fx_3_feedback_Node);
+            fx_1_fxSend_3_postFdr_volNode.connect(fx_3_feedback_Node);
+
+            fx_2_fxSend_3_preEq_volNode.connect(fx_3_feedback_Node);
+            fx_2_fxSend_3_postEq_volNode.connect(fx_3_feedback_Node);
+            fx_2_fxSend_3_postFdr_volNode.connect(fx_3_feedback_Node);
+
+            fx_3_fxSend_3_preEq_volNode.connect(fx_3_feedback_Node);
+            fx_3_fxSend_3_postEq_volNode.connect(fx_3_feedback_Node);
+            fx_3_fxSend_3_postFdr_volNode.connect(fx_3_feedback_Node);
+
+            fx_4_fxSend_3_preEq_volNode.connect(fx_3_feedback_Node);
+            fx_4_fxSend_3_postEq_volNode.connect(fx_3_feedback_Node);
+            fx_4_fxSend_3_postFdr_volNode.connect(fx_3_feedback_Node);
 
             fx_3_feedback_div.style.display = "block";
             fx_3_actual_patch = "fx_3_Feedback";
@@ -19095,6 +22855,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_3_postEq_volNode.connect(fx_3_FrequencyShifter_Node);
             channel_4_fxSend_3_postFdr_volNode.connect(fx_3_FrequencyShifter_Node);
 
+            fx_1_fxSend_3_preEq_volNode.connect(fx_3_FrequencyShifter_Node);
+            fx_1_fxSend_3_postEq_volNode.connect(fx_3_FrequencyShifter_Node);
+            fx_1_fxSend_3_postFdr_volNode.connect(fx_3_FrequencyShifter_Node);
+
+            fx_2_fxSend_3_preEq_volNode.connect(fx_3_FrequencyShifter_Node);
+            fx_2_fxSend_3_postEq_volNode.connect(fx_3_FrequencyShifter_Node);
+            fx_2_fxSend_3_postFdr_volNode.connect(fx_3_FrequencyShifter_Node);
+
+            fx_3_fxSend_3_preEq_volNode.connect(fx_3_FrequencyShifter_Node);
+            fx_3_fxSend_3_postEq_volNode.connect(fx_3_FrequencyShifter_Node);
+            fx_3_fxSend_3_postFdr_volNode.connect(fx_3_FrequencyShifter_Node);
+
+            fx_4_fxSend_3_preEq_volNode.connect(fx_3_FrequencyShifter_Node);
+            fx_4_fxSend_3_postEq_volNode.connect(fx_3_FrequencyShifter_Node);
+            fx_4_fxSend_3_postFdr_volNode.connect(fx_3_FrequencyShifter_Node);
+
             fx_3_actual_patch = "fx_3_frequencyShifter";
             fx_3_frequencyShifter_div.style.display = "block";
             break;
@@ -19118,7 +22894,23 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_3_preEq_volNode.connect(fx_3_pingpong_Node);
             channel_4_fxSend_3_postEq_volNode.connect(fx_3_pingpong_Node);
             channel_4_fxSend_3_postFdr_volNode.connect(fx_3_pingpong_Node);
-            /**/
+
+            fx_1_fxSend_3_preEq_volNode.connect(fx_3_pingpong_Node);
+            fx_1_fxSend_3_postEq_volNode.connect(fx_3_pingpong_Node);
+            fx_1_fxSend_3_postFdr_volNode.connect(fx_3_pingpong_Node);
+
+            fx_2_fxSend_3_preEq_volNode.connect(fx_3_pingpong_Node);
+            fx_2_fxSend_3_postEq_volNode.connect(fx_3_pingpong_Node);
+            fx_2_fxSend_3_postFdr_volNode.connect(fx_3_pingpong_Node);
+
+            fx_3_fxSend_3_preEq_volNode.connect(fx_3_pingpong_Node);
+            fx_3_fxSend_3_postEq_volNode.connect(fx_3_pingpong_Node);
+            fx_3_fxSend_3_postFdr_volNode.connect(fx_3_pingpong_Node);
+
+            fx_4_fxSend_3_preEq_volNode.connect(fx_3_pingpong_Node);
+            fx_4_fxSend_3_postEq_volNode.connect(fx_3_pingpong_Node);
+            fx_4_fxSend_3_postFdr_volNode.connect(fx_3_pingpong_Node);
+
             fx_3_actual_patch = "fx_3_pingpong";
             fx_3_pingpong_div.style.display = "block";
 
@@ -19143,6 +22935,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_3_postEq_volNode.connect(fx_3_pitchshift_Node);
             channel_4_fxSend_3_postFdr_volNode.connect(fx_3_pitchshift_Node);
 
+            fx_1_fxSend_3_preEq_volNode.connect(fx_3_pitchshift_Node);
+            fx_1_fxSend_3_postEq_volNode.connect(fx_3_pitchshift_Node);
+            fx_1_fxSend_3_postFdr_volNode.connect(fx_3_pitchshift_Node);
+
+            fx_2_fxSend_3_preEq_volNode.connect(fx_3_pitchshift_Node);
+            fx_2_fxSend_3_postEq_volNode.connect(fx_3_pitchshift_Node);
+            fx_2_fxSend_3_postFdr_volNode.connect(fx_3_pitchshift_Node);
+
+            fx_3_fxSend_3_preEq_volNode.connect(fx_3_pitchshift_Node);
+            fx_3_fxSend_3_postEq_volNode.connect(fx_3_pitchshift_Node);
+            fx_3_fxSend_3_postFdr_volNode.connect(fx_3_pitchshift_Node);
+
+            fx_4_fxSend_3_preEq_volNode.connect(fx_3_pitchshift_Node);
+            fx_4_fxSend_3_postEq_volNode.connect(fx_3_pitchshift_Node);
+            fx_4_fxSend_3_postFdr_volNode.connect(fx_3_pitchshift_Node);
+
             fx_3_actual_patch = "fx_3_pitchshift";
             fx_3_pitchshift_div.style.display = "block";
             break;
@@ -19166,6 +22974,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_3_preEq_volNode.connect(fx_3_reverb_Node);
             channel_4_fxSend_3_postEq_volNode.connect(fx_3_reverb_Node);
             channel_4_fxSend_3_postFdr_volNode.connect(fx_3_reverb_Node);
+
+            fx_1_fxSend_3_preEq_volNode.connect(fx_3_reverb_Node);
+            fx_1_fxSend_3_postEq_volNode.connect(fx_3_reverb_Node);
+            fx_1_fxSend_3_postFdr_volNode.connect(fx_3_reverb_Node);
+
+            fx_2_fxSend_3_preEq_volNode.connect(fx_3_reverb_Node);
+            fx_2_fxSend_3_postEq_volNode.connect(fx_3_reverb_Node);
+            fx_2_fxSend_3_postFdr_volNode.connect(fx_3_reverb_Node);
+
+            fx_3_fxSend_3_preEq_volNode.connect(fx_3_reverb_Node);
+            fx_3_fxSend_3_postEq_volNode.connect(fx_3_reverb_Node);
+            fx_3_fxSend_3_postFdr_volNode.connect(fx_3_reverb_Node);
+
+            fx_4_fxSend_3_preEq_volNode.connect(fx_3_reverb_Node);
+            fx_4_fxSend_3_postEq_volNode.connect(fx_3_reverb_Node);
+            fx_4_fxSend_3_postFdr_volNode.connect(fx_3_reverb_Node);
 
             fx_3_actual_patch = "fx_3_reverb";
             fx_3_reverb_div.style.display = "block";
@@ -19198,6 +23022,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_4_postEq_volNode.connect(fx_4_chorus_Node);
             channel_4_fxSend_4_postFdr_volNode.connect(fx_4_chorus_Node);
 
+            fx_1_fxSend_4_preEq_volNode.connect(fx_4_chorus_Node);
+            fx_1_fxSend_4_postEq_volNode.connect(fx_4_chorus_Node);
+            fx_1_fxSend_4_postFdr_volNode.connect(fx_4_chorus_Node);
+
+            fx_2_fxSend_4_preEq_volNode.connect(fx_4_chorus_Node);
+            fx_2_fxSend_4_postEq_volNode.connect(fx_4_chorus_Node);
+            fx_2_fxSend_4_postFdr_volNode.connect(fx_4_chorus_Node);
+
+            fx_3_fxSend_4_preEq_volNode.connect(fx_4_chorus_Node);
+            fx_3_fxSend_4_postEq_volNode.connect(fx_4_chorus_Node);
+            fx_3_fxSend_4_postFdr_volNode.connect(fx_4_chorus_Node);
+
+            fx_4_fxSend_4_preEq_volNode.connect(fx_4_chorus_Node);
+            fx_4_fxSend_4_postEq_volNode.connect(fx_4_chorus_Node);
+            fx_4_fxSend_4_postFdr_volNode.connect(fx_4_chorus_Node);
+
             fx_4_actual_patch = "fx_4_chorus";
             fx_4_chorus_div.style.display = "block";
             break;
@@ -19221,6 +23061,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_4_preEq_volNode.connect(fx_4_feedback_Node);
             channel_4_fxSend_4_postEq_volNode.connect(fx_4_feedback_Node);
             channel_4_fxSend_4_postFdr_volNode.connect(fx_4_feedback_Node);
+
+            fx_1_fxSend_4_preEq_volNode.connect(fx_4_feedback_Node);
+            fx_1_fxSend_4_postEq_volNode.connect(fx_4_feedback_Node);
+            fx_1_fxSend_4_postFdr_volNode.connect(fx_4_feedback_Node);
+
+            fx_2_fxSend_4_preEq_volNode.connect(fx_4_feedback_Node);
+            fx_2_fxSend_4_postEq_volNode.connect(fx_4_feedback_Node);
+            fx_2_fxSend_4_postFdr_volNode.connect(fx_4_feedback_Node);
+
+            fx_3_fxSend_4_preEq_volNode.connect(fx_4_feedback_Node);
+            fx_3_fxSend_4_postEq_volNode.connect(fx_4_feedback_Node);
+            fx_3_fxSend_4_postFdr_volNode.connect(fx_4_feedback_Node);
+
+            fx_4_fxSend_4_preEq_volNode.connect(fx_4_feedback_Node);
+            fx_4_fxSend_4_postEq_volNode.connect(fx_4_feedback_Node);
+            fx_4_fxSend_4_postFdr_volNode.connect(fx_4_feedback_Node);
 
             fx_4_feedback_div.style.display = "block";
             fx_4_actual_patch = "fx_4_Feedback";
@@ -19246,6 +23102,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_4_postEq_volNode.connect(fx_4_FrequencyShifter_Node);
             channel_4_fxSend_4_postFdr_volNode.connect(fx_4_FrequencyShifter_Node);
 
+            fx_1_fxSend_4_preEq_volNode.connect(fx_4_FrequencyShifter_Node);
+            fx_1_fxSend_4_postEq_volNode.connect(fx_4_FrequencyShifter_Node);
+            fx_1_fxSend_4_postFdr_volNode.connect(fx_4_FrequencyShifter_Node);
+
+            fx_2_fxSend_4_preEq_volNode.connect(fx_4_FrequencyShifter_Node);
+            fx_2_fxSend_4_postEq_volNode.connect(fx_4_FrequencyShifter_Node);
+            fx_2_fxSend_4_postFdr_volNode.connect(fx_4_FrequencyShifter_Node);
+
+            fx_3_fxSend_4_preEq_volNode.connect(fx_4_FrequencyShifter_Node);
+            fx_3_fxSend_4_postEq_volNode.connect(fx_4_FrequencyShifter_Node);
+            fx_3_fxSend_4_postFdr_volNode.connect(fx_4_FrequencyShifter_Node);
+
+            fx_4_fxSend_4_preEq_volNode.connect(fx_4_FrequencyShifter_Node);
+            fx_4_fxSend_4_postEq_volNode.connect(fx_4_FrequencyShifter_Node);
+            fx_4_fxSend_4_postFdr_volNode.connect(fx_4_FrequencyShifter_Node);
+
             fx_4_actual_patch = "fx_4_frequencyShifter";
             fx_4_frequencyShifter_div.style.display = "block";
             break;
@@ -19268,6 +23140,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_4_preEq_volNode.connect(fx_4_phaser_Node);
             channel_4_fxSend_4_postEq_volNode.connect(fx_4_phaser_Node);
             channel_4_fxSend_4_postFdr_volNode.connect(fx_4_phaser_Node);
+
+            fx_1_fxSend_4_preEq_volNode.connect(fx_4_phaser_Node);
+            fx_1_fxSend_4_postEq_volNode.connect(fx_4_phaser_Node);
+            fx_1_fxSend_4_postFdr_volNode.connect(fx_4_phaser_Node);
+
+            fx_2_fxSend_4_preEq_volNode.connect(fx_4_phaser_Node);
+            fx_2_fxSend_4_postEq_volNode.connect(fx_4_phaser_Node);
+            fx_2_fxSend_4_postFdr_volNode.connect(fx_4_phaser_Node);
+
+            fx_3_fxSend_4_preEq_volNode.connect(fx_4_phaser_Node);
+            fx_3_fxSend_4_postEq_volNode.connect(fx_4_phaser_Node);
+            fx_3_fxSend_4_postFdr_volNode.connect(fx_4_phaser_Node);
+
+            fx_4_fxSend_4_preEq_volNode.connect(fx_4_phaser_Node);
+            fx_4_fxSend_4_postEq_volNode.connect(fx_4_phaser_Node);
+            fx_4_fxSend_4_postFdr_volNode.connect(fx_4_phaser_Node);
 
             fx_4_actual_patch = "fx_4_phaser";
             fx_4_phaser_div.style.display = "block";
@@ -19292,7 +23180,23 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_4_preEq_volNode.connect(fx_4_pingpong_Node);
             channel_4_fxSend_4_postEq_volNode.connect(fx_4_pingpong_Node);
             channel_4_fxSend_4_postFdr_volNode.connect(fx_4_pingpong_Node);
-            /**/
+
+            fx_1_fxSend_4_preEq_volNode.connect(fx_4_pingpong_Node);
+            fx_1_fxSend_4_postEq_volNode.connect(fx_4_pingpong_Node);
+            fx_1_fxSend_4_postFdr_volNode.connect(fx_4_pingpong_Node);
+
+            fx_2_fxSend_4_preEq_volNode.connect(fx_4_pingpong_Node);
+            fx_2_fxSend_4_postEq_volNode.connect(fx_4_pingpong_Node);
+            fx_2_fxSend_4_postFdr_volNode.connect(fx_4_pingpong_Node);
+
+            fx_3_fxSend_4_preEq_volNode.connect(fx_4_pingpong_Node);
+            fx_3_fxSend_4_postEq_volNode.connect(fx_4_pingpong_Node);
+            fx_3_fxSend_4_postFdr_volNode.connect(fx_4_pingpong_Node);
+
+            fx_4_fxSend_4_preEq_volNode.connect(fx_4_pingpong_Node);
+            fx_4_fxSend_4_postEq_volNode.connect(fx_4_pingpong_Node);
+            fx_4_fxSend_4_postFdr_volNode.connect(fx_4_pingpong_Node);
+
             fx_4_actual_patch = "fx_4_pingpong";
             fx_4_pingpong_div.style.display = "block";
 
@@ -19317,6 +23221,22 @@ function sets_New_FX(channel, effecttype) {
             channel_4_fxSend_1_preEq_volNode.connect(fx_4_reverb_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_4_reverb_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_4_reverb_Node);
+
+            fx_1_fxSend_4_preEq_volNode.connect(fx_4_reverb_Node);
+            fx_1_fxSend_1_postEq_volNode.connect(fx_4_reverb_Node);
+            fx_1_fxSend_1_postFdr_volNode.connect(fx_4_reverb_Node);
+
+            fx_2_fxSend_1_preEq_volNode.connect(fx_4_reverb_Node);
+            fx_2_fxSend_1_postEq_volNode.connect(fx_4_reverb_Node);
+            fx_2_fxSend_1_postFdr_volNode.connect(fx_4_reverb_Node);
+
+            fx_3_fxSend_1_preEq_volNode.connect(fx_4_reverb_Node);
+            fx_3_fxSend_1_postEq_volNode.connect(fx_4_reverb_Node);
+            fx_3_fxSend_1_postFdr_volNode.connect(fx_4_reverb_Node);
+
+            fx_4_fxSend_1_preEq_volNode.connect(fx_4_reverb_Node);
+            fx_4_fxSend_1_postEq_volNode.connect(fx_4_reverb_Node);
+            fx_4_fxSend_1_postFdr_volNode.connect(fx_4_reverb_Node);
 
             fx_4_actual_patch = "fx_4_reverb";
             fx_4_reverb_div.style.display = "block";
@@ -19360,7 +23280,7 @@ function sets_New_Source(source, value) {
           }
         case "Noise": //
           {
-            ("sets_New_Source: " + value);
+            // ("sets_New_Source: " + value);
             noise_1_Node.connect(channel_1_panNode);
             noise_1_div.style.display = "block";
             source_1_actual_patch = "noise"
@@ -19550,25 +23470,25 @@ function sets_New_Source(source, value) {
 }
 
 function mostrarerror(evento) {
+
+  console.log("Error: " + evento.error);
+  console.log("Mensaje: " + evento.message);
+  console.log("Línea: " + evento.lineno);
+  console.log("Columna: " + evento.colno);
+  console.log("URL: " + evento.filename);
+  console.log("\n");
+  console.log("DOMError.name: " + DOMError.name);
   /*
-    console.log("Error: " + evento.error);
-    console.log("Mensaje: " + evento.message);
-    console.log("Línea: " + evento.lineno);
-    console.log("Columna: " + evento.colno);
-    console.log("URL: " + evento.filename);
-    console.log("\n");
-    console.log("DOMError.name: " + DOMError.name);
-    /*
-  const button = document.querySelector("button");
-  
-  button.onclick = () => {
-    try {
-      throw new DOMException("Custom DOM Exception Triggered.");
-    } catch (error) {
-      document.querySelector("#output").textContent = `Error: ${error.message}`;
-    }
-  };
-    */
+const button = document.querySelector("button");
+ 
+button.onclick = () => {
+  try {
+    throw new DOMException("Custom DOM Exception Triggered.");
+  } catch (error) {
+    document.querySelector("#output").textContent = `Error: ${error.message}`;
+  }
+};
+  */
 
 
 }
@@ -19576,7 +23496,7 @@ function mostrarerror(evento) {
 function updatesMeters() {
   meter_test_Node_RMS.innerHTML = Math.round(`${meter_test_Node.getValue()}`);
   player_1_rms_meter_inner.innerHTML = Math.round(`${player_1_rms_meter.getValue()}`);
-  // player_2_rms_value.innerHTML = Math.round(`${testMeter_2.getValue()}`);
+  player_2_rms_meter_inner.innerHTML = Math.round(`${player_2_rms_meter.getValue()}`);
   channel_1_rms_meter_inner.innerHTML = Math.round(`${channel_1_rms_meter.getValue()}`);
   channel_1_filter_bypass_meter_inner.innerHTML = Math.round(`${channel_1_filter_bypass_meter.getValue()}`);
   channel_1_filter_allpass_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
@@ -19593,20 +23513,34 @@ function updatesMeters() {
   channel_1_tascam_424_Mid_meter_inner.innerHTML = Math.round(`${channel_1_tascam_424_Mid_meter.getValue()}`);
   channel_1_tascam_424_Low_meter_inner.innerHTML = Math.round(`${channel_1_tascam_424_Low_meter.getValue()}`);
   channel_1_eq3_meter_inner.innerHTML = Math.round(`${channel_1_eq3_meter.getValue()}`);
-  //player_3_rms_value.innerHTML = Math.round(`${testMeter_3.getValue()}`);
-  //player_4_rms_value.innerHTML = Math.round(`${testMeter_4.getValue()}`);
+  //player_3_rms_meter_inner.innerHTML = Math.round(`${player_3_rms_meter.getValue()}`);
+  //player_4_rms_meter_inner.innerHTML = Math.round(`${player_4_rms_meter.getValue()}`);
   grainPlayer_1_rms_value.innerHTML = Math.round(`${grainPlayer_1_rmsNode.getValue()}`);
 
   channel_2_rms_meter_inner.innerHTML = Math.round(`${channel_2_rms_meter.getValue()}`);
   channel_3_rms_meter_inner.innerHTML = Math.round(`${channel_3_rms_meter.getValue()}`);
   channel_4_rms_meter_inner.innerHTML = Math.round(`${channel_4_rms_meter.getValue()}`);
 
-  fx_1_rms_value.innerHTML = Math.round(`${testMeter_fx_1.getValue()}`);
-  fx_2_rms_value.innerHTML = Math.round(`${testMeter_fx_2.getValue()}`);
-  // fx_3_rms_value.innerHTML = Math.round(`${testMeter_fx_3.getValue()}`);
-  //fx_4_rms_value.innerHTML = Math.round(`${testMeter_fx_4.getValue()}`);
-  //fx_3_rms_value.innerHTML = Math.round(`${testMeter_fx_3.getValue()}`);
-  //fx_4_rms_value.innerHTML = Math.round(`${testMeter_fx_4.getValue()}`);
+  //fx_1_rms_value.innerHTML = Math.round(`${fxReturn_1_fader_meter.getValue()}`);
+
+  fx_1_rms_meter_inner.innerHTML = Math.round(`${fx_1_rms_meter.getValue()}`);
+  fx_1_filter_bypass_meter_inner.innerHTML = Math.round(`${fx_1_filter_bypass_meter.getValue()}`);
+  fx_1_eq3_meter_inner.innerHTML = Math.round(`${fx_1_eq3_meter.getValue()}`);
+
+  //fx_1_filter_allpass_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
+  //fx_1_shelf_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
+  //fx_1_peaking_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
+  //fx_1_rms_comp_bypass_meter_inner.innerHTML = Math.round(`${fx_1_rms_comp_bypass_meter.getValue()}`);
+  //fx_1_rms_gate_bypass_meter_inner.innerHTML = Math.round(`${fx_1_rms_gate_bypass_meter.getValue()}`);
+  //fx_1_rms_limiter_bypass_meter_inner.innerHTML = Math.round(`${fx_1_rms_limiter_bypass_meter.getValue()}`);
+  //fx_1_rms_comp_meter_inner.innerHTML = Math.round(`${fx_1_rms_comp_meter.getValue()}`);
+  //fx_1_rms_gate_meter_inner.innerHTML = Math.round(`${fx_1_rms_gate_meter.getValue()}`);
+  //fx_1_rms_limiter_meter_inner.innerHTML = Math.round(`${fx_1_rms_limiter_meter.getValue()}`);
+
+
+  fx_2_rms_value.innerHTML = Math.round(`${fxReturn_2_meter.getValue()}`);
+  fx_3_rms_value.innerHTML = Math.round(`${fxReturn_3_meter.getValue()}`);
+  fx_4_rms_value.innerHTML = Math.round(`${fxReturn_4_meter.getValue()}`);
 }
 
 function hide_all_divs(value) {
@@ -20050,10 +23984,10 @@ function switchState_dynamics(name) {
 }
 
 function switchState_filter_eq_selection(name, value) {
-  /*
-      alert("switchState_filter_eq_selection: " + value
-      + "\n" + "name:  " + name);
-  */
+
+  alert("switchState_filter_eq_selection: " + value
+    + "\n" + "name:  " + name);
+  /*  */
   switch (name) {
     case "channel_1_filter_eq_selection":
       {
@@ -20752,74 +24686,138 @@ function multiPlay() {
     if (player_1_Node.buffer.duration != 0) {
       player_1_Node.start();
       player_1_playButton.style.backgroundColor = "green";
-      mixEvent.logIntoListaAction(Tone.now(), "player_1_multiPlay", fileHandle.name);
+      mixEvent.logIntoListaAction(Tone.now(), "player_1_multiPlay", "play");
     }
   }
   if (multiple_play_source_2.checked == true) {
     if (player_2_Node.buffer.duration != 0) {
       player_2_Node.start();
       player_2_playButton.style.backgroundColor = "green";
-      mixEvent.logIntoListaAction(Tone.now(), "player_2_multiPlay", fileHandle.name);
+      mixEvent.logIntoListaAction(Tone.now(), "player_2_multiPlay", "play");
     }
   }
   if (multiple_play_source_3.checked == true) {
     if (player_3_Node.buffer.duration != 0) {
       player_3_Node.start();
       player_3_playButton.style.backgroundColor = "green";
-      mixEvent.logIntoListaAction(Tone.now(), "player_3_multiPlay", fileHandle.name);
+      mixEvent.logIntoListaAction(Tone.now(), "player_3_multiPlay", "play");
     }
   }
   if (multiple_play_source_4.checked == true) {
     if (player_4_Node.buffer.duration != 0) {
       player_4_Node.start();
       player_4_playButton.style.backgroundColor = "green";
-      mixEvent.logIntoListaAction(Tone.now(), "player_4_multiPlay", fileHandle.name);
+      mixEvent.logIntoListaAction(Tone.now(), "player_4_multiPlay", "play");
+    }
+    if (multiple_play_test_player.checked == true) {
+      if (player_test_Node.buffer.duration != 0) {
+        player_test_Node.start();
+      }
+
+
+    }
+    /*
+    console.log("1: " + multiple_play_source_1.checked + "   " +
+      "2: " + multiple_play_source_2.checked + "   " +
+      "3: " + multiple_play_source_3.checked + "   " +
+      "4: " + multiple_play_source_4.checked);
+      */
+  }
+  if (multiple_play_test_player.checked == true) {
+    if (player_test_Node.buffer.duration != 0) {
+      player_test_Node.start();
     }
   }
-  /*
-  console.log("1: " + multiple_play_source_1.checked + "   " +
-    "2: " + multiple_play_source_2.checked + "   " +
-    "3: " + multiple_play_source_3.checked + "   " +
-    "4: " + multiple_play_source_4.checked);
-    */
 }
-
 function multiStop() {
   if (multiple_play_source_1.checked == true) {
     if (player_1_Node.buffer.duration != 0) {
       player_1_Node.stop();
       player_1_playButton.style.backgroundColor = "white";
-      mixEvent.logIntoListaAction(Tone.now(), "player_1_multiStop", fileHandle.name);
+      mixEvent.logIntoListaAction(Tone.now(), "player_1_multiStop", "stop");
     }
   }
   if (multiple_play_source_2.checked == true) {
     if (player_2_Node.buffer.duration != 0) {
       player_2_Node.stop();
       player_2_playButton.style.backgroundColor = "white";
-      mixEvent.logIntoListaAction(Tone.now(), "player_2_multiStop", fileHandle.name);
+      mixEvent.logIntoListaAction(Tone.now(), "player_2_multiStop", "stop");
     }
   }
   if (multiple_play_source_3.checked == true) {
     if (player_3_Node.buffer.duration != 0) {
       player_3_Node.stop();
       player_3_playButton.style.backgroundColor = "white";
-      mixEvent.logIntoListaAction(Tone.now(), "player_3_multiStop", fileHandle.name);
+      mixEvent.logIntoListaAction(Tone.now(), "player_3_multiStop", "stop");
     }
   }
   if (multiple_play_source_4.checked == true) {
     if (player_4_Node.buffer.duration != 0) {
       player_4_Node.stop();
       player_4_playButton.style.backgroundColor = "white";
-      mixEvent.logIntoListaAction(Tone.now(), "player_4_multiStop", fileHandle.name);
+      mixEvent.logIntoListaAction(Tone.now(), "player_4_multiStop", "stop");
     }
   }
-  /*
-  console.log("1: " + multiple_play_source_1.checked + "   " +
-    "2: " + multiple_play_source_2.checked + "   " +
-    "3: " + multiple_play_source_3.checked + "   " +
-    "4: " + multiple_play_source_4.checked);
-    */
+  if (multiple_play_test_player.checked == true) {
+    if (player_test_Node.buffer.duration != 0) {
+      player_test_Node.stop();
+    }
+  }
 }
+
+async function multiLoad() {
+  try {
+    const ctx = new window.AudioContext();
+    const [fileHandle] = await window.showOpenFilePicker({
+      multiple: false,
+      types: [
+        {
+          description: 'Audio files',
+          accept: {
+            'audio/*': ['.wav', '.ogg', '.mp3', '.mp4', '.aac', '.flac', '.webm'],
+          }
+        },
+      ],
+      excludeAcceptAllOption: true,
+      startIn: 'downloads'
+    });
+    const file = await fileHandle.getFile();
+    const arrayBuffer = await file.arrayBuffer();
+    const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
+
+    if (multiple_play_source_1.checked == true) {
+      player_1_Node.buffer.set(decodedBuffer);
+      player_1_load_text.innerHTML = fileHandle.name;
+      mixEvent.logIntoListaAction(Tone.now(), "player_1", fileHandle.name);
+    }
+    if (multiple_play_source_2.checked == true) {
+      player_2_Node.buffer.set(decodedBuffer);
+      player_2_load_text.innerHTML = fileHandle.name;
+      mixEvent.logIntoListaAction(Tone.now(), "player_2", fileHandle.name);
+    }
+    if (multiple_play_source_3.checked == true) {
+      player_3_Node.buffer.set(decodedBuffer);
+      player_3_load_text.innerHTML = fileHandle.name;
+      mixEvent.logIntoListaAction(Tone.now(), "player_3", fileHandle.name);
+    }
+    if (multiple_play_source_4.checked == true) {
+      player_4_Node.buffer.set(decodedBuffer);
+      player_4_load_text.innerHTML = fileHandle.name;
+      mixEvent.logIntoListaAction(Tone.now(), "player_4", fileHandle.name);
+    }
+    if (multiple_play_test_player.checked == true) {
+      player_test_Node.buffer.set(decodedBuffer);
+    }
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      console.log('User dismissed the file picker.');
+    } else {
+      console.error('Error loading file:', error);
+    }
+  }
+
+}
+
 
 //https://youtube.com/shorts/SnHiWFh0Aco?si=TIXRTiJJpOvFq3wo
 
@@ -20988,7 +24986,7 @@ function concatFloat32Arrays(array1, array2) {
 /*
 const arr1 = new Float32Array([1.1, 2.2, 3.3]);
 const arr2 = new Float32Array([4.4, 5.5, 6.6]);
-
+ 
 const concatenatedArray = concatFloat32Arrays(arr1, arr2);
 console.log(concatenatedArray); // Output: Float32Array [1.1, 2.2, 3.3, 4.4, 5.5, 6.6]
 */
@@ -21081,9 +25079,9 @@ function scrambler(tempScramblerFloat32Array) {
           }
         }
         while (k < decodedBuffer.length);
-
-
-
+ 
+ 
+ 
 /**/
 
 function createMatrix(N, M) {
@@ -21110,10 +25108,6 @@ function getRndInteger(min, max) {
 
 function alerta(texto) {
   alert(texto + "\n");
-}
-
-function alerta(texto, value) {
-  alert(texto + "\n" + value);
 }
 
 function agregaReverbWorklet() {
@@ -21156,7 +25150,9 @@ async function saveFile() {
     const fileHandle = await window.showSaveFilePicker(options);
     const writableStream = await fileHandle.createWritable();
     var cadena = table_to_String(lista);
+    var allSettings = allSettings_to_String();
     // Write content to the file
+    await writableStream.write(allSettings);
     await writableStream.write(cadena);
     await writableStream.close();
     console.log('File saved successfully!');
@@ -21169,11 +25165,428 @@ async function saveFile() {
   }
 }
 
+function allSettings_to_String() {
+  var allSettings = "", temp = "";
+  temp =
+    "channel_1_volume" + ", " + channel_1_volNode.volume.value + "\n" +
+    "channel_1_pan" + ", " + channel_1_panNode.pan.value + "\n" +
+    "source_1_actual_patch" + ", " + source_1_actual_patch + "\n" +
+    "player_1_scrambler" + ", " + player_1_scrambler + "\n" +
+    "player_1_volume" + ", " + player_1_volume.value + "\n" +
+    "player_1_playback_rate" + ", " + player_1_playback_rate.value + "\n" +
+    "player_1_Node.loop" + ", " + player_1_Node.loop + "\n" +
+    "player_1_Node.autoplay" + ", " + player_1_Node.autoplay + "\n" +
+    "player_1_Node.reverse" + ", " + player_1_Node.reverse + "\n" +
+    "player_1_Node.loopStart" + ", " + player_1_Node.loopStart + "\n" +
+    "player_1_Node.loopEnd" + ", " + player_1_Node.loopEnd + "\n" +
+    "channel_1_filter_eq_selection" + ", " + channel_1_filter_eq_selection + "\n" +
+    "channel_1_filter_eq_type" + ", " + channel_1_filter_eq_type + "\n" +
+    "channel_1_filter_frequency" + ", " + channel_1_filter.frequency.value + "\n" +
+    "channel_1_filter_Q" + ", " + channel_1_filter.Q.value + "\n" +
+    "channel_1_filter_gain" + ", " + channel_1_filter.gain.value + "\n" +
+    "channel_1_filter_rolloff" + ", " + channel_1_filter.rolloff + "\n" +
+    "channel_1_filter_eq3_low" + ", " + channel_1_filter_eq3.low.value + "\n" +
+    "channel_1_filter_eq3_mid" + ", " + channel_1_filter_eq3.mid.value + "\n" +
+    "channel_1_filter_eq3_high" + ", " + channel_1_filter_eq3.high.value + "\n" +
+    "channel_1_filter_eq3_lowFrequency" + ", " + channel_1_filter_eq3.lowFrequency.value + "\n" +
+    "channel_1_filter_eq3_highFrequency" + ", " + channel_1_filter_eq3.highFrequency.value + "\n" +
+    "channel_1_filter_eq3_Q" + ", " + channel_1_filter_eq3.Q.value + "\n" +
+    "channel_1_tascam_HighShelf_FilterNode_frequency" + ", " + channel_1_tascam_HighShelf_FilterNode.frequency.value + "\n" +
+    "channel_1_tascam_HighShelf_FilterNode_gain" + ", " + channel_1_tascam_HighShelf_FilterNode.gain.value + "\n" +
+    "channel_1_tascam_HighShelf_FilterNode_rolloff" + ", " + channel_1_tascam_HighShelf_FilterNode.rolloff + "\n" +
+    "channel_1_tascam_Mid_SemiParam_FilterNode_frequency" + ", " + channel_1_tascam_Mid_SemiParam_FilterNode.frequency.value + "\n" +
+    "channel_1_tascam_Mid_SemiParam_FilterNode_gain" + ", " + channel_1_tascam_Mid_SemiParam_FilterNode.gain.value + "\n" +
+    "channel_1_tascam_Mid_SemiParam_FilterNode_Q" + ", " + channel_1_tascam_Mid_SemiParam_FilterNode.Q.value + "\n" +
+    "channel_1_tascam_Mid_SemiParam_FilterNode_rolloff" + ", " + channel_1_tascam_Mid_SemiParam_FilterNode.rolloff + "\n" +
+    "channel_1_tascam_LowShelf_FilterNode_frequency" + ", " + channel_1_tascam_LowShelf_FilterNode.frequency.value + "\n" +
+    "channel_1_tascam_LowShelf_FilterNode_gain" + ", " + channel_1_tascam_LowShelf_FilterNode.gain.value + "\n" +
+    "channel_1_tascam_LowShelf_FilterNode_rolloff" + ", " + channel_1_tascam_LowShelf_FilterNode.rolloff + "\n" +
+    "channel_1_compressor_On_Off_Button_State" + ", " + channel_1_compressor_On_Off_Button_State + "\n" +
+    "channel_1_dynamics_compressorNode_reduction" + ", " + channel_1_dynamics_compressorNode.reduction + "\n" +
+    "channel_1_dynamics_compressorNode.ratio" + ", " + channel_1_dynamics_compressorNode.ratio.value + "\n" +
+    "channel_1_dynamics_threshold" + ", " + channel_1_dynamics_compressorNode.threshold.value + "\n" +
+    "channel_1_dynamics_release" + ", " + channel_1_dynamics_release.value + "\n" +
+    "channel_1_dynamics_attack" + ", " + channel_1_dynamics_attack.value + "\n" +
+    "channel_1_dynamics_knee" + ", " + channel_1_dynamics_knee.value + "\n" +
+    "channel_1_gate_On_Off_Button_State" + ", " + channel_1_gate_On_Off_Button_State + "\n" +
+    "channel_1_dynamics_gateNode.threshold" + ", " + channel_1_dynamics_gateNode.threshold + "\n" +
+    "channel_1_dynamics_gateNode.smoothing" + ", " + channel_1_dynamics_gateNode.smoothing + "\n" +
+    "channel_1_limiter_On_Off_Button_State" + ", " + channel_1_limiter_On_Off_Button_State + "\n" +
+    "channel_1_dynamics_limiterNode.threshold.value" + ", " + channel_1_dynamics_limiterNode.threshold.value + "\n" +
+    "channel_1_dynamics_limiterNode.reduction" + ", " + channel_1_dynamics_limiterNode.reduction + "\n" +
+    "channel_1_fxSend_1_state" + ", " + channel_1_fxSend_1_state + "\n" +
+    "channel_1_fxSend_1" + ", " + channel_1_fxSend_1.value + "\n" +
+    "channel_1_fxSend_2_state" + ", " + channel_1_fxSend_2_state + "\n" +
+    "channel_1_fxSend_2" + ", " + channel_1_fxSend_2.value + "\n" +
+    "channel_1_fxSend_3_state" + ", " + channel_1_fxSend_3_state + "\n" +
+    "channel_1_fxSend_3" + ", " + channel_1_fxSend_3.value + "\n" +
+    "channel_1_fxSend_4_state" + ", " + channel_1_fxSend_4_state + "\n" +
+    "channel_1_fxSend_4" + ", " + channel_1_fxSend_4.value + "\n" +
+
+    "channel_2_volume" + ", " + channel_2_volNode.volume.value + "\n" +
+    "channel_2_pan" + ", " + channel_2_panNode.pan.value + "\n" +
+    "source_2_actual_patch" + ", " + source_2_actual_patch + "\n" +
+    "player_2_scrambler" + ", " + player_2_scrambler + "\n" +
+    "player_2_volume" + ", " + player_2_volume.value + "\n" +
+    "player_2_playback_rate" + ", " + player_2_playback_rate.value + "\n" +
+    "player_2_Node.loop" + ", " + player_2_Node.loop + "\n" +
+    "player_2_Node.autoplay" + ", " + player_2_Node.autoplay + "\n" +
+    "player_2_Node.reverse" + ", " + player_2_Node.reverse + "\n" +
+    "player_2_Node.loopStart" + ", " + player_2_Node.loopStart + "\n" +
+    "player_2_Node.loopEnd" + ", " + player_2_Node.loopEnd + "\n" +
+    "channel_2_filter_eq_selection" + ", " + channel_2_filter_eq_selection + "\n" +
+    "channel_2_filter_eq_type" + ", " + channel_2_filter_eq_type + "\n" +
+    "channel_2_filter_frequency" + ", " + channel_2_filter.frequency.value + "\n" +
+    "channel_2_filter_Q" + ", " + channel_2_filter.Q.value + "\n" +
+    "channel_2_filter_gain" + ", " + channel_2_filter.gain.value + "\n" +
+    "channel_2_filter_rolloff" + ", " + channel_2_filter.rolloff + "\n" +
+    "channel_2_filter_eq3_low" + ", " + channel_2_filter_eq3.low.value + "\n" +
+    "channel_2_filter_eq3_mid" + ", " + channel_2_filter_eq3.mid.value + "\n" +
+    "channel_2_filter_eq3_high" + ", " + channel_2_filter_eq3.high.value + "\n" +
+    "channel_2_filter_eq3_lowFrequency" + ", " + channel_2_filter_eq3.lowFrequency.value + "\n" +
+    "channel_2_filter_eq3_highFrequency" + ", " + channel_2_filter_eq3.highFrequency.value + "\n" +
+    "channel_2_filter_eq3_Q" + ", " + channel_2_filter_eq3.Q.value + "\n" +
+    "channel_2_tascam_HighShelf_FilterNode_frequency" + ", " + channel_2_tascam_HighShelf_FilterNode.frequency.value + "\n" +
+    "channel_2_tascam_HighShelf_FilterNode_gain" + ", " + channel_2_tascam_HighShelf_FilterNode.gain.value + "\n" +
+    "channel_2_tascam_HighShelf_FilterNode_rolloff" + ", " + channel_2_tascam_HighShelf_FilterNode.rolloff + "\n" +
+    "channel_2_tascam_Mid_SemiParam_FilterNode_frequency" + ", " + channel_2_tascam_Mid_SemiParam_FilterNode.frequency.value + "\n" +
+    "channel_2_tascam_Mid_SemiParam_FilterNode_gain" + ", " + channel_2_tascam_Mid_SemiParam_FilterNode.gain.value + "\n" +
+    "channel_2_tascam_Mid_SemiParam_FilterNode_Q" + ", " + channel_2_tascam_Mid_SemiParam_FilterNode.Q.value + "\n" +
+    "channel_2_tascam_Mid_SemiParam_FilterNode_rolloff" + ", " + channel_2_tascam_Mid_SemiParam_FilterNode.rolloff + "\n" +
+    "channel_2_tascam_LowShelf_FilterNode_frequency" + ", " + channel_2_tascam_LowShelf_FilterNode.frequency.value + "\n" +
+    "channel_2_tascam_LowShelf_FilterNode_gain" + ", " + channel_2_tascam_LowShelf_FilterNode.gain.value + "\n" +
+    "channel_2_tascam_LowShelf_FilterNode_rolloff" + ", " + channel_2_tascam_LowShelf_FilterNode.rolloff + "\n" +
+    "channel_2_compressor_On_Off_Button_State" + ", " + channel_2_compressor_On_Off_Button_State + "\n" +
+    "channel_2_dynamics_compressorNode_reduction" + ", " + channel_2_dynamics_compressorNode.reduction + "\n" +
+    "channel_2_dynamics_compressorNode.ratio" + ", " + channel_2_dynamics_compressorNode.ratio.value + "\n" +
+    "channel_2_dynamics_threshold" + ", " + channel_2_dynamics_compressorNode.threshold.value + "\n" +
+    "channel_2_dynamics_release" + ", " + channel_2_dynamics_release.value + "\n" +
+    "channel_2_dynamics_attack" + ", " + channel_2_dynamics_attack.value + "\n" +
+    "channel_2_dynamics_knee" + ", " + channel_2_dynamics_knee.value + "\n" +
+    "channel_2_gate_On_Off_Button_State" + ", " + channel_2_gate_On_Off_Button_State + "\n" +
+    "channel_2_dynamics_gateNode.threshold" + ", " + channel_2_dynamics_gateNode.threshold + "\n" +
+    "channel_2_dynamics_gateNode.smoothing" + ", " + channel_2_dynamics_gateNode.smoothing + "\n" +
+    "channel_2_limiter_On_Off_Button_State" + ", " + channel_2_limiter_On_Off_Button_State + "\n" +
+    "channel_2_dynamics_limiterNode.threshold.value" + ", " + channel_2_dynamics_limiterNode.threshold.value + "\n" +
+    "channel_2_dynamics_limiterNode.reduction" + ", " + channel_2_dynamics_limiterNode.reduction + "\n" +
+    "channel_2_fxSend_1_state" + ", " + channel_2_fxSend_1_state + "\n" +
+    "channel_2_fxSend_1" + ", " + channel_2_fxSend_1.value + "\n" +
+    "channel_2_fxSend_2_state" + ", " + channel_2_fxSend_2_state + "\n" +
+    "channel_2_fxSend_2" + ", " + channel_2_fxSend_2.value + "\n" +
+    "channel_2_fxSend_3_state" + ", " + channel_2_fxSend_3_state + "\n" +
+    "channel_2_fxSend_3" + ", " + channel_2_fxSend_3.value + "\n" +
+    "channel_2_fxSend_4_state" + ", " + channel_2_fxSend_4_state + "\n" +
+    "channel_2_fxSend_4" + ", " + channel_2_fxSend_4.value + "\n" +
+
+    "channel_3_volume" + ", " + channel_3_volNode.volume.value + "\n" +
+    "channel_3_pan" + ", " + channel_3_panNode.pan.value + "\n" +
+    "source_3_actual_patch" + ", " + source_3_actual_patch + "\n" +
+    "player_3_scrambler" + ", " + player_3_scrambler + "\n" +
+    "player_3_volume" + ", " + player_3_volume.value + "\n" +
+    "player_3_playback_rate" + ", " + player_3_playback_rate.value + "\n" +
+    "player_3_Node.loop" + ", " + player_3_Node.loop + "\n" +
+    "player_3_Node.autoplay" + ", " + player_3_Node.autoplay + "\n" +
+    "player_3_Node.reverse" + ", " + player_3_Node.reverse + "\n" +
+    "player_3_Node.loopStart" + ", " + player_3_Node.loopStart + "\n" +
+    "player_3_Node.loopEnd" + ", " + player_3_Node.loopEnd + "\n" +
+    "channel_3_filter_eq_selection" + ", " + channel_3_filter_eq_selection + "\n" +
+    "channel_3_filter_eq_type" + ", " + channel_3_filter_eq_type + "\n" +
+    "channel_3_filter_frequency" + ", " + channel_3_filter.frequency.value + "\n" +
+    "channel_3_filter_Q" + ", " + channel_3_filter.Q.value + "\n" +
+    "channel_3_filter_gain" + ", " + channel_3_filter.gain.value + "\n" +
+    "channel_3_filter_rolloff" + ", " + channel_3_filter.rolloff + "\n" +
+    "channel_3_filter_eq3_low" + ", " + channel_3_filter_eq3.low.value + "\n" +
+    "channel_3_filter_eq3_mid" + ", " + channel_3_filter_eq3.mid.value + "\n" +
+    "channel_3_filter_eq3_high" + ", " + channel_3_filter_eq3.high.value + "\n" +
+    "channel_3_filter_eq3_lowFrequency" + ", " + channel_3_filter_eq3.lowFrequency.value + "\n" +
+    "channel_3_filter_eq3_highFrequency" + ", " + channel_3_filter_eq3.highFrequency.value + "\n" +
+    "channel_3_filter_eq3_Q" + ", " + channel_3_filter_eq3.Q.value + "\n" +
+    "channel_3_tascam_HighShelf_FilterNode_frequency" + ", " + channel_3_tascam_HighShelf_FilterNode.frequency.value + "\n" +
+    "channel_3_tascam_HighShelf_FilterNode_gain" + ", " + channel_3_tascam_HighShelf_FilterNode.gain.value + "\n" +
+    "channel_3_tascam_HighShelf_FilterNode_rolloff" + ", " + channel_3_tascam_HighShelf_FilterNode.rolloff + "\n" +
+    "channel_3_tascam_Mid_SemiParam_FilterNode_frequency" + ", " + channel_3_tascam_Mid_SemiParam_FilterNode.frequency.value + "\n" +
+    "channel_3_tascam_Mid_SemiParam_FilterNode_gain" + ", " + channel_3_tascam_Mid_SemiParam_FilterNode.gain.value + "\n" +
+    "channel_3_tascam_Mid_SemiParam_FilterNode_Q" + ", " + channel_3_tascam_Mid_SemiParam_FilterNode.Q.value + "\n" +
+    "channel_3_tascam_Mid_SemiParam_FilterNode_rolloff" + ", " + channel_3_tascam_Mid_SemiParam_FilterNode.rolloff + "\n" +
+    "channel_3_tascam_LowShelf_FilterNode_frequency" + ", " + channel_3_tascam_LowShelf_FilterNode.frequency.value + "\n" +
+    "channel_3_tascam_LowShelf_FilterNode_gain" + ", " + channel_3_tascam_LowShelf_FilterNode.gain.value + "\n" +
+    "channel_3_tascam_LowShelf_FilterNode_rolloff" + ", " + channel_3_tascam_LowShelf_FilterNode.rolloff + "\n" +
+    "channel_3_compressor_On_Off_Button_State" + ", " + channel_3_compressor_On_Off_Button_State + "\n" +
+    "channel_3_dynamics_compressorNode_reduction" + ", " + channel_3_dynamics_compressorNode.reduction + "\n" +
+    "channel_3_dynamics_compressorNode.ratio" + ", " + channel_3_dynamics_compressorNode.ratio.value + "\n" +
+    "channel_3_dynamics_threshold" + ", " + channel_3_dynamics_compressorNode.threshold.value + "\n" +
+    "channel_3_dynamics_release" + ", " + channel_3_dynamics_release.value + "\n" +
+    "channel_3_dynamics_attack" + ", " + channel_3_dynamics_attack.value + "\n" +
+    "channel_3_dynamics_knee" + ", " + channel_3_dynamics_knee.value + "\n" +
+    "channel_3_gate_On_Off_Button_State" + ", " + channel_3_gate_On_Off_Button_State + "\n" +
+    "channel_3_dynamics_gateNode.threshold" + ", " + channel_3_dynamics_gateNode.threshold + "\n" +
+    "channel_3_dynamics_gateNode.smoothing" + ", " + channel_3_dynamics_gateNode.smoothing + "\n" +
+    "channel_3_limiter_On_Off_Button_State" + ", " + channel_3_limiter_On_Off_Button_State + "\n" +
+    "channel_3_dynamics_limiterNode.threshold.value" + ", " + channel_3_dynamics_limiterNode.threshold.value + "\n" +
+    "channel_3_dynamics_limiterNode.reduction" + ", " + channel_3_dynamics_limiterNode.reduction + "\n" +
+    "channel_3_fxSend_1_state" + ", " + channel_3_fxSend_1_state + "\n" +
+    "channel_3_fxSend_1" + ", " + channel_3_fxSend_1.value + "\n" +
+    "channel_3_fxSend_2_state" + ", " + channel_3_fxSend_2_state + "\n" +
+    "channel_3_fxSend_2" + ", " + channel_3_fxSend_2.value + "\n" +
+    "channel_3_fxSend_3_state" + ", " + channel_3_fxSend_3_state + "\n" +
+    "channel_3_fxSend_3" + ", " + channel_3_fxSend_3.value + "\n" +
+    "channel_3_fxSend_4_state" + ", " + channel_3_fxSend_4_state + "\n" +
+    "channel_3_fxSend_4" + ", " + channel_3_fxSend_4.value + "\n" +
+
+    "channel_4_volume" + ", " + channel_4_volNode.volume.value + "\n" +
+    "channel_4_pan" + ", " + channel_4_panNode.pan.value + "\n" +
+    "source_4_actual_patch" + ", " + source_4_actual_patch + "\n" +
+    "player_4_scrambler" + ", " + player_4_scrambler + "\n" +
+    "player_4_volume" + ", " + player_4_volume.value + "\n" +
+    "player_4_playback_rate" + ", " + player_4_playback_rate.value + "\n" +
+    "player_4_Node.loop" + ", " + player_4_Node.loop + "\n" +
+    "player_4_Node.autoplay" + ", " + player_4_Node.autoplay + "\n" +
+    "player_4_Node.reverse" + ", " + player_4_Node.reverse + "\n" +
+    "player_4_Node.loopStart" + ", " + player_4_Node.loopStart + "\n" +
+    "player_4_Node.loopEnd" + ", " + player_4_Node.loopEnd + "\n" +
+    "channel_4_filter_eq_selection" + ", " + channel_4_filter_eq_selection + "\n" +
+    "channel_4_filter_eq_type" + ", " + channel_4_filter_eq_type + "\n" +
+    "channel_4_filter_frequency" + ", " + channel_4_filter.frequency.value + "\n" +
+    "channel_4_filter_Q" + ", " + channel_4_filter.Q.value + "\n" +
+    "channel_4_filter_gain" + ", " + channel_4_filter.gain.value + "\n" +
+    "channel_4_filter_rolloff" + ", " + channel_4_filter.rolloff + "\n" +
+    "channel_4_filter_eq3_low" + ", " + channel_4_filter_eq3.low.value + "\n" +
+    "channel_4_filter_eq3_mid" + ", " + channel_4_filter_eq3.mid.value + "\n" +
+    "channel_4_filter_eq3_high" + ", " + channel_4_filter_eq3.high.value + "\n" +
+    "channel_4_filter_eq3_lowFrequency" + ", " + channel_4_filter_eq3.lowFrequency.value + "\n" +
+    "channel_4_filter_eq3_highFrequency" + ", " + channel_4_filter_eq3.highFrequency.value + "\n" +
+    "channel_4_filter_eq3_Q" + ", " + channel_4_filter_eq3.Q.value + "\n" +
+    "channel_4_tascam_HighShelf_FilterNode_frequency" + ", " + channel_4_tascam_HighShelf_FilterNode.frequency.value + "\n" +
+    "channel_4_tascam_HighShelf_FilterNode_gain" + ", " + channel_4_tascam_HighShelf_FilterNode.gain.value + "\n" +
+    "channel_4_tascam_HighShelf_FilterNode_rolloff" + ", " + channel_4_tascam_HighShelf_FilterNode.rolloff + "\n" +
+    "channel_4_tascam_Mid_SemiParam_FilterNode_frequency" + ", " + channel_4_tascam_Mid_SemiParam_FilterNode.frequency.value + "\n" +
+    "channel_4_tascam_Mid_SemiParam_FilterNode_gain" + ", " + channel_4_tascam_Mid_SemiParam_FilterNode.gain.value + "\n" +
+    "channel_4_tascam_Mid_SemiParam_FilterNode_Q" + ", " + channel_4_tascam_Mid_SemiParam_FilterNode.Q.value + "\n" +
+    "channel_4_tascam_Mid_SemiParam_FilterNode_rolloff" + ", " + channel_4_tascam_Mid_SemiParam_FilterNode.rolloff + "\n" +
+    "channel_4_tascam_LowShelf_FilterNode_frequency" + ", " + channel_4_tascam_LowShelf_FilterNode.frequency.value + "\n" +
+    "channel_4_tascam_LowShelf_FilterNode_gain" + ", " + channel_4_tascam_LowShelf_FilterNode.gain.value + "\n" +
+    "channel_4_tascam_LowShelf_FilterNode_rolloff" + ", " + channel_4_tascam_LowShelf_FilterNode.rolloff + "\n" +
+    "channel_4_compressor_On_Off_Button_State" + ", " + channel_4_compressor_On_Off_Button_State + "\n" +
+    "channel_4_dynamics_compressorNode_reduction" + ", " + channel_4_dynamics_compressorNode.reduction + "\n" +
+    "channel_4_dynamics_compressorNode.ratio" + ", " + channel_4_dynamics_compressorNode.ratio.value + "\n" +
+    "channel_4_dynamics_threshold" + ", " + channel_4_dynamics_compressorNode.threshold.value + "\n" +
+    "channel_4_dynamics_release" + ", " + channel_4_dynamics_release.value + "\n" +
+    "channel_4_dynamics_attack" + ", " + channel_4_dynamics_attack.value + "\n" +
+    "channel_4_dynamics_knee" + ", " + channel_4_dynamics_knee.value + "\n" +
+    "channel_4_gate_On_Off_Button_State" + ", " + channel_4_gate_On_Off_Button_State + "\n" +
+    "channel_4_dynamics_gateNode.threshold" + ", " + channel_4_dynamics_gateNode.threshold + "\n" +
+    "channel_4_dynamics_gateNode.smoothing" + ", " + channel_4_dynamics_gateNode.smoothing + "\n" +
+    "channel_4_limiter_On_Off_Button_State" + ", " + channel_4_limiter_On_Off_Button_State + "\n" +
+    "channel_4_dynamics_limiterNode.threshold.value" + ", " + channel_4_dynamics_limiterNode.threshold.value + "\n" +
+    "channel_4_dynamics_limiterNode.reduction" + ", " + channel_4_dynamics_limiterNode.reduction + "\n" +
+    "channel_4_fxSend_1_state" + ", " + channel_4_fxSend_1_state + "\n" +
+    "channel_4_fxSend_1" + ", " + channel_4_fxSend_1.value + "\n" +
+    "channel_4_fxSend_2_state" + ", " + channel_4_fxSend_2_state + "\n" +
+    "channel_4_fxSend_2" + ", " + channel_4_fxSend_2.value + "\n" +
+    "channel_4_fxSend_3_state" + ", " + channel_4_fxSend_3_state + "\n" +
+    "channel_4_fxSend_3" + ", " + channel_4_fxSend_3.value + "\n" +
+    "channel_4_fxSend_4_state" + ", " + channel_4_fxSend_4_state + "\n" +
+    "channel_4_fxSend_4" + ", " + channel_4_fxSend_4.value + "\n" +
+
+    "TEST_fx_1_volNode" + ", " + TEST_fx_1_volNode.volume.value + "\n" +
+    "TEST_fx_1_pan" + ", " + TEST_fx_1_pan.pan.value + "\n" +
+    "fx_1_actual_patch" + ", " + fx_1_actual_patch + "\n" +
+    "fx_1_filter_eq_selection" + ", " + fx_1_filter_eq_selection + "\n" +
+    "fx_1_filter_eq_type" + ", " + fx_1_filter_eq_type + "\n" +
+    "fx_1_filter_frequency" + ", " + fx_1_filter.frequency.value + "\n" +
+    "fx_1_filter_Q" + ", " + fx_1_filter.Q.value + "\n" +
+    "fx_1_filter_gain" + ", " + fx_1_filter.gain.value + "\n" +
+    "fx_1_filter_rolloff" + ", " + fx_1_filter.rolloff + "\n" +
+    "fx_1_filter_eq3_low" + ", " + fx_1_filter_eq3.low.value + "\n" +
+    "fx_1_filter_eq3_mid" + ", " + fx_1_filter_eq3.mid.value + "\n" +
+    "fx_1_filter_eq3_high" + ", " + fx_1_filter_eq3.high.value + "\n" +
+    "fx_1_filter_eq3_lowFrequency" + ", " + fx_1_filter_eq3.lowFrequency.value + "\n" +
+    "fx_1_filter_eq3_highFrequency" + ", " + fx_1_filter_eq3.highFrequency.value + "\n" +
+    "fx_1_filter_eq3_Q" + ", " + fx_1_filter_eq3.Q.value + "\n" +
+    "fx_1_tascam_HighShelf_FilterNode_frequency" + ", " + fx_1_tascam_HighShelf_FilterNode.frequency.value + "\n" +
+    "fx_1_tascam_HighShelf_FilterNode_gain" + ", " + fx_1_tascam_HighShelf_FilterNode.gain.value + "\n" +
+    "fx_1_tascam_HighShelf_FilterNode_rolloff" + ", " + fx_1_tascam_HighShelf_FilterNode.rolloff + "\n" +
+    "fx_1_tascam_Mid_SemiParam_FilterNode_frequency" + ", " + fx_1_tascam_Mid_SemiParam_FilterNode.frequency.value + "\n" +
+    "fx_1_tascam_Mid_SemiParam_FilterNode_gain" + ", " + fx_1_tascam_Mid_SemiParam_FilterNode.gain.value + "\n" +
+    "fx_1_tascam_Mid_SemiParam_FilterNode_Q" + ", " + fx_1_tascam_Mid_SemiParam_FilterNode.Q.value + "\n" +
+    "fx_1_tascam_Mid_SemiParam_FilterNode_rolloff" + ", " + fx_1_tascam_Mid_SemiParam_FilterNode.rolloff + "\n" +
+    "fx_1_tascam_LowShelf_FilterNode_frequency" + ", " + fx_1_tascam_LowShelf_FilterNode.frequency.value + "\n" +
+    "fx_1_tascam_LowShelf_FilterNode_gain" + ", " + fx_1_tascam_LowShelf_FilterNode.gain.value + "\n" +
+    "fx_1_tascam_LowShelf_FilterNode_rolloff" + ", " + fx_1_tascam_LowShelf_FilterNode.rolloff + "\n" +
+    "fx_1_compressor_On_Off_Button_State" + ", " + fx_1_compressor_On_Off_Button_State + "\n" +
+    "fx_1_dynamics_compressorNode_reduction" + ", " + fx_1_dynamics_compressorNode.reduction + "\n" +
+    "fx_1_dynamics_compressorNode.ratio" + ", " + fx_1_dynamics_compressorNode.ratio.value + "\n" +
+    "fx_1_dynamics_threshold" + ", " + fx_1_dynamics_compressorNode.threshold.value + "\n" +
+    "fx_1_dynamics_release" + ", " + fx_1_dynamics_release.value + "\n" +
+    "fx_1_dynamics_attack" + ", " + fx_1_dynamics_attack.value + "\n" +
+    "fx_1_dynamics_knee" + ", " + fx_1_dynamics_knee.value + "\n" +
+    "fx_1_gate_On_Off_Button_State" + ", " + fx_1_gate_On_Off_Button_State + "\n" +
+    "fx_1_dynamics_gateNode.threshold" + ", " + fx_1_dynamics_gateNode.threshold + "\n" +
+    "fx_1_dynamics_gateNode.smoothing" + ", " + fx_1_dynamics_gateNode.smoothing + "\n" +
+    "fx_1_limiter_On_Off_Button_State" + ", " + fx_1_limiter_On_Off_Button_State + "\n" +
+    "fx_1_dynamics_limiterNode.threshold.value" + ", " + fx_1_dynamics_limiterNode.threshold.value + "\n" +
+    "fx_1_dynamics_limiterNode.reduction" + ", " + fx_1_dynamics_limiterNode.reduction + "\n" +
+    "fx_1_fxSend_1_state" + ", " + fx_1_fxSend_1_state + "\n" +
+    "fx_1_fxSend_1" + ", " + fx_1_fxSend_1.value + "\n" +
+    "fx_1_fxSend_2_state" + ", " + fx_1_fxSend_2_state + "\n" +
+    "fx_1_fxSend_2" + ", " + fx_1_fxSend_2.value + "\n" +
+    "fx_1_fxSend_3_state" + ", " + fx_1_fxSend_3_state + "\n" +
+    "fx_1_fxSend_3" + ", " + fx_1_fxSend_3.value + "\n" +
+    "fx_1_fxSend_4_state" + ", " + fx_1_fxSend_4_state + "\n" +
+    "fx_1_fxSend_4" + ", " + fx_1_fxSend_4.value + "\n" +
+
+    "fx_2_volume" + ", " + fx_2_volNode.volume.value + "\n" +
+    "fx_2_pan" + ", " + fx_2_panNode.pan.value + "\n" +
+    "fx_2_actual_patch" + ", " + fx_2_actual_patch + "\n" +
+    "fx_2_filter_eq_selection" + ", " + fx_2_filter_eq_selection + "\n" +
+    "fx_2_filter_eq_type" + ", " + fx_2_filter_eq_type + "\n" +
+    "fx_2_filter_frequency" + ", " + fx_2_filter.frequency.value + "\n" +
+    "fx_2_filter_Q" + ", " + fx_2_filter.Q.value + "\n" +
+    "fx_2_filter_gain" + ", " + fx_2_filter.gain.value + "\n" +
+    "fx_2_filter_rolloff" + ", " + fx_2_filter.rolloff + "\n" +
+    "fx_2_filter_eq3_low" + ", " + fx_2_filter_eq3.low.value + "\n" +
+    "fx_2_filter_eq3_mid" + ", " + fx_2_filter_eq3.mid.value + "\n" +
+    "fx_2_filter_eq3_high" + ", " + fx_2_filter_eq3.high.value + "\n" +
+    "fx_2_filter_eq3_lowFrequency" + ", " + fx_2_filter_eq3.lowFrequency.value + "\n" +
+    "fx_2_filter_eq3_highFrequency" + ", " + fx_2_filter_eq3.highFrequency.value + "\n" +
+    "fx_2_filter_eq3_Q" + ", " + fx_2_filter_eq3.Q.value + "\n" +
+    "fx_2_tascam_HighShelf_FilterNode_frequency" + ", " + fx_2_tascam_HighShelf_FilterNode.frequency.value + "\n" +
+    "fx_2_tascam_HighShelf_FilterNode_gain" + ", " + fx_2_tascam_HighShelf_FilterNode.gain.value + "\n" +
+    "fx_2_tascam_HighShelf_FilterNode_rolloff" + ", " + fx_2_tascam_HighShelf_FilterNode.rolloff + "\n" +
+    "fx_2_tascam_Mid_SemiParam_FilterNode_frequency" + ", " + fx_2_tascam_Mid_SemiParam_FilterNode.frequency.value + "\n" +
+    "fx_2_tascam_Mid_SemiParam_FilterNode_gain" + ", " + fx_2_tascam_Mid_SemiParam_FilterNode.gain.value + "\n" +
+    "fx_2_tascam_Mid_SemiParam_FilterNode_Q" + ", " + fx_2_tascam_Mid_SemiParam_FilterNode.Q.value + "\n" +
+    "fx_2_tascam_Mid_SemiParam_FilterNode_rolloff" + ", " + fx_2_tascam_Mid_SemiParam_FilterNode.rolloff + "\n" +
+    "fx_2_tascam_LowShelf_FilterNode_frequency" + ", " + fx_2_tascam_LowShelf_FilterNode.frequency.value + "\n" +
+    "fx_2_tascam_LowShelf_FilterNode_gain" + ", " + fx_2_tascam_LowShelf_FilterNode.gain.value + "\n" +
+    "fx_2_tascam_LowShelf_FilterNode_rolloff" + ", " + fx_2_tascam_LowShelf_FilterNode.rolloff + "\n" +
+    "fx_2_compressor_On_Off_Button_State" + ", " + fx_2_compressor_On_Off_Button_State + "\n" +
+    "fx_2_dynamics_compressorNode_reduction" + ", " + fx_2_dynamics_compressorNode.reduction + "\n" +
+    "fx_2_dynamics_compressorNode.ratio" + ", " + fx_2_dynamics_compressorNode.ratio.value + "\n" +
+    "fx_2_dynamics_threshold" + ", " + fx_2_dynamics_compressorNode.threshold.value + "\n" +
+    "fx_2_dynamics_release" + ", " + fx_2_dynamics_release.value + "\n" +
+    "fx_2_dynamics_attack" + ", " + fx_2_dynamics_attack.value + "\n" +
+    "fx_2_dynamics_knee" + ", " + fx_2_dynamics_knee.value + "\n" +
+    "fx_2_gate_On_Off_Button_State" + ", " + fx_2_gate_On_Off_Button_State + "\n" +
+    "fx_2_dynamics_gateNode.threshold" + ", " + fx_2_dynamics_gateNode.threshold + "\n" +
+    "fx_2_dynamics_gateNode.smoothing" + ", " + fx_2_dynamics_gateNode.smoothing + "\n" +
+    "fx_2_limiter_On_Off_Button_State" + ", " + fx_2_limiter_On_Off_Button_State + "\n" +
+    "fx_2_dynamics_limiterNode.threshold.value" + ", " + fx_2_dynamics_limiterNode.threshold.value + "\n" +
+    "fx_2_dynamics_limiterNode.reduction" + ", " + fx_2_dynamics_limiterNode.reduction + "\n" +
+    "fx_2_fxSend_1_state" + ", " + fx_2_fxSend_1_state + "\n" +
+    "fx_2_fxSend_1" + ", " + fx_2_fxSend_1.value + "\n" +
+    "fx_2_fxSend_2_state" + ", " + fx_2_fxSend_2_state + "\n" +
+    "fx_2_fxSend_2" + ", " + fx_2_fxSend_2.value + "\n" +
+    "fx_2_fxSend_3_state" + ", " + fx_2_fxSend_3_state + "\n" +
+    "fx_2_fxSend_3" + ", " + fx_2_fxSend_3.value + "\n" +
+    "fx_2_fxSend_4_state" + ", " + fx_2_fxSend_4_state + "\n" +
+    "fx_2_fxSend_4" + ", " + fx_2_fxSend_4.value + "\n" +
+
+    "fx_3_volume" + ", " + fx_3_volNode.volume.value + "\n" +
+    "fx_3_pan" + ", " + fx_3_panNode.pan.value + "\n" +
+    "fx_3_actual_patch" + ", " + fx_3_actual_patch + "\n" +
+    "fx_3_filter_eq_selection" + ", " + fx_3_filter_eq_selection + "\n" +
+    "fx_3_filter_eq_type" + ", " + fx_3_filter_eq_type + "\n" +
+    "fx_3_filter_frequency" + ", " + fx_3_filter.frequency.value + "\n" +
+    "fx_3_filter_Q" + ", " + fx_3_filter.Q.value + "\n" +
+    "fx_3_filter_gain" + ", " + fx_3_filter.gain.value + "\n" +
+    "fx_3_filter_rolloff" + ", " + fx_3_filter.rolloff + "\n" +
+    "fx_3_filter_eq3_low" + ", " + fx_3_filter_eq3.low.value + "\n" +
+    "fx_3_filter_eq3_mid" + ", " + fx_3_filter_eq3.mid.value + "\n" +
+    "fx_3_filter_eq3_high" + ", " + fx_3_filter_eq3.high.value + "\n" +
+    "fx_3_filter_eq3_lowFrequency" + ", " + fx_3_filter_eq3.lowFrequency.value + "\n" +
+    "fx_3_filter_eq3_highFrequency" + ", " + fx_3_filter_eq3.highFrequency.value + "\n" +
+    "fx_3_filter_eq3_Q" + ", " + fx_3_filter_eq3.Q.value + "\n" +
+    "fx_3_tascam_HighShelf_FilterNode_frequency" + ", " + fx_3_tascam_HighShelf_FilterNode.frequency.value + "\n" +
+    "fx_3_tascam_HighShelf_FilterNode_gain" + ", " + fx_3_tascam_HighShelf_FilterNode.gain.value + "\n" +
+    "fx_3_tascam_HighShelf_FilterNode_rolloff" + ", " + fx_3_tascam_HighShelf_FilterNode.rolloff + "\n" +
+    "fx_3_tascam_Mid_SemiParam_FilterNode_frequency" + ", " + fx_3_tascam_Mid_SemiParam_FilterNode.frequency.value + "\n" +
+    "fx_3_tascam_Mid_SemiParam_FilterNode_gain" + ", " + fx_3_tascam_Mid_SemiParam_FilterNode.gain.value + "\n" +
+    "fx_3_tascam_Mid_SemiParam_FilterNode_Q" + ", " + fx_3_tascam_Mid_SemiParam_FilterNode.Q.value + "\n" +
+    "fx_3_tascam_Mid_SemiParam_FilterNode_rolloff" + ", " + fx_3_tascam_Mid_SemiParam_FilterNode.rolloff + "\n" +
+    "fx_3_tascam_LowShelf_FilterNode_frequency" + ", " + fx_3_tascam_LowShelf_FilterNode.frequency.value + "\n" +
+    "fx_3_tascam_LowShelf_FilterNode_gain" + ", " + fx_3_tascam_LowShelf_FilterNode.gain.value + "\n" +
+    "fx_3_tascam_LowShelf_FilterNode_rolloff" + ", " + fx_3_tascam_LowShelf_FilterNode.rolloff + "\n" +
+    "fx_3_compressor_On_Off_Button_State" + ", " + fx_3_compressor_On_Off_Button_State + "\n" +
+    "fx_3_dynamics_compressorNode_reduction" + ", " + fx_3_dynamics_compressorNode.reduction + "\n" +
+    "fx_3_dynamics_compressorNode.ratio" + ", " + fx_3_dynamics_compressorNode.ratio.value + "\n" +
+    "fx_3_dynamics_threshold" + ", " + fx_3_dynamics_compressorNode.threshold.value + "\n" +
+    "fx_3_dynamics_release" + ", " + fx_3_dynamics_release.value + "\n" +
+    "fx_3_dynamics_attack" + ", " + fx_3_dynamics_attack.value + "\n" +
+    "fx_3_dynamics_knee" + ", " + fx_3_dynamics_knee.value + "\n" +
+    "fx_3_gate_On_Off_Button_State" + ", " + fx_3_gate_On_Off_Button_State + "\n" +
+    "fx_3_dynamics_gateNode.threshold" + ", " + fx_3_dynamics_gateNode.threshold + "\n" +
+    "fx_3_dynamics_gateNode.smoothing" + ", " + fx_3_dynamics_gateNode.smoothing + "\n" +
+    "fx_3_limiter_On_Off_Button_State" + ", " + fx_3_limiter_On_Off_Button_State + "\n" +
+    "fx_3_dynamics_limiterNode.threshold.value" + ", " + fx_3_dynamics_limiterNode.threshold.value + "\n" +
+    "fx_3_dynamics_limiterNode.reduction" + ", " + fx_3_dynamics_limiterNode.reduction + "\n" +
+    "fx_3_fxSend_1_state" + ", " + fx_3_fxSend_1_state + "\n" +
+    "fx_3_fxSend_1" + ", " + fx_3_fxSend_1.value + "\n" +
+    "fx_3_fxSend_2_state" + ", " + fx_3_fxSend_2_state + "\n" +
+    "fx_3_fxSend_2" + ", " + fx_3_fxSend_2.value + "\n" +
+    "fx_3_fxSend_3_state" + ", " + fx_3_fxSend_3_state + "\n" +
+    "fx_3_fxSend_3" + ", " + fx_3_fxSend_3.value + "\n" +
+    "fx_3_fxSend_4_state" + ", " + fx_3_fxSend_4_state + "\n" +
+    "fx_3_fxSend_4" + ", " + fx_3_fxSend_4.value + "\n" +
+
+    "fx_4_volume" + ", " + fx_4_volNode.volume.value + "\n" +
+    "fx_4_pan" + ", " + fx_4_panNode.pan.value + "\n" +
+    "fx_4_actual_patch" + ", " + fx_4_actual_patch + "\n" +
+    "fx_4_filter_eq_selection" + ", " + fx_4_filter_eq_selection + "\n" +
+    "fx_4_filter_eq_type" + ", " + fx_4_filter_eq_type + "\n" +
+    "fx_4_filter_frequency" + ", " + fx_4_filter.frequency.value + "\n" +
+    "fx_4_filter_Q" + ", " + fx_4_filter.Q.value + "\n" +
+    "fx_4_filter_gain" + ", " + fx_4_filter.gain.value + "\n" +
+    "fx_4_filter_rolloff" + ", " + fx_4_filter.rolloff + "\n" +
+    "fx_4_filter_eq3_low" + ", " + fx_4_filter_eq3.low.value + "\n" +
+    "fx_4_filter_eq3_mid" + ", " + fx_4_filter_eq3.mid.value + "\n" +
+    "fx_4_filter_eq3_high" + ", " + fx_4_filter_eq3.high.value + "\n" +
+    "fx_4_filter_eq3_lowFrequency" + ", " + fx_4_filter_eq3.lowFrequency.value + "\n" +
+    "fx_4_filter_eq3_highFrequency" + ", " + fx_4_filter_eq3.highFrequency.value + "\n" +
+    "fx_4_filter_eq3_Q" + ", " + fx_4_filter_eq3.Q.value + "\n" +
+    "fx_4_tascam_HighShelf_FilterNode_frequency" + ", " + fx_4_tascam_HighShelf_FilterNode.frequency.value + "\n" +
+    "fx_4_tascam_HighShelf_FilterNode_gain" + ", " + fx_4_tascam_HighShelf_FilterNode.gain.value + "\n" +
+    "fx_4_tascam_HighShelf_FilterNode_rolloff" + ", " + fx_4_tascam_HighShelf_FilterNode.rolloff + "\n" +
+    "fx_4_tascam_Mid_SemiParam_FilterNode_frequency" + ", " + fx_4_tascam_Mid_SemiParam_FilterNode.frequency.value + "\n" +
+    "fx_4_tascam_Mid_SemiParam_FilterNode_gain" + ", " + fx_4_tascam_Mid_SemiParam_FilterNode.gain.value + "\n" +
+    "fx_4_tascam_Mid_SemiParam_FilterNode_Q" + ", " + fx_4_tascam_Mid_SemiParam_FilterNode.Q.value + "\n" +
+    "fx_4_tascam_Mid_SemiParam_FilterNode_rolloff" + ", " + fx_4_tascam_Mid_SemiParam_FilterNode.rolloff + "\n" +
+    "fx_4_tascam_LowShelf_FilterNode_frequency" + ", " + fx_4_tascam_LowShelf_FilterNode.frequency.value + "\n" +
+    "fx_4_tascam_LowShelf_FilterNode_gain" + ", " + fx_4_tascam_LowShelf_FilterNode.gain.value + "\n" +
+    "fx_4_tascam_LowShelf_FilterNode_rolloff" + ", " + fx_4_tascam_LowShelf_FilterNode.rolloff + "\n" +
+    "fx_4_compressor_On_Off_Button_State" + ", " + fx_4_compressor_On_Off_Button_State + "\n" +
+    "fx_4_dynamics_compressorNode_reduction" + ", " + fx_4_dynamics_compressorNode.reduction + "\n" +
+    "fx_4_dynamics_compressorNode.ratio" + ", " + fx_4_dynamics_compressorNode.ratio.value + "\n" +
+    "fx_4_dynamics_threshold" + ", " + fx_4_dynamics_compressorNode.threshold.value + "\n" +
+    "fx_4_dynamics_release" + ", " + fx_4_dynamics_release.value + "\n" +
+    "fx_4_dynamics_attack" + ", " + fx_4_dynamics_attack.value + "\n" +
+    "fx_4_dynamics_knee" + ", " + fx_4_dynamics_knee.value + "\n" +
+    "fx_4_gate_On_Off_Button_State" + ", " + fx_4_gate_On_Off_Button_State + "\n" +
+    "fx_4_dynamics_gateNode.threshold" + ", " + fx_4_dynamics_gateNode.threshold + "\n" +
+    "fx_4_dynamics_gateNode.smoothing" + ", " + fx_4_dynamics_gateNode.smoothing + "\n" +
+    "fx_4_limiter_On_Off_Button_State" + ", " + fx_4_limiter_On_Off_Button_State + "\n" +
+    "fx_4_dynamics_limiterNode.threshold.value" + ", " + fx_4_dynamics_limiterNode.threshold.value + "\n" +
+    "fx_4_dynamics_limiterNode.reduction" + ", " + fx_4_dynamics_limiterNode.reduction + "\n" +
+    "fx_4_fxSend_1_state" + ", " + fx_4_fxSend_1_state + "\n" +
+    "fx_4_fxSend_1" + ", " + fx_4_fxSend_1.value + "\n" +
+    "fx_4_fxSend_2_state" + ", " + fx_4_fxSend_2_state + "\n" +
+    "fx_4_fxSend_2" + ", " + fx_4_fxSend_2.value + "\n" +
+    "fx_4_fxSend_3_state" + ", " + fx_4_fxSend_3_state + "\n" +
+    "fx_4_fxSend_3" + ", " + fx_4_fxSend_3.value + "\n" +
+    "fx_4_fxSend_4_state" + ", " + fx_4_fxSend_4_state + "\n" +
+    "fx_4_fxSend_4" + ", " + fx_4_fxSend_4.value + "\n" +
+    "\n";
+  allSettings = allSettings.concat("", temp);
+  return allSettings;
+}
+
 function table_to_String(lista) {
-  var cadena = "", temp = "";
+  var cadena = "atTime" + ", " + "element" + ", " + "action" + ", " +
+    "newValue" + ", " + "rampTime" + "\n";
+  var temp = "";
   for (let i = 0; i < lista.length; i++) {
-    temp = "NOw:" + ", " + lista[i].atTime + ", " + "element:" + ", " + lista[i].element + ", " +
-      "newValue:" + ", " + lista[i].newValue + ", " + "action:" + ", " + lista[i].action + "\n";
+    temp = lista[i].atTime + ", " + lista[i].element + ", " + lista[i].action
+      + ", " + lista[i].newValue + ", " + lista[i].rampTime + "\n";
     cadena = cadena.concat("", temp);
   }
   return cadena;
