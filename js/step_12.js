@@ -1,6 +1,5 @@
 ﻿"use strict";
 
-
 var currentAudioControlKeys = 1;
 const teclaApretada = document.getElementById("teclaApretada");
 
@@ -167,10 +166,6 @@ document.onkeydown = function (e) {
     case 'l':
     case 'L':
       {
-
-
-
-
         teclaApretada.innerHTML = "L l ";
         if (currentAudioControlKeys == 1) {
           audio.loop = (!audio.loop);
@@ -497,7 +492,7 @@ document.onkeydown = function (e) {
           }
           case "grainPlayer": {
             // console.log("grainPlayer");
-            if (grainPlayer_1_Node.volume.value < 11 && grainPlayer_1_Node.volume.value >-100) {
+            if (grainPlayer_1_Node.volume.value < 11 && grainPlayer_1_Node.volume.value > -100) {
               grainPlayer_1_Node.volume.value += 1;
               grainPlayer_1_volume_value.innerHTML = Math.round(`${grainPlayer_1_Node.volume.value}`);
               mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_1_volume", player_1_Node.volume.value);
@@ -616,14 +611,6 @@ This event does fire, however, the slider won't visually update.
 element.dispatchEvent(new Event('input'))
 */
 
-/* PARA CREAR UN MENU QUE CONTENGA
-TODOS LOS NODOS POSIBLES DE SER CREADOS,
-PARA QUE EL RESULTADO FINAL SEA 
-LO QUE SE TE HAYA OCURRIDO ENCADENAR.
-TIENE QUE TENER LA POSIBILIDAD DE CREAR UN CANAL
- Y CONECTARLO CON OTRO O CON UN BUS
-*/
-
 //PARA QUITAR UN ELEMENTO CANCION DE LA LISTA DE CANCIONES 
 //remove()	Removes an option from a drop-down list
 // select.remove("Tascam_424");
@@ -636,15 +623,8 @@ TIENE QUE TENER LA POSIBILIDAD DE CREAR UN CANAL
   }, 3000);
   /**/
 
-/* Revisar si se puede usar to force an input change.
-This event does fire, however, the slider won't visually update.
-element.dispatchEvent(new Event('input'))
-
+/*
 You can use the Math.trunc() method to remove the decimals of a number:
-
-player.onstop = () => console.log('invoked when the audio buffer is finished')
-
-
 
 //*********************************************************** */
 //*********************************************************** */
@@ -697,13 +677,13 @@ whiteNoiseNode.connect(audioContext.destination);
 //https://github.com/GoogleChromeLabs/web-audio-samples/blob/main/src/audio-worklet/basic/hello-audio-worklet/main.js
 //https://gist.github.com/miselaytes-anton/fa683b0309e5cf05afe78f95aa881aee#file-audio-worklet-delay-example-js
 
+//Tone.context.latencyHint = "playback";
+
+//TEST PLAYER
 const player_test_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3");
 const meter_test_Node = new Tone.Meter(0);
-player_test_Node.fan(meter_test_Node);
 const meter_test_Node_RMS = document.getElementById("meter_test_Node_RMS");
-//ENVIO A EFECTO 1 NO FUNCIONA 
-
-//Tone.context.latencyHint = "playback";
+//-----------------------------------------------------------
 
 isShowOpenFilePickerSupported();
 
@@ -1686,11 +1666,7 @@ channel_1_filter_detune_allpass.addEventListener("change", function (e) {
   channel_1_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_filter_detune_value_allpass", e.currentTarget.value);
 });
-/*
-const channel_1_filter_gain_allpass = document.getElementById("channel_1_filter_gain_allpass");
-const channel_1_filter_gain_value_allpass = document.getElementById("channel_1_filter_gain_value_allpass");
-const channel_1_filter_gain_text_allpass = document.getElementById("channel_1_filter_gain_text_allpass");
-*/
+
 const channel_1_filter_eq_On_Button = document.getElementById("channel_1_filter_eq_On_Button");
 
 const channel_2_filter_1_select = document.getElementById("channel_2_filter_1_select");
@@ -1835,11 +1811,7 @@ channel_2_filter_detune_allpass.addEventListener("change", function (e) {
   channel_2_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaNewValue(Tone.now(), "channel_2_filter_detune_value_allpass", e.currentTarget.value);
 });
-/*
-const channel_2_filter_gain_allpass = document.getElementById("channel_2_filter_gain_allpass");
-const channel_2_filter_gain_value_allpass = document.getElementById("channel_2_filter_gain_value_allpass");
-const channel_2_filter_gain_text_allpass = document.getElementById("channel_2_filter_gain_text_allpass");
-*/
+
 const channel_2_filter_eq_On_Button = document.getElementById("channel_2_filter_eq_On_Button");
 
 const channel_3_filter_1_select = document.getElementById("channel_3_filter_1_select");
@@ -1984,11 +1956,7 @@ channel_3_filter_detune_allpass.addEventListener("change", function (e) {
   channel_3_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaNewValue(Tone.now(), "channel_3_filter_detune_value_allpass", e.currentTarget.value);
 });
-/*
-const channel_3_filter_gain_allpass = document.getElementById("channel_3_filter_gain_allpass");
-const channel_3_filter_gain_value_allpass = document.getElementById("channel_3_filter_gain_value_allpass");
-const channel_3_filter_gain_text_allpass = document.getElementById("channel_3_filter_gain_text_allpass");
-*/
+
 const channel_3_filter_eq_On_Button = document.getElementById("channel_3_filter_eq_On_Button");
 
 const channel_4_filter_1_select = document.getElementById("channel_4_filter_1_select");
@@ -2133,11 +2101,7 @@ channel_4_filter_detune_allpass.addEventListener("change", function (e) {
   channel_4_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "channel_4_filter_detune_value_allpass", e.currentTarget.value);
 });
-/*
-const channel_4_filter_gain_allpass = document.getElementById("channel_4_filter_gain_allpass");
-const channel_4_filter_gain_value_allpass = document.getElementById("channel_4_filter_gain_value_allpass");
-const channel_4_filter_gain_text_allpass = document.getElementById("channel_4_filter_gain_text_allpass");
-*/
+
 const channel_4_filter_eq_On_Button = document.getElementById("channel_4_filter_eq_On_Button");
 
 const fx_1_filter_1_select = document.getElementById("fx_1_filter_1_select");
@@ -2282,13 +2246,8 @@ fx_1_filter_detune_allpass.addEventListener("change", function (e) {
   fx_1_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_filter_detune_value_allpass", e.currentTarget.value);
 });
-/*
-const fx_1_filter_gain_allpass = document.getElementById("fx_1_filter_gain_allpass");
-const fx_1_filter_gain_value_allpass = document.getElementById("fx_1_filter_gain_value_allpass");
-const fx_1_filter_gain_text_allpass = document.getElementById("fx_1_filter_gain_text_allpass");
-*/
-const fx_1_filter_eq_On_Button = document.getElementById("fx_1_filter_eq_On_Button");
 
+const fx_1_filter_eq_On_Button = document.getElementById("fx_1_filter_eq_On_Button");
 
 const fx_2_filter_1_select = document.getElementById("fx_2_filter_1_select");
 fx_2_filter_1_select.addEventListener("change", function (e) {
@@ -2432,11 +2391,7 @@ fx_2_filter_detune_allpass.addEventListener("change", function (e) {
   fx_2_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fx_2_filter_detune_value_allpass", e.currentTarget.value);
 });
-/*
-const fx_2_filter_gain_allpass = document.getElementById("fx_2_filter_gain_allpass");
-const fx_2_filter_gain_value_allpass = document.getElementById("fx_2_filter_gain_value_allpass");
-const fx_2_filter_gain_text_allpass = document.getElementById("fx_2_filter_gain_text_allpass");
-*/
+
 const fx_2_filter_eq_On_Button = document.getElementById("fx_2_filter_eq_On_Button");
 
 const fx_3_filter_1_select = document.getElementById("fx_3_filter_1_select");
@@ -2581,11 +2536,7 @@ fx_3_filter_detune_allpass.addEventListener("change", function (e) {
   fx_3_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
   mixEvent.logIntoListaAction(Tone.now(), "fx_3_filter_detune_value_allpass", e.currentTarget.value);
 });
-/*
-const fx_3_filter_gain_allpass = document.getElementById("fx_3_filter_gain_allpass");
-const fx_3_filter_gain_value_allpass = document.getElementById("fx_3_filter_gain_value_allpass");
-const fx_3_filter_gain_text_allpass = document.getElementById("fx_3_filter_gain_text_allpass");
-*/
+
 const fx_3_filter_eq_On_Button = document.getElementById("fx_3_filter_eq_On_Button");
 
 const fx_4_filter_1_select = document.getElementById("fx_4_filter_1_select");
@@ -3595,6 +3546,14 @@ const channel_4_rms_gate_bypass_meter_inner = document.getElementById("channel_4
 const channel_4_rms_gate_meter_inner = document.getElementById("channel_4_rms_gate_meter_inner");
 const channel_4_rms_limiter_bypass_meter_inner = document.getElementById("channel_4_rms_limiter_bypass_meter_inner");
 const channel_4_rms_limiter_meter_inner = document.getElementById("channel_4_rms_limiter_meter_inner");
+//**************************************
+//FX 1 -4
+
+const fx_1_rms_meter_inner = document.getElementById("fx_1_rms_meter_inner");
+const fx_2_rms_meter_inner = document.getElementById("fx_2_rms_meter_inner");
+const fx_3_rms_meter_inner = document.getElementById("fx_3_rms_meter_inner");
+const fx_4_rms_meter_inner = document.getElementById("fx_4_rms_meter_inner");
+
 
 //*********************************************************************************************** */
 //*********************************************************************************************** */
@@ -4193,17 +4152,6 @@ channel_1_limiter_threshold.addEventListener("change", function (e) {
   mixEvent.logIntoListaAction(Tone.now(), "channel_1_limiter_threshold", e.currentTarget.value);
 });
 
-//NO VA SMOOTHING VA REDUCTION
-/*
-const channel_1_limiter_smoothing = document.getElementById("channel_1_limiter_smoothing");
-const channel_1_limiter_smoothing_value = document.getElementById("channel_1_limiter_smoothing_value");
-channel_1_limiter_smoothing.addEventListener("change", function (e) {
-  channel_1_dynamics_limiterNode.smoothing = e.currentTarget.value;
-  channel_1_limiter_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  //EL REDUCTION NO VA ACA O VA EN AMBOS
-  mixEvent.logIntoListaAction(Tone.now(), "channel_1_limiter_smoothing", e.currentTarget.value);
-});
-/**/
 //------------------
 const channel_2_limiter_On_Off_Button = document.getElementById("channel_2_limiter_On_Off_Button");
 const channel_2_limiter_reduction_value = document.getElementById("channel_2_limiter_reduction_value");
@@ -4269,17 +4217,6 @@ fx_1_limiter_threshold.addEventListener("change", function (e) {
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_limiter_threshold", e.currentTarget.value);
 });
 
-//NO VA SMOOTHING VA REDUCTION
-/*
-const fx_1_limiter_smoothing = document.getElementById("fx_1_limiter_smoothing");
-const fx_1_limiter_smoothing_value = document.getElementById("fx_1_limiter_smoothing_value");
-fx_1_limiter_smoothing.addEventListener("change", function (e) {
-  fx_1_dynamics_limiterNode.smoothing = e.currentTarget.value;
-  fx_1_limiter_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  //EL REDUCTION NO VA ACA O VA EN AMBOS
-  mixEvent.logIntoListaAction(Tone.now(), "fx_1_limiter_smoothing", e.currentTarget.value);
-});
-/**/
 //------------------
 const fx_2_limiter_On_Off_Button = document.getElementById("fx_2_limiter_On_Off_Button");
 const fx_2_limiter_reduction_value = document.getElementById("fx_2_limiter_reduction_value");
@@ -4324,8 +4261,6 @@ fx_4_limiter_threshold.addEventListener("change", function (e) {
   fx_4_limiter_threshold_value.innerHTML = fx_4_dynamics_limiterNode.threshold.value;
   mixEvent.logIntoListaAction(Tone.now(), "fx_4_limiter_threshold", e.currentTarget.value);
 });
-
-
 
 //*********************************************************************************************** */
 //*********************************************************************************************** */
@@ -5133,7 +5068,6 @@ fx_4_tascam_HighShelf_FilterNode.connect(fx_4_tascam_out_Node);
 fx_4_tascam_in_Node.fan(fx_4_tascam_LowShelf_FilterNode,
   fx_4_tascam_Mid_SemiParam_FilterNode, fx_4_tascam_HighShelf_FilterNode);
 
-
 //*************************************************************************************
 //*************************************************************************************
 //*****************   CHANNEL 1 SETTINGS         *****************************************************************
@@ -5223,7 +5157,7 @@ var player_4_scrambler = false;
 
 //--------------------------------
 var fx_1_filter_eq_type = "empty";
-var fx_1_filter_eq_selection = "bypass";
+var fx_1_filter_eq_selection = "bypass";//CAMBIAR LUEGO A "bypass"
 var fx_1_compressor_On_Off_Button_State = "off";
 var fx_1_gate_On_Off_Button_State = "off";
 var fx_1_limiter_On_Off_Button_State = "off";
@@ -5479,7 +5413,8 @@ channel_4_bypass_controls_div.style.display = "block";
 //NODE CONSTRUCTION
 
 const recorderNode = new Tone.Recorder();
-recorderNode.debug = true; //alert(recorderNode.supported); TRY CATCH
+recorderNode.debug = true;
+//alert(recorderNode.supported); TRY CATCH
 
 const master_volume = document.getElementById("master_volume");
 const master_volume_value = document.getElementById("master_volume_value");
@@ -5506,6 +5441,7 @@ master_volume.ondblclick = function () {
   master_volume.value = 0;
   mixEvent.logIntoListaAction(Tone.now(), "master_volume", 0);
 };
+//ESTO SIRVE O NO????
 /*
 const audio = document.querySelector('audio_tag_test_load_user_files');
 const actx = Tone.context;
@@ -5543,11 +5479,16 @@ const noise_1_fadeOut = document.getElementById("noise_1_fadeOut");
 const noise_1_select_type = document.getElementById("noise_1_select_type");
 
 noise_1_volume.addEventListener("change", function (e) {
-  // agregar if para llegar a -100
-  noise_1_Node.volume.value = e.currentTarget.value;
-  noise_1_volume_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "noise_1_volume", e.currentTarget.value);
-
+  if (e.currentTarget.value <= -40) {
+    noise_1_Node.volume.value = -100;
+    noise_1_volume_value.innerHTML = -100;
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_volume", -100);
+  }
+  else {
+    noise_1_Node.volume.value = e.currentTarget.value;
+    noise_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaNewValue(Tone.now(), "channel_1_volume", e.currentTarget.value);
+  }
 });
 
 noise_1_playback_rate.addEventListener("change", function (e) {
@@ -5565,7 +5506,6 @@ noise_1_fadeIn.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     noise_1_Node.fadeIn = e.currentTarget.value;
     mixEvent.logIntoListaAction(Tone.now(), "noise_1_fadeIn", e.currentTarget.value);
-
   }
   else {
     alert("Else noise_1_Node.fadeIn_1");
@@ -5576,7 +5516,6 @@ noise_1_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     noise_1_Node.fadeOut = e.currentTarget.value;
     mixEvent.logIntoListaAction(Tone.now(), "noise_1_fadeOut", e.currentTarget.value);
-
   }
   else {
     alert("Else noise_1_Node.fadeOut");
@@ -5637,9 +5576,6 @@ const channel_4_songName = document.getElementById("channel_4_songName");
 const channel_4_duration_value = document.getElementById("channel_4_duration_value");
 const channel_4_duration_text = document.getElementById("channel_4_duration_text");
 
-
-
-
 //*************************************************************************************
 //*************************************************************************************
 //********     PLAYER 1 PLAYER CONTROLS   **************************************************************
@@ -5690,22 +5626,7 @@ player_1_volume.ondblclick = function () {
   player_1_volume.value = 0;
   mixEvent.logIntoListaNewValue(Tone.now(), "player_1_volume", 0);
 };
-/*
-const player_1_pan = document.getElementById("player_1_pan");
-const player_1_pan_value = document.getElementById("player_1_pan_value");
-player_1_pan.addEventListener("change", function (e) {
-  player_1_pan.pan.value = e.currentTarget.value;
-  player_1_pan_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "player_1_pan", e.currentTarget.value);
-});
 
-player_1_pan.ondblclick = function () {
-  player_1_pan.pan.value = 0;
-  player_1_pan_value.innerHTML = 0;
-  player_1_pan.value = 0;
-  mixEvent.logIntoListaAction(Tone.now(), "player_1_pan", 0);
-};
-*/
 const player_1_playback_rate = document.getElementById("player_1_playback_rate");
 const player_1_playback_rate_value = document.getElementById("player_1_playback_rate_value");
 player_1_playback_rate.addEventListener("change", function (e) {
@@ -5851,20 +5772,18 @@ const grainPlayer_1_loop_start = document.getElementById("grainPlayer_1_loop_sta
 const grainPlayer_1_loop_end = document.getElementById("grainPlayer_1_loop_end");
 
 grainPlayer_1_volume.addEventListener("change", function (e) {
-  // agregar if para llegar a -100
-  grainPlayer_1_Node.volume.value = e.currentTarget.value;
-  grainPlayer_1_volume_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_volume", e.currentTarget.value);
+  if (e.currentTarget.value <= -40) {
+    grainPlayer_1_Node.volume.value = -100;
+    grainPlayer_1_volume_value.innerHTML = -100;
+    mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_1_volume", -100);
+  }
+  else {
+    grainPlayer_1_Node.volume.value = e.currentTarget.value;
+    grainPlayer_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_1_volume", e.currentTarget.value);
+  }
 });
-/*
-grainPlayer_1_pan.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  grainPlayer_1_Node.pan = e.currentTarget.value;
-  console.log("grainPlayer_1_Node.pan: " + grainPlayer_1_Node.pan);
-  grainPlayer_1_pan_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1_volume", e.currentTarget.value);
-});
-*/
+
 grainPlayer_1_grainSize.addEventListener("change", function (e) {
   grainPlayer_1_Node.grainSize = e.currentTarget.value;
   grainPlayer_1_grainSize_value.innerHTML = `${e.currentTarget.value}`;
@@ -5953,8 +5872,8 @@ grainPlayer_1_div.style.display = "none";
 const grainPlayer_2_Node = new Tone.GrainPlayer()
 const grainPlayer_2_rmsNode = new Tone.Meter(0);
 grainPlayer_2_Node.fan(grainPlayer_2_rmsNode);
-grainPlayer_2_Node.autoplay = false;//POR AHORA ACA
-grainPlayer_2_Node.loop = true;//POR AHORA ACA
+grainPlayer_2_Node.autoplay = false;
+grainPlayer_2_Node.loop = true;
 
 const grainPlayer_2_rms_value = document.getElementById("grainPlayer_2_rms_value");
 const grainPlayer_2_songName = document.getElementById("grainPlayer_2_songName");
@@ -5996,20 +5915,19 @@ const grainPlayer_2_loop_start = document.getElementById("grainPlayer_2_loop_sta
 const grainPlayer_2_loop_end = document.getElementById("grainPlayer_2_loop_end");
 
 grainPlayer_2_volume.addEventListener("change", function (e) {
-  // console.clear();
-  // agregar if para llegar a -100
-  grainPlayer_2_Node.volume.value = e.currentTarget.value;
-  grainPlayer_2_volume_value.innerHTML = `${e.currentTarget.value}`;
+  if (e.currentTarget.value <= -40) {
+    grainPlayer_2_Node.volume.value = -100;
+    grainPlayer_2_volume_value.innerHTML = -100;
+    mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_2_volume", -100);
+  }
+  else {
+    grainPlayer_2_Node.volume.value = e.currentTarget.value;
+    grainPlayer_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_2_volume", e.currentTarget.value);
+  }
 });
-/*
-grainPlayer_2_pan.addEventListener("change", function (e) {
-  // console.clear();
-  grainPlayer_2_Node.pan = e.currentTarget.value;
-  grainPlayer_2_pan_value.innerHTML = `${e.currentTarget.value}`;
-});
-*/
+
 grainPlayer_2_grainSize.addEventListener("change", function (e) {
-  //  console.clear();
   grainPlayer_2_Node.grainSize = e.currentTarget.value;
   grainPlayer_2_grainSize_value.innerHTML = `${e.currentTarget.value}`;
 });
@@ -6070,14 +5988,12 @@ const grainPlayer_2_div = document.getElementById("grainPlayer_2_div");
 grainPlayer_2_div.style.display = "none";
 //************************************************************************
 //************************************************************************
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
 //GRAIN PLAYER 3
 const grainPlayer_3_Node = new Tone.GrainPlayer();
 const grainPlayer_3_rmsNode = new Tone.Meter(0);
 grainPlayer_3_Node.fan(grainPlayer_3_rmsNode);
-grainPlayer_3_Node.autoplay = false;//POR AHORA ACA
-grainPlayer_3_Node.loop = true;//POR AHORA ACA
+grainPlayer_3_Node.autoplay = false;
+grainPlayer_3_Node.loop = true;
 
 const grainPlayer_3_rms_value = document.getElementById("grainPlayer_3_rms_value");
 const grainPlayer_3_songName = document.getElementById("grainPlayer_3_songName");
@@ -6119,20 +6035,18 @@ const grainPlayer_3_loop_start = document.getElementById("grainPlayer_3_loop_sta
 const grainPlayer_3_loop_end = document.getElementById("grainPlayer_3_loop_end");
 
 grainPlayer_3_volume.addEventListener("change", function (e) {
-  // agregar if para llegar a -100
-  grainPlayer_3_Node.volume.value = e.currentTarget.value;
-  grainPlayer_3_volume_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_3_volume", e.currentTarget.value);
+  if (e.currentTarget.value <= -40) {
+    grainPlayer_3_Node.volume.value = -100;
+    grainPlayer_3_volume_value.innerHTML = -100;
+    mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_3_volume", -100);
+  }
+  else {
+    grainPlayer_3_Node.volume.value = e.currentTarget.value;
+    grainPlayer_3_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_3_volume", e.currentTarget.value);
+  }
 });
-/*
-grainPlayer_3_pan.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  grainPlayer_3_Node.pan = e.currentTarget.value;
-  console.log("grainPlayer_3_Node.pan: " + grainPlayer_3_Node.pan);
-  grainPlayer_3_pan_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_3_volume", e.currentTarget.value);
-});
-*/
+
 grainPlayer_3_grainSize.addEventListener("change", function (e) {
   grainPlayer_3_Node.grainSize = e.currentTarget.value;
   grainPlayer_3_grainSize_value.innerHTML = `${e.currentTarget.value}`;
@@ -6191,7 +6105,6 @@ grainPlayer_3_autoplay_checkbox.addEventListener("change", function () {
   }
 });
 /**/
-
 grainPlayer_3_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_3_Node.loopStart = e.currentTarget.value;
@@ -6222,8 +6135,8 @@ grainPlayer_3_div.style.display = "none";
 const grainPlayer_4_Node = new Tone.GrainPlayer();
 const grainPlayer_4_rmsNode = new Tone.Meter(0);
 grainPlayer_4_Node.fan(grainPlayer_4_rmsNode);
-grainPlayer_4_Node.autoplay = false;//POR AHORA ACA
-grainPlayer_4_Node.loop = true;//POR AHORA ACA
+grainPlayer_4_Node.autoplay = false;
+grainPlayer_4_Node.loop = true;
 
 const grainPlayer_4_rms_value = document.getElementById("grainPlayer_4_rms_value");
 const grainPlayer_4_songName = document.getElementById("grainPlayer_4_songName");
@@ -6258,27 +6171,25 @@ const grainPlayer_4_detune = document.getElementById("grainPlayer_4_detune");
 const grainPlayer_4_detune_value = document.getElementById("grainPlayer_4_detune_value");
 
 const grainPlayer_4_loop_checkbox = document.getElementById("grainPlayer_4_loop_checkbox");
-grainPlayer_4_loop_checkbox.checked = true;//POR AHORA ACA
+grainPlayer_4_loop_checkbox.checked = true;
 const grainPlayer_4_autoplay_checkbox = document.getElementById("grainPlayer_4_autoplay_checkbox");
 const grainPlayer_4_reverse_checkbox = document.getElementById("grainPlayer_4_reverse_checkbox");
 const grainPlayer_4_loop_start = document.getElementById("grainPlayer_4_loop_start");
 const grainPlayer_4_loop_end = document.getElementById("grainPlayer_4_loop_end");
 
 grainPlayer_4_volume.addEventListener("change", function (e) {
-  // agregar if para llegar a -100
-  grainPlayer_4_Node.volume.value = e.currentTarget.value;
-  grainPlayer_4_volume_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_4_volume", e.currentTarget.value);
+  if (e.currentTarget.value <= -40) {
+    grainPlayer_4_Node.volume.value = -100;
+    grainPlayer_4_volume_value.innerHTML = -100;
+    mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_4_volume", -100);
+  }
+  else {
+    grainPlayer_4_Node.volume.value = e.currentTarget.value;
+    grainPlayer_4_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_4_volume", e.currentTarget.value);
+  }
 });
-/*
-grainPlayer_4_pan.addEventListener("change", function (e) {
-  console.log("e.currentTarget.value: " + e.currentTarget.value);
-  grainPlayer_4_Node.pan = e.currentTarget.value;
-  console.log("grainPlayer_4_Node.pan: " + grainPlayer_4_Node.pan);
-  grainPlayer_4_pan_value.innerHTML = `${e.currentTarget.value}`;
-  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_4_volume", e.currentTarget.value);
-});
-*/
+
 grainPlayer_4_grainSize.addEventListener("change", function (e) {
   grainPlayer_4_Node.grainSize = e.currentTarget.value;
   grainPlayer_4_grainSize_value.innerHTML = `${e.currentTarget.value}`;
@@ -6360,17 +6271,12 @@ grainPlayer_4_loop_end.addEventListener("change", function (e) {
 
 const grainPlayer_4_div = document.getElementById("grainPlayer_4_div");
 grainPlayer_4_div.style.display = "none";
-//************************************************************************
-//************************************************************************
 
 //*************************************************************************
 //*************************************************************************
 //*********************      OSCILLATORS       ****************************
 //*************************************************************************
 //*************************************************************************
-
-//--------------------------------------------
-//--------------------------------------------
 //NoiseSynth
 const noiseSynth_1 = new Tone.NoiseSynth(
   {
@@ -6434,8 +6340,6 @@ noiseSynth_1_envelope_sustain.addEventListener("change", function (e) {
 
 const noiseSynth_1_div = document.getElementById("noiseSynth_1_div");
 noiseSynth_1_div.style.display = "none";
-//--------------------------------------------
-//--------------------------------------------
 
 //****************************************************************************************************************************
 //****************************************************************************************************************************
@@ -6795,8 +6699,8 @@ player_4_fade_options_div.style.display = "none";
 const player_4_div = document.getElementById("player_4_div");
 player_4_div.style.display = "none";
 
-//---------------------------------------------------------------------
-//---------------------------------------------------------------------
+//***************************************************************************************
+//***************************************************************************************
 //NOISE (SOURCE)
 
 const noise_2_Node = new Tone.Noise()
@@ -6826,9 +6730,16 @@ const noise_2_fadeOut = document.getElementById("noise_2_fadeOut");
 const noise_2_select_type = document.getElementById("noise_2_select_type");
 
 noise_2_volume.addEventListener("change", function (e) {
-  // agregar if para llegar a -100
-  noise_2_Node.volume.value = e.currentTarget.value;
-  noise_2_volume_value.innerHTML = `${e.currentTarget.value}`;
+  if (e.currentTarget.value <= -40) {
+    noise_2_Node.volume.value = -100;
+    noise_2_volume_value.innerHTML = -100;
+    mixEvent.logIntoListaNewValue(Tone.now(), "noise_2_volume", -100);
+  }
+  else {
+    noise_2_Node.volume.value = e.currentTarget.value;
+    noise_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaNewValue(Tone.now(), "noise_2_volume", e.currentTarget.value);
+  }
 });
 
 noise_2_playback_rate.addEventListener("change", function (e) {
@@ -6863,7 +6774,8 @@ const noise_2_div = document.getElementById("noise_2_div");
 noise_2_div.style.display = "none";
 /**/
 
-//---------------------------------------------------------------------
+//*********************************************************************
+//*********************************************************************
 //NOISE (SOURCE)
 
 const noise_3_Node = new Tone.Noise()
@@ -6893,10 +6805,16 @@ const noise_3_fadeOut = document.getElementById("noise_3_fadeOut");
 const noise_3_select_type = document.getElementById("noise_3_select_type");
 
 noise_3_volume.addEventListener("change", function (e) {
-
-  // agregar if para llegar a -100
-  noise_3_Node.volume.value = e.currentTarget.value;
-  noise_3_volume_value.innerHTML = `${e.currentTarget.value}`;
+  if (e.currentTarget.value <= -40) {
+    noise_3_Node.volume.value = -100;
+    noise_3_volume_value.innerHTML = -100;
+    mixEvent.logIntoListaNewValue(Tone.now(), "noise_3_volume", -100);
+  }
+  else {
+    noise_3_Node.volume.value = e.currentTarget.value;
+    noise_3_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaNewValue(Tone.now(), "noise_3_volume", e.currentTarget.value);
+  }
 });
 
 noise_3_playback_rate.addEventListener("change", function (e) {
@@ -6931,7 +6849,8 @@ const noise_3_div = document.getElementById("noise_3_div");
 noise_3_div.style.display = "none";
 /**/
 
-//---------------------------------------------------------------------
+//*********************************************************************
+//*********************************************************************
 //NOISE (SOURCE)
 
 const noise_4_Node = new Tone.Noise()
@@ -6961,10 +6880,16 @@ const noise_4_fadeOut = document.getElementById("noise_4_fadeOut");
 const noise_4_select_type = document.getElementById("noise_4_select_type");
 
 noise_4_volume.addEventListener("change", function (e) {
-
-  // agregar if para llegar a -100
-  noise_4_Node.volume.value = e.currentTarget.value;
-  noise_4_volume_value.innerHTML = `${e.currentTarget.value}`;
+  if (e.currentTarget.value <= -40) {
+    noise_4_Node.volume.value = -100;
+    noise_4_volume_value.innerHTML = -100;
+    mixEvent.logIntoListaNewValue(Tone.now(), "noise_4_volume", -100);
+  }
+  else {
+    noise_4_Node.volume.value = e.currentTarget.value;
+    noise_4_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    mixEvent.logIntoListaNewValue(Tone.now(), "noise_4_volume", e.currentTarget.value);
+  }
 });
 
 noise_4_playback_rate.addEventListener("change", function (e) {
@@ -6998,7 +6923,6 @@ noise_4_fadeOut.addEventListener("change", function (e) {
 const noise_4_div = document.getElementById("noise_4_div");
 noise_4_div.style.display = "none";
 /**/
-
 
 //*************************************************************************
 //*************************************************************************
@@ -7041,8 +6965,6 @@ oscillator_2_volume.addEventListener("change", function (e) {
   }
 });
 
-//falta data para rampto
-
 const oscillator_2_freq = document.getElementById("oscillator_2_freq");
 const oscillator_2_freq_value = document.getElementById("oscillator_2_freq_value");
 oscillator_2_freq.addEventListener("change", function (e) {
@@ -7076,7 +6998,6 @@ oscillator_2_div.style.display = "none";
 //*********************      INSTRUMENTS       ****************************
 //*************************************************************************
 //*************************************************************************
-//--------------------------------------------
 //NoiseSynth
 
 const noiseSynth_2 = new Tone.NoiseSynth(
@@ -7253,8 +7174,6 @@ const noiseSynth_4_div = document.getElementById("noiseSynth_4_div");
 noiseSynth_4_div.style.display = "none";
 /**/
 
-//--------------------------------------------
-
 //****************************************************************************************************************************
 //************************************************************************
 //************************************************************************
@@ -7379,7 +7298,6 @@ rolloffFactor : 1
 }
 */
 
-
 //***************************************************************
 //***************************************************************
 //***************************************************************
@@ -7453,9 +7371,9 @@ player_1_Node.connect(testNormalize);
 //var sig = new Tone.Signal(3).connect(norm);
 //output of norm is 0.5.
 */
-//***************************************************************
-//***************************************************************
 
+//***************************************************************
+//***************************************************************
 //MIX EVENT OBJECT
 const mixEvent = {
   atTime: 0,
@@ -7482,16 +7400,7 @@ const mixEvent = {
     lista.push(event);
     this.console_log(event);
   },
-  /*
-  logIntoListaAction: function (atTime, element, filename) {
-    const event = Object();
-    event.atTime = atTime;
-    event.element = element;
-    event.filename = filename;
-    lista.push(event);
-    this.console_log(event);
-  },
-  /**/
+
   logIntoListaNewValue: function (atTime, element, newValue) {
     const event = Object();
     event.atTime = atTime;
@@ -7540,7 +7449,8 @@ const channel_4_RMS_all = document.getElementById("channel_4_RMS_all");
 channel_4_RMS_all.style.display = "none";
 
 const fx_1_RMS_all = document.getElementById("fx_1_RMS_all");
-fx_1_RMS_all.style.display = "block";
+fx_1_RMS_all.style.display = "none";
+
 //*****************************************************************************************
 //*****************************************************************************************
 //********  INNER HTML player 1            ************************************************
@@ -7551,7 +7461,6 @@ player_1_volume.value = -6;
 player_1_volume_value.innerHTML = "-6";
 player_1_playback_rate_value.innerHTML = 100;
 channel_1_songName.innerHTML = `No Song Loaded`;
-//channel_1_duration_value.innerHTML = "Unk";
 channel_1_filter_frequency_value_allpass.innerHTML = "20";
 channel_1_filter_frequency_value_shelf.innerHTML = "20";
 channel_1_filter_frequency_value_peaking.innerHTML = "20";
@@ -7577,11 +7486,11 @@ channel_1_dynamics_release_value.innerHTML = 0;
 channel_1_dynamics_attack_value.innerHTML = 0;
 channel_1_dynamics_knee_value.innerHTML = 0;
 
+//-----------------------------------------------
 //INNER HTML channel 2
 player_2_volume_value.innerHTML = "-40";
 player_2_playback_rate_value.innerHTML = 100;
 channel_2_songName.innerHTML = `No Song Loaded`;
-//channel_2_duration_value.innerHTML = "Unk";
 channel_2_filter_frequency_value_allpass.innerHTML = "20";
 channel_2_filter_frequency_value_shelf.innerHTML = "20";
 channel_2_filter_frequency_value_peaking.innerHTML = "20";
@@ -7607,11 +7516,11 @@ channel_2_dynamics_release_value.innerHTML = 0;
 channel_2_dynamics_attack_value.innerHTML = 0;
 channel_2_dynamics_knee_value.innerHTML = 0;
 
+//-----------------------------------------------
 //INNER HTML player 3
 player_3_volume_value.innerHTML = "-40";
 player_3_playback_rate_value.innerHTML = 100;
 channel_3_songName.innerHTML = `No Song Loaded`;
-//channel_3_duration_value.innerHTML = "Unk";
 channel_3_filter_frequency_value_allpass.innerHTML = "20";
 channel_3_filter_frequency_value_shelf.innerHTML = "20";
 channel_3_filter_frequency_value_peaking.innerHTML = "20";
@@ -7636,12 +7545,11 @@ channel_3_dynamics_threshold_value.innerHTML = 0;
 channel_3_dynamics_release_value.innerHTML = 0;
 channel_3_dynamics_attack_value.innerHTML = 0;
 channel_3_dynamics_knee_value.innerHTML = 0;
-
+//-----------------------------------------------
 //INNER HTML player 4
 player_4_volume_value.innerHTML = "-40";
 player_4_playback_rate_value.innerHTML = 100;
 channel_4_songName.innerHTML = `No Song Loaded`;
-//channel_4_duration_value.innerHTML = "Unk";
 channel_4_filter_frequency_value_allpass.innerHTML = "20";
 channel_4_filter_frequency_value_shelf.innerHTML = "20";
 channel_4_filter_frequency_value_peaking.innerHTML = "20";
@@ -7834,8 +7742,6 @@ fx_1_autoWah_follower.addEventListener("change", function (e) {
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_autoWah_follower", e.currentTarget.value);
 });
 
-
-
 const fx_1_autoWah_baseFrequency = document.getElementById("fx_1_autoWah_baseFrequency");
 const fx_1_autoWah_baseFrequency_value = document.getElementById("fx_1_autoWah_baseFrequency_value");
 fx_1_autoWah_baseFrequency.addEventListener("change", function (e) {
@@ -8012,7 +7918,6 @@ fx_1_feedback_maxDelay.addEventListener("change", function (e) {
 });
 /**/
 
-
 //************************************************************************** */
 //************************************************************************** */
 //***********************  FX 1  PING PONG    ******************* */
@@ -8088,7 +7993,7 @@ fx_1_vibrato_maxDelay.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//*********************** FX 1   DISTORTION       ******************* */
+//*********************** FX 2   DISTORTION       ******************* */
 //************************************************************************** */
 //************************************************************************** */
 const fx_2_distortion_Node = new Tone.Distortion({
@@ -8114,7 +8019,7 @@ fx_2_distortion_select_type.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//*********************** FX 1   FeedbackDelay       ******************* */
+//*********************** FX 2   FeedbackDelay       ******************* */
 //************************************************************************** */
 //************************************************************************** */
 
@@ -8152,7 +8057,7 @@ fx_2_feedback_maxDelay.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************  FX 1  PHASER    ******************* */
+//***********************  FX 2  PHASER    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 const fx_2_phaser_Node = new Tone.Phaser({
@@ -8195,7 +8100,7 @@ fx_2_phaser_baseFrequency.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************  FX 1  PING PONG    ******************* */
+//***********************  FX 2  PING PONG    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 
@@ -8276,7 +8181,7 @@ fx_2_pitchshift_windowSize.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************  FX 1  REVERB    ******************* */
+//***********************  FX 2  REVERB    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 const fx_2_reverb_Node = new Tone.Reverb({
@@ -8365,7 +8270,7 @@ fx_3_chorus_select_type.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//*********************** FX 1   FeedbackDelay       ******************* */
+//*********************** FX 3   FeedbackDelay       ******************* */
 //************************************************************************** */
 //************************************************************************** */
 
@@ -8402,7 +8307,7 @@ fx_3_feedback_maxDelay.addEventListener("change", function (e) {
 
 //*****************************************************************************************************
 //*****************************************************************************************************
-//******************************  FX 1   fx_3_FrequencyShifter     ****************************************
+//******************************  FX 3 FrequencyShifter     ****************************************
 //*****************************************************************************************************
 //*****************************************************************************************************
 const fx_3_FrequencyShifter_Node = new Tone.FrequencyShifter({
@@ -8421,7 +8326,7 @@ fx_3_frequencyShifter.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************  FX 1  PING PONG    ******************* */
+//***********************  FX 3  PING PONG    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 
@@ -8458,7 +8363,7 @@ fx_3_pingpong_maxDelay.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//*********************** FX 1   Pitchshift    ******************* */
+//*********************** FX 3   Pitchshift    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 
@@ -8502,7 +8407,7 @@ fx_3_pitchshift_windowSize.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************  FX 1  REVERB    ******************* */
+//***********************  FX 3  REVERB    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 const fx_3_reverb_Node = new Tone.Reverb({
@@ -8626,7 +8531,7 @@ fx_4_feedback_maxDelay.addEventListener("change", function (e) {
 
 //*****************************************************************************************************
 //*****************************************************************************************************
-//******************************  FX 4   fx_4_FrequencyShifter     ****************************************
+//******************************  FX 4 FrequencyShifter     ****************************************
 //*****************************************************************************************************
 //*****************************************************************************************************
 const fx_4_FrequencyShifter_Node = new Tone.FrequencyShifter({
@@ -8645,7 +8550,7 @@ fx_4_frequencyShifter.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************  FX 1  PHASER    ******************* */
+//***********************  FX 4  PHASER    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 const fx_4_phaser_Node = new Tone.Phaser({
@@ -8688,7 +8593,7 @@ fx_4_phaser_baseFrequency.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************  FX 1  PING PONG    ******************* */
+//***********************  FX 4  PING PONG    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 
@@ -8725,7 +8630,7 @@ fx_4_pingpong_maxDelay.addEventListener("change", function (e) {
 
 //************************************************************************** */
 //************************************************************************** */
-//***********************  FX 1  REVERB    ******************* */
+//***********************  FX 4  REVERB    ******************* */
 //************************************************************************** */
 //************************************************************************** */
 
@@ -8804,6 +8709,12 @@ const channel_1_dynamics_compressorNode = new Tone.Compressor();
 const player_1_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(channel_1_panNode);
 //player_1_Node.debug = true;
 
+player_1_Node.onstop = () => {
+  console.log("player_1_Node has stopped normally.");
+  player_1_playButton.style.backgroundColor = "white";
+  // Add any desired actions here, like updating UI or triggering another event.
+};
+
 channel_1_panNode.fan(channel_1_fxSend_1_preEq_volNode, channel_1_fxSend_2_preEq_volNode, channel_1_fxSend_3_preEq_volNode, channel_1_fxSend_4_preEq_volNode);
 channel_1_filter.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postEq_volNode, channel_1_fxSend_3_postEq_volNode, channel_1_fxSend_4_postEq_volNode);
 
@@ -8811,7 +8722,6 @@ channel_1_volNode.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_pos
 
 //para tascam
 channel_1_tascam_out_Node.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postEq_volNode, channel_1_fxSend_3_postEq_volNode, channel_1_fxSend_4_postEq_volNode);
-//channel_1_tascam_out_Node.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_postFdr_volNode, channel_1_fxSend_3_postFdr_volNode, channel_1_fxSend_4_postFdr_volNode);
 
 //----------------------------------
 const channel_2_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
@@ -8833,10 +8743,15 @@ channel_2_filter.set({
 
 const channel_2_panNode = new Tone.Panner(0).connect(channel_2_filter_Bypass);
 
-
 const player_2_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(channel_2_panNode);
 //player_2_Node.debug = true;
 player_2_Node.fan(player_2_rms_meter);
+
+player_2_Node.onstop = () => {
+  console.log("player_2_Node has stopped normally.");
+  player_2_playButton.style.backgroundColor = "white";
+  // Add any desired actions here, like updating UI or triggering another event.
+};
 
 const channel_2_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const channel_2_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
@@ -8856,8 +8771,6 @@ const channel_2_fxSend_4_postFdr_volNode = new Tone.Volume(-100).connect(fx_4_pi
 const channel_2_dynamics_limiterNode = new Tone.Limiter();
 const channel_2_dynamics_gateNode = new Tone.Gate();
 const channel_2_dynamics_compressorNode = new Tone.Compressor();
-
-
 
 channel_2_panNode.fan(channel_2_fxSend_1_preEq_volNode, channel_2_fxSend_2_preEq_volNode, channel_2_fxSend_3_preEq_volNode, channel_2_fxSend_4_preEq_volNode);
 channel_2_filter.fan(channel_2_fxSend_1_postEq_volNode, channel_2_fxSend_2_postEq_volNode, channel_2_fxSend_3_postEq_volNode, channel_2_fxSend_4_postEq_volNode);
@@ -8886,7 +8799,6 @@ channel_3_filter.set({
 });
 
 const channel_3_panNode = new Tone.Panner(0).connect(channel_3_filter_Bypass);
-//ESTA PARA EVITAR ACOPLE
 
 const channel_3_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const channel_3_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
@@ -8907,12 +8819,14 @@ const channel_3_dynamics_limiterNode = new Tone.Limiter();
 const channel_3_dynamics_gateNode = new Tone.Gate();
 const channel_3_dynamics_compressorNode = new Tone.Compressor();
 
-
-
-//player_3_rms_value
-
 const player_3_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(channel_3_panNode);
 //player_3_Node.debug = true;
+
+player_3_Node.onstop = () => {
+  console.log("player_3_Node has stopped normally.");
+  player_3_playButton.style.backgroundColor = "white";
+  // Add any desired actions here, like updating UI or triggering another event.
+};
 
 channel_3_panNode.fan(channel_3_fxSend_1_preEq_volNode, channel_3_fxSend_2_preEq_volNode, channel_3_fxSend_3_preEq_volNode, channel_3_fxSend_4_preEq_volNode);
 channel_3_filter.fan(channel_3_fxSend_1_postEq_volNode, channel_3_fxSend_2_postEq_volNode, channel_3_fxSend_3_postEq_volNode, channel_3_fxSend_4_postEq_volNode);
@@ -8942,7 +8856,6 @@ channel_4_filter.set({
 });
 
 const channel_4_panNode = new Tone.Panner(0).connect(channel_4_filter_Bypass);
-//ESTA PARA EVITAR ACOPLE
 
 const channel_4_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const channel_4_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
@@ -8966,6 +8879,12 @@ const channel_4_dynamics_compressorNode = new Tone.Compressor();
 const player_4_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(channel_4_panNode);
 //player_1_Node.debug = true;
 
+player_4_Node.onstop = () => {
+  console.log("player_4_Node has stopped normally.");
+  player_4_playButton.style.backgroundColor = "white";
+  // Add any desired actions here, like updating UI or triggering another event.
+};
+
 channel_4_panNode.fan(channel_4_fxSend_1_preEq_volNode, channel_4_fxSend_2_preEq_volNode, channel_4_fxSend_3_preEq_volNode, channel_4_fxSend_4_preEq_volNode);
 channel_4_filter.fan(channel_4_fxSend_1_postEq_volNode, channel_4_fxSend_2_postEq_volNode, channel_4_fxSend_3_postEq_volNode, channel_4_fxSend_4_postEq_volNode);
 
@@ -8977,28 +8896,18 @@ channel_4_tascam_out_Node.fan(channel_4_fxSend_1_postFdr_volNode, channel_4_fxSe
 
 //*****************************************************************************************
 //*****************************************************************************************
-//const fx_1_pan = new Tone.Panner(0).toDestination();
-const TEST_fx_1_pan = new Tone.Panner(0);
 
 const fx_2_pan = new Tone.Panner(0).toDestination();
 const fx_3_pan = new Tone.Panner(0).toDestination();
 const fx_4_pan = new Tone.Panner(0).toDestination();
 
-const TEST_fx_1_volNode = new Tone.Volume(0).connect(masterVolumeNode);
-//const fx_1_volNode = new Tone.Volume(0)//.connect(masterVolumeNode);
-//TEST_fx_1_pan.connect(TEST_fx_1_volNode);
+const fx_1_volNode = new Tone.Volume(0).connect(masterVolumeNode);
 
-const fx_1_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(TEST_fx_1_volNode);
-//const fx_1_dynamics_limiterNode_Bypass = new Tone.Volume(0).toDestination();
-//const fx_1_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(fx_1_volNode);
+const fx_1_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(fx_1_volNode);
 const fx_1_dynamics_gateNode_Bypass = new Tone.Volume(0).connect(fx_1_dynamics_limiterNode_Bypass);
-//const fx_1_dynamics_gateNode_Bypass = new Tone.Volume(0).toDestination();
 const fx_1_dynamics_compressorNode_Bypass = new Tone.Volume(0).connect(fx_1_dynamics_gateNode_Bypass);
-//const fx_1_dynamics_compressorNode_Bypass = new Tone.Volume(0).toDestination();
 const fx_1_filter_Bypass = new Tone.Volume(0).connect(fx_1_dynamics_compressorNode_Bypass);
-//const fx_1_filter_Bypass = new Tone.Volume(0).toDestination();
-
-
+fx_1_filter_Bypass.fan(fx_1_filter_bypass_meter);
 
 const fx_1_filter = new Tone.Filter();
 //fx_1_filter.debug = true;
@@ -9010,7 +8919,8 @@ fx_1_filter.set({
   rolloff: -96,
 });
 
-//ESTA PARA EVITAR ACOPLE
+const fx_1_panNode = new Tone.Panner(0).connect(fx_1_filter_Bypass);
+
 const fx_1_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const fx_1_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
 const fx_1_fxSend_3_preEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
@@ -9039,7 +8949,6 @@ fx_1_tascam_out_Node.fan(fx_1_fxSend_1_postFdr_volNode, fx_1_fxSend_2_postFdr_vo
 //----------------------------------
 const fx_2_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
 fx_2_volNode.volume.value = -6;
-//fx_2_volume.value = 0;
 
 const fx_2_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(fx_2_volNode);
 const fx_2_dynamics_gateNode_Bypass = new Tone.Volume(0).connect(fx_2_dynamics_limiterNode_Bypass);
@@ -9057,7 +8966,6 @@ fx_2_filter.set({
 });
 
 const fx_2_panNode = new Tone.Panner(0).connect(fx_2_filter_Bypass);
-//ESTA PARA EVITAR ACOPLE
 
 const fx_2_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const fx_2_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
@@ -9087,7 +8995,6 @@ fx_2_volNode.fan(fx_2_fxSend_1_postFdr_volNode, fx_2_fxSend_2_postFdr_volNode, f
 fx_2_tascam_out_Node.fan(fx_2_fxSend_1_postEq_volNode, fx_2_fxSend_2_postEq_volNode, fx_2_fxSend_3_postEq_volNode, fx_2_fxSend_4_postEq_volNode);
 fx_2_tascam_out_Node.fan(fx_2_fxSend_1_postFdr_volNode, fx_2_fxSend_2_postFdr_volNode, fx_2_fxSend_3_postFdr_volNode, fx_2_fxSend_4_postFdr_volNode);
 
-
 //----------------------------------
 const fx_3_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
 
@@ -9107,7 +9014,6 @@ fx_3_filter.set({
 });
 
 const fx_3_panNode = new Tone.Panner(0).connect(fx_3_filter_Bypass);
-//ESTA PARA EVITAR ACOPLE
 
 const fx_3_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const fx_3_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
@@ -9156,7 +9062,6 @@ fx_4_filter.set({
 });
 
 const fx_4_panNode = new Tone.Panner(0).connect(fx_4_filter_Bypass);
-//ESTA PARA EVITAR ACOPLE
 
 const fx_4_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
 const fx_4_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
@@ -9186,14 +9091,12 @@ fx_4_volNode.fan(fx_4_fxSend_1_postFdr_volNode, fx_4_fxSend_2_postFdr_volNode, f
 fx_4_tascam_out_Node.fan(fx_4_fxSend_1_postEq_volNode, fx_4_fxSend_2_postEq_volNode, fx_4_fxSend_3_postEq_volNode, fx_4_fxSend_4_postEq_volNode);
 fx_4_tascam_out_Node.fan(fx_4_fxSend_1_postFdr_volNode, fx_4_fxSend_2_postFdr_volNode, fx_4_fxSend_3_postFdr_volNode, fx_4_fxSend_4_postFdr_volNode);
 
-
 //************************************************************************** */
 //************************************************************************** */
 //***********************    CHANNEL 1 EQ3    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-//const player_1_filter_eq_On_EQ3_Button = document.getElementById("player_1_filter_eq_On_EQ3_Button");
-const channel_1_filter_eq3 = new Tone.EQ3;
+const channel_1_filter_eq3 = new Tone.EQ3();
 
 channel_1_filter_eq3.set(
   {
@@ -9289,10 +9192,9 @@ channel_1_EQ3_Q_fader.addEventListener("change", function (e) {
 });
 
 channel_1_filter_eq3.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postEq_volNode, channel_1_fxSend_3_postEq_volNode, channel_1_fxSend_4_postEq_volNode);
-//channel_1_filter_eq3.fan(channel_1_fxSend_1_postFdr_volNode, channel_1_fxSend_2_postFdr_volNode, channel_1_fxSend_3_postFdr_volNode, channel_1_fxSend_4_postFdr_volNode);
 
 //----------------------------------------------------
-const channel_2_filter_eq3 = new Tone.EQ3;
+const channel_2_filter_eq3 = new Tone.EQ3();
 
 channel_2_filter_eq3.set(
   {
@@ -9391,7 +9293,7 @@ channel_2_filter_eq3.fan(channel_2_fxSend_1_postEq_volNode, channel_2_fxSend_2_p
 channel_2_filter_eq3.fan(channel_2_fxSend_1_postFdr_volNode, channel_2_fxSend_2_postFdr_volNode, channel_2_fxSend_3_postFdr_volNode, channel_2_fxSend_4_postFdr_volNode);
 
 //---------------------------------------------
-const channel_3_filter_eq3 = new Tone.EQ3;
+const channel_3_filter_eq3 = new Tone.EQ3();
 
 channel_3_filter_eq3.set(
   {
@@ -9490,7 +9392,7 @@ channel_3_filter_eq3.fan(channel_3_fxSend_1_postEq_volNode, channel_3_fxSend_2_p
 channel_3_filter_eq3.fan(channel_3_fxSend_1_postFdr_volNode, channel_3_fxSend_2_postFdr_volNode, channel_3_fxSend_3_postFdr_volNode, channel_3_fxSend_4_postFdr_volNode);
 
 //-----------------------------------
-const channel_4_filter_eq3 = new Tone.EQ3;
+const channel_4_filter_eq3 = new Tone.EQ3();
 
 channel_4_filter_eq3.set(
   {
@@ -9588,11 +9490,9 @@ channel_4_EQ3_Q_fader.addEventListener("change", function (e) {
 channel_4_filter_eq3.fan(channel_4_fxSend_1_postEq_volNode, channel_4_fxSend_2_postEq_volNode, channel_4_fxSend_3_postEq_volNode, channel_4_fxSend_4_postEq_volNode);
 channel_4_filter_eq3.fan(channel_4_fxSend_1_postFdr_volNode, channel_4_fxSend_2_postFdr_volNode, channel_4_fxSend_3_postFdr_volNode, channel_4_fxSend_4_postFdr_volNode);
 
-//------------------------------------------
 //----------------------------------------
-//const player_1_filter_eq_On_EQ3_Button = document.getElementById("player_1_filter_eq_On_EQ3_Button");
-//const fx_1_filter_eq3 = new Tone.EQ3;
 const fx_1_filter_eq3 = new Tone.EQ3();
+fx_1_filter_eq3.fan(fx_1_eq3_meter, meter_test_Node);
 
 fx_1_filter_eq3.set(
   {
@@ -9688,10 +9588,9 @@ fx_1_EQ3_Q_fader.addEventListener("change", function (e) {
 });
 
 fx_1_filter_eq3.fan(fx_1_fxSend_1_postEq_volNode, fx_1_fxSend_2_postEq_volNode, fx_1_fxSend_3_postEq_volNode, fx_1_fxSend_4_postEq_volNode);
-//fx_1_filter_eq3.fan(fx_1_fxSend_1_postFdr_volNode, fx_1_fxSend_2_postFdr_volNode, fx_1_fxSend_3_postFdr_volNode, fx_1_fxSend_4_postFdr_volNode);
 
 //----------------------------------------------------
-const fx_2_filter_eq3 = new Tone.EQ3;
+const fx_2_filter_eq3 = new Tone.EQ3();
 
 fx_2_filter_eq3.set(
   {
@@ -9787,10 +9686,9 @@ fx_2_EQ3_Q_fader.addEventListener("change", function (e) {
 });
 
 fx_2_filter_eq3.fan(fx_2_fxSend_1_postEq_volNode, fx_2_fxSend_2_postEq_volNode, fx_2_fxSend_3_postEq_volNode, fx_2_fxSend_4_postEq_volNode);
-fx_2_filter_eq3.fan(fx_2_fxSend_1_postFdr_volNode, fx_2_fxSend_2_postFdr_volNode, fx_2_fxSend_3_postFdr_volNode, fx_2_fxSend_4_postFdr_volNode);
 
 //---------------------------------------------
-const fx_3_filter_eq3 = new Tone.EQ3;
+const fx_3_filter_eq3 = new Tone.EQ3();
 
 fx_3_filter_eq3.set(
   {
@@ -9886,10 +9784,9 @@ fx_3_EQ3_Q_fader.addEventListener("change", function (e) {
 });
 
 fx_3_filter_eq3.fan(fx_3_fxSend_1_postEq_volNode, fx_3_fxSend_2_postEq_volNode, fx_3_fxSend_3_postEq_volNode, fx_3_fxSend_4_postEq_volNode);
-fx_3_filter_eq3.fan(fx_3_fxSend_1_postFdr_volNode, fx_3_fxSend_2_postFdr_volNode, fx_3_fxSend_3_postFdr_volNode, fx_3_fxSend_4_postFdr_volNode);
 
 //-----------------------------------
-const fx_4_filter_eq3 = new Tone.EQ3;
+const fx_4_filter_eq3 = new Tone.EQ3();
 
 fx_4_filter_eq3.set(
   {
@@ -9985,8 +9882,6 @@ fx_4_EQ3_Q_fader.addEventListener("change", function (e) {
 });
 
 fx_4_filter_eq3.fan(fx_4_fxSend_1_postEq_volNode, fx_4_fxSend_2_postEq_volNode, fx_4_fxSend_3_postEq_volNode, fx_4_fxSend_4_postEq_volNode);
-fx_4_filter_eq3.fan(fx_4_fxSend_1_postFdr_volNode, fx_4_fxSend_2_postFdr_volNode, fx_4_fxSend_3_postFdr_volNode, fx_4_fxSend_4_postFdr_volNode);
-
 
 //************************************************************************** */
 //************************************************************************** */
@@ -9995,6 +9890,12 @@ fx_4_filter_eq3.fan(fx_4_fxSend_1_postFdr_volNode, fx_4_fxSend_2_postFdr_volNode
 //************************************************************************** */
 const player_1_rms_meter = new Tone.Meter(0);
 player_1_Node.fan(player_1_rms_meter);
+//REACOMODAR
+const player_3_rms_meter = new Tone.Meter(0);
+player_3_Node.fan(player_3_rms_meter);
+
+const player_4_rms_meter = new Tone.Meter(0);
+player_4_Node.fan(player_4_rms_meter);
 
 const channel_1_filter_bypass_meter = new Tone.Meter(0);
 channel_1_filter_Bypass.fan(channel_1_filter_bypass_meter);
@@ -10026,16 +9927,21 @@ channel_1_tascam_Mid_SemiParam_FilterNode.fan(channel_1_tascam_424_Mid_meter);
 const channel_1_tascam_424_Low_meter = new Tone.Meter(0);
 channel_1_tascam_LowShelf_FilterNode.fan(channel_1_tascam_424_Low_meter);
 
-const player_1_filter_meter = new Tone.Meter(0);
-channel_1_filter.connect(player_1_filter_meter);
+const channel_1_filter_meter = new Tone.Meter(0);
+channel_1_filter.connect(channel_1_filter_meter);
 
 const channel_1_eq3_meter = new Tone.Meter(0);
 channel_1_filter_eq3.connect(channel_1_eq3_meter);
 
+//---------------------------
+const fx_1_filter_meter = new Tone.Meter(0);
+fx_1_filter.connect(fx_1_filter_meter);
+//----------------------------------------------
+fx_1_volNode.fan(fx_1_rms_meter);
+fx_2_volNode.fan(fx_2_rms_meter);
+fx_3_volNode.fan(fx_3_rms_meter);
+fx_4_volNode.fan(fx_4_rms_meter);
 
-TEST_fx_1_volNode.fan(fx_1_rms_meter);
-fx_1_filter_Bypass.fan(fx_1_filter_bypass_meter)
-fx_1_filter_eq3.fan(fx_1_eq3_meter);
 //************************************************************************** */
 //************************************************************************** */
 //***********************    FX 1 EQ CONTROLS     ******************* */
@@ -10073,8 +9979,6 @@ const fx_4_allpass_controls_div = document.getElementById("fx_4_allpass_controls
 const fx_4_empty_controls_div = document.getElementById("fx_4_empty_controls_div");
 const fx_4_bypass_controls_div = document.getElementById("fx_4_bypass_controls_div");
 const fx_4_eq3_controls_div = document.getElementById("fx_4_eq3_controls_div");
-
-
 
 //*************************************************************************** */
 //*************************************************************************** */
@@ -10171,22 +10075,12 @@ for (i = 0; i < coll.length; i++) {
 }
 
 //********************************************************************************************
-//const fxReturn_1_fader = new Tone.Volume(0).connect(fx_1_pan); //fx_1_pan
-//const fxReturn_1_fader = new Tone.Volume(0).connect(TEST_fx_1_pan);
-const fxReturn_1_fader = new Tone.Volume(0).connect(fx_1_filter_Bypass);
-
+const fxReturn_1_fader = new Tone.Volume(0).connect(fx_1_panNode);
 const fxReturn_2_fader = new Tone.Volume(0).connect(fx_2_pan);
 const fxReturn_3_fader = new Tone.Volume(0).connect(fx_3_pan);
 const fxReturn_4_fader = new Tone.Volume(0).connect(fx_4_pan);
 
 //*****************************************************************************************
-//LOS EFECTOS TIENEN QUE ESTAR FANEADOS A LOS SEND Y AL MASTERFADER
-
-//fx_1_pingpong_Node.connect(fxReturn_1_fader);
-//fx_2_pingpong_Node.connect(fxReturn_2_fader);
-//fx_3_pingpong_Node.connect(fxReturn_3_fader);
-//fx_4_pingpong_Node.connect(fxReturn_4_fader);
-
 //*****************************************************************************************
 //*****************************************************************************************
 //CODIGO DE PRUEBA DE RMS 
@@ -10201,9 +10095,8 @@ fxReturn_3_fader.fan(fxReturn_3_meter);
 fxReturn_4_fader.fan(fxReturn_4_meter);
 
 //SE USA FXRETURN_1
-fxReturn_1_fader.fan(fx_1_fxSend_2_preEq_volNode, fx_1_fxSend_3_preEq_volNode, fx_1_fxSend_4_preEq_volNode);
-TEST_fx_1_pan.fan(fx_1_fxSend_2_preEq_volNode, fx_1_fxSend_3_preEq_volNode, fx_1_fxSend_4_preEq_volNode);
-
+//fxReturn_1_fader.fan(fx_1_fxSend_2_preEq_volNode, fx_1_fxSend_3_preEq_volNode, fx_1_fxSend_4_preEq_volNode);
+fx_1_panNode.fan(fx_1_fxSend_2_preEq_volNode, fx_1_fxSend_3_preEq_volNode, fx_1_fxSend_4_preEq_volNode);
 
 setInterval('updatesMeters()', 100);
 
@@ -10231,8 +10124,6 @@ fx_2_tascam_424_controls_div.style.display = "none";
 fx_2_empty_controls_div.style.display = "none";
 fx_2_bypass_controls_div.style.display = "block";
 fx_2_eq3_controls_div.style.display = "none";
-//const gate_div = document.getElementById("gate_div");
-//const limiter_div = document.getElementById("limiter_div");
 
 //fx 3
 fx_3_allpass_controls_div.style.display = "none";
@@ -10242,8 +10133,6 @@ fx_3_tascam_424_controls_div.style.display = "none";
 fx_3_empty_controls_div.style.display = "none";
 fx_3_bypass_controls_div.style.display = "block";
 fx_3_eq3_controls_div.style.display = "none";
-//const gate_div = document.getElementById("gate_div");
-//const limiter_div = document.getElementById("limiter_div");
 
 //fx 4
 fx_4_allpass_controls_div.style.display = "none";
@@ -10253,9 +10142,6 @@ fx_4_tascam_424_controls_div.style.display = "none";
 fx_4_empty_controls_div.style.display = "none";
 fx_4_bypass_controls_div.style.display = "block";
 fx_4_eq3_controls_div.style.display = "none";
-//const gate_div = document.getElementById("gate_div");
-//const limiter_div = document.getElementById("limiter_div");
-
 
 //************************************************************************************* */
 //************************************************************************************* */
@@ -10265,21 +10151,19 @@ fx_4_eq3_controls_div.style.display = "none";
 
 fx_1_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
-    //ESTO NO TIENE QUE CAMBIAR
-    // DEBE CAMBIAR EL VALOR DE FX_1_VOL NODE
-    TEST_fx_1_volNode.volume.value = -100;
+    fx_1_volNode.volume.value = -100;
     fx_1_volume_value.innerHTML = -100;
     mixEvent.logIntoListaAction(Tone.now(), "fx_1_volume", -100);
   }
   else {
-    TEST_fx_1_volNode.volume.value = e.currentTarget.value;
+    fx_1_volNode.volume.value = e.currentTarget.value;
     fx_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
     mixEvent.logIntoListaAction(Tone.now(), "fx_1_volume", e.currentTarget.value);
   }
 });
 
 fx_1_pan_fader.addEventListener("change", function (e) {
-  TEST_fx_1_pan.pan.value = e.currentTarget.value; //fx_1_pan
+  fx_1_panNode.pan.value = e.currentTarget.value;
   fx_1_pan_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_pan_fader", e.currentTarget.value);
 });
@@ -10346,12 +10230,6 @@ fx_4_pan_fader.addEventListener("change", function (e) {
 //*************     INNERHTML           ********************************************* */
 //*********************************************************************************** */
 //*********************************************************************************** */
-
-//fx_1_rms_value.innerHTML = 0;
-fx_2_rms_value.innerHTML = 0;
-fx_3_rms_value.innerHTML = 0;
-fx_4_rms_value.innerHTML = 0;
-
 const fx_1_select = document.getElementById("fx_1_select");
 fx_1_select.addEventListener("change", function (e) {
   changes_fx_name("FX1", e.currentTarget.value);
@@ -10388,14 +10266,6 @@ fx_4_select.addEventListener("change", function (e) {
 //**********     (SO CALL PROGRAM)          ************************************************************************* */
 //*********************************************************************************** */
 //*********************************************************************************** */
-var local_or_web = document.getElementById("local_checkbox");
-local_or_web.checked = false;  //BORRAR ESTO PARA LA LOGICA ANTERIOR
-local_or_web.addEventListener("change", function () {
-  if (local_or_web.checked) { local = true; alert("local = true"); }
-  else { local = false; alert("local = false"); }
-});
-
-var local = true;
 
 multiple_play_source_1.checked = false;
 multiple_play_source_2.checked = false;
@@ -10429,7 +10299,7 @@ player_4_Node.volume.value = -12;
 channel_4_volNode.volume.value = -6;
 channel_4_volume_value.innerHTML = -6;
 channel_4_volume.value = -6;
-//fx_1_volNode.volume.value = -6;
+
 fx_1_volume.value = -6;
 fx_1_volume_value.innerHTML = -6;
 fx_2_volNode.volume.value = -6;
@@ -10504,6 +10374,21 @@ empty_1_div.style.display = "none";
 empty_2_div.style.display = "none";
 empty_3_div.style.display = "none";
 empty_4_div.style.display = "none";
+
+//--------------------------------------------------------
+//--------------------------------------------------------
+//<button id="elem" onclick="alert('Clic!');">Click automático</button>
+
+let event2 = new MouseEvent("click", {
+  bubbles: true,
+  cancelable: true,
+  //clientX: 10,
+  //clientY: 11
+});
+multiple_play_source_2.dispatchEvent(event2);
+player_1_playButton.dispatchEvent(event2);
+
+//element.dispatchEvent(new Event('input'))
 
 //*********************************************************************************** */
 //*********                                  ***************************************** */
@@ -11706,16 +11591,15 @@ function send(value, rampTo_newValue, rampTo_time) {
 
       //fx 1
       case "fx_1_volume_rampTo": {
-        //        fx_1_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
-        TEST_fx_1_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_volNode.volume.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         fx_1_volume.value = rampTo_newValue.value;
         fx_1_volume_value.innerHTML = rampTo_newValue.value;
         break;
       }
       case "fx_1_pan_rampTo": {
-        TEST_fx_1_pan.pan.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
+        fx_1_panNode.pan.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
         fx_1_pan_fader.value = rampTo_newValue.value;
-        fx_1_pan_value.innerHTML = TEST_fx_1_pan.pan.value;
+        fx_1_pan_value.innerHTML = fx_1_panNode.pan.value;
         break;
       }
       case "fx_1_filter_frequency_shelf_rampTo": {
@@ -12968,10 +12852,6 @@ async function load_Local(value) {
           break;
         }
 
-
-
-
-
       case "player_1":
         {
           if (player_1_scrambler == true && decodedBuffer.duration < 180) {
@@ -13274,7 +13154,6 @@ function play(value) {
       {
         if (!grainPlayer_1_Node.loaded) {
           grainPlayer_1_duration_value.innerHTML = "!loaded";
-          // alert("Grain_1 !loaded")
         }
         else {
           var duration = grainPlayer_1_Node.buffer.duration;
@@ -13294,7 +13173,6 @@ function play(value) {
       {
         if (!grainPlayer_2_Node.loaded) {
           grainPlayer_2_duration_value.innerHTML = "!loaded";
-          // alert("Grain_2 !loaded")
         }
         else {
           var duration = grainPlayer_2_Node.buffer.duration;
@@ -13309,7 +13187,6 @@ function play(value) {
       {
         if (!grainPlayer_3_Node.loaded) {
           grainPlayer_3_duration_value.innerHTML = "!loaded";
-          // alert("Grain_3 !loaded")
         }
         else {
           var duration = grainPlayer_3_Node.buffer.duration;
@@ -13324,7 +13201,6 @@ function play(value) {
       {
         if (!grainPlayer_4_Node.loaded) {
           grainPlayer_4_duration_value.innerHTML = "!loaded";
-          // alert("Grain_4 !loaded")
         }
         else {
           var duration = grainPlayer_4_Node.buffer.duration;
@@ -13654,11 +13530,6 @@ function mute(value) {
         break;
       }
     /**/
-
-
-
-
-
     default:
       { alert("DEFAULT function mute(value)"); break; } 9
   }
@@ -13754,10 +13625,10 @@ function recieves_Number_Returns_url(song) {
 //********************************************************************* */
 //********************************************************************* */
 function channel_x_filter_eq_selection_foo(name, value) {
-  /*
-      alert("channel_x_filter_eq_selection_foo: " + value
-        + "\n" + "name:  " + name);
-      /* */
+/*
+  alert("channel_x_filter_eq_selection_foo: " + value
+    + "\n" + "name:  " + name);
+  /* */
   switch (name) {
     case "channel_1": {
       if (channel_1_filter_eq_selection != value) {
@@ -14560,9 +14431,9 @@ function channel_x_filter_eq_selection_foo(name, value) {
           case "on": {
             mixEvent.logIntoListaAction(Tone.now(), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "bypass") {
-              fxReturn_1_fader.disconnect(fx_1_filter_Bypass);
-              fxReturn_1_fader.connect(fx_1_filter);
-              alert(".disconnect(fx_1_filter_Bypass); .connect(fx_1_filter);");
+              fx_1_panNode.disconnect(fx_1_filter_Bypass);
+              fx_1_panNode.connect(fx_1_filter);
+              alert(".disconnect(fx_1_filter_Bypass); .connect(fx 1 filter);");
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_Bypass.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -14575,8 +14446,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "eq3") {
-              fxReturn_1_fader.disconnect(fx_1_filter_eq3);
-              fxReturn_1_fader.connect(fx_1_filter);
+              fx_1_panNode.disconnect(fx_1_filter_eq3);
+              fx_1_panNode.connect(fx_1_filter);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_eq3.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -14587,8 +14458,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "tascam") {
-              fxReturn_1_fader.disconnect(fx_1_tascam_in_Node);
-              fxReturn_1_fader.connect(fx_1_filter);
+              fx_1_panNode.disconnect(fx_1_tascam_in_Node);
+              fx_1_panNode.connect(fx_1_filter);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_tascam_out_Node.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -14625,8 +14496,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
           case "bypass": {
             mixEvent.logIntoListaAction(Tone.now(), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "on") {
-              fxReturn_1_fader.disconnect(fx_1_filter);
-              fxReturn_1_fader.connect(fx_1_filter_Bypass);
+              fx_1_panNode.disconnect(fx_1_filter);
+              fx_1_panNode.connect(fx_1_filter_Bypass);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_Bypass.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -14637,8 +14508,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "eq3") {
-              fxReturn_1_fader.disconnect(fx_1_filter_eq3);
-              fxReturn_1_fader.connect(fx_1_filter_Bypass);
+              fx_1_panNode.disconnect(fx_1_filter_eq3);
+              fx_1_panNode.connect(fx_1_filter_Bypass);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_eq3.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_Bypass.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -14649,8 +14520,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "tascam") {
-              fxReturn_1_fader.disconnect(fx_1_tascam_in_Node);
-              fxReturn_1_fader.connect(fx_1_filter_Bypass);
+              fx_1_panNode.disconnect(fx_1_tascam_in_Node);
+              fx_1_panNode.connect(fx_1_filter_Bypass);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_tascam_out_Node.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_Bypass.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -14668,8 +14539,9 @@ function channel_x_filter_eq_selection_foo(name, value) {
           case "eq3": {
             mixEvent.logIntoListaAction(Tone.now(), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "on") {
-              fxReturn_1_fader.disconnect(fx_1_filter);
-              fxReturn_1_fader.connect(fx_1_filter_eq3);
+              alert("BBB");
+              fx_1_panNode.disconnect(fx_1_filter);
+              fx_1_panNode.connect(fx_1_filter_eq3);
               alert("BBB1");
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter.disconnect(fx_1_dynamics_compressorNode_Bypass);
@@ -14683,10 +14555,11 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "bypass") {
-              alert("BBBypass 1");
-              fxReturn_1_fader.disconnect(fx_1_filter_Bypass);
-              fxReturn_1_fader.connect(fx_1_filter_eq3);
-
+          alert("BBBypass 1");
+              fx_1_panNode.connect(fx_1_filter_eq3);
+              fx_1_panNode.disconnect(fx_1_filter_Bypass);
+              //fx_1_filter_eq3.connect(Tone.Destination);
+           
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_Bypass.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_eq3.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -14699,8 +14572,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "tascam") {
-              fxReturn_1_fader.disconnect(fx_1_tascam_in_Node);
-              fxReturn_1_fader.connect(fx_1_filter_eq3);
+              fx_1_panNode.disconnect(fx_1_tascam_in_Node);
+              fx_1_panNode.connect(fx_1_filter_eq3);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_tascam_out_Node.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_eq3.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -14718,8 +14591,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
           case "tascam": {
             mixEvent.logIntoListaAction(Tone.now(), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "on") {
-              fxReturn_1_fader.disconnect(fx_1_filter);
-              fxReturn_1_fader.connect(fx_1_tascam_in_Node);
+              fx_1_panNode.disconnect(fx_1_filter);
+              fx_1_panNode.connect(fx_1_tascam_in_Node);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_tascam_out_Node.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -14730,8 +14603,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "bypass") {
-              fxReturn_1_fader.disconnect(fx_1_filter_Bypass);
-              fxReturn_1_fader.connect(fx_1_tascam_in_Node);
+              fx_1_panNode.disconnect(fx_1_filter_Bypass);
+              fx_1_panNode.connect(fx_1_tascam_in_Node);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_Bypass.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_tascam_out_Node.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -14742,8 +14615,8 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "eq3") {
-              fxReturn_1_fader.disconnect(fx_1_filter_eq3);
-              fxReturn_1_fader.connect(fx_1_tascam_in_Node);
+              fx_1_panNode.disconnect(fx_1_filter_eq3);
+              fx_1_panNode.connect(fx_1_tascam_in_Node);
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_eq3.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_tascam_out_Node.connect(fx_1_dynamics_compressorNode_Bypass);
@@ -15362,8 +15235,6 @@ function channel_x_filter_eq_selection_foo(name, value) {
     default: { alert("DEFAULT channel_x_filter_eq_selection_foo") }
   }
 }
-//  else { alert("channel_x_filter_eq_selection != value ELSE"); }
-//}
 
 //************************************************************************* */
 //********************************************************************* */
@@ -18963,31 +18834,7 @@ function send_state_player_x_background_change(name, value) {
       }
     case "fx_1_fxSend_1":
       {
-        alert("fx_1_fxSend_1")
-        /*
-        switch (value) {
-          case "PreEQ": {
-            fx_1_fxSend_1_pre_EQ_Button.style.backgroundColor = "green";
-            fx_1_fxSend_1_post_EQ_Button.style.backgroundColor = "white";
-            fx_1_fxSend_1_post_fader_Button.style.backgroundColor = "white";
-            break;
-          }
-          case "PostEQ": {
-            fx_1_fxSend_1_pre_EQ_Button.style.backgroundColor = "white";
-            fx_1_fxSend_1_post_fader_Button.style.backgroundColor = "white";
-            fx_1_fxSend_1_post_EQ_Button.style.backgroundColor = "green";
-            break;
-          }
-          case "PostFdr": {
-            fx_1_fxSend_1_post_EQ_Button.style.backgroundColor = "white";
-            fx_1_fxSend_1_pre_EQ_Button.style.backgroundColor = "white";
-            fx_1_fxSend_1_post_fader_Button.style.backgroundColor = "green";
-            break;
-          }
-          default: { break; }
-        }
-        break;
-        */
+        alert("fx_1_fxSend_1 \n NO ANDA NADA PARA EVITAR ACOPLE");
       }
     case "fx_1_fxSend_2":
       {
@@ -19091,31 +18938,7 @@ function send_state_player_x_background_change(name, value) {
       }
     case "fx_2_fxSend_2":
       {
-        alert("fx_2_fxSend_2")
-        /*
-        switch (value) {
-          case "PreEQ": {
-            fx_2_fxSend_2_pre_EQ_Button.style.backgroundColor = "green";
-            fx_2_fxSend_2_post_EQ_Button.style.backgroundColor = "white";
-            fx_2_fxSend_2_post_fader_Button.style.backgroundColor = "white";
-            break;
-          }
-          case "PostEQ": {
-            fx_2_fxSend_2_pre_EQ_Button.style.backgroundColor = "white";
-            fx_2_fxSend_2_post_fader_Button.style.backgroundColor = "white";
-            fx_2_fxSend_2_post_EQ_Button.style.backgroundColor = "green";
-            break;
-          }
-          case "PostFdr": {
-            fx_2_fxSend_2_post_EQ_Button.style.backgroundColor = "white";
-            fx_2_fxSend_2_pre_EQ_Button.style.backgroundColor = "white";
-            fx_2_fxSend_2_post_fader_Button.style.backgroundColor = "green";
-            break;
-          }
-          default: { break; }
-        }
-        break;
-        */
+        alert("fx_2_fxSend_2 \n NO ANDA NADA PARA EVITAR ACOPLE");
       }
     case "fx_2_fxSend_3":
       {
@@ -19219,31 +19042,7 @@ function send_state_player_x_background_change(name, value) {
       }
     case "fx_3_fxSend_3":
       {
-        alert("fx_3_fxSend_3")
-        /*
-                switch (value) {
-                  case "PreEQ": {
-                    fx_3_fxSend_3_pre_EQ_Button.style.backgroundColor = "green";
-                    fx_3_fxSend_3_post_EQ_Button.style.backgroundColor = "white";
-                    fx_3_fxSend_3_post_fader_Button.style.backgroundColor = "white";
-                    break;
-                  }
-                  case "PostEQ": {
-                    fx_3_fxSend_3_pre_EQ_Button.style.backgroundColor = "white";
-                    fx_3_fxSend_3_post_fader_Button.style.backgroundColor = "white";
-                    fx_3_fxSend_3_post_EQ_Button.style.backgroundColor = "green";
-                    break;
-                  }
-                  case "PostFdr": {
-                    fx_3_fxSend_3_post_EQ_Button.style.backgroundColor = "white";
-                    fx_3_fxSend_3_pre_EQ_Button.style.backgroundColor = "white";
-                    fx_3_fxSend_3_post_fader_Button.style.backgroundColor = "green";
-                    break;
-                  }
-                  default: { break; }
-                }
-                break;
-                */
+        alert("fx_3_fxSend_3 \n NO ANDA NADA PARA EVITAR ACOPLE");
       }
     case "fx_3_fxSend_4":
       {
@@ -19347,31 +19146,7 @@ function send_state_player_x_background_change(name, value) {
       }
     case "fx_4_fxSend_4":
       {
-        alert("fx_4_fxSend_4")
-        /*
-                switch (value) {
-                  case "PreEQ": {
-                    fx_4_fxSend_4_pre_EQ_Button.style.backgroundColor = "green";
-                    fx_4_fxSend_4_post_EQ_Button.style.backgroundColor = "white";
-                    fx_4_fxSend_4_post_fader_Button.style.backgroundColor = "white";
-                    break;
-                  }
-                  case "PostEQ": {
-                    fx_4_fxSend_4_pre_EQ_Button.style.backgroundColor = "white";
-                    fx_4_fxSend_4_post_fader_Button.style.backgroundColor = "white";
-                    fx_4_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
-                    break;
-                  }
-                  case "PostFdr": {
-                    fx_4_fxSend_4_post_EQ_Button.style.backgroundColor = "white";
-                    fx_4_fxSend_4_pre_EQ_Button.style.backgroundColor = "white";
-                    fx_4_fxSend_4_post_fader_Button.style.backgroundColor = "green";
-                    break;
-                  }
-                  default: { break; }
-                }
-                break;
-                */
+        alert("fx_4_fxSend_4 \n NO ANDA NADA PARA EVITAR ACOPLE");
       }
   }//CLOSES  switch (name)
 }//CLOSES send_state_channel_1_background_change
@@ -20352,7 +20127,6 @@ function player_x_dynamics_On_Off(name, value) {
                   channel_4_dynamics_compressorNode_Bypass.connect(channel_4_dynamics_gateNode_Bypass);
                 }
               }
-
               switchState_dynamics("channel_4_compressor_On_Off_Button");
               break;
             }
@@ -20631,31 +20405,30 @@ function player_x_dynamics_On_Off(name, value) {
                 && fx_1_gate_On_Off_Button_State == "on") {
                 fx_1_dynamics_gateNode.disconnect(fx_1_dynamics_limiterNode_Bypass);
                 fx_1_dynamics_gateNode.connect(fx_1_dynamics_limiterNode);
-                fx_1_dynamics_limiterNode_Bypass.disconnect(TEST_fx_1_volNode);
-                fx_1_dynamics_limiterNode.connect(TEST_fx_1_volNode);
+                fx_1_dynamics_limiterNode_Bypass.disconnect(fx_1_volNode);
+                fx_1_dynamics_limiterNode.connect(fx_1_volNode);
               }
               else if (fx_1_limiter_On_Off_Button_State == "off"
                 && fx_1_gate_On_Off_Button_State == "off") {
                 fx_1_dynamics_gateNode_Bypass.disconnect(fx_1_dynamics_limiterNode_Bypass);
                 fx_1_dynamics_gateNode_Bypass.connect(fx_1_dynamics_limiterNode);
-                fx_1_dynamics_limiterNode_Bypass.disconnect(TEST_fx_1_volNode);
-                fx_1_dynamics_limiterNode.connect(TEST_fx_1_volNode);
+                fx_1_dynamics_limiterNode_Bypass.disconnect(fx_1_volNode);
+                fx_1_dynamics_limiterNode.connect(fx_1_volNode);
               }
               else if (fx_1_limiter_On_Off_Button_State == "on"
                 && fx_1_gate_On_Off_Button_State == "on") {
                 fx_1_dynamics_gateNode.disconnect(fx_1_dynamics_limiterNode);
                 fx_1_dynamics_gateNode.connect(fx_1_dynamics_limiterNode_Bypass);
-                fx_1_dynamics_limiterNode.disconnect(TEST_fx_1_volNode);
-                fx_1_dynamics_limiterNode_Bypass.connect(TEST_fx_1_volNode);
+                fx_1_dynamics_limiterNode.disconnect(fx_1_volNode);
+                fx_1_dynamics_limiterNode_Bypass.connect(fx_1_volNode);
               }
               else if (fx_1_limiter_On_Off_Button_State == "on"
                 && fx_1_gate_On_Off_Button_State == "off") {
                 fx_1_dynamics_gateNode_Bypass.disconnect(fx_1_dynamics_limiterNode);
                 fx_1_dynamics_gateNode_Bypass.connect(fx_1_dynamics_limiterNode_Bypass);
-                fx_1_dynamics_limiterNode.disconnect(TEST_fx_1_volNode);
-                fx_1_dynamics_limiterNode_Bypass.connect(TEST_fx_1_volNode);
+                fx_1_dynamics_limiterNode.disconnect(fx_1_volNode);
+                fx_1_dynamics_limiterNode_Bypass.connect(fx_1_volNode);
               }
-
               switchState_dynamics("fx_1_limiter_On_Off_Button");
               break;
             }
@@ -21076,7 +20849,6 @@ function player_x_dynamics_On_Off(name, value) {
                 fx_3_dynamics_limiterNode.disconnect(fx_3_volNode);
                 fx_3_dynamics_limiterNode_Bypass.connect(fx_3_volNode);
               }
-
               switchState_dynamics("fx_3_limiter_On_Off_Button");
               break;
             }
@@ -21195,7 +20967,6 @@ function player_x_dynamics_On_Off(name, value) {
                   fx_4_dynamics_compressorNode_Bypass.connect(fx_4_dynamics_gateNode_Bypass);
                 }
               }
-
               switchState_dynamics("fx_4_compressor_On_Off_Button");
               break;
             }
@@ -21287,7 +21058,6 @@ function player_x_dynamics_On_Off(name, value) {
                 fx_4_dynamics_limiterNode.disconnect(fx_4_volNode);
                 fx_4_dynamics_limiterNode_Bypass.connect(fx_4_volNode);
               }
-
               switchState_dynamics("fx_4_limiter_On_Off_Button");
               break;
             }
@@ -21540,20 +21310,33 @@ function TransportSTOP() {
 }
 /**/
 function Sinte() {
+  /*
+    let event2 = new MouseEvent("click", {
+      bubbles: true,
+      cancelable: true,
+    });
+  
+    player_4_playButton.dispatchEvent(event2);
+  /**/
   player_test_Node.volume.value = -18;
-  player_test_Node.connect(fxReturn_1_fader);
-
+  player_test_Node.connect(TESTfx_1_filter);
   //  player_test_Node.connect(fx_1_dynamics_compressorNode);
-  player_test_Node.fan(fx_1_eq3_meter);
+  //  player_test_Node.connect(fx_1_dynamics_gateNode);
+  //player_test_Node.connect(fx_1_dynamics_limiterNode);
 
+  //player_test_Node.connect(fx_1_panNode);
+  //player_test_Node.connect(fx_1_filter_Bypass);
   //player_test_Node.connect(fx_1_filter);
+  //player_test_Node.connect(fx_1_filter_eq3);
+  //fx_1_filter_eq3.connect(Tone.Destination);
+  //fx_1_filter_eq3.connect(fx_1_volNode);
+  //player_test_Node.connect(fx_1_tascam_in_Node);
+  //player_test_Node.fan(fx_1_eq3_meter);
   //player_test_Node.connect(fx_1_dynamics_compressorNode_Bypass);
   //player_test_Node.connect(fx_1_pingpong_Node);
-
-  console.log("TEST_fx_1_volNode.volume.value: " + TEST_fx_1_volNode.volume.value)
+  //console.log("fx_1_volNode.volume.value: " + fx_1_volNode.volume.value)
 
   player_test_Node.loop = true;
-
   if (!player_test_Node.loaded) {
     console.log("player_test_Node: NOT LOADED")
   }
@@ -21613,9 +21396,6 @@ function changes_fx_name(channel, effecttype) {
 }
 
 function removes_previous_effect(patch) {
-
-  //alert("removes_previous_effect PATCH:     " + patch)
-
   switch (patch) {
     case "fx_1_autofilter": {
       fx_1_AutoFilter_Node.disconnect(fxReturn_1_fader);
@@ -21924,7 +21704,7 @@ function sets_New_FX(channel, effecttype) {
     case "FX1": {
       removes_previous_effect(fx_1_actual_patch);
       switch (effecttype) {
-        case "AutoFilter"://FUNCIONA PERO NO TIENE SENTIDO
+        case "AutoFilter":
           {
             fx_1_AutoFilter_Node.connect(fxReturn_1_fader);
             channel_1_fxSend_1_preEq_volNode.connect(fx_1_AutoFilter_Node);
@@ -22002,7 +21782,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_autopanner_div.style.display = "block";
             break;
           }
-        case "AutoWah": //TEST
+        case "AutoWah":
           {
             fx_1_AutoWah_Node.connect(fxReturn_1_fader);
             channel_1_fxSend_1_preEq_volNode.connect(fx_1_AutoWah_Node);
@@ -22065,7 +21845,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_bitCrusher_div.style.display = "block";
             break;
           }
-        case "Chebyshev": //OK PERO PARECE UNA DISTORTION
+        case "Chebyshev":
           {
             fx_1_Chebyshev_Node.connect(fxReturn_1_fader);
             channel_1_fxSend_1_preEq_volNode.connect(fx_1_Chebyshev_Node);
@@ -22104,7 +21884,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_Chebyshev_div.style.display = "block";
             break;
           }
-        case "Chorus": //OK
+        case "Chorus":
           {
             fx_1_chorus_Node.connect(fxReturn_1_fader);
 
@@ -22144,7 +21924,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_chorus_div.style.display = "block";
             break;
           }
-        case "Distortion":  //OK
+        case "Distortion":
           {
             fx_1_distortion_Node.connect(fxReturn_1_fader);
             channel_1_fxSend_1_preEq_volNode.connect(fx_1_distortion_Node);
@@ -22183,7 +21963,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_distortion_div.style.display = "block";
             break;
           }
-        case "FeedbackDelay": //OK
+        case "FeedbackDelay":
           {
             fx_1_feedback_Node.connect(fxReturn_1_fader);
 
@@ -22223,7 +22003,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_actual_patch = "fx_1_Feedback";
             break;
           }
-        case "FrequencyShifter":  //OK
+        case "FrequencyShifter":
           {
             fx_1_FrequencyShifter_Node.connect(fxReturn_1_fader);
 
@@ -22263,7 +22043,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_frequencyShifter_div.style.display = "block";
             break;
           }
-        case "Phaser":  //Testear NO ANDA NADA
+        case "Phaser":
           {
             fx_1_phaser_Node.connect(fxReturn_1_fader);
             channel_1_fxSend_1_preEq_volNode.connect(fx_1_phaser_Node);
@@ -22302,7 +22082,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_phaser_div.style.display = "block";
             break;
           }
-        case "PingPongDelay": //OK
+        case "PingPongDelay":
           {
             fx_1_pingpong_Node.connect(fxReturn_1_fader);
 
@@ -22343,7 +22123,7 @@ function sets_New_FX(channel, effecttype) {
 
             break;
           }
-        case "PitchShift":  //OK
+        case "PitchShift":
           {
             fx_1_pitchshift_Node.connect(fxReturn_1_fader);
             channel_1_fxSend_1_preEq_volNode.connect(fx_1_pitchshift_Node);
@@ -22383,7 +22163,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_pitchshift_div.style.display = "block";
             break;
           }
-        case "Reverb": //REVISAR CUELGA TODO
+        case "Reverb":
           {
             fx_1_reverb_Node.connect(fxReturn_1_fader);
 
@@ -22423,7 +22203,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_reverb_div.style.display = "block";
             break;
           }
-        case "Tremolo": //TEST NO FUNCA
+        case "Tremolo":
           {
             fx_1_tremolo_Node.connect(fxReturn_1_fader);
 
@@ -22463,7 +22243,7 @@ function sets_New_FX(channel, effecttype) {
             fx_1_tremolo_div.style.display = "block";
             break;
           }
-        case "Vibrato": //Test NO FUNCA
+        case "Vibrato":
           {
             fx_1_vibrato_Node.connect(fxReturn_1_fader);
             channel_1_fxSend_1_preEq_volNode.connect(fx_1_vibrato_Node);
@@ -22510,7 +22290,7 @@ function sets_New_FX(channel, effecttype) {
     case "FX2": {
       removes_previous_effect(fx_2_actual_patch);
       switch (effecttype) {
-        case "Distortion":  //OK
+        case "Distortion":
           {
             fx_2_distortion_Node.connect(fxReturn_2_fader);
             channel_1_fxSend_2_preEq_volNode.connect(fx_2_distortion_Node);
@@ -22549,7 +22329,7 @@ function sets_New_FX(channel, effecttype) {
             fx_2_distortion_div.style.display = "block";
             break;
           }
-        case "FeedbackDelay": //OK
+        case "FeedbackDelay":
           {
             fx_2_feedback_Node.connect(fxReturn_2_fader);
 
@@ -22589,7 +22369,7 @@ function sets_New_FX(channel, effecttype) {
             fx_2_actual_patch = "fx_2_Feedback";
             break;
           }
-        case "Phaser":  //Testear NO ANDA NADA
+        case "Phaser":
           {
             fx_2_phaser_Node.connect(fxReturn_2_fader);
             channel_1_fxSend_2_preEq_volNode.connect(fx_2_phaser_Node);
@@ -22628,7 +22408,7 @@ function sets_New_FX(channel, effecttype) {
             fx_2_phaser_div.style.display = "block";
             break;
           }
-        case "PingPongDelay": //OK
+        case "PingPongDelay":
           {
             fx_2_pingpong_Node.connect(fxReturn_2_fader);
 
@@ -22669,7 +22449,7 @@ function sets_New_FX(channel, effecttype) {
 
             break;
           }
-        case "PitchShift":  //OK
+        case "PitchShift":
           {
             fx_2_pitchshift_Node.connect(fxReturn_2_fader);
             channel_1_fxSend_2_preEq_volNode.connect(fx_2_pitchshift_Node);
@@ -22708,7 +22488,7 @@ function sets_New_FX(channel, effecttype) {
             fx_2_pitchshift_div.style.display = "block";
             break;
           }
-        case "Reverb": //REVISAR CUELGA TODO
+        case "Reverb":
           {
             fx_2_reverb_Node.connect(fxReturn_2_fader);
 
@@ -22755,7 +22535,7 @@ function sets_New_FX(channel, effecttype) {
     case "FX3": {
       removes_previous_effect(fx_3_actual_patch);
       switch (effecttype) {
-        case "Chorus": //OK
+        case "Chorus":
           {
             fx_3_chorus_Node.connect(fxReturn_3_fader);
 
@@ -22795,7 +22575,7 @@ function sets_New_FX(channel, effecttype) {
             fx_3_chorus_div.style.display = "block";
             break;
           }
-        case "FeedbackDelay": //OK
+        case "FeedbackDelay":
           {
             fx_3_feedback_Node.connect(fxReturn_3_fader);
 
@@ -22835,7 +22615,7 @@ function sets_New_FX(channel, effecttype) {
             fx_3_actual_patch = "fx_3_Feedback";
             break;
           }
-        case "FrequencyShifter":  //OK
+        case "FrequencyShifter":
           {
             fx_3_FrequencyShifter_Node.connect(fxReturn_3_fader);
 
@@ -22875,7 +22655,7 @@ function sets_New_FX(channel, effecttype) {
             fx_3_frequencyShifter_div.style.display = "block";
             break;
           }
-        case "PingPongDelay": //OK
+        case "PingPongDelay":
           {
             fx_3_pingpong_Node.connect(fxReturn_3_fader);
 
@@ -22916,7 +22696,7 @@ function sets_New_FX(channel, effecttype) {
 
             break;
           }
-        case "PitchShift":  //OK
+        case "PitchShift":
           {
             fx_3_pitchshift_Node.connect(fxReturn_3_fader);
             channel_1_fxSend_3_preEq_volNode.connect(fx_3_pitchshift_Node);
@@ -22955,7 +22735,7 @@ function sets_New_FX(channel, effecttype) {
             fx_3_pitchshift_div.style.display = "block";
             break;
           }
-        case "Reverb": //REVISAR CUELGA TODO
+        case "Reverb":
           {
             fx_3_reverb_Node.connect(fxReturn_3_fader);
 
@@ -23002,7 +22782,7 @@ function sets_New_FX(channel, effecttype) {
     case "FX4": {
       removes_previous_effect(fx_4_actual_patch);
       switch (effecttype) {
-        case "Chorus": //OK
+        case "Chorus":
           {
             fx_4_chorus_Node.connect(fxReturn_4_fader);
 
@@ -23042,7 +22822,7 @@ function sets_New_FX(channel, effecttype) {
             fx_4_chorus_div.style.display = "block";
             break;
           }
-        case "FeedbackDelay": //OK
+        case "FeedbackDelay":
           {
             fx_4_feedback_Node.connect(fxReturn_4_fader);
 
@@ -23082,7 +22862,7 @@ function sets_New_FX(channel, effecttype) {
             fx_4_actual_patch = "fx_4_Feedback";
             break;
           }
-        case "FrequencyShifter":  //OK
+        case "FrequencyShifter":
           {
             fx_4_FrequencyShifter_Node.connect(fxReturn_4_fader);
 
@@ -23122,7 +22902,7 @@ function sets_New_FX(channel, effecttype) {
             fx_4_frequencyShifter_div.style.display = "block";
             break;
           }
-        case "Phaser":  //Testear NO ANDA NADA
+        case "Phaser":
           {
             fx_4_phaser_Node.connect(fxReturn_4_fader);
             channel_1_fxSend_4_preEq_volNode.connect(fx_4_phaser_Node);
@@ -23161,7 +22941,7 @@ function sets_New_FX(channel, effecttype) {
             fx_4_phaser_div.style.display = "block";
             break;
           }
-        case "PingPongDelay": //OK
+        case "PingPongDelay":
           {
             fx_4_pingpong_Node.connect(fxReturn_4_fader);
 
@@ -23202,7 +22982,7 @@ function sets_New_FX(channel, effecttype) {
 
             break;
           }
-        case "Reverb": //REVISAR CUELGA TODO
+        case "Reverb":
           {
             fx_4_reverb_Node.connect(fxReturn_4_fader);
 
@@ -23271,16 +23051,13 @@ function sets_New_Source(source, value) {
           }
         case "Oscillator": //
           {
-            ("sets_New_Source: " + value);
             oscillator_1.connect(channel_1_panNode);
             oscillator_1_div.style.display = "block";
             source_1_actual_patch = "oscillator"
             break;
-
           }
         case "Noise": //
           {
-            // ("sets_New_Source: " + value);
             noise_1_Node.connect(channel_1_panNode);
             noise_1_div.style.display = "block";
             source_1_actual_patch = "noise"
@@ -23365,7 +23142,6 @@ function sets_New_Source(source, value) {
       switch (value) {
         case "NoiseSynth": //
           {
-            //alert("sets_New_Source: " + value);
             noiseSynth_3.connect(channel_3_panNode);
             noiseSynth_3_div.style.display = "block";
             source_3_actual_patch = "noiseSynth"
@@ -23373,7 +23149,6 @@ function sets_New_Source(source, value) {
           }
         case "Oscillator": //
           {
-            //alert("sets_New_Source: " + value);
             oscillator_3.connect(channel_3_panNode);
             oscillator_3_div.style.display = "block";
             source_3_actual_patch = "oscillator"
@@ -23381,7 +23156,6 @@ function sets_New_Source(source, value) {
           }
         case "Noise": //
           {
-            //alert("sets_New_Source: " + value);
             noise_3_Node.connect(channel_3_panNode);
             noise_3_div.style.display = "block";
             source_3_actual_patch = "noise"
@@ -23403,7 +23177,6 @@ function sets_New_Source(source, value) {
           }
         case "empty": //
           {
-            // alert("sets_New_Source: " + value);
             source_3_actual_patch = "empty"
             empty_3_div.style.display = "block";
             break;
@@ -23418,7 +23191,6 @@ function sets_New_Source(source, value) {
       switch (value) {
         case "NoiseSynth": //
           {
-            //alert("sets_New_Source: " + value);
             noiseSynth_4.connect(channel_4_panNode);
             noiseSynth_4_div.style.display = "block";
             source_4_actual_patch = "noiseSynth"
@@ -23426,7 +23198,6 @@ function sets_New_Source(source, value) {
           }
         case "Oscillator": //
           {
-            //alert("sets_New_Source: " + value);
             oscillator_4.connect(channel_4_panNode);
             oscillator_4_div.style.display = "block";
             source_4_actual_patch = "oscillator"
@@ -23434,7 +23205,6 @@ function sets_New_Source(source, value) {
           }
         case "Noise": //
           {
-            //alert("sets_New_Source: " + value);
             noise_4_Node.connect(channel_4_panNode);
             noise_4_div.style.display = "block";
             source_4_actual_patch = "noise"
@@ -23456,7 +23226,6 @@ function sets_New_Source(source, value) {
           }
         case "empty": //
           {
-            // alert("sets_New_Source: " + value);
             source_4_actual_patch = "empty"
             empty_4_div.style.display = "block";
             break;
@@ -23489,62 +23258,52 @@ button.onclick = () => {
   }
 };
   */
-
-
 }
+
+//------------------------------------------
+//REPOSICIONAR LUEGO
+channel_2_volNode.fan(channel_2_rms_meter);
+channel_3_volNode.fan(channel_3_rms_meter);
+channel_4_volNode.fan(channel_4_rms_meter);
+
+//---------------------------------
 
 function updatesMeters() {
   meter_test_Node_RMS.innerHTML = Math.round(`${meter_test_Node.getValue()}`);
   player_1_rms_meter_inner.innerHTML = Math.round(`${player_1_rms_meter.getValue()}`);
   player_2_rms_meter_inner.innerHTML = Math.round(`${player_2_rms_meter.getValue()}`);
+  player_3_rms_meter_inner.innerHTML = Math.round(`${player_3_rms_meter.getValue()}`);
+  player_4_rms_meter_inner.innerHTML = Math.round(`${player_4_rms_meter.getValue()}`);
+
   channel_1_rms_meter_inner.innerHTML = Math.round(`${channel_1_rms_meter.getValue()}`);
   channel_1_filter_bypass_meter_inner.innerHTML = Math.round(`${channel_1_filter_bypass_meter.getValue()}`);
-  channel_1_filter_allpass_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
-  channel_1_shelf_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
-  channel_1_peaking_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
+  channel_1_filter_allpass_meter_inner.innerHTML = Math.round(`${channel_1_filter_meter.getValue()}`);
+  channel_1_shelf_meter_inner.innerHTML = Math.round(`${channel_1_filter_meter.getValue()}`);
+  channel_1_peaking_meter_inner.innerHTML = Math.round(`${channel_1_filter_meter.getValue()}`);
   channel_1_rms_comp_bypass_meter_inner.innerHTML = Math.round(`${channel_1_rms_comp_bypass_meter.getValue()}`);
   channel_1_rms_gate_bypass_meter_inner.innerHTML = Math.round(`${channel_1_rms_gate_bypass_meter.getValue()}`);
   channel_1_rms_limiter_bypass_meter_inner.innerHTML = Math.round(`${channel_1_rms_limiter_bypass_meter.getValue()}`);
   channel_1_rms_comp_meter_inner.innerHTML = Math.round(`${channel_1_rms_comp_meter.getValue()}`);
   channel_1_rms_gate_meter_inner.innerHTML = Math.round(`${channel_1_rms_gate_meter.getValue()}`);
   channel_1_rms_limiter_meter_inner.innerHTML = Math.round(`${channel_1_rms_limiter_meter.getValue()}`);
-  // player_1_filter_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
   channel_1_tascam_424_Hi_meter_inner.innerHTML = Math.round(`${channel_1_tascam_424_Hi_meter.getValue()}`);
   channel_1_tascam_424_Mid_meter_inner.innerHTML = Math.round(`${channel_1_tascam_424_Mid_meter.getValue()}`);
   channel_1_tascam_424_Low_meter_inner.innerHTML = Math.round(`${channel_1_tascam_424_Low_meter.getValue()}`);
   channel_1_eq3_meter_inner.innerHTML = Math.round(`${channel_1_eq3_meter.getValue()}`);
-  //player_3_rms_meter_inner.innerHTML = Math.round(`${player_3_rms_meter.getValue()}`);
-  //player_4_rms_meter_inner.innerHTML = Math.round(`${player_4_rms_meter.getValue()}`);
+
   grainPlayer_1_rms_value.innerHTML = Math.round(`${grainPlayer_1_rmsNode.getValue()}`);
 
   channel_2_rms_meter_inner.innerHTML = Math.round(`${channel_2_rms_meter.getValue()}`);
   channel_3_rms_meter_inner.innerHTML = Math.round(`${channel_3_rms_meter.getValue()}`);
   channel_4_rms_meter_inner.innerHTML = Math.round(`${channel_4_rms_meter.getValue()}`);
 
-  //fx_1_rms_value.innerHTML = Math.round(`${fxReturn_1_fader_meter.getValue()}`);
-
   fx_1_rms_meter_inner.innerHTML = Math.round(`${fx_1_rms_meter.getValue()}`);
-  fx_1_filter_bypass_meter_inner.innerHTML = Math.round(`${fx_1_filter_bypass_meter.getValue()}`);
-  fx_1_eq3_meter_inner.innerHTML = Math.round(`${fx_1_eq3_meter.getValue()}`);
-
-  //fx_1_filter_allpass_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
-  //fx_1_shelf_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
-  //fx_1_peaking_meter_inner.innerHTML = Math.round(`${player_1_filter_meter.getValue()}`);
-  //fx_1_rms_comp_bypass_meter_inner.innerHTML = Math.round(`${fx_1_rms_comp_bypass_meter.getValue()}`);
-  //fx_1_rms_gate_bypass_meter_inner.innerHTML = Math.round(`${fx_1_rms_gate_bypass_meter.getValue()}`);
-  //fx_1_rms_limiter_bypass_meter_inner.innerHTML = Math.round(`${fx_1_rms_limiter_bypass_meter.getValue()}`);
-  //fx_1_rms_comp_meter_inner.innerHTML = Math.round(`${fx_1_rms_comp_meter.getValue()}`);
-  //fx_1_rms_gate_meter_inner.innerHTML = Math.round(`${fx_1_rms_gate_meter.getValue()}`);
-  //fx_1_rms_limiter_meter_inner.innerHTML = Math.round(`${fx_1_rms_limiter_meter.getValue()}`);
-
-
-  fx_2_rms_value.innerHTML = Math.round(`${fxReturn_2_meter.getValue()}`);
-  fx_3_rms_value.innerHTML = Math.round(`${fxReturn_3_meter.getValue()}`);
-  fx_4_rms_value.innerHTML = Math.round(`${fxReturn_4_meter.getValue()}`);
+  fx_2_rms_meter_inner.innerHTML = Math.round(`${fx_2_rms_meter.getValue()}`);
+  fx_3_rms_meter_inner.innerHTML = Math.round(`${fx_3_rms_meter.getValue()}`);
+  fx_4_rms_meter_inner.innerHTML = Math.round(`${fx_4_rms_meter.getValue()}`);
 }
 
 function hide_all_divs(value) {
-  //alerta("hide_all_divs",value);
   switch (value) {
     case "fx_1_select": {
       fx_1_autofilter_div.style.display = "none";
@@ -23779,7 +23538,6 @@ function switchState_dynamics(name) {
           channel_4_limiter_On_Off_Button.innerText = "On"
           channel_4_limiter_On_Off_Button.style.backgroundColor = "green";
           mixEvent.logIntoListaAction(Tone.now(), "channel_4_limiter_On_Off_Button", "on");
-
         }
         break;
       }
@@ -23828,7 +23586,6 @@ function switchState_dynamics(name) {
           fx_1_limiter_On_Off_Button.innerText = "On"
           fx_1_limiter_On_Off_Button.style.backgroundColor = "green";
           mixEvent.logIntoListaAction(Tone.now(), "fx_1_limiter_On_Off_Button", "on");
-
         }
         break;
       }
@@ -23877,7 +23634,6 @@ function switchState_dynamics(name) {
           fx_2_limiter_On_Off_Button.innerText = "On"
           fx_2_limiter_On_Off_Button.style.backgroundColor = "green";
           mixEvent.logIntoListaAction(Tone.now(), "fx_2_limiter_On_Off_Button", "on");
-
         }
         break;
       }
@@ -23926,7 +23682,6 @@ function switchState_dynamics(name) {
           fx_3_limiter_On_Off_Button.innerText = "On"
           fx_3_limiter_On_Off_Button.style.backgroundColor = "green";
           mixEvent.logIntoListaAction(Tone.now(), "fx_3_limiter_On_Off_Button", "on");
-
         }
         break;
       }
@@ -23975,7 +23730,6 @@ function switchState_dynamics(name) {
           fx_4_limiter_On_Off_Button.innerText = "On"
           fx_4_limiter_On_Off_Button.style.backgroundColor = "green";
           mixEvent.logIntoListaAction(Tone.now(), "fx_4_limiter_On_Off_Button", "on");
-
         }
         break;
       }
@@ -23984,10 +23738,10 @@ function switchState_dynamics(name) {
 }
 
 function switchState_filter_eq_selection(name, value) {
-
-  alert("switchState_filter_eq_selection: " + value
-    + "\n" + "name:  " + name);
-  /*  */
+  /* 
+    alert("switchState_filter_eq_selection: " + value
+      + "\n" + "name:  " + name);
+    /*  */
   switch (name) {
     case "channel_1_filter_eq_selection":
       {
@@ -24173,7 +23927,6 @@ function switchState_filter_eq_selection(name, value) {
             break;
           }
           case "on": {
-
             if (value == "bypass") {
               channel_3_filter_eq_selection = "bypass";
               channel_3_filter_eq_bypass_Button.style.backgroundColor = "green";
@@ -24189,11 +23942,9 @@ function switchState_filter_eq_selection(name, value) {
               channel_3_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
               channel_3_filter_eq_On_Button.style.backgroundColor = "white";
             }
-
             break;
           }
           case "eq3": {
-
             if (value == "bypass") {
               channel_3_filter_eq_selection = "bypass";
               channel_3_filter_eq_bypass_Button.style.backgroundColor = "green";
@@ -24255,7 +24006,6 @@ function switchState_filter_eq_selection(name, value) {
             break;
           }
           case "on": {
-
             if (value == "bypass") {
               channel_4_filter_eq_selection = "bypass";
               channel_4_filter_eq_bypass_Button.style.backgroundColor = "green";
@@ -24271,11 +24021,9 @@ function switchState_filter_eq_selection(name, value) {
               channel_4_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
               channel_4_filter_eq_On_Button.style.backgroundColor = "white";
             }
-
             break;
           }
           case "eq3": {
-
             if (value == "bypass") {
               channel_4_filter_eq_selection = "bypass";
               channel_4_filter_eq_bypass_Button.style.backgroundColor = "green";
@@ -24337,7 +24085,6 @@ function switchState_filter_eq_selection(name, value) {
             break;
           }
           case "on": {
-
             if (value == "bypass") {
               fx_1_filter_eq_selection = "bypass";
               fx_1_filter_eq_bypass_Button.style.backgroundColor = "green";
@@ -24353,11 +24100,9 @@ function switchState_filter_eq_selection(name, value) {
               fx_1_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
               fx_1_filter_eq_On_Button.style.backgroundColor = "white";
             }
-
             break;
           }
           case "eq3": {
-
             if (value == "bypass") {
               fx_1_filter_eq_selection = "bypass";
               fx_1_filter_eq_bypass_Button.style.backgroundColor = "green";
@@ -24419,7 +24164,6 @@ function switchState_filter_eq_selection(name, value) {
             break;
           }
           case "on": {
-
             if (value == "bypass") {
               fx_2_filter_eq_selection = "bypass";
               fx_2_filter_eq_bypass_Button.style.backgroundColor = "green";
@@ -24435,11 +24179,9 @@ function switchState_filter_eq_selection(name, value) {
               fx_2_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
               fx_2_filter_eq_On_Button.style.backgroundColor = "white";
             }
-
             break;
           }
           case "eq3": {
-
             if (value == "bypass") {
               fx_2_filter_eq_selection = "bypass";
               fx_2_filter_eq_bypass_Button.style.backgroundColor = "green";
@@ -24517,7 +24259,6 @@ function switchState_filter_eq_selection(name, value) {
               fx_3_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
               fx_3_filter_eq_On_Button.style.backgroundColor = "white";
             }
-
             break;
           }
           case "eq3": {
@@ -24583,7 +24324,6 @@ function switchState_filter_eq_selection(name, value) {
             break;
           }
           case "on": {
-
             if (value == "bypass") {
               fx_4_filter_eq_selection = "bypass";
               fx_4_filter_eq_bypass_Button.style.backgroundColor = "green";
@@ -24599,7 +24339,6 @@ function switchState_filter_eq_selection(name, value) {
               fx_4_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
               fx_4_filter_eq_On_Button.style.backgroundColor = "white";
             }
-
             break;
           }
           case "eq3": {
@@ -24666,7 +24405,6 @@ const channel_2_select_Available_Nodes = document.getElementById("channel_2_sele
 channel_2_select_Available_Nodes.addEventListener("change", function (e) {
   sets_New_Source("source_2", e.currentTarget.value);
   mixEvent.logIntoListaAction(Tone.now(), "channel_2_select_Available_Nodes", e.currentTarget.value);
-
 });
 
 const channel_3_select_Available_Nodes = document.getElementById("channel_3_select_Available_Nodes");
@@ -24713,15 +24451,7 @@ function multiPlay() {
       if (player_test_Node.buffer.duration != 0) {
         player_test_Node.start();
       }
-
-
     }
-    /*
-    console.log("1: " + multiple_play_source_1.checked + "   " +
-      "2: " + multiple_play_source_2.checked + "   " +
-      "3: " + multiple_play_source_3.checked + "   " +
-      "4: " + multiple_play_source_4.checked);
-      */
   }
   if (multiple_play_test_player.checked == true) {
     if (player_test_Node.buffer.duration != 0) {
@@ -24788,21 +24518,33 @@ async function multiLoad() {
     if (multiple_play_source_1.checked == true) {
       player_1_Node.buffer.set(decodedBuffer);
       player_1_load_text.innerHTML = fileHandle.name;
+      channel_1_songName.innerHTML = fileHandle.name;
+      channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
+      player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
       mixEvent.logIntoListaAction(Tone.now(), "player_1", fileHandle.name);
     }
     if (multiple_play_source_2.checked == true) {
       player_2_Node.buffer.set(decodedBuffer);
       player_2_load_text.innerHTML = fileHandle.name;
+      channel_2_songName.innerHTML = fileHandle.name;
+      channel_2_duration_text.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
+      player_2_duration_value.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
       mixEvent.logIntoListaAction(Tone.now(), "player_2", fileHandle.name);
     }
     if (multiple_play_source_3.checked == true) {
       player_3_Node.buffer.set(decodedBuffer);
       player_3_load_text.innerHTML = fileHandle.name;
+      channel_3_songName.innerHTML = fileHandle.name;
+      channel_3_duration_text.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
+      player_3_duration_value.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
       mixEvent.logIntoListaAction(Tone.now(), "player_3", fileHandle.name);
     }
     if (multiple_play_source_4.checked == true) {
       player_4_Node.buffer.set(decodedBuffer);
       player_4_load_text.innerHTML = fileHandle.name;
+      channel_4_songName.innerHTML = fileHandle.name;
+      channel_4_duration_text.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
+      player_4_duration_value.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
       mixEvent.logIntoListaAction(Tone.now(), "player_4", fileHandle.name);
     }
     if (multiple_play_test_player.checked == true) {
@@ -24815,9 +24557,7 @@ async function multiLoad() {
       console.error('Error loading file:', error);
     }
   }
-
 }
-
 
 //https://youtube.com/shorts/SnHiWFh0Aco?si=TIXRTiJJpOvFq3wo
 
@@ -24865,10 +24605,8 @@ function scramble(value) {
             console.log("testslice: ", testslice);
             Float32_bySlice = concatFloat32Arrays(Float32_bySlice, testslice);
             console.log("temp_Float32_bySlice: ", temp_Float32_bySlice);
-            //alerta("popoiioiop")
+
             //       Float32_bySlice = temp_Float32_bySlice;
-
-
 
             for (i = 0; i < buff.length; i++) {
               for (let channel = 0; channel < 2; channel++) {
@@ -24895,12 +24633,8 @@ function scramble(value) {
         /**/
         const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
         //        const decodedBuffer_twosecs = Tone.Buffer.fromArray(testretest);
-
         //  player_1_Node.buffer.set(decodedBuffer_twosecs);
         player_1_Node.buffer.set(decodedBuffer_twosecs);
-
-
-
         /*
                 const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
                 player_1_Node.buffer.set(decodedBuffer_twosecs);
@@ -24919,7 +24653,7 @@ function scramble2(buffer) {
   console.log("buffer.numberOfChannels : " + buffer.numberOfChannels);
   console.log("buffer samplerate: " + buffer.sampleRate);
   console.log("Tone.context samplerate: " + Tone.context.sampleRate);
-  // alert("")
+
   let tamanio2 = buffer.length;
   let randomPosition = 0;
   const Float32 = new Float32Array(buffer.length);
@@ -24938,7 +24672,6 @@ function scramble2(buffer) {
   while (k < buffer.length);
 
   //console.log("Float32: " + "\n" + Float32);
-  //alert("");
   const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
   player_1_Node.buffer.set(decodedBuffer_twosecs);
   player_1_Node.volume.value = -12;
@@ -25079,8 +24812,6 @@ function scrambler(tempScramblerFloat32Array) {
           }
         }
         while (k < decodedBuffer.length);
- 
- 
  
 /**/
 
@@ -25388,8 +25119,8 @@ function allSettings_to_String() {
     "channel_4_fxSend_4_state" + ", " + channel_4_fxSend_4_state + "\n" +
     "channel_4_fxSend_4" + ", " + channel_4_fxSend_4.value + "\n" +
 
-    "TEST_fx_1_volNode" + ", " + TEST_fx_1_volNode.volume.value + "\n" +
-    "TEST_fx_1_pan" + ", " + TEST_fx_1_pan.pan.value + "\n" +
+    "fx_1_volNode" + ", " + fx_1_volNode.volume.value + "\n" +
+    "fx_1_panNode" + ", " + fx_1_panNode.pan.value + "\n" +
     "fx_1_actual_patch" + ", " + fx_1_actual_patch + "\n" +
     "fx_1_filter_eq_selection" + ", " + fx_1_filter_eq_selection + "\n" +
     "fx_1_filter_eq_type" + ", " + fx_1_filter_eq_type + "\n" +
@@ -25714,3 +25445,192 @@ console.log (test.children);
   //console.log("childNodes: " + soundClips_1.childNodes);
   //soundClips_1.removeChild(clipContainer);
 */
+
+
+
+const TESTfx_1_filter_1_select = document.getElementById("TESTfx_1_filter_1_select");
+TESTfx_1_filter_1_select.addEventListener("change", function (e) {
+
+  switch (e.currentTarget.value) {
+    case "lowpass":
+    case "highpass":
+    case "bandpass":
+    case "notch":
+    case "allpass":
+      {
+        TESTfx_1_filter.type = e.currentTarget.value;
+        TESTfx_1_filter_eq_type = "allpass";
+        mixEvent.logIntoListaAction(Tone.now(), "TESTfx_1_filter_select", e.currentTarget.value);
+        if (TESTfx_1_filter_eq_type == "on") {
+          hide_all_EQ_divs("1");
+          TESTfx_1_allpass_controls_div.style.display = "block";
+        }
+        break;
+      }
+    case "lowshelf":
+    case "highshelf":
+      {
+        TESTfx_1_filter.type = e.currentTarget.value;
+        TESTfx_1_filter_eq_type = "shelf";
+        mixEvent.logIntoListaAction(Tone.now(), "TESTfx_1_filter_select", e.currentTarget.value);
+        break;
+      }
+    case "peaking":
+      {
+        TESTfx_1_filter.type = e.currentTarget.value;
+        TESTfx_1_filter_eq_type = "peaking";
+        mixEvent.logIntoListaAction(Tone.now(), "TESTfx_1_filter_select", e.currentTarget.value);
+        break;
+      }
+    case "empty": {
+      TESTfx_1_filter_eq_type = "empty";
+      TESTfx_1_filter.set({
+        frequency: 20000,
+        type: "lowpass",
+        Q: 0,
+        gain: 0,
+        rolloff: -96,
+      });
+      mixEvent.logIntoListaAction(Tone.now(), "TESTfx_1_filter_select", "empty");
+      break;
+    }
+    default:
+      { alert(" EQ1 DEFAULT TESTfx_1_filter_select switch"); }
+  }
+});
+
+//SHELF
+const TESTfx_1_filter_frequency_text_shelf = document.getElementById("TESTfx_1_filter_frequency_text_shelf");
+const TESTfx_1_filter_frequency_shelf = document.getElementById("TESTfx_1_filter_frequency_shelf");
+const TESTfx_1_filter_frequency_value_shelf = document.getElementById("TESTfx_1_filter_frequency_value_shelf");
+TESTfx_1_filter_frequency_shelf.addEventListener("change", function (e) {
+  TESTfx_1_filter.frequency.value = e.currentTarget.value;
+  TESTfx_1_filter_frequency_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  mixEvent.logIntoListaNewValue(Tone.now(), "TESTfx_1_filter_frequency_text_shelf", e.currentTarget.value);
+});
+
+const TESTfx_1_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
+const TESTfx_1_filter_detune_shelf = document.getElementById("TESTfx_1_filter_detune_shelf");
+const TESTfx_1_filter_detune_value_shelf = document.getElementById("TESTfx_1_filter_detune_value_shelf");
+TESTfx_1_filter_detune_shelf.addEventListener("change", function (e) {
+  TESTfx_1_filter.detune.value = e.currentTarget.value;
+  TESTfx_1_filter_detune_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  mixEvent.logIntoListaNewValue(Tone.now(), "TESTfx_1_filter_detune_text_shelf", e.currentTarget.value);
+});
+
+const TESTfx_1_filter_gain_text_shelf = document.getElementById("TESTfx_1_filter_gain_text_shelf");
+const TESTfx_1_filter_gain_shelf = document.getElementById("TESTfx_1_filter_gain_shelf");
+const TESTfx_1_filter_gain_value_shelf = document.getElementById("TESTfx_1_filter_gain_value_shelf");
+TESTfx_1_filter_gain_shelf.addEventListener("change", function (e) {
+  TESTfx_1_filter.gain.value = e.currentTarget.value;
+  mixEvent.logIntoListaNewValue(Tone.now(), "TESTfx_1_filter_gain_shelf", e.currentTarget.value);
+  TESTfx_1_filter_gain_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+//PEAKING
+const TESTfx_1_filter_frequency_text_peaking = document.getElementById("TESTfx_1_filter_frequency_text_peaking");
+const TESTfx_1_filter_frequency_peaking = document.getElementById("TESTfx_1_filter_frequency_peaking");
+const TESTfx_1_filter_frequency_value_peaking = document.getElementById("TESTfx_1_filter_frequency_value_peaking");
+TESTfx_1_filter_frequency_peaking.addEventListener("change", function (e) {
+  TESTfx_1_filter.frequency.value = e.currentTarget.value;
+  TESTfx_1_filter_frequency_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  mixEvent.logIntoListaNewValue(Tone.now(), "TESTfx_1_filter_frequency_peaking", e.currentTarget.value);
+});
+
+const TESTfx_1_filter_Q_text_peaking = document.getElementById("TESTfx_1_filter_Q_text_peaking");
+const TESTfx_1_filter_Q_peaking = document.getElementById("TESTfx_1_filter_Q_peaking");
+const TESTfx_1_filter_Q_value_peaking = document.getElementById("TESTfx_1_filter_Q_value_peaking");
+TESTfx_1_filter_Q_peaking.addEventListener("change", function (e) {
+  TESTfx_1_filter.Q.value = e.currentTarget.value;
+  TESTfx_1_filter_Q_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  mixEvent.logIntoListaNewValue(Tone.now(), "TESTfx_1_filter_Q_peaking", e.currentTarget.value);
+});
+
+const TESTfx_1_filter_detune_text_peaking = document.getElementById("TESTfx_1_filter_detune_text_peaking");
+const TESTfx_1_filter_detune_peaking = document.getElementById("TESTfx_1_filter_detune_peaking");
+const TESTfx_1_filter_detune_value_peaking = document.getElementById("TESTfx_1_filter_detune_value_peaking");
+TESTfx_1_filter_detune_peaking.addEventListener("change", function (e) {
+  TESTfx_1_filter.detune.value = e.currentTarget.value;
+  TESTfx_1_filter_detune_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  mixEvent.logIntoListaNewValue(Tone.now(), "TESTfx_1_filter_detune_peaking", e.currentTarget.value);
+});
+
+const TESTfx_1_filter_gain_text_peaking = document.getElementById("TESTfx_1_filter_gain_text_peaking");
+const TESTfx_1_filter_gain_peaking = document.getElementById("TESTfx_1_filter_gain_peaking");
+const TESTfx_1_filter_gain_value_peaking = document.getElementById("TESTfx_1_filter_gain_value_peaking");
+TESTfx_1_filter_gain_peaking.addEventListener("change", function (e) {
+  TESTfx_1_filter.gain.value = e.currentTarget.value;
+  TESTfx_1_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  mixEvent.logIntoListaNewValue(Tone.now(), "TESTfx_1_filter_gain_peaking", e.currentTarget.value);
+});
+
+//ALLPASS
+const TESTfx_1_filter_frequency_allpass = document.getElementById("TESTfx_1_filter_frequency_allpass");
+const TESTfx_1_filter_frequency_value_allpass = document.getElementById("TESTfx_1_filter_frequency_value_allpass");
+const TESTfx_1_filter_frequency_text_allpass = document.getElementById("TESTfx_1_filter_frequency_text_allpass");
+TESTfx_1_filter_frequency_allpass.addEventListener("change", function (e) {
+  TESTfx_1_filter.frequency.value = e.currentTarget.value;
+  TESTfx_1_filter_frequency_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
+  mixEvent.logIntoListaAction(Tone.now(), "TESTfx_1_filter_frequency_value_allpass", e.currentTarget.value);
+});
+
+const TESTfx_1_filter_Q_allpass = document.getElementById("TESTfx_1_filter_Q_allpass");
+const TESTfx_1_filter_Q_value_allpass = document.getElementById("TESTfx_1_filter_Q_value_allpass");
+const TESTfx_1_filter_Q_text_allpass = document.getElementById("TESTfx_1_filter_Q_text_allpass");
+TESTfx_1_filter_Q_allpass.addEventListener("change", function (e) {
+  TESTfx_1_filter.Q.value = e.currentTarget.value;
+  TESTfx_1_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
+  mixEvent.logIntoListaNewValue(Tone.now(), "TESTfx_1_filter_Q_value_allpass", e.currentTarget.value);
+});
+
+const TESTfx_1_filter_detune_allpass = document.getElementById("TESTfx_1_filter_detune_allpass");
+const TESTfx_1_filter_detune_value_allpass = document.getElementById("TESTfx_1_filter_detune_value_allpass");
+const TESTfx_1_filter_detune_text_allpass = document.getElementById("TESTfx_1_filter_detune_text_allpass");
+TESTfx_1_filter_detune_allpass.addEventListener("change", function (e) {
+  TESTfx_1_filter.detune.value = e.currentTarget.value;
+  TESTfx_1_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
+  mixEvent.logIntoListaNewValue(Tone.now(), "TESTfx_1_filter_detune_value_allpass", e.currentTarget.value);
+});
+
+const TESTfx_1_filter_eq_On_Button = document.getElementById("TESTfx_1_filter_eq_On_Button");
+//const TESTfx_1_filter = new Tone.Filter().connect(fx_1_dynamics_compressorNode_Bypass);
+
+const TESTfx_1_filter = new Tone.Filter();
+//channel_1_filter.debug = true;
+TESTfx_1_filter.set({
+  frequency: 1000,
+  type: "bandpass",
+  Q: 0.4,
+  gain: 0,
+  rolloff: -96,
+});
+
+TESTfx_1_filter.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postEq_volNode, channel_1_fxSend_3_postEq_volNode, channel_1_fxSend_4_postEq_volNode);
+
+const TESTfx_1_filter_meter = new Tone.Meter(0);
+TESTfx_1_filter.connect(TESTfx_1_filter_meter);
+//fx_1_panNode.connect(TESTfx_1_filter);
+//TESTfx_1_filter.connect(fx_1_filter_Bypass);
+
+const TESTfx_1_empty_controls_div = document.getElementById("TESTfx_1_empty_controls_div");
+TESTfx_1_empty_controls_div.style.display = "none";
+
+const TESTfx_1_bypass_controls_div = document.getElementById("TESTfx_1_bypass_controls_div");
+TESTfx_1_bypass_controls_div.style.display = "none";
+
+const TESTfx_1_allpass_controls_div = document.getElementById("TESTfx_1_allpass_controls_div");
+TESTfx_1_allpass_controls_div.style.display = "block";
+
+const TESTfx_1_shelf_controls_div = document.getElementById("TESTfx_1_shelf_controls_div");
+TESTfx_1_shelf_controls_div.style.display = "none";
+
+const TESTfx_1_peaking_controls_div = document.getElementById("TESTfx_1_peaking_controls_div");
+TESTfx_1_peaking_controls_div.style.display = "none";
+
+const TESTfx_1_tascam_424_controls_div = document.getElementById("TESTfx_1_tascam_424_controls_div");
+TESTfx_1_tascam_424_controls_div.style.display = "none";
+
+const TESTfx_1_eq3_controls_div = document.getElementById("TESTfx_1_eq3_controls_div");
+TESTfx_1_eq3_controls_div.style.display = "none";
+
+/**/
