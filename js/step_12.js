@@ -1,5 +1,70 @@
 ﻿"use strict";
 
+async function Offline_Context() {
+  //alert("offlineContext");
+  const offlineContext = new Tone.OfflineContext(2, 4, 44100); // 2 channels, 4 seconds, 44.1kHz sample rate
+  const player_test = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").toDestination();
+
+  player_test.start();
+
+  // Define your Tone.js instruments and schedule events
+  // Render the audio
+  const buffer = await offlineContext.render();
+
+}
+
+/*
+// Define both online and offline audio contexts
+let audioCtx; // Must be initialized after a user interaction
+const offlineCtx = new OfflineAudioContext(2, 44100 * 40, 44100);
+
+// Define constants for dom nodes
+const play = document.querySelector("#play");
+
+function getData() {
+  // Fetch an audio track, decode it and stick it in a buffer.
+  // Then we put the buffer into the source and can play it.
+  fetch("viper.ogg")
+    .then((response) => response.arrayBuffer())
+    .then((downloadedBuffer) => audioCtx.decodeAudioData(downloadedBuffer))
+    .then((decodedBuffer) => {
+      console.log("File downloaded successfully.");
+      const source = new AudioBufferSourceNode(offlineCtx, {
+        buffer: decodedBuffer,
+      });
+      source.connect(offlineCtx.destination);
+      return source.start();
+    })
+    .then(() => offlineCtx.startRendering())
+    .then((renderedBuffer) => {
+      console.log("Rendering completed successfully.");
+      play.disabled = false;
+      const song = new AudioBufferSourceNode(audioCtx, {
+        buffer: renderedBuffer,
+      });
+      song.connect(audioCtx.destination);
+
+      // Start the song
+      song.start();
+    })
+    .catch((err) => {
+      console.error(`Error encountered: ${err}`);
+    });
+}
+
+// Activate the play button
+play.onclick = () => {
+  play.disabled = true;
+  // We can initialize the context as the user clicked.
+  audioCtx = new AudioContext();
+
+  // Fetch the data and start the song
+  getData();
+};
+
+/**/
+
+
 var currentAudioControlKeys = 1;
 const teclaApretada = document.getElementById("teclaApretada");
 
@@ -604,12 +669,6 @@ document.onkeydown = function (e) {
 };
 
 /**/
-
-
-/* Revisar si se puede usar to force an input change.
-This event does fire, however, the slider won't visually update.
-element.dispatchEvent(new Event('input'))
-*/
 
 //PARA QUITAR UN ELEMENTO CANCION DE LA LISTA DE CANCIONES 
 //remove()	Removes an option from a drop-down list
@@ -13625,10 +13684,10 @@ function recieves_Number_Returns_url(song) {
 //********************************************************************* */
 //********************************************************************* */
 function channel_x_filter_eq_selection_foo(name, value) {
-/*
-  alert("channel_x_filter_eq_selection_foo: " + value
-    + "\n" + "name:  " + name);
-  /* */
+  /*
+    alert("channel_x_filter_eq_selection_foo: " + value
+      + "\n" + "name:  " + name);
+    /* */
   switch (name) {
     case "channel_1": {
       if (channel_1_filter_eq_selection != value) {
@@ -14555,11 +14614,11 @@ function channel_x_filter_eq_selection_foo(name, value) {
               }
             }
             else if (fx_1_filter_eq_selection == "bypass") {
-          alert("BBBypass 1");
+              alert("BBBypass 1");
               fx_1_panNode.connect(fx_1_filter_eq3);
               fx_1_panNode.disconnect(fx_1_filter_Bypass);
               //fx_1_filter_eq3.connect(Tone.Destination);
-           
+
               if (fx_1_compressor_On_Off_Button_State == "off") {
                 fx_1_filter_Bypass.disconnect(fx_1_dynamics_compressorNode_Bypass);
                 fx_1_filter_eq3.connect(fx_1_dynamics_compressorNode_Bypass);

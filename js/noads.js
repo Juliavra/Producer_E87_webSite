@@ -10,16 +10,19 @@ function cargarLink() {
     var carpeta_replace = "";
     if (carpeta_trim.includes("list", 0)) {
         mensaje = carpeta_trim;
+        console.log("if: " + mensaje);
     }
     else if (carpeta_trim.includes("https://youtu.be", 0)) {
         carpeta_replace = carpeta_trim.replace("https://youtu.be", "https://www.youtube.com/embed");
         mensaje = carpeta_replace.trim();
+        console.log("else if: " + mensaje);
     }
     else {
         for (var f = carpeta_trim.indexOf("https", 0); f < carpeta_trim.length; f++) {
             if (carpeta_trim[f] != `"`) {
                 mensaje += carpeta_trim[f];
                 mensaje = mensaje.trim();
+                console.log("else : " + mensaje);
                 //console.log(mensaje);
             }
             else { break; }
@@ -36,7 +39,7 @@ function cargarLink() {
      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     /**/
 
-    frame.src = `${mensaje}`; console.log("frame.src  " + mensaje);
+    frame.src = `${mensaje}`; console.log("frame.src:  " + "\n" + `${mensaje}` + "\n");
     lista.push(`${mensaje}`);
 
     muestraLista(lista);
@@ -53,6 +56,16 @@ function muestraLista(lista) {
     playlist.innerHTML = cadena_Lista;
     //https://www.youtube.com/embed/riVYg2-eKA8?si=JLbmdcdlb4gv7IxK
 }
+
+
+/*
+<iframe width="560" height="315" 
+src="https://www.youtube.com/embed/aviVsRAnMR8?si=HDq2RvJnOgh27bir" 
+title="YouTube video player" frameborder="0" 
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+/**/
+
 
 
 /*
