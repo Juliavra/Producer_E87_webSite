@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Web Audio API examples: OfflineAudioContext (using promises)</title>
+    <script src="js/offline.js" defer></script>
+    <style>
+        .episodes {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .episode {
+            min-width: max-content;
+            margin-bottom: .8rem;
+            padding: .8rem 1rem;
+            border-radius: 10px;
+            border: 0;
+            background: #191414;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .episode:hover {
+            background: #1Db954;
+        }
+
+        @media screen and (min-width: 860px) {
+            body {
+                display: flex;
+                flex-direction: row;
+                gap: 1rem;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Web Audio API examples: OfflineAudioContext (using promises)</h1>
+    <button id="play">Play</button>
+
+
+    <div class="episodes">
+        <button class="episode" data-spotify-id="spotify:episode:7makk4oTQel546B0PZlDM5">
+            My Path to Spotify: Women in Engineering
+        </button>
+        <button class="episode" data-spotify-id="spotify:episode:43cbJh4ccRD7lzM2730YK3">
+            What is Backstage?
+        </button>
+        <button class="episode" data-spotify-id="spotify:episode:6I3ZzCxRhRkNqnQNo8AZPV">
+            Introducing Nerd Out@Spotify
+        </button>
+    </div>
+
+    <div id="embed-iframe"></div>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async>
+    </script>
+    
+<iframe data-testid="embed-iframe" style="border-radius:12px" 
+src="https://open.spotify.com/embed/track/1orgfjGJoycODSItcGVatE?utm_source=generator" 
+width="100%" height="352" frameBorder="0" allowfullscreen="" 
+allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+
+</body>
+
+</html>

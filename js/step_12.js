@@ -1,69 +1,69 @@
 ﻿"use strict";
 
+//https://www.taylorfrancis.com/books/mono/10.4324/9781003221937/working-web-audio-api-joshua-reiss
+//https://openlibrary.org/search?q=Working+with+the+Web+Audio+API%2C&mode=everything
+//https://scribd.vdownloaders.com/vdoc/
+//https://es.scribd.com/search?query=Web+Audio+API&page=9
+//
+
+// -----------SIGNAL--------------------
+//exponentialRampToValueAtTime(value, time): this
+//linearRampToValueAtTime(value, time): this
+//setValueAtTime(value, time): this
+//exponentialApproachValueAtTime(value, time, rampTime): this
+//setRampPoint(time): this
+//setValueCurveAtTime(values, startTime, duration, scaling?): this
+//exponentialRampTo(value, rampTime, startTime?): this
+//linearRampTo(value, rampTime, startTime?): this
+//rampTo(value, rampTime, startTime?): this
+//setTargetAtTime(value, startTime, timeConstant): this
+//targetRampTo(value, rampTime, startTime?): this
+// -----------SIGNAL--------------------
+
+//setInterval();      
+// REPITE FOO CADA EL TIEMPO ESPECIFICAADO, 
+// medida en ms, no parte de WEB AUDIO API       
+//clearInterval(); //PARA DETENER setInterval()
+//setTimeout(); 
+// USAR PARA LLAMAR UNA FOO SOLO UNA VEZ
+//
+
+
+//recorder.exportWAV(function(blob){audio.src = URL.createObjectURL(blob)}
+
+
+
+
 async function Offline_Context() {
   //alert("offlineContext");
-  const offlineContext = new Tone.OfflineContext(2, 4, 44100); // 2 channels, 4 seconds, 44.1kHz sample rate
-  const player_test = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").toDestination();
+  const offlineContext = new Tone.OfflineContext(2, 40, 44100); // 2 channels, 4 seconds, 44.1kHz sample rate
+  const player_test = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3",  load_play_test).connect(offlineContext.destination);
+//alert("POPO");
 
-  player_test.start();
-
+    if (!player_test.loaded) {
+  //    alert("!loaded");
+    }
+    else {
+      var duration = player_test.buffer.duration;
+    //  console.log("player_test DURATION: "+ duration);
+      //player_test.start();
+    }
   // Define your Tone.js instruments and schedule events
   // Render the audio
-  const buffer = await offlineContext.render();
-
+ // const buffer = await offlineContext.render();
 }
 
-/*
-// Define both online and offline audio contexts
-let audioCtx; // Must be initialized after a user interaction
-const offlineCtx = new OfflineAudioContext(2, 44100 * 40, 44100);
-
-// Define constants for dom nodes
-const play = document.querySelector("#play");
-
-function getData() {
-  // Fetch an audio track, decode it and stick it in a buffer.
-  // Then we put the buffer into the source and can play it.
-  fetch("viper.ogg")
-    .then((response) => response.arrayBuffer())
-    .then((downloadedBuffer) => audioCtx.decodeAudioData(downloadedBuffer))
-    .then((decodedBuffer) => {
-      console.log("File downloaded successfully.");
-      const source = new AudioBufferSourceNode(offlineCtx, {
-        buffer: decodedBuffer,
-      });
-      source.connect(offlineCtx.destination);
-      return source.start();
-    })
-    .then(() => offlineCtx.startRendering())
-    .then((renderedBuffer) => {
-      console.log("Rendering completed successfully.");
-      play.disabled = false;
-      const song = new AudioBufferSourceNode(audioCtx, {
-        buffer: renderedBuffer,
-      });
-      song.connect(audioCtx.destination);
-
-      // Start the song
-      song.start();
-    })
-    .catch((err) => {
-      console.error(`Error encountered: ${err}`);
-    });
+function load_play_test(){
+        console.log("player_test DURATION: "+ duration);
+      player_test.start();
 }
-
-// Activate the play button
-play.onclick = () => {
-  play.disabled = true;
-  // We can initialize the context as the user clicked.
-  audioCtx = new AudioContext();
-
-  // Fetch the data and start the song
-  getData();
-};
 
 /**/
 
+/*
+<dialog>
+https://developer.mozilla.org/es/docs/Web/HTML/Reference/Elements/dialog
+/**/
 
 var currentAudioControlKeys = 1;
 const teclaApretada = document.getElementById("teclaApretada");
@@ -684,11 +684,11 @@ document.onkeydown = function (e) {
 
 /*
 You can use the Math.trunc() method to remove the decimals of a number:
-
+ 
 //*********************************************************** */
 //*********************************************************** */
 /* TODO LIST
-
+ 
 // REVISAR AUTOPLAY A VER SI FUNCIONA
 // REVISAR fadeIn
 // REVISAR fadeOut
@@ -6999,18 +6999,18 @@ const oscillator_2 = new Tone.Oscillator(
     partials: [],
     partialCount: 0
   });
-
+ 
 const oscillator_2_Sync_checkbox = document.getElementById("oscillator_2_Sync_checkbox");
 oscillator_2_Sync_checkbox.addEventListener("change", function () {
   if (oscillator_2_Sync_checkbox.checked) { oscillator_2.sync = true; }
   else { oscillator_2.sync = false; }
 });
-
+ 
 const oscillator_2_select_type = document.getElementById("oscillator_2_select_type");
 oscillator_2_select_type.addEventListener("change", function (e) {
   oscillator_2.type = e.currentTarget.value;
 });
-
+ 
 const oscillator_2_volume = document.getElementById("oscillator_2_volume");
 const oscillator_2_volume_value = document.getElementById("oscillator_2_volume_value");
 oscillator_2_volume.addEventListener("change", function (e) {
@@ -7023,7 +7023,7 @@ oscillator_2_volume.addEventListener("change", function (e) {
     oscillator_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   }
 });
-
+ 
 const oscillator_2_freq = document.getElementById("oscillator_2_freq");
 const oscillator_2_freq_value = document.getElementById("oscillator_2_freq_value");
 oscillator_2_freq.addEventListener("change", function (e) {
@@ -7031,7 +7031,7 @@ oscillator_2_freq.addEventListener("change", function (e) {
   oscillator_2_freq_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 }
 );
-
+ 
 const oscillator_2_detune_text = document.getElementById("oscillator_2_detune_text");
 const oscillator_2_detune = document.getElementById("oscillator_2_detune");
 const oscillator_2_detune_value = document.getElementById("oscillator_2_detune_value");
@@ -7039,7 +7039,7 @@ oscillator_2_detune.addEventListener("change", function (e) {
   oscillator_2.detune.value = e.currentTarget.value;
   oscillator_2_detune_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
-
+ 
 const oscillator_2_phase_text = document.getElementById("oscillator_2_phase_text");
 const oscillator_2_phase = document.getElementById("oscillator_2_phase");
 const oscillator_2_phase_value = document.getElementById("oscillator_2_phase_value");
@@ -7047,7 +7047,7 @@ oscillator_2_phase.addEventListener("change", function (e) {
   oscillator_2.phase.value = e.currentTarget.value;
   oscillator_2_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
-
+ 
 const oscillator_2_div = document.getElementById("oscillator_2_div");
 oscillator_2_div.style.display = "none";
 /**/
@@ -7411,7 +7411,7 @@ console.log("supported: " + Tone.UserMedia.supported);
 console.log("state: " + placa_Audio.state);
 console.log("groupId: " + placa_Audio.groupId);
 console.log("deviceId: " + Tone.UserMedia.deviceId);
-
+ 
 Tone.UserMedia.enumerateDevices().then(function(devices){
 console.log(devices);
 });
@@ -7425,7 +7425,7 @@ console.log(devices);
 //BORRAR LUEGO
 var testNormalize = new Tone.Normalize(2,4);
 player_1_Node.connect(testNormalize);
-
+ 
 //var norm = new Tone.Normalize(2, 4);
 //var sig = new Tone.Signal(3).connect(norm);
 //output of norm is 0.5.
@@ -7821,7 +7821,7 @@ fx_1_autoWah_baseFrequency.addEventListener("change", function (e) {
 const fx_1_bitCrusher_text = document.getElementById("fx_1_bitCrusher_text");
 const fx_1_bitCrusher = document.getElementById("fx_1_bitCrusher");
 const fx_1_bitCrusher_value = document.getElementById("fx_1_bitCrusher_value");
-
+ 
 const fx_1_bitCrusher_div = document.getElementById("fx_1_bitCrusher_div");
 fx_1_bitCrusher_div.style.display = "none";
 /**/
@@ -7836,18 +7836,18 @@ const fx_1_Chebyshev_Node = new Tone.Chebyshev({
   //oversample : "none",
   wet: 1
 });
-
-
+ 
+ 
 const fx_1_Chebyshev_div = document.getElementById("fx_1_Chebyshev_div");
 fx_1_Chebyshev_div.style.display = "none";
-
+ 
 const fx_1_Chebyshev_order = document.getElementById("fx_1_Chebyshev_order");
 const fx_1_Chebyshev_order_value = document.getElementById("fx_1_Chebyshev_order_value");
 fx_1_Chebyshev_order.addEventListener("change", function (e) {
   fx_1_Chebyshev_Node.order = Math.round(`${e.currentTarget.value}`);
   fx_1_Chebyshev_order_value.innerHTML = `${e.currentTarget.value}`;
 });
-
+ 
 const fx_1_Chebyshev_select_type = document.getElementById("fx_1_Chebyshev_select_type");
 const fx_1_Chebyshev_select_type_value = document.getElementById("fx_1_Chebyshev_select_type_value");
 fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
@@ -7863,10 +7863,10 @@ fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
 const fx_1_chorus_Node = new Tone.Chorus({
   wet: 1
 });
-
+ 
 const fx_1_chorus_div = document.getElementById("fx_1_chorus_div");
 fx_1_chorus_div.style.display = "none";
-
+ 
 const fx_1_chorus_delayTime = document.getElementById("fx_1_chorus_delayTime");
 const fx_1_chorus_delayTime_value = document.getElementById("fx_1_chorus_delayTime_value");
 fx_1_chorus_delayTime.addEventListener("change", function (e) {
@@ -7874,7 +7874,7 @@ fx_1_chorus_delayTime.addEventListener("change", function (e) {
   fx_1_chorus_delayTime_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_delayTime", e.currentTarget.value);
 });
-
+ 
 const fx_1_chorus_freq = document.getElementById("fx_1_chorus_freq");
 const fx_1_chorus_freq_value = document.getElementById("fx_1_chorus_freq_value");
 fx_1_chorus_freq.addEventListener("change", function (e) {
@@ -7882,7 +7882,7 @@ fx_1_chorus_freq.addEventListener("change", function (e) {
   fx_1_chorus_freq_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_freq", e.currentTarget.value);
 });
-
+ 
 const fx_1_chorus_depth = document.getElementById("fx_1_chorus_depth");
 const fx_1_chorus_depth_value = document.getElementById("fx_1_chorus_depth_value");
 fx_1_chorus_depth.addEventListener("change", function (e) {
@@ -7890,7 +7890,7 @@ fx_1_chorus_depth.addEventListener("change", function (e) {
   fx_1_chorus_depth_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_depth", e.currentTarget.value);
 });
-
+ 
 const fx_1_chorus_spread = document.getElementById("fx_1_chorus_spread");
 const fx_1_chorus_spread_value = document.getElementById("fx_1_chorus_spread_value");
 fx_1_chorus_spread.addEventListener("change", function (e) {
@@ -7898,7 +7898,7 @@ fx_1_chorus_spread.addEventListener("change", function (e) {
   fx_1_chorus_spread_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_spread", e.currentTarget.value);
 });
-
+ 
 const fx_1_chorus_feedback = document.getElementById("fx_1_chorus_feedback");
 const fx_1_chorus_feedback_value = document.getElementById("fx_1_chorus_feedback_value");
 fx_1_chorus_feedback.addEventListener("change", function (e) {
@@ -7906,7 +7906,7 @@ fx_1_chorus_feedback.addEventListener("change", function (e) {
   fx_1_chorus_feedback_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_chorus_feedback", e.currentTarget.value);
 });
-
+ 
 const fx_1_chorus_select_type = document.getElementById("fx_1_chorus_select_type");
 fx_1_chorus_select_type.addEventListener("change", function (e) {
   fx_1_chorus_Node.type = e.currentTarget.value;
@@ -7948,10 +7948,10 @@ fx_1_distortion_select_type.addEventListener("change", function (e) {
 const fx_1_feedback_Node = new Tone.FeedbackDelay({
   wet: 1
 });
-
+ 
 const fx_1_feedback_div = document.getElementById("fx_1_feedback_div");
 fx_1_feedback_div.style.display = "none";
-
+ 
 const fx_1_feedback = document.getElementById("fx_1_feedback");
 const fx_1_feedback_value = document.getElementById("fx_1_feedback_value");
 fx_1_feedback.addEventListener("change", function (e) {
@@ -7959,7 +7959,7 @@ fx_1_feedback.addEventListener("change", function (e) {
   fx_1_feedback_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_feedback", e.currentTarget.value);
 });
-
+ 
 const fx_1_feedback_delayTime = document.getElementById("fx_1_feedback_delayTime");
 const fx_1_feedback_delayTime_value = document.getElementById("fx_1_feedback_delayTime_value");
 fx_1_feedback_delayTime.addEventListener("change", function (e) {
@@ -7967,7 +7967,7 @@ fx_1_feedback_delayTime.addEventListener("change", function (e) {
   fx_1_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
   mixEvent.logIntoListaAction(Tone.now(), "fx_1_feedback_delayTime", e.currentTarget.value);
 });
-
+ 
 const fx_1_feedback_maxDelay = document.getElementById("fx_1_feedback_maxDelay");
 const fx_1_feedback_maxDelay_value = document.getElementById("fx_1_feedback_maxDelay_value");
 fx_1_feedback_maxDelay.addEventListener("change", function (e) {
@@ -21887,15 +21887,15 @@ function sets_New_FX(channel, effecttype) {
             channel_1_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_1_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_1_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
-
+ 
             channel_2_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_2_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_2_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
-
+ 
             channel_3_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_3_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_3_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
-
+ 
             channel_4_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
@@ -25427,24 +25427,24 @@ full parametric, ±15dB freq.
 sweep from 500Hz–18kHz
 bandwidth variable from
 1/12 octave to 3 octaves
-
+ 
 Lo Mid EQ
 sweep from 45Hz–3kHz±15dB
-
+ 
 Hi Shelving EQ
 12kHz ±15dB
-
+ 
 Lo Shelving EQ
 80Hz ±15dB
-
+ 
 Lo Cut EQ (HPF)
 75Hz 18dB/octave
 (Tchebechev)
 //-------------------------------------------------------------------------
 NEVE 1073 PRE AMP & EQ
-
+ 
 EQ Specification
-
+ 
 High Frequency: Smooth +/-16dB fixed frequency shelving at 12kHz
 Low Frequency: Smooth +/-16dB shelving with selectable frequencies of 35Hz, 60Hz, 110Hz & 220Hz
 Mid Frequency: Smooth +/-18dB peaking, fixed ‘Q’ with selectable centre frequencies of 0.36kHz, 0.7kHz 1.6kHz, 3.2kHz, 4.8kHz & 7.2kHz
@@ -25459,7 +25459,7 @@ FORM FACTOR – 2 CHANNELS, 5 BANDS: FULLY PARAMETRIC
 5. 400 Hz – 26 kHz, Q of 0.4 – 4.0 or shelving, 15 dB boost/cut
 //-------------------------------------------------------------------------
 API's 500
-
+ 
 Number of Channels:	1
 High Pass Filter:	Yes
 Low Pass Filter:	Yes
@@ -25471,7 +25471,7 @@ Freq Range Mid:	200Hz-5kHz
 Freq Range Low:	30Hz-400Hz
 //-------------------------------------------------------------------------
 Solid State Logic
-
+ 
 LF Shelf EQ: +/- 9dB Gain at 30, 50, 70, 90Hz
 HF Shelf EQ: +/- 9dB Gain at 8k, 12k, 16k and 20kHz.
 HMF Parametric EQ: +/- 9dB (focus mode 18dB) Gain 400Hz-9kHz
