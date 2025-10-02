@@ -1,5 +1,63 @@
 ﻿"use strict";
 
+//console.log(Tone.getContext());
+//Tone.context.audioWorklet.addModule('noiseWorklet.js');
+
+async function setupAudio() {
+  await Tone.start();
+  await Tone.context.addAudioWorkletModule('js/noiseWorklet.js');
+
+  // Now you can create and use your AudioWorkletNode
+  const myWorkletNode = new Tone.ToneAudioWorklet('noise-generator');
+
+  // Connect it into your Tone.js graph
+  //const oscillator = new Tone.Oscillator().start();
+  //oscillator.connect(myWorkletNode);
+  myWorkletNode.toDestination();
+  myWorkletNode.start();
+
+}
+
+setupAudio();
+
+
+
+
+
+
+
+
+//https://github.com/cstoquer/audio-encoder
+/*
+const init = {
+  output: handleOutput,
+  error(e) {
+    console.log(e.message);
+  },
+};
+
+let config = {
+  codec: "mp3",
+  sampleRate: 44100,
+  numberOfChannels: 2,
+  bitrate: 128_000, // 128 kbps
+  bitrateMode: "constant",
+};
+
+// Function to handle the encoded audio chunks
+function handleOutput(chunk) {
+  // 'chunk' is an EncodedAudioChunk object
+  // You can send this chunk over a network, save it, or process it further
+  console.log("Encoded audio chunk:", chunk);
+}
+
+let encoder = new AudioEncoder(init);
+encoder.configure(config);
+
+console.log("AudioEncoder.isConfigSupported: " + AudioEncoder.isConfigSupported(config));
+
+/**/
+
 //https://www.taylorfrancis.com/books/mono/10.4324/9781003221937/working-web-audio-api-joshua-reiss
 //https://openlibrary.org/search?q=Working+with+the+Web+Audio+API%2C&mode=everything
 //https://scribd.vdownloaders.com/vdoc/
@@ -30,36 +88,47 @@
 
 
 //recorder.exportWAV(function(blob){audio.src = URL.createObjectURL(blob)}
+//var context = Tone.context;
 
+function Recording() {
+  //alert("Recording");
+  const audioCtx = Tone.getContext();
+  console.log("tone: " + Tone.context.name);
+  console.log("api: " + audioCtx);
 
+  //this.context, this.config.bufferLen, this.config.numChannels, this.config.numChannels
+  var Recording = new Recorder(audioCtx);
+  Recording.record();
 
+  //Recording.exportWAV(blob => audio.src = URL.createObjectURL(blob));
+
+}
 
 async function Offline_Context() {
   //alert("offlineContext");
   const offlineContext = new Tone.OfflineContext(2, 40, 44100); // 2 channels, 4 seconds, 44.1kHz sample rate
-  const player_test = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3",  load_play_test).connect(offlineContext.destination);
-//alert("POPO");
+  const player_test = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3", load_play_test).connect(offlineContext.destination);
+  //alert("POPO");
 
-    if (!player_test.loaded) {
-  //    alert("!loaded");
-    }
-    else {
-      var duration = player_test.buffer.duration;
+  if (!player_test.loaded) {
+    //    alert("!loaded");
+  }
+  else {
+    var duration = player_test.buffer.duration;
     //  console.log("player_test DURATION: "+ duration);
-      //player_test.start();
-    }
+    //player_test.start();
+  }
   // Define your Tone.js instruments and schedule events
   // Render the audio
- // const buffer = await offlineContext.render();
+  // const buffer = await offlineContext.render();
 }
 
-function load_play_test(){
-        console.log("player_test DURATION: "+ duration);
-      player_test.start();
+function load_play_test() {
+  console.log("player_test DURATION: " + duration);
+  player_test.start();
 }
 
 /**/
-
 /*
 <dialog>
 https://developer.mozilla.org/es/docs/Web/HTML/Reference/Elements/dialog
@@ -233,20 +302,112 @@ document.onkeydown = function (e) {
       {
         teclaApretada.innerHTML = "L l ";
         if (currentAudioControlKeys == 1) {
-          audio.loop = (!audio.loop);
-          loop_checkbox.checked = (!loop_checkbox.checked);
+          switch (source_1_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              player_1_Node.loop = (!player_1_Node.loop);
+              player_1_loop_checkbox.checked = (!player_1_loop_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_1_Node.loop = (!grainPlayer_1_Node.loop);
+              grainPlayer_1_loop_checkbox.checked = (!grainPlayer_1_loop_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
         }
         else if (currentAudioControlKeys == 2) {
-          audio2.loop = (!audio.loop);
-          loop_checkbox2.checked = (!loop_checkbox2.checked);
+          switch (source_2_actual_patch) {
+            case "empty": {
+              console.log("empty CHANNEL 2 ");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth CHANNEL 2");
+              break;
+            }
+            case "noise": {
+              console.log("noise CHANNEL 2");
+              break;
+            }
+            case "player": {
+              player_2_Node.loop = (!player_2_Node.loop);
+              player_2_loop_checkbox.checked = (!player_2_loop_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_2_Node.loop = (!grainPlayer_2_Node.loop);
+              grainPlayer_2_loop_checkbox.checked = (!grainPlayer_2_loop_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
         }
         else if (currentAudioControlKeys == 3) {
-          audio3.loop = (!audio3.loop);
-          loop_checkbox3.checked = (!loop_checkbox3.checked);
+          switch (source_3_actual_patch) {
+            case "empty": {
+              console.log("empty CHANNEL 3 ");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth CHANNEL 3");
+              break;
+            }
+            case "noise": {
+              console.log("noise CHANNEL 3");
+              break;
+            }
+            case "player": {
+              player_3_Node.loop = (!player_3_Node.loop);
+              player_3_loop_checkbox.checked = (!player_3_loop_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_3_Node.loop = (!grainPlayer_3_Node.loop);
+              grainPlayer_3_loop_checkbox.checked = (!grainPlayer_3_loop_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
         }
         else if (currentAudioControlKeys == 4) {
-          audio4.loop = (!audio4.loop);
-          loop_checkbox4.checked = (!loop_checkbox4.checked);
+          switch (source_4_actual_patch) {
+            case "empty": {
+              console.log("empty CHANNEL 4 ");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth CHANNEL 4");
+              break;
+            }
+            case "noise": {
+              console.log("noise CHANNEL 4");
+              break;
+            }
+            case "player": {
+              player_4_Node.loop = (!player_4_Node.loop);
+              player_4_loop_checkbox.checked = (!player_4_loop_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_4_Node.loop = (!grainPlayer_4_Node.loop);
+              grainPlayer_4_loop_checkbox.checked = (!grainPlayer_4_loop_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
         }
         break;
       }
@@ -255,23 +416,226 @@ document.onkeydown = function (e) {
       {
         teclaApretada.innerHTML = "K k ";
         if (currentAudioControlKeys == 1) {
-          autoplay_1 = (!autoplay_1);
-          autoplay_checkbox.checked = (!autoplay_checkbox.checked);
+          switch (source_1_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              player_1_Node.autoplay = (!player_1_Node.autoplay);
+              player_1_autoplay_checkbox.checked = (!player_1_autoplay_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_1_Node.autoplay = (!grainPlayer_1_Node.autoplay);
+              grainPlayer_1_autoplay_checkbox.checked = (!grainPlayer_1_autoplay_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
         }
         else if (currentAudioControlKeys == 2) {
-          autoplay_2 = (!autoplay_2);
-          autoplay_checkbox2.checked = (!autoplay_checkbox2.checked);
-
+          switch (source_2_actual_patch) {
+            case "empty": {
+              console.log("empty CHANNEL 2 ");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth CHANNEL 2");
+              break;
+            }
+            case "noise": {
+              console.log("noise CHANNEL 2");
+              break;
+            }
+            case "player": {
+              player_2_Node.autoplay = (!player_2_Node.autoplay);
+              player_2_autoplay_checkbox.checked = (!player_2_autoplay_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_2_Node.autoplay = (!grainPlayer_2_Node.autoplay);
+              grainPlayer_2_autoplay_checkbox.checked = (!grainPlayer_2_autoplay_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
         }
         else if (currentAudioControlKeys == 3) {
-          autoplay_3 = (!autoplay_3);
-          autoplay_checkbox3.checked = (!autoplay_checkbox3.checked);
-
+          switch (source_3_actual_patch) {
+            case "empty": {
+              console.log("empty CHANNEL 3 ");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth CHANNEL 3");
+              break;
+            }
+            case "noise": {
+              console.log("noise CHANNEL 3");
+              break;
+            }
+            case "player": {
+              player_3_Node.autoplay = (!player_3_Node.autoplay);
+              player_3_autoplay_checkbox.checked = (!player_3_autoplay_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_3_Node.autoplay = (!grainPlayer_3_Node.autoplay);
+              grainPlayer_3_autoplay_checkbox.checked = (!grainPlayer_3_autoplay_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
         }
         else if (currentAudioControlKeys == 4) {
-          autoplay_4 = (!autoplay_4);
-          autoplay_checkbox4.checked = (!autoplay_checkbox4.checked);
-
+          switch (source_4_actual_patch) {
+            case "empty": {
+              console.log("empty CHANNEL 4 ");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth CHANNEL 4");
+              break;
+            }
+            case "noise": {
+              console.log("noise CHANNEL 4");
+              break;
+            }
+            case "player": {
+              player_4_Node.autoplay = (!player_4_Node.autoplay);
+              player_4_autoplay_checkbox.checked = (!player_4_autoplay_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_4_Node.autoplay = (!grainPlayer_4_Node.autoplay);
+              grainPlayer_4_autoplay_checkbox.checked = (!grainPlayer_4_autoplay_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
+        }
+        break;
+      }
+    case 'j':
+    case 'J':
+      {
+        teclaApretada.innerHTML = "J j ";
+        if (currentAudioControlKeys == 1) {
+          switch (source_1_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              player_1_Node.reverse = (!player_1_Node.reverse);
+              player_1_reverse_checkbox.checked = (!player_1_reverse_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_1_Node.reverse = (!grainPlayer_1_Node.reverse);
+              grainPlayer_1_reverse_checkbox.checked = (!grainPlayer_1_reverse_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else if (currentAudioControlKeys == 2) {
+          switch (source_2_actual_patch) {
+            case "empty": {
+              console.log("empty CHANNEL 2 ");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth CHANNEL 2");
+              break;
+            }
+            case "noise": {
+              console.log("noise CHANNEL 2");
+              break;
+            }
+            case "player": {
+              player_2_Node.reverse = (!player_2_Node.reverse);
+              player_2_reverse_checkbox.checked = (!player_2_reverse_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_2_Node.reverse = (!grainPlayer_2_Node.reverse);
+              grainPlayer_2_reverse_checkbox.checked = (!grainPlayer_2_reverse_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else if (currentAudioControlKeys == 3) {
+          switch (source_3_actual_patch) {
+            case "empty": {
+              console.log("empty CHANNEL 3 ");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth CHANNEL 3");
+              break;
+            }
+            case "noise": {
+              console.log("noise CHANNEL 3");
+              break;
+            }
+            case "player": {
+              player_3_Node.reverse = (!player_3_Node.reverse);
+              player_3_reverse_checkbox.checked = (!player_3_reverse_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_3_Node.reverse = (!grainPlayer_3_Node.reverse);
+              grainPlayer_3_reverse_checkbox.checked = (!grainPlayer_3_reverse_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else if (currentAudioControlKeys == 4) {
+          switch (source_4_actual_patch) {
+            case "empty": {
+              console.log("empty CHANNEL 4 ");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth CHANNEL 4");
+              break;
+            }
+            case "noise": {
+              console.log("noise CHANNEL 4");
+              break;
+            }
+            case "player": {
+              player_4_Node.reverse = (!player_4_Node.reverse);
+              player_4_reverse_checkbox.checked = (!player_4_reverse_checkbox.checked);
+              break;
+            }
+            case "grainPlayer": {
+              grainPlayer_4_Node.reverse = (!grainPlayer_4_Node.reverse);
+              grainPlayer_4_reverse_checkbox.checked = (!grainPlayer_4_reverse_checkbox.checked);
+              break;
+            }
+            default: { break; }
+          }
         }
         break;
       }
@@ -294,35 +658,11 @@ document.onkeydown = function (e) {
               break;
             }
             case "player": {
-              // console.log("player");
-              if (player_1_Node.buffer.duration != 0) {
-                if (!player_1_Node.loaded) {
-                  player_1_duration_value.innerHTML = "!loaded";
-                }
-                else {
-                  var duration = player_1_Node.buffer.duration;
-                  player_1_duration_value.innerHTML = Math.round(`${duration}`);
-                  player_1_Node.start();
-                  player_1_playButton.style.backgroundColor = "green";
-                  mixEvent.logIntoListaAction(Tone.now(), "player_1", "play");
-                }
-              }
+              play("player_1");
               break;
             }
             case "grainPlayer": {
-              // console.log("grainPlayer");
-              if (grainPlayer_1_Node.buffer.duration != 0) {
-                if (!grainPlayer_1_Node.loaded) {
-                  grainPlayer_1_duration_value.innerHTML = "!loaded";
-                }
-                else {
-                  var duration = grainPlayer_1_Node.buffer.duration;
-                  grainPlayer_1_duration_value.innerHTML = Math.round(`${duration}`);
-                  grainPlayer_1_Node.start();
-                  grainPlayer_1_playButton.style.backgroundColor = "green";
-                  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_1", "play");
-                }
-              }
+              play("Grain_1");
               break;
             }
             default: { break; }
@@ -343,35 +683,11 @@ document.onkeydown = function (e) {
               break;
             }
             case "player": {
-              // console.log("player");
-              if (player_2_Node.buffer.duration != 0) {
-                if (!player_2_Node.loaded) {
-                  player_2_duration_value.innerHTML = "!loaded";
-                }
-                else {
-                  var duration = player_2_Node.buffer.duration;
-                  player_2_duration_value.innerHTML = Math.round(`${duration}`);
-                  player_2_Node.start();
-                  player_2_playButton.style.backgroundColor = "green";
-                  mixEvent.logIntoListaAction(Tone.now(), "player_2", "play");
-                }
-              }
+              play("player_2");
               break;
             }
             case "grainPlayer": {
-              // console.log("grainPlayer");
-              if (grainPlayer_2_Node.buffer.duration != 0) {
-                if (!grainPlayer_2_Node.loaded) {
-                  grainPlayer_2_duration_value.innerHTML = "!loaded";
-                }
-                else {
-                  var duration = grainPlayer_2_Node.buffer.duration;
-                  grainPlayer_2_duration_value.innerHTML = Math.round(`${duration}`);
-                  grainPlayer_2_Node.start();
-                  grainPlayer_2_playButton.style.backgroundColor = "green";
-                  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_2", "play");
-                }
-              }
+              play("Grain_2");
               break;
             }
             default: { break; }
@@ -392,35 +708,11 @@ document.onkeydown = function (e) {
               break;
             }
             case "player": {
-              // console.log("player");
-              if (player_3_Node.buffer.duration != 0) {
-                if (!player_3_Node.loaded) {
-                  player_3_duration_value.innerHTML = "!loaded";
-                }
-                else {
-                  var duration = player_3_Node.buffer.duration;
-                  player_3_duration_value.innerHTML = Math.round(`${duration}`);
-                  player_3_Node.start();
-                  player_3_playButton.style.backgroundColor = "green";
-                  mixEvent.logIntoListaAction(Tone.now(), "player_3", "play");
-                }
-              }
+              play("player_3");
               break;
             }
             case "grainPlayer": {
-              // console.log("grainPlayer");
-              if (grainPlayer_3_Node.buffer.duration != 0) {
-                if (!grainPlayer_3_Node.loaded) {
-                  grainPlayer_3_duration_value.innerHTML = "!loaded";
-                }
-                else {
-                  var duration = grainPlayer_3_Node.buffer.duration;
-                  grainPlayer_3_duration_value.innerHTML = Math.round(`${duration}`);
-                  grainPlayer_3_Node.start();
-                  grainPlayer_3_playButton.style.backgroundColor = "green";
-                  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_3", "play");
-                }
-              }
+              play("Grain_3");
               break;
             }
             default: { break; }
@@ -441,35 +733,117 @@ document.onkeydown = function (e) {
               break;
             }
             case "player": {
-              // console.log("player");
-              if (player_4_Node.buffer.duration != 0) {
-                if (!player_4_Node.loaded) {
-                  player_4_duration_value.innerHTML = "!loaded";
-                }
-                else {
-                  var duration = player_4_Node.buffer.duration;
-                  player_4_duration_value.innerHTML = Math.round(`${duration}`);
-                  player_4_Node.start();
-                  player_4_playButton.style.backgroundColor = "green";
-                  mixEvent.logIntoListaAction(Tone.now(), "player_4", "play");
-                }
-              }
+              play("player_4");
               break;
             }
             case "grainPlayer": {
-              // console.log("grainPlayer");
-              if (grainPlayer_4_Node.buffer.duration != 0) {
-                if (!grainPlayer_4_Node.loaded) {
-                  grainPlayer_4_duration_value.innerHTML = "!loaded";
-                }
-                else {
-                  var duration = grainPlayer_4_Node.buffer.duration;
-                  grainPlayer_4_duration_value.innerHTML = Math.round(`${duration}`);
-                  grainPlayer_4_Node.start();
-                  grainPlayer_4_playButton.style.backgroundColor = "green";
-                  mixEvent.logIntoListaAction(Tone.now(), "grainPlayer_4", "play");
-                }
-              }
+              play("Grain_4");
+              break;
+            }
+            default: { break; }
+          }
+        }
+        break;
+      }
+    case 'm':
+    case 'M':
+      {
+        teclaApretada.innerHTML = "m";
+        if (currentAudioControlKeys == 1) {
+          switch (source_1_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              mute("player_1");
+              break;
+            }
+            case "grainPlayer": {
+              mute("Grain_1");
+              break;
+            }
+            default: { break; }
+          }
+        }
+        if (currentAudioControlKeys == 2) {
+          switch (source_2_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              mute("player_2");
+              break;
+            }
+            case "grainPlayer": {
+              mute("Grain_2");
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else if (currentAudioControlKeys == 3) {
+          switch (source_3_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              mute("player_3");
+              break;
+            }
+            case "grainPlayer": {
+              mute("Grain_3");
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else if (currentAudioControlKeys == 4) {
+          switch (source_4_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              mute("player_4");
+              break;
+            }
+            case "grainPlayer": {
+              mute("Grain_4");
               break;
             }
             default: { break; }
@@ -481,10 +855,106 @@ document.onkeydown = function (e) {
     case 'O':
       {
         teclaApretada.innerHTML = "o";
-        if (currentAudioControlKeys == 1) { audio.load(); }
-        else if (currentAudioControlKeys == 2) { audio2.load(); }
-        else if (currentAudioControlKeys == 3) { audio3.load(); }
-        else if (currentAudioControlKeys == 4) { audio4.load(); }
+        if (currentAudioControlKeys == 1) {
+          switch (source_1_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              stop("player_1");
+              break;
+            }
+            case "grainPlayer": {
+              stop("Grain_1");
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else if (currentAudioControlKeys == 2) {
+          switch (source_2_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              stop("player_2");
+              break;
+            }
+            case "grainPlayer": {
+              stop("Grain_2");
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else if (currentAudioControlKeys == 3) {
+          switch (source_3_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              stop("player_3");
+              break;
+            }
+            case "grainPlayer": {
+              stop("Grain_3");
+              break;
+            }
+            default: { break; }
+          }
+        }
+        else if (currentAudioControlKeys == 4) {
+          switch (source_4_actual_patch) {
+            case "empty": {
+              console.log("empty");
+              break;
+            }
+            case "noiseSynth": {
+              console.log("noiseSynth");
+              break;
+            }
+            case "noise": {
+              console.log("noise");
+              break;
+            }
+            case "player": {
+              stop("player_4");
+              break;
+            }
+            case "grainPlayer": {
+              stop("Grain_4");
+              break;
+            }
+            default: { break; }
+          }
+        }
         break;
       }
     case 'Q':
@@ -505,7 +975,6 @@ document.onkeydown = function (e) {
             break;
           }
           case "player": {
-            // console.log("player");
             if (player_1_Node.volume.value < 11) {
               player_1_Node.volume.value += 1;
               player_1_volume.value = Math.round(`${player_1_Node.volume.value}`);
@@ -515,11 +984,11 @@ document.onkeydown = function (e) {
             break;
           }
           case "grainPlayer": {
-            // console.log("grainPlayer");
             if (grainPlayer_1_Node.volume.value < 11) {
               grainPlayer_1_Node.volume.value += 1;
+              grainPlayer_1_volume.value = Math.round(`${grainPlayer_1_Node.volume.value}`);
               grainPlayer_1_volume_value.innerHTML = Math.round(`${grainPlayer_1_Node.volume.value}`);
-              mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_1_volume", player_1_Node.volume.value);
+              mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_1_volume", grainPlayer_1_Node.volume.value);
             }
             break;
           }
@@ -545,7 +1014,6 @@ document.onkeydown = function (e) {
             break;
           }
           case "player": {
-            // console.log("player");
             if (player_1_Node.volume.value > -100 &&
               player_1_Node.volume.value <= 11) {
               player_1_Node.volume.value -= 1;
@@ -556,9 +1024,9 @@ document.onkeydown = function (e) {
             break;
           }
           case "grainPlayer": {
-            // console.log("grainPlayer");
             if (grainPlayer_1_Node.volume.value < 11 && grainPlayer_1_Node.volume.value > -100) {
-              grainPlayer_1_Node.volume.value += 1;
+              grainPlayer_1_Node.volume.value -= 1;
+              grainPlayer_1_volume.value = Math.round(`${grainPlayer_1_Node.volume.value}`);
               grainPlayer_1_volume_value.innerHTML = Math.round(`${grainPlayer_1_Node.volume.value}`);
               mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_1_volume", player_1_Node.volume.value);
             }
@@ -572,15 +1040,39 @@ document.onkeydown = function (e) {
     case 'w':
       {
         teclaApretada.innerHTML = "w";
-        if (audio2.volume < 0.99) {
-          audio2.volume = audio2.volume + 0.01;
-          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
-          volume_2.value = audio2.volume;
-        }
-        else {
-          audio2.volume = 1;
-          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
-          volume_2.value = audio2.volume;
+        switch (source_2_actual_patch) {
+          case "empty": {
+            console.log("empty");
+            break;
+          }
+          case "noiseSynth": {
+            console.log("noiseSynth");
+            break;
+          }
+          case "noise": {
+            console.log("noise");
+            break;
+          }
+          case "player": {
+            if (player_2_Node.volume.value > -100 &&
+              player_2_Node.volume.value <= 11) {
+              player_2_Node.volume.value += 1;
+              player_2_volume.value = Math.round(`${player_2_Node.volume.value}`);
+              player_2_volume_value.innerHTML = Math.round(`${player_2_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "player_2_volume", player_2_Node.volume.value);
+            }
+            break;
+          }
+          case "grainPlayer": {
+            if (grainPlayer_2_Node.volume.value < 11 && grainPlayer_2_Node.volume.value > -100) {
+              grainPlayer_2_Node.volume.value += 1;
+              grainPlayer_2_volume.value = Math.round(`${grainPlayer_2_Node.volume.value}`);
+              grainPlayer_2_volume_value.innerHTML = Math.round(`${grainPlayer_2_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_2_volume", grainPlayer_2_Node.volume.value);
+            }
+            break;
+          }
+          default: { break; }
         }
         break;
       }
@@ -588,16 +1080,39 @@ document.onkeydown = function (e) {
     case 'S':
       {
         teclaApretada.innerHTML = "s";
-        if (audio2.volume > 0.01) {
-          audio2.volume -= 0.01;
-          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
-          volume_2.value = audio2.volume;
-        }
-        else {
-          audio2.volume = 0;
-          fixed_volume_2_value.innerHTML = volume_2_value.innerHTML = Math.round(`${audio2.volume * 100}`);
-          volume_2.value = audio2.volume;
-          Math.round(`${audio2.volume * 100}`);
+        switch (source_2_actual_patch) {
+          case "empty": {
+            console.log("empty");
+            break;
+          }
+          case "noiseSynth": {
+            console.log("noiseSynth");
+            break;
+          }
+          case "noise": {
+            console.log("noise");
+            break;
+          }
+          case "player": {
+            if (player_2_Node.volume.value > -100 &&
+              player_2_Node.volume.value <= 11) {
+              player_2_Node.volume.value -= 1;
+              player_2_volume.value = Math.round(`${player_2_Node.volume.value}`);
+              player_2_volume_value.innerHTML = Math.round(`${player_2_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "player_2_volume", player_2_Node.volume.value);
+            }
+            break;
+          }
+          case "grainPlayer": {
+            if (grainPlayer_2_Node.volume.value < 11 && grainPlayer_2_Node.volume.value > -100) {
+              grainPlayer_2_Node.volume.value -= 1;
+              grainPlayer_2_volume.value = Math.round(`${grainPlayer_2_Node.volume.value}`);
+              grainPlayer_2_volume_value.innerHTML = Math.round(`${grainPlayer_2_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_2_volume", player_2_Node.volume.value);
+            }
+            break;
+          }
+          default: { break; }
         }
         break;
       }
@@ -605,15 +1120,38 @@ document.onkeydown = function (e) {
     case 'E':
       {
         teclaApretada.innerHTML = "e";
-        if (audio3.volume < 0.99) {
-          audio3.volume = audio3.volume + 0.01;
-          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
-          volume_3.value = audio3.volume;
-        }
-        else {
-          audio3.volume = 1;
-          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
-          volume_3.value = audio3.volume;
+        switch (source_3_actual_patch) {
+          case "empty": {
+            console.log("empty");
+            break;
+          }
+          case "noiseSynth": {
+            console.log("noiseSynth");
+            break;
+          }
+          case "noise": {
+            console.log("noise");
+            break;
+          }
+          case "player": {
+            if (player_3_Node.volume.value < 11) {
+              player_3_Node.volume.value += 1;
+              player_3_volume.value = Math.round(`${player_3_Node.volume.value}`);
+              player_3_volume_value.innerHTML = Math.round(`${player_3_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "player_3_volume", player_3_Node.volume.value);
+            }
+            break;
+          }
+          case "grainPlayer": {
+            if (grainPlayer_3_Node.volume.value < 11) {
+              grainPlayer_3_Node.volume.value += 1;
+              grainPlayer_3_volume_value.innerHTML = Math.round(`${grainPlayer_3_Node.volume.value}`);
+              grainPlayer_3_volume.value = Math.round(`${grainPlayer_3_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_3_volume", grainPlayer_3_Node.volume.value);
+            }
+            break;
+          }
+          default: { break; }
         }
         break;
       }
@@ -621,15 +1159,39 @@ document.onkeydown = function (e) {
     case 'D':
       {
         teclaApretada.innerHTML = "d";
-        if (audio3.volume > 0.01) {
-          audio3.volume -= 0.01;
-          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
-          volume_3.value = audio3.volume;
-        }
-        else {
-          audio3.volume = 0;
-          fixed_volume_3_value.innerHTML = volume_3_value.innerHTML = Math.round(`${audio3.volume * 100}`);
-          volume_3.value = audio3.volume;
+        switch (source_3_actual_patch) {
+          case "empty": {
+            console.log("empty");
+            break;
+          }
+          case "noiseSynth": {
+            console.log("noiseSynth");
+            break;
+          }
+          case "noise": {
+            console.log("noise");
+            break;
+          }
+          case "player": {
+            if (player_3_Node.volume.value > -100 &&
+              player_3_Node.volume.value <= 11) {
+              player_3_Node.volume.value -= 1;
+              player_3_volume.value = Math.round(`${player_3_Node.volume.value}`);
+              player_3_volume_value.innerHTML = Math.round(`${player_3_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "player_3_volume", player_3_Node.volume.value);
+            }
+            break;
+          }
+          case "grainPlayer": {
+            if (grainPlayer_3_Node.volume.value < 11 && grainPlayer_3_Node.volume.value > -100) {
+              grainPlayer_3_Node.volume.value -= 1;
+              grainPlayer_3_volume_value.innerHTML = Math.round(`${grainPlayer_3_Node.volume.value}`);
+              grainPlayer_3_volume.value = Math.round(`${grainPlayer_3_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_3_volume", grainPlayer_3_Node.volume.value);
+            }
+            break;
+          }
+          default: { break; }
         }
         break;
       }
@@ -637,15 +1199,38 @@ document.onkeydown = function (e) {
     case 'R':
       {
         teclaApretada.innerHTML = "r";
-        if (audio4.volume < 0.99) {
-          audio4.volume = audio4.volume + 0.01;
-          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
-          volume_4.value = audio4.volume;
-        }
-        else {
-          audio4.volume = 1;
-          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
-          volume_4.value = audio4.volume;
+        switch (source_4_actual_patch) {
+          case "empty": {
+            console.log("empty");
+            break;
+          }
+          case "noiseSynth": {
+            console.log("noiseSynth");
+            break;
+          }
+          case "noise": {
+            console.log("noise");
+            break;
+          }
+          case "player": {
+            if (player_4_Node.volume.value < 11) {
+              player_4_Node.volume.value += 1;
+              player_4_volume.value = Math.round(`${player_4_Node.volume.value}`);
+              player_4_volume_value.innerHTML = Math.round(`${player_4_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "player_4_volume", player_4_Node.volume.value);
+            }
+            break;
+          }
+          case "grainPlayer": {
+            if (grainPlayer_4_Node.volume.value < 11) {
+              grainPlayer_4_Node.volume.value += 1;
+              grainPlayer_4_volume_value.innerHTML = Math.round(`${grainPlayer_4_Node.volume.value}`);
+              grainPlayer_4_volume.value = Math.round(`${grainPlayer_4_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_4_volume", grainPlayer_4_Node.volume.value);
+            }
+            break;
+          }
+          default: { break; }
         }
         break;
       }
@@ -653,15 +1238,39 @@ document.onkeydown = function (e) {
     case 'F':
       {
         teclaApretada.innerHTML = "f";
-        if (audio4.volume > 0.01) {
-          audio4.volume -= 0.01;
-          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
-          volume_4.value = audio4.volume;
-        }
-        else {
-          audio4.volume = 0;
-          fixed_volume_4_value.innerHTML = volume_4_value.innerHTML = Math.round(`${audio4.volume * 100}`);
-          volume_4.value = audio4.volume;
+        switch (source_4_actual_patch) {
+          case "empty": {
+            console.log("empty");
+            break;
+          }
+          case "noiseSynth": {
+            console.log("noiseSynth");
+            break;
+          }
+          case "noise": {
+            console.log("noise");
+            break;
+          }
+          case "player": {
+            if (player_4_Node.volume.value > -100 &&
+              player_4_Node.volume.value <= 11) {
+              player_4_Node.volume.value -= 1;
+              player_4_volume.value = Math.round(`${player_4_Node.volume.value}`);
+              player_4_volume_value.innerHTML = Math.round(`${player_4_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "player_4_volume", player_3_Node.volume.value);
+            }
+            break;
+          }
+          case "grainPlayer": {
+            if (grainPlayer_4_Node.volume.value < 11 && grainPlayer_4_Node.volume.value > -100) {
+              grainPlayer_4_Node.volume.value -= 1;
+              grainPlayer_4_volume_value.innerHTML = Math.round(`${grainPlayer_4_Node.volume.value}`);
+              grainPlayer_4_volume.value = Math.round(`${grainPlayer_4_Node.volume.value}`);
+              mixEvent.logIntoListaNewValue(Tone.now(), "grainPlayer_4_volume", grainPlayer_4_Node.volume.value);
+            }
+            break;
+          }
+          default: { break; }
         }
         break;
       }
@@ -712,12 +1321,10 @@ PARA DEVOLVER A LA CANCION AL MUTE.FALSE
 //************************************************************************* */
 //************************************************************************* */
 //ARRAY SONG DATA ADD DURATION 
-
 //Tone.context.createMediaElementSource(mediaElement)
 //USAR ESTO PARA CREAR UN AUDIO TAG Y CARGAR EL SRC EN UN BUFFER 
 // Y PASARLO A UN TONE PLAYER, SE PUEDE SACAR LA DURATION Y ALGUNA COSA MAS
 
-// Autoplay policy: start context after user gesture.
 //AUDIOWORKLET
 /*
 const audioContext = new AudioContext();
@@ -10330,7 +10937,7 @@ multiple_play_source_1.checked = false;
 multiple_play_source_2.checked = false;
 multiple_play_source_3.checked = false;
 multiple_play_source_4.checked = false;
-multiple_play_test_player.checked = true;
+multiple_play_test_player.checked = false;
 player_1_loop_checkbox.checked = true;
 player_1_Node.loop = true;
 player_1_Node.volume.value = -12;
@@ -10441,8 +11048,6 @@ empty_4_div.style.display = "none";
 let event2 = new MouseEvent("click", {
   bubbles: true,
   cancelable: true,
-  //clientX: 10,
-  //clientY: 11
 });
 multiple_play_source_2.dispatchEvent(event2);
 player_1_playButton.dispatchEvent(event2);
@@ -24855,7 +25460,6 @@ function scrambler(tempScramblerFloat32Array) {
 
   return bufferScrambled;
 }
-
 /*
         const Float32 = new Float32Array(decodedBuffer.length);
         let k = 0;
@@ -25504,8 +26108,6 @@ console.log (test.children);
   //console.log("childNodes: " + soundClips_1.childNodes);
   //soundClips_1.removeChild(clipContainer);
 */
-
-
 
 const TESTfx_1_filter_1_select = document.getElementById("TESTfx_1_filter_1_select");
 TESTfx_1_filter_1_select.addEventListener("change", function (e) {

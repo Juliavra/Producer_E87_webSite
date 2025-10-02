@@ -113,7 +113,7 @@
     Test_Node RMS: <p id="meter_test_Node_RMS"></p>
     <br>
     <p id="teclaApretada"> Tecla: </p>
-    
+
     <fieldset>
       Play Simultaneos
       <input type="checkbox" name="source_1" id="multiple_play_source_1" value="source_1"> 1
@@ -128,16 +128,23 @@
 
       <br> <br>
       <section class="container">
-      
+
         <br> <br>
-RECORDER JS
-      <br> <br>
-<button id="startRecording">Record</button>
-      <br> <br>
+        RECORDER JS
+        <br> <br>
+        Audio Tag para usar recorder.js
+        <audio id="audioForRecorderjs">
+          <source src="" type="audio/wav" id="">
+        </audio>
+
+
+
+        <button id="Recording" onclick="Recording()">Record</button>
+        <br> <br>
 
         <h3>Record</h3>
-      Sacado de: https://github.com/drnoir/soundTrigger/blob/main/record.js
-      <br> <br>
+        Sacado de: https://github.com/drnoir/soundTrigger/blob/main/record.js
+        <br> <br>
 
         <button id="start-record">(X)Start Recording</button>
         <button id="stop-record">(X)Stop Recording</button>
@@ -283,335 +290,325 @@ RECORDER JS
       <option name="4" id="4" value="4">4</option>
     </select>
     <button id="buscaButton" onclick="busca1()">Buscar </button>
- 
+
   </header>
 
-      <div class="column">EQ TEST
-      <br>
-      <label for="TESTfx_1_filter_1_select" name="TESTfx_1_filter_1_select"> </label>
-      <button id="TESTfx_1_filter_eq_bypass_Button" value="bypass" name="TESTfx_1"
-        onclick="channel_x_filter_eq_selection_foo(name, value)">Bypass
-      </button>
-      <button id="TESTfx_1_filter_eq_On_Button" value="on" name="TESTfx_1"
-        onclick="channel_x_filter_eq_selection_foo(name, value)">EQ1
-      </button>
-      <select name="filter_1" id="TESTfx_1_filter_1_select">
-        <option name="empty" id="empty" value="empty">empty</option>
-        <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
-        <option name="highpass" id="highpass" value="highpass">highpass</option>
-        <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
-        <option name="lowshelf" id="lowshelf" value="lowshelf">lowshelf</option>
-        <option name="highshelf" id="highshelf" value="highshelf">highshelf</option>
-        <option name="notch" id="notch" value="notch">notch</option>
-        <option name="allpass" id="allpass" value="allpass">allpass</option>
-        <option name="peaking" id="peaking" value="peaking">peaking</option>
-        <!--
+  <div class="column">EQ TEST
+    <br>
+    <label for="TESTfx_1_filter_1_select" name="TESTfx_1_filter_1_select"> </label>
+    <button id="TESTfx_1_filter_eq_bypass_Button" value="bypass" name="TESTfx_1"
+      onclick="channel_x_filter_eq_selection_foo(name, value)">Bypass
+    </button>
+    <button id="TESTfx_1_filter_eq_On_Button" value="on" name="TESTfx_1"
+      onclick="channel_x_filter_eq_selection_foo(name, value)">EQ1
+    </button>
+    <select name="filter_1" id="TESTfx_1_filter_1_select">
+      <option name="empty" id="empty" value="empty">empty</option>
+      <option name="lowpass" id="lowpass" value="lowpass">lowpass</option>
+      <option name="highpass" id="highpass" value="highpass">highpass</option>
+      <option name="bandpass" id="bandpass" value="bandpass">bandpass</option>
+      <option name="lowshelf" id="lowshelf" value="lowshelf">lowshelf</option>
+      <option name="highshelf" id="highshelf" value="highshelf">highshelf</option>
+      <option name="notch" id="notch" value="notch">notch</option>
+      <option name="allpass" id="allpass" value="allpass">allpass</option>
+      <option name="peaking" id="peaking" value="peaking">peaking</option>
+      <!--
         <option name="eq3" id="eq3" value="eq3">EQ3</option>
         <option name="tascam" id="tascam" value="tascam">Tascam</option>
 -->
-      </select>
-      <button id="TESTfx_1_filter_eq_On_EQ3_Button" value="eq3" name="TESTfx_1"
-        onclick="channel_x_filter_eq_selection_foo(name, value)">EQ3
-      </button>
-      <br> <br>
-      <button id="TESTfx_1_filter_eq_On_Tascam_Button" value="tascam" name="TESTfx_1"
-        onclick="channel_x_filter_eq_selection_foo(name, value)">Tascam
-      </button>
-      <div id="TESTfx_1_empty_controls_div">
+    </select>
+    <button id="TESTfx_1_filter_eq_On_EQ3_Button" value="eq3" name="TESTfx_1"
+      onclick="channel_x_filter_eq_selection_foo(name, value)">EQ3
+    </button>
+    <br> <br>
+    <button id="TESTfx_1_filter_eq_On_Tascam_Button" value="tascam" name="TESTfx_1"
+      onclick="channel_x_filter_eq_selection_foo(name, value)">Tascam
+    </button>
+    <div id="TESTfx_1_empty_controls_div">
+      <br>
+      <fieldset>
         <br>
-        <fieldset>
-          <br>
-          EMPTY SLOT
-          <br><br>
-        </fieldset>
-        <br>
-      </div>
-      <div id="TESTfx_1_bypass_controls_div">
-        RMS: <p id="TESTfx_1_filter_bypass_meter_inner"> </p>
-        <fieldset>
-          <br>
-          EQ BY PASSED
-          <br><br>
-        </fieldset>
-        <br>
-      </div>
-      <div id="TESTfx_1_allpass_controls_div">allpass
-        <br>
-        RMS: <p id="TESTfx_1_filter_allpass_meter_inner"> </p>
-        <br>
-        <fieldset>
-          <p id="TESTfx_1_filter_frequency_text_allpass">Freq </p>
-          <input type='range' min=20 max=20000 step='10' value="20" id='TESTfx_1_filter_frequency_allpass'>
-          <p id="TESTfx_1_filter_frequency_value_allpass"></p>
-
-          <input id="TESTfx_1_filter_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_filter_frequency_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_filter_frequency_rampTo_send_Button" value="TESTfx_1_filter_frequency_allpass_rampTo"
-            onclick="send(value, TESTfx_1_filter_frequency_rampTo_gain, TESTfx_1_filter_frequency_rampTo_time)">go
-          </button>
-          <br>
-
-          <p id="TESTfx_1_filter_Q_text_allpass">Q </p>
-          <input type='range' min=0 max=2 step=0.1 value="0" id='TESTfx_1_filter_Q_allpass'>
-          <p id="TESTfx_1_filter_Q_value_allpass"></p>
-
-          <input id="TESTfx_1_filter_Q_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="TESTfx_1_filter_Q_rampTo_send_Button" value="TESTfx_1_filter_Q_allpass_rampTo"
-            onclick="send(value, TESTfx_1_filter_Q_rampTo_gain, TESTfx_1_filter_Q_rampTo_time)">go </button>
-
-          <br>
-          <p id="TESTfx_1_filter_detune_text_allpass">Detune </p>
-          <input type='range' min=0 max=10000 step='10' value="0" id='TESTfx_1_filter_detune_allpass'>
-          <p id="TESTfx_1_filter_detune_value_allpass"></p>
-
-          <input id="TESTfx_1_filter_detune_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_filter_detune_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="TESTfx_1_filter_detune_rampTo_send_Button" value="TESTfx_1_filter_detune_allpass_rampTo"
-            onclick="send(value, TESTfx_1_filter_detune_rampTo_gain, TESTfx_1_filter_detune_rampTo_time)">go </button>
-
-        </fieldset>
-        <br>
-      </div>
-      <div id="TESTfx_1_shelf_controls_div">shelf
-        <br>
-        RMS: <p id="TESTfx_1_shelf_meter_inner"> </p>
-        <br>
-        <fieldset>
-          <p id="TESTfx_1_filter_frequency_text_shelf">Freq </p>
-          <input type='range' min=20 max=20000 step='10' value="20" id='TESTfx_1_filter_frequency_shelf'>
-          <p id="TESTfx_1_filter_frequency_value_shelf"></p>
-
-          <input id="TESTfx_1_filter_frequency_shelf_rampTo_gain" type="number" min="20" max="20000" step='10'
-            style="width: 35px;" />
-          time: <input id="TESTfx_1_filter_frequency_shelf_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_filter_frequency_shelf_rampTo_send_Button"
-            value="TESTfx_1_filter_frequency_shelf_rampTo"
-            onclick="send(value, TESTfx_1_filter_frequency_shelf_rampTo_gain, TESTfx_1_filter_frequency_shelf_rampTo_time)">go
-          </button>
-
-          <br>
-          <p id="TESTfx_1_filter_gain_text_shelf">Gain </p>
-          <input type='range' min=-100 max=12 step='1' value="-100" id='TESTfx_1_filter_gain_shelf'>
-          <p id="TESTfx_1_filter_gain_value_shelf"></p>
-
-          <input id="TESTfx_1_filter_gain_shelf_rampTo_gain" type="number" min="-100" max="12" step='1'
-            style="width: 35px;" />
-          time: <input id="TESTfx_1_filter_gain_shelf_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_filter_gain_shelf_rampTo_send_Button" value="TESTfx_1_filter_gain_shelf_rampTo"
-            onclick="send(value, TESTfx_1_filter_gain_shelf_rampTo_gain, TESTfx_1_filter_gain_shelf_rampTo_time)">go
-          </button>
-          <br>
-          <p id="TESTfx_1_filter_detune_text_shelf">Detune </p>
-          <input type='range' min=0 max=10000 step='10' value="0" id='TESTfx_1_filter_detune_shelf'>
-          <p id="TESTfx_1_filter_detune_value_shelf"></p>
-
-          <input id="TESTfx_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
-            style="width: 35px;" />
-          time: <input id="TESTfx_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_filter_detune_shelf_rampTo_send_Button" value="TESTfx_1_filter_detune_shelf_rampTo"
-            onclick="send(value, TESTfx_1_filter_detune_shelf_rampTo_detune, TESTfx_1_filter_detune_shelf_rampTo_time)">go
-          </button>
-
-          <br>
-        </fieldset>
-      </div>
-      <div id="TESTfx_1_peaking_controls_div">peaking
-        <br>
-        RMS: <p id="TESTfx_1_peaking_meter_inner"> </p>
-        <br>
-        <fieldset>
-          <p id="TESTfx_1_filter_frequency_text_peaking">Freq </p>
-          <input type='range' min=20 max=20000 step='10' value="20" id='TESTfx_1_filter_frequency_peaking'>
-          <p id="TESTfx_1_filter_frequency_value_peaking"></p>
-
-          <input id="TESTfx_1_filter_frequency_peaking_rampTo_gain" type="number" min="20" max="20000" step='10'
-            style="width: 35px;" />
-          time: <input id="TESTfx_1_filter_frequency_peaking_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_filter_frequency_peaking_rampTo_send_Button"
-            value="TESTfx_1_filter_frequency_peaking_rampTo"
-            onclick="send(value, TESTfx_1_filter_frequency_peaking_rampTo_gain, TESTfx_1_filter_frequency_peaking_rampTo_time)">go
-          </button>
-
-          <br>
-          <p id="TESTfx_1_filter_Q_text_peaking">Q </p>
-          <input type='range' min=0 max=2 step=0.1 value="0" id='TESTfx_1_filter_Q_peaking'>
-          <p id="TESTfx_1_filter_Q_value_peaking"></p>
-
-          <input id="TESTfx_1_filter_Q_peaking_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_filter_Q_peaking_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_filter_Q_peaking_rampTo_send_Button" value="TESTfx_1_filter_Q_peaking_rampTo"
-            onclick="send(value, TESTfx_1_filter_Q_peaking_rampTo_gain, TESTfx_1_filter_Q_peaking_rampTo_time)">go
-          </button>
-
-          <br>
-          <p id="TESTfx_1_filter_gain_text_peaking">Gain </p>
-          <input type='range' min=-30 max=12 step='1' value="-30" id='TESTfx_1_filter_gain_peaking'>
-          <p id="TESTfx_1_filter_gain_value_peaking"></p>
-
-          <input id="TESTfx_1_filter_gain_peaking_rampTo_gain" type="number" min="-100" max="12" step='1'
-            style="width: 35px;" />
-          time: <input id="TESTfx_1_filter_gain_peaking_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_filter_gain_peaking_rampTo_send_Button" value="TESTfx_1_filter_gain_peaking_rampTo"
-            onclick="send(value, TESTfx_1_filter_gain_peaking_rampTo_gain, TESTfx_1_filter_gain_peaking_rampTo_time)">go
-          </button>
-
-          <br>
-          <p id="TESTfx_1_filter_detune_text_peaking">Detune </p>
-          <input type='range' min=0 max=10000 step='10' value="0" id='TESTfx_1_filter_detune_peaking'>
-          <p id="TESTfx_1_filter_detune_value_peaking"></p>
-
-          <input id="TESTfx_1_filter_detune_peaking_rampTo_detune" type="number" min="0" max="10000" step='1'
-            style="width: 35px;" />
-          time: <input id="TESTfx_1_filter_detune_peaking_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_filter_detune_peaking_rampTo_send_Button" value="TESTfx_1_filter_detune_peaking_rampTo"
-            onclick="send(value, TESTfx_1_filter_detune_peaking_rampTo_detune, TESTfx_1_filter_detune_peaking_rampTo_time)">go
-          </button>
-          <br>
-        </fieldset>
-      </div>
-      <div id="TESTfx_1_tascam_424_controls_div">
-        <br>
-        Hi: <p id="TESTfx_1_tascam_424_Hi_meter_inner"> </p>
-        Mid: <p id="TESTfx_1_tascam_424_Mid_meter_inner"> </p>
-        Low: <p id="TESTfx_1_tascam_424_Low_meter_inner"> </p>
-        <br>
-        <fieldset>
-          <p id="TESTfx_1_tascam_HighShelf_gain_text">Hi Gain </p>
-          <input type='range' min=-100 max=12 step='1' value="0" id='TESTfx_1_tascam_HighShelf_gain'>
-          <p id="TESTfx_1_tascam_HighShelf_gain_value"></p>
-
-          <input id="TESTfx_1_HighShelf_gain_tascam" type="number" min="0" max="24" style="width: 35px;" />
-          time: <input id="TESTfx_1_HighShelf_gain_time_tascam" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="TESTfx_1_tascam_HighShelf_gain_rampTo_send_Button" value="TESTfx_1_HighShelf_gain_tascam_rampTo"
-            onclick="send(value, TESTfx_1_HighShelf_gain_tascam, TESTfx_1_HighShelf_gain_time_tascam)">go
-          </button>
-          <br>
-
-          <p id="TESTfx_1_tascam_Mid_SemiParam_gain_text">Mid Gain </p>
-          <input type='range' min=-100 max=12 step='1' value="0" id='TESTfx_1_tascam_Mid_SemiParam_gain'>
-          <p id="TESTfx_1_tascam_Mid_SemiParam_gain_value"></p>
-
-          <input id="TESTfx_1_tascam_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20"
-            style="width: 35px;" />
-          time: <input id="TESTfx_1_tascam_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_tascam_Mid_SemiParam_gain_send_Button"
-            value="TESTfx_1_Mid_SemiParam_gain_tascam_rampTo"
-            onclick="send(value, TESTfx_1_tascam_Mid_SemiParam_gain_rampTo_gain, TESTfx_1_tascam_Mid_SemiParam_gain_rampTo_time)">go
-          </button>
-          <br>
-
-          <p id="TESTfx_1_tascam_Mid_SemiParam_frequency_text">Mid Freq </p>
-          <input type='range' min=250 max=5000 step='10' value="250" id='TESTfx_1_tascam_Mid_SemiParam_frequency'>
-          <p id="TESTfx_1_tascam_Mid_SemiParam_frequency_value"></p>
-
-          <input id="TESTfx_1_tascam_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20"
-            style="width: 35px;" />
-          time: <input id="TESTfx_1_tascam_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_Mid_SemiParam_frequency_tascam_rampTo"
-            value="TESTfx_1_Mid_SemiParam_frequency_tascam_rampTo"
-            onclick="send(value, TESTfx_1_tascam_Mid_SemiParam_frequency_rampTo_gain, TESTfx_1_tascam_Mid_SemiParam_frequency_rampTo_time)">go
-          </button>
-          <br>
-
-          <p id="TESTfx_1_tascam_LowShelf_gain_text">Low Gain </p>
-          <input type='range' min=-100 max=12 step="1" value="0" id="TESTfx_1_tascam_LowShelf_gain">
-          <p id="TESTfx_1_tascam_LowShelf_gain_value"></p>
-
-          <input id="TESTfx_1_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="TESTfx_1_LowShelf_gain_rampTo_send_Button" value="TESTfx_1_LowShelf_gain_tascam_rampTo"
-            onclick="send(value, TESTfx_1_LowShelf_gain_rampTo_gain, TESTfx_1_LowShelf_gain_rampTo_time)">go
-          </button>
-          <br>
-        </fieldset>
-      </div>
-      <div id="TESTfx_1_eq3_controls_div">
-        <br>
-        RMS: <p id="TESTfx_1_eq3_meter_inner"> </p>
-        <br>
-        <fieldset>
-          <p id="TESTfx_1_EQ3_low_frequency_fader_text">Low Freq </p>
-          <input type='range' min=20 max=1000 step='10' value="100" id='TESTfx_1_EQ3_low_frequency_fader'>
-          <p id="TESTfx_1_EQ3_low_frequency_fader_value"></p>
-
-          <input id="TESTfx_1_EQ3_low_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_EQ3_low_frequency_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_EQ3_low_frequency_rampTo_send_Button" value="TESTfx_1_EQ3_low_frequency_rampTo"
-            onclick="send(value, TESTfx_1_EQ3_low_frequency_rampTo_gain, TESTfx_1_EQ3_low_frequency_rampTo_time)">go
-          </button>
-          <br>
-          <p id="TESTfx_1_EQ3_low_fader_gain_text">Low Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='TESTfx_1_EQ3_low_fader_gain'>
-          <p id="TESTfx_1_EQ3_low_fader_gain_value"> </p>
-
-          <input id="TESTfx_1_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_EQ3_low_fader_gain_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_EQ3_low_fader_gain_rampTo_send_Button" value="TESTfx_1_EQ3_low_fader_gain_rampTo"
-            onclick="send(value, TESTfx_1_EQ3_low_fader_gain_rampTo_gain, TESTfx_1_EQ3_low_fader_gain_rampTo_time)">go
-          </button>
-          <br>
-          <p id="TESTfx_1_EQ3_mid_fader_gain_text">Mid Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='TESTfx_1_EQ3_mid_fader_gain'>
-          <p id="TESTfx_1_EQ3_mid_fader_gain_value"> </p>
-
-          <input id="TESTfx_1_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_EQ3_mid_fader_gain_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_EQ3_mid_fader_gain_rampTo_send_Button" value="TESTfx_1_EQ3_mid_fader_gain_rampTo"
-            onclick="send(value, TESTfx_1_EQ3_mid_fader_gain_rampTo_gain, TESTfx_1_EQ3_mid_fader_gain_rampTo_time)">go
-          </button>
-          <br>
-          <p id="TESTfx_1_EQ3_hi_fader_gain_text">Hi Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='TESTfx_1_EQ3_hi_fader_gain'>
-          <p id="TESTfx_1_EQ3_hi_fader_gain_value"> </p>
-
-          <input id="TESTfx_1_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_EQ3_hi_fader_gain_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_EQ3_hi_fader_gain_rampTo_send_Button" value="TESTfx_1_EQ3_hi_fader_gain_rampTo"
-            onclick="send(value, TESTfx_1_EQ3_hi_fader_gain_rampTo_gain, TESTfx_1_EQ3_hi_fader_gain_rampTo_time)">go
-          </button>
-          <br>
-          <p id="TESTfx_1_EQ3_high_frequency_text">Hi Freq </p>
-          <input type='range' min=8000 max=12000 step='100' value="10000" id='TESTfx_1_EQ3_high_frequency_fader'>
-          <p id="TESTfx_1_EQ3_high_frequency_value"></p>
-
-          <input id="TESTfx_1_EQ3_high_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_EQ3_high_frequency_rampTo_time" type="number" min="0" max="60"
-            style="width: 35px;" />
-          <button id="TESTfx_1_EQ3_high_frequency_rampTo_send_Button" value="TESTfx_1_EQ3_high_frequency_rampTo"
-            onclick="send(value, TESTfx_1_EQ3_high_frequency_rampTo_gain, TESTfx_1_EQ3_high_frequency_rampTo_time)">go
-          </button>
-          <br>
-          <p id="TESTfx_1_EQ3_Q_text">Q </p>
-          <input type='range' min=0 max=20 step='1' value="0" id='TESTfx_1_EQ3_Q_fader'>
-          <p id="TESTfx_1_EQ3_Q_value"></p>
-
-          <input id="TESTfx_1_EQ3_Q_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="TESTfx_1_EQ3_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="TESTfx_1_EQ3_Q_rampTo_send_Button" value="TESTfx_1_EQ3_Q_rampTo"
-            onclick="send(value, TESTfx_1_EQ3_Q_rampTo_gain, TESTfx_1_EQ3_Q_rampTo_time)">go
-          </button>
-          <br>
-        </fieldset>
-      </div>
+        EMPTY SLOT
+        <br><br>
+      </fieldset>
       <br>
     </div>
+    <div id="TESTfx_1_bypass_controls_div">
+      RMS: <p id="TESTfx_1_filter_bypass_meter_inner"> </p>
+      <fieldset>
+        <br>
+        EQ BY PASSED
+        <br><br>
+      </fieldset>
+      <br>
+    </div>
+    <div id="TESTfx_1_allpass_controls_div">allpass
+      <br>
+      RMS: <p id="TESTfx_1_filter_allpass_meter_inner"> </p>
+      <br>
+      <fieldset>
+        <p id="TESTfx_1_filter_frequency_text_allpass">Freq </p>
+        <input type='range' min=20 max=20000 step='10' value="20" id='TESTfx_1_filter_frequency_allpass'>
+        <p id="TESTfx_1_filter_frequency_value_allpass"></p>
 
-  
+        <input id="TESTfx_1_filter_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_filter_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_filter_frequency_rampTo_send_Button" value="TESTfx_1_filter_frequency_allpass_rampTo"
+          onclick="send(value, TESTfx_1_filter_frequency_rampTo_gain, TESTfx_1_filter_frequency_rampTo_time)">go
+        </button>
+        <br>
+
+        <p id="TESTfx_1_filter_Q_text_allpass">Q </p>
+        <input type='range' min=0 max=2 step=0.1 value="0" id='TESTfx_1_filter_Q_allpass'>
+        <p id="TESTfx_1_filter_Q_value_allpass"></p>
+
+        <input id="TESTfx_1_filter_Q_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_filter_Q_rampTo_send_Button" value="TESTfx_1_filter_Q_allpass_rampTo"
+          onclick="send(value, TESTfx_1_filter_Q_rampTo_gain, TESTfx_1_filter_Q_rampTo_time)">go </button>
+
+        <br>
+        <p id="TESTfx_1_filter_detune_text_allpass">Detune </p>
+        <input type='range' min=0 max=10000 step='10' value="0" id='TESTfx_1_filter_detune_allpass'>
+        <p id="TESTfx_1_filter_detune_value_allpass"></p>
+
+        <input id="TESTfx_1_filter_detune_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_filter_detune_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_filter_detune_rampTo_send_Button" value="TESTfx_1_filter_detune_allpass_rampTo"
+          onclick="send(value, TESTfx_1_filter_detune_rampTo_gain, TESTfx_1_filter_detune_rampTo_time)">go </button>
+
+      </fieldset>
+      <br>
+    </div>
+    <div id="TESTfx_1_shelf_controls_div">shelf
+      <br>
+      RMS: <p id="TESTfx_1_shelf_meter_inner"> </p>
+      <br>
+      <fieldset>
+        <p id="TESTfx_1_filter_frequency_text_shelf">Freq </p>
+        <input type='range' min=20 max=20000 step='10' value="20" id='TESTfx_1_filter_frequency_shelf'>
+        <p id="TESTfx_1_filter_frequency_value_shelf"></p>
+
+        <input id="TESTfx_1_filter_frequency_shelf_rampTo_gain" type="number" min="20" max="20000" step='10'
+          style="width: 35px;" />
+        time: <input id="TESTfx_1_filter_frequency_shelf_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="TESTfx_1_filter_frequency_shelf_rampTo_send_Button" value="TESTfx_1_filter_frequency_shelf_rampTo"
+          onclick="send(value, TESTfx_1_filter_frequency_shelf_rampTo_gain, TESTfx_1_filter_frequency_shelf_rampTo_time)">go
+        </button>
+
+        <br>
+        <p id="TESTfx_1_filter_gain_text_shelf">Gain </p>
+        <input type='range' min=-100 max=12 step='1' value="-100" id='TESTfx_1_filter_gain_shelf'>
+        <p id="TESTfx_1_filter_gain_value_shelf"></p>
+
+        <input id="TESTfx_1_filter_gain_shelf_rampTo_gain" type="number" min="-100" max="12" step='1'
+          style="width: 35px;" />
+        time: <input id="TESTfx_1_filter_gain_shelf_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_filter_gain_shelf_rampTo_send_Button" value="TESTfx_1_filter_gain_shelf_rampTo"
+          onclick="send(value, TESTfx_1_filter_gain_shelf_rampTo_gain, TESTfx_1_filter_gain_shelf_rampTo_time)">go
+        </button>
+        <br>
+        <p id="TESTfx_1_filter_detune_text_shelf">Detune </p>
+        <input type='range' min=0 max=10000 step='10' value="0" id='TESTfx_1_filter_detune_shelf'>
+        <p id="TESTfx_1_filter_detune_value_shelf"></p>
+
+        <input id="TESTfx_1_filter_detune_shelf_rampTo_detune" type="number" min="0" max="10000" step='1'
+          style="width: 35px;" />
+        time: <input id="TESTfx_1_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="TESTfx_1_filter_detune_shelf_rampTo_send_Button" value="TESTfx_1_filter_detune_shelf_rampTo"
+          onclick="send(value, TESTfx_1_filter_detune_shelf_rampTo_detune, TESTfx_1_filter_detune_shelf_rampTo_time)">go
+        </button>
+
+        <br>
+      </fieldset>
+    </div>
+    <div id="TESTfx_1_peaking_controls_div">peaking
+      <br>
+      RMS: <p id="TESTfx_1_peaking_meter_inner"> </p>
+      <br>
+      <fieldset>
+        <p id="TESTfx_1_filter_frequency_text_peaking">Freq </p>
+        <input type='range' min=20 max=20000 step='10' value="20" id='TESTfx_1_filter_frequency_peaking'>
+        <p id="TESTfx_1_filter_frequency_value_peaking"></p>
+
+        <input id="TESTfx_1_filter_frequency_peaking_rampTo_gain" type="number" min="20" max="20000" step='10'
+          style="width: 35px;" />
+        time: <input id="TESTfx_1_filter_frequency_peaking_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="TESTfx_1_filter_frequency_peaking_rampTo_send_Button"
+          value="TESTfx_1_filter_frequency_peaking_rampTo"
+          onclick="send(value, TESTfx_1_filter_frequency_peaking_rampTo_gain, TESTfx_1_filter_frequency_peaking_rampTo_time)">go
+        </button>
+
+        <br>
+        <p id="TESTfx_1_filter_Q_text_peaking">Q </p>
+        <input type='range' min=0 max=2 step=0.1 value="0" id='TESTfx_1_filter_Q_peaking'>
+        <p id="TESTfx_1_filter_Q_value_peaking"></p>
+
+        <input id="TESTfx_1_filter_Q_peaking_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_filter_Q_peaking_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_filter_Q_peaking_rampTo_send_Button" value="TESTfx_1_filter_Q_peaking_rampTo"
+          onclick="send(value, TESTfx_1_filter_Q_peaking_rampTo_gain, TESTfx_1_filter_Q_peaking_rampTo_time)">go
+        </button>
+
+        <br>
+        <p id="TESTfx_1_filter_gain_text_peaking">Gain </p>
+        <input type='range' min=-30 max=12 step='1' value="-30" id='TESTfx_1_filter_gain_peaking'>
+        <p id="TESTfx_1_filter_gain_value_peaking"></p>
+
+        <input id="TESTfx_1_filter_gain_peaking_rampTo_gain" type="number" min="-100" max="12" step='1'
+          style="width: 35px;" />
+        time: <input id="TESTfx_1_filter_gain_peaking_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="TESTfx_1_filter_gain_peaking_rampTo_send_Button" value="TESTfx_1_filter_gain_peaking_rampTo"
+          onclick="send(value, TESTfx_1_filter_gain_peaking_rampTo_gain, TESTfx_1_filter_gain_peaking_rampTo_time)">go
+        </button>
+
+        <br>
+        <p id="TESTfx_1_filter_detune_text_peaking">Detune </p>
+        <input type='range' min=0 max=10000 step='10' value="0" id='TESTfx_1_filter_detune_peaking'>
+        <p id="TESTfx_1_filter_detune_value_peaking"></p>
+
+        <input id="TESTfx_1_filter_detune_peaking_rampTo_detune" type="number" min="0" max="10000" step='1'
+          style="width: 35px;" />
+        time: <input id="TESTfx_1_filter_detune_peaking_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="TESTfx_1_filter_detune_peaking_rampTo_send_Button" value="TESTfx_1_filter_detune_peaking_rampTo"
+          onclick="send(value, TESTfx_1_filter_detune_peaking_rampTo_detune, TESTfx_1_filter_detune_peaking_rampTo_time)">go
+        </button>
+        <br>
+      </fieldset>
+    </div>
+    <div id="TESTfx_1_tascam_424_controls_div">
+      <br>
+      Hi: <p id="TESTfx_1_tascam_424_Hi_meter_inner"> </p>
+      Mid: <p id="TESTfx_1_tascam_424_Mid_meter_inner"> </p>
+      Low: <p id="TESTfx_1_tascam_424_Low_meter_inner"> </p>
+      <br>
+      <fieldset>
+        <p id="TESTfx_1_tascam_HighShelf_gain_text">Hi Gain </p>
+        <input type='range' min=-100 max=12 step='1' value="0" id='TESTfx_1_tascam_HighShelf_gain'>
+        <p id="TESTfx_1_tascam_HighShelf_gain_value"></p>
+
+        <input id="TESTfx_1_HighShelf_gain_tascam" type="number" min="0" max="24" style="width: 35px;" />
+        time: <input id="TESTfx_1_HighShelf_gain_time_tascam" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_tascam_HighShelf_gain_rampTo_send_Button" value="TESTfx_1_HighShelf_gain_tascam_rampTo"
+          onclick="send(value, TESTfx_1_HighShelf_gain_tascam, TESTfx_1_HighShelf_gain_time_tascam)">go
+        </button>
+        <br>
+
+        <p id="TESTfx_1_tascam_Mid_SemiParam_gain_text">Mid Gain </p>
+        <input type='range' min=-100 max=12 step='1' value="0" id='TESTfx_1_tascam_Mid_SemiParam_gain'>
+        <p id="TESTfx_1_tascam_Mid_SemiParam_gain_value"></p>
+
+        <input id="TESTfx_1_tascam_Mid_SemiParam_gain_rampTo_gain" type="number" min="0" max="20"
+          style="width: 35px;" />
+        time: <input id="TESTfx_1_tascam_Mid_SemiParam_gain_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="TESTfx_1_tascam_Mid_SemiParam_gain_send_Button" value="TESTfx_1_Mid_SemiParam_gain_tascam_rampTo"
+          onclick="send(value, TESTfx_1_tascam_Mid_SemiParam_gain_rampTo_gain, TESTfx_1_tascam_Mid_SemiParam_gain_rampTo_time)">go
+        </button>
+        <br>
+
+        <p id="TESTfx_1_tascam_Mid_SemiParam_frequency_text">Mid Freq </p>
+        <input type='range' min=250 max=5000 step='10' value="250" id='TESTfx_1_tascam_Mid_SemiParam_frequency'>
+        <p id="TESTfx_1_tascam_Mid_SemiParam_frequency_value"></p>
+
+        <input id="TESTfx_1_tascam_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20"
+          style="width: 35px;" />
+        time: <input id="TESTfx_1_tascam_Mid_SemiParam_frequency_rampTo_time" type="number" min="0" max="60"
+          style="width: 35px;" />
+        <button id="TESTfx_1_Mid_SemiParam_frequency_tascam_rampTo"
+          value="TESTfx_1_Mid_SemiParam_frequency_tascam_rampTo"
+          onclick="send(value, TESTfx_1_tascam_Mid_SemiParam_frequency_rampTo_gain, TESTfx_1_tascam_Mid_SemiParam_frequency_rampTo_time)">go
+        </button>
+        <br>
+
+        <p id="TESTfx_1_tascam_LowShelf_gain_text">Low Gain </p>
+        <input type='range' min=-100 max=12 step="1" value="0" id="TESTfx_1_tascam_LowShelf_gain">
+        <p id="TESTfx_1_tascam_LowShelf_gain_value"></p>
+
+        <input id="TESTfx_1_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_LowShelf_gain_rampTo_send_Button" value="TESTfx_1_LowShelf_gain_tascam_rampTo"
+          onclick="send(value, TESTfx_1_LowShelf_gain_rampTo_gain, TESTfx_1_LowShelf_gain_rampTo_time)">go
+        </button>
+        <br>
+      </fieldset>
+    </div>
+    <div id="TESTfx_1_eq3_controls_div">
+      <br>
+      RMS: <p id="TESTfx_1_eq3_meter_inner"> </p>
+      <br>
+      <fieldset>
+        <p id="TESTfx_1_EQ3_low_frequency_fader_text">Low Freq </p>
+        <input type='range' min=20 max=1000 step='10' value="100" id='TESTfx_1_EQ3_low_frequency_fader'>
+        <p id="TESTfx_1_EQ3_low_frequency_fader_value"></p>
+
+        <input id="TESTfx_1_EQ3_low_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_EQ3_low_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_EQ3_low_frequency_rampTo_send_Button" value="TESTfx_1_EQ3_low_frequency_rampTo"
+          onclick="send(value, TESTfx_1_EQ3_low_frequency_rampTo_gain, TESTfx_1_EQ3_low_frequency_rampTo_time)">go
+        </button>
+        <br>
+        <p id="TESTfx_1_EQ3_low_fader_gain_text">Low Gain</p>
+        <input type='range' min=-41 max=12 step='1' value="0" id='TESTfx_1_EQ3_low_fader_gain'>
+        <p id="TESTfx_1_EQ3_low_fader_gain_value"> </p>
+
+        <input id="TESTfx_1_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_EQ3_low_fader_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_EQ3_low_fader_gain_rampTo_send_Button" value="TESTfx_1_EQ3_low_fader_gain_rampTo"
+          onclick="send(value, TESTfx_1_EQ3_low_fader_gain_rampTo_gain, TESTfx_1_EQ3_low_fader_gain_rampTo_time)">go
+        </button>
+        <br>
+        <p id="TESTfx_1_EQ3_mid_fader_gain_text">Mid Gain</p>
+        <input type='range' min=-41 max=12 step='1' value="0" id='TESTfx_1_EQ3_mid_fader_gain'>
+        <p id="TESTfx_1_EQ3_mid_fader_gain_value"> </p>
+
+        <input id="TESTfx_1_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_EQ3_mid_fader_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_EQ3_mid_fader_gain_rampTo_send_Button" value="TESTfx_1_EQ3_mid_fader_gain_rampTo"
+          onclick="send(value, TESTfx_1_EQ3_mid_fader_gain_rampTo_gain, TESTfx_1_EQ3_mid_fader_gain_rampTo_time)">go
+        </button>
+        <br>
+        <p id="TESTfx_1_EQ3_hi_fader_gain_text">Hi Gain</p>
+        <input type='range' min=-41 max=12 step='1' value="0" id='TESTfx_1_EQ3_hi_fader_gain'>
+        <p id="TESTfx_1_EQ3_hi_fader_gain_value"> </p>
+
+        <input id="TESTfx_1_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_EQ3_hi_fader_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_EQ3_hi_fader_gain_rampTo_send_Button" value="TESTfx_1_EQ3_hi_fader_gain_rampTo"
+          onclick="send(value, TESTfx_1_EQ3_hi_fader_gain_rampTo_gain, TESTfx_1_EQ3_hi_fader_gain_rampTo_time)">go
+        </button>
+        <br>
+        <p id="TESTfx_1_EQ3_high_frequency_text">Hi Freq </p>
+        <input type='range' min=8000 max=12000 step='100' value="10000" id='TESTfx_1_EQ3_high_frequency_fader'>
+        <p id="TESTfx_1_EQ3_high_frequency_value"></p>
+
+        <input id="TESTfx_1_EQ3_high_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_EQ3_high_frequency_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_EQ3_high_frequency_rampTo_send_Button" value="TESTfx_1_EQ3_high_frequency_rampTo"
+          onclick="send(value, TESTfx_1_EQ3_high_frequency_rampTo_gain, TESTfx_1_EQ3_high_frequency_rampTo_time)">go
+        </button>
+        <br>
+        <p id="TESTfx_1_EQ3_Q_text">Q </p>
+        <input type='range' min=0 max=20 step='1' value="0" id='TESTfx_1_EQ3_Q_fader'>
+        <p id="TESTfx_1_EQ3_Q_value"></p>
+
+        <input id="TESTfx_1_EQ3_Q_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+        time: <input id="TESTfx_1_EQ3_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+        <button id="TESTfx_1_EQ3_Q_rampTo_send_Button" value="TESTfx_1_EQ3_Q_rampTo"
+          onclick="send(value, TESTfx_1_EQ3_Q_rampTo_gain, TESTfx_1_EQ3_Q_rampTo_time)">go
+        </button>
+        <br>
+      </fieldset>
+    </div>
+    <br>
+  </div>
+
+
   <!--CHANNEL 1 -->
   <div class="column">
     <h2>1</h2>
@@ -6887,7 +6884,8 @@ RECORDER JS
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="js/step_12.js"></script>
 <!--
-<script src="js/app.js"></script>
+<script src="js/recorder.js"></script>   
+ESTO FUNCIONA PERO GRABA OGG
 -->
 <script src="js/record1.js"></script>
 
