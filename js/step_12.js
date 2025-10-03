@@ -1,11 +1,8 @@
 ﻿"use strict";
 
-//console.log(Tone.getContext());
-//Tone.context.audioWorklet.addModule('noiseWorklet.js');
-
 async function setupAudio() {
   await Tone.start();
-  await Tone.context.addAudioWorkletModule('js/noiseWorklet.js');
+  await Tone.context.addAudioWorkletModule('js/smoothingWorklet.js');
 
   // Now you can create and use your AudioWorkletNode
   const myWorkletNode = new Tone.ToneAudioWorklet('noise-generator');
