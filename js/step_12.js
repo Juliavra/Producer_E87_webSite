@@ -1,25 +1,8 @@
 ﻿"use strict";
 
-async function setupAudio() {
-  await Tone.start();
-  await Tone.context.addAudioWorkletModule('js/smoothingWorklet.js');
-
-  // Now you can create and use your AudioWorkletNode
-  const myWorkletNode = new Tone.ToneAudioWorklet('noise-generator');
-
-  // Connect it into your Tone.js graph
-  //const oscillator = new Tone.Oscillator().start();
-  //oscillator.connect(myWorkletNode);
-  myWorkletNode.toDestination();
-  myWorkletNode.start();
-
-}
-
-setupAudio();
-
-
-
-
+//var AudioContext = window.AudioContext || window.webkitAudioContext;
+//var audioCtx = new AudioContext();
+//Tone.setContext(audioCtx);
 
 
 
@@ -104,9 +87,9 @@ function Recording() {
 async function Offline_Context() {
   //alert("offlineContext");
   const offlineContext = new Tone.OfflineContext(2, 40, 44100); // 2 channels, 4 seconds, 44.1kHz sample rate
-  const player_test = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3", load_play_test).connect(offlineContext.destination);
-  //alert("POPO");
-
+  //const player_test = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3", load_play_test).connect(offlineContext.destination);
+  const player_test = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3", load_play_test);
+  
   if (!player_test.loaded) {
     //    alert("!loaded");
   }
@@ -1343,7 +1326,9 @@ whiteNoiseNode.connect(audioContext.destination);
 //Tone.context.latencyHint = "playback";
 
 //TEST PLAYER
-const player_test_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3");
+//const player_test_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3");
+const player_test_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/01_Dark_Ringy_Short_Loop.mp3");
+
 const meter_test_Node = new Tone.Meter(0);
 const meter_test_Node_RMS = document.getElementById("meter_test_Node_RMS");
 //-----------------------------------------------------------
