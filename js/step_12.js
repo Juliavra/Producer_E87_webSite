@@ -6272,22 +6272,19 @@ player_1_volume.ondblclick = function () {
 const player_1_playback_rate = document.getElementById("player_1_playback_rate");
 const player_1_playback_rate_value = document.getElementById("player_1_playback_rate_value");
 player_1_playback_rate.addEventListener("change", function (e) {
-  /*
-  player_1_Node.playbackRate = `${e.currentTarget.value}`;
-  player_1_playback_rate_value.innerHTML = Math.round(`${e.currentTarget.value}` * 100);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_playback_rate", e.currentTarget.value);
-/**/
   changesFloat(e.currentTarget.value, player_1_Node, player_1_playback_rate, player_1_playback_rate_value);
 });
 
 const player_1_loop_checkbox = document.getElementById("player_1_loop_checkbox");
 player_1_loop_checkbox.addEventListener("change", function () {
+  /*
   if (player_1_loop_checkbox.checked) {
     player_1_Node.loop = true;
   }
   else {
     player_1_Node.loop = false;
-  }
+  }  /**/
+  changesBoxState_loop(player_1_Node, player_1_loop_checkbox.checked.toString(), player_1_loop_checkbox);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_checkbox", player_1_Node.loop);
 });
 
@@ -6304,24 +6301,14 @@ player_1_autoplay_checkbox.addEventListener("change", function () {
 
 const player_1_reverse_checkbox = document.getElementById("player_1_reverse_checkbox");
 player_1_reverse_checkbox.addEventListener("change", function () {
-  if (player_1_reverse_checkbox.checked) {
-    player_1_Node.reverse = true;
-  }
-  else {
-    player_1_Node.reverse = false;
-  }
+  changesBoxState_reverse(player_1_Node, player_1_reverse_checkbox.checked.toString(), player_1_reverse_checkbox);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_reverse_checkbox", player_1_Node.reverse);
 });
 
 const player_1_loop_start = document.getElementById("player_1_loop_start");
 player_1_loop_start.addEventListener("change", function (e) {
-  if (e.currentTarget.value >= 0 && e.currentTarget.value <= 300) {
-    player_1_Node.loopStart = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_start", e.currentTarget.value);
-  }
-  else {
-    alert("Else player_1_Node.loopStart");
-  }
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_start", e.currentTarget.value);
+  changesBoxState_loopStart(player_1_Node, e.currentTarget.value, player_1_loop_start);
 });
 
 const player_1_loop_end = document.getElementById("player_1_loop_end");
@@ -7020,14 +7007,19 @@ player_2_volume.ondblclick = function () {
 const player_2_playback_rate = document.getElementById("player_2_playback_rate");
 const player_2_playback_rate_value = document.getElementById("player_2_playback_rate_value");
 player_2_playback_rate.addEventListener("change", function (e) {
-  player_2_Node.playbackRate = `${e.currentTarget.value}`;
-  player_2_playback_rate_value.innerHTML = Math.round(`${e.currentTarget.value}` * 100);
+  changesFloat(e.currentTarget.value, player_2_Node, player_2_playback_rate, player_2_playback_rate_value);
+
 });
 
 const player_2_loop_checkbox = document.getElementById("player_2_loop_checkbox");
 player_2_loop_checkbox.addEventListener("change", function () {
+  /*
   if (player_2_loop_checkbox.checked) { player_2_Node.loop = true; }
   else { player_2_Node.loop = false; }
+  /**/
+  changesBoxState_loop(player_2_Node, player_2_loop_checkbox.checked.toString(), player_2_loop_checkbox);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_loop_checkbox", player_2_Node.loop);
+
 });
 
 const player_2_autoplay_checkbox = document.getElementById("player_2_autoplay_checkbox");
@@ -7038,8 +7030,8 @@ player_2_autoplay_checkbox.addEventListener("change", function () {
 
 const player_2_reverse_checkbox = document.getElementById("player_2_reverse_checkbox");
 player_2_reverse_checkbox.addEventListener("change", function () {
-  if (player_2_reverse_checkbox.checked) { player_2_Node.reverse = true; }
-  else { player_2_Node.reverse = false; }
+  changesBoxState_reverse(player_2_Node, player_2_reverse_checkbox.checked.toString(), player_2_reverse_checkbox);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_reverse_checkbox", player_2_Node.reverse);
 });
 
 const player_2_loop_start = document.getElementById("player_2_loop_start");
@@ -7146,14 +7138,19 @@ player_3_volume.ondblclick = function () {
 const player_3_playback_rate = document.getElementById("player_3_playback_rate");
 const player_3_playback_rate_value = document.getElementById("player_3_playback_rate_value");
 player_3_playback_rate.addEventListener("change", function (e) {
-  player_3_Node.playbackRate = `${e.currentTarget.value}`;
-  player_3_playback_rate_value.innerHTML = Math.round(`${e.currentTarget.value}` * 100);
+  changesFloat(e.currentTarget.value, player_3_Node, player_3_playback_rate, player_3_playback_rate_value);
+
 });
 
 const player_3_loop_checkbox = document.getElementById("player_3_loop_checkbox");
 player_3_loop_checkbox.addEventListener("change", function () {
-  if (player_3_loop_checkbox.checked) { player_3_Node.loop = true; }
-  else { player_3_Node.loop = false; }
+  /*
+    if (player_3_loop_checkbox.checked) { player_3_Node.loop = true; }
+    else { player_3_Node.loop = false; }
+  /**/
+  changesBoxState_loop(player_3_Node, player_3_loop_checkbox.checked.toString(), player_3_loop_checkbox);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_loop_checkbox", player_3_Node.loop);
+
 });
 
 const player_3_autoplay_checkbox = document.getElementById("player_3_autoplay_checkbox");
@@ -7164,8 +7161,8 @@ player_3_autoplay_checkbox.addEventListener("change", function () {
 
 const player_3_reverse_checkbox = document.getElementById("player_3_reverse_checkbox");
 player_3_reverse_checkbox.addEventListener("change", function () {
-  if (player_3_reverse_checkbox.checked) { player_3_Node.reverse = true; }
-  else { player_3_Node.reverse = false; }
+  changesBoxState_reverse(player_3_Node, player_3_reverse_checkbox.checked.toString(), player_3_reverse_checkbox);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_reverse_checkbox", player_3_Node.reverse);
 });
 
 const player_3_loop_start = document.getElementById("player_3_loop_start");
@@ -7233,7 +7230,6 @@ const player_4_volume = document.getElementById("player_4_volume");
 const player_4_volume_value = document.getElementById("player_4_volume_value");
 player_4_volume.addEventListener("change", function (e) {
   changesVolume(e.currentTarget.value, player_4_Node, player_4_volume, player_4_volume_value);
-
 });
 
 player_4_volume.ondblclick = function () {
@@ -7246,14 +7242,17 @@ player_4_volume.ondblclick = function () {
 const player_4_playback_rate = document.getElementById("player_4_playback_rate");
 const player_4_playback_rate_value = document.getElementById("player_4_playback_rate_value");
 player_4_playback_rate.addEventListener("change", function (e) {
-  player_4_Node.playbackRate = `${e.currentTarget.value}`;
-  player_4_playback_rate_value.innerHTML = Math.round(`${e.currentTarget.value}` * 100);
+  changesFloat(e.currentTarget.value, player_4_Node, player_4_playback_rate, player_4_playback_rate_value);
 });
 
 const player_4_loop_checkbox = document.getElementById("player_4_loop_checkbox");
 player_4_loop_checkbox.addEventListener("change", function () {
+  /*
   if (player_4_loop_checkbox.checked) { player_4_Node.loop = true; }
   else { player_4_Node.loop = false; }
+/**/
+  changesBoxState_loop(player_4_Node, player_4_loop_checkbox.checked.toString(), player_4_loop_checkbox);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_loop_checkbox", player_4_Node.loop);
 });
 
 const player_4_autoplay_checkbox = document.getElementById("player_4_autoplay_checkbox");
@@ -7264,8 +7263,8 @@ player_4_autoplay_checkbox.addEventListener("change", function () {
 
 const player_4_reverse_checkbox = document.getElementById("player_4_reverse_checkbox");
 player_4_reverse_checkbox.addEventListener("change", function () {
-  if (player_4_reverse_checkbox.checked) { player_4_Node.reverse = true; }
-  else { player_4_Node.reverse = false; }
+  changesBoxState_reverse(player_4_Node, player_4_reverse_checkbox.checked.toString(), player_4_reverse_checkbox);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_reverse_checkbox", player_4_Node.reverse);
 });
 
 const player_4_loop_start = document.getElementById("player_4_loop_start");
@@ -25187,7 +25186,8 @@ function multiStop() {
     }
   }
 }
-
+//MODIFICAR ASIGNACION DE BUFFER, ES EL MISMO BUFFER
+//ENTONCES REVERSE Y LOOP ES IGUAL PARA LOS 4 PLAYERS
 async function multiLoad() {
   try {
     const ctx = new window.AudioContext();
@@ -25206,10 +25206,11 @@ async function multiLoad() {
     });
     const file = await fileHandle.getFile();
     const arrayBuffer = await file.arrayBuffer();
-    const decodedBuffer = await ctx.decodeAudioData(arrayBuffer);
 
     if (multiple_play_source_1.checked == true) {
-      player_1_Node.buffer.set(decodedBuffer);
+      const arrayBuffer1 = arrayBuffer.slice(0);
+      const decodedBuffer1 = await ctx.decodeAudioData(arrayBuffer1);
+      player_1_Node.buffer.set(decodedBuffer1);
       player_1_load_text.innerHTML = fileHandle.name;
       channel_1_songName.innerHTML = fileHandle.name;
       channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
@@ -25217,7 +25218,9 @@ async function multiLoad() {
       MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1", fileHandle.name);
     }
     if (multiple_play_source_2.checked == true) {
-      player_2_Node.buffer.set(decodedBuffer);
+      const arrayBuffer2 = arrayBuffer.slice(0);
+      const decodedBuffer2 = await ctx.decodeAudioData(arrayBuffer2);
+      player_2_Node.buffer.set(decodedBuffer2);
       player_2_load_text.innerHTML = fileHandle.name;
       channel_2_songName.innerHTML = fileHandle.name;
       channel_2_duration_text.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
@@ -25225,7 +25228,9 @@ async function multiLoad() {
       MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", fileHandle.name);
     }
     if (multiple_play_source_3.checked == true) {
-      player_3_Node.buffer.set(decodedBuffer);
+      const arrayBuffer3 = arrayBuffer.slice(0);
+      const decodedBuffer3 = await ctx.decodeAudioData(arrayBuffer3);
+      player_3_Node.buffer.set(decodedBuffer3);
       player_3_load_text.innerHTML = fileHandle.name;
       channel_3_songName.innerHTML = fileHandle.name;
       channel_3_duration_text.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
@@ -25233,7 +25238,9 @@ async function multiLoad() {
       MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", fileHandle.name);
     }
     if (multiple_play_source_4.checked == true) {
-      player_4_Node.buffer.set(decodedBuffer);
+      const arrayBuffer4 = arrayBuffer.slice(0);
+      const decodedBuffer4 = await ctx.decodeAudioData(arrayBuffer4);
+      player_4_Node.buffer.set(decodedBuffer4);
       player_4_load_text.innerHTML = fileHandle.name;
       channel_4_songName.innerHTML = fileHandle.name;
       channel_4_duration_text.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
@@ -25573,7 +25580,7 @@ console.log("testObj.rampTime: " + testObj.rampTime);
   }
   else { console.log("rampTime != " + testObj.rampTime); }
 }
-/**/                                                                                                                                                            
+/**/
 
 function loadMix() {
   for (i = 0; i < LoadFileList.length; i++) {
@@ -25586,7 +25593,7 @@ console.log("atTime: " + testObj.atTime + "  typeof: " + typeof testObj.atTime);
       console.log("newValue: " + testObj.newValue + "  typeof: " + typeof testObj.newValue);
       console.log("rampTime: " + testObj.rampTime + "  typeof: " + typeof testObj.rampTime);
       alert();
-                /**/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+                /**/
     if (testObj.rampTime == "undefined" || testObj.rampTime == "NaN") {
       //  console.log("rampTime == " + testObj.rampTime);
       if (testObj.element != "undefined") {
@@ -25617,54 +25624,122 @@ console.log("atTime: " + testObj.atTime + "  typeof: " + typeof testObj.atTime);
               break;
             }
           case "player_1_volume": {
-            const num1 = Number(testObj.NewValue);
-            changesVolume(num1, player_1_Node, player_1_volume, player_1_volume_value);
+            changesVolume(testObj.NewValue, player_1_Node, player_1_volume, player_1_volume_value);
             break;
           }
           case "player_2_volume": {
-            const num1 = Number(testObj.NewValue);
-            changesVolume(num1, player_2_Node, player_2_volume, player_2_volume_value);
+            changesVolume(testObj.NewValue, player_2_Node, player_2_volume, player_2_volume_value);
             break;
           }
           case "player_3_volume": {
-            const num1 = Number(testObj.NewValue);
-            changesVolume(num1, player_3_Node, player_3_volume, player_3_volume_value);
+            changesVolume(testObj.NewValue, player_3_Node, player_3_volume, player_3_volume_value);
             break;
           }
           case "player_4_volume": {
-            const num1 = Number(testObj.NewValue);
-            changesVolume(num1, player_4_Node, player_4_volume, player_4_volume_value);
+            changesVolume(testObj.NewValue, player_4_Node, player_4_volume, player_4_volume_value);
             break;
           }
           case "channel_1_volume": {
-            const num1 = Number(testObj.NewValue);
-            changesVolume(num1, channel_1_volNode, channel_1_volume, channel_1_volume_value);
+            changesVolume(testObj.NewValue, channel_1_volNode, channel_1_volume, channel_1_volume_value);
             break;
           }
           case "channel_2_volume": {
-            const num1 = Number(testObj.NewValue);
-            changesVolume(num1, channel_2_volNode, channel_2_volume, channel_2_volume_value);
+            changesVolume(testObj.NewValue, channel_2_volNode, channel_2_volume, channel_2_volume_value);
             break;
           }
           case "channel_3_volume": {
-            const num1 = Number(testObj.NewValue);
-            changesVolume(num1, channel_3_volNode, channel_3_volume, channel_3_volume_value);
+            changesVolume(testObj.NewValue, channel_3_volNode, channel_3_volume, channel_3_volume_value);
             break;
           }
           case "channel_4_volume": {
-            const num1 = Number(testObj.NewValue);
-            changesVolume(num1, channel_4_volNode, channel_4_volume, channel_4_volume_value);
+            changesVolume(testObj.NewValue, channel_4_volNode, channel_4_volume, channel_4_volume_value);
+
             break;
           }
           case "player_1_playback_rate": {
-            const num1 = Number(testObj.NewValue);
-            //changesVolume(num1, channel_4_volNode, channel_4_volume, channel_4_volume_value);
-            changesFloat(num1, player_1_Node, player_1_playback_rate, player_1_playback_rate_value);
+            changesFloat(testObj.NewValue, player_1_Node, player_1_playback_rate, player_1_playback_rate_value);
+            break;
+          }
+          case "player_2_playback_rate": {
+            changesFloat(testObj.NewValue, player_2_Node, player_2_playback_rate, player_2_playback_rate_value);
+            break;
+          }
+          case "player_3_playback_rate": {
+            changesFloat(testObj.NewValue, player_3_Node, player_3_playback_rate, player_3_playback_rate_value);
+            break;
+          }
+          case "player_4_playback_rate": {
+            changesFloat(testObj.NewValue, player_4_Node, player_4_playback_rate, player_4_playback_rate_value);
+            break;
+          }
+          case "player_1_loop_checkbox": {
+            changesBoxState_loop(player_1_Node, testObj.NewValue, player_1_loop_checkbox);
+            break;
+          }
+          case "player_2_loop_checkbox": {
+            changesBoxState_loop(player_2_Node, testObj.NewValue, player_2_loop_checkbox);
+            break;
+          }
+          case "player_3_loop_checkbox": {
+            changesBoxState_loop(player_3_Node, testObj.NewValue, player_3_loop_checkbox);
+            break;
+          }
+          case "player_4_loop_checkbox": {
+            changesBoxState_loop(player_4_Node, testObj.NewValue, player_4_loop_checkbox);
+            break;
+          }
+          case "player_1_reverse_checkbox": {
+            changesBoxState_reverse(player_1_Node, testObj.NewValue, player_1_reverse_checkbox);
+            break;
+          }
+          case "player_2_reverse_checkbox": {
+            changesBoxState_reverse(player_2_Node, testObj.NewValue, player_2_reverse_checkbox);
+            break;
+          }
+          case "player_3_reverse_checkbox": {
+            changesBoxState_reverse(player_3_Node, testObj.NewValue, player_3_reverse_checkbox);
+            break;
+          }
+          case "player_4_reverse_checkbox": {
+            changesBoxState_reverse(player_4_Node, testObj.NewValue, player_4_reverse_checkbox);
+            break;
+          }
+          case "player_1_loop_start": {
+            changesBoxState_loopStart(player_1_Node, testObj.NewValue, player_1_loop_start);
+            break;
+          }
+          case "player_2_loop_start": {
+            changesBoxState_loopStart(player_2_Node, testObj.NewValue, player_2_loop_start);
+            break;
+          }
+          case "player_3_loop_start": {
+            changesBoxState_loopStart(player_3_Node, testObj.NewValue, player_3_loop_start);
+            break;
+          }
+          case "player_4_loop_start": {
+            changesBoxState_loopStart(player_4_Node, testObj.NewValue, player_4_loop_start);
+            break;
+          }
+          case "player_1_loop_end": {
+            changesBoxState_loopEnd(player_1_Node, testObj.NewValue, player_1_loop_end);
+            break;
+          }
+          case "player_2_loop_end": {
+            changesBoxState_loopEnd(player_2_Node, testObj.NewValue, player_2_loop_end);
+            break;
+          }
+          case "player_3_loop_end": {
+            changesBoxState_loopEnd(player_3_Node, testObj.NewValue, player_3_loop_end);
+            break;
+          }
+          case "player_4_loop_end": {
+            changesBoxState_loopEnd(player_4_Node, testObj.NewValue, player_4_loop_end);
+            break;
+          }
+          case "channel_1_filter_eq_selection": {
 
             break;
           }
-
-
           case "fx_1_pingpong_delayTime": {
             alert("fx_1_pingpong_delayTime ");
             break;
@@ -25698,6 +25773,7 @@ function changesVolume(e, Node, volume, volume_value) {
     volume_value.innerHTML = -100;
     volume.value = -100;
     MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_volume", -100);
+    //CORREGIR player_1_volume POR LO QUE VENGA VOLUME
   }
   else {
     Node.volume.value = num1;
@@ -25710,15 +25786,58 @@ function changesVolume(e, Node, volume, volume_value) {
 
 function changesFloat(e, Node, volume, volume_value) {
   const num1 = parseFloat(e);
-    Node.playbackRate = (`${num1}`);
-    volume_value.innerHTML = Math.round(`${num1}` * 100);
-    volume.value = (`${num1}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_playback_rate", num1);
+  Node.playbackRate = (`${num1}`);
+  volume_value.innerHTML = Math.round(`${num1}` * 100);
+  volume.value = (`${num1}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_playback_rate", num1);
+}
+
+function changesBoxState_loop(Node, state, element) {
+  let booly = false;
+  if (state == "true") { booly = true; }
+  else { booly = false; }
+  Node.loop = booly;
+  element.checked = booly;
+}
+
+function changesBoxState_reverse(Node, state, element) {
+  console.log("state: " + state)
+  console.log("state type: " + typeof state)
+  console.log("element: " + element.name)
+  console.log("element ty: " + typeof element)
+
+
+  let booly = false;
+  if (state == "true") { booly = true; }
+  else { booly = false; }
+  Node.reverse = booly;
+  element.checked = booly;
+  console.log("Node: " + Node.name)
+  console.log("Node: " + typeof Node)
+  console.log("booly ty: " + typeof booly)
+  console.log("booly : " + booly)
+
+
+}
+
+function changesBoxState_loopStart(Node, value, element) {
+  let num1 = parseFloat(value);
+  if (num1 >= 0) {
+    Node.loopStart = num1;
+    element.value = num1;
   }
+  else { console.log("player_1_Node.loopStart < 0"); }
+}
 
-
-
-
+function changesBoxState_loopEnd(Node, value, element) {
+  alert("FFFFFF");
+  let num1 = parseFloat(value);
+  if (num1 >= 0) {
+    Node.loopEnd = num1;
+    element.value = num1;
+  }
+  else { console.log("player_1_Node.loopStart < 0"); }
+}
 
 async function loadFile() {
   try {
@@ -25738,22 +25857,22 @@ async function loadFile() {
     for (i = 1; i < line.length; i++) {
       //    console.log("line " + i + ": " + line[i]);
       var lines = line[i].split(',');
-      atTime = lines[0].trim(); 
+      atTime = lines[0].trim();
       //atTime = Number(tempAtTime);
       element = lines[1].trim();
       action = lines[2].trim();
       newValue = lines[3].trim();
       //newValue = Number(tempNewValue);
-     // rampTime = Number(tempRampTime);
+      // rampTime = Number(tempRampTime);
       rampTime = lines[4].trim();
-/*
-      console.log("atTime: " + atTime + "  typeof: " + typeof atTime);
-      console.log("ELEMENT: " + element + "  typeof: " + typeof element);
-      console.log("action: " + action + "  typeof: " + typeof action);
-      console.log("newValue: " + newValue + "  typeof: " + typeof newValue);
-      console.log("rampTime: " + rampTime + "  typeof: " + typeof rampTime);
-      alert();
-/**/
+      /*
+            console.log("atTime: " + atTime + "  typeof: " + typeof atTime);
+            console.log("ELEMENT: " + element + "  typeof: " + typeof element);
+            console.log("action: " + action + "  typeof: " + typeof action);
+            console.log("newValue: " + newValue + "  typeof: " + typeof newValue);
+            console.log("rampTime: " + rampTime + "  typeof: " + typeof rampTime);
+            alert();
+      /**/
       MixEventObj.logIntoListaLoadFile(LoadFileList, atTime, element, action, newValue, rampTime);
     }
     loadMix();
