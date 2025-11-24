@@ -1,3 +1,4 @@
+/*
 let mediaRecorder;
 let audioChunks = [];
 
@@ -43,3 +44,4 @@ document.querySelector('#stop-record').addEventListener('click', () => {
     document.querySelector('#start-record').disabled = false;
     document.querySelector('#stop-record').disabled = true;
 });
+/**/

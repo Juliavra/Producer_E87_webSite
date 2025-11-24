@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="img/html.ico" type="image/x-icon">
-  <title>STEP 1.0 </title>
+  <title>STEP 1.14</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -169,7 +169,7 @@
         <button id="Sinte" onclick="Sinte()"> Sinte </button>
         <button id="CustomizedButton" onclick="CustomizedButton()"> Start Context</button>
         <button id="TransportSTOP" onclick="TransportSTOP()"> Transport STOP </button>
-        <button id="offlineContext" onclick="Offline_Context()"> Player test </button>
+        <button id="offlineContext" onclick="Offline_Context()"> Offline Context </button>
         <button id="load_txt_file" onclick="getFile()">Load File </button>
         <button id="save_txt_file" onclick="saveFile()">Save File </button>
       </section>
@@ -4087,7 +4087,7 @@
       <br>
 
       <p id="pan_fx1_text">Pan</p>
-      <input type='range' min=-1 max=1 step='0.01' value=0 id='fx_1_pan'>
+      <input type='range' min=-1 max=1 step='0.01' value=0 id='fx_1_pan_fader'>
       <p id="fx_1_pan_value"></p>
 
       <input id="fx_1_pan_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -4811,7 +4811,7 @@
       <br>
 
       <p id="pan_fx_2_text">Pan</p>
-      <input type='range' min=-1 max=1 step='0.01' value=0 id='fx_2_pan'>
+      <input type='range' min=-1 max=1 step='0.01' value=0 id='fx_2_pan_fader'>
       <p id="fx_2_pan_value"></p>
       <br>
       <input id="fx_2_pan_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -5503,7 +5503,7 @@
       <br>
 
       <p id="pan_fx_3_text">Pan</p>
-      <input type='range' min=-1 max=1 step='0.01' value=0 id='fx_3_pan'>
+      <input type='range' min=-1 max=1 step='0.01' value=0 id='fx_3_pan_fader'>
       <p id="fx_3_pan_value"></p>
       <br>
       <input id="fx_3_pan_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -6204,7 +6204,7 @@
       <br>
 
       <p id="pan_fx_4_text">Pan</p>
-      <input type='range' min=-1 max=1 step='0.01' value=0 id='fx_4_pan'>
+      <input type='range' min=-1 max=1 step='0.01' value=0 id='fx_4_pan_fader'>
       <p id="fx_4_pan_value"></p>
       <br>
       <input id="fx_4_pan_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -6897,7 +6897,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
   integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="js/step_12.js"></script>
+<script src="js/step_14.js"></script>
 <!--
 <script src="js/recorder.js"></script>   
 ESTO FUNCIONA PERO GRABA OGG
