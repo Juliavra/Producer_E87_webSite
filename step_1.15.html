@@ -14,6 +14,20 @@
   <link rel="icon" href="img/html.ico" type="image/x-icon">
   <title>STEP 1.15</title>
   <style>
+    #deposito_1,
+    #deposito_2,
+    #deposito_3,
+    #deposito_4 {
+      float: left;
+      /*    width: 60px;
+    height: 88px;
+  */
+      width: 6vw;
+      height: 8.8vh;
+      margin: 10px;
+      border: 1px solid #999999;
+    }
+
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -116,7 +130,27 @@
     Test_Node RMS: <p id="meter_test_Node_RMS"></p>
     <br>
     <p id="teclaApretada"> Tecla: </p>
+
     <fieldset>
+      <div class="deposito" id="deposito_1">
+        <p id="duration_1_text"> </p>
+        <p id="fixed_song_1_name"></p>
+      </div>
+
+      <div class="deposito" id="deposito_2">
+        <p id="duration_2_text"> </p>
+        <p id="fixed_song_2_name"></p>
+      </div>
+
+      <div class="deposito" id="deposito_3">
+        <p id="duration_3_text"> </p>
+        <p id="fixed_song_3_name"></p>
+      </div>
+      <div class="deposito" id="deposito_4">
+        <p id="duration_4_text"> </p>
+        <p id="fixed_song_4_name"></p>
+      </div>
+
       Play Simultaneos
       <input type="checkbox" name="source_1" id="multiple_play_source_1" value="source_1"> 1
       <input type="checkbox" name="source_2" id="multiple_play_source_2" value="source_2"> 2
@@ -891,12 +925,12 @@
     <div id="channel_1_RMS_all">
       <fieldset>
         ch1 RMS All <br>
-        
+
 
         comp_BP <p id="channel_1_rms_comp_bypass_meter_inner"> </p>
         gate_BP <p id="channel_1_rms_gate_bypass_meter_inner"> </p>
         limiter_BP <p id="channel_1_rms_limiter_bypass_meter_inner"> </p>
-        <br>   <br>
+        <br> <br>
         RMS_after_volume_value <p id="channel_1_rms_after_volume_value"> </p>
       </fieldset>
     </div>
@@ -4063,7 +4097,7 @@
     <br>
     <div id="fx_1_RMS_all">
       <fieldset>
-       fx1 RMS All <br>
+        fx1 RMS All <br>
 
         fxReturn_1_fader_meter: <p id="fxReturn_1_fader_meter_inner"> </p>
         <br>
@@ -4783,9 +4817,9 @@
     rms: <p id="fx_2_rms_meter_inner"> </p>
     <br>
 
-        <div id="fx_2_RMS_all">
+    <div id="fx_2_RMS_all">
       <fieldset>
-       fx2 RMS All <br>
+        fx2 RMS All <br>
 
         fxReturn_2_fader_meter: <p id="fxReturn_2_fader_meter_inner"> </p>
         <br>

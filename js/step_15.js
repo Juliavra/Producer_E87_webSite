@@ -223,18 +223,6 @@ document.querySelector('#stop-record').addEventListener('click', () => {
   document.querySelector('#stop-record').disabled = true;
 });
 
-
-function Recording() {
-  //alert("Recording");
-  const audioCtx = Tone.getContext();
-  console.log("tone: " + Tone.context.name);
-  console.log("api: " + audioCtx);
-  //this.context, this.config.bufferLen, this.config.numChannels, this.config.numChannels
-  var Recording = new Recorder(audioCtx);
-  Recording.record();
-  //Recording.exportWAV(blob => audio.src = URL.createObjectURL(blob));
-}
-
 //***************************************
 // RECORDER END
 //------------------------------------------
@@ -6221,8 +6209,8 @@ recorderNode.debug = true;
 const master_volume = document.getElementById("master_volume");
 const master_volume_value = document.getElementById("master_volume_value");
 const masterVolumeNode = new Tone.Volume(0).toDestination();//ESTO VA
-master_volume.value = 0;
-master_volume_value.innerHTML = 0;
+master_volume.value = -6;
+master_volume_value.innerHTML = -6;
 masterVolumeNode.fan(recorderNode);
 master_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
@@ -6238,9 +6226,9 @@ master_volume.addEventListener("change", function (e) {
 });
 
 master_volume.ondblclick = function () {
-  masterVolumeNode.volume.value = 0;
-  master_volume_value.innerHTML = 0;
-  master_volume.value = 0;
+  masterVolumeNode.volume.value = -6;
+  master_volume_value.innerHTML = -6;
+  master_volume.value = -6;
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "master_volume", 0);
 };
 //ESTO SIRVE O NO????
@@ -6409,6 +6397,10 @@ const player_1_stopButton = document.getElementById("player_1_stopButton");
 
 const player_1_volume = document.getElementById("player_1_volume");
 const player_1_volume_value = document.getElementById("player_1_volume_value");
+const player_1_playback_rate = document.getElementById("player_1_playback_rate");
+const player_1_playback_rate_value = document.getElementById("player_1_playback_rate_value");
+
+
 player_1_volume.addEventListener("change", function (e) {
   changesVolume(e.currentTarget.value, player_1_Node, player_1_volume, player_1_volume_value);
 });
@@ -6420,11 +6412,13 @@ player_1_volume.ondblclick = function () {
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_volume", 0);
 };
 
-const player_1_playback_rate = document.getElementById("player_1_playback_rate");
-const player_1_playback_rate_value = document.getElementById("player_1_playback_rate_value");
 player_1_playback_rate.addEventListener("change", function (e) {
-  changesFloat(e.currentTarget.value, player_1_Node, player_1_playback_rate, player_1_playback_rate_value);
+  player_1_Node.playbackRate = e.currentTarget.value;
+  player_1_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_playback_rate", e.currentTarget.value);
 });
+
+
 
 const player_1_loop_checkbox = document.getElementById("player_1_loop_checkbox");
 player_1_loop_checkbox.addEventListener("change", function () {
@@ -6722,10 +6716,11 @@ grainPlayer_2_overlap.addEventListener("change", function (e) {
 });
 
 grainPlayer_2_playback_rate.addEventListener("change", function (e) {
-
   grainPlayer_2_Node.playbackRate = e.currentTarget.value;
   grainPlayer_2_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2_playback_rate", e.currentTarget.value);
 });
+
 
 grainPlayer_2_detune.addEventListener("change", function (e) {
 
@@ -7140,6 +7135,8 @@ const player_2_stopButton = document.getElementById("player_2_stopButton");
 
 const player_2_volume = document.getElementById("player_2_volume");
 const player_2_volume_value = document.getElementById("player_2_volume_value");
+const player_2_playback_rate = document.getElementById("player_2_playback_rate");
+const player_2_playback_rate_value = document.getElementById("player_2_playback_rate_value");
 
 player_2_volume.addEventListener("change", function (e) {
   changesVolume(e.currentTarget.value, player_2_Node, player_2_volume, player_2_volume_value);
@@ -7153,11 +7150,10 @@ player_2_volume.ondblclick = function () {
 
 };
 
-const player_2_playback_rate = document.getElementById("player_2_playback_rate");
-const player_2_playback_rate_value = document.getElementById("player_2_playback_rate_value");
 player_2_playback_rate.addEventListener("change", function (e) {
-  changesFloat(e.currentTarget.value, player_2_Node, player_2_playback_rate, player_2_playback_rate_value);
-
+  player_2_Node.playbackRate = e.currentTarget.value;
+  player_2_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_playback_rate", e.currentTarget.value);
 });
 
 const player_2_loop_checkbox = document.getElementById("player_2_loop_checkbox");
@@ -7273,9 +7269,11 @@ const player_3_stopButton = document.getElementById("player_3_stopButton");
 
 const player_3_volume = document.getElementById("player_3_volume");
 const player_3_volume_value = document.getElementById("player_3_volume_value");
+const player_3_playback_rate = document.getElementById("player_3_playback_rate");
+const player_3_playback_rate_value = document.getElementById("player_3_playback_rate_value");
+
 player_3_volume.addEventListener("change", function (e) {
   changesVolume(e.currentTarget.value, player_3_Node, player_3_volume, player_3_volume_value);
-
 });
 
 player_3_volume.ondblclick = function () {
@@ -7284,11 +7282,10 @@ player_3_volume.ondblclick = function () {
   player_3_volume.value = 0;
 };
 
-const player_3_playback_rate = document.getElementById("player_3_playback_rate");
-const player_3_playback_rate_value = document.getElementById("player_3_playback_rate_value");
 player_3_playback_rate.addEventListener("change", function (e) {
-  changesFloat(e.currentTarget.value, player_3_Node, player_3_playback_rate, player_3_playback_rate_value);
-
+  player_3_Node.playbackRate = e.currentTarget.value;
+  player_3_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_playback_rate", e.currentTarget.value);
 });
 
 const player_3_loop_checkbox = document.getElementById("player_3_loop_checkbox");
@@ -7377,6 +7374,9 @@ const player_4_stopButton = document.getElementById("player_4_stopButton");
 
 const player_4_volume = document.getElementById("player_4_volume");
 const player_4_volume_value = document.getElementById("player_4_volume_value");
+const player_4_playback_rate = document.getElementById("player_4_playback_rate");
+const player_4_playback_rate_value = document.getElementById("player_4_playback_rate_value");
+
 player_4_volume.addEventListener("change", function (e) {
   changesVolume(e.currentTarget.value, player_4_Node, player_4_volume, player_4_volume_value);
 });
@@ -7388,10 +7388,10 @@ player_4_volume.ondblclick = function () {
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_volume", 0);
 };
 
-const player_4_playback_rate = document.getElementById("player_4_playback_rate");
-const player_4_playback_rate_value = document.getElementById("player_4_playback_rate_value");
 player_4_playback_rate.addEventListener("change", function (e) {
-  changesFloat(e.currentTarget.value, player_4_Node, player_4_playback_rate, player_4_playback_rate_value);
+  player_4_Node.playbackRate = e.currentTarget.value;
+  player_4_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_playback_rate", e.currentTarget.value);
 });
 
 const player_4_loop_checkbox = document.getElementById("player_4_loop_checkbox");
@@ -21805,102 +21805,44 @@ function playsTestSynth() {
 }
 
 async function CustomizedButton() {
-  //ACORDE
-  //fmSynth_1.triggerAttackRelease(["C4", "E4", "A4"], "2n");
-
-  // create two monophonic synths
-  //const synthA = new Tone.FMSynth().toDestination();
-  //const synthB = new Tone.AMSynth().toDestination();
-  //play a note every quarter-note
-  const loopA = new Tone.Loop(time => {
-    //duoSynth_2.triggerAttackRelease("C3", "8n", time);
-  }, "4n").start(0);
-  //play another note every off quarter-note, by starting it "8n"
-  const loopB = new Tone.Loop(time => {
-    //noiseSynth_1.triggerAttackRelease("G3", "8n", time);
-  }, "4n").start("8n");
-
   muestraLista();
-
-  // the loops start when the Transport is started
-  Tone.Transport.start()
-  // ramp up to 800 bpm over 10 seconds
-  //Tone.Transport.bpm.rampTo(800, 10);
-  /*
-  const PolySynth= new Tone.PolySynth(Tone.Synth).toDestination();
-  const nowPoly = Tone.now()
-  PolySynth.triggerAttack("D4", nowPoly);
-  PolySynth.triggerAttack("F4", nowPoly + 0.5);
-  PolySynth.triggerAttack("A4", nowPoly + 1);
-  PolySynth.triggerAttack("C5", nowPoly + 1.5);
-  PolySynth.triggerAttack("E5", nowPoly + 2);
-  PolySynth.triggerRelease(["D4", "F4", "A4", "C5", "E5"], nowPoly + 4);
-  
-  const sampler = new Tone.Sampler({
-    urls: {
-      "C4": "C4.mp3",
-      "D#4": "Ds4.mp3",
-      "F#4": "Fs4.mp3",
-      "A4": "A4.mp3",
-    },
-    release: 1,
-    baseUrl: "https://tonejs.github.io/audio/salamander/",
-  }).toDestination();
-  
-  Tone.loaded().then(() => {
-    sampler.triggerAttackRelease(["Eb4", "G4", "Bb4"], 4);
-  })
-  
-  const osc = new Tone.Oscillator().toDestination();
-  // start at "C4"
-  osc.frequency.value = "C4";
-  // ramp to "C2" over 2 seconds
-  osc.frequency.rampTo("C2", 2);
-  // start the oscillator for 2 seconds
-  osc.start().stop("+3");
-  */
-
-  /*
-  amSynth_1.volume.value = -2;
-  console.log("SYNTH PLAY amSynth_1");
-  //Tone.Transport.loopStart = 0;
-  //Tone.Transport.loopEnd = 1;
-  Tone.Transport.bpm = 230;
-  Tone.Transport.start();
-  */
 }
 
 function TransportSTOP() {
+  Tone.Transport.start();
+  console.log(Tone.Transport.ticks);
+  loadMix();
+
   //alert("Tone.Transport.state: " + Tone.Transport.state);
   //Tone.Transport.stop();
 
   //scramble("player_1");
-
-  if (Tone.Transport.state == "stopped") {
-    const bassline = [
-      { 'time': '0:0', 'note': 'A1', 'duration': '0:2' },
-      { 'time': '0:2', 'note': 'F1', 'duration': '0:2' },
-      { 'time': '1:2', 'note': 'D1', 'duration': '1:1' },
-      { 'time': '2:1', 'note': 'D0', 'duration': '0:1' },
-/*       { 'time': '2:2', 'note': 'D0', 'duration': '0:1' },
-    */  { 'time': '2:3', 'note': 'F1', 'duration': '1:0' },
-    ];
-    const bassPart = new Tone.Part(function (time, note) {
-      Synth_1.triggerAttackRelease(note.note, note.duration, time);
-    }, bassline).start(0);
-    Tone.Transport.start();
-  }
-  else {
-    const bassline = [
-      { 'time': '0:0', 'note': 'A1', 'duration': '0:2' },
-      { 'time': '0:2', 'note': 'F1', 'duration': '0:2' },
-      { 'time': '1:2', 'note': 'D2', 'duration': '0:2' },
-      { 'time': '2:3', 'note': 'F2', 'duration': '0:5' },
-    ];
-    const bassPart = new Tone.Part(function (time, note) {
-      fmSynth_1.triggerAttackRelease(note.note, note.duration, time);
-    }, bassline).start();
-  }
+  /*
+    if (Tone.Transport.state == "stopped") {
+      const bassline = [
+        { 'time': '0:0', 'note': 'A1', 'duration': '0:2' },
+        { 'time': '0:2', 'note': 'F1', 'duration': '0:2' },
+        { 'time': '1:2', 'note': 'D1', 'duration': '1:1' },
+        { 'time': '2:1', 'note': 'D0', 'duration': '0:1' },
+        { 'time': '2:3', 'note': 'F1', 'duration': '1:0' },
+      ];
+      const bassPart = new Tone.Part(function (time, note) {
+        Synth_1.triggerAttackRelease(note.note, note.duration, time);
+      }, bassline).start(0);
+      Tone.Transport.start();
+    }
+    else {
+      const bassline = [
+        { 'time': '0:0', 'note': 'A1', 'duration': '0:2' },
+        { 'time': '0:2', 'note': 'F1', 'duration': '0:2' },
+        { 'time': '1:2', 'note': 'D2', 'duration': '0:2' },
+        { 'time': '2:3', 'note': 'F2', 'duration': '0:5' },
+      ];
+      const bassPart = new Tone.Part(function (time, note) {
+        fmSynth_1.triggerAttackRelease(note.note, note.duration, time);
+      }, bassline).start();
+    }
+      */
 }
 /**/
 function Sinte() {
@@ -27022,6 +26964,10 @@ function changesPan(e, Node, element, value) {
 function changesInt(e, Node, volume, volume_value, parameter) {
   const num1 = Number(e);
   switch (parameter) {
+    case "playbackRate": {
+      Node.playbackRate = (`${num1}`);
+      break;
+    }
     case "threshold": {
       Node.threshold.value = num1;
       break;
@@ -27072,10 +27018,12 @@ function changesInt(e, Node, volume, volume_value, parameter) {
 function changesFloat(e, Node, volume, volume_value, parameter) {
   const num1 = parseFloat(e);
   switch (parameter) {
+
     case "playbackRate": {
       Node.playbackRate = (`${num1}`);
       break;
     }
+    /**/
     case "ratio": {
       Node.ratio.value = (`${num1}`);
       break;
@@ -27205,27 +27153,15 @@ async function loadFile() {
     const line = trim.split('\n');
     console.log("length:  " + line.length);
     for (i = 1; i < line.length; i++) {
-      //    console.log("line " + i + ": " + line[i]);
       var lines = line[i].split(',');
       atTime = lines[0].trim();
-      //atTime = Number(tempAtTime);
       element = lines[1].trim();
       action = lines[2].trim();
       newValue = lines[3].trim();
-      //newValue = Number(tempNewValue);
-      // rampTime = Number(tempRampTime);
       rampTime = lines[4].trim();
-      /*
-            console.log("atTime: " + atTime + "  typeof: " + typeof atTime);
-            console.log("ELEMENT: " + element + "  typeof: " + typeof element);
-            console.log("action: " + action + "  typeof: " + typeof action);
-            console.log("newValue: " + newValue + "  typeof: " + typeof newValue);
-            console.log("rampTime: " + rampTime + "  typeof: " + typeof rampTime);
-            alert();
-      /**/
       MixEventObj.logIntoListaLoadFile(LoadFileList, atTime, element, action, newValue, rampTime);
     }
-    loadMix();
+    //loadMix();
   } catch (err) {
     if (err.name === 'AbortError') {
       console.log("File picker was dismissed.");
@@ -28262,35 +28198,47 @@ selectElement4.value = "Player";
 selectElement4.dispatchEvent(new Event('change'));
 /**/
 
-multiple_play_source_1.checked = false;
-multiple_play_source_2.checked = false;
-multiple_play_source_3.checked = false;
-multiple_play_source_4.checked = false;
+master_volume.value = -12;
+master_volume_value.innerHTML = -12;
+masterVolumeNode.volume.value = -12;
+
+multiple_play_source_1.checked = true;
+multiple_play_source_2.checked = true;
+multiple_play_source_3.checked = true;
+multiple_play_source_4.checked = true;
 multiple_play_test_player.checked = false;
 player_1_loop_checkbox.checked = true;
 player_1_Node.loop = true;
-player_1_Node.volume.value = -12;
+player_1_Node.volume.value = -6;
+player_1_volume_value.innerHTML = -6;
+player_1_volume.value = -6;
 channel_1_volNode.volume.value = -6;
 channel_1_volume_value.innerHTML = -6;
 channel_1_volume.value = -6;
 
 player_2_loop_checkbox.checked = true;
 player_2_Node.loop = true;
-player_2_Node.volume.value = -12;
+player_2_Node.volume.value = -6;
+player_2_volume_value.innerHTML = -6;
+player_2_volume.value = -6;
 channel_2_volNode.volume.value = -6;
 channel_2_volume_value.innerHTML = -6;
 channel_2_volume.value = -6;
 
 player_3_loop_checkbox.checked = true;
 player_3_Node.loop = true;
-player_3_Node.volume.value = -12;
+player_3_Node.volume.value = -6;
+player_3_volume.value = -6;
+player_3_volume_value.innerHTML = -6;
 channel_3_volNode.volume.value = -6;
 channel_3_volume_value.innerHTML = -6;
 channel_3_volume.value = -6;
 
 player_4_loop_checkbox.checked = true;
 player_4_Node.loop = true;
-player_4_Node.volume.value = -12;
+player_4_Node.volume.value = -6;
+player_4_volume.value = -6;
+player_4_volume_value.innerHTML = -6;
 channel_4_volNode.volume.value = -6;
 channel_4_volume_value.innerHTML = -6;
 channel_4_volume.value = -6;
@@ -28378,7 +28326,9 @@ let event2 = new MouseEvent("click", {
   bubbles: true,
   cancelable: true,
 });
-multiple_play_source_2.dispatchEvent(event2);
+//multiple_play_source_1.dispatchEvent(event2);
+
+
 player_1_playButton.dispatchEvent(event2);
 /*
 <script>
@@ -28422,3 +28372,177 @@ let event3 = new MouseEvent("change", {
 //player_1_volume.dispatchEvent(event3);
 
 //element.dispatchEvent(new Event('input'))
+
+
+//--------------------------------------------------------------------
+//------------    DEPOSITO     ----------------------------------------------------
+//--------------------------------------------------------------------
+//--------------------------------------------------------------------
+const fixed_song_1_name = document.getElementById("fixed_song_1_name");
+const duration_1_value = document.getElementById("duration_1_value");
+const fixed_song_2_name = document.getElementById("fixed_song_2_name");
+const duration_2_value = document.getElementById("duration_2_value");
+const fixed_song_3_name = document.getElementById("fixed_song_3_name");
+const duration_3_value = document.getElementById("duration_3_value");
+const fixed_song_4_name = document.getElementById("fixed_song_4_name");
+const duration_4_value = document.getElementById("duration_4_value");
+
+var deposito_1 = document.getElementById("deposito_1");
+deposito_1.innerHTML = "1 Drop Audio ";
+
+deposito_1.addEventListener("dragenter", function (event) {
+  event.preventDefault();
+  deposito_1.style.background = "rgba(250, 0, 0, .5)";
+});
+deposito_1.addEventListener("dragover", function (event) {
+  event.preventDefault();
+});
+deposito_1.addEventListener("drop", soltar);
+
+var deposito_2 = document.getElementById("deposito_2");
+deposito_2.innerHTML = "2 Drop Audio ";
+
+deposito_2.addEventListener("dragenter", function (event) {
+  event.preventDefault();
+  deposito_2.style.background = "rgba(250, 0, 0, .5)";
+});
+deposito_2.addEventListener("dragover", function (event) {
+  event.preventDefault();
+});
+deposito_2.addEventListener("drop", soltar);
+
+var deposito_3 = document.getElementById("deposito_3");
+deposito_3.innerHTML = "3 Drop Audio ";
+
+deposito_3.addEventListener("dragenter", function (event) {
+  event.preventDefault();
+  deposito_3.style.background = "rgba(250, 0, 0, .5)";
+});
+deposito_3.addEventListener("dragover", function (event) {
+  event.preventDefault();
+});
+deposito_3.addEventListener("drop", soltar);
+
+var deposito_4 = document.getElementById("deposito_4");
+deposito_4.innerHTML = "4 Drop";
+
+deposito_4.addEventListener("dragenter", function (event) {
+  event.preventDefault();
+  deposito_4.style.background = "rgba(250, 0, 0, .5)";
+});
+deposito_4.addEventListener("dragover", function (event) {
+  event.preventDefault();
+});
+deposito_4.addEventListener("drop", soltar);
+
+async function soltar(event) {
+  event.preventDefault();
+  this.style.background = "#006600";
+  switch (this.id) {
+    case "deposito_1":
+      {
+        const file = event.dataTransfer.files[0];
+        // Make sure a file was dropped and it's an audio file
+        if (file && file.type.startsWith('audio/')) {
+          handleFile(file, "deposito_1");
+        } else {
+          this.textContent = 'Please drop an audio file';
+        }
+        break;
+      }
+    case ("deposito_2"):
+      {
+        const file = event.dataTransfer.files[0];
+        // Make sure a file was dropped and it's an audio file
+        if (file && file.type.startsWith('audio/')) {
+          handleFile(file, "deposito_2");
+        } else {
+          this.textContent = 'Please drop an audio file';
+        }
+        break;
+      }
+    case ("deposito_3"):
+      {
+        alert("");
+        const file = event.dataTransfer.files[0];
+        // Make sure a file was dropped and it's an audio file
+        if (file && file.type.startsWith('audio/')) {
+          handleFile(file, "deposito_3");
+        } else {
+          this.textContent = 'Please drop an audio file';
+        }
+        break;
+      }
+    case ("deposito_4"):
+      {
+        const file = event.dataTransfer.files[0];
+        // Make sure a file was dropped and it's an audio file
+        if (file && file.type.startsWith('audio/')) {
+          handleFile(file, "deposito_4");
+        } else {
+          this.textContent = 'Please drop an audio file';
+        }
+        break;
+      }
+    default: { break; }
+  }
+}
+
+function handleFile(file, element) {
+  const reader = new FileReader();
+
+  reader.onload = (event) => {
+    const arrayBuffer = event.target.result;
+    const audioContext = new window.AudioContext();
+    // Decode the audio data
+    audioContext.decodeAudioData(arrayBuffer, (buffer) => {
+      // Create a source buffer from the decoded audio data
+      const source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      switch (element) {
+        case "deposito_1": {
+          player_1_Node.buffer.set(buffer);
+          player_1_load_text.innerHTML = file.name;
+          channel_1_songName.innerHTML = file.name;
+          channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
+          player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
+          deposito_1.innerHTML = file.name;
+          break;
+        }
+        case "deposito_2": {
+          player_2_Node.buffer.set(buffer);
+          player_2_load_text.innerHTML = file.name;
+          channel_2_songName.innerHTML = file.name;
+          channel_2_duration_text.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
+          player_2_duration_value.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
+          deposito_2.innerHTML = file.name;
+          break;
+        }
+        case "deposito_3": {
+          player_3_Node.buffer.set(buffer);
+          player_3_load_text.innerHTML = file.name;
+          channel_3_songName.innerHTML = file.name;
+          channel_3_duration_text.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
+          player_3_duration_value.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
+          deposito_3.innerHTML = file.name;
+          break;
+        }
+        case "deposito_4": {
+          player_4_Node.buffer.set(buffer);
+          player_4_load_text.innerHTML = file.name;
+          channel_4_songName.innerHTML = file.name;
+          channel_4_duration_text.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
+          player_4_duration_value.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
+          deposito_4.innerHTML = file.name;
+          break;
+        }
+        default: { alert("default  function handleFile"); break; }
+      }
+    });
+  };
+  // Read the file as an ArrayBuffer
+  reader.readAsArrayBuffer(file);
+
+
+
+}

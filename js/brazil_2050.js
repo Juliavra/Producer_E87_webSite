@@ -1230,7 +1230,7 @@ function soltar(event) {
   event.preventDefault();
   this.style.background = "#006600";
   this.innerHTML = "Drop Audio Here";
-  const link = event.dataTransfer.getData("text");
+  const link = event.dataTransfer.getData("audio");
   switch (this.id) {
     case ("deposito_1"):
       {
