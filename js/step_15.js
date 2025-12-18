@@ -142,7 +142,7 @@ async function Offline_Context() {
   //player_test_Node.connect(fx_1_panNode); // NO
 
   if (!player_test_Node.loaded) {
-    console.log("!loaded");
+    console.log("!player_test_Node.loaded");
   }
   else {
     var duration = player_test_Node.buffer.duration;
@@ -7954,7 +7954,9 @@ console.log("supported: " + Tone.UserMedia.supported);
 console.log("state: " + placa_Audio.state);
 console.log("groupId: " + placa_Audio.groupId);
 console.log("deviceId: " + Tone.UserMedia.deviceId);
- 
+console.log("label: " + Tone.UserMedia.label);
+ placa_Audio.connect(masterVolumeNode);
+ placa_Audio.debug;
 Tone.UserMedia.enumerateDevices().then(function(devices){
 console.log(devices);
 });
@@ -8067,7 +8069,6 @@ class MixEventSource extends MixEventObj {
       "filename: " + this.filename);
   }
 }//CIERRA class MixEventSource
-
 
 //--------------------------
 //--------------------------
@@ -13477,6 +13478,7 @@ async function load_Local(value) {
             channel_1_songName.innerHTML = fileHandle.name;
             channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
             player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
+            deposito_1.innerHTML = fileHandle.name;
           }
           else {
             //const player_1_buffer = new Tone.Buffer();
@@ -13485,6 +13487,7 @@ async function load_Local(value) {
             player_1_Node.buffer.set(decodedBuffer);
             player_1_load_text.innerHTML = fileHandle.name;
             channel_1_songName.innerHTML = fileHandle.name;
+            deposito_1.innerHTML = fileHandle.name;
             channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
             player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
             if (player_1_scrambler_checkbox.checked == true) {
@@ -13511,7 +13514,8 @@ async function load_Local(value) {
           const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
           player_1_Node.buffer.set(decodedBuffer_twosecs);
           /**/
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_local", fileHandle.name);
+          //   MixEventObj.logIntoListaLoadFile(List, Tone.now(), "player_1", "load", fileHandle.name)
           break;
         }
       case "player_2":
@@ -13543,6 +13547,7 @@ async function load_Local(value) {
             player_2_Node.buffer.set(testSliceaudiobuff);
             player_2_load_text.innerHTML = fileHandle.name;
             channel_2_songName.innerHTML = fileHandle.name;
+            deposito_2.innerHTML = fileHandle.name;
             channel_2_duration_text.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
             player_2_duration_value.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
           }
@@ -13553,6 +13558,7 @@ async function load_Local(value) {
             player_2_Node.buffer.set(decodedBuffer);
             player_2_load_text.innerHTML = fileHandle.name;
             channel_2_songName.innerHTML = fileHandle.name;
+            deposito_2.innerHTML = fileHandle.name;
             channel_2_duration_text.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
             player_2_duration_value.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
             if (player_2_scrambler_checkbox.checked == true) {
@@ -13580,7 +13586,7 @@ async function load_Local(value) {
           const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
           player_2_Node.buffer.set(decodedBuffer_twosecs);
           /**/
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_load", fileHandle.name);
           break;
         }
       case "player_3":
@@ -13612,6 +13618,7 @@ async function load_Local(value) {
             player_3_Node.buffer.set(testSliceaudiobuff);
             player_3_load_text.innerHTML = fileHandle.name;
             channel_3_songName.innerHTML = fileHandle.name;
+            deposito_3.innerHTML = fileHandle.name;
             channel_3_duration_text.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
             player_3_duration_value.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
           }
@@ -13622,6 +13629,7 @@ async function load_Local(value) {
             player_3_Node.buffer.set(decodedBuffer);
             player_3_load_text.innerHTML = fileHandle.name;
             channel_3_songName.innerHTML = fileHandle.name;
+            deposito_3.innerHTML = fileHandle.name;
             channel_3_duration_text.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
             player_3_duration_value.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
             if (player_3_scrambler_checkbox.checked == true) {
@@ -13649,7 +13657,7 @@ async function load_Local(value) {
           const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
           player_3_Node.buffer.set(decodedBuffer_twosecs);
           /**/
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_load", fileHandle.name);
           break;
         }
       case "player_4":
@@ -13681,6 +13689,7 @@ async function load_Local(value) {
             player_4_Node.buffer.set(testSliceaudiobuff);
             player_4_load_text.innerHTML = fileHandle.name;
             channel_4_songName.innerHTML = fileHandle.name;
+            deposito_4.innerHTML = fileHandle.name;
             channel_4_duration_text.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
             player_4_duration_value.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
           }
@@ -13691,6 +13700,7 @@ async function load_Local(value) {
             player_4_Node.buffer.set(decodedBuffer);
             player_4_load_text.innerHTML = fileHandle.name;
             channel_4_songName.innerHTML = fileHandle.name;
+            deposito_4.innerHTML = fileHandle.name;
             channel_4_duration_text.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
             player_4_duration_value.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
             if (player_4_scrambler_checkbox.checked == true) {
@@ -13718,7 +13728,7 @@ async function load_Local(value) {
           const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
           player_4_Node.buffer.set(decodedBuffer_twosecs);
           /**/
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_load", fileHandle.name);
           break;
         }
       default:
@@ -13807,7 +13817,7 @@ function play(value) {
     case "player_1":
       {
         if (!player_1_Node.loaded) {
-          player_1_duration_value.innerHTML = "!loaded";
+          player_1_load_text.innerHTML = "NOT loaded";
         }
         else {
           var duration = player_1_Node.buffer.duration;
@@ -13821,7 +13831,7 @@ function play(value) {
     case "player_2":
       {
         if (!player_2_Node.loaded) {
-          player_2_duration_value.innerHTML = "loading P2 (PLAY FOO)";
+          player_2_load_text.innerHTML = "NOT loaded";
         }
         else {
           var duration = player_2_Node.buffer.duration;
@@ -13835,7 +13845,7 @@ function play(value) {
     case "player_3":
       {
         if (!player_3_Node.loaded) {
-          player_3_duration_value.innerHTML = "loading P3 (PLAY FOO)";
+          player_3_load_text.innerHTML = "NOT loaded";
         }
         else {
           var duration = player_3_Node.buffer.duration;
@@ -13849,7 +13859,7 @@ function play(value) {
     case "player_4":
       {
         if (!player_4_Node.loaded) {
-          player_4_duration_value.innerHTML = "loading P2 (PLAY FOO)";
+          player_4_load_text.innerHTML = "NOT loaded";
         }
         else {
           var duration = player_4_Node.buffer.duration;
@@ -14149,6 +14159,7 @@ function busca1() {
       {
         if (player_1_Node.state != "started") {
           player_1_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_http", `${array_Canciones[songNumber - 1].title}`);
         }
         else {
           alert("ELSE: deten la reproduccion");
@@ -14157,24 +14168,27 @@ function busca1() {
       }
     case "2":
       {
-        if (player_2.state != "started") {
-          player_2.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
+        if (player_2_Node.state != "started") {
+          player_2_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", `${array_Canciones[songNumber - 1].title}`);
         }
         else { alert("ELSE: deten la reproduccion"); }
         break;
       }
     case "3":
       {
-        if (player_3.state != "started") {
-          player_3.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
+        if (player_3_Node.state != "started") {
+          player_3_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", `${array_Canciones[songNumber - 1].title}`);
         }
         else { alert("ELSE: deten la reproduccion"); }
         break;
       }
     case "4":
       {
-        if (player_4.state != "started") {
-          player_4.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
+        if (player_4_Node.state != "started") {
+          player_4_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4", `${array_Canciones[songNumber - 1].title}`);
         }
         else { alert("ELSE: deten la reproduccion"); }
         break;
@@ -18203,17 +18217,17 @@ function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
           channel_1_fxSend_1_postEq_volNode.volume.value = e;
           channel_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
           channel_1_fxSend_1.value = e;
-          alert("PostEQ");
+          //alert("PostEQ");
         }
         else if (channel_1_fxSend_1_state == "PreEQ") {
           channel_1_fxSend_1_preEq_volNode.volume.value = e;
           channel_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
-          alert("PreEQ");
+          //alert("PreEQ");
         }
         else {
           channel_1_fxSend_1_postFdr_volNode.volume.value = e;
           channel_1_fxSend_1_value.innerHTML = Math.round(`${e}`);
-          alert("PostFDR");
+          //alert("PostFDR");
         }
         break;
       }
@@ -21766,21 +21780,28 @@ function in_outs(element, text) {
 
 function callbackLoaded(songNumber, playerNumber) {
   switch (playerNumber) {
-
     case "1": {
-      player_1_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      channel_1_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      player_1_load_text.innerHTML = array_Canciones[songNumber - 1].title;
+      deposito_1.innerHTML = array_Canciones[songNumber - 1].title;
       break;
     }
     case "2": {
-      player_2_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      channel_2_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      player_2_load_text.innerHTML = array_Canciones[songNumber - 1].title;
+      deposito_2.innerHTML = array_Canciones[songNumber - 1].title;
       break;
     }
     case "3": {
-      player_3_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      channel_3_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      player_3_load_text.innerHTML = array_Canciones[songNumber - 1].title;
+      deposito_3.innerHTML = array_Canciones[songNumber - 1].title;
       break;
     }
     case "4": {
-      player_4_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      channel_4_songName.innerHTML = array_Canciones[songNumber - 1].title;
+      player_4_load_text.innerHTML = array_Canciones[songNumber - 1].title;
+      deposito_4.innerHTML = array_Canciones[songNumber - 1].title;
       break;
     }
     default: { alert("DEFAULT switch(playerNumber)") }
@@ -21810,7 +21831,7 @@ async function CustomizedButton() {
 
 function TransportSTOP() {
   Tone.Transport.start();
-  console.log(Tone.Transport.ticks);
+  console.log("Ticks: " + Tone.Transport.ticks);
   loadMix();
 
   //alert("Tone.Transport.state: " + Tone.Transport.state);
@@ -21846,6 +21867,11 @@ function TransportSTOP() {
 }
 /**/
 function Sinte() {
+  console.log("LoadFileList");
+  console.log(LoadFileList);
+  console.log("List");
+  console.log(List);
+
   /*
     let event2 = new MouseEvent("click", {
       bubbles: true,
@@ -25518,6 +25544,28 @@ function loadMix() {
               }
               break;
             }
+          case "player_1_http": {
+            checksArray("player_1", testObj.NewValue);
+            break;
+          }
+          case "player_2_http": {
+            checksArray("player_2", testObj.NewValue);
+            break;
+          }
+          case "player_3_http": {
+            checksArray("player_3", testObj.NewValue);
+            break;
+          }
+          case "player_4_http": {
+            checksArray("player_4", testObj.NewValue);
+            break;
+          }
+          case "player_1_local": {
+            alert("player_1_local");
+            load_Local("player_1");
+            break;
+          }
+
           case "player_1_volume": {
             changesVolume(testObj.NewValue, player_1_Node, player_1_volume, player_1_volume_value);
             break;
@@ -26268,8 +26316,6 @@ function loadMix() {
             break;
           }
 
-
-
           case "fx_1_pan": {
             changesPan(testObj.NewValue, fx_1_panNode, fx_1_pan, fx_1_pan_value);
             break;
@@ -26416,9 +26462,6 @@ function loadMix() {
             break;
           }
 
-
-
-
           case "fx_1_fxSend_1": {
             recieves_player_x_fxSend_x_value_Sets_Volume_value(testObj.NewValue, "fx_1_fxSend_1");
             changesVolume(testObj.NewValue, fx_1_fxSend_1_preEq_volNode, fx_1_fxSend_1, fx_1_fxSend_1_value)
@@ -26563,17 +26606,6 @@ function loadMix() {
             player_x_fxSend_x_state_foo("fx_4_fxSend_4", testObj.NewValue);
             break;
           }
-
-
-
-
-
-
-
-
-
-
-
 
           case "fx_1_autofilter_baseFrequency": {
             changesInt(testObj.NewValue, fx_1_AutoFilter_Node, fx_1_autofilter_baseFrequency, fx_1_autofilter_baseFrequency_value, "base_frec");
@@ -26872,7 +26904,6 @@ function loadMix() {
     }
     /**/
     //sets_LoadedFile(testObj);
-    //alert();
   }
 }
 
@@ -26920,7 +26951,7 @@ function changesEq3(e, Node, volume, volume_value, parameter) {
       Node.gain.value = num1;
       break;
     }
-    default: { alert(); console.log("default changes EQ3"); break; }
+    default: { console.log("default changes EQ3"); break; }
   }
   volume_value.innerHTML = Math.round(`${e}`);
   volume.value = Math.round(`${e}`);
@@ -27630,8 +27661,6 @@ function table_to_String(lista) {
 }
 
 function channel_x_filter_1_select(e, Node) {
-  alert("e:  " + e + "\n" + "Node: " + Node + "\n"
-  );
   //diferenciar entre su uso desde addevent y desde load mix
   switch (e) {
     case "lowpass":
@@ -27669,7 +27698,6 @@ function channel_x_filter_1_select(e, Node) {
         break;
       }
     case "empty": {
-      alert("AAAAAACCCCCCCCCCAAAAAAAAAA");
       channel_1_filter_eq_type = "empty";
       Node.set({
         frequency: 20000,
@@ -28176,6 +28204,7 @@ rolloffFactor : 1
 //*********************************************************************************** */
 const List = MixEventObj.createsMixEventObjList();
 const LoadFileList = MixEventObj.createsMixEventObjList();
+consoleClear();
 console.log("List so call");
 console.log(List);
 
@@ -28463,7 +28492,6 @@ async function soltar(event) {
       }
     case ("deposito_3"):
       {
-        alert("");
         const file = event.dataTransfer.files[0];
         // Make sure a file was dropped and it's an audio file
         if (file && file.type.startsWith('audio/')) {
@@ -28507,6 +28535,8 @@ function handleFile(file, element) {
           channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
           player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
           deposito_1.innerHTML = file.name;
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "deposito_1", file.name);
+
           break;
         }
         case "deposito_2": {
@@ -28516,6 +28546,7 @@ function handleFile(file, element) {
           channel_2_duration_text.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
           player_2_duration_value.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
           deposito_2.innerHTML = file.name;
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "deposito_2", file.name);
           break;
         }
         case "deposito_3": {
@@ -28525,6 +28556,7 @@ function handleFile(file, element) {
           channel_3_duration_text.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
           player_3_duration_value.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
           deposito_3.innerHTML = file.name;
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "deposito_3", file.name);
           break;
         }
         case "deposito_4": {
@@ -28534,6 +28566,7 @@ function handleFile(file, element) {
           channel_4_duration_text.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
           player_4_duration_value.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
           deposito_4.innerHTML = file.name;
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "deposito_4", file.name);
           break;
         }
         default: { alert("default  function handleFile"); break; }
@@ -28546,3 +28579,59 @@ function handleFile(file, element) {
 
 
 }
+
+function checksArray(element, fileName) {
+  var i = 0;
+  let source = "", id = 0;
+  for (i = 0; i < array_Canciones.length; i++) {
+    if (fileName == array_Canciones[i].title) {
+      source = array_Canciones[i].url_src;
+      id = array_Canciones[i].id;
+      load_http(element, source, id);
+      break;
+    }
+    else {  }
+  }
+}
+
+function load_http(element, source, id) {
+  switch (element) {
+    case "player_1":
+      {
+        if (player_1_Node.state != "started") {
+          player_1_Node.load(`${source}`, callbackLoaded(id, "1"));
+        }
+        else {
+          alert("ELSE: deten la reproduccion");
+        }
+        break;
+      }
+    case "player_2":
+      {
+        if (player_2_Node.state != "started") {
+          player_2_Node.load(`${source}`, callbackLoaded(id, "2"));
+
+        }
+        else { alert("ELSE: deten la reproduccion"); }
+        break;
+      }
+    case "player_3":
+      {
+        if (player_3_Node.state != "started") {
+          player_3_Node.load(`${source}`, callbackLoaded(id, "3"));
+        }
+        else { alert("ELSE: deten la reproduccion"); }
+        break;
+      }
+    case "player_4":
+      {
+        if (player_4_Node.state != "started") {
+          player_4_Node.load(`${source}`, callbackLoaded(id, "4"));
+        }
+        else { alert("ELSE: deten la reproduccion"); }
+        break;
+      }
+    default:
+      { alert("DEFAULT load_http "); }
+  }
+}// CLOSES load_http
