@@ -1,4 +1,9 @@
-﻿"use strict";
+﻿//PARA AVERGUAR INFO DE COMPU Y NAVEGADOR
+//navigator.userAgent
+//window
+//document
+
+"use strict";
 
 //var AudioContext = window.AudioContext || window.webkitAudioContext;
 //var audioCtx = new AudioContext();
@@ -223,10 +228,11 @@ document.querySelector('#stop-record').addEventListener('click', () => {
   document.querySelector('#stop-record').disabled = true;
 });
 
+var audioCard = new Tone.UserMedia();
+
 //***************************************
 // RECORDER END
 //------------------------------------------
-
 
 var currentAudioControlKeys = 1;
 const teclaApretada = document.getElementById("teclaApretada");
@@ -236,35 +242,47 @@ document.onkeydown = function (e) {
   var test_key = e.key;
   //alert("test_key: " + test_key)
   switch (test_key) {
+    case '0':
+      {
+        teclaApretada.innerHTML = "0";
+        currentAudioControlKeys = 0;
+        selected_channel('audio_card_channel_column');
+        break;
+      }
     case '1':
       {
         teclaApretada.innerHTML = "1";
         currentAudioControlKeys = 1;
+        selected_channel('channel_1_column');
         break;
       }
     case '2':
       {
         teclaApretada.innerHTML = "2";
         currentAudioControlKeys = 2;
+        selected_channel('channel_2_column');
+
         break;
       }
     case '3':
       {
         teclaApretada.innerHTML = "3";
         currentAudioControlKeys = 3;
+        selected_channel('channel_3_column');
         break;
       }
     case '4':
       {
         teclaApretada.innerHTML = "4";
         currentAudioControlKeys = 4;
+        selected_channel('channel_4_column');
         break;
       }
     case 'c':
     case 'C':
       {
         var value_track = prompt('Ingresa el track', '01 - 100');
-        if (value_track >= 1 && value_track <= 100) {
+        if (value_track >= 1 && value_track <= 107) {
           var value_player = prompt('Ingresa el player', '1 - 4');
           if (value_player >= 1 && value_player <= 4) {
             switch (value_player) {
@@ -2134,12 +2152,44 @@ const multiple_play_source_2 = document.getElementById("multiple_play_source_2")
 const multiple_play_source_3 = document.getElementById("multiple_play_source_3");
 const multiple_play_source_4 = document.getElementById("multiple_play_source_4");
 const multiple_play_test_player = document.getElementById("multiple_play_test_player");
+
+const empty_1_div = document.getElementById("empty_1_div");
+const empty_2_div = document.getElementById("empty_2_div");
+const empty_3_div = document.getElementById("empty_3_div");
+const empty_4_div = document.getElementById("empty_4_div");
 //*************************************************************************************
 //*************************************************************************************
 //********     CHANNEL 1 - 4 CHANNEL CONTROLS   **************************************************************
 //*************************************************************************************
 //*************************************************************************************
 //CHANNEL 1 - 4
+const audio_card_channel_column = document.getElementById("audio_card_channel_column");
+audio_card_channel_column.style.display = "none";
+
+const audio_card_channel_volume = document.getElementById("audio_card_channel_volume");
+const audio_card_channel_volume_value = document.getElementById("audio_card_channel_volume_value");
+audio_card_channel_volume.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    audio_card_channel_volNode.volume.value = -100;
+    audio_card_channel_volume_value.innerHTML = -100;
+    audio_card_channel_volume.value = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_volume", -100);
+  }
+  else {
+    audio_card_channel_volNode.volume.value = e.currentTarget.value;
+    audio_card_channel_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_volume", e.currentTarget.value);
+  }
+  //PROBAR SI LO DE ABAJO SIRVE
+  //  changesVolume(e.currentTarget.value, audio_card_channel_volNode, audio_card_channel_volume, audio_card_channel_volume_value);
+});
+
+audio_card_channel_volume.ondblclick = function () {
+  audio_card_channel_volNode.volume.rampTo(0, 0.500);
+  audio_card_channel_volume_value.innerHTML = 0;
+  audio_card_channel_volume.value = 0;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_volume_rampTo", 0);
+};
 
 const channel_1_volume = document.getElementById("channel_1_volume");
 const channel_1_volume_value = document.getElementById("channel_1_volume_value");
@@ -2153,7 +2203,7 @@ channel_1_volume.addEventListener("change", function (e) {
   else {
     channel_1_volNode.volume.value = e.currentTarget.value;
     channel_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    channel_1_volume.value = Math.round(`${e}`);
+
     MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_volume", e.currentTarget.value);
   }
   //PROBAR SI LO DE ABAJO SIRVE
@@ -2234,6 +2284,21 @@ channel_4_volume.ondblclick = function () {
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_volume_rampTo", 0);
 };
 
+const audio_card_channel_pan = document.getElementById("audio_card_channel_pan");
+const audio_card_channel_pan_value = document.getElementById("audio_card_channel_pan_value");
+audio_card_channel_pan.addEventListener("change", function (e) {
+  audio_card_channel_panNode.pan.value = e.currentTarget.value;
+  audio_card_channel_pan_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_pan", e.currentTarget.value);
+});
+
+audio_card_channel_pan.ondblclick = function () {
+  audio_card_channel_panNode.pan.rampTo(0, 2);
+  audio_card_channel_pan_value.innerHTML = 0;
+  audio_card_channel_pan.value = 0;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_pan", 0);
+};
+
 const channel_1_pan = document.getElementById("channel_1_pan");
 const channel_1_pan_value = document.getElementById("channel_1_pan_value");
 channel_1_pan.addEventListener("change", function (e) {
@@ -2299,6 +2364,153 @@ channel_4_pan.ondblclick = function () {
 // ********       FILTER    **************************************************************
 //*************************************************************************************
 //*************************************************************************************
+
+const audio_card_channel_filter_1_select = document.getElementById("audio_card_channel_filter_1_select");
+audio_card_channel_filter_1_select.addEventListener("change", function (e) {
+  switch (e.currentTarget.value) {
+    case "lowpass":
+    case "highpass":
+    case "bandpass":
+    case "notch":
+    case "allpass":
+      {
+        audio_card_channel_filter.type = e.currentTarget.value;
+        audio_card_channel_filter_eq_type = "allpass";
+        MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_select", e.currentTarget.value);
+        if (audio_card_channel_filter_eq_type == "on") {
+          hide_all_EQ_divs("audio_card");
+          audio_card_channel_allpass_controls_div.style.display = "block";
+        }
+        break;
+      }
+    case "lowshelf":
+    case "highshelf":
+      {
+        audio_card_channel_filter.type = e.currentTarget.value;
+        audio_card_channel_filter_eq_type = "shelf";
+        MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_select", e.currentTarget.value);
+        break;
+      }
+    case "peaking":
+      {
+        audio_card_channel_filter.type = e.currentTarget.value;
+        audio_card_channel_filter_eq_type = "peaking";
+        MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_select", e.currentTarget.value);
+        break;
+      }
+    case "empty": {
+      audio_card_channel_filter_eq_type = "empty";
+      audio_card_channel_filter.set({
+        frequency: 20000,
+        type: "lowpass",
+        Q: 0,
+        gain: 0,
+        rolloff: -96,
+      });
+      MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_select", "empty");
+      break;
+    }
+    default:
+      { alert(" EQ1 DEFAULT audio_card_channel_filter_select switch"); }
+  }
+});
+
+//SHELF
+const audio_card_channel_filter_frequency_text_shelf = document.getElementById("audio_card_channel_filter_frequency_text_shelf");
+const audio_card_channel_filter_frequency_shelf = document.getElementById("audio_card_channel_filter_frequency_shelf");
+const audio_card_channel_filter_frequency_shelf_value = document.getElementById("audio_card_channel_filter_frequency_shelf_value");
+audio_card_channel_filter_frequency_shelf.addEventListener("change", function (e) {
+  audio_card_channel_filter.frequency.value = e.currentTarget.value;
+  audio_card_channel_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_frequency_text_shelf", e.currentTarget.value);
+});
+
+const audio_card_channel_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
+const audio_card_channel_filter_detune_shelf = document.getElementById("audio_card_channel_filter_detune_shelf");
+const audio_card_channel_filter_detune_shelf_value = document.getElementById("audio_card_channel_filter_detune_shelf_value");
+audio_card_channel_filter_detune_shelf.addEventListener("change", function (e) {
+  audio_card_channel_filter.detune.value = e.currentTarget.value;
+  audio_card_channel_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_detune_text_shelf", e.currentTarget.value);
+});
+
+const audio_card_channel_filter_gain_text_shelf = document.getElementById("audio_card_channel_filter_gain_text_shelf");
+const audio_card_channel_filter_gain_shelf = document.getElementById("audio_card_channel_filter_gain_shelf");
+const audio_card_channel_filter_gain_shelf_value = document.getElementById("audio_card_channel_filter_gain_shelf_value");
+audio_card_channel_filter_gain_shelf.addEventListener("change", function (e) {
+  audio_card_channel_filter.gain.value = e.currentTarget.value;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_gain_shelf", e.currentTarget.value);
+  audio_card_channel_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+});
+
+//PEAKING
+const audio_card_channel_filter_frequency_text_peaking = document.getElementById("audio_card_channel_filter_frequency_text_peaking");
+const audio_card_channel_filter_frequency_peaking = document.getElementById("audio_card_channel_filter_frequency_peaking");
+const audio_card_channel_filter_frequency_peaking_value = document.getElementById("audio_card_channel_filter_frequency_peaking_value");
+audio_card_channel_filter_frequency_peaking.addEventListener("change", function (e) {
+  audio_card_channel_filter.frequency.value = e.currentTarget.value;
+  audio_card_channel_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_frequency_peaking", e.currentTarget.value);
+});
+
+const audio_card_channel_filter_Q_text_peaking = document.getElementById("audio_card_channel_filter_Q_text_peaking");
+const audio_card_channel_filter_Q_peaking = document.getElementById("audio_card_channel_filter_Q_peaking");
+const audio_card_channel_filter_Q_peaking_value = document.getElementById("audio_card_channel_filter_Q_peaking_value");
+audio_card_channel_filter_Q_peaking.addEventListener("change", function (e) {
+  audio_card_channel_filter.Q.value = e.currentTarget.value;
+  audio_card_channel_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_Q_peaking", e.currentTarget.value);
+});
+
+const audio_card_channel_filter_detune_text_peaking = document.getElementById("audio_card_channel_filter_detune_text_peaking");
+const audio_card_channel_filter_detune_peaking = document.getElementById("audio_card_channel_filter_detune_peaking");
+const audio_card_channel_filter_detune_peaking_value = document.getElementById("audio_card_channel_filter_detune_peaking_value");
+audio_card_channel_filter_detune_peaking.addEventListener("change", function (e) {
+  audio_card_channel_filter.detune.value = e.currentTarget.value;
+  audio_card_channel_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_detune_peaking", e.currentTarget.value);
+});
+
+const audio_card_channel_filter_gain_text_peaking = document.getElementById("audio_card_channel_filter_gain_text_peaking");
+const audio_card_channel_filter_gain_peaking = document.getElementById("audio_card_channel_filter_gain_peaking");
+const audio_card_channel_filter_gain_peaking_value = document.getElementById("audio_card_channel_filter_gain_peaking_value");
+audio_card_channel_filter_gain_peaking.addEventListener("change", function (e) {
+  audio_card_channel_filter.gain.value = e.currentTarget.value;
+  audio_card_channel_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_gain_peaking", e.currentTarget.value);
+});
+
+//ALLPASS
+const audio_card_channel_filter_frequency_allpass = document.getElementById("audio_card_channel_filter_frequency_allpass");
+const audio_card_channel_filter_frequency_allpass_value = document.getElementById("audio_card_channel_filter_frequency_allpass_value");
+const audio_card_channel_filter_frequency_text_allpass = document.getElementById("audio_card_channel_filter_frequency_text_allpass");
+audio_card_channel_filter_frequency_allpass.addEventListener("change", function (e) {
+  audio_card_channel_filter.frequency.value = e.currentTarget.value;
+  audio_card_channel_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_frequency_allpass_value", e.currentTarget.value);
+});
+
+const audio_card_channel_filter_Q_allpass = document.getElementById("audio_card_channel_filter_Q_allpass");
+const audio_card_channel_filter_Q_allpass_value = document.getElementById("audio_card_channel_filter_Q_allpass_value");
+const audio_card_channel_filter_Q_text_allpass = document.getElementById("audio_card_channel_filter_Q_text_allpass");
+audio_card_channel_filter_Q_allpass.addEventListener("change", function (e) {
+  audio_card_channel_filter.Q.value = e.currentTarget.value;
+  audio_card_channel_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_Q_allpass_value", e.currentTarget.value);
+});
+
+const audio_card_channel_filter_detune_allpass = document.getElementById("audio_card_channel_filter_detune_allpass");
+const audio_card_channel_filter_detune_allpass_value = document.getElementById("audio_card_channel_filter_detune_allpass_value");
+const audio_card_channel_filter_detune_text_allpass = document.getElementById("audio_card_channel_filter_detune_text_allpass");
+audio_card_channel_filter_detune_allpass.addEventListener("change", function (e) {
+  audio_card_channel_filter.detune.value = e.currentTarget.value;
+  audio_card_channel_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_detune_allpass_value", e.currentTarget.value);
+});
+
+const audio_card_channel_filter_eq_On_Button = document.getElementById("audio_card_channel_filter_eq_On_Button");
+
+
 const channel_1_filter_1_select = document.getElementById("channel_1_filter_1_select");
 channel_1_filter_1_select.addEventListener("change", function (e) {
 
@@ -2933,62 +3145,62 @@ fx_1_filter_1_select.addEventListener("change", function (e) {
 //SHELF
 const fx_1_filter_frequency_text_shelf = document.getElementById("fx_1_filter_frequency_text_shelf");
 const fx_1_filter_frequency_shelf = document.getElementById("fx_1_filter_frequency_shelf");
-const fx_1_filter_frequency_value_shelf = document.getElementById("fx_1_filter_frequency_value_shelf");
+const fx_1_filter_frequency_shelf_value = document.getElementById("fx_1_filter_frequency_shelf_value");
 fx_1_filter_frequency_shelf.addEventListener("change", function (e) {
   fx_1_filter.frequency.value = e.currentTarget.value;
-  fx_1_filter_frequency_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_1_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const fx_1_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
 const fx_1_filter_detune_shelf = document.getElementById("fx_1_filter_detune_shelf");
-const fx_1_filter_detune_value_shelf = document.getElementById("fx_1_filter_detune_value_shelf");
+const fx_1_filter_detune_shelf_value = document.getElementById("fx_1_filter_detune_shelf_value");
 fx_1_filter_detune_shelf.addEventListener("change", function (e) {
   fx_1_filter.detune.value = e.currentTarget.value;
-  fx_1_filter_detune_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_1_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const fx_1_filter_gain_text_shelf = document.getElementById("fx_1_filter_gain_text_shelf");
 const fx_1_filter_gain_shelf = document.getElementById("fx_1_filter_gain_shelf");
-const fx_1_filter_gain_value_shelf = document.getElementById("fx_1_filter_gain_value_shelf");
+const fx_1_filter_gain_shelf_value = document.getElementById("fx_1_filter_gain_shelf_value");
 fx_1_filter_gain_shelf.addEventListener("change", function (e) {
   fx_1_filter.gain.value = e.currentTarget.value;
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_gain_shelf", e.currentTarget.value);
-  fx_1_filter_gain_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_1_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 //PEAKING
 const fx_1_filter_frequency_text_peaking = document.getElementById("fx_1_filter_frequency_text_peaking");
 const fx_1_filter_frequency_peaking = document.getElementById("fx_1_filter_frequency_peaking");
-const fx_1_filter_frequency_value_peaking = document.getElementById("fx_1_filter_frequency_value_peaking");
+const fx_1_filter_frequency_peaking_value = document.getElementById("fx_1_filter_frequency_peaking_value");
 fx_1_filter_frequency_peaking.addEventListener("change", function (e) {
   fx_1_filter.frequency.value = e.currentTarget.value;
-  fx_1_filter_frequency_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_1_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const fx_1_filter_Q_text_peaking = document.getElementById("fx_1_filter_Q_text_peaking");
 const fx_1_filter_Q_peaking = document.getElementById("fx_1_filter_Q_peaking");
-const fx_1_filter_Q_value_peaking = document.getElementById("fx_1_filter_Q_value_peaking");
+const fx_1_filter_Q_peaking_value = document.getElementById("fx_1_filter_Q_peaking_value");
 fx_1_filter_Q_peaking.addEventListener("change", function (e) {
   fx_1_filter.Q.value = e.currentTarget.value;
-  fx_1_filter_Q_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_1_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_Q_peaking", e.currentTarget.value);
 });
 
 const fx_1_filter_detune_text_peaking = document.getElementById("fx_1_filter_detune_text_peaking");
 const fx_1_filter_detune_peaking = document.getElementById("fx_1_filter_detune_peaking");
-const fx_1_filter_detune_value_peaking = document.getElementById("fx_1_filter_detune_value_peaking");
+const fx_1_filter_detune_peaking_value = document.getElementById("fx_1_filter_detune_peaking_value");
 fx_1_filter_detune_peaking.addEventListener("change", function (e) {
   fx_1_filter.detune.value = e.currentTarget.value;
-  fx_1_filter_detune_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_1_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_detune_peaking", e.currentTarget.value);
 });
 
 const fx_1_filter_gain_text_peaking = document.getElementById("fx_1_filter_gain_text_peaking");
 const fx_1_filter_gain_peaking = document.getElementById("fx_1_filter_gain_peaking");
-const fx_1_filter_gain_value_peaking = document.getElementById("fx_1_filter_gain_value_peaking");
+const fx_1_filter_gain_peaking_value = document.getElementById("fx_1_filter_gain_peaking_value");
 fx_1_filter_gain_peaking.addEventListener("change", function (e) {
   fx_1_filter.gain.value = e.currentTarget.value;
   fx_1_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
@@ -2997,30 +3209,30 @@ fx_1_filter_gain_peaking.addEventListener("change", function (e) {
 
 //ALLPASS
 const fx_1_filter_frequency_allpass = document.getElementById("fx_1_filter_frequency_allpass");
-const fx_1_filter_frequency_value_allpass = document.getElementById("fx_1_filter_frequency_value_allpass");
+const fx_1_filter_frequency_allpass_value = document.getElementById("fx_1_filter_frequency_allpass_value");
 const fx_1_filter_frequency_text_allpass = document.getElementById("fx_1_filter_frequency_text_allpass");
 fx_1_filter_frequency_allpass.addEventListener("change", function (e) {
   fx_1_filter.frequency.value = e.currentTarget.value;
-  fx_1_filter_frequency_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_frequency_value_allpass", e.currentTarget.value);
+  fx_1_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const fx_1_filter_Q_allpass = document.getElementById("fx_1_filter_Q_allpass");
-const fx_1_filter_Q_value_allpass = document.getElementById("fx_1_filter_Q_value_allpass");
+const fx_1_filter_Q_allpass_value = document.getElementById("fx_1_filter_Q_allpass_value");
 const fx_1_filter_Q_text_allpass = document.getElementById("fx_1_filter_Q_text_allpass");
 fx_1_filter_Q_allpass.addEventListener("change", function (e) {
   fx_1_filter.Q.value = e.currentTarget.value;
-  fx_1_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_Q_value_allpass", e.currentTarget.value);
+  fx_1_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const fx_1_filter_detune_allpass = document.getElementById("fx_1_filter_detune_allpass");
-const fx_1_filter_detune_value_allpass = document.getElementById("fx_1_filter_detune_value_allpass");
+const fx_1_filter_detune_allpass_value = document.getElementById("fx_1_filter_detune_allpass_value");
 const fx_1_filter_detune_text_allpass = document.getElementById("fx_1_filter_detune_text_allpass");
 fx_1_filter_detune_allpass.addEventListener("change", function (e) {
   fx_1_filter.detune.value = e.currentTarget.value;
-  fx_1_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_detune_value_allpass", e.currentTarget.value);
+  fx_1_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const fx_1_filter_eq_On_Button = document.getElementById("fx_1_filter_eq_On_Button");
@@ -3078,94 +3290,94 @@ fx_2_filter_1_select.addEventListener("change", function (e) {
 //SHELF
 const fx_2_filter_frequency_text_shelf = document.getElementById("fx_2_filter_frequency_text_shelf");
 const fx_2_filter_frequency_shelf = document.getElementById("fx_2_filter_frequency_shelf");
-const fx_2_filter_frequency_value_shelf = document.getElementById("fx_2_filter_frequency_value_shelf");
+const fx_2_filter_frequency_shelf_value = document.getElementById("fx_2_filter_frequency_shelf_value");
 fx_2_filter_frequency_shelf.addEventListener("change", function (e) {
   fx_2_filter.frequency.value = e.currentTarget.value;
-  fx_2_filter_frequency_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_2_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const fx_2_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
 const fx_2_filter_detune_shelf = document.getElementById("fx_2_filter_detune_shelf");
-const fx_2_filter_detune_value_shelf = document.getElementById("fx_2_filter_detune_value_shelf");
+const fx_2_filter_detune_shelf_value = document.getElementById("fx_2_filter_detune_shelf_value");
 fx_2_filter_detune_shelf.addEventListener("change", function (e) {
   fx_2_filter.detune.value = e.currentTarget.value;
-  fx_2_filter_detune_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_2_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const fx_2_filter_gain_text_shelf = document.getElementById("fx_2_filter_gain_text_shelf");
 const fx_2_filter_gain_shelf = document.getElementById("fx_2_filter_gain_shelf");
-const fx_2_filter_gain_value_shelf = document.getElementById("fx_2_filter_gain_value_shelf");
+const fx_2_filter_gain_shelf_value = document.getElementById("fx_2_filter_gain_shelf_value");
 fx_2_filter_gain_shelf.addEventListener("change", function (e) {
   fx_2_filter.gain.value = e.currentTarget.value;
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_gain_shelf", e.currentTarget.value);
-  fx_2_filter_gain_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_2_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 //PEAKING
 const fx_2_filter_frequency_text_peaking = document.getElementById("fx_2_filter_frequency_text_peaking");
 const fx_2_filter_frequency_peaking = document.getElementById("fx_2_filter_frequency_peaking");
-const fx_2_filter_frequency_value_peaking = document.getElementById("fx_2_filter_frequency_value_peaking");
+const fx_2_filter_frequency_peaking_value = document.getElementById("fx_2_filter_frequency_peaking_value");
 fx_2_filter_frequency_peaking.addEventListener("change", function (e) {
   fx_2_filter.frequency.value = e.currentTarget.value;
-  fx_2_filter_frequency_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_2_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const fx_2_filter_Q_text_peaking = document.getElementById("fx_2_filter_Q_text_peaking");
 const fx_2_filter_Q_peaking = document.getElementById("fx_2_filter_Q_peaking");
-const fx_2_filter_Q_value_peaking = document.getElementById("fx_2_filter_Q_value_peaking");
+const fx_2_filter_Q_peaking_value = document.getElementById("fx_2_filter_Q_peaking_value");
 fx_2_filter_Q_peaking.addEventListener("change", function (e) {
   fx_2_filter.Q.value = e.currentTarget.value;
-  fx_2_filter_Q_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_2_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_Q_peaking", e.currentTarget.value);
 });
 
 const fx_2_filter_detune_text_peaking = document.getElementById("fx_2_filter_detune_text_peaking");
 const fx_2_filter_detune_peaking = document.getElementById("fx_2_filter_detune_peaking");
-const fx_2_filter_detune_value_peaking = document.getElementById("fx_2_filter_detune_value_peaking");
+const fx_2_filter_detune_peaking_value = document.getElementById("fx_2_filter_detune_peaking_value");
 fx_2_filter_detune_peaking.addEventListener("change", function (e) {
   fx_2_filter.detune.value = e.currentTarget.value;
-  fx_2_filter_detune_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_2_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_detune_peaking", e.currentTarget.value);
 });
 
 const fx_2_filter_gain_text_peaking = document.getElementById("fx_2_filter_gain_text_peaking");
 const fx_2_filter_gain_peaking = document.getElementById("fx_2_filter_gain_peaking");
-const fx_2_filter_gain_value_peaking = document.getElementById("fx_2_filter_gain_value_peaking");
+const fx_2_filter_gain_peaking_value = document.getElementById("fx_2_filter_gain_peaking_value");
 fx_2_filter_gain_peaking.addEventListener("change", function (e) {
   fx_2_filter.gain.value = e.currentTarget.value;
-  fx_2_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_2_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
 const fx_2_filter_frequency_allpass = document.getElementById("fx_2_filter_frequency_allpass");
-const fx_2_filter_frequency_value_allpass = document.getElementById("fx_2_filter_frequency_value_allpass");
+const fx_2_filter_frequency_allpass_value = document.getElementById("fx_2_filter_frequency_allpass_value");
 const fx_2_filter_frequency_text_allpass = document.getElementById("fx_2_filter_frequency_text_allpass");
 fx_2_filter_frequency_allpass.addEventListener("change", function (e) {
   fx_2_filter.frequency.value = e.currentTarget.value;
-  fx_2_filter_frequency_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_frequency_value_allpass", e.currentTarget.value);
+  fx_2_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const fx_2_filter_Q_allpass = document.getElementById("fx_2_filter_Q_allpass");
-const fx_2_filter_Q_value_allpass = document.getElementById("fx_2_filter_Q_value_allpass");
+const fx_2_filter_Q_allpass_value = document.getElementById("fx_2_filter_Q_allpass_value");
 const fx_2_filter_Q_text_allpass = document.getElementById("fx_2_filter_Q_text_allpass");
 fx_2_filter_Q_allpass.addEventListener("change", function (e) {
   fx_2_filter.Q.value = e.currentTarget.value;
-  fx_2_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_Q_value_allpass", e.currentTarget.value);
+  fx_2_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const fx_2_filter_detune_allpass = document.getElementById("fx_2_filter_detune_allpass");
-const fx_2_filter_detune_value_allpass = document.getElementById("fx_2_filter_detune_value_allpass");
+const fx_2_filter_detune_allpass_value = document.getElementById("fx_2_filter_detune_allpass_value");
 const fx_2_filter_detune_text_allpass = document.getElementById("fx_2_filter_detune_text_allpass");
 fx_2_filter_detune_allpass.addEventListener("change", function (e) {
   fx_2_filter.detune.value = e.currentTarget.value;
-  fx_2_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_detune_value_allpass", e.currentTarget.value);
+  fx_2_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const fx_2_filter_eq_On_Button = document.getElementById("fx_2_filter_eq_On_Button");
@@ -3223,94 +3435,94 @@ fx_3_filter_1_select.addEventListener("change", function (e) {
 //SHELF
 const fx_3_filter_frequency_text_shelf = document.getElementById("fx_3_filter_frequency_text_shelf");
 const fx_3_filter_frequency_shelf = document.getElementById("fx_3_filter_frequency_shelf");
-const fx_3_filter_frequency_value_shelf = document.getElementById("fx_3_filter_frequency_value_shelf");
+const fx_3_filter_frequency_shelf_value = document.getElementById("fx_3_filter_frequency_shelf_value");
 fx_3_filter_frequency_shelf.addEventListener("change", function (e) {
   fx_3_filter.frequency.value = e.currentTarget.value;
-  fx_3_filter_frequency_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_3_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const fx_3_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
 const fx_3_filter_detune_shelf = document.getElementById("fx_3_filter_detune_shelf");
-const fx_3_filter_detune_value_shelf = document.getElementById("fx_3_filter_detune_value_shelf");
+const fx_3_filter_detune_shelf_value = document.getElementById("fx_3_filter_detune_shelf_value");
 fx_3_filter_detune_shelf.addEventListener("change", function (e) {
   fx_3_filter.detune.value = e.currentTarget.value;
-  fx_3_filter_detune_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_3_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const fx_3_filter_gain_text_shelf = document.getElementById("fx_3_filter_gain_text_shelf");
 const fx_3_filter_gain_shelf = document.getElementById("fx_3_filter_gain_shelf");
-const fx_3_filter_gain_value_shelf = document.getElementById("fx_3_filter_gain_value_shelf");
+const fx_3_filter_gain_shelf_value = document.getElementById("fx_3_filter_gain_shelf_value");
 fx_3_filter_gain_shelf.addEventListener("change", function (e) {
   fx_3_filter.gain.value = e.currentTarget.value;
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_gain_shelf", e.currentTarget.value);
-  fx_3_filter_gain_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_3_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 //PEAKING
 const fx_3_filter_frequency_text_peaking = document.getElementById("fx_3_filter_frequency_text_peaking");
 const fx_3_filter_frequency_peaking = document.getElementById("fx_3_filter_frequency_peaking");
-const fx_3_filter_frequency_value_peaking = document.getElementById("fx_3_filter_frequency_value_peaking");
+const fx_3_filter_frequency_peaking_value = document.getElementById("fx_3_filter_frequency_peaking_value");
 fx_3_filter_frequency_peaking.addEventListener("change", function (e) {
   fx_3_filter.frequency.value = e.currentTarget.value;
-  fx_3_filter_frequency_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_3_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const fx_3_filter_Q_text_peaking = document.getElementById("fx_3_filter_Q_text_peaking");
 const fx_3_filter_Q_peaking = document.getElementById("fx_3_filter_Q_peaking");
-const fx_3_filter_Q_value_peaking = document.getElementById("fx_3_filter_Q_value_peaking");
+const fx_3_filter_Q_peaking_value = document.getElementById("fx_3_filter_Q_peaking_value");
 fx_3_filter_Q_peaking.addEventListener("change", function (e) {
   fx_3_filter.Q.value = e.currentTarget.value;
-  fx_3_filter_Q_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_3_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_Q_peaking", e.currentTarget.value);
 });
 
 const fx_3_filter_detune_text_peaking = document.getElementById("fx_3_filter_detune_text_peaking");
 const fx_3_filter_detune_peaking = document.getElementById("fx_3_filter_detune_peaking");
-const fx_3_filter_detune_value_peaking = document.getElementById("fx_3_filter_detune_value_peaking");
+const fx_3_filter_detune_peaking_value = document.getElementById("fx_3_filter_detune_peaking_value");
 fx_3_filter_detune_peaking.addEventListener("change", function (e) {
   fx_3_filter.detune.value = e.currentTarget.value;
-  fx_3_filter_detune_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_3_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_detune_peaking", e.currentTarget.value);
 });
 
 const fx_3_filter_gain_text_peaking = document.getElementById("fx_3_filter_gain_text_peaking");
 const fx_3_filter_gain_peaking = document.getElementById("fx_3_filter_gain_peaking");
-const fx_3_filter_gain_value_peaking = document.getElementById("fx_3_filter_gain_value_peaking");
+const fx_3_filter_gain_peaking_value = document.getElementById("fx_3_filter_gain_peaking_value");
 fx_3_filter_gain_peaking.addEventListener("change", function (e) {
   fx_3_filter.gain.value = e.currentTarget.value;
-  fx_3_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_3_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
 const fx_3_filter_frequency_allpass = document.getElementById("fx_3_filter_frequency_allpass");
-const fx_3_filter_frequency_value_allpass = document.getElementById("fx_3_filter_frequency_value_allpass");
+const fx_3_filter_frequency_allpass_value = document.getElementById("fx_3_filter_frequency_allpass_value");
 const fx_3_filter_frequency_text_allpass = document.getElementById("fx_3_filter_frequency_text_allpass");
 fx_3_filter_frequency_allpass.addEventListener("change", function (e) {
   fx_3_filter.frequency.value = e.currentTarget.value;
-  fx_3_filter_frequency_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_frequency_value_allpass", e.currentTarget.value);
+  fx_3_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const fx_3_filter_Q_allpass = document.getElementById("fx_3_filter_Q_allpass");
-const fx_3_filter_Q_value_allpass = document.getElementById("fx_3_filter_Q_value_allpass");
+const fx_3_filter_Q_allpass_value = document.getElementById("fx_3_filter_Q_allpass_value");
 const fx_3_filter_Q_text_allpass = document.getElementById("fx_3_filter_Q_text_allpass");
 fx_3_filter_Q_allpass.addEventListener("change", function (e) {
   fx_3_filter.Q.value = e.currentTarget.value;
-  fx_3_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_Q_value_allpass", e.currentTarget.value);
+  fx_3_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const fx_3_filter_detune_allpass = document.getElementById("fx_3_filter_detune_allpass");
-const fx_3_filter_detune_value_allpass = document.getElementById("fx_3_filter_detune_value_allpass");
+const fx_3_filter_detune_allpass_value = document.getElementById("fx_3_filter_detune_allpass_value");
 const fx_3_filter_detune_text_allpass = document.getElementById("fx_3_filter_detune_text_allpass");
 fx_3_filter_detune_allpass.addEventListener("change", function (e) {
   fx_3_filter.detune.value = e.currentTarget.value;
-  fx_3_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_detune_value_allpass", e.currentTarget.value);
+  fx_3_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const fx_3_filter_eq_On_Button = document.getElementById("fx_3_filter_eq_On_Button");
@@ -3368,94 +3580,94 @@ fx_4_filter_1_select.addEventListener("change", function (e) {
 //SHELF
 const fx_4_filter_frequency_text_shelf = document.getElementById("fx_4_filter_frequency_text_shelf");
 const fx_4_filter_frequency_shelf = document.getElementById("fx_4_filter_frequency_shelf");
-const fx_4_filter_frequency_value_shelf = document.getElementById("fx_4_filter_frequency_value_shelf");
+const fx_4_filter_frequency_shelf_value = document.getElementById("fx_4_filter_frequency_shelf_value");
 fx_4_filter_frequency_shelf.addEventListener("change", function (e) {
   fx_4_filter.frequency.value = e.currentTarget.value;
-  fx_4_filter_frequency_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_4_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const fx_4_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
 const fx_4_filter_detune_shelf = document.getElementById("fx_4_filter_detune_shelf");
-const fx_4_filter_detune_value_shelf = document.getElementById("fx_4_filter_detune_value_shelf");
+const fx_4_filter_detune_shelf_value = document.getElementById("fx_4_filter_detune_shelf_value");
 fx_4_filter_detune_shelf.addEventListener("change", function (e) {
   fx_4_filter.detune.value = e.currentTarget.value;
-  fx_4_filter_detune_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_4_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const fx_4_filter_gain_text_shelf = document.getElementById("fx_4_filter_gain_text_shelf");
 const fx_4_filter_gain_shelf = document.getElementById("fx_4_filter_gain_shelf");
-const fx_4_filter_gain_value_shelf = document.getElementById("fx_4_filter_gain_value_shelf");
+const fx_4_filter_gain_shelf_value = document.getElementById("fx_4_filter_gain_shelf_value");
 fx_4_filter_gain_shelf.addEventListener("change", function (e) {
   fx_4_filter.gain.value = e.currentTarget.value;
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_gain_shelf", e.currentTarget.value);
-  fx_4_filter_gain_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_4_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
 //PEAKING
 const fx_4_filter_frequency_text_peaking = document.getElementById("fx_4_filter_frequency_text_peaking");
 const fx_4_filter_frequency_peaking = document.getElementById("fx_4_filter_frequency_peaking");
-const fx_4_filter_frequency_value_peaking = document.getElementById("fx_4_filter_frequency_value_peaking");
+const fx_4_filter_frequency_peaking_value = document.getElementById("fx_4_filter_frequency_peaking_value");
 fx_4_filter_frequency_peaking.addEventListener("change", function (e) {
   fx_4_filter.frequency.value = e.currentTarget.value;
-  fx_4_filter_frequency_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_4_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const fx_4_filter_Q_text_peaking = document.getElementById("fx_4_filter_Q_text_peaking");
 const fx_4_filter_Q_peaking = document.getElementById("fx_4_filter_Q_peaking");
-const fx_4_filter_Q_value_peaking = document.getElementById("fx_4_filter_Q_value_peaking");
+const fx_4_filter_Q_peaking_value = document.getElementById("fx_4_filter_Q_peaking_value");
 fx_4_filter_Q_peaking.addEventListener("change", function (e) {
   fx_4_filter.Q.value = e.currentTarget.value;
-  fx_4_filter_Q_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_4_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_Q_peaking", e.currentTarget.value);
 });
 
 const fx_4_filter_detune_text_peaking = document.getElementById("fx_4_filter_detune_text_peaking");
 const fx_4_filter_detune_peaking = document.getElementById("fx_4_filter_detune_peaking");
-const fx_4_filter_detune_value_peaking = document.getElementById("fx_4_filter_detune_value_peaking");
+const fx_4_filter_detune_peaking_value = document.getElementById("fx_4_filter_detune_peaking_value");
 fx_4_filter_detune_peaking.addEventListener("change", function (e) {
   fx_4_filter.detune.value = e.currentTarget.value;
-  fx_4_filter_detune_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_4_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_detune_peaking", e.currentTarget.value);
 });
 
 const fx_4_filter_gain_text_peaking = document.getElementById("fx_4_filter_gain_text_peaking");
 const fx_4_filter_gain_peaking = document.getElementById("fx_4_filter_gain_peaking");
-const fx_4_filter_gain_value_peaking = document.getElementById("fx_4_filter_gain_value_peaking");
+const fx_4_filter_gain_peaking_value = document.getElementById("fx_4_filter_gain_peaking_value");
 fx_4_filter_gain_peaking.addEventListener("change", function (e) {
   fx_4_filter.gain.value = e.currentTarget.value;
-  fx_4_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
+  fx_4_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
 const fx_4_filter_frequency_allpass = document.getElementById("fx_4_filter_frequency_allpass");
-const fx_4_filter_frequency_value_allpass = document.getElementById("fx_4_filter_frequency_value_allpass");
+const fx_4_filter_frequency_allpass_value = document.getElementById("fx_4_filter_frequency_allpass_value");
 const fx_4_filter_frequency_text_allpass = document.getElementById("fx_4_filter_frequency_text_allpass");
 fx_4_filter_frequency_allpass.addEventListener("change", function (e) {
   fx_4_filter.frequency.value = e.currentTarget.value;
-  fx_4_filter_frequency_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_frequency_value_allpass", e.currentTarget.value);
+  fx_4_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const fx_4_filter_Q_allpass = document.getElementById("fx_4_filter_Q_allpass");
-const fx_4_filter_Q_value_allpass = document.getElementById("fx_4_filter_Q_value_allpass");
+const fx_4_filter_Q_allpass_value = document.getElementById("fx_4_filter_Q_allpass_value");
 const fx_4_filter_Q_text_allpass = document.getElementById("fx_4_filter_Q_text_allpass");
 fx_4_filter_Q_allpass.addEventListener("change", function (e) {
   fx_4_filter.Q.value = e.currentTarget.value;
-  fx_4_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_Q_value_allpass", e.currentTarget.value);
+  fx_4_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const fx_4_filter_detune_allpass = document.getElementById("fx_4_filter_detune_allpass");
-const fx_4_filter_detune_value_allpass = document.getElementById("fx_4_filter_detune_value_allpass");
+const fx_4_filter_detune_allpass_value = document.getElementById("fx_4_filter_detune_allpass_value");
 const fx_4_filter_detune_text_allpass = document.getElementById("fx_4_filter_detune_text_allpass");
 fx_4_filter_detune_allpass.addEventListener("change", function (e) {
   fx_4_filter.detune.value = e.currentTarget.value;
-  fx_4_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_detune_value_allpass", e.currentTarget.value);
+  fx_4_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const fx_4_filter_eq_On_Button = document.getElementById("fx_4_filter_eq_On_Button");
@@ -3465,6 +3677,14 @@ const fx_4_filter_eq_On_Button = document.getElementById("fx_4_filter_eq_On_Butt
 //********     channel 1 -4  EQ DIVS    **************************************************************
 //*************************************************************************************
 //*************************************************************************************
+const audio_card_channel_peaking_controls_div = document.getElementById("audio_card_channel_peaking_controls_div");
+const audio_card_channel_tascam_424_controls_div = document.getElementById("audio_card_channel_tascam_424_controls_div");
+const audio_card_channel_shelf_controls_div = document.getElementById("audio_card_channel_shelf_controls_div");
+const audio_card_channel_allpass_controls_div = document.getElementById("audio_card_channel_allpass_controls_div");
+const audio_card_channel_eq3_controls_div = document.getElementById("audio_card_channel_eq3_controls_div");
+const audio_card_channel_empty_controls_div = document.getElementById("audio_card_channel_empty_controls_div");
+const audio_card_channel_bypass_controls_div = document.getElementById("audio_card_channel_bypass_controls_div");
+
 const channel_1_peaking_controls_div = document.getElementById("channel_1_peaking_controls_div");
 const channel_1_tascam_424_controls_div = document.getElementById("channel_1_tascam_424_controls_div");
 const channel_1_shelf_controls_div = document.getElementById("channel_1_shelf_controls_div");
@@ -3502,6 +3722,102 @@ const channel_4_bypass_controls_div = document.getElementById("channel_4_bypass_
 //********     CHANNEL 1 FX SEND     **************************************************************
 //*************************************************************************************
 //*************************************************************************************
+
+const audio_card_channel_fxSend_1_pre_EQ_Button = document.getElementById("audio_card_channel_fxSend_1_pre_EQ_Button");
+const audio_card_channel_fxSend_1_post_EQ_Button = document.getElementById("audio_card_channel_fxSend_1_post_EQ_Button");
+const audio_card_channel_fxSend_1_post_fader_Button = document.getElementById("audio_card_channel_fxSend_1_post_fader_Button");
+
+const audio_card_channel_fxSend_2_pre_EQ_Button = document.getElementById("audio_card_channel_fxSend_2_pre_EQ_Button");
+const audio_card_channel_fxSend_2_post_EQ_Button = document.getElementById("audio_card_channel_fxSend_2_post_EQ_Button");
+const audio_card_channel_fxSend_2_post_fader_Button = document.getElementById("audio_card_channel_fxSend_2_post_fader_Button");
+
+const audio_card_channel_fxSend_3_pre_EQ_Button = document.getElementById("audio_card_channel_fxSend_3_pre_EQ_Button");
+const audio_card_channel_fxSend_3_post_EQ_Button = document.getElementById("audio_card_channel_fxSend_3_post_EQ_Button");
+const audio_card_channel_fxSend_3_post_fader_Button = document.getElementById("audio_card_channel_fxSend_3_post_fader_Button");
+
+const audio_card_channel_fxSend_4_pre_EQ_Button = document.getElementById("audio_card_channel_fxSend_4_pre_EQ_Button");
+const audio_card_channel_fxSend_4_post_EQ_Button = document.getElementById("audio_card_channel_fxSend_4_post_EQ_Button");
+const audio_card_channel_fxSend_4_post_fader_Button = document.getElementById("audio_card_channel_fxSend_4_post_fader_Button");
+
+const audio_card_channel_fxSend_1_value = document.getElementById("audio_card_channel_fxSend_1_value");
+const audio_card_channel_fxSend_2_value = document.getElementById("audio_card_channel_fxSend_2_value");
+const audio_card_channel_fxSend_3_value = document.getElementById("audio_card_channel_fxSend_3_value");
+const audio_card_channel_fxSend_4_value = document.getElementById("audio_card_channel_fxSend_4_value");
+
+const audio_card_channel_fxSend_1_text = document.getElementById("audio_card_channel_fxSend_1_text");
+const audio_card_channel_fxSend_2_text = document.getElementById("audio_card_channel_fxSend_2_text");
+const audio_card_channel_fxSend_3_text = document.getElementById("audio_card_channel_fxSend_3_text");
+const audio_card_channel_fxSend_4_text = document.getElementById("audio_card_channel_fxSend_4_text");
+
+const audio_card_channel_fxSend_1 = document.getElementById("audio_card_channel_fxSend_1");
+audio_card_channel_fxSend_1.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    audio_card_channel_fxSend_1_preEq_volNode.volume.value = -100;
+    audio_card_channel_fxSend_1_postEq_volNode.volume.value = -100;
+    audio_card_channel_fxSend_1_postFdr_volNode.volume.value = -100;
+    audio_card_channel_fxSend_1_value.innerHTML = -100;
+    audio_card_channel_fxSend_1.value = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_1", -100);
+  }
+  else {
+    const nombre = "audio_card_channel_fxSend_1";
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_1", e.currentTarget.value);
+    recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
+  }
+});
+
+const audio_card_channel_fxSend_2 = document.getElementById("audio_card_channel_fxSend_2");
+audio_card_channel_fxSend_2.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    audio_card_channel_fxSend_2_preEq_volNode.volume.value = -100;
+    audio_card_channel_fxSend_2_postEq_volNode.volume.value = -100;
+    audio_card_channel_fxSend_2_postFdr_volNode.volume.value = -100;
+    audio_card_channel_fxSend_2_value.innerHTML = -100;
+    audio_card_channel_fxSend_2.value = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_2", -100);
+  }
+  else {
+    const nombre = "audio_card_channel_fxSend_2";
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_2", e.currentTarget.value);
+    recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
+  }
+});
+
+const audio_card_channel_fxSend_3 = document.getElementById("audio_card_channel_fxSend_3");
+audio_card_channel_fxSend_3.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    audio_card_channel_fxSend_3_preEq_volNode.volume.value = -100;
+    audio_card_channel_fxSend_3_postEq_volNode.volume.value = -100;
+    audio_card_channel_fxSend_3_postFdr_volNode.volume.value = -100;
+    audio_card_channel_fxSend_3_value.innerHTML = -100;
+    audio_card_channel_fxSend_3.value = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_3", -100);
+  }
+  else {
+    const nombre = "audio_card_channel_fxSend_3";
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_3", e.currentTarget.value);
+    recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
+  }
+});
+
+const audio_card_channel_fxSend_4 = document.getElementById("audio_card_channel_fxSend_4");
+audio_card_channel_fxSend_4.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    audio_card_channel_fxSend_4_preEq_volNode.volume.value = -100;
+    audio_card_channel_fxSend_4_postEq_volNode.volume.value = -100;
+    audio_card_channel_fxSend_4_postFdr_volNode.volume.value = -100;
+    audio_card_channel_fxSend_4_value.innerHTML = -100;
+    audio_card_channel_fxSend_4.value = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_4", -100);
+  }
+  else {
+    const nombre = "audio_card_channel_fxSend_4";
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_4", e.currentTarget.value);
+    recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
+  }
+});
+
+
 const channel_1_fxSend_1_pre_EQ_Button = document.getElementById("channel_1_fxSend_1_pre_EQ_Button");
 const channel_1_fxSend_1_post_EQ_Button = document.getElementById("channel_1_fxSend_1_post_EQ_Button");
 const channel_1_fxSend_1_post_fader_Button = document.getElementById("channel_1_fxSend_1_post_fader_Button");
@@ -4246,6 +4562,23 @@ fx_4_fxSend_4.addEventListener("change", function (e) {
 //********     CHANNEL 1 - 4 RMS METERS     **************************************************************
 //*************************************************************************************
 //*************************************************************************************
+const audio_card_channel_rms_meter_inner = document.getElementById("audio_card_channel_rms_meter_inner");
+const audio_card_channel_filter_bypass_meter_inner = document.getElementById("audio_card_channel_filter_bypass_meter_inner");
+const audio_card_channel_filter_allpass_meter_inner = document.getElementById("audio_card_channel_filter_allpass_meter_inner");
+const audio_card_channel_shelf_meter_inner = document.getElementById("audio_card_channel_shelf_meter_inner");
+const audio_card_channel_peaking_meter_inner = document.getElementById("audio_card_channel_peaking_meter_inner");
+const audio_card_channel_tascam_424_Hi_meter_inner = document.getElementById("audio_card_channel_tascam_424_Hi_meter_inner");
+const audio_card_channel_tascam_424_Mid_meter_inner = document.getElementById("audio_card_channel_tascam_424_Mid_meter_inner");
+const audio_card_channel_tascam_424_Low_meter_inner = document.getElementById("audio_card_channel_tascam_424_Low_meter_inner");
+const audio_card_channel_eq3_meter_inner = document.getElementById("audio_card_channel_eq3_meter_inner");
+const audio_card_channel_filter_meter_inner = document.getElementById("audio_card_channel_filter_meter_inner");
+const audio_card_channel_rms_comp_bypass_meter_inner = document.getElementById("audio_card_channel_rms_comp_bypass_meter_inner");
+const audio_card_channel_rms_comp_meter_inner = document.getElementById("audio_card_channel_rms_comp_meter_inner");
+const audio_card_channel_rms_gate_bypass_meter_inner = document.getElementById("audio_card_channel_rms_gate_bypass_meter_inner");
+const audio_card_channel_rms_gate_meter_inner = document.getElementById("audio_card_channel_rms_gate_meter_inner");
+const audio_card_channel_rms_limiter_bypass_meter_inner = document.getElementById("audio_card_channel_rms_limiter_bypass_meter_inner");
+const audio_card_channel_rms_limiter_meter_inner = document.getElementById("audio_card_channel_rms_limiter_meter_inner");
+
 const channel_1_rms_meter_inner = document.getElementById("channel_1_rms_meter_inner");
 const channel_1_filter_bypass_meter_inner = document.getElementById("channel_1_filter_bypass_meter_inner");
 const channel_1_filter_allpass_meter_inner = document.getElementById("channel_1_filter_allpass_meter_inner");
@@ -4372,6 +4705,58 @@ const fx_4_rms_meter_inner = document.getElementById("fx_4_rms_meter_inner");
 //*********     CHANNEL 1  COMPRESSOR       *************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
+
+const audio_card_channel_compressor_On_Off_Button = document.getElementById("audio_card_channel_compressor_On_Off_Button");
+const audio_card_channel_dynamics_reduction_text = document.getElementById("audio_card_channel_dynamics_reduction_text");
+const audio_card_channel_dynamics_reduction_value = document.getElementById("audio_card_channel_dynamics_reduction_value");
+const audio_card_channel_dynamics_compressor_div = document.getElementById("audio_card_channel_dynamics_compressor_div");
+
+const audio_card_channel_dynamics_ratio = document.getElementById("audio_card_channel_dynamics_ratio");
+const audio_card_channel_dynamics_ratio_value = document.getElementById("audio_card_channel_dynamics_ratio_value");
+audio_card_channel_dynamics_ratio.addEventListener("change", function (e) {
+  audio_card_channel_dynamics_compressorNode.ratio.value = e.currentTarget.value;
+  audio_card_channel_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  audio_card_channel_dynamics_reduction_value.innerHTML = audio_card_channel_dynamics_compressorNode.reduction;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_dynamics_ratio", e.currentTarget.value);
+});
+
+const audio_card_channel_dynamics_threshold = document.getElementById("audio_card_channel_dynamics_threshold");
+const audio_card_channel_dynamics_threshold_value = document.getElementById("audio_card_channel_dynamics_threshold_value");
+audio_card_channel_dynamics_threshold.addEventListener("change", function (e) {
+  audio_card_channel_dynamics_compressorNode.threshold.value = e.currentTarget.value;
+  audio_card_channel_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  audio_card_channel_dynamics_reduction_value.innerHTML = audio_card_channel_dynamics_compressorNode.reduction;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_dynamics_threshold", e.currentTarget.value);
+});
+
+const audio_card_channel_dynamics_release = document.getElementById("audio_card_channel_dynamics_release");
+const audio_card_channel_dynamics_release_value = document.getElementById("audio_card_channel_dynamics_release_value");
+audio_card_channel_dynamics_release.addEventListener("change", function (e) {
+  audio_card_channel_dynamics_compressorNode.release.value = e.currentTarget.value;
+  audio_card_channel_dynamics_release_value.innerHTML = `${e.currentTarget.value}`;
+  audio_card_channel_dynamics_reduction_value.innerHTML = audio_card_channel_dynamics_compressorNode.reduction;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_dynamics_release", e.currentTarget.value);
+});
+
+const audio_card_channel_dynamics_attack = document.getElementById("audio_card_channel_dynamics_attack");
+const audio_card_channel_dynamics_attack_value = document.getElementById("audio_card_channel_dynamics_attack_value");
+audio_card_channel_dynamics_attack.addEventListener("change", function (e) {
+  audio_card_channel_dynamics_compressorNode.attack.value = e.currentTarget.value;
+  audio_card_channel_dynamics_attack_value.innerHTML = `${e.currentTarget.value}`;
+  audio_card_channel_dynamics_reduction_value.innerHTML = audio_card_channel_dynamics_compressorNode.reduction;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_dynamics_attack", e.currentTarget.value);
+});
+
+const audio_card_channel_dynamics_knee = document.getElementById("audio_card_channel_dynamics_knee");
+const audio_card_channel_dynamics_knee_value = document.getElementById("audio_card_channel_dynamics_knee_value");
+audio_card_channel_dynamics_knee.addEventListener("change", function (e) {
+  audio_card_channel_dynamics_compressorNode.knee.value = e.currentTarget.value;
+  audio_card_channel_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  audio_card_channel_dynamics_reduction_value.innerHTML = audio_card_channel_dynamics_compressorNode.reduction;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_dynamics_knee", e.currentTarget.value);
+});
+
+
 const channel_1_compressor_On_Off_Button = document.getElementById("channel_1_compressor_On_Off_Button");
 const channel_1_dynamics_reduction_text = document.getElementById("channel_1_dynamics_reduction_text");
 const channel_1_dynamics_reduction_value = document.getElementById("channel_1_dynamics_reduction_value");
@@ -4778,6 +5163,27 @@ fx_4_dynamics_knee.addEventListener("change", function (e) {
 //*********************************************************************************************** */
 //*********************************************************************************************** */
 //Gate player 1
+
+const audio_card_channel_gate_On_Off_Button = document.getElementById("audio_card_channel_gate_On_Off_Button");
+const audio_card_channel_dynamics_gate_div = document.getElementById("audio_card_channel_dynamics_gate_div");
+audio_card_channel_dynamics_gate_div.style.display = "none";
+
+const audio_card_channel_gate_threshold = document.getElementById("audio_card_channel_gate_threshold");
+const audio_card_channel_gate_threshold_value = document.getElementById("audio_card_channel_gate_threshold_value");
+audio_card_channel_gate_threshold.addEventListener("change", function (e) {
+  audio_card_channel_dynamics_gateNode.threshold = e.currentTarget.value;
+  audio_card_channel_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_gate_threshold", e.currentTarget.value);
+});
+
+const audio_card_channel_gate_smoothing = document.getElementById("audio_card_channel_gate_smoothing");
+const audio_card_channel_gate_smoothing_value = document.getElementById("audio_card_channel_gate_smoothing_value");
+audio_card_channel_gate_smoothing.addEventListener("change", function (e) {
+  audio_card_channel_dynamics_gateNode.smoothing = e.currentTarget.value;
+  audio_card_channel_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_gate_smoothing", e.currentTarget.value);
+});
+
 const channel_1_gate_On_Off_Button = document.getElementById("channel_1_gate_On_Off_Button");
 const channel_1_dynamics_gate_div = document.getElementById("channel_1_dynamics_gate_div");
 channel_1_dynamics_gate_div.style.display = "none";
@@ -4950,6 +5356,19 @@ fx_4_gate_smoothing.addEventListener("change", function (e) {
 //***********  CHANNEL 1-4 LIMITER          ******************************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
+
+const audio_card_channel_limiter_On_Off_Button = document.getElementById("audio_card_channel_limiter_On_Off_Button");
+const audio_card_channel_dynamics_limiter_div = document.getElementById("audio_card_channel_dynamics_limiter_div");
+audio_card_channel_dynamics_limiter_div.style.display = "none";
+
+const audio_card_channel_limiter_threshold = document.getElementById("audio_card_channel_limiter_threshold");
+const audio_card_channel_limiter_threshold_value = document.getElementById("audio_card_channel_limiter_threshold_value");
+audio_card_channel_limiter_threshold.addEventListener("change", function (e) {
+  audio_card_channel_dynamics_limiterNode.threshold.value = e.currentTarget.value;
+  audio_card_channel_limiter_threshold_value.innerHTML = audio_card_channel_dynamics_limiterNode.threshold.value;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_limiter_threshold", e.currentTarget.value);
+});
+
 const channel_1_limiter_On_Off_Button = document.getElementById("channel_1_limiter_On_Off_Button");
 const channel_1_dynamics_limiter_div = document.getElementById("channel_1_dynamics_limiter_div");
 channel_1_dynamics_limiter_div.style.display = "none";
@@ -5060,9 +5479,109 @@ fx_4_limiter_threshold.addEventListener("change", function (e) {
 
 //*********************************************************************************************** */
 //*********************************************************************************************** */
-//************************   Tascam 424 channel 1      ********************************************************** */
+//************************   Tascam 424 channel 1-4      ********************************************************** */
 //*********************************************************************************************** */
 //*********************************************************************************************** */
+
+const audio_card_channel_filter_eq_On_Tascam_Button = document.getElementById("audio_card_channel_filter_eq_On_Tascam_Button");
+const audio_card_channel_filter_eq_On_EQ3_Button = document.getElementById("audio_card_channel_filter_eq_On_EQ3_Button");
+
+const audio_card_channel_tascam_in_Node = new Tone.Volume(0);
+const audio_card_channel_tascam_out_Node = new Tone.Volume(0);
+
+//LOW SHELF
+const audio_card_channel_tascam_LowShelf_gain = document.getElementById("audio_card_channel_tascam_LowShelf_gain");
+const audio_card_channel_tascam_LowShelf_gain_value = document.getElementById("audio_card_channel_tascam_LowShelf_gain_value");
+const audio_card_channel_tascam_LowShelf_gain_text = document.getElementById("audio_card_channel_tascam_LowShelf_gain_text");
+const audio_card_channel_tascam_LowShelf_FilterNode = new Tone.Filter();
+
+audio_card_channel_tascam_LowShelf_FilterNode.set({
+  frequency: 100,
+  type: "lowshelf",
+  gain: 0,
+  rolloff: -24,
+});
+audio_card_channel_tascam_LowShelf_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
+    audio_card_channel_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
+    audio_card_channel_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_tascam_LowShelf_gain", e.currentTarget.value);
+  }
+  else {
+    alert("ELSE audio_card_channel_tascam_LowShelf_gain");
+  }
+});
+
+//SEMI PARAMETRIC
+const audio_card_channel_tascam_Mid_SemiParam_FilterNode = new Tone.Filter();
+audio_card_channel_tascam_Mid_SemiParam_FilterNode.set({
+  frequency: 1000,
+  type: "bandpass",
+  gain: 10,
+  q: 0.2,
+  rolloff: -24,
+});
+
+const audio_card_channel_tascam_Mid_SemiParam_gain = document.getElementById("audio_card_channel_tascam_Mid_SemiParam_gain");
+const audio_card_channel_tascam_Mid_SemiParam_gain_value = document.getElementById("audio_card_channel_tascam_Mid_SemiParam_gain_value");
+const audio_card_channel_tascam_Mid_SemiParam_gain_text = document.getElementById("audio_card_channel_tascam_Mid_SemiParam_gain_text");
+const audio_card_channel_tascam_Mid_SemiParam_frequency = document.getElementById("audio_card_channel_tascam_Mid_SemiParam_frequency");
+const audio_card_channel_tascam_Mid_SemiParam_frequency_value = document.getElementById("audio_card_channel_tascam_Mid_SemiParam_frequency_value");
+const audio_card_channel_tascam_Mid_SemiParam_frequency_text = document.getElementById("audio_card_channel_tascam_Mid_SemiParam_frequency_text");
+audio_card_channel_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
+    audio_card_channel_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
+    console.log("audio_card_channel_tascam_Mid_SemiParam_FilterNode.gain.value:  " + audio_card_channel_tascam_Mid_SemiParam_FilterNode.gain.value)
+    audio_card_channel_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+  }
+  else {
+    alert("ELSE audio_card_channel_tascam_Mid_SemiParam_gain");
+  }
+});
+audio_card_channel_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
+    audio_card_channel_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
+    audio_card_channel_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+  }
+  else {
+    alert("ELSE audio_card_channel_tascam_Mid_SemiParam_frec");
+  }
+});
+
+//HIGH SHELF
+const audio_card_channel_tascam_HighShelf_gain = document.getElementById("audio_card_channel_tascam_HighShelf_gain");
+const audio_card_channel_tascam_HighShelf_gain_value = document.getElementById("audio_card_channel_tascam_HighShelf_gain_value");
+const audio_card_channel_tascam_HighShelf_gain_text = document.getElementById("audio_card_channel_tascam_HighShelf_gain_text");
+
+const audio_card_channel_tascam_HighShelf_FilterNode = new Tone.Filter();
+audio_card_channel_tascam_HighShelf_FilterNode.set({
+  frequency: 10000,
+  type: "highshelf",
+  gain: 0,
+  rolloff: -24,
+});
+
+audio_card_channel_tascam_HighShelf_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
+    audio_card_channel_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
+    audio_card_channel_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_tascam_HighShelf_gain", e.currentTarget.value);
+  }
+  else {
+    alert("ELSE audio_card_channel_tascam_HighShelf_gain");
+  }
+});
+//CAMBIAR ESTE SETEO
+audio_card_channel_tascam_LowShelf_FilterNode.connect(audio_card_channel_tascam_out_Node);
+audio_card_channel_tascam_Mid_SemiParam_FilterNode.connect(audio_card_channel_tascam_out_Node);
+audio_card_channel_tascam_HighShelf_FilterNode.connect(audio_card_channel_tascam_out_Node);
+
+audio_card_channel_tascam_in_Node.fan(audio_card_channel_tascam_LowShelf_FilterNode,
+  audio_card_channel_tascam_Mid_SemiParam_FilterNode, audio_card_channel_tascam_HighShelf_FilterNode);
+
+
 const channel_1_filter_eq_On_Tascam_Button = document.getElementById("channel_1_filter_eq_On_Tascam_Button");
 const channel_1_filter_eq_On_EQ3_Button = document.getElementById("channel_1_filter_eq_On_EQ3_Button");
 
@@ -5863,6 +6382,7 @@ fx_4_tascam_in_Node.fan(fx_4_tascam_LowShelf_FilterNode,
 //*****************   CHANNEL 1 SETTINGS         *****************************************************************
 //*************************************************************************************
 //*************************************************************************************
+const audio_card_channel_filter_eq_bypass_Button = document.getElementById("audio_card_channel_filter_eq_bypass_Button");
 const channel_1_filter_eq_bypass_Button = document.getElementById("channel_1_filter_eq_bypass_Button");
 const channel_2_filter_eq_bypass_Button = document.getElementById("channel_2_filter_eq_bypass_Button");
 const channel_3_filter_eq_bypass_Button = document.getElementById("channel_3_filter_eq_bypass_Button");
@@ -5877,6 +6397,21 @@ const fx_4_filter_eq_bypass_Button = document.getElementById("fx_4_filter_eq_byp
 //*******    GLOBAL VARs          **************************************************************************** */
 //*********************************************************************************** */
 //*********************************************************************************** */
+var audio_card_channel_filter_eq_type = "empty";
+var audio_card_channel_filter_eq_selection = "bypass";
+var audio_card_channel_compressor_On_Off_Button_State = "off";
+var audio_card_channel_gate_On_Off_Button_State = "off";
+var audio_card_channel_limiter_On_Off_Button_State = "off";
+var audio_card_channel_fxSend_1_state = "PostEQ";
+var audio_card_channel_fxSend_2_state = "PostEQ";
+var audio_card_channel_fxSend_3_state = "PostEQ";
+var audio_card_channel_fxSend_4_state = "PostEQ";
+var is_audio_card_channel_fxSend_1_On = true;
+var is_audio_card_channel_fxSend_2_On = true;
+var is_audio_card_channel_fxSend_3_On = true;
+var is_audio_card_channel_fxSend_4_On = true;
+//--------------------------------
+
 var channel_1_filter_eq_type = "empty";
 var channel_1_filter_eq_selection = "bypass";
 var channel_1_compressor_On_Off_Button_State = "off";
@@ -6018,6 +6553,25 @@ var is_fx_4_fxSend_4_On = true;
 //*******    ALL SETTINGS FOR SCREEN BUTTONS, FADERS, NODES TO  START          **************************************************************************** */
 //***************     CHANNEL 1       ******************************************************************** */
 //*********************************************************************************** */
+
+audio_card_channel_filter_eq_bypass_Button.style.backgroundColor = "green";
+audio_card_channel_filter_eq_On_Button.style.backgroundColor = "white";
+
+audio_card_channel_compressor_On_Off_Button.style.backgroundColor = "white";
+audio_card_channel_compressor_On_Off_Button.innerText = "Off";
+
+audio_card_channel_gate_On_Off_Button.style.backgroundColor = "white";
+audio_card_channel_gate_On_Off_Button.innerText = "Off";
+
+audio_card_channel_limiter_On_Off_Button.style.backgroundColor = "white";
+audio_card_channel_limiter_On_Off_Button.innerText = "Off";
+
+audio_card_channel_fxSend_1_post_EQ_Button.style.backgroundColor = "green";
+audio_card_channel_fxSend_2_post_EQ_Button.style.backgroundColor = "green";
+audio_card_channel_fxSend_3_post_EQ_Button.style.backgroundColor = "green";
+audio_card_channel_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
+
+
 channel_1_filter_eq_bypass_Button.style.backgroundColor = "green";
 channel_1_filter_eq_On_Button.style.backgroundColor = "white";
 
@@ -6159,6 +6713,15 @@ fx_4_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
 //***********    Apaga visual todos los EQ     ****************************************
 //*************************************************************************************
 //*************************************************************************************
+//audio card
+audio_card_channel_allpass_controls_div.style.display = "none";
+audio_card_channel_shelf_controls_div.style.display = "none";
+audio_card_channel_peaking_controls_div.style.display = "none";
+audio_card_channel_tascam_424_controls_div.style.display = "none";
+audio_card_channel_eq3_controls_div.style.display = "none";
+audio_card_channel_empty_controls_div.style.display = "none";
+audio_card_channel_bypass_controls_div.style.display = "block";
+
 //channel 1
 channel_1_allpass_controls_div.style.display = "none";
 channel_1_shelf_controls_div.style.display = "none";
@@ -7947,20 +8510,25 @@ noiseSynth_4_div.style.display = "none";
 //Tone.UserMedia
 //PARA ABRIR EL MICROFONO
 /*
-var placa_Audio = new Tone.UserMedia();
-placa_Audio.open().then(function(){
-//alert("dESEA ABRIR PLACA DE AUDIO");
-console.log("supported: " + Tone.UserMedia.supported);
-console.log("state: " + placa_Audio.state);
-console.log("groupId: " + placa_Audio.groupId);
-console.log("deviceId: " + Tone.UserMedia.deviceId);
-console.log("label: " + Tone.UserMedia.label);
- placa_Audio.connect(masterVolumeNode);
- placa_Audio.debug;
-Tone.UserMedia.enumerateDevices().then(function(devices){
-console.log(devices);
-});
-});
+try {
+  var audioCard = new Tone.UserMedia();
+  audioCard.open().then(function () {
+    //alert("dESEA ABRIR PLACA DE AUDIO");
+    console.log("supported: " + Tone.UserMedia.supported);
+    console.log("state: " + audioCard.state);
+    console.log("groupId: " + audioCard.groupId);
+    console.log("deviceId: " + Tone.UserMedia.deviceId);
+    console.log("label: " + Tone.UserMedia.label);
+    audioCard.connect(masterVolumeNode);
+    audioCard.debug;
+    Tone.UserMedia.enumerateDevices().then(function (devices) {
+      console.log(devices);
+    });
+  });
+}
+catch (error) {
+  console.log("error.name: " + error.name)
+}
 /**/
 
 //***************************************************************
@@ -8045,7 +8613,10 @@ class MixEventObj {
     let mixEventtest = new MixEventObj(atTime, element, action, newValue, rampTime);
     List.push(mixEventtest);
   }
-
+  static logIntoListaBuffers(ListOfBuffers, atTime, element, action, newValue, rampTime) {
+    let mixEventtest = new MixEventObj(atTime, element, action, newValue, rampTime);
+    ListOfBuffers.push(mixEventtest);
+  }
 }//class MixEventObj
 
 class MixEventSource extends MixEventObj {
@@ -8089,129 +8660,12 @@ channel_4_RMS_all.style.display = "none";
 const fx_1_RMS_all = document.getElementById("fx_1_RMS_all");
 fx_1_RMS_all.style.display = "none";
 
+const fx_2_RMS_all = document.getElementById("fx_2_RMS_all");
+fx_2_RMS_all.style.display = "none";
 //*****************************************************************************************
 //*****************************************************************************************
 //********  INNER HTML player 1            ************************************************
 //*****************************************************************************************
-//INNER HTML channel 1
-//player_1_Node.volume.value = -6;
-player_1_volume.value = -6;
-player_1_volume_value.innerHTML = "-6";
-player_1_playback_rate_value.innerHTML = 100;
-channel_1_songName.innerHTML = `No Song Loaded`;
-channel_1_filter_frequency_allpass_value.innerHTML = "20";
-channel_1_filter_frequency_shelf_value.innerHTML = "20";
-channel_1_filter_frequency_peaking_value.innerHTML = "20";
-channel_1_filter_Q_allpass_value.innerHTML = "0";
-channel_1_filter_Q_peaking_value.innerHTML = "0";
-channel_1_filter_detune_allpass_value.innerHTML = "0";
-channel_1_filter_detune_shelf_value.innerHTML = "0";
-channel_1_filter_detune_peaking_value.innerHTML = "0";
-channel_1_filter_gain_shelf_value.innerHTML = "0";
-channel_1_filter_gain_peaking_value.innerHTML = "0";
-channel_1_fxSend_1_value.innerHTML = "0";
-channel_1_fxSend_2_value.innerHTML = "0";
-channel_1_fxSend_3_value.innerHTML = "0";
-channel_1_fxSend_4_value.innerHTML = "0";
-channel_1_dynamics_ratio.innerHTML = 0;
-channel_1_dynamics_threshold.innerHTML = 0;
-channel_1_dynamics_release.innerHTML = 0;
-channel_1_dynamics_attack.innerHTML = 0;
-channel_1_dynamics_knee.innerHTML = 0;
-channel_1_dynamics_ratio_value.innerHTML = 0;
-channel_1_dynamics_threshold_value.innerHTML = 0;
-channel_1_dynamics_release_value.innerHTML = 0;
-channel_1_dynamics_attack_value.innerHTML = 0;
-channel_1_dynamics_knee_value.innerHTML = 0;
-
-//-----------------------------------------------
-//INNER HTML channel 2
-player_2_volume_value.innerHTML = "-40";
-player_2_playback_rate_value.innerHTML = 100;
-channel_2_songName.innerHTML = `No Song Loaded`;
-channel_2_filter_frequency_allpass_value.innerHTML = "20";
-channel_2_filter_frequency_shelf_value.innerHTML = "20";
-channel_2_filter_frequency_peaking_value.innerHTML = "20";
-channel_2_filter_Q_allpass_value.innerHTML = "0";
-channel_2_filter_Q_peaking_value.innerHTML = "0";
-channel_2_filter_detune_allpass_value.innerHTML = "0";
-channel_2_filter_detune_shelf_value.innerHTML = "0";
-channel_2_filter_detune_peaking_value.innerHTML = "0";
-channel_2_filter_gain_shelf_value.innerHTML = "0";
-channel_2_filter_gain_peaking_value.innerHTML = "0";
-channel_2_fxSend_1_value.innerHTML = "0";
-channel_2_fxSend_2_value.innerHTML = "0";
-channel_2_fxSend_3_value.innerHTML = "0";
-channel_2_fxSend_4_value.innerHTML = "0";
-channel_2_dynamics_ratio.innerHTML = 0;
-channel_2_dynamics_threshold.innerHTML = 0;
-channel_2_dynamics_release.innerHTML = 0;
-channel_2_dynamics_attack.innerHTML = 0;
-channel_2_dynamics_knee.innerHTML = 0;
-channel_2_dynamics_ratio_value.innerHTML = 0;
-channel_2_dynamics_threshold_value.innerHTML = 0;
-channel_2_dynamics_release_value.innerHTML = 0;
-channel_2_dynamics_attack_value.innerHTML = 0;
-channel_2_dynamics_knee_value.innerHTML = 0;
-
-//-----------------------------------------------
-//INNER HTML player 3
-player_3_volume_value.innerHTML = "-40";
-player_3_playback_rate_value.innerHTML = 100;
-channel_3_songName.innerHTML = `No Song Loaded`;
-channel_3_filter_frequency_allpass_value.innerHTML = "20";
-channel_3_filter_frequency_shelf_value.innerHTML = "20";
-channel_3_filter_frequency_peaking_value.innerHTML = "20";
-channel_3_filter_Q_allpass_value.innerHTML = "0";
-channel_3_filter_Q_peaking_value.innerHTML = "0";
-channel_3_filter_detune_allpass_value.innerHTML = "0";
-channel_3_filter_detune_shelf_value.innerHTML = "0";
-channel_3_filter_detune_peaking_value.innerHTML = "0";
-channel_3_filter_gain_shelf_value.innerHTML = "0";
-channel_3_filter_gain_peaking_value.innerHTML = "0";
-channel_3_fxSend_1_value.innerHTML = "0";
-channel_3_fxSend_2_value.innerHTML = "0";
-channel_3_fxSend_3_value.innerHTML = "0";
-channel_3_fxSend_4_value.innerHTML = "0";
-channel_3_dynamics_ratio.innerHTML = 0;
-channel_3_dynamics_threshold.innerHTML = 0;
-channel_3_dynamics_release.innerHTML = 0;
-channel_3_dynamics_attack.innerHTML = 0;
-channel_3_dynamics_knee.innerHTML = 0;
-channel_3_dynamics_ratio_value.innerHTML = 0;
-channel_3_dynamics_threshold_value.innerHTML = 0;
-channel_3_dynamics_release_value.innerHTML = 0;
-channel_3_dynamics_attack_value.innerHTML = 0;
-channel_3_dynamics_knee_value.innerHTML = 0;
-//-----------------------------------------------
-//INNER HTML player 4
-player_4_volume_value.innerHTML = "-40";
-player_4_playback_rate_value.innerHTML = 100;
-channel_4_songName.innerHTML = `No Song Loaded`;
-channel_4_filter_frequency_allpass_value.innerHTML = "20";
-channel_4_filter_frequency_shelf_value.innerHTML = "20";
-channel_4_filter_frequency_peaking_value.innerHTML = "20";
-channel_4_filter_Q_allpass_value.innerHTML = "0";
-channel_4_filter_Q_peaking_value.innerHTML = "0";
-channel_4_filter_detune_allpass_value.innerHTML = "0";
-channel_4_filter_detune_shelf_value.innerHTML = "0";
-channel_4_filter_detune_peaking_value.innerHTML = "0";
-channel_4_filter_gain_shelf_value.innerHTML = "0";
-channel_4_filter_gain_peaking_value.innerHTML = "0";
-channel_4_fxSend_1_value.innerHTML = "0";
-channel_4_fxSend_2_value.innerHTML = "0";
-channel_4_fxSend_3_value.innerHTML = "0";
-channel_4_fxSend_4_value.innerHTML = "0";
-channel_4_dynamics_ratio.innerHTML = 0;
-channel_4_dynamics_threshold.innerHTML = 0;
-channel_4_dynamics_release.innerHTML = 0;
-channel_4_dynamics_attack.innerHTML = 0;
-channel_4_dynamics_knee.innerHTML = 0;
-channel_4_dynamics_ratio_value.innerHTML = 0;
-channel_4_dynamics_threshold_value.innerHTML = 0;
-channel_4_dynamics_release_value.innerHTML = 0;
-channel_4_dynamics_attack_value.innerHTML = 0;
-channel_4_dynamics_knee_value.innerHTML = 0;
 
 //************************************************************************** */
 //************************************************************************** */
@@ -8475,14 +8929,14 @@ const fx_1_chorus_spread_value = document.getElementById("fx_1_chorus_spread_val
 fx_1_chorus_spread.addEventListener("change", function (e) {
   fx_1_chorus_Node.spread = e.currentTarget.value;
   fx_1_chorus_spread_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_chorus_spread", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_chorus_spread", e.currentTarget.value);
 });
  
 const fx_1_chorus_feedback = document.getElementById("fx_1_chorus_feedback");
 const fx_1_chorus_feedback_value = document.getElementById("fx_1_chorus_feedback_value");
 fx_1_chorus_feedback.addEventListener("change", function (e) {
-  fx_1_chorus_Node.feedback.value = e.currentTarget.value;
-  fx_1_chorus_feedback_value.innerHTML = `${e.currentTarget.value}`;
+  fx_1_chorus_Node.delayTime.value = e.currentTarget.value;
+  fx_1_chorus_feedbdelayTimee.innerHTML = `${e.currentTarget.value1`;
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_chorus_feedback", e.currentTarget.value);
 });
  
@@ -9304,6 +9758,55 @@ fx_4_reverb_decay.addEventListener("change", function (e) {
 //************************************************************************** */
 //************************************************************************** */
 
+const audio_card_channel_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
+const audio_card_channel_rms_meter = new Tone.Meter(0);
+audio_card_channel_volNode.fan(audio_card_channel_rms_meter);
+
+const audio_card_channel_dynamics_limiterNode_Bypass = new Tone.Volume(0).connect(audio_card_channel_volNode);
+const audio_card_channel_dynamics_gateNode_Bypass = new Tone.Volume(0).connect(audio_card_channel_dynamics_limiterNode_Bypass);
+const audio_card_channel_dynamics_compressorNode_Bypass = new Tone.Volume(0).connect(audio_card_channel_dynamics_gateNode_Bypass);
+const audio_card_channel_filter_Bypass = new Tone.Volume(0).connect(audio_card_channel_dynamics_compressorNode_Bypass);
+
+const audio_card_channel_filter = new Tone.Filter();
+//audio_card_channel_filter.debug = true;
+audio_card_channel_filter.set({
+  frequency: 20000,
+  type: "lowpass",
+  Q: 0,
+  gain: 0,
+  rolloff: -96,
+});
+
+const audio_card_channel_panNode = new Tone.Panner(0).connect(audio_card_channel_filter_Bypass);
+
+const audio_card_channel_fxSend_1_preEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
+const audio_card_channel_fxSend_2_preEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
+const audio_card_channel_fxSend_3_preEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
+const audio_card_channel_fxSend_4_preEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
+
+const audio_card_channel_fxSend_1_postEq_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
+const audio_card_channel_fxSend_2_postEq_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
+const audio_card_channel_fxSend_3_postEq_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
+const audio_card_channel_fxSend_4_postEq_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
+
+const audio_card_channel_fxSend_1_postFdr_volNode = new Tone.Volume(-100).connect(fx_1_pingpong_Node);
+const audio_card_channel_fxSend_2_postFdr_volNode = new Tone.Volume(-100).connect(fx_2_pingpong_Node);
+const audio_card_channel_fxSend_3_postFdr_volNode = new Tone.Volume(-100).connect(fx_3_pingpong_Node);
+const audio_card_channel_fxSend_4_postFdr_volNode = new Tone.Volume(-100).connect(fx_4_pingpong_Node);
+
+const audio_card_channel_dynamics_limiterNode = new Tone.Limiter();
+const audio_card_channel_dynamics_gateNode = new Tone.Gate();
+const audio_card_channel_dynamics_compressorNode = new Tone.Compressor();
+
+audio_card_channel_panNode.fan(audio_card_channel_fxSend_1_preEq_volNode, audio_card_channel_fxSend_2_preEq_volNode, audio_card_channel_fxSend_3_preEq_volNode, audio_card_channel_fxSend_4_preEq_volNode);
+audio_card_channel_filter.fan(audio_card_channel_fxSend_1_postEq_volNode, audio_card_channel_fxSend_2_postEq_volNode, audio_card_channel_fxSend_3_postEq_volNode, audio_card_channel_fxSend_4_postEq_volNode);
+
+audio_card_channel_volNode.fan(audio_card_channel_fxSend_1_postFdr_volNode, audio_card_channel_fxSend_2_postFdr_volNode, audio_card_channel_fxSend_3_postFdr_volNode, audio_card_channel_fxSend_4_postFdr_volNode);
+//para tascam
+audio_card_channel_tascam_out_Node.fan(audio_card_channel_fxSend_1_postEq_volNode, audio_card_channel_fxSend_2_postEq_volNode, audio_card_channel_fxSend_3_postEq_volNode, audio_card_channel_fxSend_4_postEq_volNode);
+
+
+
 const channel_1_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
 const channel_1_rms_meter = new Tone.Meter(0);
 channel_1_volNode.fan(channel_1_rms_meter);
@@ -9344,7 +9847,9 @@ const channel_1_dynamics_limiterNode = new Tone.Limiter();
 const channel_1_dynamics_gateNode = new Tone.Gate();
 const channel_1_dynamics_compressorNode = new Tone.Compressor();
 
-const player_1_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(channel_1_panNode);
+//const player_1_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(channel_1_panNode);
+const player_1_Node = new Tone.Player().connect(channel_1_panNode);
+
 //player_1_Node.debug = true;
 
 player_1_Node.onstop = () => {
@@ -9730,6 +10235,105 @@ fx_4_tascam_out_Node.fan(fx_4_fxSend_1_postEq_volNode, fx_4_fxSend_2_postEq_volN
 //***********************    CHANNEL 1 EQ3    ******************* */
 //************************************************************************** */
 //************************************************************************** */
+
+const audio_card_channel_filter_eq3 = new Tone.EQ3();
+
+audio_card_channel_filter_eq3.set(
+  {
+    low: 0,
+    mid: 0,
+    high: 0,
+    lowFrequency: 400,
+    highFrequency: 2500
+  }
+);
+
+const audio_card_channel_EQ3_low_fader_gain = document.getElementById("audio_card_channel_EQ3_low_fader_gain");
+const audio_card_channel_EQ3_low_fader_gain_value = document.getElementById("audio_card_channel_EQ3_low_fader_gain_value");
+audio_card_channel_EQ3_low_fader_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    audio_card_channel_filter_eq3.low.value = -100;
+    audio_card_channel_EQ3_low_fader_gain_value.innerHTML = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_low_fader_gain", -100);
+  }
+  else {
+    audio_card_channel_filter_eq3.low.value = e.currentTarget.value;
+    audio_card_channel_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_low_fader_gain", e.currentTarget.value);
+  }
+});
+
+const audio_card_channel_EQ3_low_frequency_fader = document.getElementById("audio_card_channel_EQ3_low_frequency_fader");
+const audio_card_channel_EQ3_low_frequency_fader_value = document.getElementById("audio_card_channel_EQ3_low_frequency_fader_value");
+audio_card_channel_EQ3_low_frequency_fader.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    audio_card_channel_filter_eq3.lowFrequency.value = -100;
+    audio_card_channel_EQ3_low_frequency_fader_value.innerHTML = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_low_frequency_fader", -100);
+  }
+  else {
+    audio_card_channel_filter_eq3.lowFrequency.value = e.currentTarget.value;
+    audio_card_channel_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_low_frequency_fader", e.currentTarget.value);
+  }
+});
+
+const audio_card_channel_EQ3_mid_fader_gain = document.getElementById("audio_card_channel_EQ3_mid_fader_gain");
+const audio_card_channel_EQ3_mid_fader_gain_value = document.getElementById("audio_card_channel_EQ3_mid_fader_gain_value");
+audio_card_channel_EQ3_mid_fader_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    audio_card_channel_filter_eq3.mid.value = -100;
+    audio_card_channel_EQ3_mid_fader_gain_value.innerHTML = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_mid_fader_gain", -100);
+  }
+  else {
+    audio_card_channel_filter_eq3.mid.value = e.currentTarget.value;
+    audio_card_channel_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_mid_fader_gain", e.currentTarget.value);
+  }
+});
+
+const audio_card_channel_EQ3_hi_fader_gain = document.getElementById("audio_card_channel_EQ3_hi_fader_gain");
+const audio_card_channel_EQ3_hi_fader_gain_value = document.getElementById("audio_card_channel_EQ3_hi_fader_gain_value");
+audio_card_channel_EQ3_hi_fader_gain.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    audio_card_channel_filter_eq3.mid.value = -100;
+    audio_card_channel_EQ3_hi_fader_gain_value.innerHTML = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_hi_fader_gain", -100);
+  }
+  else {
+    audio_card_channel_filter_eq3.high.value = e.currentTarget.value;
+    audio_card_channel_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_hi_fader_gain", e.currentTarget.value);
+  }
+});
+
+const audio_card_channel_EQ3_high_frequency_fader = document.getElementById("audio_card_channel_EQ3_high_frequency_fader");
+const audio_card_channel_EQ3_high_frequency_value = document.getElementById("audio_card_channel_EQ3_high_frequency_value");
+audio_card_channel_EQ3_high_frequency_fader.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    audio_card_channel_filter_eq3.highFrequency.value = -100;
+    audio_card_channel_EQ3_high_frequency_value.innerHTML = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_high_frequency_fader", -100);
+  }
+  else {
+    audio_card_channel_filter_eq3.highFrequency.value = e.currentTarget.value;
+    audio_card_channel_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_high_frequency_fader", e.currentTarget.value);
+  }
+});
+
+const audio_card_channel_EQ3_Q_fader = document.getElementById("audio_card_channel_EQ3_Q_fader");
+const audio_card_channel_EQ3_Q_value = document.getElementById("audio_card_channel_EQ3_Q_value");
+audio_card_channel_EQ3_Q_fader.addEventListener("change", function (e) {
+  audio_card_channel_filter_eq3.Q.value = e.currentTarget.value;
+  audio_card_channel_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_Q_fader", e.currentTarget.value);
+});
+
+audio_card_channel_filter_eq3.fan(audio_card_channel_fxSend_1_postEq_volNode, audio_card_channel_fxSend_2_postEq_volNode, audio_card_channel_fxSend_3_postEq_volNode, audio_card_channel_fxSend_4_postEq_volNode);
+
+
 const channel_1_filter_eq3 = new Tone.EQ3();
 
 channel_1_filter_eq3.set(
@@ -10530,6 +11134,42 @@ player_3_Node.fan(player_3_rms_meter);
 
 const player_4_rms_meter = new Tone.Meter(0);
 player_4_Node.fan(player_4_rms_meter);
+
+const audio_card_channel_filter_bypass_meter = new Tone.Meter(0);
+audio_card_channel_filter_Bypass.fan(audio_card_channel_filter_bypass_meter);
+
+const audio_card_channel_rms_comp_bypass_meter = new Tone.Meter(0);
+audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_rms_comp_bypass_meter); //BORRAR ESTO LUEGO
+
+const audio_card_channel_rms_comp_meter = new Tone.Meter(0);
+audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_rms_comp_meter);
+
+const audio_card_channel_rms_gate_bypass_meter = new Tone.Meter(0);
+audio_card_channel_dynamics_gateNode_Bypass.connect(audio_card_channel_rms_gate_bypass_meter);
+
+const audio_card_channel_rms_gate_meter = new Tone.Meter(0);
+audio_card_channel_dynamics_gateNode.connect(audio_card_channel_rms_gate_meter);
+
+const audio_card_channel_rms_limiter_bypass_meter = new Tone.Meter(0);
+audio_card_channel_dynamics_limiterNode_Bypass.connect(audio_card_channel_rms_limiter_bypass_meter);
+
+const audio_card_channel_rms_limiter_meter = new Tone.Meter(0);
+audio_card_channel_dynamics_limiterNode.connect(audio_card_channel_rms_limiter_meter);
+
+const audio_card_channel_tascam_424_Hi_meter = new Tone.Meter(0);
+audio_card_channel_tascam_HighShelf_FilterNode.fan(audio_card_channel_tascam_424_Hi_meter);
+
+const audio_card_channel_tascam_424_Mid_meter = new Tone.Meter(0);
+audio_card_channel_tascam_Mid_SemiParam_FilterNode.fan(audio_card_channel_tascam_424_Mid_meter);
+
+const audio_card_channel_tascam_424_Low_meter = new Tone.Meter(0);
+audio_card_channel_tascam_LowShelf_FilterNode.fan(audio_card_channel_tascam_424_Low_meter);
+
+const audio_card_channel_filter_meter = new Tone.Meter(0);
+audio_card_channel_filter.connect(audio_card_channel_filter_meter);
+
+const audio_card_channel_eq3_meter = new Tone.Meter(0);
+audio_card_channel_filter_eq3.connect(audio_card_channel_eq3_meter);
 
 const channel_1_filter_bypass_meter = new Tone.Meter(0);
 channel_1_filter_Bypass.fan(channel_1_filter_bypass_meter);
@@ -12958,7 +13598,7 @@ function send(value, rampTo_newValue, rampTo_time) {
       }
       case "fx_4_filter_detune_shelf_rampTo": {
         fx_4_filter.detune.rampTo(`${rampTo_newValue.value}`, `${rampTo_time.value}`);
-        fx_4_filter_detune_value_shelf.innerHTML = `${rampTo_newValue.value}`;
+        fx_4_filter_detune_shelf_value.innerHTML = `${rampTo_newValue.value}`;
         fx_4_filter_detune_shelf.value = `${rampTo_newValue.value}`;
         break;
       }
@@ -14226,17 +14866,212 @@ function recieves_Number_Returns_url(song) {
   return `${array_Canciones[song].url_src}`;
 }//CLOSES recieves_Number_Returns_url
 
-//************************************************************************* */
-//********************************************************************* */
-//*********    EQ CHANNEL X     ************************************************************ */
-//********************************************************************* */
-//********************************************************************* */
 function channel_x_filter_eq_selection_foo(name, value) {
   /*
     alert("channel_x_filter_eq_selection_foo: " + value
       + "\n" + "name:  " + name);
     /* */
   switch (name) {
+    case "audio_card_channel": {
+      if (audio_card_channel_filter_eq_selection != value) {
+        switch (value) {
+          case "on": {
+            MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_eq_selection", value);
+            if (audio_card_channel_filter_eq_selection == "bypass") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_filter_Bypass);
+              audio_card_channel_panNode.connect(audio_card_channel_filter);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_filter_Bypass.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_filter_Bypass.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            else if (audio_card_channel_filter_eq_selection == "eq3") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_filter_eq3);
+              audio_card_channel_panNode.connect(audio_card_channel_filter);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_filter_eq3.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_filter_eq3.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            else if (audio_card_channel_filter_eq_selection == "tascam") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_tascam_in_Node);
+              audio_card_channel_panNode.connect(audio_card_channel_filter);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_tascam_out_Node.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_tascam_out_Node.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            switchState_filter_eq_selection("audio_card_channel_filter_eq_selection", "on");
+            hide_all_EQ_divs("audio_card");
+            switch (audio_card_channel_filter_eq_type) {
+              case "empty": {
+                audio_card_channel_empty_controls_div.style.display = "block";
+                break;
+              }
+              case "allpass": {
+                audio_card_channel_allpass_controls_div.style.display = "block";
+                break;
+              }
+              case "shelf": {
+                audio_card_channel_shelf_controls_div.style.display = "block";
+                break;
+              }
+              case "peaking": {
+                audio_card_channel_peaking_controls_div.style.display = "block";
+                break;
+              }
+              default: { break; }
+            }
+            break;
+          }
+          case "bypass": {
+            MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_eq_selection", value);
+            if (audio_card_channel_filter_eq_selection == "on") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_filter);
+              audio_card_channel_panNode.connect(audio_card_channel_filter_Bypass);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_filter.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter_Bypass.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_filter.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter_Bypass.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            else if (audio_card_channel_filter_eq_selection == "eq3") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_filter_eq3);
+              audio_card_channel_panNode.connect(audio_card_channel_filter_Bypass);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_filter_eq3.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter_Bypass.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_filter_eq3.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter_Bypass.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            else if (audio_card_channel_filter_eq_selection == "tascam") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_tascam_in_Node);
+              audio_card_channel_panNode.connect(audio_card_channel_filter_Bypass);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_tascam_out_Node.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter_Bypass.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_tascam_out_Node.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter_Bypass.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            hide_all_EQ_divs("audio_card");
+            audio_card_channel_bypass_controls_div.style.display = "block";
+            switchState_filter_eq_selection("audio_card_channel_filter_eq_selection", "bypass");
+            break;
+          }
+          case "eq3": {
+            MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_eq_selection", value);
+            if (audio_card_channel_filter_eq_selection == "on") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_filter);
+              audio_card_channel_panNode.connect(audio_card_channel_filter_eq3);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_filter.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter_eq3.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_filter.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter_eq3.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            else if (audio_card_channel_filter_eq_selection == "bypass") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_filter_Bypass);
+              audio_card_channel_panNode.connect(audio_card_channel_filter_eq3);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_filter_Bypass.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter_eq3.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_filter_Bypass.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter_eq3.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            else if (audio_card_channel_filter_eq_selection == "tascam") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_tascam_in_Node);
+              audio_card_channel_panNode.connect(audio_card_channel_filter_eq3);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_tascam_out_Node.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter_eq3.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_tascam_out_Node.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter_eq3.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            hide_all_EQ_divs("audio_card");
+            audio_card_channel_eq3_controls_div.style.display = "block";
+            switchState_filter_eq_selection("audio_card_channel_filter_eq_selection", "eq3");
+            break;
+          }
+          case "tascam": {
+            MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_eq_selection", value);
+            if (audio_card_channel_filter_eq_selection == "on") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_filter);
+              audio_card_channel_panNode.connect(audio_card_channel_tascam_in_Node);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_filter.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_tascam_out_Node.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_filter.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_tascam_out_Node.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            else if (audio_card_channel_filter_eq_selection == "bypass") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_filter_Bypass);
+              audio_card_channel_panNode.connect(audio_card_channel_tascam_in_Node);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_filter_Bypass.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_tascam_out_Node.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_filter_Bypass.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_tascam_out_Node.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            else if (audio_card_channel_filter_eq_selection == "eq3") {
+              audio_card_channel_panNode.disconnect(audio_card_channel_filter_eq3);
+              audio_card_channel_panNode.connect(audio_card_channel_tascam_in_Node);
+              if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_filter_eq3.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_tascam_out_Node.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+              }
+              if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_filter_eq3.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_tascam_out_Node.connect(audio_card_channel_dynamics_compressorNode);
+              }
+            }
+            hide_all_EQ_divs("audio_card");
+            audio_card_channel_tascam_424_controls_div.style.display = "block";
+            switchState_filter_eq_selection("audio_card_channel_filter_eq_selection", "tascam");
+            break;
+          }
+          default: { alert("DEFAULT channel_x_filter_eq_selection_foo value: " + value); break; }
+        }
+      }
+      else { alert("AUDIO_CARD_channel_filter_eq_selection != value ELSE"); }
+      break;
+    }
     case "channel_1": {
       if (channel_1_filter_eq_selection != value) {
         switch (value) {
@@ -14434,7 +15269,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
           default: { alert("DEFAULT channel_x_filter_eq_selection_foo value: " + value); break; }
         }
       }
-      else { alert("channel_x_filter_eq_selection != value ELSE"); }
+      else { alert("channel_1_filter_eq_selection != value ELSE"); }
       break;
     }
     case "channel_2": {
@@ -14630,7 +15465,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             switchState_filter_eq_selection("channel_2_filter_eq_selection", "tascam");
             break;
           }
-          default: { alert("channel_x_filter_eq_selection != value ELSE"); break; }
+          default: { alert("channel_2_filter_eq_selection != value ELSE"); break; }
         }
       }
       else { alert("channel_x_filter_eq_selection != value ELSE"); }
@@ -14831,7 +15666,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
           }
           default: { alert("DEFAULT channel_x_filter_eq_selection_foo value: " + value); break; }
         }
-      } else { alert("channel_x_filter_eq_selection != value ELSE"); }
+      } else { alert("channel_3_filter_eq_selection != value ELSE"); }
       break;
     }
     case "channel_4": {
@@ -15029,7 +15864,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
           }
           default: { alert("DEFAULT channel_x_filter_eq_selection_foo value: " + value); break; }
         }
-      } else { alert("channel_x_filter_eq_selection != value ELSE"); }
+      } else { alert("channel_4_filter_eq_selection != value ELSE"); }
       break;
     }
     case "fx_1": {
@@ -15843,14 +16678,268 @@ function channel_x_filter_eq_selection_foo(name, value) {
   }
 }
 
-//************************************************************************* */
-//********************************************************************* */
-//CHANNEL 1 FX SEND  ON OFF BUTTONS
-//********************************************************************* */
-//************************************************************
-
 function player_x_fxSend_x_state_foo(name, value) {
   switch (name) {
+    case "audio_card_channel_fxSend_1":
+      {
+        if (is_audio_card_channel_fxSend_1_On == true) {
+          if (audio_card_channel_fxSend_1_state != value) {
+            switch (audio_card_channel_fxSend_1_state) {
+              case "PreEQ": {
+                if (value == "PostEQ") {
+                  audio_card_channel_fxSend_1_postEq_volNode.volume.value = audio_card_channel_fxSend_1_preEq_volNode.volume.value;
+                  audio_card_channel_fxSend_1_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_1_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_1_state = "PostEQ";
+                }
+                else if (value == "PostFdr") {
+                  audio_card_channel_fxSend_1_postFdr_volNode.volume.value = audio_card_channel_fxSend_1_preEq_volNode.volume.value;
+                  audio_card_channel_fxSend_1_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_1_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_1_state = "PostFdr";
+                }
+                break;
+              }
+              case "PostEQ": {
+                if (value == "PreEQ") {
+                  audio_card_channel_fxSend_1_preEq_volNode.volume.value = audio_card_channel_fxSend_1_postEq_volNode.volume.value;
+                  audio_card_channel_fxSend_1_postEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_1_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_1_state = "PreEQ";
+                }
+                else if (value == "PostFdr") {
+                  audio_card_channel_fxSend_1_postFdr_volNode.volume.value = audio_card_channel_fxSend_1_postEq_volNode.volume.value;
+                  audio_card_channel_fxSend_1_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_1_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_1_state = "PostFdr";
+                }
+                break;
+              }
+              case "PostFdr": {
+                if (value == "PostEQ") {
+                  audio_card_channel_fxSend_1_postEq_volNode.volume.value = audio_card_channel_fxSend_1_postFdr_volNode.volume.value;
+                  audio_card_channel_fxSend_1_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_1_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_1_state = "PostEQ";
+                }
+                else if (value == "PreEQ") {
+                  audio_card_channel_fxSend_1_preEq_volNode.volume.value = audio_card_channel_fxSend_1_postFdr_volNode.volume.value;
+                  audio_card_channel_fxSend_1_postFdr_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_1_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_1_state = "PreEQ";
+                }
+                break;
+              }
+              default: { alert("DEFAULT switch(audio_card_channel_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
+            }
+          }
+          else { }
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_1_state", value);
+          break;
+        }
+        else { alert("is_audio_card_channel_fxSend_1_On == FALSE"); }
+      }
+    case "audio_card_channel_fxSend_2":
+      {
+        if (is_audio_card_channel_fxSend_2_On == true) {
+          if (audio_card_channel_fxSend_2_state != value) {
+            switch (audio_card_channel_fxSend_2_state) {
+              case "PreEQ": {
+                if (value == "PostEQ") {
+                  audio_card_channel_fxSend_2_postEq_volNode.volume.value = audio_card_channel_fxSend_2_preEq_volNode.volume.value;
+                  audio_card_channel_fxSend_2_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_2_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_2_state = "PostEQ";
+                }
+                else if (value == "PostFdr") {
+                  audio_card_channel_fxSend_2_postFdr_volNode.volume.value = audio_card_channel_fxSend_2_preEq_volNode.volume.value;
+                  audio_card_channel_fxSend_2_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_2_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_2_state = "PostFdr";
+                }
+                break;
+              }
+              case "PostEQ": {
+                if (value == "PreEQ") {
+                  audio_card_channel_fxSend_2_preEq_volNode.volume.value = audio_card_channel_fxSend_2_postEq_volNode.volume.value;
+                  audio_card_channel_fxSend_2_postEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_2_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_2_state = "PreEQ";
+                }
+                else if (value == "PostFdr") {
+                  audio_card_channel_fxSend_2_postFdr_volNode.volume.value = audio_card_channel_fxSend_2_postEq_volNode.volume.value;
+                  audio_card_channel_fxSend_2_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_2_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_2_state = "PostFdr";
+                }
+                break;
+              }
+              case "PostFdr": {
+                if (value == "PostEQ") {
+                  audio_card_channel_fxSend_2_postEq_volNode.volume.value = audio_card_channel_fxSend_2_postFdr_volNode.volume.value;
+                  audio_card_channel_fxSend_2_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_2_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_2_state = "PostEQ";
+                }
+                else if (value == "PreEQ") {
+                  audio_card_channel_fxSend_2_preEq_volNode.volume.value = audio_card_channel_fxSend_2_postFdr_volNode.volume.value;
+                  audio_card_channel_fxSend_2_postFdr_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_2_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_2_state = "PreEQ";
+                }
+                break;
+              }
+              default: { alert("DEFAULT switch(audio_card_channel_fxSend_2_state) EN player_x_fxSend_x_state_foo ") }
+            }
+          }
+          else { }
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_2_state", value);
+          break;
+        }
+        else { alert("is_audio_card_channel_fxSend_2_On == FALSE"); }
+      }
+    case "audio_card_channel_fxSend_3":
+      {
+        if (is_audio_card_channel_fxSend_3_On == true) {
+          if (audio_card_channel_fxSend_3_state != value) {
+            switch (audio_card_channel_fxSend_3_state) {
+              case "PreEQ": {
+                if (value == "PostEQ") {
+                  audio_card_channel_fxSend_3_postEq_volNode.volume.value = audio_card_channel_fxSend_3_preEq_volNode.volume.value;
+                  audio_card_channel_fxSend_3_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_3_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_3_state = "PostEQ";
+                }
+                else if (value == "PostFdr") {
+                  audio_card_channel_fxSend_3_postFdr_volNode.volume.value = audio_card_channel_fxSend_3_preEq_volNode.volume.value;
+                  audio_card_channel_fxSend_3_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_3_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_3_state = "PostFdr";
+                }
+                break;
+              }
+              case "PostEQ": {
+                if (value == "PreEQ") {
+                  audio_card_channel_fxSend_3_preEq_volNode.volume.value = audio_card_channel_fxSend_3_postEq_volNode.volume.value;
+                  audio_card_channel_fxSend_3_postEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_3_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_3_state = "PreEQ";
+                }
+                else if (value == "PostFdr") {
+                  audio_card_channel_fxSend_3_postFdr_volNode.volume.value = audio_card_channel_fxSend_3_postEq_volNode.volume.value;
+                  audio_card_channel_fxSend_3_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_3_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_3_state = "PostFdr";
+                }
+                break;
+              }
+              case "PostFdr": {
+                if (value == "PostEQ") {
+                  audio_card_channel_fxSend_3_postEq_volNode.volume.value = audio_card_channel_fxSend_3_postFdr_volNode.volume.value;
+                  audio_card_channel_fxSend_3_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_3_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_3_state = "PostEQ";
+                }
+                else if (value == "PreEQ") {
+                  audio_card_channel_fxSend_3_preEq_volNode.volume.value = audio_card_channel_fxSend_3_postFdr_volNode.volume.value;
+                  audio_card_channel_fxSend_3_postFdr_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_3_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_3_state = "PreEQ";
+                }
+                break;
+              }
+              default: { alert("DEFAULT switch(audio_card_channel_fxSend_3_state) EN player_x_fxSend_x_state_foo ") }
+            }
+          }
+          else { }
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_3_state", value);
+          break;
+        }
+        else { alert("is_audio_card_channel_fxSend_3_On == FALSE"); }
+      }
+    case "audio_card_channel_fxSend_4":
+      {
+        if (is_audio_card_channel_fxSend_4_On == true) {
+          if (audio_card_channel_fxSend_4_state != value) {
+            switch (audio_card_channel_fxSend_4_state) {
+              case "PreEQ": {
+                if (value == "PostEQ") {
+                  audio_card_channel_fxSend_4_postEq_volNode.volume.value = audio_card_channel_fxSend_4_preEq_volNode.volume.value;
+                  audio_card_channel_fxSend_4_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_4_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_4_state = "PostEQ";
+                }
+                else if (value == "PostFdr") {
+                  audio_card_channel_fxSend_4_postFdr_volNode.volume.value = audio_card_channel_fxSend_4_preEq_volNode.volume.value;
+                  audio_card_channel_fxSend_4_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_4_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_4_state = "PostFdr";
+                }
+                break;
+              }
+              case "PostEQ": {
+                if (value == "PreEQ") {
+                  audio_card_channel_fxSend_4_preEq_volNode.volume.value = audio_card_channel_fxSend_4_postEq_volNode.volume.value;
+                  audio_card_channel_fxSend_4_postEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_4_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_4_state = "PreEQ";
+                }
+                else if (value == "PostFdr") {
+                  audio_card_channel_fxSend_4_postFdr_volNode.volume.value = audio_card_channel_fxSend_4_postEq_volNode.volume.value;
+                  audio_card_channel_fxSend_4_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_4_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_4_state = "PostFdr";
+                }
+                break;
+              }
+              case "PostFdr": {
+                if (value == "PostEQ") {
+                  audio_card_channel_fxSend_4_postEq_volNode.volume.value = audio_card_channel_fxSend_4_postFdr_volNode.volume.value;
+                  audio_card_channel_fxSend_4_preEq_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_4_postFdr_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_4_state = "PostEQ";
+                }
+                else if (value == "PreEQ") {
+                  audio_card_channel_fxSend_4_preEq_volNode.volume.value = audio_card_channel_fxSend_4_postFdr_volNode.volume.value;
+                  audio_card_channel_fxSend_4_postFdr_volNode.volume.value = -100;
+                  audio_card_channel_fxSend_4_postEq_volNode.volume.value = -100;
+                  send_state_player_x_background_change(name, value);
+                  audio_card_channel_fxSend_4_state = "PreEQ";
+                }
+                break;
+              }
+              default: { alert("DEFAULT switch(audio_card_channel_fxSend_4_state) EN player_x_fxSend_x_state_foo ") }
+            }
+          }
+          else { }
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_4_state", value);
+          break;
+        }
+        else { alert("is_audio_card_channel_fxSend_4_On == FALSE"); }
+      }
     case "channel_1_fxSend_1":
       {
         if (is_channel_1_fxSend_1_On == true) {
@@ -16427,7 +17516,7 @@ function player_x_fxSend_x_state_foo(name, value) {
                 }
                 break;
               }
-              default: { alert("DEFAULT switch(channel_1_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
+              default: { alert("DEFAULT switch(channel_3_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
             }
           }
           else { }
@@ -16687,7 +17776,7 @@ function player_x_fxSend_x_state_foo(name, value) {
                 }
                 break;
               }
-              default: { alert("DEFAULT switch(channel_1_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
+              default: { alert("DEFAULT switch(channel_4_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
             }
           }
           else { }
@@ -17019,7 +18108,7 @@ function player_x_fxSend_x_state_foo(name, value) {
           MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_2_state", value);
           break;
         }
-        else { alert("is_fx_1_fxSend_1_On == FALSE"); }
+        else { alert("is_fx_1_fxSend_2_On == FALSE"); }
       }
     case "fx_1_fxSend_3":
       {
@@ -17084,7 +18173,7 @@ function player_x_fxSend_x_state_foo(name, value) {
           MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_3_state", value);
           break;
         }
-        else { alert("is_fx_1_fxSend_1_On == FALSE"); }
+        else { alert("is_fx_1_fxSend_3_On == FALSE"); }
       }
     case "fx_1_fxSend_4":
       {
@@ -17149,7 +18238,7 @@ function player_x_fxSend_x_state_foo(name, value) {
           MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_4_state", value);
           break;
         }
-        else { alert("is_fx_1_fxSend_1_On == FALSE"); }
+        else { alert("is_fx_1_fxSend_4_On == FALSE"); }
       }
     case "fx_2_fxSend_1":
       {
@@ -17207,7 +18296,7 @@ function player_x_fxSend_x_state_foo(name, value) {
                 }
                 break;
               }
-              default: { alert("DEFAULT switch(fx_1_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
+              default: { alert("DEFAULT switch(fx_2_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
             }
           }
           else { }
@@ -17467,7 +18556,7 @@ function player_x_fxSend_x_state_foo(name, value) {
                 }
                 break;
               }
-              default: { alert("DEFAULT switch(fx_1_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
+              default: { alert("DEFAULT switch(fx_3_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
             }
           }
           else { }
@@ -17727,7 +18816,7 @@ function player_x_fxSend_x_state_foo(name, value) {
                 }
                 break;
               }
-              default: { alert("DEFAULT switch(fx_1_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
+              default: { alert("DEFAULT switch(fx_4_fxSend_1_state) EN player_x_fxSend_x_state_foo ") }
             }
           }
           else { }
@@ -18211,6 +19300,80 @@ function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
         }
         break;
       }
+
+    case "audio_card_channel_fxSend_1":
+      {
+        if (audio_card_channel_fxSend_1_state == "PostEQ") {
+          audio_card_channel_fxSend_1_postEq_volNode.volume.value = e;
+          audio_card_channel_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          audio_card_channel_fxSend_1.value = e;
+          //alert("PostEQ");
+        }
+        else if (audio_card_channel_fxSend_1_state == "PreEQ") {
+          audio_card_channel_fxSend_1_preEq_volNode.volume.value = e;
+          audio_card_channel_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          //alert("PreEQ");
+        }
+        else {
+          audio_card_channel_fxSend_1_postFdr_volNode.volume.value = e;
+          audio_card_channel_fxSend_1_value.innerHTML = Math.round(`${e}`);
+          //alert("PostFDR");
+        }
+        break;
+      }
+    case "audio_card_channel_fxSend_2":
+      {
+        if (audio_card_channel_fxSend_2_state == "PostEQ") {
+          audio_card_channel_fxSend_2_postEq_volNode.volume.value = e;
+          audio_card_channel_fxSend_2_value.innerHTML = Math.round(`${e}`);
+          audio_card_channel_fxSend_2.value = e;
+        }
+        else if (audio_card_channel_fxSend_2_state == "PreEQ") {
+          audio_card_channel_fxSend_2_preEq_volNode.volume.value = e;
+          audio_card_channel_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          audio_card_channel_fxSend_2_postFdr_volNode.volume.value = e;
+          audio_card_channel_fxSend_2_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "audio_card_channel_fxSend_3":
+      {
+        if (audio_card_channel_fxSend_3_state == "PostEQ") {
+          audio_card_channel_fxSend_3_postEq_volNode.volume.value = e;
+          audio_card_channel_fxSend_3_value.innerHTML = Math.round(`${e}`);
+          audio_card_channel_fxSend_3.value = e;
+        }
+        else if (audio_card_channel_fxSend_3_state == "PreEQ") {
+          audio_card_channel_fxSend_3_preEq_volNode.volume.value = e;
+          audio_card_channel_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          audio_card_channel_fxSend_3_postFdr_volNode.volume.value = e;
+          audio_card_channel_fxSend_3_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+    case "audio_card_channel_fxSend_4":
+      {
+        if (audio_card_channel_fxSend_4_state == "PostEQ") {
+          audio_card_channel_fxSend_4_postEq_volNode.volume.value = e;
+          audio_card_channel_fxSend_4_value.innerHTML = Math.round(`${e}`);
+          audio_card_channel_fxSend_4.value = e;
+        }
+        else if (audio_card_channel_fxSend_4_state == "PreEQ") {
+          audio_card_channel_fxSend_4_preEq_volNode.volume.value = e;
+          audio_card_channel_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        else {
+          audio_card_channel_fxSend_4_postFdr_volNode.volume.value = e;
+          audio_card_channel_fxSend_4_value.innerHTML = Math.round(`${e}`);
+        }
+        break;
+      }
+
+
     case "channel_1_fxSend_1":
       {
         if (channel_1_fxSend_1_state == "PostEQ") {
@@ -19040,6 +20203,107 @@ function recieves_player_x_fxSend_x_value_Sets_Volume_value(e, name) {
 
 function send_state_player_x_background_change(name, value) {
   switch (name) {
+    case "audio_card_channel_fxSend_1":
+      {
+        switch (value) {
+          case "PreEQ": {
+            audio_card_channel_fxSend_1_pre_EQ_Button.style.backgroundColor = "green";
+            audio_card_channel_fxSend_1_post_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_1_post_fader_Button.style.backgroundColor = "white";
+            break;
+          }
+          case "PostEQ": {
+            audio_card_channel_fxSend_1_pre_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_1_post_fader_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_1_post_EQ_Button.style.backgroundColor = "green";
+            break;
+          }
+          case "PostFdr": {
+            audio_card_channel_fxSend_1_post_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_1_pre_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_1_post_fader_Button.style.backgroundColor = "green";
+            break;
+          }
+          default: { break; }
+        }
+        break;
+      }
+    case "audio_card_channel_fxSend_2":
+      {
+        switch (value) {
+          case "PreEQ": {
+            audio_card_channel_fxSend_2_pre_EQ_Button.style.backgroundColor = "green";
+            audio_card_channel_fxSend_2_post_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_2_post_fader_Button.style.backgroundColor = "white";
+            break;
+          }
+          case "PostEQ": {
+            audio_card_channel_fxSend_2_pre_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_2_post_fader_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_2_post_EQ_Button.style.backgroundColor = "green";
+            break;
+          }
+          case "PostFdr": {
+            audio_card_channel_fxSend_2_post_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_2_pre_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_2_post_fader_Button.style.backgroundColor = "green";
+            break;
+          }
+          default: { break; }
+        }
+        break;
+      }
+    case "audio_card_channel_fxSend_3":
+      {
+        switch (value) {
+          case "PreEQ": {
+            audio_card_channel_fxSend_3_pre_EQ_Button.style.backgroundColor = "green";
+            audio_card_channel_fxSend_3_post_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_3_post_fader_Button.style.backgroundColor = "white";
+            break;
+          }
+          case "PostEQ": {
+            audio_card_channel_fxSend_3_pre_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_3_post_fader_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_3_post_EQ_Button.style.backgroundColor = "green";
+            break;
+          }
+          case "PostFdr": {
+            audio_card_channel_fxSend_3_post_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_3_pre_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_3_post_fader_Button.style.backgroundColor = "green";
+            break;
+          }
+          default: { break; }
+        }
+        break;
+      }
+    case "audio_card_channel_fxSend_4":
+      {
+        switch (value) {
+          case "PreEQ": {
+            audio_card_channel_fxSend_4_pre_EQ_Button.style.backgroundColor = "green";
+            audio_card_channel_fxSend_4_post_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_4_post_fader_Button.style.backgroundColor = "white";
+            break;
+          }
+          case "PostEQ": {
+            audio_card_channel_fxSend_4_pre_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_4_post_fader_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_4_post_EQ_Button.style.backgroundColor = "green";
+            break;
+          }
+          case "PostFdr": {
+            audio_card_channel_fxSend_4_post_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_4_pre_EQ_Button.style.backgroundColor = "white";
+            audio_card_channel_fxSend_4_post_fader_Button.style.backgroundColor = "green";
+            break;
+          }
+          default: { break; }
+        }
+        break;
+      }
+
     case "channel_1_fxSend_1":
       {
         switch (value) {
@@ -19761,6 +21025,34 @@ function send_state_player_x_background_change(name, value) {
 
 function player_x_dynamics_select_unit(name, value) {
   switch (name) {
+    case "audio_card_channel":
+      {
+        switch (value) {
+          case "compressor":
+            {
+              audio_card_channel_dynamics_compressor_div.style.display = "block";
+              audio_card_channel_dynamics_gate_div.style.display = "none";
+              audio_card_channel_dynamics_limiter_div.style.display = "none";
+              break;
+            }
+          case "gate":
+            {
+              audio_card_channel_dynamics_compressor_div.style.display = "none";
+              audio_card_channel_dynamics_gate_div.style.display = "block";
+              audio_card_channel_dynamics_limiter_div.style.display = "none";
+              break;
+            }
+          case "limiter":
+            {
+              audio_card_channel_dynamics_compressor_div.style.display = "none";
+              audio_card_channel_dynamics_gate_div.style.display = "none";
+              audio_card_channel_dynamics_limiter_div.style.display = "block";
+              break;
+            }
+          default: { alert("DEFAULT  (value) audio_card_channel  player_x_dynamics_select_unit "); break; }
+        }
+        break;
+      }
     case "channel_1":
       {
         switch (value) {
@@ -19992,6 +21284,217 @@ function player_x_dynamics_select_unit(name, value) {
 
 function player_x_dynamics_On_Off(name, value) {
   switch (name) {
+    case "audio_card_channel":
+      {
+        //ARREGLAR ESTO, SON DEMASIADOS IF
+        switch (value) {
+          case "compressor":
+            {//ON
+              if (audio_card_channel_compressor_On_Off_Button_State == "off"
+                && audio_card_channel_filter_eq_selection == "on") {
+                audio_card_channel_filter.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter.connect(audio_card_channel_dynamics_compressorNode);
+                if (audio_card_channel_gate_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_compressorNode_Bypass.disconnect(audio_card_channel_dynamics_gateNode);
+                  audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_dynamics_gateNode);
+                }
+                else if (audio_card_channel_gate_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_compressorNode_Bypass.disconnect(audio_card_channel_dynamics_gateNode_Bypass);
+                  audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_dynamics_gateNode_Bypass);
+                }
+              }
+              else if (audio_card_channel_compressor_On_Off_Button_State == "off"
+                && audio_card_channel_filter_eq_selection == "bypass") {
+                audio_card_channel_filter_Bypass.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter_Bypass.connect(audio_card_channel_dynamics_compressorNode);
+
+                if (audio_card_channel_gate_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_dynamics_gateNode);
+                }
+                else if (audio_card_channel_gate_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_dynamics_gateNode_Bypass);
+                }
+              }
+              else if (audio_card_channel_compressor_On_Off_Button_State == "on"
+                && audio_card_channel_filter_eq_selection == "on") {
+                audio_card_channel_filter.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+                if (audio_card_channel_gate_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_compressorNode.disconnect(audio_card_channel_dynamics_gateNode);
+                  audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_dynamics_gateNode);
+                }
+                else if (audio_card_channel_gate_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_compressorNode.disconnect(audio_card_channel_dynamics_gateNode_Bypass);
+                  audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_dynamics_gateNode_Bypass);
+                }
+              }
+              else if (audio_card_channel_compressor_On_Off_Button_State == "on"
+                && audio_card_channel_filter_eq_selection == "bypass") {
+                audio_card_channel_filter_Bypass.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter_Bypass.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+
+                if (audio_card_channel_gate_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_compressorNode.disconnect(audio_card_channel_dynamics_gateNode);
+                  audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_dynamics_gateNode)
+                }
+                else if (audio_card_channel_gate_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_compressorNode.disconnect(audio_card_channel_dynamics_gateNode_Bypass);
+                  audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_dynamics_gateNode_Bypass)
+                }
+              }
+              else if (audio_card_channel_compressor_On_Off_Button_State == "off"
+                && audio_card_channel_filter_eq_selection == "eq3") {
+                audio_card_channel_filter_eq3.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_filter_eq3.connect(audio_card_channel_dynamics_compressorNode);
+                if (audio_card_channel_gate_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_compressorNode_Bypass.disconnect(audio_card_channel_dynamics_gateNode);
+                  audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_dynamics_gateNode);
+                }
+                else if (audio_card_channel_gate_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_compressorNode_Bypass.disconnect(audio_card_channel_dynamics_gateNode_Bypass);
+                  audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_dynamics_gateNode_Bypass);
+                }
+              }
+              else if (audio_card_channel_compressor_On_Off_Button_State == "on"
+                && audio_card_channel_filter_eq_selection == "eq3") {
+                audio_card_channel_filter_eq3.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_filter_eq3.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+                if (audio_card_channel_gate_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_compressorNode.disconnect(audio_card_channel_dynamics_gateNode);
+                  audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_dynamics_gateNode);
+                }
+                else if (audio_card_channel_gate_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_compressorNode.disconnect(audio_card_channel_dynamics_gateNode_Bypass);
+                  audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_dynamics_gateNode_Bypass);
+                }
+              }
+
+              else if (audio_card_channel_compressor_On_Off_Button_State == "off"
+                && audio_card_channel_filter_eq_selection == "tascam") {
+                audio_card_channel_tascam_out_Node.disconnect(audio_card_channel_dynamics_compressorNode_Bypass);
+                audio_card_channel_tascam_out_Node.connect(audio_card_channel_dynamics_compressorNode);
+                if (audio_card_channel_gate_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_compressorNode_Bypass.disconnect(audio_card_channel_dynamics_gateNode);
+                  audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_dynamics_gateNode);
+                }
+                else if (audio_card_channel_gate_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_compressorNode_Bypass.disconnect(audio_card_channel_dynamics_gateNode_Bypass);
+                  audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_dynamics_gateNode_Bypass);
+                }
+              }
+              else if (audio_card_channel_compressor_On_Off_Button_State == "on"
+                && audio_card_channel_filter_eq_selection == "tascam") {
+                audio_card_channel_tascam_out_Node.disconnect(audio_card_channel_dynamics_compressorNode);
+                audio_card_channel_tascam_out_Node.connect(audio_card_channel_dynamics_compressorNode_Bypass);
+                if (audio_card_channel_gate_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_compressorNode.disconnect(audio_card_channel_dynamics_gateNode);
+                  audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_dynamics_gateNode);
+                }
+                else if (audio_card_channel_gate_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_compressorNode.disconnect(audio_card_channel_dynamics_gateNode_Bypass);
+                  audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_dynamics_gateNode_Bypass);
+                }
+              }
+
+              switchState_dynamics("audio_card_channel_compressor_On_Off_Button");
+              break;
+            }
+          case "gate":
+            {//ON
+              if (audio_card_channel_gate_On_Off_Button_State == "off"
+                && audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_dynamics_compressorNode.disconnect(audio_card_channel_dynamics_gateNode_Bypass);
+                audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_dynamics_gateNode);
+                if (audio_card_channel_limiter_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_gateNode_Bypass.disconnect(audio_card_channel_dynamics_limiterNode);
+                  audio_card_channel_dynamics_gateNode.connect(audio_card_channel_dynamics_limiterNode);
+                }
+                else if (audio_card_channel_limiter_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_gateNode_Bypass.disconnect(audio_card_channel_dynamics_limiterNode_Bypass);
+                  audio_card_channel_dynamics_gateNode.connect(audio_card_channel_dynamics_limiterNode_Bypass);
+                }
+              }
+              else if (audio_card_channel_gate_On_Off_Button_State == "off"
+                && audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_dynamics_compressorNode_Bypass.disconnect(audio_card_channel_dynamics_gateNode_Bypass);
+                audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_dynamics_gateNode);
+                if (audio_card_channel_limiter_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_gateNode_Bypass.disconnect(audio_card_channel_dynamics_limiterNode);
+                  audio_card_channel_dynamics_gateNode.connect(audio_card_channel_dynamics_limiterNode);
+                }
+                else if (audio_card_channel_limiter_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_gateNode_Bypass.disconnect(audio_card_channel_dynamics_limiterNode_Bypass);
+                  audio_card_channel_dynamics_gateNode.connect(audio_card_channel_dynamics_limiterNode_Bypass);
+                }
+              }
+              else if (audio_card_channel_gate_On_Off_Button_State == "on"
+                && audio_card_channel_compressor_On_Off_Button_State == "on") {
+                audio_card_channel_dynamics_compressorNode.disconnect(audio_card_channel_dynamics_gateNode);
+                audio_card_channel_dynamics_compressorNode.connect(audio_card_channel_dynamics_gateNode_Bypass);
+                if (audio_card_channel_limiter_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_gateNode.disconnect(audio_card_channel_dynamics_limiterNode);
+                  audio_card_channel_dynamics_gateNode_Bypass.connect(audio_card_channel_dynamics_limiterNode);
+                }
+                else if (audio_card_channel_limiter_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_gateNode.disconnect(audio_card_channel_dynamics_limiterNode_Bypass);
+                  audio_card_channel_dynamics_gateNode_Bypass.connect(audio_card_channel_dynamics_limiterNode_Bypass);
+                }
+              }
+              else if (audio_card_channel_gate_On_Off_Button_State == "on"
+                && audio_card_channel_compressor_On_Off_Button_State == "off") {
+                audio_card_channel_dynamics_compressorNode_Bypass.disconnect(audio_card_channel_dynamics_gateNode);
+                audio_card_channel_dynamics_compressorNode_Bypass.connect(audio_card_channel_dynamics_gateNode_Bypass);
+
+                if (audio_card_channel_limiter_On_Off_Button_State == "on") {
+                  audio_card_channel_dynamics_gateNode.disconnect(audio_card_channel_dynamics_limiterNode);
+                  audio_card_channel_dynamics_gateNode_Bypass.connect(audio_card_channel_dynamics_limiterNode)
+                }
+                else if (audio_card_channel_limiter_On_Off_Button_State == "off") {
+                  audio_card_channel_dynamics_gateNode.disconnect(audio_card_channel_dynamics_limiterNode_Bypass);
+                  audio_card_channel_dynamics_gateNode_Bypass.connect(audio_card_channel_dynamics_limiterNode_Bypass)
+                }
+              }
+              switchState_dynamics("audio_card_channel_gate_On_Off_Button");
+              break;
+            }
+          case "limiter":
+            {
+              if (audio_card_channel_limiter_On_Off_Button_State == "off"
+                && audio_card_channel_gate_On_Off_Button_State == "on") {
+                audio_card_channel_dynamics_gateNode.disconnect(audio_card_channel_dynamics_limiterNode_Bypass);
+                audio_card_channel_dynamics_gateNode.connect(audio_card_channel_dynamics_limiterNode);
+                audio_card_channel_dynamics_limiterNode_Bypass.disconnect(audio_card_channel_volNode);
+                audio_card_channel_dynamics_limiterNode.connect(audio_card_channel_volNode);
+              }
+              else if (audio_card_channel_limiter_On_Off_Button_State == "off"
+                && audio_card_channel_gate_On_Off_Button_State == "off") {
+                audio_card_channel_dynamics_gateNode_Bypass.disconnect(audio_card_channel_dynamics_limiterNode_Bypass);
+                audio_card_channel_dynamics_gateNode_Bypass.connect(audio_card_channel_dynamics_limiterNode);
+                audio_card_channel_dynamics_limiterNode_Bypass.disconnect(audio_card_channel_volNode);
+                audio_card_channel_dynamics_limiterNode.connect(audio_card_channel_volNode);
+              }
+              else if (audio_card_channel_limiter_On_Off_Button_State == "on"
+                && audio_card_channel_gate_On_Off_Button_State == "on") {
+                audio_card_channel_dynamics_gateNode.disconnect(audio_card_channel_dynamics_limiterNode);
+                audio_card_channel_dynamics_gateNode.connect(audio_card_channel_dynamics_limiterNode_Bypass);
+                audio_card_channel_dynamics_limiterNode.disconnect(audio_card_channel_volNode);
+                audio_card_channel_dynamics_limiterNode_Bypass.connect(audio_card_channel_volNode);
+              }
+              else if (audio_card_channel_limiter_On_Off_Button_State == "on"
+                && audio_card_channel_gate_On_Off_Button_State == "off") {
+                audio_card_channel_dynamics_gateNode_Bypass.disconnect(audio_card_channel_dynamics_limiterNode);
+                audio_card_channel_dynamics_gateNode_Bypass.connect(audio_card_channel_dynamics_limiterNode_Bypass);
+                audio_card_channel_dynamics_limiterNode.disconnect(audio_card_channel_volNode);
+                audio_card_channel_dynamics_limiterNode_Bypass.connect(audio_card_channel_volNode);
+              }
+
+              switchState_dynamics("audio_card_channel_limiter_On_Off_Button");
+              break;
+            }
+          default: { alert("DEFAULT switch(value) audio_card_channel  player_x_dynamics_On_Off "); break; }
+        }
+        break;
+      }
     case "channel_1":
       {
         //ARREGLAR ESTO, SON DEMASIADOS IF
@@ -21679,6 +23182,17 @@ function player_x_dynamics_On_Off(name, value) {
 
 function hide_all_EQ_divs(value) {
   switch (value) {
+    case "audio_card":
+      {
+        audio_card_channel_tascam_424_controls_div.style.display = "none";
+        audio_card_channel_peaking_controls_div.style.display = "none";
+        audio_card_channel_allpass_controls_div.style.display = "none";
+        audio_card_channel_eq3_controls_div.style.display = "none";
+        audio_card_channel_shelf_controls_div.style.display = "none";
+        audio_card_channel_empty_controls_div.style.display = "none";
+        audio_card_channel_bypass_controls_div.style.display = "none";
+        break;
+      }
     case "1":
       {
         channel_1_tascam_424_controls_div.style.display = "none";
@@ -21869,8 +23383,13 @@ function TransportSTOP() {
 function Sinte() {
   console.log("LoadFileList");
   console.log(LoadFileList);
+  console.log("\n");
   console.log("List");
   console.log(List);
+  console.log("\n");
+  console.log("ListOfBuffers");
+  console.log(ListOfBuffers);
+  console.log("\n");
 
   /*
     let event2 = new MouseEvent("click", {
@@ -23808,7 +25327,25 @@ channel_4_volNode.fan(channel_4_rms_meter);
 
 function updatesMeters() {
 
-  meter_test_Node_RMS.innerHTML = Math.round(`${meter_test_Node.getValue()}`);
+  //audio_card_channel_rms_meter_inner.innerHTML = Math.round(`${audio_card_channel_rms_meter.getValue()}`);
+  //audio_card_channel_filter_bypass_meter_inner.innerHTML = Math.round(`${audio_card_channel_filter_bypass_meter.getValue()}`);
+  //audio_card_channel_filter_allpass_meter_inner.innerHTML = Math.round(`${audio_card_channel_filter_meter.getValue()}`);
+  //audio_card_channel_shelf_meter_inner.innerHTML = Math.round(`${audio_card_channel_filter_meter.getValue()}`);
+  //audio_card_channel_peaking_meter_inner.innerHTML = Math.round(`${audio_card_channel_filter_meter.getValue()}`);
+  //NO EXISTEN LOS RMS BYPASS DE DYNAMICS, HAY QUE CREARLOS
+  // audio_card_channel_rms_comp_bypass_meter_inner.innerHTML = Math.round(`${audio_card_channel_rms_comp_bypass_meter.getValue()}`);
+  // audio_card_channel_rms_gate_bypass_meter_inner.innerHTML = Math.round(`${audio_card_channel_rms_gate_bypass_meter.getValue()}`);
+  // audio_card_channel_rms_limiter_bypass_meter_inner.innerHTML = Math.round(`${audio_card_channel_rms_limiter_bypass_meter.getValue()}`);
+  // audio_card_channel_rms_comp_meter_inner.innerHTML = Math.round(`${audio_card_channel_rms_comp_meter.getValue()}`);
+  //audio_card_channel_rms_gate_meter_inner.innerHTML = Math.round(`${audio_card_channel_rms_gate_meter.getValue()}`);
+  /* audio_card_channel_rms_limiter_meter_inner.innerHTML = Math.round(`${audio_card_channel_rms_limiter_meter.getValue()}`);
+  audio_card_channel_tascam_424_Hi_meter_inner.innerHTML = Math.round(`${audio_card_channel_tascam_424_Hi_meter.getValue()}`);
+  audio_card_channel_tascam_424_Mid_meter_inner.innerHTML = Math.round(`${audio_card_channel_tascam_424_Mid_meter.getValue()}`);
+  audio_card_channel_tascam_424_Low_meter_inner.innerHTML = Math.round(`${audio_card_channel_tascam_424_Low_meter.getValue()}`);
+  audio_card_channel_eq3_meter_inner.innerHTML = Math.round(`${audio_card_channel_eq3_meter.getValue()}`);
+ */
+
+  //meter_test_Node_RMS.innerHTML = Math.round(`${meter_test_Node.getValue()}`);
   player_1_rms_meter_inner.innerHTML = Math.round(`${player_1_rms_meter.getValue()}`);
   player_2_rms_meter_inner.innerHTML = Math.round(`${player_2_rms_meter.getValue()}`);
   player_3_rms_meter_inner.innerHTML = Math.round(`${player_3_rms_meter.getValue()}`);
@@ -23925,6 +25462,56 @@ function hide_all_divs(value) {
 
 function switchState_dynamics(name) {
   switch (name) {
+
+    case "audio_card_channel_compressor_On_Off_Button":
+      {
+        if (audio_card_channel_compressor_On_Off_Button_State == "on") {
+          audio_card_channel_compressor_On_Off_Button_State = "off";
+          audio_card_channel_compressor_On_Off_Button.innerText = "Off";
+          audio_card_channel_compressor_On_Off_Button.style.backgroundColor = "white";
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_compressor_On_Off_Button", "off");
+        }
+        else if (audio_card_channel_compressor_On_Off_Button_State == "off") {
+          audio_card_channel_compressor_On_Off_Button_State = "on";
+          audio_card_channel_compressor_On_Off_Button.innerText = "On"
+          audio_card_channel_compressor_On_Off_Button.style.backgroundColor = "green";
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_compressor_On_Off_Button", "on");
+        }
+        break;
+      }
+    case "audio_card_channel_gate_On_Off_Button":
+      {
+        if (audio_card_channel_gate_On_Off_Button_State == "on") {
+          audio_card_channel_gate_On_Off_Button_State = "off";
+          audio_card_channel_gate_On_Off_Button.innerText = "Off";
+          audio_card_channel_gate_On_Off_Button.style.backgroundColor = "white";
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_gate_On_Off_Button", "off");
+        }
+        else if (audio_card_channel_gate_On_Off_Button_State == "off") {
+          audio_card_channel_gate_On_Off_Button_State = "on";
+          audio_card_channel_gate_On_Off_Button.innerText = "On"
+          audio_card_channel_gate_On_Off_Button.style.backgroundColor = "green";
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_gate_On_Off_Button", "on");
+        }
+        break;
+      }
+    case "audio_card_channel_limiter_On_Off_Button":
+      {
+        if (audio_card_channel_limiter_On_Off_Button_State == "on") {
+          audio_card_channel_limiter_On_Off_Button_State = "off";
+          audio_card_channel_limiter_On_Off_Button.innerText = "Off";
+          audio_card_channel_limiter_On_Off_Button.style.backgroundColor = "white";
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_limiter_On_Off_Button", "off");
+        }
+        else if (audio_card_channel_limiter_On_Off_Button_State == "off") {
+          audio_card_channel_limiter_On_Off_Button_State = "on";
+          audio_card_channel_limiter_On_Off_Button.innerText = "On"
+          audio_card_channel_limiter_On_Off_Button.style.backgroundColor = "green";
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_limiter_On_Off_Button", "on");
+
+        }
+        break;
+      }
     case "channel_1_compressor_On_Off_Button":
       {
         if (channel_1_compressor_On_Off_Button_State == "on") {
@@ -24322,6 +25909,86 @@ function switchState_filter_eq_selection(name, value) {
       + "\n" + "name:  " + name);
     /*  */
   switch (name) {
+    case "audio_card_channel_filter_eq_selection":
+      {
+        switch (audio_card_channel_filter_eq_selection) {
+          case "bypass": {
+            if (value == "on") {
+              audio_card_channel_filter_eq_selection = "on";
+              audio_card_channel_filter_eq_On_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_bypass_Button.style.backgroundColor = "white";
+            }
+            else if (value == "eq3") {
+              audio_card_channel_filter_eq_selection = "eq3";
+              audio_card_channel_filter_eq_On_EQ3_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_bypass_Button.style.backgroundColor = "white";
+            }
+            else if (value == "tascam") {
+              audio_card_channel_filter_eq_selection = "tascam";
+              audio_card_channel_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_bypass_Button.style.backgroundColor = "white";
+            }
+            break;
+          }
+          case "on": {
+            if (value == "bypass") {
+              audio_card_channel_filter_eq_selection = "bypass";
+              audio_card_channel_filter_eq_bypass_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_On_Button.style.backgroundColor = "white";
+            }
+            else if (value == "eq3") {
+              audio_card_channel_filter_eq_selection = "eq3";
+              audio_card_channel_filter_eq_On_EQ3_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_On_Button.style.backgroundColor = "white";
+            }
+            else if (value == "tascam") {
+              audio_card_channel_filter_eq_selection = "tascam";
+              audio_card_channel_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_On_Button.style.backgroundColor = "white";
+            }
+            break;
+          }
+          case "eq3": {
+
+            if (value == "bypass") {
+              audio_card_channel_filter_eq_selection = "bypass";
+              audio_card_channel_filter_eq_bypass_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_On_EQ3_Button.style.backgroundColor = "white";
+            }
+            else if (value == "on") {
+              audio_card_channel_filter_eq_selection = "on";
+              audio_card_channel_filter_eq_On_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_On_EQ3_Button.style.backgroundColor = "white";
+            }
+            else if (value == "tascam") {
+              audio_card_channel_filter_eq_selection = "tascam";
+              audio_card_channel_filter_eq_On_Tascam_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_On_EQ3_Button.style.backgroundColor = "white";
+            }
+            break;
+          }
+          case "tascam": {
+            if (value == "bypass") {
+              audio_card_channel_filter_eq_selection = "bypass";
+              audio_card_channel_filter_eq_bypass_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_On_Tascam_Button.style.backgroundColor = "white";
+            }
+            else if (value == "on") {
+              audio_card_channel_filter_eq_selection = "on";
+              audio_card_channel_filter_eq_On_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_On_Tascam_Button.style.backgroundColor = "white";
+            }
+            else if (value == "eq3") {
+              audio_card_channel_filter_eq_selection = "eq3";
+              audio_card_channel_filter_eq_On_EQ3_Button.style.backgroundColor = "green";
+              audio_card_channel_filter_eq_On_Tascam_Button.style.backgroundColor = "white";
+            }
+            break;
+          }
+          default: { break; }
+        }
+        break;
+      }
     case "channel_1_filter_eq_selection":
       {
         switch (channel_1_filter_eq_selection) {
@@ -25472,8 +27139,16 @@ console.log("testObj.rampTime: " + testObj.rampTime);
 /**/
 
 function loadMix() {
+  //armar foo que cuente todos los buffers a cargar
+
   for (i = 0; i < LoadFileList.length; i++) {
     const testObj = LoadFileList[i];
+    if (testObj.element == "player_1_http" || testObj.element == "player_2_http"
+      || testObj.element == "player_3_http" || testObj.element == "player_4_http"
+    ) {
+      MixEventObj.logIntoListaBuffers(ListOfBuffers, LoadFileList[i].atTime, LoadFileList[i].element, LoadFileList[i].action, LoadFileList[i].newValue, LoadFileList[i].rampTime);
+    }
+
     if (testObj.rampTime == "undefined" || testObj.rampTime == "NaN") {
       if (testObj.element != "undefined") {
         switch (testObj.Element) {
@@ -25582,6 +27257,10 @@ function loadMix() {
             changesVolume(testObj.NewValue, player_4_Node, player_4_volume, player_4_volume_value);
             break;
           }
+          case "audio_card_channel_volume": {
+            changesVolume(testObj.NewValue, audio_card_channel_volNode, audio_card_channel_volume, audio_card_channel_volume_value);
+            break;
+          }
           case "channel_1_volume": {
             changesVolume(testObj.NewValue, channel_1_volNode, channel_1_volume, channel_1_volume_value);
             break;
@@ -25596,6 +27275,10 @@ function loadMix() {
           }
           case "channel_4_volume": {
             changesVolume(testObj.NewValue, channel_4_volNode, channel_4_volume, channel_4_volume_value);
+            break;
+          }
+          case "audio_card_channel_pan": {
+            changesPan(testObj.NewValue, audio_card_channel_panNode, audio_card_channel_pan, audio_card_channel_pan_value);
             break;
           }
           case "channel_1_pan": {
@@ -27837,196 +29520,6 @@ console.log (test.children);
   //console.log("childNodes: " + soundClips_1.childNodes);
   //soundClips_1.removeChild(clipContainer);
 */
-/*
-//EQ TEST
-const TESTfx_1_filter_1_select = document.getElementById("TESTfx_1_filter_1_select");
-TESTfx_1_filter_1_select.addEventListener("change", function (e) {
-
-  switch (e.currentTarget.value) {
-    case "lowpass":
-    case "highpass":
-    case "bandpass":
-    case "notch":
-    case "allpass":
-      {
-        TESTfx_1_filter.type = e.currentTarget.value;
-        TESTfx_1_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_select", e.currentTarget.value);
-        if (TESTfx_1_filter_eq_type == "on") {
-          hide_all_EQ_divs("1");
-          TESTfx_1_allpass_controls_div.style.display = "block";
-        }
-        break;
-      }
-    case "lowshelf":
-    case "highshelf":
-      {
-        TESTfx_1_filter.type = e.currentTarget.value;
-        TESTfx_1_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_select", e.currentTarget.value);
-        break;
-      }
-    case "peaking":
-      {
-        TESTfx_1_filter.type = e.currentTarget.value;
-        TESTfx_1_filter_eq_type = "peaking";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_select", e.currentTarget.value);
-        break;
-      }
-    case "empty": {
-      TESTfx_1_filter_eq_type = "empty";
-      TESTfx_1_filter.set({
-        frequency: 20000,
-        type: "lowpass",
-        Q: 0,
-        gain: 0,
-        rolloff: -96,
-      });
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_select", "empty");
-      break;
-    }
-    default:
-      { alert(" EQ1 DEFAULT TESTfx_1_filter_select switch"); }
-  }
-});
-
-//SHELF
-const TESTfx_1_filter_frequency_text_shelf = document.getElementById("TESTfx_1_filter_frequency_text_shelf");
-const TESTfx_1_filter_frequency_shelf = document.getElementById("TESTfx_1_filter_frequency_shelf");
-const TESTfx_1_filter_frequency_value_shelf = document.getElementById("TESTfx_1_filter_frequency_value_shelf");
-TESTfx_1_filter_frequency_shelf.addEventListener("change", function (e) {
-  TESTfx_1_filter.frequency.value = e.currentTarget.value;
-  TESTfx_1_filter_frequency_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_frequency_text_shelf", e.currentTarget.value);
-});
-
-const TESTfx_1_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
-const TESTfx_1_filter_detune_shelf = document.getElementById("TESTfx_1_filter_detune_shelf");
-const TESTfx_1_filter_detune_value_shelf = document.getElementById("TESTfx_1_filter_detune_value_shelf");
-TESTfx_1_filter_detune_shelf.addEventListener("change", function (e) {
-  TESTfx_1_filter.detune.value = e.currentTarget.value;
-  TESTfx_1_filter_detune_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_detune_text_shelf", e.currentTarget.value);
-});
-
-const TESTfx_1_filter_gain_text_shelf = document.getElementById("TESTfx_1_filter_gain_text_shelf");
-const TESTfx_1_filter_gain_shelf = document.getElementById("TESTfx_1_filter_gain_shelf");
-const TESTfx_1_filter_gain_value_shelf = document.getElementById("TESTfx_1_filter_gain_value_shelf");
-TESTfx_1_filter_gain_shelf.addEventListener("change", function (e) {
-  TESTfx_1_filter.gain.value = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_gain_shelf", e.currentTarget.value);
-  TESTfx_1_filter_gain_value_shelf.innerHTML = Math.round(`${e.currentTarget.value}`);
-});
-
-//PEAKING
-const TESTfx_1_filter_frequency_text_peaking = document.getElementById("TESTfx_1_filter_frequency_text_peaking");
-const TESTfx_1_filter_frequency_peaking = document.getElementById("TESTfx_1_filter_frequency_peaking");
-const TESTfx_1_filter_frequency_value_peaking = document.getElementById("TESTfx_1_filter_frequency_value_peaking");
-TESTfx_1_filter_frequency_peaking.addEventListener("change", function (e) {
-  TESTfx_1_filter.frequency.value = e.currentTarget.value;
-  TESTfx_1_filter_frequency_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_frequency_peaking", e.currentTarget.value);
-});
-
-const TESTfx_1_filter_Q_text_peaking = document.getElementById("TESTfx_1_filter_Q_text_peaking");
-const TESTfx_1_filter_Q_peaking = document.getElementById("TESTfx_1_filter_Q_peaking");
-const TESTfx_1_filter_Q_value_peaking = document.getElementById("TESTfx_1_filter_Q_value_peaking");
-TESTfx_1_filter_Q_peaking.addEventListener("change", function (e) {
-  TESTfx_1_filter.Q.value = e.currentTarget.value;
-  TESTfx_1_filter_Q_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_Q_peaking", e.currentTarget.value);
-});
-
-const TESTfx_1_filter_detune_text_peaking = document.getElementById("TESTfx_1_filter_detune_text_peaking");
-const TESTfx_1_filter_detune_peaking = document.getElementById("TESTfx_1_filter_detune_peaking");
-const TESTfx_1_filter_detune_value_peaking = document.getElementById("TESTfx_1_filter_detune_value_peaking");
-TESTfx_1_filter_detune_peaking.addEventListener("change", function (e) {
-  TESTfx_1_filter.detune.value = e.currentTarget.value;
-  TESTfx_1_filter_detune_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_detune_peaking", e.currentTarget.value);
-});
-
-const TESTfx_1_filter_gain_text_peaking = document.getElementById("TESTfx_1_filter_gain_text_peaking");
-const TESTfx_1_filter_gain_peaking = document.getElementById("TESTfx_1_filter_gain_peaking");
-const TESTfx_1_filter_gain_value_peaking = document.getElementById("TESTfx_1_filter_gain_value_peaking");
-TESTfx_1_filter_gain_peaking.addEventListener("change", function (e) {
-  TESTfx_1_filter.gain.value = e.currentTarget.value;
-  TESTfx_1_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_gain_peaking", e.currentTarget.value);
-});
-
-//ALLPASS
-const TESTfx_1_filter_frequency_allpass = document.getElementById("TESTfx_1_filter_frequency_allpass");
-const TESTfx_1_filter_frequency_value_allpass = document.getElementById("TESTfx_1_filter_frequency_value_allpass");
-const TESTfx_1_filter_frequency_text_allpass = document.getElementById("TESTfx_1_filter_frequency_text_allpass");
-TESTfx_1_filter_frequency_allpass.addEventListener("change", function (e) {
-  TESTfx_1_filter.frequency.value = e.currentTarget.value;
-  TESTfx_1_filter_frequency_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_frequency_value_allpass", e.currentTarget.value);
-});
-
-const TESTfx_1_filter_Q_allpass = document.getElementById("TESTfx_1_filter_Q_allpass");
-const TESTfx_1_filter_Q_value_allpass = document.getElementById("TESTfx_1_filter_Q_value_allpass");
-const TESTfx_1_filter_Q_text_allpass = document.getElementById("TESTfx_1_filter_Q_text_allpass");
-TESTfx_1_filter_Q_allpass.addEventListener("change", function (e) {
-  TESTfx_1_filter.Q.value = e.currentTarget.value;
-  TESTfx_1_filter_Q_value_allpass.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_Q_value_allpass", e.currentTarget.value);
-});
-
-const TESTfx_1_filter_detune_allpass = document.getElementById("TESTfx_1_filter_detune_allpass");
-const TESTfx_1_filter_detune_value_allpass = document.getElementById("TESTfx_1_filter_detune_value_allpass");
-const TESTfx_1_filter_detune_text_allpass = document.getElementById("TESTfx_1_filter_detune_text_allpass");
-TESTfx_1_filter_detune_allpass.addEventListener("change", function (e) {
-  TESTfx_1_filter.detune.value = e.currentTarget.value;
-  TESTfx_1_filter_detune_value_allpass.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "TESTfx_1_filter_detune_value_allpass", e.currentTarget.value);
-});
-
-const TESTfx_1_filter_eq_On_Button = document.getElementById("TESTfx_1_filter_eq_On_Button");
-//const TESTfx_1_filter = new Tone.Filter().connect(fx_1_dynamics_compressorNode_Bypass);
-
-const TESTfx_1_filter = new Tone.Filter();
-//channel_1_filter.debug = true;
-TESTfx_1_filter.set({
-  frequency: 1000,
-  type: "bandpass",
-  Q: 0.4,
-  gain: 0,
-  rolloff: -96,
-});
-
-TESTfx_1_filter.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postEq_volNode, channel_1_fxSend_3_postEq_volNode, channel_1_fxSend_4_postEq_volNode);
-
-const TESTfx_1_filter_meter = new Tone.Meter(0);
-TESTfx_1_filter.connect(TESTfx_1_filter_meter);
-//fx_1_panNode.connect(TESTfx_1_filter);
-//TESTfx_1_filter.connect(fx_1_filter_Bypass);
-
-const TESTfx_1_empty_controls_div = document.getElementById("TESTfx_1_empty_controls_div");
-TESTfx_1_empty_controls_div.style.display = "none";
-
-const TESTfx_1_bypass_controls_div = document.getElementById("TESTfx_1_bypass_controls_div");
-TESTfx_1_bypass_controls_div.style.display = "none";
-
-const TESTfx_1_allpass_controls_div = document.getElementById("TESTfx_1_allpass_controls_div");
-TESTfx_1_allpass_controls_div.style.display = "block";
-
-const TESTfx_1_shelf_controls_div = document.getElementById("TESTfx_1_shelf_controls_div");
-TESTfx_1_shelf_controls_div.style.display = "none";
-
-const TESTfx_1_peaking_controls_div = document.getElementById("TESTfx_1_peaking_controls_div");
-TESTfx_1_peaking_controls_div.style.display = "none";
-
-const TESTfx_1_tascam_424_controls_div = document.getElementById("TESTfx_1_tascam_424_controls_div");
-TESTfx_1_tascam_424_controls_div.style.display = "none";
-
-const TESTfx_1_eq3_controls_div = document.getElementById("TESTfx_1_eq3_controls_div");
-TESTfx_1_eq3_controls_div.style.display = "none";
-
-/**/
-
-
 
 //****************************************************************************************************************************
 //************************************************************************
@@ -28193,7 +29686,7 @@ rolloffFactor : 1
 // but the feedback is routed from left to right and right 
 // to left instead of on the same channel.
 
-
+/*
 //*********************************************************************************** */
 //*********************************************************************************** */
 //********          INIT SETUP      *************************************************************************** */
@@ -28202,93 +29695,904 @@ rolloffFactor : 1
 //**********     (SO CALL PROGRAM)          ************************************************************************* */
 //*********************************************************************************** */
 //*********************************************************************************** */
+/**/
+
 const List = MixEventObj.createsMixEventObjList();
 const LoadFileList = MixEventObj.createsMixEventObjList();
+const ListOfBuffers = MixEventObj.createsMixEventObjList();
 consoleClear();
 console.log("List so call");
 console.log(List);
 
-/*
-// COMO SELEECIONAR UN OPTION DE SELECT CON DISPATCH EVENT
-const selectElement = document.getElementById("channel_1_select_Available_Nodes");
-selectElement.value = "Player";
-selectElement.dispatchEvent(new Event('change'));
-
-const selectElement2 = document.getElementById("channel_2_select_Available_Nodes");
-selectElement2.value = "Player";
-selectElement2.dispatchEvent(new Event('change'));
-
-const selectElement3 = document.getElementById("channel_3_select_Available_Nodes");
-selectElement3.value = "Player";
-selectElement3.dispatchEvent(new Event('change'));
-
-const selectElement4 = document.getElementById("channel_4_select_Available_Nodes");
-selectElement4.value = "Player";
-selectElement4.dispatchEvent(new Event('change'));
-/**/
-
 master_volume.value = -12;
 master_volume_value.innerHTML = -12;
 masterVolumeNode.volume.value = -12;
+
+//-----------------------------------------------
+//                   AUDIO CARD
+//-----------------------------------------------
+
+audio_card_channel_volNode.volume.value = -6;
+audio_card_channel_volume_value.innerHTML = -6;
+audio_card_channel_volume.value = -6;
+
+audio_card_channel_panNode.pan.value = 0;
+audio_card_channel_pan_value.innerHTML = 0;
+audio_card_channel_pan.value = 0;
+
+audio_card_channel_filter_frequency_allpass_value.innerHTML = "20";
+audio_card_channel_filter_frequency_allpass.value = 20;
+audio_card_channel_filter_Q_allpass_value.innerHTML = "0";
+audio_card_channel_filter_Q_allpass.value = 0;
+audio_card_channel_filter_detune_allpass_value.innerHTML = "0";
+audio_card_channel_filter_detune_allpass.value = 0;
+
+audio_card_channel_filter_frequency_shelf_value.innerHTML = "120";
+audio_card_channel_filter_frequency_shelf.value = 20;
+audio_card_channel_filter_gain_shelf_value.innerHTML = "0";
+audio_card_channel_filter_gain_shelf.value = 0;
+audio_card_channel_filter_detune_shelf_value.innerHTML = "0";
+audio_card_channel_filter_detune_shelf.value = 0;
+
+audio_card_channel_filter_frequency_peaking_value.innerHTML = "20";
+audio_card_channel_filter_frequency_peaking.value = 20;
+audio_card_channel_filter_Q_peaking_value.innerHTML = "0";
+audio_card_channel_filter_Q_peaking.value = 0;
+audio_card_channel_filter_gain_peaking_value.innerHTML = "0";
+audio_card_channel_filter_gain_peaking.value = 0;
+audio_card_channel_filter_detune_peaking_value.innerHTML = "0";
+audio_card_channel_filter_detune_peaking.value = 0;
+
+audio_card_channel_EQ3_low_frequency_fader_value.innerHTML = "120";
+audio_card_channel_EQ3_low_frequency_fader.value = 120;
+audio_card_channel_EQ3_low_fader_gain_value.innerHTML = "0";
+audio_card_channel_EQ3_low_fader_gain.value = 0;
+audio_card_channel_EQ3_mid_fader_gain_value.innerHTML = "0";
+audio_card_channel_EQ3_mid_fader_gain.value = 0;
+audio_card_channel_EQ3_hi_fader_gain_value.innerHTML = "0";
+audio_card_channel_EQ3_hi_fader_gain.value = 0;
+audio_card_channel_EQ3_high_frequency_value.innerHTML = "8000";
+audio_card_channel_EQ3_high_frequency_fader.value = 8000;
+audio_card_channel_EQ3_Q_value.innerHTML = "0";
+audio_card_channel_EQ3_Q_fader.value = 0;
+
+audio_card_channel_tascam_HighShelf_gain_value.innerHTML = "0";
+audio_card_channel_tascam_HighShelf_gain.value = 0;
+audio_card_channel_tascam_Mid_SemiParam_gain_value.innerHTML = "0";
+audio_card_channel_tascam_Mid_SemiParam_gain.value = 0;
+audio_card_channel_tascam_Mid_SemiParam_frequency_value.innerHTML = "2500";
+audio_card_channel_tascam_Mid_SemiParam_frequency.value = 2500;
+audio_card_channel_tascam_LowShelf_gain_value.innerHTML = "0";
+audio_card_channel_tascam_LowShelf_gain.value = 0;
+
+audio_card_channel_fxSend_1_value.innerHTML = "-100";
+audio_card_channel_fxSend_2_value.innerHTML = "-100";
+audio_card_channel_fxSend_3_value.innerHTML = "-100";
+audio_card_channel_fxSend_4_value.innerHTML = "-100";
+
+audio_card_channel_dynamics_compressor_div.style.display = "block";
+audio_card_channel_dynamics_gate_div.style.display = "none";
+audio_card_channel_dynamics_limiter_div.style.display = "none";
+
+audio_card_channel_dynamics_ratio.value = 0;
+audio_card_channel_dynamics_ratio_value.innerHTML = 0;
+audio_card_channel_dynamics_threshold.value = 0;
+audio_card_channel_dynamics_threshold_value.innerHTML = 0;
+audio_card_channel_dynamics_release.value = 0;
+audio_card_channel_dynamics_release_value.innerHTML = 0;
+audio_card_channel_dynamics_attack.value = 0;
+audio_card_channel_dynamics_attack_value.innerHTML = 0;
+audio_card_channel_dynamics_knee.value = 0;
+audio_card_channel_dynamics_knee_value.innerHTML = 0;
+
+audio_card_channel_gate_threshold_value.innerHTML = 0;
+audio_card_channel_gate_threshold.value = 0;
+audio_card_channel_gate_smoothing_value.innerHTML = 0;
+audio_card_channel_gate_smoothing.value = 0;
+
+audio_card_channel_limiter_threshold.value = 0;
+audio_card_channel_limiter_threshold_value.innerHTML = 0;
+
+//-----------------------------------------------
+//INNER HTML channel 1
+//-----------------------------------------------
+
+channel_1_songName.innerHTML = `No Song Loaded`;
+
+channel_1_volNode.volume.value = -6;
+channel_1_volume_value.innerHTML = -6;
+channel_1_volume.value = -6;
+
+channel_1_panNode.pan.value = 0;
+channel_1_pan_value.innerHTML = "0";
+channel_1_pan.value = 0;
+
+channel_1_filter_frequency_allpass_value.innerHTML = "20";
+channel_1_filter_frequency_allpass.value = 20;
+channel_1_filter_Q_allpass_value.innerHTML = "0";
+channel_1_filter_Q_allpass.value = 0;
+channel_1_filter_detune_allpass_value.innerHTML = "0";
+channel_1_filter_detune_allpass.value = 0;
+
+channel_1_filter_frequency_shelf_value.innerHTML = "120";
+channel_1_filter_frequency_shelf.value = 20;
+channel_1_filter_gain_shelf_value.innerHTML = "0";
+channel_1_filter_gain_shelf.value = 0;
+channel_1_filter_detune_shelf_value.innerHTML = "0";
+channel_1_filter_detune_shelf.value = 0;
+
+channel_1_filter_frequency_peaking_value.innerHTML = "20";
+channel_1_filter_frequency_peaking.value = 20;
+channel_1_filter_Q_peaking_value.innerHTML = "0";
+channel_1_filter_Q_peaking.value = 0;
+channel_1_filter_gain_peaking_value.innerHTML = "0";
+channel_1_filter_gain_peaking.value = 0;
+channel_1_filter_detune_peaking_value.innerHTML = "0";
+channel_1_filter_detune_peaking.value = 0;
+
+channel_1_EQ3_low_frequency_fader_value.innerHTML = "120";
+channel_1_EQ3_low_frequency_fader.value = 120;
+channel_1_EQ3_low_fader_gain_value.innerHTML = "0";
+channel_1_EQ3_low_fader_gain.value = 0;
+channel_1_EQ3_mid_fader_gain_value.innerHTML = "0";
+channel_1_EQ3_mid_fader_gain.value = 0;
+channel_1_EQ3_hi_fader_gain_value.innerHTML = "0";
+channel_1_EQ3_hi_fader_gain.value = 0;
+channel_1_EQ3_high_frequency_value.innerHTML = "8000";
+channel_1_EQ3_high_frequency_fader.value = 8000;
+channel_1_EQ3_Q_value.innerHTML = "0";
+channel_1_EQ3_Q_fader.value = 0;
+
+channel_1_tascam_HighShelf_gain_value.innerHTML = "0";
+channel_1_tascam_HighShelf_gain.value = 0;
+channel_1_tascam_Mid_SemiParam_gain_value.innerHTML = "0";
+channel_1_tascam_Mid_SemiParam_gain.value = 0;
+channel_1_tascam_Mid_SemiParam_frequency_value.innerHTML = "2500";
+channel_1_tascam_Mid_SemiParam_frequency.value = 2500;
+channel_1_tascam_LowShelf_gain_value.innerHTML = "0";
+channel_1_tascam_LowShelf_gain.value = 0;
+
+channel_1_fxSend_1_value.innerHTML = "-100";
+channel_1_fxSend_2_value.innerHTML = "-100";
+channel_1_fxSend_3_value.innerHTML = "-100";
+channel_1_fxSend_4_value.innerHTML = "-100";
+channel_1_fxSend_1.value = -100;
+channel_1_fxSend_2.value = -100;
+channel_1_fxSend_3.value = -100;
+channel_1_fxSend_4.value = -100;
+
+channel_1_dynamics_compressor_div.style.display = "block";
+channel_1_dynamics_gate_div.style.display = "none";
+channel_1_dynamics_limiter_div.style.display = "none";
+
+channel_1_dynamics_ratio.value = 0;
+channel_1_dynamics_ratio_value.innerHTML = 0;
+channel_1_dynamics_threshold.value = 0;
+channel_1_dynamics_threshold_value.innerHTML = 0;
+channel_1_dynamics_release.value = 0;
+channel_1_dynamics_release_value.innerHTML = 0;
+channel_1_dynamics_attack.value = 0;
+channel_1_dynamics_attack_value.innerHTML = 0;
+channel_1_dynamics_knee.value = 0;
+channel_1_dynamics_knee_value.innerHTML = 0;
+
+channel_1_gate_threshold_value.innerHTML = 0;
+channel_1_gate_threshold.value = 0;
+channel_1_gate_smoothing_value.innerHTML = 0;
+channel_1_gate_smoothing.value = 0;
+
+channel_1_limiter_threshold.value = 0;
+channel_1_limiter_threshold_value.innerHTML = 0;
+
+//-----------------------------------------------
+//INNER HTML channel 2
+
+channel_2_songName.innerHTML = `No Song Loaded`;
+
+channel_2_volNode.volume.value = -6;
+channel_2_volume_value.innerHTML = -6;
+channel_2_volume.value = -6;
+
+channel_2_panNode.pan.value = 0;
+channel_2_pan_value.innerHTML = "0";
+channel_2_pan.value = 0;
+
+channel_2_filter_frequency_allpass_value.innerHTML = "20";
+channel_2_filter_frequency_allpass.value = 20;
+channel_2_filter_Q_allpass_value.innerHTML = "0";
+channel_2_filter_Q_allpass.value = 0;
+channel_2_filter_detune_allpass_value.innerHTML = "0";
+channel_2_filter_detune_allpass.value = 0;
+
+channel_2_filter_frequency_shelf_value.innerHTML = "120";
+channel_2_filter_frequency_shelf.value = 20;
+channel_2_filter_gain_shelf_value.innerHTML = "0";
+channel_2_filter_gain_shelf.value = 0;
+channel_2_filter_detune_shelf_value.innerHTML = "0";
+channel_2_filter_detune_shelf.value = 0;
+
+channel_2_filter_frequency_peaking_value.innerHTML = "20";
+channel_2_filter_frequency_peaking.value = 20;
+channel_2_filter_Q_peaking_value.innerHTML = "0";
+channel_2_filter_Q_peaking.value = 0;
+channel_2_filter_gain_peaking_value.innerHTML = "0";
+channel_2_filter_gain_peaking.value = 0;
+channel_2_filter_detune_peaking_value.innerHTML = "0";
+channel_2_filter_detune_peaking.value = 0;
+
+channel_2_EQ3_low_frequency_fader_value.innerHTML = "120";
+channel_2_EQ3_low_frequency_fader.value = 120;
+channel_2_EQ3_low_fader_gain_value.innerHTML = "0";
+channel_2_EQ3_low_fader_gain.value = 0;
+channel_2_EQ3_mid_fader_gain_value.innerHTML = "0";
+channel_2_EQ3_mid_fader_gain.value = 0;
+channel_2_EQ3_hi_fader_gain_value.innerHTML = "0";
+channel_2_EQ3_hi_fader_gain.value = 0;
+channel_2_EQ3_high_frequency_value.innerHTML = "8000";
+channel_2_EQ3_high_frequency_fader.value = 8000;
+channel_2_EQ3_Q_value.innerHTML = "0";
+channel_2_EQ3_Q_fader.value = 0;
+
+channel_2_tascam_HighShelf_gain_value.innerHTML = "0";
+channel_2_tascam_HighShelf_gain.value = 0;
+channel_2_tascam_Mid_SemiParam_gain_value.innerHTML = "0";
+channel_2_tascam_Mid_SemiParam_gain.value = 0;
+channel_2_tascam_Mid_SemiParam_frequency_value.innerHTML = "2500";
+channel_2_tascam_Mid_SemiParam_frequency.value = 2500;
+channel_2_tascam_LowShelf_gain_value.innerHTML = "0";
+channel_2_tascam_LowShelf_gain.value = 0;
+
+channel_2_fxSend_1_value.innerHTML = "-100";
+channel_2_fxSend_2_value.innerHTML = "-100";
+channel_2_fxSend_3_value.innerHTML = "-100";
+channel_2_fxSend_4_value.innerHTML = "-100";
+
+channel_2_dynamics_compressor_div.style.display = "block";
+channel_2_dynamics_gate_div.style.display = "none";
+channel_2_dynamics_limiter_div.style.display = "none";
+
+channel_2_dynamics_ratio.value = 0;
+channel_2_dynamics_ratio_value.innerHTML = 0;
+channel_2_dynamics_threshold.value = 0;
+channel_2_dynamics_threshold_value.innerHTML = 0;
+channel_2_dynamics_release.value = 0;
+channel_2_dynamics_release_value.innerHTML = 0;
+channel_2_dynamics_attack.value = 0;
+channel_2_dynamics_attack_value.innerHTML = 0;
+channel_2_dynamics_knee.value = 0;
+channel_2_dynamics_knee_value.innerHTML = 0;
+
+channel_2_gate_threshold_value.innerHTML = 0;
+channel_2_gate_threshold.value = 0;
+channel_2_gate_smoothing_value.innerHTML = 0;
+channel_2_gate_smoothing.value = 0;
+
+channel_2_limiter_threshold.value = 0;
+channel_2_limiter_threshold_value.innerHTML = 0;
+
+//-----------------------------------------------
+//INNER HTML player 3
+channel_3_songName.innerHTML = `No Song Loaded`;
+
+channel_3_volNode.volume.value = -6;
+channel_3_volume_value.innerHTML = -6;
+channel_3_volume.value = -6;
+
+channel_3_panNode.pan.value = 0;
+channel_3_pan_value.innerHTML = "0";
+channel_3_pan.value = 0;
+
+channel_3_filter_frequency_allpass_value.innerHTML = "20";
+channel_3_filter_frequency_allpass.value = 20;
+channel_3_filter_Q_allpass_value.innerHTML = "0";
+channel_3_filter_Q_allpass.value = 0;
+channel_3_filter_detune_allpass_value.innerHTML = "0";
+channel_3_filter_detune_allpass.value = 0;
+
+channel_3_filter_frequency_shelf_value.innerHTML = "120";
+channel_3_filter_frequency_shelf.value = 20;
+channel_3_filter_gain_shelf_value.innerHTML = "0";
+channel_3_filter_gain_shelf.value = 0;
+channel_3_filter_detune_shelf_value.innerHTML = "0";
+channel_3_filter_detune_shelf.value = 0;
+
+channel_3_filter_frequency_peaking_value.innerHTML = "20";
+channel_3_filter_frequency_peaking.value = 20;
+channel_3_filter_Q_peaking_value.innerHTML = "0";
+channel_3_filter_Q_peaking.value = 0;
+channel_3_filter_gain_peaking_value.innerHTML = "0";
+channel_3_filter_gain_peaking.value = 0;
+channel_3_filter_detune_peaking_value.innerHTML = "0";
+channel_3_filter_detune_peaking.value = 0;
+
+channel_3_EQ3_low_frequency_fader_value.innerHTML = "120";
+channel_3_EQ3_low_frequency_fader.value = 120;
+channel_3_EQ3_low_fader_gain_value.innerHTML = "0";
+channel_3_EQ3_low_fader_gain.value = 0;
+channel_3_EQ3_mid_fader_gain_value.innerHTML = "0";
+channel_3_EQ3_mid_fader_gain.value = 0;
+channel_3_EQ3_hi_fader_gain_value.innerHTML = "0";
+channel_3_EQ3_hi_fader_gain.value = 0;
+channel_3_EQ3_high_frequency_value.innerHTML = "8000";
+channel_3_EQ3_high_frequency_fader.value = 8000;
+channel_3_EQ3_Q_value.innerHTML = "0";
+channel_3_EQ3_Q_fader.value = 0;
+
+channel_3_tascam_HighShelf_gain_value.innerHTML = "0";
+channel_3_tascam_HighShelf_gain.value = 0;
+channel_3_tascam_Mid_SemiParam_gain_value.innerHTML = "0";
+channel_3_tascam_Mid_SemiParam_gain.value = 0;
+channel_3_tascam_Mid_SemiParam_frequency_value.innerHTML = "2500";
+channel_3_tascam_Mid_SemiParam_frequency.value = 2500;
+channel_3_tascam_LowShelf_gain_value.innerHTML = "0";
+channel_3_tascam_LowShelf_gain.value = 0;
+
+channel_3_fxSend_1_value.innerHTML = "-100";
+channel_3_fxSend_2_value.innerHTML = "-100";
+channel_3_fxSend_3_value.innerHTML = "-100";
+channel_3_fxSend_4_value.innerHTML = "-100";
+
+channel_3_dynamics_compressor_div.style.display = "block";
+channel_3_dynamics_gate_div.style.display = "none";
+channel_3_dynamics_limiter_div.style.display = "none";
+
+
+channel_3_dynamics_ratio.value = 0;
+channel_3_dynamics_ratio_value.innerHTML = 0;
+channel_3_dynamics_threshold.value = 0;
+channel_3_dynamics_threshold_value.innerHTML = 0;
+channel_3_dynamics_release.value = 0;
+channel_3_dynamics_release_value.innerHTML = 0;
+channel_3_dynamics_attack.value = 0;
+channel_3_dynamics_attack_value.innerHTML = 0;
+channel_3_dynamics_knee.value = 0;
+channel_3_dynamics_knee_value.innerHTML = 0;
+
+channel_3_gate_threshold_value.innerHTML = 0;
+channel_3_gate_threshold.value = 0;
+channel_3_gate_smoothing_value.innerHTML = 0;
+channel_3_gate_smoothing.value = 0;
+
+channel_3_limiter_threshold.value = 0;
+channel_3_limiter_threshold_value.innerHTML = 0;
+
+//-----------------------------------------------
+//INNER HTML player 4
+channel_4_songName.innerHTML = `No Song Loaded`;
+
+channel_4_volNode.volume.value = -6;
+channel_4_volume_value.innerHTML = -6;
+channel_4_volume.value = -6;
+
+channel_4_panNode.pan.value = 0;
+channel_4_pan_value.innerHTML = "0";
+channel_4_pan.value = 0;
+
+channel_4_filter_frequency_allpass_value.innerHTML = "20";
+channel_4_filter_frequency_allpass.value = 20;
+channel_4_filter_Q_allpass_value.innerHTML = "0";
+channel_4_filter_Q_allpass.value = 0;
+channel_4_filter_detune_allpass_value.innerHTML = "0";
+channel_4_filter_detune_allpass.value = 0;
+
+channel_4_filter_frequency_shelf_value.innerHTML = "120";
+channel_4_filter_frequency_shelf.value = 20;
+channel_4_filter_gain_shelf_value.innerHTML = "0";
+channel_4_filter_gain_shelf.value = 0;
+channel_4_filter_detune_shelf_value.innerHTML = "0";
+channel_4_filter_detune_shelf.value = 0;
+
+channel_4_filter_frequency_peaking_value.innerHTML = "20";
+channel_4_filter_frequency_peaking.value = 20;
+channel_4_filter_Q_peaking_value.innerHTML = "0";
+channel_4_filter_Q_peaking.value = 0;
+channel_4_filter_gain_peaking_value.innerHTML = "0";
+channel_4_filter_gain_peaking.value = 0;
+channel_4_filter_detune_peaking_value.innerHTML = "0";
+channel_4_filter_detune_peaking.value = 0;
+
+channel_4_EQ3_low_frequency_fader_value.innerHTML = "120";
+channel_4_EQ3_low_frequency_fader.value = 120;
+channel_4_EQ3_low_fader_gain_value.innerHTML = "0";
+channel_4_EQ3_low_fader_gain.value = 0;
+channel_4_EQ3_mid_fader_gain_value.innerHTML = "0";
+channel_4_EQ3_mid_fader_gain.value = 0;
+channel_4_EQ3_hi_fader_gain_value.innerHTML = "0";
+channel_4_EQ3_hi_fader_gain.value = 0;
+channel_4_EQ3_high_frequency_value.innerHTML = "8000";
+channel_4_EQ3_high_frequency_fader.value = 8000;
+channel_4_EQ3_Q_value.innerHTML = "0";
+channel_4_EQ3_Q_fader.value = 0;
+
+channel_4_tascam_HighShelf_gain_value.innerHTML = "0";
+channel_4_tascam_HighShelf_gain.value = 0;
+channel_4_tascam_Mid_SemiParam_gain_value.innerHTML = "0";
+channel_4_tascam_Mid_SemiParam_gain.value = 0;
+channel_4_tascam_Mid_SemiParam_frequency_value.innerHTML = "2500";
+channel_4_tascam_Mid_SemiParam_frequency.value = 2500;
+channel_4_tascam_LowShelf_gain_value.innerHTML = "0";
+channel_4_tascam_LowShelf_gain.value = 0;
+
+channel_4_fxSend_1_value.innerHTML = "-100";
+channel_4_fxSend_2_value.innerHTML = "-100";
+channel_4_fxSend_3_value.innerHTML = "-100";
+channel_4_fxSend_4_value.innerHTML = "-100";
+
+channel_4_dynamics_compressor_div.style.display = "block";
+channel_4_dynamics_gate_div.style.display = "none";
+channel_4_dynamics_limiter_div.style.display = "none";
+
+channel_4_dynamics_ratio.value = 0;
+channel_4_dynamics_ratio_value.innerHTML = 0;
+channel_4_dynamics_threshold.value = 0;
+channel_4_dynamics_threshold_value.innerHTML = 0;
+channel_4_dynamics_release.value = 0;
+channel_4_dynamics_release_value.innerHTML = 0;
+channel_4_dynamics_attack.value = 0;
+channel_4_dynamics_attack_value.innerHTML = 0;
+channel_4_dynamics_knee.value = 0;
+channel_4_dynamics_knee_value.innerHTML = 0;
+
+channel_4_gate_threshold_value.innerHTML = 0;
+channel_4_gate_threshold.value = 0;
+channel_4_gate_smoothing_value.innerHTML = 0;
+channel_4_gate_smoothing.value = 0;
+
+channel_4_limiter_threshold.value = 0;
+channel_4_limiter_threshold_value.innerHTML = 0;
+
+//-------------------------------------
 
 multiple_play_source_1.checked = true;
 multiple_play_source_2.checked = true;
 multiple_play_source_3.checked = true;
 multiple_play_source_4.checked = true;
 multiple_play_test_player.checked = false;
+
 player_1_loop_checkbox.checked = true;
 player_1_Node.loop = true;
 player_1_Node.volume.value = -6;
 player_1_volume_value.innerHTML = -6;
 player_1_volume.value = -6;
-channel_1_volNode.volume.value = -6;
-channel_1_volume_value.innerHTML = -6;
-channel_1_volume.value = -6;
+player_1_playback_rate_value.innerHTML = 1;
+player_1_playback_rate.value = 1;
 
 player_2_loop_checkbox.checked = true;
 player_2_Node.loop = true;
 player_2_Node.volume.value = -6;
 player_2_volume_value.innerHTML = -6;
 player_2_volume.value = -6;
-channel_2_volNode.volume.value = -6;
-channel_2_volume_value.innerHTML = -6;
-channel_2_volume.value = -6;
+player_2_playback_rate_value.innerHTML = 1;
+player_2_playback_rate.value = 1;
 
 player_3_loop_checkbox.checked = true;
 player_3_Node.loop = true;
 player_3_Node.volume.value = -6;
 player_3_volume.value = -6;
 player_3_volume_value.innerHTML = -6;
-channel_3_volNode.volume.value = -6;
-channel_3_volume_value.innerHTML = -6;
-channel_3_volume.value = -6;
+player_3_playback_rate_value.innerHTML = 1;
+player_3_playback_rate.value = 1;
 
 player_4_loop_checkbox.checked = true;
 player_4_Node.loop = true;
 player_4_Node.volume.value = -6;
 player_4_volume.value = -6;
 player_4_volume_value.innerHTML = -6;
-channel_4_volNode.volume.value = -6;
-channel_4_volume_value.innerHTML = -6;
-channel_4_volume.value = -6;
+player_4_playback_rate_value.innerHTML = 1;
+player_4_playback_rate.value = 1;
+
+grainPlayer_1_loop_checkbox.checked = true;
+grainPlayer_1_Node.loop = true;
+grainPlayer_1_Node.volume.value = -6;
+grainPlayer_1_volume_value.innerHTML = -6;
+grainPlayer_1_volume.value = -6;
+grainPlayer_1_Node.grainSize = 0.1;
+grainPlayer_1_grainSize.value = 0;
+grainPlayer_1_grainSize_value.innerHTML = 0;
+grainPlayer_1_Node.overlap = 0;
+grainPlayer_1_overlap.value = 0;
+grainPlayer_1_overlap_value.innerHTML = 0;
+grainPlayer_1_Node.playbackRate = 100;
+grainPlayer_1_playback_rate_value.innerHTML = 100;
+grainPlayer_1_playback_rate.value = 100;
+grainPlayer_1_detune_value.innerHTML = 0;
+grainPlayer_1_detune.value = 0;
+grainPlayer_1_Node.detune = 0;
+
+grainPlayer_2_loop_checkbox.checked = true;
+grainPlayer_2_Node.loop = true;
+grainPlayer_2_Node.volume.value = -6;
+grainPlayer_2_volume_value.innerHTML = -6;
+grainPlayer_2_volume.value = -6;
+grainPlayer_2_Node.grainSize = 0.1;
+grainPlayer_2_grainSize.value = 0;
+grainPlayer_2_grainSize_value.innerHTML = 0;
+grainPlayer_2_Node.overlap = 0;
+grainPlayer_2_overlap.value = 0;
+grainPlayer_2_overlap_value.innerHTML = 0;
+grainPlayer_2_Node.playbackRate = 100;
+grainPlayer_2_playback_rate_value.innerHTML = 100;
+grainPlayer_2_playback_rate.value = 100;
+grainPlayer_2_detune_value.innerHTML = 0;
+grainPlayer_2_detune.value = 0;
+grainPlayer_2_Node.detune = 0;
+
+grainPlayer_3_loop_checkbox.checked = true;
+grainPlayer_3_Node.loop = true;
+grainPlayer_3_Node.volume.value = -6;
+grainPlayer_3_volume_value.innerHTML = -6;
+grainPlayer_3_volume.value = -6;
+grainPlayer_3_Node.grainSize = 0.1;
+grainPlayer_3_grainSize.value = 0;
+grainPlayer_3_grainSize_value.innerHTML = 0;
+grainPlayer_3_Node.overlap = 0;
+grainPlayer_3_overlap.value = 0;
+grainPlayer_3_overlap_value.innerHTML = 0;
+grainPlayer_3_Node.playbackRate = 100;
+grainPlayer_3_playback_rate_value.innerHTML = 100;
+grainPlayer_3_playback_rate.value = 100;
+grainPlayer_3_detune_value.innerHTML = 0;
+grainPlayer_3_detune.value = 0;
+grainPlayer_3_Node.detune = 0;
+
+grainPlayer_4_loop_checkbox.checked = true;
+grainPlayer_4_Node.loop = true;
+grainPlayer_4_Node.volume.value = -6;
+grainPlayer_4_volume_value.innerHTML = -6;
+grainPlayer_4_volume.value = -6;
+grainPlayer_4_Node.grainSize = 0.1;
+grainPlayer_4_grainSize.value = 0;
+grainPlayer_4_grainSize_value.innerHTML = 0;
+grainPlayer_4_Node.overlap = 0;
+grainPlayer_4_overlap.value = 0;
+grainPlayer_4_overlap_value.innerHTML = 0;
+grainPlayer_4_Node.playbackRate = 100;
+grainPlayer_4_playback_rate_value.innerHTML = 100;
+grainPlayer_4_playback_rate.value = 100;
+grainPlayer_4_detune_value.innerHTML = 0;
+grainPlayer_4_detune.value = 0;
+grainPlayer_4_Node.detune = 0;
 
 fx_1_volNode.value = -6;
 fx_1_volume.value = -6;
 fx_1_volume_value.innerHTML = -6;
-fx_2_volNode.volume.value = -6;
-fx_2_volume.value = -6;
-fx_2_volume_value.innerHTML = -6;
-fx_3_volNode.volume.value = -6;
-fx_3_volume.value = -6;
-fx_3_volume_value.innerHTML = -6;
-fx_4_volNode.volume.value = -6;
-fx_4_volume.value = -6;
-fx_4_volume_value.innerHTML = -6;
 
+fx_1_panNode.pan.value = 0;
+fx_1_pan_value.innerHTML = "0";
+fx_1_pan_fader.value = 0;
+
+fx_1_filter_frequency_allpass_value.innerHTML = "20";
+fx_1_filter_frequency_allpass.value = 20;
+fx_1_filter_Q_allpass_value.innerHTML = "0";
+fx_1_filter_Q_allpass.value = 0;
+fx_1_filter_detune_allpass_value.innerHTML = "0";
+fx_1_filter_detune_allpass.value = 0;
+
+fx_1_filter_frequency_shelf_value.innerHTML = "120";
+fx_1_filter_frequency_shelf.value = 20;
+fx_1_filter_gain_shelf_value.innerHTML = "0";
+fx_1_filter_gain_shelf.value = 0;
+fx_1_filter_detune_shelf_value.innerHTML = "0";
+fx_1_filter_detune_shelf.value = 0;
+
+fx_1_filter_frequency_peaking_value.innerHTML = "20";
+fx_1_filter_frequency_peaking.value = 20;
+fx_1_filter_Q_peaking_value.innerHTML = "0";
+fx_1_filter_Q_peaking.value = 0;
+fx_1_filter_gain_peaking_value.innerHTML = "0";
+fx_1_filter_gain_peaking.value = 0;
+fx_1_filter_detune_peaking_value.innerHTML = "0";
+fx_1_filter_detune_peaking.value = 0;
+
+fx_1_EQ3_low_frequency_fader_value.innerHTML = "120";
+fx_1_EQ3_low_frequency_fader.value = 120;
+fx_1_EQ3_low_fader_gain_value.innerHTML = "0";
+fx_1_EQ3_low_fader_gain.value = 0;
+fx_1_EQ3_mid_fader_gain_value.innerHTML = "0";
+fx_1_EQ3_mid_fader_gain.value = 0;
+fx_1_EQ3_hi_fader_gain_value.innerHTML = "0";
+fx_1_EQ3_hi_fader_gain.value = 0;
+fx_1_EQ3_high_frequency_value.innerHTML = "8000";
+fx_1_EQ3_high_frequency_fader.value = 8000;
+fx_1_EQ3_Q_value.innerHTML = "0";
+fx_1_EQ3_Q_fader.value = 0;
+
+fx_1_tascam_HighShelf_gain_value.innerHTML = "0";
+fx_1_tascam_HighShelf_gain.value = 0;
+fx_1_tascam_Mid_SemiParam_gain_value.innerHTML = "0";
+fx_1_tascam_Mid_SemiParam_gain.value = 0;
+fx_1_tascam_Mid_SemiParam_frequency_value.innerHTML = "2500";
+fx_1_tascam_Mid_SemiParam_frequency.value = 2500;
+fx_1_tascam_LowShelf_gain_value.innerHTML = "0";
+fx_1_tascam_LowShelf_gain.value = 0;
 
 fx_1_dynamics_compressor_div.style.display = "block";
 fx_1_dynamics_gate_div.style.display = "none";
 fx_1_dynamics_limiter_div.style.display = "none";
+
+fx_1_dynamics_ratio.value = 0;
+fx_1_dynamics_ratio_value.innerHTML = 0;
+fx_1_dynamics_threshold.value = 0;
+fx_1_dynamics_threshold_value.innerHTML = 0;
+fx_1_dynamics_release.value = 0;
+fx_1_dynamics_release_value.innerHTML = 0;
+fx_1_dynamics_attack.value = 0;
+fx_1_dynamics_attack_value.innerHTML = 0;
+fx_1_dynamics_knee.value = 0;
+fx_1_dynamics_knee_value.innerHTML = 0;
+
+fx_1_gate_threshold_value.innerHTML = 0;
+fx_1_gate_threshold.value = 0;
+fx_1_gate_smoothing_value.innerHTML = 0;
+fx_1_gate_smoothing.value = 0;
+
+fx_1_limiter_threshold.value = 0;
+fx_1_limiter_threshold_value.innerHTML = 0;
+
+fx_1_fxSend_1_value.innerHTML = "-100";
+fx_1_fxSend_2_value.innerHTML = "-100";
+fx_1_fxSend_3_value.innerHTML = "-100";
+fx_1_fxSend_4_value.innerHTML = "-100";
+fx_1_fxSend_1.value = -100;
+fx_1_fxSend_2.value = -100;
+fx_1_fxSend_3.value = -100;
+fx_1_fxSend_4.value = -100;
+
+fx_2_volNode.volume.value = -6;
+fx_2_volume.value = -6;
+fx_2_volume_value.innerHTML = -6;
+
+fx_2_panNode.pan.value = 0;
+fx_2_pan_value.innerHTML = "0";
+fx_2_pan_fader.value = 0;
+
+fx_2_filter_frequency_allpass_value.innerHTML = "20";
+fx_2_filter_frequency_allpass.value = 20;
+fx_2_filter_Q_allpass_value.innerHTML = "0";
+fx_2_filter_Q_allpass.value = 0;
+fx_2_filter_detune_allpass_value.innerHTML = "0";
+fx_2_filter_detune_allpass.value = 0;
+
+fx_2_filter_frequency_shelf_value.innerHTML = "120";
+fx_2_filter_frequency_shelf.value = 20;
+fx_2_filter_gain_shelf_value.innerHTML = "0";
+fx_2_filter_gain_shelf.value = 0;
+fx_2_filter_detune_shelf_value.innerHTML = "0";
+fx_2_filter_detune_shelf.value = 0;
+
+fx_2_filter_frequency_peaking_value.innerHTML = "20";
+fx_2_filter_frequency_peaking.value = 20;
+fx_2_filter_Q_peaking_value.innerHTML = "0";
+fx_2_filter_Q_peaking.value = 0;
+fx_2_filter_gain_peaking_value.innerHTML = "0";
+fx_2_filter_gain_peaking.value = 0;
+fx_2_filter_detune_peaking_value.innerHTML = "0";
+fx_2_filter_detune_peaking.value = 0;
+
+fx_2_EQ3_low_frequency_fader_value.innerHTML = "120";
+fx_2_EQ3_low_frequency_fader.value = 120;
+fx_2_EQ3_low_fader_gain_value.innerHTML = "0";
+fx_2_EQ3_low_fader_gain.value = 0;
+fx_2_EQ3_mid_fader_gain_value.innerHTML = "0";
+fx_2_EQ3_mid_fader_gain.value = 0;
+fx_2_EQ3_hi_fader_gain_value.innerHTML = "0";
+fx_2_EQ3_hi_fader_gain.value = 0;
+fx_2_EQ3_high_frequency_value.innerHTML = "8000";
+fx_2_EQ3_high_frequency_fader.value = 8000;
+fx_2_EQ3_Q_value.innerHTML = "0";
+fx_2_EQ3_Q_fader.value = 0;
+
+fx_2_tascam_HighShelf_gain_value.innerHTML = "0";
+fx_2_tascam_HighShelf_gain.value = 0;
+fx_2_tascam_Mid_SemiParam_gain_value.innerHTML = "0";
+fx_2_tascam_Mid_SemiParam_gain.value = 0;
+fx_2_tascam_Mid_SemiParam_frequency_value.innerHTML = "2500";
+fx_2_tascam_Mid_SemiParam_frequency.value = 2500;
+fx_2_tascam_LowShelf_gain_value.innerHTML = "0";
+fx_2_tascam_LowShelf_gain.value = 0;
+
+fx_2_dynamics_compressor_div.style.display = "block";
+fx_2_dynamics_gate_div.style.display = "none";
+fx_2_dynamics_limiter_div.style.display = "none";
+
+fx_2_dynamics_ratio.value = 0;
+fx_2_dynamics_ratio_value.innerHTML = 0;
+fx_2_dynamics_threshold.value = 0;
+fx_2_dynamics_threshold_value.innerHTML = 0;
+fx_2_dynamics_release.value = 0;
+fx_2_dynamics_release_value.innerHTML = 0;
+fx_2_dynamics_attack.value = 0;
+fx_2_dynamics_attack_value.innerHTML = 0;
+fx_2_dynamics_knee.value = 0;
+fx_2_dynamics_knee_value.innerHTML = 0;
+
+fx_2_gate_threshold_value.innerHTML = 0;
+fx_2_gate_threshold.value = 0;
+fx_2_gate_smoothing_value.innerHTML = 0;
+fx_2_gate_smoothing.value = 0;
+
+fx_2_limiter_threshold.value = 0;
+fx_2_limiter_threshold_value.innerHTML = 0;
+
+fx_2_fxSend_1_value.innerHTML = "-100";
+fx_2_fxSend_2_value.innerHTML = "-100";
+fx_2_fxSend_3_value.innerHTML = "-100";
+fx_2_fxSend_4_value.innerHTML = "-100";
+fx_2_fxSend_1.value = -100;
+fx_2_fxSend_2.value = -100;
+fx_2_fxSend_3.value = -100;
+fx_2_fxSend_4.value = -100;
+
+fx_3_volNode.volume.value = -6;
+fx_3_volume.value = -6;
+fx_3_volume_value.innerHTML = -6;
+
+fx_3_panNode.pan.value = 0;
+fx_3_pan_value.innerHTML = "0";
+fx_3_pan_fader.value = 0;
+
+fx_3_filter_frequency_allpass_value.innerHTML = "20";
+fx_3_filter_frequency_allpass.value = 20;
+fx_3_filter_Q_allpass_value.innerHTML = "0";
+fx_3_filter_Q_allpass.value = 0;
+fx_3_filter_detune_allpass_value.innerHTML = "0";
+fx_3_filter_detune_allpass.value = 0;
+
+fx_3_filter_frequency_shelf_value.innerHTML = "120";
+fx_3_filter_frequency_shelf.value = 20;
+fx_3_filter_gain_shelf_value.innerHTML = "0";
+fx_3_filter_gain_shelf.value = 0;
+fx_3_filter_detune_shelf_value.innerHTML = "0";
+fx_3_filter_detune_shelf.value = 0;
+
+fx_3_filter_frequency_peaking_value.innerHTML = "20";
+fx_3_filter_frequency_peaking.value = 20;
+fx_3_filter_Q_peaking_value.innerHTML = "0";
+fx_3_filter_Q_peaking.value = 0;
+fx_3_filter_gain_peaking_value.innerHTML = "0";
+fx_3_filter_gain_peaking.value = 0;
+fx_3_filter_detune_peaking_value.innerHTML = "0";
+fx_3_filter_detune_peaking.value = 0;
+
+fx_3_EQ3_low_frequency_fader_value.innerHTML = "120";
+fx_3_EQ3_low_frequency_fader.value = 120;
+fx_3_EQ3_low_fader_gain_value.innerHTML = "0";
+fx_3_EQ3_low_fader_gain.value = 0;
+fx_3_EQ3_mid_fader_gain_value.innerHTML = "0";
+fx_3_EQ3_mid_fader_gain.value = 0;
+fx_3_EQ3_hi_fader_gain_value.innerHTML = "0";
+fx_3_EQ3_hi_fader_gain.value = 0;
+fx_3_EQ3_high_frequency_value.innerHTML = "8000";
+fx_3_EQ3_high_frequency_fader.value = 8000;
+fx_3_EQ3_Q_value.innerHTML = "0";
+fx_3_EQ3_Q_fader.value = 0;
+
+fx_3_tascam_HighShelf_gain_value.innerHTML = "0";
+fx_3_tascam_HighShelf_gain.value = 0;
+fx_3_tascam_Mid_SemiParam_gain_value.innerHTML = "0";
+fx_3_tascam_Mid_SemiParam_gain.value = 0;
+fx_3_tascam_Mid_SemiParam_frequency_value.innerHTML = "2500";
+fx_3_tascam_Mid_SemiParam_frequency.value = 2500;
+fx_3_tascam_LowShelf_gain_value.innerHTML = "0";
+fx_3_tascam_LowShelf_gain.value = 0;
+
+fx_3_dynamics_compressor_div.style.display = "block";
+fx_3_dynamics_gate_div.style.display = "none";
+fx_3_dynamics_limiter_div.style.display = "none";
+
+fx_3_dynamics_ratio.value = 0;
+fx_3_dynamics_ratio_value.innerHTML = 0;
+fx_3_dynamics_threshold.value = 0;
+fx_3_dynamics_threshold_value.innerHTML = 0;
+fx_3_dynamics_release.value = 0;
+fx_3_dynamics_release_value.innerHTML = 0;
+fx_3_dynamics_attack.value = 0;
+fx_3_dynamics_attack_value.innerHTML = 0;
+fx_3_dynamics_knee.value = 0;
+fx_3_dynamics_knee_value.innerHTML = 0;
+
+fx_3_gate_threshold_value.innerHTML = 0;
+fx_3_gate_threshold.value = 0;
+fx_3_gate_smoothing_value.innerHTML = 0;
+fx_3_gate_smoothing.value = 0;
+
+fx_3_limiter_threshold.value = 0;
+fx_3_limiter_threshold_value.innerHTML = 0;
+
+fx_3_fxSend_1_value.innerHTML = "-100";
+fx_3_fxSend_2_value.innerHTML = "-100";
+fx_3_fxSend_3_value.innerHTML = "-100";
+fx_3_fxSend_4_value.innerHTML = "-100";
+fx_3_fxSend_1.value = -100;
+fx_3_fxSend_2.value = -100;
+fx_3_fxSend_3.value = -100;
+fx_3_fxSend_4.value = -100;
+
+fx_4_volNode.volume.value = -6;
+fx_4_volume.value = -6;
+fx_4_volume_value.innerHTML = -6;
+
+fx_4_panNode.pan.value = 0;
+fx_4_pan_value.innerHTML = "0";
+fx_4_pan_fader.value = 0;
+
+fx_4_filter_frequency_allpass_value.innerHTML = "20";
+fx_4_filter_frequency_allpass.value = 20;
+fx_4_filter_Q_allpass_value.innerHTML = "0";
+fx_4_filter_Q_allpass.value = 0;
+fx_4_filter_detune_allpass_value.innerHTML = "0";
+fx_4_filter_detune_allpass.value = 0;
+
+fx_4_filter_frequency_shelf_value.innerHTML = "120";
+fx_4_filter_frequency_shelf.value = 20;
+fx_4_filter_gain_shelf_value.innerHTML = "0";
+fx_4_filter_gain_shelf.value = 0;
+fx_4_filter_detune_shelf_value.innerHTML = "0";
+fx_4_filter_detune_shelf.value = 0;
+
+fx_4_filter_frequency_peaking_value.innerHTML = "20";
+fx_4_filter_frequency_peaking.value = 20;
+fx_4_filter_Q_peaking_value.innerHTML = "0";
+fx_4_filter_Q_peaking.value = 0;
+fx_4_filter_gain_peaking_value.innerHTML = "0";
+fx_4_filter_gain_peaking.value = 0;
+fx_4_filter_detune_peaking_value.innerHTML = "0";
+fx_4_filter_detune_peaking.value = 0;
+
+fx_4_EQ3_low_frequency_fader_value.innerHTML = "120";
+fx_4_EQ3_low_frequency_fader.value = 120;
+fx_4_EQ3_low_fader_gain_value.innerHTML = "0";
+fx_4_EQ3_low_fader_gain.value = 0;
+fx_4_EQ3_mid_fader_gain_value.innerHTML = "0";
+fx_4_EQ3_mid_fader_gain.value = 0;
+fx_4_EQ3_hi_fader_gain_value.innerHTML = "0";
+fx_4_EQ3_hi_fader_gain.value = 0;
+fx_4_EQ3_high_frequency_value.innerHTML = "8000";
+fx_4_EQ3_high_frequency_fader.value = 8000;
+fx_4_EQ3_Q_value.innerHTML = "0";
+fx_4_EQ3_Q_fader.value = 0;
+
+fx_4_tascam_HighShelf_gain_value.innerHTML = "0";
+fx_4_tascam_HighShelf_gain.value = 0;
+fx_4_tascam_Mid_SemiParam_gain_value.innerHTML = "0";
+fx_4_tascam_Mid_SemiParam_gain.value = 0;
+fx_4_tascam_Mid_SemiParam_frequency_value.innerHTML = "2500";
+fx_4_tascam_Mid_SemiParam_frequency.value = 2500;
+fx_4_tascam_LowShelf_gain_value.innerHTML = "0";
+fx_4_tascam_LowShelf_gain.value = 0;
+
+fx_4_dynamics_compressor_div.style.display = "block";
+fx_4_dynamics_gate_div.style.display = "none";
+fx_4_dynamics_limiter_div.style.display = "none";
+
+fx_4_dynamics_ratio.value = 0;
+fx_4_dynamics_ratio_value.innerHTML = 0;
+fx_4_dynamics_threshold.value = 0;
+fx_4_dynamics_threshold_value.innerHTML = 0;
+fx_4_dynamics_release.value = 0;
+fx_4_dynamics_release_value.innerHTML = 0;
+fx_4_dynamics_attack.value = 0;
+fx_4_dynamics_attack_value.innerHTML = 0;
+fx_4_dynamics_knee.value = 0;
+fx_4_dynamics_knee_value.innerHTML = 0;
+
+fx_4_gate_threshold_value.innerHTML = 0;
+fx_4_gate_threshold.value = 0;
+fx_4_gate_smoothing_value.innerHTML = 0;
+fx_4_gate_smoothing.value = 0;
+
+fx_4_limiter_threshold.value = 0;
+fx_4_limiter_threshold_value.innerHTML = 0;
+
+fx_4_fxSend_1_value.innerHTML = "-100";
+fx_4_fxSend_2_value.innerHTML = "-100";
+fx_4_fxSend_3_value.innerHTML = "-100";
+fx_4_fxSend_4_value.innerHTML = "-100";
+fx_4_fxSend_1.value = -100;
+fx_4_fxSend_2.value = -100;
+fx_4_fxSend_3.value = -100;
+fx_4_fxSend_4.value = -100;
+
 
 //player_1_Node.loopStart = 0.3;    player_1_loop_start.value = 0.3;
 //player_1_Node.loopEnd = 22.8;     player_1_loop_end.value = 22.8;
@@ -28307,6 +30611,39 @@ var source_1_actual_patch = "player";
 var source_2_actual_patch = "player";
 var source_3_actual_patch = "player";
 var source_4_actual_patch = "player";
+
+
+fx_1_pingpong_Node.feedback.value = 0;
+fx_1_pingpong_feedback.value = 0;
+fx_1_pingpong_feedback_value.innerHTML = 0;
+
+fx_1_pingpong_Node.delayTime.value = 0;
+fx_1_pingpong_delayTime.value = 0;
+fx_1_pingpong_delayTime_value.innerHTML = 0;
+
+fx_2_pingpong_Node.feedback.value = 0;
+fx_2_pingpong_feedback.value = 0;
+fx_2_pingpong_feedback_value.innerHTML = 0;
+
+fx_2_pingpong_Node.delayTime.value = 0;
+fx_2_pingpong_delayTime.value = 0;
+fx_2_pingpong_delayTime_value.innerHTML = 0;
+
+fx_3_pingpong_Node.feedback.value = 0;
+fx_3_pingpong_feedback.value = 0;
+fx_3_pingpong_feedback_value.innerHTML = 0;
+
+fx_3_pingpong_Node.delayTime.value = 0;
+fx_3_pingpong_delayTime.value = 0;
+fx_3_pingpong_delayTime_value.innerHTML = 0;
+
+fx_4_pingpong_Node.feedback.value = 0;
+fx_4_pingpong_feedback.value = 0;
+fx_4_pingpong_feedback_value.innerHTML = 0;
+
+fx_4_pingpong_Node.delayTime.value = 0;
+fx_4_pingpong_delayTime.value = 0;
+fx_4_pingpong_delayTime_value.innerHTML = 0;
 
 fx_1_pingpong_Node.connect(fxReturn_1_fader);
 channel_1_fxSend_1_preEq_volNode.connect(fx_1_pingpong_Node);
@@ -28338,70 +30675,10 @@ fx_2_pingpong_div.style.display = "block";
 fx_3_pingpong_div.style.display = "block";
 fx_4_pingpong_div.style.display = "block";
 
-const empty_1_div = document.getElementById("empty_1_div");
-const empty_2_div = document.getElementById("empty_2_div");
-const empty_3_div = document.getElementById("empty_3_div");
-const empty_4_div = document.getElementById("empty_4_div");
 empty_1_div.style.display = "none";
 empty_2_div.style.display = "none";
 empty_3_div.style.display = "none";
 empty_4_div.style.display = "none";
-
-//--------------------------------------------------------
-//--------------------------------------------------------
-//<button id="elem" onclick="alert('Clic!');">Click automático</button>
-
-let event2 = new MouseEvent("click", {
-  bubbles: true,
-  cancelable: true,
-});
-//multiple_play_source_1.dispatchEvent(event2);
-
-
-player_1_playButton.dispatchEvent(event2);
-/*
-<script>
-        const volumeSlider = document.getElementById('volumeSlider');
-        const volumeOutput = document.getElementById('volumeOutput');
-
-        // Function to dispatch a custom event
-        function dispatchRangeEvent(value) {
-            // Update the displayed value immediately
-            volumeOutput.textContent = value;
-
-            // Create a custom event
-            const customRangeEvent = new CustomEvent('rangeUpdate', {
-                detail: {
-                    value: value,
-                    source: 'volumeSlider'
-                },
-                bubbles: true, // Allow the event to bubble up the DOM
-                cancelable: true // Allow the event to be canceled
-            });
-
-            // Dispatch the custom event from the slider element
-            volumeSlider.dispatchEvent(customRangeEvent);
-        }
-
-        // Add an event listener to the document to catch the custom event
-        document.addEventListener('rangeUpdate', function(event) {
-            console.log('Custom Range Event Received!');
-            console.log('Value:', event.detail.value);
-            console.log('Source:', event.detail.source);
-            // You can perform other actions here based on the event details
-        });
-    </script>
-    /**/
-
-let event3 = new MouseEvent("change", {
-  bubbles: true,
-  cancelable: true,
-});
-
-//player_1_volume.dispatchEvent(event3);
-
-//element.dispatchEvent(new Event('input'))
-
 
 //--------------------------------------------------------------------
 //------------    DEPOSITO     ----------------------------------------------------
@@ -28477,6 +30754,8 @@ async function soltar(event) {
         } else {
           this.textContent = 'Please drop an audio file';
         }
+        teclaApretada.innerHTML = "1";
+        currentAudioControlKeys = 1;
         break;
       }
     case ("deposito_2"):
@@ -28488,6 +30767,8 @@ async function soltar(event) {
         } else {
           this.textContent = 'Please drop an audio file';
         }
+        teclaApretada.innerHTML = "2";
+        currentAudioControlKeys = 2;
         break;
       }
     case ("deposito_3"):
@@ -28499,6 +30780,8 @@ async function soltar(event) {
         } else {
           this.textContent = 'Please drop an audio file';
         }
+        teclaApretada.innerHTML = "3";
+        currentAudioControlKeys = 3;
         break;
       }
     case ("deposito_4"):
@@ -28510,6 +30793,8 @@ async function soltar(event) {
         } else {
           this.textContent = 'Please drop an audio file';
         }
+        teclaApretada.innerHTML = "4";
+        currentAudioControlKeys = 4;
         break;
       }
     default: { break; }
@@ -28575,9 +30860,6 @@ function handleFile(file, element) {
   };
   // Read the file as an ArrayBuffer
   reader.readAsArrayBuffer(file);
-
-
-
 }
 
 function checksArray(element, fileName) {
@@ -28590,7 +30872,7 @@ function checksArray(element, fileName) {
       load_http(element, source, id);
       break;
     }
-    else {  }
+    else { }
   }
 }
 
@@ -28635,3 +30917,222 @@ function load_http(element, source, id) {
       { alert("DEFAULT load_http "); }
   }
 }// CLOSES load_http
+
+function selected_channel(channel) {
+  allSelectedChannelsToNone();
+  switch (channel) {
+    case "audio_card_channel_column": {
+      document.getElementById('audio_card_channel_column').style.backgroundColor = 'lightgray';
+      break;
+    }
+    case "channel_1_column": {
+      document.getElementById('channel_1_column').style.backgroundColor = 'lightgray';
+      break;
+    }
+    case "channel_2_column": {
+      document.getElementById('channel_2_column').style.backgroundColor = 'lightgray';
+      break;
+    }
+    case "channel_3_column": {
+      document.getElementById('channel_3_column').style.backgroundColor = 'lightgray';
+      break;
+    }
+    case "channel_4_column": {
+      document.getElementById('channel_4_column').style.backgroundColor = 'lightgray';
+      break;
+    }
+    default: {
+      alert("DEFAULT selected_channel");
+    }
+  }
+}
+
+function allSelectedChannelsToNone() {
+  document.getElementById('audio_card_channel_column').style.backgroundColor = 'white';
+  document.getElementById('channel_1_column').style.backgroundColor = 'white';
+  document.getElementById('channel_2_column').style.backgroundColor = 'white';
+  document.getElementById('channel_3_column').style.backgroundColor = 'white';
+  document.getElementById('channel_4_column').style.backgroundColor = 'white';
+}
+
+function opensAudioCard() {
+  try {
+    //    var audioCard = new Tone.UserMedia();
+    audioCard.open().then(function () {
+      console.log("supported: " + Tone.UserMedia.supported);
+      console.log("state: " + audioCard.state);
+      console.log("groupId: " + audioCard.groupId);
+      console.log("deviceId: " + Tone.UserMedia.deviceId);
+      console.log("label: " + Tone.UserMedia.label);
+      audioCard.connect(masterVolumeNode);
+      audioCard.debug;
+      audio_card_channel_column.style.display = "block";
+      Tone.UserMedia.enumerateDevices().then(function (devices) {
+        console.log(devices);
+      });
+    });
+  }
+  catch (error) {
+    console.log("error.name: " + error.name)
+  }
+}
+
+function audio_card_Off() {
+  audioCard.close();
+  audio_card_channel_column.style.display = "none";
+  console.log("Se ha cerrado AudioCard");
+}
+
+//******************************************************************
+//******************************************************************
+//*************    DISPATCH EVENT     ******************************
+//******************************************************************
+//******************************************************************
+//<button id="elem" onclick="alert('Clic!');">Click automático</button>
+
+let event2 = new MouseEvent("click", {
+  bubbles: true,
+  cancelable: true,
+});
+//multiple_play_source_1.dispatchEvent(event2);
+
+//player_1_playButton.dispatchEvent(event2);
+/*
+<script>
+        const volumeSlider = document.getElementById('volumeSlider');
+        const volumeOutput = document.getElementById('volumeOutput');
+
+        // Function to dispatch a custom event
+        function dispatchRangeEvent(value) {
+            // Update the displayed value immediately
+            volumeOutput.textContent = value;
+
+            // Create a custom event
+            const customRangeEvent = new CustomEvent('rangeUpdate', {
+                detail: {
+                    value: value,
+                    source: 'volumeSlider'
+                },
+                bubbles: true, // Allow the event to bubble up the DOM
+                cancelable: true // Allow the event to be canceled
+            });
+
+            // Dispatch the custom event from the slider element
+            volumeSlider.dispatchEvent(customRangeEvent);
+        }
+
+        // Add an event listener to the document to catch the custom event
+        document.addEventListener('rangeUpdate', function(event) {
+            console.log('Custom Range Event Received!');
+            console.log('Value:', event.detail.value);
+            console.log('Source:', event.detail.source);
+            // You can perform other actions here based on the event details
+        });
+    </script>
+    /**/
+
+let event3 = new MouseEvent("change", {
+  bubbles: true,
+  cancelable: true,
+});
+
+//player_1_volume.dispatchEvent(event3);
+
+//element.dispatchEvent(new Event('input'))
+
+
+/*
+// COMO SELEECIONAR UN OPTION DE SELECT CON DISPATCH EVENT
+const selectElement = document.getElementById("channel_1_select_Available_Nodes");
+selectElement.value = "Player";
+selectElement.dispatchEvent(new Event('change'));
+
+const selectElement2 = document.getElementById("channel_2_select_Available_Nodes");
+selectElement2.value = "Player";
+selectElement2.dispatchEvent(new Event('change'));
+
+const selectElement3 = document.getElementById("channel_3_select_Available_Nodes");
+selectElement3.value = "Player";
+selectElement3.dispatchEvent(new Event('change'));
+
+const selectElement4 = document.getElementById("channel_4_select_Available_Nodes");
+selectElement4.value = "Player";
+selectElement4.dispatchEvent(new Event('change'));
+/**/
+
+// Call the static method on the Synth class
+const player_1_Settings = player_1_Node.get();
+// Log the resulting options object to the console
+console.log(player_1_Settings);
+console.log(player_1_Settings.volume);
+
+/*
+const bufferUrl = "https://tonejs.github.io/examples/audio/FWDL.mp3";
+
+// Store the buffer and its URL in a custom object
+const audioAsset = {
+    url: bufferUrl,
+    buffer: new Tone.Buffer(bufferUrl, () => {
+        console.log("Buffer loaded:", audioAsset.url);
+        // You can now access the URL from the custom object
+    })
+};
+
+/*
+import * as Tone from 'tone';
+
+const bufferUrl = "https://tonejs.github.io/examples/audio/FWDL.mp3";
+
+// Store the buffer and its URL in a custom object
+const audioAsset = {
+    url: bufferUrl,
+    buffer: new Tone.Buffer(bufferUrl, () => {
+        console.log("Buffer loaded:", audioAsset.url);
+        // You can now access the URL from the custom object
+    })
+};
+
+// Access the URL later
+console.log(audioAsset.url);
+/**/
+
+/*
+//for multiple buffers
+
+import * as Tone from 'tone';
+
+const urls = {
+    "kick": "tonejs.github.io",
+    "snare": "tonejs.github.io"
+};
+
+const buffers = new Tone.Buffers(urls, () => {
+    console.log("All buffers loaded");
+
+    // To get the URL for a specific buffer (e.g., 'kick'),
+    // you would reference your original 'urls' object.
+    const kickUrl = urls["kick"];
+    console.log("Kick drum URL:", kickUrl);
+
+    // The buffer object itself doesn't expose this directly.
+    // console.log(buffers.get("kick").url); // This will not work
+});
+/**/
+
+
+// how to combine tone js with WaveSurferJs
+//showDirectoryPicker() method
+
+const buffers = new Tone.ToneAudioBuffers({
+    urls: {
+        "09": "09_Digi_Clippy_Slow_Loop.mp3",
+        "14": "14_Amb_Calm_Low_Evolve_Song.mp3"
+    },
+    baseUrl: "https://juliavra.github.io/Producer_E87_webSite/audio/",
+    onload: () => {
+        console.log("¡Todos los buffers están cargados!");
+        console.log(buffers.urls);
+
+        // Ahora puedes usar buffers.get("clave1") para acceder a ellos
+    }
+});
