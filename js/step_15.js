@@ -281,127 +281,51 @@ document.onkeydown = function (e) {
     case 'c':
     case 'C':
       {
-        var value_track = prompt('Ingresa el track', '01 - 100');
+        var value_track = prompt('Ingresa el track', '01 - 107');
         if (value_track >= 1 && value_track <= 107) {
           var value_player = prompt('Ingresa el player', '1 - 4');
           if (value_player >= 1 && value_player <= 4) {
             switch (value_player) {
-              case "1":
-                {
-                  if (audio.currentTime > 0 && audio.paused == false && audio.ended == false && audio.volume > 0) {
-                    alert("EL Player esta reproduciendo musica")
-                  }
-                  else {
-                    array_Canciones.forEach(element => {
-                      if (element.id.includes(value_track)) {
-                        var player_1 = document.getElementById("myAudio");
-                        //console.log("element.url_src: "+element.url_src)
-                        fixed_song_1_name.innerHTML = document.getElementById("player_1_label").innerHTML = element.id;
-                        if (local == true) {
-                          player_1.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
-                        }
-                        else { player_1.src = element.url_src; }
-                        duration_1_value.innerHTML = Math.round(`${audio.duration}`);
-                        player_1.load();
-                        currentAudioControlKeys = 1;
-                        if (autoplay_1 == true) {
-                          player_1.play();
-                          lista = lista + "p_1: " + getsId(player_1.src) + `<br>`;
-                          muestraLista();
-                        }
-                      }
-                    });
-                  }
-                  break;
-                }
-              case "2":
-                {
-                  if (audio2.currentTime > 0 && audio2.paused == false && audio2.ended == false && audio2.volume > 0) {
-                    alert("EL Player 2 esta reproduciendo musica")
-                  }
-                  else {
-                    array_Canciones.forEach(element => {
-                      if (element.id.includes(value_track)) {
-                        var player_2 = document.getElementById("myAudio2");
-                        //console.log("element.url_src: "+element.url_src)
-                        fixed_song_2_name.innerHTML = document.getElementById("player_2_label").innerHTML = element.id;
-                        if (local == true) {
-                          player_2.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
-                        }
-                        else { player_2.src = element.url_src; }
-                        duration_2_value.innerHTML = Math.round(`${audio2.duration}`);
-                        player_2.load();
-                        currentAudioControlKeys = 2;
-                        if (autoplay_2 == true) {
-                          lista = lista + "p_2: " + getsId(player_2.src) + `<br>`;
-                          muestraLista();
-                          player_2.play();
-                        }
-                      }
-                    });
-                  }
-                  break;
-                }
-              case "3":
-                {
-                  if (audio3.currentTime > 0 && audio3.paused == false && audio3.ended == false && audio3.volume > 0) {
-                    alert("EL Player 3 esta reproduciendo musica")
-                  }
-                  else {
-                    array_Canciones.forEach(element => {
-                      if (element.id.includes(value_track)) {
-                        var player_3 = document.getElementById("myAudio3");
-                        //console.log("element.url_src: "+element.url_src)
-                        fixed_song_3_name.innerHTML = document.getElementById("player_3_label").innerHTML = element.id;
-                        if (local == true) {
-                          player_3.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
-                        }
-                        else { player_3.src = element.url_src; }
-                        duration_3_value.innerHTML = Math.round(`${audio3.duration}`);
-                        player_3.load();
-                        currentAudioControlKeys = 3;
-                        if (autoplay_3 == true) {
-                          lista = lista + "p_3: " + getsId(player_3.src) + `<br>`;
-                          muestraLista();
-                          player_3.play();
-                        }
-                      }
-                    });
-                  }
-                  break;
-                }
-              case "4":
-                {
-                  if (audio4.currentTime > 0 && audio4.paused == false && audio4.ended == false && audio4.volume > 0) {
-                    alert("EL Player 4 esta reproduciendo musica")
-                  }
-                  else {
-                    array_Canciones.forEach(element => {
-                      if (element.id.includes(value_track)) {
-                        var player_4 = document.getElementById("myAudio4");
-                        //console.log("element.url_src: "+element.url_src)
-                        fixed_song_4_name.innerHTML = document.getElementById("player_4_label").innerHTML = element.id;
-                        if (local == true) {
-                          player_4.src = `C:/Users/Juli/My Projects/Producer_E87_webSite/audio/` + `${element.id}` + `.mp3`;
-                        }
-                        else { player_4.src = element.url_src; }
-                        duration_4_value.innerHTML = Math.round(`${audio4.duration}`);
-                        player_4.load();
-                        currentAudioControlKeys = 4;
-                        if (autoplay_4 == true) {
-                          lista = lista + "p_4: " + getsId(player_4.src) + `<br>`;
-                          muestraLista();
-                          player_4.play();
-                        }
-                      }
-                    });
-                  }
-                  break;
-                }
-              default: {
-                alert("SOY DEFAULT")
-                break;
-              }
+    case "1":
+      {
+        if (player_1_Node.state != "started") {
+          player_1_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_http", `${array_Canciones[value_track - 1].title}`);
+        }
+        else {
+          alert("ELSE: deten la reproduccion");
+        }
+        break;
+      }
+    case "2":
+      {
+        if (player_2_Node.state != "started") {
+          player_2_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", `${array_Canciones[value_track - 1].title}`);
+        }
+        else { alert("ELSE: deten la reproduccion"); }
+        break;
+      }
+    case "3":
+      {
+        if (player_3_Node.state != "started") {
+          player_3_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", `${array_Canciones[value_track - 1].title}`);
+        }
+        else { alert("ELSE: deten la reproduccion"); }
+        break;
+      }
+    case "4":
+      {
+        if (player_4_Node.state != "started") {
+          player_4_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
+          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4", `${array_Canciones[value_track - 1].title}`);
+        }
+        else { alert("ELSE: deten la reproduccion"); }
+        break;
+      }
+    default:
+      { alert("DEFAULT onkeydown C "); }
             }
           }
           else { alert("Ingreso un player erroneo") }
@@ -27148,7 +27072,10 @@ function loadMix() {
     ) {
       MixEventObj.logIntoListaBuffers(ListOfBuffers, LoadFileList[i].atTime, LoadFileList[i].element, LoadFileList[i].action, LoadFileList[i].newValue, LoadFileList[i].rampTime);
     }
+  }
 
+  for (i = 0; i < LoadFileList.length; i++) {
+    const testObj = LoadFileList[i];
     if (testObj.rampTime == "undefined" || testObj.rampTime == "NaN") {
       if (testObj.element != "undefined") {
         switch (testObj.Element) {
@@ -31060,7 +30987,7 @@ selectElement4.value = "Player";
 selectElement4.dispatchEvent(new Event('change'));
 /**/
 
-// Call the static method on the Synth class
+// Call the static method on the class
 const player_1_Settings = player_1_Node.get();
 // Log the resulting options object to the console
 console.log(player_1_Settings);
@@ -31078,61 +31005,25 @@ const audioAsset = {
     })
 };
 
-/*
-import * as Tone from 'tone';
-
-const bufferUrl = "https://tonejs.github.io/examples/audio/FWDL.mp3";
-
-// Store the buffer and its URL in a custom object
-const audioAsset = {
-    url: bufferUrl,
-    buffer: new Tone.Buffer(bufferUrl, () => {
-        console.log("Buffer loaded:", audioAsset.url);
-        // You can now access the URL from the custom object
-    })
-};
-
 // Access the URL later
 console.log(audioAsset.url);
 /**/
 
-/*
-//for multiple buffers
-
-import * as Tone from 'tone';
-
-const urls = {
-    "kick": "tonejs.github.io",
-    "snare": "tonejs.github.io"
-};
-
-const buffers = new Tone.Buffers(urls, () => {
-    console.log("All buffers loaded");
-
-    // To get the URL for a specific buffer (e.g., 'kick'),
-    // you would reference your original 'urls' object.
-    const kickUrl = urls["kick"];
-    console.log("Kick drum URL:", kickUrl);
-
-    // The buffer object itself doesn't expose this directly.
-    // console.log(buffers.get("kick").url); // This will not work
-});
-/**/
-
-
 // how to combine tone js with WaveSurferJs
 //showDirectoryPicker() method
-
+/*
 const buffers = new Tone.ToneAudioBuffers({
-    urls: {
-        "09": "09_Digi_Clippy_Slow_Loop.mp3",
-        "14": "14_Amb_Calm_Low_Evolve_Song.mp3"
-    },
-    baseUrl: "https://juliavra.github.io/Producer_E87_webSite/audio/",
-    onload: () => {
-        console.log("¡Todos los buffers están cargados!");
-        console.log(buffers.urls);
-
-        // Ahora puedes usar buffers.get("clave1") para acceder a ellos
-    }
+  urls: {
+    "09": "09_Digi_Clippy_Slow_Loop.mp3",
+    "14": "14_Amb_Calm_Low_Evolve_Song.mp3"
+  },
+  baseUrl: "https://juliavra.github.io/Producer_E87_webSite/audio/",
+  onload: () => {
+    console.log("¡Todos los buffers están cargados!");
+    console.log(buffers.urls);
+    player_1_Node.buffer = buffers.get("09");
+    player_1_Node.start();
+    // Ahora puedes usar buffers.get("clave1") para acceder a ellos
+  }
 });
+/**/
