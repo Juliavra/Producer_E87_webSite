@@ -242,21 +242,21 @@ document.onkeydown = function (e) {
   var test_key = e.key;
   //alert("test_key: " + test_key)
   switch (test_key) {
-    case '0':
+    case '0'://Audio_card
       {
         teclaApretada.innerHTML = "0";
         currentAudioControlKeys = 0;
         selected_channel('audio_card_channel_column');
         break;
       }
-    case '1':
+    case '1'://Channel 1
       {
         teclaApretada.innerHTML = "1";
         currentAudioControlKeys = 1;
         selected_channel('channel_1_column');
         break;
       }
-    case '2':
+    case '2'://Channel 2
       {
         teclaApretada.innerHTML = "2";
         currentAudioControlKeys = 2;
@@ -264,21 +264,21 @@ document.onkeydown = function (e) {
 
         break;
       }
-    case '3':
+    case '3': //Channel 3
       {
         teclaApretada.innerHTML = "3";
         currentAudioControlKeys = 3;
         selected_channel('channel_3_column');
         break;
       }
-    case '4':
+    case '4'://Channel 4
       {
         teclaApretada.innerHTML = "4";
         currentAudioControlKeys = 4;
         selected_channel('channel_4_column');
         break;
       }
-    case 'c':
+    case 'c'://LOAD
     case 'C':
       {
         var value_track = prompt('Ingresa el track', '01 - 107');
@@ -286,46 +286,46 @@ document.onkeydown = function (e) {
           var value_player = prompt('Ingresa el player', '1 - 4');
           if (value_player >= 1 && value_player <= 4) {
             switch (value_player) {
-    case "1":
-      {
-        if (player_1_Node.state != "started") {
-          player_1_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_http", `${array_Canciones[value_track - 1].title}`);
-        }
-        else {
-          alert("ELSE: deten la reproduccion");
-        }
-        break;
-      }
-    case "2":
-      {
-        if (player_2_Node.state != "started") {
-          player_2_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", `${array_Canciones[value_track - 1].title}`);
-        }
-        else { alert("ELSE: deten la reproduccion"); }
-        break;
-      }
-    case "3":
-      {
-        if (player_3_Node.state != "started") {
-          player_3_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", `${array_Canciones[value_track - 1].title}`);
-        }
-        else { alert("ELSE: deten la reproduccion"); }
-        break;
-      }
-    case "4":
-      {
-        if (player_4_Node.state != "started") {
-          player_4_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4", `${array_Canciones[value_track - 1].title}`);
-        }
-        else { alert("ELSE: deten la reproduccion"); }
-        break;
-      }
-    default:
-      { alert("DEFAULT onkeydown C "); }
+              case "1":
+                {
+                  if (player_1_Node.state != "started") {
+                    player_1_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
+                    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_http", `${array_Canciones[value_track - 1].title}`);
+                  }
+                  else {
+                    alert("ELSE: deten la reproduccion");
+                  }
+                  break;
+                }
+              case "2":
+                {
+                  if (player_2_Node.state != "started") {
+                    player_2_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
+                    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_http", `${array_Canciones[value_track - 1].title}`);
+                  }
+                  else { alert("ELSE: deten la reproduccion"); }
+                  break;
+                }
+              case "3":
+                {
+                  if (player_3_Node.state != "started") {
+                    player_3_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
+                    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_http", `${array_Canciones[value_track - 1].title}`);
+                  }
+                  else { alert("ELSE: deten la reproduccion"); }
+                  break;
+                }
+              case "4":
+                {
+                  if (player_4_Node.state != "started") {
+                    player_4_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
+                    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_http", `${array_Canciones[value_track - 1].title}`);
+                  }
+                  else { alert("ELSE: deten la reproduccion"); }
+                  break;
+                }
+              default:
+                { alert("DEFAULT onkeydown C "); }
             }
           }
           else { alert("Ingreso un player erroneo") }
@@ -333,7 +333,7 @@ document.onkeydown = function (e) {
         else { alert("Ingreso un track erroneo") }
         break;
       }
-    case 'l':
+    case 'l'://LOOP
     case 'L':
       {
         teclaApretada.innerHTML = "L l ";
@@ -344,11 +344,11 @@ document.onkeydown = function (e) {
               break;
             }
             case "noiseSynth": {
-              console.log("noiseSynth");
+              console.log("noiseSynth L");
               break;
             }
             case "noise": {
-              console.log("noise");
+              console.log("noise L 1");
               break;
             }
             case "player": {
@@ -447,7 +447,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'k':
+    case 'k'://AUTOPLAY
     case 'K':
       {
         teclaApretada.innerHTML = "K k ";
@@ -458,11 +458,11 @@ document.onkeydown = function (e) {
               break;
             }
             case "noiseSynth": {
-              console.log("noiseSynth");
+              console.log("noiseSynth k 1");
               break;
             }
             case "noise": {
-              console.log("noise");
+              console.log("noise k 1");
               break;
             }
             case "player": {
@@ -561,7 +561,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'j':
+    case 'j'://REVERSE
     case 'J':
       {
         teclaApretada.innerHTML = "J j ";
@@ -572,11 +572,11 @@ document.onkeydown = function (e) {
               break;
             }
             case "noiseSynth": {
-              console.log("noiseSynth");
+              console.log("noiseSynth J 1");
               break;
             }
             case "noise": {
-              console.log("noise");
+              console.log("noise J 1");
               break;
             }
             case "player": {
@@ -675,7 +675,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'p':
+    case 'p'://PLAY
     case 'P':
       {
         teclaApretada.innerHTML = "p";
@@ -781,7 +781,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'm':
+    case 'm'://MUTE
     case 'M':
       {
         teclaApretada.innerHTML = "m";
@@ -887,7 +887,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'o':
+    case 'o'://STOP
     case 'O':
       {
         teclaApretada.innerHTML = "o";
@@ -993,7 +993,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'Q':
+    case 'Q'://VOL UP 1
     case 'q':
       {
         teclaApretada.innerHTML = "q";
@@ -1032,7 +1032,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'A':
+    case 'A'://VOL DOWN 1
     case 'a':
       {
         teclaApretada.innerHTML = "a";
@@ -1072,7 +1072,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'W':
+    case 'W'://VOL UP 2
     case 'w':
       {
         teclaApretada.innerHTML = "w";
@@ -1112,7 +1112,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 's':
+    case 's'://VOL DOWN 2
     case 'S':
       {
         teclaApretada.innerHTML = "s";
@@ -1152,7 +1152,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'e':
+    case 'e'://VOL UP 3
     case 'E':
       {
         teclaApretada.innerHTML = "e";
@@ -1191,7 +1191,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'd':
+    case 'd'://VOL DOWN 3
     case 'D':
       {
         teclaApretada.innerHTML = "d";
@@ -1231,7 +1231,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'r':
+    case 'r'://VOL UP 4
     case 'R':
       {
         teclaApretada.innerHTML = "r";
@@ -1270,7 +1270,7 @@ document.onkeydown = function (e) {
         }
         break;
       }
-    case 'f':
+    case 'f'://VOL DOWN 4
     case 'F':
       {
         teclaApretada.innerHTML = "f";
