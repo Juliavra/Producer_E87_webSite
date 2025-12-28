@@ -5,10 +5,6 @@
 
 "use strict";
 
-//var AudioContext = window.AudioContext || window.webkitAudioContext;
-//var audioCtx = new AudioContext();
-//Tone.setContext(audioCtx);
-
 //https://github.com/cstoquer/audio-encoder
 /*
 const init = {
@@ -169,6 +165,9 @@ async function Offline_Context() {
 https://developer.mozilla.org/es/docs/Web/HTML/Reference/Elements/dialog
 /**/
 
+
+const loaded_BuffersList = document.getElementById("loaded_BuffersList");
+
 //***************************************
 // RECORDER
 //------------------------------
@@ -189,7 +188,7 @@ document.querySelector('#start-record').addEventListener('click', async () => {
   if (Tone.context.state !== 'running') {
     await Tone.context.resume();
   }
-  startRecording();
+  startRecording2();
 });
 
 async function startRecording() {
@@ -227,6 +226,28 @@ document.querySelector('#stop-record').addEventListener('click', () => {
   document.querySelector('#start-record').disabled = false;
   document.querySelector('#stop-record').disabled = true;
 });
+
+
+function startRecording2(){
+
+// Assuming 'audioBuffer' is your AudioBuffer object
+const buffer = audiobufferToWav(audioBuffer);
+const blob = new Blob([buffer], { type: 'audio/wav' });
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement('a');
+a.href = url;
+a.download = 'my_audio.wav';
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+URL.revokeObjectURL(url); // Clean up
+
+
+}
+
+
+
 
 var audioCard = new Tone.UserMedia();
 
@@ -9777,7 +9798,7 @@ const player_1_Node = new Tone.Player().connect(channel_1_panNode);
 //player_1_Node.debug = true;
 
 player_1_Node.onstop = () => {
-  console.log("player_1_Node has stopped normally.");
+  //console.log("player_1_Node has stopped normally.");
   player_1_playButton.style.backgroundColor = "white";
 };
 
@@ -9814,7 +9835,7 @@ const player_2_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_w
 player_2_Node.fan(player_2_rms_meter);
 
 player_2_Node.onstop = () => {
-  console.log("player_2_Node has stopped normally.");
+  //console.log("player_2_Node has stopped normally.");
   player_2_playButton.style.backgroundColor = "white";
 };
 
@@ -9888,7 +9909,7 @@ const player_3_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_w
 //player_3_Node.debug = true;
 
 player_3_Node.onstop = () => {
-  console.log("player_3_Node has stopped normally.");
+  //console.log("player_3_Node has stopped normally.");
   player_3_playButton.style.backgroundColor = "white";
 };
 
@@ -9944,7 +9965,7 @@ const player_4_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_w
 //player_1_Node.debug = true;
 
 player_4_Node.onstop = () => {
-  console.log("player_4_Node has stopped normally.");
+  //console.log("player_4_Node has stopped normally.");
   player_4_playButton.style.backgroundColor = "white";
 };
 
@@ -14699,6 +14720,40 @@ function mute(value) {
     /**/
     default:
       { alert("DEFAULT function mute(value)"); break; } 9
+  }
+}
+
+function carga1() {
+  var formulario = new Object();
+  formulario.loaded_BuffersList = document.getElementById("loaded_BuffersList");
+  formulario.player_loaded_BuffersList = document.getElementById("player_loaded_BuffersList");
+  let name = formulario.loaded_BuffersList.value;
+  let value = formulario.player_loaded_BuffersList.value;
+  //alert("name: " + name + "\n" + "value: " + value)
+  switch (value) {
+    case "1": {
+      player_1_Node.buffer = buffers.get(name);
+      callbackLoaded(name, value);
+      break;
+    }
+    case "2": {
+      player_2_Node.buffer = buffers.get(name);
+      callbackLoaded(name, value);
+      break;
+    }
+    case "3": {
+      player_3_Node.buffer = buffers.get(name);
+      callbackLoaded(name, value);
+      break;
+    }
+    case "4": {
+      player_4_Node.buffer = buffers.get(name);
+      callbackLoaded(name, value);
+      break;
+    }
+    default: {
+      alert("DEFAULT carga1");
+    }
   }
 }
 
@@ -23209,13 +23264,6 @@ function hide_all_EQ_divs(value) {
   }
 }
 
-function in_outs(element, text) {
-  console.log(text);
-  console.log(text + " in: " + element.numberOfInputs);
-  console.log(text + " out: " + element.numberOfOutputs);
-  console.log(text + " output: " + element.output);
-}
-
 function callbackLoaded(songNumber, playerNumber) {
   switch (playerNumber) {
     case "1": {
@@ -26895,16 +26943,6 @@ function concatFloat32Arrays(array1, array2) {
   return resultArray;
 }
 
-// Example usage:
-/*
-const arr1 = new Float32Array([1.1, 2.2, 3.3]);
-const arr2 = new Float32Array([4.4, 5.5, 6.6]);
- 
-const concatenatedArray = concatFloat32Arrays(arr1, arr2);
-console.log(concatenatedArray); // Output: Float32Array [1.1, 2.2, 3.3, 4.4, 5.5, 6.6]
-*/
-/**/
-
 function playsMatrix(buffer) {
   let tamanio2 = buffer.length;
   let max = tamanio2 / 48000;
@@ -27063,8 +27101,6 @@ console.log("testObj.rampTime: " + testObj.rampTime);
 /**/
 
 function loadMix() {
-  //armar foo que cuente todos los buffers a cargar
-
   for (i = 0; i < LoadFileList.length; i++) {
     const testObj = LoadFileList[i];
     if (testObj.element == "player_1_http" || testObj.element == "player_2_http"
@@ -27073,6 +27109,8 @@ function loadMix() {
       MixEventObj.logIntoListaBuffers(ListOfBuffers, LoadFileList[i].atTime, LoadFileList[i].element, LoadFileList[i].action, LoadFileList[i].newValue, LoadFileList[i].rampTime);
     }
   }
+  //armar foo que cuente todos los buffers a cargar
+  loadsBuffersAfterFileLoad();
 
   for (i = 0; i < LoadFileList.length; i++) {
     const testObj = LoadFileList[i];
@@ -27146,22 +27184,30 @@ function loadMix() {
               }
               break;
             }
-          case "player_1_http": {
-            checksArray("player_1", testObj.NewValue);
-            break;
-          }
-          case "player_2_http": {
-            checksArray("player_2", testObj.NewValue);
-            break;
-          }
-          case "player_3_http": {
-            checksArray("player_3", testObj.NewValue);
-            break;
-          }
-          case "player_4_http": {
-            checksArray("player_4", testObj.NewValue);
-            break;
-          }
+          /* 
+         case "file_http": {
+           result = checksArrayReturnsBoolean(ListOfBuffers[i].newValue);
+           addNewBuffer(array_Canciones[result - 1].id.toString(), array_Canciones[result - 1].url_src.toString());
+           break;
+         }
+         
+         case "player_1_http": {
+           checksArrayLoadsFile("player_1", testObj.NewValue);
+           break;
+         }
+         case "player_2_http": {
+           checksArrayLoadsFile("player_2", testObj.NewValue);
+           break;
+         }
+         case "player_3_http": {
+           checksArrayLoadsFile("player_3", testObj.NewValue);
+           break;
+         }
+         case "player_4_http": {
+           checksArrayLoadsFile("player_4", testObj.NewValue);
+           break;
+         }
+          /* */
           case "player_1_local": {
             alert("player_1_local");
             load_Local("player_1");
@@ -29627,7 +29673,7 @@ rolloffFactor : 1
 const List = MixEventObj.createsMixEventObjList();
 const LoadFileList = MixEventObj.createsMixEventObjList();
 const ListOfBuffers = MixEventObj.createsMixEventObjList();
-consoleClear();
+//consoleClear();
 console.log("List so call");
 console.log(List);
 
@@ -30788,8 +30834,31 @@ function handleFile(file, element) {
   // Read the file as an ArrayBuffer
   reader.readAsArrayBuffer(file);
 }
+/*
+function checksArrayReturnsBoolean(fileName) {
+  var i = 0; var result = false;
+  for (i = 0; i < array_Canciones.length; i++) {
+    if (fileName == array_Canciones[i].title) {
+      result = true;
+      break;
+    }
+  }
+  return result;
+}
+/**/
 
-function checksArray(element, fileName) {
+function checksArrayReturnsBoolean(fileName) {
+  var i = 0; var result = false;
+  for (i = 0; i < array_Canciones.length; i++) {
+    if (fileName == array_Canciones[i].title) {
+      result = array_Canciones[i].id;
+      break;
+    }
+  }
+  return result;
+}
+
+function checksArrayLoadsFile(element, fileName) {
   var i = 0;
   let source = "", id = 0;
   for (i = 0; i < array_Canciones.length; i++) {
@@ -31027,3 +31096,53 @@ const buffers = new Tone.ToneAudioBuffers({
   }
 });
 /**/
+const buffers = new Tone.ToneAudioBuffers({});
+
+function loadsBuffersAfterFileLoad() {
+  var result = false; var i = 0;
+  for (i = 0; i < ListOfBuffers.length; i++) {
+    result = checksArrayReturnsBoolean(ListOfBuffers[i].newValue);
+    if (result != false && result >= 0 && result < array_Canciones.length) {
+      addNewBuffer(array_Canciones[result - 1].id.toString(), array_Canciones[result - 1].url_src.toString());
+    }// CLOSES if
+  } //CLOSES for
+}// CLOSES loadsBuffersAfterFileLoad
+
+function addNewBuffer(name, url) {
+  console.log(`Attempting to load new buffer: ${name} from ${url}`);
+  buffers.add(
+    name,
+    url,
+    // The onload callback for the *new* buffer
+    () => {
+      addsElementToLoadedBuffersList(name);
+      console.log(`--> New buffer "${name}" loaded successfully!`);
+    },
+    (error) => {
+      console.error(`Error loading buffer "${name}":`, error);
+    }
+  );
+}
+
+
+function addsElementToLoadedBuffersList(name) {
+  var option = document.createElement("option");
+  option.text = name;
+  loaded_BuffersList.add(option);
+}
+
+
+/*
+function loadsBuffersAfterFileLoad() {
+  const buffers = new Tone.ToneAudioBuffers({});
+  var i = 0;
+  for (i = 0; i < ListOfBuffers.length; i++) {
+    /*
+    buffers.add("G1", "tonejs.github.io", () => {
+        console.log("New buffer 'G1' added and loaded");
+    
+    buffers.add(ListOfBuffers[i].id, ListOfBuffers[i].url_src)() => {
+      console.log("New buffer 'G1' added and loaded");
+    }
+  });
+}/**/
