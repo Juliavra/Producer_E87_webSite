@@ -31332,27 +31332,171 @@ player_2_Node.connect(dcMeter_2_Node);
 // the current level of the mic
 const level = dcMeter_2_Node.getValue();
 
-
 //Analyser
 //JCReverb
 //Freeverb
 //StereoWidener
-//Envelope
 //FFT
-//Follower
-//FrequencyEnvelope
-//LowpassCombFilter
 //Merge
 //MidSideSplit
 //MidSideMerge
 //MultibandSplit
 //Panner3D
 //Recorder
-//Solo
 //Waveform
 //SyncedSignal
 //WaveShaper
 //
+
+//********************************************************
+//********************************************************
+//************           Solo              ***************
+//********************************************************
+//********************************************************
+/*
+Solo lets you isolate a specific audio stream.
+When an instance is set to solo=true,
+it will mute all other instances of Solo.
+*/
+/*
+interface SoloOptions {
+    context: BaseContext;
+    solo: boolean;
+}
+*/
+
+const soloA = new Tone.Solo().toDestination();
+const oscA = new Tone.Oscillator("C4", "sawtooth").connect(soloA);
+const soloB = new Tone.Solo().toDestination();
+const oscB = new Tone.Oscillator("E4", "square").connect(soloB);
+soloA.solo = true;
+// no audio will pass through soloB
+
+//PUEDO USAR SOLO PARA CREAR BUSSES 
+//PUEDO CONNECTAR LOS SOLOS A DONDE SE ME CANTE?
+// ES SOLO STEREO???
+
+//********************************************************
+//********************************************************
+//************     FrequencyEnvelope       ***************
+//********************************************************
+//********************************************************
+
+/*
+interface FrequencyEnvelopeOptions {
+    attack: Unit.Time;
+    attackCurve: EnvelopeCurve;
+    baseFrequency: Unit.Frequency;
+    context: BaseContext;
+    decay: Unit.Time;
+    decayCurve: BasicEnvelopeCurve;
+    exponent: number;
+    octaves: number;
+    release: Unit.Time;
+    releaseCurve: EnvelopeCurve;
+    sustain: number;
+}
+    */
+
+
+
+//********************************************************
+//********************************************************
+//************           Envelope          ***************
+//********************************************************
+//********************************************************
+    const channel_1_envelope = new Tone.Envelope({
+        attack: 0.1,
+        decay: 0.2,
+        sustain: 0.5,
+        release: 0.8,
+    }).toDestination();
+   
+
+/*
+interface EnvelopeOptions {
+    attack: Unit.Time;
+    attackCurve: EnvelopeCurve;
+    decay: Unit.Time;
+    decayCurve: BasicEnvelopeCurve;
+    release: Unit.Time;
+    releaseCurve: EnvelopeCurve;
+    sustain: number;
+}*/
+
+/*The shape of the attack. Can be any of these strings:
+
+"linear"
+"exponential"
+"sine"
+"cosine"
+"bounce"
+"ripple"
+"step"
+
+
+decayCurve # BasicEnvelopeCurve
+The shape of the decay either "linear" or "exponential"
+
+The shape of the release. See the attack curve types.
+*/
+
+
+
+//********************************************************
+//********************************************************
+//************           Follower          ***************
+//********************************************************
+//********************************************************
+const channel_1_Follower_Node = new Tone.Follower();
+const channel_1_Follower_div = document.getElementById("channel_1_Follower_div");
+channel_1_Follower_div.style.display = "block"; 
+
+const channel_1_Follower_smoothing = document.getElementById("channel_1_Follower_smoothing");
+const channel_1_Follower_smoothing_value = document.getElementById("channel_1_Follower_smoothing_value");
+channel_1_Follower_smoothing.addEventListener("change", function (e) {
+  channel_1_Follower_Node.smoothing = e.currentTarget.value;
+  channel_1_Follower_smoothing_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_Follower_smoothing", e.currentTarget.value);
+});
+
+//********************************************************
+//********************************************************
+//************      LowpassCombFilter     ***************
+//********************************************************
+//********************************************************
+const channel_1_LowpassCombFilter_Node = new Tone.LowpassCombFilter();
+const channel_1_LowpassCombFilter_div = document.getElementById("channel_1_LowpassCombFilter_div");
+channel_1_LowpassCombFilter_div.style.display = "block"; 
+
+channel_1_LowpassCombFilter_Node.set({
+    delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
+    resonance: 0.9
+});
+
+const channel_1_LowpassCombFilter_delayTime = document.getElementById("channel_1_LowpassCombFilter_delayTime");
+const channel_1_LowpassCombFilter_delayTime_value = document.getElementById("channel_1_LowpassCombFilter_delayTime_value");
+channel_1_LowpassCombFilter_delayTime.addEventListener("change", function (e) {
+  channel_1_LowpassCombFilter_Node.delayTime.value = e.currentTarget.value;
+  channel_1_LowpassCombFilter_delayTime_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_LowpassCombFilter_delayTime", e.currentTarget.value);
+});
+
+const channel_1_LowpassCombFilter_resonance = document.getElementById("channel_1_LowpassCombFilter_resonance");
+const channel_1_LowpassCombFilter_resonance_value = document.getElementById("channel_1_LowpassCombFilter_resonance_value");
+channel_1_LowpassCombFilter_resonance.addEventListener("change", function (e) {
+  channel_1_LowpassCombFilter_Node.resonance.value = e.currentTarget.value;
+  channel_1_LowpassCombFilter_resonance_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_LowpassCombFilter_resonance", e.currentTarget.value);
+});
+
+const channel_1_LowpassCombFilter_dampening = document.getElementById("channel_1_LowpassCombFilter_dampening");
+const channel_1_LowpassCombFilter_dampening_value = document.getElementById("channel_1_LowpassCombFilter_dampening_value");
+channel_1_LowpassCombFilter_dampening.addEventListener("change", function (e) {
+  channel_1_LowpassCombFilter_Node.dampening = e.currentTarget.value;
+  channel_1_LowpassCombFilter_dampening_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_LowpassCombFilter_dampening", e.currentTarget.value);
+});
 
 //********************************************************
 //********************************************************
@@ -31567,7 +31711,6 @@ channel_1_multibandCompressor_high_knee_value.innerHTML = Math.round(`${e.curren
 channel_1_multibandCompressor_high_knee.value = Math.round(`${e.currentTarget.value}`);
 });
 
-
 //********************************************************
 //********************************************************
 //************      MidSideCompressor     **************
@@ -31590,7 +31733,6 @@ const channel_1_MidSideCompressor_Node = new Tone.MidSideCompressor({
         release: 0.8
     }
 });
-
 
 const channel_1_MidSideCompressor_mid_ratio_text = document.getElementById("channel_1_MidSideCompressor_mid_ratio_text");
 const channel_1_MidSideCompressor_mid_ratio_value = document.getElementById("channel_1_MidSideCompressor_mid_ratio_value");

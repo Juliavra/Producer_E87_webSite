@@ -378,6 +378,64 @@
     </fieldset>
   </header>
 
+
+  <!--Follower-->
+  <div id="channel_1_Follower_div">
+    <fieldset>
+      <h2>LowpassCombFilter</h2>
+    <p id="channel_1_Follower_smoothing_text"> </p>
+    Smoothing <input type='range' min=0.001 max=1 step='0.001' value="0.001" id='channel_1_Follower_smoothing'>
+    <p id="channel_1_Follower_smoothing_value"></p>
+    <br>
+</fieldset>
+  </div>
+
+  <!--LowpassCombFilter-->
+  <div id="channel_1_LowpassCombFilter_div">
+    <fieldset>
+      <h2>LowpassCombFilter</h2>
+      <p id="channel_1_LowpassCombFilter_delayTime_text"> </p>
+      Dly Time<input type='range' min=0 max=1 step='0.001' value="0" id='channel_1_LowpassCombFilter_delayTime'>
+      <p id="channel_1_LowpassCombFilter_delayTime_value"></p>
+
+      <input id="channel_1_LowpassCombFilter_delayTime_rampTo_gain" type="number" min="0" max="1"
+        style="width: 35px;" />
+      time: <input id="channel_1_LowpassCombFilter_delayTime_rampTo_time" type="number" min="0" max="60"
+        style="width: 35px;" />
+      <button id="channel_1_LowpassCombFilter_delayTime_rampTo_send_Button"
+        value="channel_1_LowpassCombFilter_delayTime_rampTo"
+        onclick="send(value, channel_1_LowpassCombFilter_delayTime_rampTo_gain, channel_1_LowpassCombFilter_delayTime_rampTo_time)">go
+      </button>
+      <br>
+      <p id="channel_1_LowpassCombFilter_resonance_text"> </p>
+      Resonance<input type='range' min=0 max=1 step='0.01' value="0" id='channel_1_LowpassCombFilter_resonance'>
+      <p id="channel_1_LowpassCombFilter_resonance_value"></p>
+
+      <input id="channel_1_LowpassCombFilter_resonance_rampTo_gain" type="number" min="0" max="1"
+        style="width: 35px;" />
+      time: <input id="channel_1_LowpassCombFilter_resonance_rampTo_time" type="number" min="0" max="60"
+        style="width: 35px;" />
+      <button id="channel_1_LowpassCombFilter_resonance_rampTo_send_Button"
+        value="channel_1_LowpassCombFilter_resonance_rampTo"
+        onclick="send(value, channel_1_LowpassCombFilter_resonance_rampTo_gain, channel_1_LowpassCombFilter_resonance_rampTo_time)">go
+      </button>
+      <br><br>
+      <p id="channel_1_LowpassCombFilter_dampening_text"> </p>
+      dampening<input type='range' min=0.01 max=15000 step='0.01' value="0" id='channel_1_LowpassCombFilter_dampening'>
+      <p id="channel_1_LowpassCombFilter_dampening_value"></p>
+
+      <input id="channel_1_LowpassCombFilter_dampening_rampTo_gain" type="number" min="0" max="1"
+        style="width: 35px;" />
+      time: <input id="channel_1_LowpassCombFilter_dampening_rampTo_time" type="number" min="0" max="60"
+        style="width: 35px;" />
+      <button id="channel_1_LowpassCombFilter_dampening_rampTo_send_Button"
+        value="channel_1_LowpassCombFilter_dampening_rampTo"
+        onclick="send(value, channel_1_LowpassCombFilter_dampening_rampTo_gain, channel_1_LowpassCombFilter_dampening_rampTo_time)">go
+      </button>
+      <br><br>
+    </fieldset>
+  </div>
+
   <!--FeedbackCombFilter -->
   <div id="channel_1_FeedbackCombFilter_div">
     <fieldset>
@@ -429,7 +487,8 @@
         onclick="send(value, channel_1_MultibandCompressor_lowFrequency_rampTo_gain, channel_1_MultibandCompressor_lowFrequency_rampTo_time)">go
       </button>
       <br>
-      highFreq<input type='range' min=1000 max=3500 step='10' value="1000" id='channel_1_MultibandCompressor_highFrequency'>
+      highFreq<input type='range' min=1000 max=3500 step='10' value="1000"
+        id='channel_1_MultibandCompressor_highFrequency'>
       <p id="channel_1_MultibandCompressor_highFrequency_value"></p>
 
       <input id="channel_1_MultibandCompressor_highFrequency_rampTo_gain" type="number" min="0" max="1"
