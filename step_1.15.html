@@ -51,7 +51,7 @@
       padding: 20px;
       text-align: center;
     }
-   
+
     .fila {
       padding: 10px;
       background-color: #f4f4f4;
@@ -127,15 +127,30 @@
       content: "\2796";
       /* Unicode character for "minus" sign (-) */
     }
+
+    input[type="radio"]:checked+label {
+      color: red;
+      /* Changes the text color to blue when checked */
+      font-weight: bold;
+      /* Optional: make text bold when selected */
+    }
+
+    input[type="radio"]+label {
+      color: black;
+      /* Changes the text color to blue when checked */
+      font-weight: bold;
+      font-family: Verdana;
+      display: inline-block;
+    }
   </style>
 </head>
 
 <body>
   <header>
-<!--    Test_Node RMS: <p id="meter_test_Node_RMS"></p>  -->
-    
-    Tecla: <p id="teclaApretada">  </p>
-<br>
+    <!--    Test_Node RMS: <p id="meter_test_Node_RMS"></p>  -->
+
+    Tecla: <p id="teclaApretada"> </p>
+    <br>
     <fieldset>
       <div class="deposito" id="deposito_1">
         <p id="duration_1_text"> </p>
@@ -196,7 +211,17 @@
           Playback
           <audio id="audio-playback" controls></audio>
         </div>
-        
+        <br>
+        Transport
+        <br>
+        bpm
+        <input id="transport_bpm" type="number" min="1" max="1000" step='1' style="width: 35px;" />
+        <button id="transport_bpm_changesBpm_Button" value="transport_bpm" onclick="changesBpm()">go </button>
+        Position: <p id="transport_position"></p>
+        <br>
+
+
+        <br>
         <br>
         Master Volume:
         <p id="master_volume_text">Vol</p>
@@ -211,155 +236,245 @@
         <button id="consoleClear" onclick="consoleClear()"> consoleClear </button>
         <button id="Sinte" onclick="Sinte()"> Sinte </button>
         <button id="CustomizedButton" onclick="CustomizedButton()"> Start Context</button>
-        <button id="TransportSTOP" onclick="TransportSTOP()"> Load Mix </button>
+        <button id="TransportSTOP" onclick="TransportStart()"> Load Mix </button>
         <button id="offlineContext" onclick="Offline_Context()"> Offline Context </button>
         <button id="load_txt_file" onclick="getFile()">Load File </button>
         <button id="save_txt_file" onclick="saveFile()">Save File </button>
       </section>
-<br>    
-     
-    <label for="song">Song</label>
-    <select name="song" id="song">
-      <option name="01" id="01" value="1">01 Dark Ringy Short Loop</option>
-      <option name="02" id="02" value="2">02 Hard Acople Amb Song</option>
-      <option name="03" id="03" value="3">03 Phased Sleppy Noise Loop</option>
-      <option name="04" id="04" value="4">04 Ruido Digital Zarpado Loop</option>
-      <option name="05" id="05" value="5">05 Deep Dark Amb Slow Loop</option>
-      <option name="06" id="06" value="6">06 Ringy Dark Slow Amb Loop</option>
-      <option name="07" id="07" value="7">07 Calm Mellow Slow Amb Song</option>
-      <option name="08" id="08" value="8">08 Digi Noise Reverb Loop</option>
-      <option name="09" id="09" value="9">09 Digi Clippy Slow Loop</option>
-      <option name="10" id="10" value="10">10 Pulse Burst Revb Slow Song</option>
-      <option name="11" id="11" value="11">11 Sube Baja Calm Space Loop</option>
-      <option name="12" id="12" value="12">12 Acople Drone Amb Slo Song</option>
-      <option name="13" id="13" value="13">13 Amb Revb Tono Mal Loop</option>
-      <option name="14" id="14" value="14">14 Amb Calm Low Evolve Song</option>
-      <option name="15" id="15" value="15">15 Low Amb Melo Loop</option>
-      <option name="16" id="16" value="16">16 Chopped Reverse Calm Bright Loop </option>
-      <option name="17" id="17" value="17">17 Revb Bouncy Easy Noise Loop </option>
-      <option name="18" id="18" value="18">18 Noise Gate Sample Song </option>
-      <option name="19" id="19" value="19">19 Reverse Short Loop </option>
-      <option name="20" id="20" value="20">20 Dubby NR Song </option>
-      <option name="21" id="21" value="21">21 Weird NR Music Loop</option>
-      <option name="22" id="22" value="22">22 Choppd Vibrato Bube Baja Loop </option>
-      <option name="23" id="23" value="23">23 Choppd Vibrato Sube Baja Melo Loop </option>
-      <option name="24" id="24" value="24">24 Line Noise Clippin Loop </option>
-      <option name="25" id="25" value="25">25 Sub Noise Ritmo Loop </option>
-      <option name="26" id="26" value="26">26 Bass Melo Loop </option>
-      <option name="27" id="27" value="27">27 Line Noise Clippin 2 Loop </option>
-      <option name="28" id="28" value="28">28 Reverse Metal Low Drum Song </option>
-      <option name="29" id="29" value="29">29 White Noise Trip Loop Song </option>
-      <option name="30" id="30" value="30">30 Chopped Tone FX Evolution Song </option>
-      <option name="31" id="31" value="31">31 Windy Tremolo Tren Clima Loop </option>
-      <option name="32" id="32" value="32">32 Hiss Ritmico Song </option>
-      <option name="33" id="33" value="33">33 Bouncing Turbina Slow Song </option>
-      <option name="34" id="34" value="34">34 NR Digi Reverse Loop </option>
-      <option name="35" id="35" value="35">35 Grainy Sub Vibrato Soplido Song </option>
-      <option name="36" id="36" value="36">36 Ringy Pad Slow Melo Loop Song </option>
-      <option name="37" id="37" value="37">37 Reverse NR Wicked Birds Loop </option>
-      <option name="38" id="38" value="38">38 Mid Lo Bouncy Choppd Loop </option>
-      <option name="39" id="39" value="39">39 Sube Baja Ringy Loop Son </option>
-      <option name="40" id="40" value="40">40 Acople Viaje Hi Eq Loop </option>
-      <option name="41" id="41" value="41">41 Dark Sub Clips Amb Song </option>
-      <option name="42" id="42" value="42">42 Low Engine Loop</option>
-      <option name="43" id="43" value="43">43 Fax Signal Acople Clima Digi Noise Loop </option>
-      <option name="44" id="44" value="44">44 Caballos Digi Noise Tempo Song </option>
-      <option name="45" id="45" value="45">45 Metal NR Talkin Melody Song </option>
-      <option name="46" id="46" value="46">46 Rain Metal bursts Talkie Loop Song </option>
-      <option name="47" id="47" value="47">47 Ringy Sub Melody Tempo Song </option>
-      <option name="48" id="48" value="48">48 Chopped ST Noise Calm Song </option>
-      <option name="49" id="49" value="49">49 Reverse Weird Music Song </option>
-      <option name="50" id="50" value="50">50 Ritmo Hit Pila Song </option>
-      <option name="51" id="51" value="51">51 Low Drone Noise Loop </option>
-      <option name="52" id="52" value="52">52 Sub Ultra Slow Mzk Song </option>
-      <option name="53" id="53" value="53">53 Low Digi Vibrato Snaps Loop </option>
-      <option name="54" id="54" value="54">54 Sub Windy Deep Song </option>
-      <option name="55" id="55" value="55">55 Ringy Sweepin Howl Song </option>
-      <option name="56" id="56" value="56">56 Chopped Snappy Melo Song </option>
-      <option name="57" id="57" value="57">57 Distort Chopped Ring Loop </option>
-      <option name="58" id="58" value="58">58 Sub Dark Hits Song </option>
-      <option name="59" id="59" value="59">59 Ringy EG Chopped Amb Song </option>
-      <option name="60" id="60" value="60">60 Melancholic Song </option>
-      <option name="61" id="61" value="61">61 Sube Baja Melo Song </option>
-      <option name="62" id="62" value="62">62 Sub Noise Talkative Loop </option>
-      <option name="63" id="63" value="63">63 Grainy Dirty Noise Loop </option>
-      <option name="64" id="64" value="64">64 Clipped Noise Loop </option>
-      <option name="65" id="65" value="65">65 Acople Hard Crescendo Loop </option>
-      <option name="66" id="66" value="66">66 Chopped Ptch Dwn Amb Loop </option>
-      <option name="67" id="67" value="67">67 Low Ocean like Amb Song </option>
-      <option name="68" id="68" value="68">68 Reverse Deep Dark Loop </option>
-      <option name="69" id="69" value="69">69 Drone Delay Melo Loop Song</option>
-      <option name="70" id="70" value="70">70 Chopped Ritmo ST Loop </option>
-      <option name="71" id="71" value="71">71 Melo Sube Baja Clima Loop </option>
-      <option name="72" id="72" value="72">72 Choppd fast ST Music Loop </option>
-      <option name="73" id="73" value="73">73 Trenes al galope Loop </option>
-      <option name="74" id="74" value="74">74 Drone Hard Noise Loop Song </option>
-      <option name="75" id="75" value="75">75 Grainy Windy Dirty Noise Loop </option>
-      <option name="76" id="76" value="76">76 Sub Dub NR Loop </option>
-      <option name="77" id="77" value="77">77 Weird EG Vibrato Melo Loop </option>
-      <option name="78" id="78" value="78">78 Away Revb Industrial Noise Song </option>
-      <option name="79" id="79" value="79">79 Mellow Strings NR Song </option>
-      <option name="80" id="80" value="80">80 Phased Orkestra NR Song </option>
-      <option name="81" id="81" value="81">81 Un Clip Procesado Song </option>
-      <option name="82" id="82" value="82">82 Reverse Dubby Drum Beat </option>
-      <option name="83" id="83" value="83">83 Ptch Dwn Drum </option>
-      <option name="84" id="84" value="84">84 Chopped Dubby Beat Loop </option>
-      <option name="85" id="85" value="85">85 Sub Vibrato Delay N Gate Drum</option>
-      <option name="86" id="86" value="86">86 One Drop Distort Loop </option>
-      <option name="87" id="87" value="87">87 4 BD Space Dub Loop </option>
-      <option name="88" id="88" value="88">88 Distort Ptch Dwn Hip Hop Loop </option>
-      <option name="89" id="89" value="89">89 Distort EQ Hip Hop </option>
-      <option name="90" id="90" value="90">90 Ultra Slo Dub Trip Hop Loop </option>
-      <option name="91" id="91" value="91">91 Dub Loop </option>
-      <option name="92" id="92" value="92">92 Sub Space Tribal Loop </option>
-      <option name="93" id="93" value="93">93 Autechre Jumpin Loop </option>
-      <option name="94" id="94" value="94">94 Dirty Trip Hop Loop </option>
-      <option name="95" id="95" value="95">95 Break Cool Dance Beat Loop </option>
-      <option name="96" id="96" value="96">96 Clippy Choppd Melo Loop </option>
-      <option name="97" id="97" value="97">97 Reverse Fast Trance Loop </option>
-      <option name="98" id="98" value="98">98 All Over T Hop NR loop Song </option>
-      <option name="99" id="99" value="99">99 Melo Drums Tempo Loop </option>
-      <option name="100" id="100" value="100">100 B Beat re laburado Loop Song </option>
-      <option name="101" id="101" value="101">101 Jijiji </option>
-      <option name="102" id="102" value="102">102 El cazador </option>
-      <option name="103" id="103" value="103">103 Fuegos de Octubre </option>
-      <option name="104" id="104" value="104">104 </option>
-      <option name="105" id="105" value="105">105 </option>
-      <option name="106" id="106" value="106">106 </option>
-      <option name="107" id="107" value="107">107 </option>
+      <br>
 
-    </select>
-    <label for="player">Player</label>
-    <select name="player" id="player">
-      <option name="1" id="1" value="1">1</option>
-      <option name="2" id="2" value="2">2</option>
-      <option name="3" id="3" value="3">3</option>
-      <option name="4" id="4" value="4">4</option>
-    </select>
-    <button id="buscaButton" onclick="busca1()">Buscar </button>
- <br> <br>
-  
-    <label for="loaded_BuffersList">Loaded Buffers</label>
-    <select name="loaded_BuffersList" id="loaded_BuffersList"></select>
-    <label for="player_loaded_BuffersList">Player</label>
-    <select name="player_loaded_BuffersList" id="player_loaded_BuffersList">
-      <option name="1" id="1" value="1">1</option>
-      <option name="2" id="2" value="2">2</option>
-      <option name="3" id="3" value="3">3</option>
-      <option name="4" id="4" value="4">4</option>
-    </select>
-    <button id="cargaButton" onclick="carga1()">Cargar </button>
-<br>
-  </fieldset>
+      <label for="song">Song</label>
+      <select name="song" id="song">
+        <option name="01" id="01" value="1">01 Dark Ringy Short Loop</option>
+        <option name="02" id="02" value="2">02 Hard Acople Amb Song</option>
+        <option name="03" id="03" value="3">03 Phased Sleppy Noise Loop</option>
+        <option name="04" id="04" value="4">04 Ruido Digital Zarpado Loop</option>
+        <option name="05" id="05" value="5">05 Deep Dark Amb Slow Loop</option>
+        <option name="06" id="06" value="6">06 Ringy Dark Slow Amb Loop</option>
+        <option name="07" id="07" value="7">07 Calm Mellow Slow Amb Song</option>
+        <option name="08" id="08" value="8">08 Digi Noise Reverb Loop</option>
+        <option name="09" id="09" value="9">09 Digi Clippy Slow Loop</option>
+        <option name="10" id="10" value="10">10 Pulse Burst Revb Slow Song</option>
+        <option name="11" id="11" value="11">11 Sube Baja Calm Space Loop</option>
+        <option name="12" id="12" value="12">12 Acople Drone Amb Slo Song</option>
+        <option name="13" id="13" value="13">13 Amb Revb Tono Mal Loop</option>
+        <option name="14" id="14" value="14">14 Amb Calm Low Evolve Song</option>
+        <option name="15" id="15" value="15">15 Low Amb Melo Loop</option>
+        <option name="16" id="16" value="16">16 Chopped Reverse Calm Bright Loop </option>
+        <option name="17" id="17" value="17">17 Revb Bouncy Easy Noise Loop </option>
+        <option name="18" id="18" value="18">18 Noise Gate Sample Song </option>
+        <option name="19" id="19" value="19">19 Reverse Short Loop </option>
+        <option name="20" id="20" value="20">20 Dubby NR Song </option>
+        <option name="21" id="21" value="21">21 Weird NR Music Loop</option>
+        <option name="22" id="22" value="22">22 Choppd Vibrato Bube Baja Loop </option>
+        <option name="23" id="23" value="23">23 Choppd Vibrato Sube Baja Melo Loop </option>
+        <option name="24" id="24" value="24">24 Line Noise Clippin Loop </option>
+        <option name="25" id="25" value="25">25 Sub Noise Ritmo Loop </option>
+        <option name="26" id="26" value="26">26 Bass Melo Loop </option>
+        <option name="27" id="27" value="27">27 Line Noise Clippin 2 Loop </option>
+        <option name="28" id="28" value="28">28 Reverse Metal Low Drum Song </option>
+        <option name="29" id="29" value="29">29 White Noise Trip Loop Song </option>
+        <option name="30" id="30" value="30">30 Chopped Tone FX Evolution Song </option>
+        <option name="31" id="31" value="31">31 Windy Tremolo Tren Clima Loop </option>
+        <option name="32" id="32" value="32">32 Hiss Ritmico Song </option>
+        <option name="33" id="33" value="33">33 Bouncing Turbina Slow Song </option>
+        <option name="34" id="34" value="34">34 NR Digi Reverse Loop </option>
+        <option name="35" id="35" value="35">35 Grainy Sub Vibrato Soplido Song </option>
+        <option name="36" id="36" value="36">36 Ringy Pad Slow Melo Loop Song </option>
+        <option name="37" id="37" value="37">37 Reverse NR Wicked Birds Loop </option>
+        <option name="38" id="38" value="38">38 Mid Lo Bouncy Choppd Loop </option>
+        <option name="39" id="39" value="39">39 Sube Baja Ringy Loop Son </option>
+        <option name="40" id="40" value="40">40 Acople Viaje Hi Eq Loop </option>
+        <option name="41" id="41" value="41">41 Dark Sub Clips Amb Song </option>
+        <option name="42" id="42" value="42">42 Low Engine Loop</option>
+        <option name="43" id="43" value="43">43 Fax Signal Acople Clima Digi Noise Loop </option>
+        <option name="44" id="44" value="44">44 Caballos Digi Noise Tempo Song </option>
+        <option name="45" id="45" value="45">45 Metal NR Talkin Melody Song </option>
+        <option name="46" id="46" value="46">46 Rain Metal bursts Talkie Loop Song </option>
+        <option name="47" id="47" value="47">47 Ringy Sub Melody Tempo Song </option>
+        <option name="48" id="48" value="48">48 Chopped ST Noise Calm Song </option>
+        <option name="49" id="49" value="49">49 Reverse Weird Music Song </option>
+        <option name="50" id="50" value="50">50 Ritmo Hit Pila Song </option>
+        <option name="51" id="51" value="51">51 Low Drone Noise Loop </option>
+        <option name="52" id="52" value="52">52 Sub Ultra Slow Mzk Song </option>
+        <option name="53" id="53" value="53">53 Low Digi Vibrato Snaps Loop </option>
+        <option name="54" id="54" value="54">54 Sub Windy Deep Song </option>
+        <option name="55" id="55" value="55">55 Ringy Sweepin Howl Song </option>
+        <option name="56" id="56" value="56">56 Chopped Snappy Melo Song </option>
+        <option name="57" id="57" value="57">57 Distort Chopped Ring Loop </option>
+        <option name="58" id="58" value="58">58 Sub Dark Hits Song </option>
+        <option name="59" id="59" value="59">59 Ringy EG Chopped Amb Song </option>
+        <option name="60" id="60" value="60">60 Melancholic Song </option>
+        <option name="61" id="61" value="61">61 Sube Baja Melo Song </option>
+        <option name="62" id="62" value="62">62 Sub Noise Talkative Loop </option>
+        <option name="63" id="63" value="63">63 Grainy Dirty Noise Loop </option>
+        <option name="64" id="64" value="64">64 Clipped Noise Loop </option>
+        <option name="65" id="65" value="65">65 Acople Hard Crescendo Loop </option>
+        <option name="66" id="66" value="66">66 Chopped Ptch Dwn Amb Loop </option>
+        <option name="67" id="67" value="67">67 Low Ocean like Amb Song </option>
+        <option name="68" id="68" value="68">68 Reverse Deep Dark Loop </option>
+        <option name="69" id="69" value="69">69 Drone Delay Melo Loop Song</option>
+        <option name="70" id="70" value="70">70 Chopped Ritmo ST Loop </option>
+        <option name="71" id="71" value="71">71 Melo Sube Baja Clima Loop </option>
+        <option name="72" id="72" value="72">72 Choppd fast ST Music Loop </option>
+        <option name="73" id="73" value="73">73 Trenes al galope Loop </option>
+        <option name="74" id="74" value="74">74 Drone Hard Noise Loop Song </option>
+        <option name="75" id="75" value="75">75 Grainy Windy Dirty Noise Loop </option>
+        <option name="76" id="76" value="76">76 Sub Dub NR Loop </option>
+        <option name="77" id="77" value="77">77 Weird EG Vibrato Melo Loop </option>
+        <option name="78" id="78" value="78">78 Away Revb Industrial Noise Song </option>
+        <option name="79" id="79" value="79">79 Mellow Strings NR Song </option>
+        <option name="80" id="80" value="80">80 Phased Orkestra NR Song </option>
+        <option name="81" id="81" value="81">81 Un Clip Procesado Song </option>
+        <option name="82" id="82" value="82">82 Reverse Dubby Drum Beat </option>
+        <option name="83" id="83" value="83">83 Ptch Dwn Drum </option>
+        <option name="84" id="84" value="84">84 Chopped Dubby Beat Loop </option>
+        <option name="85" id="85" value="85">85 Sub Vibrato Delay N Gate Drum</option>
+        <option name="86" id="86" value="86">86 One Drop Distort Loop </option>
+        <option name="87" id="87" value="87">87 4 BD Space Dub Loop </option>
+        <option name="88" id="88" value="88">88 Distort Ptch Dwn Hip Hop Loop </option>
+        <option name="89" id="89" value="89">89 Distort EQ Hip Hop </option>
+        <option name="90" id="90" value="90">90 Ultra Slo Dub Trip Hop Loop </option>
+        <option name="91" id="91" value="91">91 Dub Loop </option>
+        <option name="92" id="92" value="92">92 Sub Space Tribal Loop </option>
+        <option name="93" id="93" value="93">93 Autechre Jumpin Loop </option>
+        <option name="94" id="94" value="94">94 Dirty Trip Hop Loop </option>
+        <option name="95" id="95" value="95">95 Break Cool Dance Beat Loop </option>
+        <option name="96" id="96" value="96">96 Clippy Choppd Melo Loop </option>
+        <option name="97" id="97" value="97">97 Reverse Fast Trance Loop </option>
+        <option name="98" id="98" value="98">98 All Over T Hop NR loop Song </option>
+        <option name="99" id="99" value="99">99 Melo Drums Tempo Loop </option>
+        <option name="100" id="100" value="100">100 B Beat re laburado Loop Song </option>
+        <option name="101" id="101" value="101">101 Jijiji </option>
+        <option name="102" id="102" value="102">102 El cazador </option>
+        <option name="103" id="103" value="103">103 Fuegos de Octubre </option>
+        <option name="104" id="104" value="104">104 </option>
+        <option name="105" id="105" value="105">105 </option>
+        <option name="106" id="106" value="106">106 </option>
+        <option name="107" id="107" value="107">107 </option>
+
+      </select>
+      <label for="player">Player</label>
+      <select name="player" id="player">
+        <option name="1" id="1" value="1">1</option>
+        <option name="2" id="2" value="2">2</option>
+        <option name="3" id="3" value="3">3</option>
+        <option name="4" id="4" value="4">4</option>
+      </select>
+      <button id="buscaButton" onclick="busca1()">Buscar </button>
+      <br> <br>
+
+      <label for="loaded_BuffersList">Loaded Buffers</label>
+      <select name="loaded_BuffersList" id="loaded_BuffersList"></select>
+      <label for="player_loaded_BuffersList">Player</label>
+      <select name="player_loaded_BuffersList" id="player_loaded_BuffersList">
+        <option name="1" id="1" value="1">1</option>
+        <option name="2" id="2" value="2">2</option>
+        <option name="3" id="3" value="3">3</option>
+        <option name="4" id="4" value="4">4</option>
+      </select>
+      <button id="cargaButton" onclick="carga1()">Cargar </button>
+      <br>
+    </fieldset>
   </header>
- 
+
+  <!--CHEBYSHEV -->
+  <div id="fx_1_Chebyshev_div">
+    <br>
+    <fieldset>
+      <h2>Chebyshev</h2>
+      <p id="fx_1_Chebyshev_text"> </p>
+      order<input type='range' min=1 max=100 step='1' value="1" id='fx_1_Chebyshev_order'>
+      <p id="fx_1_Chebyshev_order_value"></p>
+
+      <input id="fx_1_Chebyshev_order_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+      time: <input id="fx_1_Chebyshev_order_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+      <button id="fx_1_Chebyshev_order_rampTo_send_Button" value="fx_1_Chebyshev_order_rampTo"
+        onclick="send(value, fx_1_Chebyshev_order_rampTo_gain, fx_1_Chebyshev_order_rampTo_time)">go </button>
+      <br>
+      <br>
+      <label for="fx_1_Chebyshev_select_type"></label>
+      Oversample:
+      <select name="fx_1_Chebyshev_select" id="fx_1_Chebyshev_select_type">
+        <option name="none" id="none" value="none">none</option>
+        <option name="2x" id="2x" value="2x">2x</option>
+        <option name="4x" id="4x" value="4x">4x</option>
+      </select>
+      <br>
+    </fieldset>
+  </div>
+
+  <!--BITCRUSHER -->
+  <div id="fx_1_bitCrusher_div">
+    <br>
+    <fieldset>
+      <h2>Bit Crusher</h2>
+      <p id="fx_1_bitCrusher_text"> </p>
+      bit<input type='range' min=1 max=8 step='1' value="1" id='fx_1_bitCrusher_bit'>
+      <p id="fx_1_bitCrusher_bit_value"></p>
+
+      <input id="fx_1_bitCrusher_bit_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+      time: <input id="fx_1_bitCrusher_bit_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+      <button id="fx_1_bitCrusher_bit_rampTo_send_Button" value="fx_1_bitCrusher_bit_rampTo"
+        onclick="send(value, fx_1_bitcrusher_bit_rampTo_gain, fx_1_bitCrusher_bit_rampTo_time)">go </button>
+      <br>
+    </fieldset>
+  </div>
+
+  <!--LFO -->
+  <div class="column" id="lfo_1_column">
+    <h2>LFO</h2>
+
+    RMS: <p id="lfo_1_rms_meter_inner"></p>
+    <br>
+    DC: <p id="lfo_1_dcmeter_inner"></p>
+    <br> <br>
+
+    <button id="lfo_1_Off_Button" value="lfo_1" onclick="node_Off(value)">Off </button>
+    <button id="lfo_1_playButton" value="lfo_1" onclick="play(value)">Play </button>
+    <button id="lfo_1_stopButton" value="lfo_1" onclick="stop(value)">Stop </button>
+
+    <br>
+
+    <p id="lfo_1_volume_text">Vol </p>
+    <input type='range' min=-41 max=12 step='1' value="-6" id='lfo_1_volume'>
+    <p id="lfo_1_volume_value"></p>
+    <br>
+
+    <p id="lfo_1_frequency_text">Freq </p>
+    <input type='range' min=0 max=15 step='0.01' value="0" id='lfo_1_frequency'>
+    <p id="lfo_1_frequency_value"></p>
+    <br>
+    Min:
+    <br> <br>
+    Max:
+    <br>
+    <p id="lfo_1_amplitude_text">Amp </p>
+    <input type='range' min=0 max=1 step='0.01' value="0" id='lfo_1_amplitude'>
+    <p id="lfo_1_amplitude_value"></p>
+    <br>
+    <p id="lfo_1_phase_text">Phase </p>
+    <input type='range' min=0 max=360 step='1' value="0" id='lfo_1_phase'>
+    <p id="lfo_1_phase_value"></p>
+    <br>
+    type:
+    <select name="lfo_1_select_type" id="lfo_1_select_type">
+      <option name="sine" id="sine" value="sine">sine</option>
+      <option name="square" id="square" value="square">square</option>
+      <option name="triangle" id="triangle" value="triangle">triangle</option>
+      <option name="sawtooth" id="sawtooth" value="sawtooth">sawtooth</option>
+    </select>
+    <br>
+
+  </div>
+
   <!--AUDIO CARD -->
   <div class="fila" id="audio_card_channel_column">
 
-<button id="audio_card_channel_Off_Button" value="audio_card_channel_Off_Button"
-      onclick="audio_card_Off()">Off </button>
+    <button id="audio_card_channel_Off_Button" value="audio_card" onclick="node_Off(value)">Off
+    </button>
     <h2>Audio Card</h2>
-    RMS: <p id="audio_card_channel_rms_meter_inner"></p> 
+    RMS: <p id="audio_card_channel_rms_meter_inner"></p>
     <br>
     <p id="audio_card_channel_volume_text">Vol</p>
     <input type='range' min=-41 max=12 step='1' value="-40" id='audio_card_channel_volume'>
@@ -440,10 +555,12 @@
           <input type='range' min=20 max=20000 step='10' value="20" id='audio_card_channel_filter_frequency_allpass'>
           <p id="audio_card_channel_filter_frequency_allpass_value"></p>
 
-          <input id="audio_card_channel_filter_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          <input id="audio_card_channel_filter_frequency_rampTo_gain" type="number" min="0" max="20"
+            style="width: 35px;" />
           time: <input id="audio_card_channel_filter_frequency_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_filter_frequency_rampTo_send_Button" value="audio_card_channel_filter_frequency_allpass_rampTo"
+          <button id="audio_card_channel_filter_frequency_rampTo_send_Button"
+            value="audio_card_channel_filter_frequency_allpass_rampTo"
             onclick="send(value, audio_card_channel_filter_frequency_rampTo_gain, audio_card_channel_filter_frequency_rampTo_time)">go
           </button>
           <br>
@@ -453,19 +570,25 @@
           <p id="audio_card_channel_filter_Q_allpass_value"></p>
 
           <input id="audio_card_channel_filter_Q_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="audio_card_channel_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+          time: <input id="audio_card_channel_filter_Q_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
           <button id="audio_card_channel_filter_Q_rampTo_send_Button" value="audio_card_channel_filter_Q_allpass_rampTo"
-            onclick="send(value, audio_card_channel_filter_Q_rampTo_gain, audio_card_channel_filter_Q_rampTo_time)">go </button>
+            onclick="send(value, audio_card_channel_filter_Q_rampTo_gain, audio_card_channel_filter_Q_rampTo_time)">go
+          </button>
 
           <br>
           <p id="audio_card_channel_filter_detune_text_allpass">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='audio_card_channel_filter_detune_allpass'>
           <p id="audio_card_channel_filter_detune_allpass_value"></p>
 
-          <input id="audio_card_channel_filter_detune_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="audio_card_channel_filter_detune_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="audio_card_channel_filter_detune_rampTo_send_Button" value="audio_card_channel_filter_detune_allpass_rampTo"
-            onclick="send(value, audio_card_channel_filter_detune_rampTo_gain, audio_card_channel_filter_detune_rampTo_time)">go </button>
+          <input id="audio_card_channel_filter_detune_rampTo_gain" type="number" min="0" max="20"
+            style="width: 35px;" />
+          time: <input id="audio_card_channel_filter_detune_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="audio_card_channel_filter_detune_rampTo_send_Button"
+            value="audio_card_channel_filter_detune_allpass_rampTo"
+            onclick="send(value, audio_card_channel_filter_detune_rampTo_gain, audio_card_channel_filter_detune_rampTo_time)">go
+          </button>
 
         </fieldset>
         <br>
@@ -497,7 +620,8 @@
             style="width: 35px;" />
           time: <input id="audio_card_channel_filter_gain_shelf_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_filter_gain_shelf_rampTo_send_Button" value="audio_card_channel_filter_gain_shelf_rampTo"
+          <button id="audio_card_channel_filter_gain_shelf_rampTo_send_Button"
+            value="audio_card_channel_filter_gain_shelf_rampTo"
             onclick="send(value, audio_card_channel_filter_gain_shelf_rampTo_gain, audio_card_channel_filter_gain_shelf_rampTo_time)">go
           </button>
           <br>
@@ -509,7 +633,8 @@
             style="width: 35px;" />
           time: <input id="audio_card_channel_filter_detune_shelf_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_filter_detune_shelf_rampTo_send_Button" value="audio_card_channel_filter_detune_shelf_rampTo"
+          <button id="audio_card_channel_filter_detune_shelf_rampTo_send_Button"
+            value="audio_card_channel_filter_detune_shelf_rampTo"
             onclick="send(value, audio_card_channel_filter_detune_shelf_rampTo_detune, audio_card_channel_filter_detune_shelf_rampTo_time)">go
           </button>
 
@@ -525,8 +650,8 @@
           <input type='range' min=20 max=20000 step='10' value="20" id='audio_card_channel_filter_frequency_peaking'>
           <p id="audio_card_channel_filter_frequency_peaking_value"></p>
 
-          <input id="audio_card_channel_filter_frequency_peaking_rampTo_gain" type="number" min="20" max="20000" step='10'
-            style="width: 35px;" />
+          <input id="audio_card_channel_filter_frequency_peaking_rampTo_gain" type="number" min="20" max="20000"
+            step='10' style="width: 35px;" />
           time: <input id="audio_card_channel_filter_frequency_peaking_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
           <button id="audio_card_channel_filter_frequency_peaking_rampTo_send_Button"
@@ -539,10 +664,12 @@
           <input type='range' min=0 max=2 step=0.1 value="0" id='audio_card_channel_filter_Q_peaking'>
           <p id="audio_card_channel_filter_Q_peaking_value"></p>
 
-          <input id="audio_card_channel_filter_Q_peaking_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          <input id="audio_card_channel_filter_Q_peaking_rampTo_gain" type="number" min="0" max="20"
+            style="width: 35px;" />
           time: <input id="audio_card_channel_filter_Q_peaking_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_filter_Q_peaking_rampTo_send_Button" value="audio_card_channel_filter_Q_peaking_rampTo"
+          <button id="audio_card_channel_filter_Q_peaking_rampTo_send_Button"
+            value="audio_card_channel_filter_Q_peaking_rampTo"
             onclick="send(value, audio_card_channel_filter_Q_peaking_rampTo_gain, audio_card_channel_filter_Q_peaking_rampTo_time)">go
           </button>
 
@@ -555,7 +682,8 @@
             style="width: 35px;" />
           time: <input id="audio_card_channel_filter_gain_peaking_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_filter_gain_peaking_rampTo_send_Button" value="audio_card_channel_filter_gain_peaking_rampTo"
+          <button id="audio_card_channel_filter_gain_peaking_rampTo_send_Button"
+            value="audio_card_channel_filter_gain_peaking_rampTo"
             onclick="send(value, audio_card_channel_filter_gain_peaking_rampTo_gain, audio_card_channel_filter_gain_peaking_rampTo_time)">go
           </button>
 
@@ -568,7 +696,8 @@
             style="width: 35px;" />
           time: <input id="audio_card_channel_filter_detune_peaking_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_filter_detune_peaking_rampTo_send_Button" value="audio_card_channel_filter_detune_peaking_rampTo"
+          <button id="audio_card_channel_filter_detune_peaking_rampTo_send_Button"
+            value="audio_card_channel_filter_detune_peaking_rampTo"
             onclick="send(value, audio_card_channel_filter_detune_peaking_rampTo_detune, audio_card_channel_filter_detune_peaking_rampTo_time)">go
           </button>
           <br>
@@ -586,8 +715,10 @@
           <p id="audio_card_channel_tascam_HighShelf_gain_value"></p>
 
           <input id="audio_card_channel_HighShelf_gain_tascam" type="number" min="0" max="24" style="width: 35px;" />
-          time: <input id="audio_card_channel_HighShelf_gain_time_tascam" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="audio_card_channel_tascam_HighShelf_gain_rampTo_send_Button" value="audio_card_channel_HighShelf_gain_tascam_rampTo"
+          time: <input id="audio_card_channel_HighShelf_gain_time_tascam" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="audio_card_channel_tascam_HighShelf_gain_rampTo_send_Button"
+            value="audio_card_channel_HighShelf_gain_tascam_rampTo"
             onclick="send(value, audio_card_channel_HighShelf_gain_tascam, audio_card_channel_HighShelf_gain_time_tascam)">go
           </button>
           <br>
@@ -607,7 +738,8 @@
           <br>
 
           <p id="audio_card_channel_tascam_Mid_SemiParam_frequency_text">Mid Freq </p>
-          <input type='range' min=250 max=5000 step='10' value="250" id='audio_card_channel_tascam_Mid_SemiParam_frequency'>
+          <input type='range' min=250 max=5000 step='10' value="250"
+            id='audio_card_channel_tascam_Mid_SemiParam_frequency'>
           <p id="audio_card_channel_tascam_Mid_SemiParam_frequency_value"></p>
 
           <input id="audio_card_channel_tascam_Mid_SemiParam_frequency_rampTo_gain" type="number" min="0" max="20"
@@ -624,9 +756,12 @@
           <input type='range' min=-100 max=12 step="1" value="0" id="audio_card_channel_tascam_LowShelf_gain">
           <p id="audio_card_channel_tascam_LowShelf_gain_value"></p>
 
-          <input id="audio_card_channel_LowShelf_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
-          time: <input id="audio_card_channel_LowShelf_gain_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="audio_card_channel_LowShelf_gain_rampTo_send_Button" value="audio_card_channel_LowShelf_gain_tascam_rampTo"
+          <input id="audio_card_channel_LowShelf_gain_rampTo_gain" type="number" min="0" max="20"
+            style="width: 35px;" />
+          time: <input id="audio_card_channel_LowShelf_gain_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="audio_card_channel_LowShelf_gain_rampTo_send_Button"
+            value="audio_card_channel_LowShelf_gain_tascam_rampTo"
             onclick="send(value, audio_card_channel_LowShelf_gain_rampTo_gain, audio_card_channel_LowShelf_gain_rampTo_time)">go
           </button>
           <br>
@@ -641,10 +776,12 @@
           <input type='range' min=20 max=1000 step='10' value="100" id="audio_card_channel_EQ3_low_frequency_fader">
           <p id="audio_card_channel_EQ3_low_frequency_fader_value"></p>
 
-          <input id="audio_card_channel_EQ3_low_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          <input id="audio_card_channel_EQ3_low_frequency_rampTo_gain" type="number" min="0" max="20"
+            style="width: 35px;" />
           time: <input id="audio_card_channel_EQ3_low_frequency_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_EQ3_low_frequency_rampTo_send_Button" value="audio_card_channel_EQ3_low_frequency_rampTo"
+          <button id="audio_card_channel_EQ3_low_frequency_rampTo_send_Button"
+            value="audio_card_channel_EQ3_low_frequency_rampTo"
             onclick="send(value, audio_card_channel_EQ3_low_frequency_rampTo_gain, audio_card_channel_EQ3_low_frequency_rampTo_time)">go
           </button>
           <br>
@@ -652,10 +789,12 @@
           <input type='range' min=-41 max=12 step='1' value="0" id='audio_card_channel_EQ3_low_fader_gain'>
           <p id="audio_card_channel_EQ3_low_fader_gain_value"> </p>
 
-          <input id="audio_card_channel_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          <input id="audio_card_channel_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20"
+            style="width: 35px;" />
           time: <input id="audio_card_channel_EQ3_low_fader_gain_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_EQ3_low_fader_gain_rampTo_send_Button" value="audio_card_channel_EQ3_low_fader_gain_rampTo"
+          <button id="audio_card_channel_EQ3_low_fader_gain_rampTo_send_Button"
+            value="audio_card_channel_EQ3_low_fader_gain_rampTo"
             onclick="send(value, audio_card_channel_EQ3_low_fader_gain_rampTo_gain, audio_card_channel_EQ3_low_fader_gain_rampTo_time)">go
           </button>
           <br>
@@ -663,10 +802,12 @@
           <input type='range' min=-41 max=12 step='1' value="0" id='audio_card_channel_EQ3_mid_fader_gain'>
           <p id="audio_card_channel_EQ3_mid_fader_gain_value"> </p>
 
-          <input id="audio_card_channel_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          <input id="audio_card_channel_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20"
+            style="width: 35px;" />
           time: <input id="audio_card_channel_EQ3_mid_fader_gain_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_EQ3_mid_fader_gain_rampTo_send_Button" value="audio_card_channel_EQ3_mid_fader_gain_rampTo"
+          <button id="audio_card_channel_EQ3_mid_fader_gain_rampTo_send_Button"
+            value="audio_card_channel_EQ3_mid_fader_gain_rampTo"
             onclick="send(value, audio_card_channel_EQ3_mid_fader_gain_rampTo_gain, audio_card_channel_EQ3_mid_fader_gain_rampTo_time)">go
           </button>
           <br>
@@ -674,21 +815,26 @@
           <input type='range' min=-41 max=12 step='1' value="0" id='audio_card_channel_EQ3_hi_fader_gain'>
           <p id="audio_card_channel_EQ3_hi_fader_gain_value"> </p>
 
-          <input id="audio_card_channel_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          <input id="audio_card_channel_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20"
+            style="width: 35px;" />
           time: <input id="audio_card_channel_EQ3_hi_fader_gain_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_EQ3_hi_fader_gain_rampTo_send_Button" value="audio_card_channel_EQ3_hi_fader_gain_rampTo"
+          <button id="audio_card_channel_EQ3_hi_fader_gain_rampTo_send_Button"
+            value="audio_card_channel_EQ3_hi_fader_gain_rampTo"
             onclick="send(value, audio_card_channel_EQ3_hi_fader_gain_rampTo_gain, audio_card_channel_EQ3_hi_fader_gain_rampTo_time)">go
           </button>
           <br>
           <p id="audio_card_channel_EQ3_high_frequency_text">Hi Freq </p>
-          <input type='range' min=8000 max=12000 step='100' value="10000" id='audio_card_channel_EQ3_high_frequency_fader'>
+          <input type='range' min=8000 max=12000 step='100' value="10000"
+            id='audio_card_channel_EQ3_high_frequency_fader'>
           <p id="audio_card_channel_EQ3_high_frequency_value"></p>
 
-          <input id="audio_card_channel_EQ3_high_frequency_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
+          <input id="audio_card_channel_EQ3_high_frequency_rampTo_gain" type="number" min="0" max="20"
+            style="width: 35px;" />
           time: <input id="audio_card_channel_EQ3_high_frequency_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_EQ3_high_frequency_rampTo_send_Button" value="audio_card_channel_EQ3_high_frequency_rampTo"
+          <button id="audio_card_channel_EQ3_high_frequency_rampTo_send_Button"
+            value="audio_card_channel_EQ3_high_frequency_rampTo"
             onclick="send(value, audio_card_channel_EQ3_high_frequency_rampTo_gain, audio_card_channel_EQ3_high_frequency_rampTo_time)">go
           </button>
           <br>
@@ -744,8 +890,10 @@
 
           <input id="audio_card_channel_dynamics_ratio_rampTo_detune" type="number" min="0" max="10000" step='1'
             style="width: 35px;" />
-          time: <input id="audio_card_channel_dynamics_ratio_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="audio_card_channel_dynamics_ratio_rampTo_send_Button" value="audio_card_channel_dynamics_ratio_compressor_rampTo"
+          time: <input id="audio_card_channel_dynamics_ratio_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="audio_card_channel_dynamics_ratio_rampTo_send_Button"
+            value="audio_card_channel_dynamics_ratio_compressor_rampTo"
             onclick="send(value, audio_card_channel_dynamics_ratio_rampTo_detune, audio_card_channel_dynamics_ratio_rampTo_time)">go
           </button>
           <br>
@@ -781,8 +929,10 @@
 
           <input id="audio_card_channel_dynamics_attack_rampTo_detune" type="number" min="0" max="10000" step='1'
             style="width: 35px;" />
-          time: <input id="audio_card_channel_dynamics_attack_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="audio_card_channel_dynamics_attack_rampTo_send_Button" value="audio_card_channel_dynamics_attack_compressor_rampTo"
+          time: <input id="audio_card_channel_dynamics_attack_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="audio_card_channel_dynamics_attack_rampTo_send_Button"
+            value="audio_card_channel_dynamics_attack_compressor_rampTo"
             onclick="send(value, audio_card_channel_dynamics_attack_rampTo_detune, audio_card_channel_dynamics_attack_rampTo_time)">go
           </button>
           <br>
@@ -792,8 +942,10 @@
 
           <input id="audio_card_channel_dynamics_knee_rampTo_detune" type="number" min="0" max="10000" step='1'
             style="width: 35px;" />
-          time: <input id="audio_card_channel_dynamics_knee_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-          <button id="audio_card_channel_dynamics_knee_rampTo_send_Button" value="audio_card_channel_dynamics_knee_compressor_rampTo"
+          time: <input id="audio_card_channel_dynamics_knee_rampTo_time" type="number" min="0" max="60"
+            style="width: 35px;" />
+          <button id="audio_card_channel_dynamics_knee_rampTo_send_Button"
+            value="audio_card_channel_dynamics_knee_compressor_rampTo"
             onclick="send(value, audio_card_channel_dynamics_knee_rampTo_detune, audio_card_channel_dynamics_knee_rampTo_time)">go
           </button>
           <br>
@@ -815,7 +967,8 @@
           <p id="audio_card_channel_gate_threshold_value"></p>
           <br>
           <p id="audio_card_channel_gate_smoothing_text"> </p>
-          Smoothing <input type='range' min='0.001' max=10 step='0.001' value="0" id='audio_card_channel_gate_smoothing'>
+          Smoothing <input type='range' min='0.001' max=10 step='0.001' value="0"
+            id='audio_card_channel_gate_smoothing'>
           <p id="audio_card_channel_gate_smoothing_value"></p>
           <br> <br>
         </fieldset>
@@ -836,7 +989,8 @@
             style="width: 35px;" />
           time: <input id="audio_card_channel_limiter_threshold_rampTo_time" type="number" min="0" max="60"
             style="width: 35px;" />
-          <button id="audio_card_channel_limiter_threshold_rampTo_send_Button" value="audio_card_channel_limiter_threshold_rampTo"
+          <button id="audio_card_channel_limiter_threshold_rampTo_send_Button"
+            value="audio_card_channel_limiter_threshold_rampTo"
             onclick="send(value, audio_card_channel_limiter_threshold_rampTo_detune, audio_card_channel_limiter_threshold_rampTo_time)">go
           </button>
           <br> <br>
@@ -852,7 +1006,8 @@
       <fieldset>
         <h2> 1 <p id="audio_card_channel_fxSend_1_text"> </p>
         </h2>
-        <button id="audio_card_channel_fxSend_1_On_Off_Button" onclick="audio_card_channel_fxSend_1_On_Off_Button_foo()">Mute
+        <button id="audio_card_channel_fxSend_1_On_Off_Button"
+          onclick="audio_card_channel_fxSend_1_On_Off_Button_foo()">Mute
         </button>
         <button id="audio_card_channel_fxSend_1_pre_EQ_Button" name="audio_card_channel_fxSend_1"
           onclick="player_x_fxSend_x_state_foo(name, value)" value="PreEQ">Pre EQ
@@ -867,7 +1022,8 @@
         <input type='range' min=-40 max=12 step=1 value="-40" id='audio_card_channel_fxSend_1'>
         <p id="audio_card_channel_fxSend_1_value"></p>
 
-        <input id="audio_card_channel_fxSend_1_rampTo_volume" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+        <input id="audio_card_channel_fxSend_1_rampTo_volume" type="number" min="0" max="10000" step='1'
+          style="width: 35px;" />
         time: <input id="audio_card_channel_fxSend_1_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
         <button id="audio_card_channel_fxSend_1_rampTo_send_Button" value="audio_card_channel_fxSend_1_volume_rampTo"
           onclick="send(value, audio_card_channel_fxSend_1_rampTo_volume, audio_card_channel_fxSend_1_rampTo_time)">go
@@ -891,7 +1047,8 @@
         <input type='range' min=-40 max=12 step=1 value="-40" id='audio_card_channel_fxSend_2'>
         <p id="audio_card_channel_fxSend_2_value"></p>
 
-        <input id="audio_card_channel_fxSend_2_rampTo_volume" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+        <input id="audio_card_channel_fxSend_2_rampTo_volume" type="number" min="0" max="10000" step='1'
+          style="width: 35px;" />
         time: <input id="audio_card_channel_fxSend_2_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
         <button id="fx_2_filter_detune_shelf_rampTo_send_Button" value="audio_card_channel_fxSend_2_volume_rampTo"
           onclick="send(value, audio_card_channel_fxSend_2_rampTo_volume, audio_card_channel_fxSend_2_rampTo_time)">go
@@ -915,9 +1072,11 @@
         <input type='range' min=-40 max=12 step=1 value="-40" id='audio_card_channel_fxSend_3'>
         <p id="audio_card_channel_fxSend_3_value"></p>
 
-        <input id="audio_card_channel_fxSend_3_rampTo_volume" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+        <input id="audio_card_channel_fxSend_3_rampTo_volume" type="number" min="0" max="10000" step='1'
+          style="width: 35px;" />
         time: <input id="audio_card_channel_fxSend_3_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-        <button id="audio_card_channel_filter_detune_shelf_rampTo_send_Button" value="audio_card_channel_fxSend_3_volume_rampTo"
+        <button id="audio_card_channel_filter_detune_shelf_rampTo_send_Button"
+          value="audio_card_channel_fxSend_3_volume_rampTo"
           onclick="send(value, audio_card_channel_fxSend_3_rampTo_volume, audio_card_channel_fxSend_3_rampTo_time)">go
         </button>
 
@@ -939,9 +1098,11 @@
         <input type='range' min=-40 max=12 step=1 value="-40" id='audio_card_channel_fxSend_4'>
         <p id="audio_card_channel_fxSend_4_value"></p>
 
-        <input id="audio_card_channel_fxSend_4_volume_rampTo" type="number" min="0" max="10000" step='1' style="width: 35px;" />
+        <input id="audio_card_channel_fxSend_4_volume_rampTo" type="number" min="0" max="10000" step='1'
+          style="width: 35px;" />
         time: <input id="audio_card_channel_fxSend_4_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
-        <button id="audio_card_channel_filter_detune_shelf_rampTo_send_Button" value="audio_card_channel_fxSend_4_volume_rampTo"
+        <button id="audio_card_channel_filter_detune_shelf_rampTo_send_Button"
+          value="audio_card_channel_fxSend_4_volume_rampTo"
           onclick="send(value, audio_card_channel_fxSend_4_volume_rampTo, audio_card_channel_fxSend_4_rampTo_time)">go
         </button>
       </fieldset>
@@ -1315,7 +1476,20 @@
           time: <input id="channel_1_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
           <button id="channel_1_filter_Q_rampTo_send_Button" value="channel_1_filter_Q_allpass_rampTo"
             onclick="send(value, channel_1_filter_Q_rampTo_gain, channel_1_filter_Q_rampTo_time)">go </button>
-
+          <br>
+          <div id="channel_1_filter_rolloff_allpass">
+            <fieldset>
+              <legend>RollOff</legend>
+              <input type="radio" class="radiobtn" id="channel_1_allpass-12" name="channel_1_rolloff" value=-12>
+              <label for="-12">-12</label>
+              <input type="radio" class="radiobtn" id="channel_1_allpass-24" name="channel_1_rolloff" value=-24>
+              <label for="-24">-24</label>
+              <input type="radio" class="radiobtn" id="channel_1_allpass-48" name="channel_1_rolloff" value="-48">
+              <label for="-48">-48</label>
+              <input type="radio" class="radiobtn" id="channel_1_allpass-96" name="channel_1_rolloff" value="-96">
+              <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="channel_1_filter_detune_text_allpass">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_1_filter_detune_allpass'>
@@ -1359,6 +1533,23 @@
           <button id="channel_1_filter_gain_shelf_rampTo_send_Button" value="channel_1_filter_gain_shelf_rampTo"
             onclick="send(value, channel_1_filter_gain_shelf_rampTo_gain, channel_1_filter_gain_shelf_rampTo_time)">go
           </button>
+          <br>
+          <div id="channel_1_filter_rolloff_shelf">
+            <fieldset>
+              <legend>
+                <p>RollOff</p>
+              </legend>
+              <br>
+              <input type="radio" class="radiobtn" id="channel_1_shelf-12" name="channel_1_rolloff" value=-12>
+              <label for="-12">-12</label>
+              <input type="radio" class="radiobtn" id="channel_1_shelf-24" name="channel_1_rolloff" value=-24>
+              <label for="-24">-24</label>
+              <input type="radio" class="radiobtn" id="channel_1_shelf-48" name="channel_1_rolloff" value="-48">
+              <label for="-48">-48</label>
+              <input type="radio" class="radiobtn" id="channel_1_shelf-96" name="channel_1_rolloff" value="-96">
+              <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="channel_1_filter_detune_text_shelf">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_1_filter_detune_shelf'>
@@ -1417,7 +1608,23 @@
           <button id="channel_1_filter_gain_peaking_rampTo_send_Button" value="channel_1_filter_gain_peaking_rampTo"
             onclick="send(value, channel_1_filter_gain_peaking_rampTo_gain, channel_1_filter_gain_peaking_rampTo_time)">go
           </button>
-
+          <br>
+          <div id="channel_1_filter_rolloff_peaking">
+            <fieldset>
+              <legend>
+                <p>RollOff</p>
+              </legend>
+              <br>
+              <input type="radio" class="radiobtn" id="channel_1_peaking-12" name="channel_1_rolloff" value=-12>
+              <label for="-12">-12</label>
+              <input type="radio" class="radiobtn" id="channel_1_peaking-24" name="channel_1_rolloff" value=-24>
+              <label for="-24">-24</label>
+              <input type="radio" class="radiobtn" id="channel_1_peaking-48" name="channel_1_rolloff" value="-48">
+              <label for="-48">-48</label>
+              <input type="radio" class="radiobtn" id="channel_1_peaking-96" name="channel_1_rolloff" value="-96">
+              <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="channel_1_filter_detune_text_peaking">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_1_filter_detune_peaking'>
@@ -2198,7 +2405,23 @@
           time: <input id="channel_2_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
           <button id="channel_2_filter_Q_rampTo_send_Button" value="channel_2_filter_Q_allpass_rampTo"
             onclick="send(value, channel_2_filter_Q_rampTo_gain, channel_2_filter_Q_rampTo_time)">go </button>
-
+          <br>
+          <div id="channel_2_filter_rolloff_allpass">
+            <fieldset>
+              <legend>
+                <p>RollOff</p>
+              </legend>
+              <br>
+              <input type="radio" class="radiobtn" id="channel_2_allpass-12" name="channel_2_rolloff" value=-12>
+              <label for="-12">-12</label>
+              <input type="radio" class="radiobtn" id="channel_2_allpass-24" name="channel_2_rolloff" value=-24>
+              <label for="-24">-24</label>
+              <input type="radio" class="radiobtn" id="channel_2_allpass-48" name="channel_2_rolloff" value="-48">
+              <label for="-48">-48</label>
+              <input type="radio" class="radiobtn" id="channel_2_allpass-96" name="channel_2_rolloff" value="-96">
+              <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="channel_2_filter_detune_text_allpass">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_2_filter_detune_allpass'>
@@ -2229,7 +2452,6 @@
             value="channel_2_filter_frequency_shelf_rampTo"
             onclick="send(value, channel_2_filter_frequency_shelf_rampTo_gain, channel_2_filter_frequency_shelf_rampTo_time)">go
           </button>
-
           <br>
           <p id="channel_2_filter_gain_text_shelf">Gain </p>
           <input type='range' min=-100 max=12 step='1' value="-100" id='channel_2_filter_gain_shelf'>
@@ -2243,6 +2465,22 @@
             onclick="send(value, channel_2_filter_gain_shelf_rampTo_gain, channel_2_filter_gain_shelf_rampTo_time)">go
           </button>
           <br>
+          <div id="channel_2_filter_rolloff_shelf">
+            <fieldset>
+              <legend>
+                <p>RollOff</p>
+              </legend>
+              <br>
+              <input type="radio" class="radiobtn" id="channel_2_shelf-12" name="channel_2_rolloff" value=-12>
+              <label for="-12">-12</label>
+              <input type="radio" class="radiobtn" id="channel_2_shelf-24" name="channel_2_rolloff" value=-24>
+              <label for="-24">-24</label>
+              <input type="radio" class="radiobtn" id="channel_2_shelf-48" name="channel_2_rolloff" value="-48">
+              <label for="-48">-48</label>
+              <input type="radio" class="radiobtn" id="channel_2_shelf-96" name="channel_2_rolloff" value="-96">
+              <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <p id="channel_2_filter_detune_text_shelf">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_2_filter_detune_shelf'>
           <p id="channel_2_filter_detune_shelf_value"></p>
@@ -2300,7 +2538,23 @@
           <button id="channel_2_filter_gain_peaking_rampTo_send_Button" value="channel_2_filter_gain_peaking_rampTo"
             onclick="send(value, channel_2_filter_gain_peaking_rampTo_gain, channel_2_filter_gain_peaking_rampTo_time)">go
           </button>
-
+          <br>
+          <div id="channel_2_filter_rolloff_peaking">
+            <fieldset>
+              <legend>
+                <p>RollOff</p>
+              </legend>
+              <br>
+              <input type="radio" class="radiobtn" id="channel_2_peaking-12" name="channel_2_rolloff" value=-12>
+              <label for="-12">-12</label>
+              <input type="radio" class="radiobtn" id="channel_2_peaking-24" name="channel_2_rolloff" value=-24>
+              <label for="-24">-24</label>
+              <input type="radio" class="radiobtn" id="channel_2_peaking-48" name="channel_2_rolloff" value="-48">
+              <label for="-48">-48</label>
+              <input type="radio" class="radiobtn" id="channel_2_peaking-96" name="channel_2_rolloff" value="-96">
+              <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="channel_2_filter_detune_text_peaking">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_2_filter_detune_peaking'>
@@ -3052,8 +3306,23 @@
           time: <input id="channel_3_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
           <button id="channel_3_filter_Q_rampTo_send_Button" value="channel_3_filter_Q_allpass_rampTo"
             onclick="send(value, channel_3_filter_Q_rampTo_gain, channel_3_filter_Q_rampTo_time)">go </button>
-
           <br>
+          <div id="channel_3_filter_rolloff_allpass">
+            <fieldset>
+              <legend>
+                <p>RollOff</p>
+              </legend>
+              <br>
+              <input type="radio" class="radiobtn" id="channel_3_allpass-12" name="channel_3_rolloff" value=-12>
+              <label for="-12">-12</label>
+              <input type="radio" class="radiobtn" id="channel_3_allpass-24" name="channel_3_rolloff" value=-24>
+              <label for="-24">-24</label>
+              <input type="radio" class="radiobtn" id="channel_3_allpass-48" name="channel_3_rolloff" value="-48">
+              <label for="-48">-48</label>
+              <input type="radio" class="radiobtn" id="channel_3_allpass-96" name="channel_3_rolloff" value="-96">
+              <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <p id="channel_3_filter_detune_text_allpass">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_3_filter_detune_allpass'>
           <p id="channel_3_filter_detune_allpass_value"></p>
@@ -3096,6 +3365,19 @@
           <button id="channel_3_filter_gain_shelf_rampTo_send_Button" value="channel_3_filter_gain_shelf_rampTo"
             onclick="send(value, channel_3_filter_gain_shelf_rampTo_gain, channel_3_filter_gain_shelf_rampTo_time)">go
           </button>
+          <br>
+          <div id="channel_3_filter_rolloff_shelf">
+            <p>RollOff</p>
+            <br>
+            <input type="radio" class="radiobtn" id="channel_3_shelf-12" name="channel_3_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="channel_3_shelf-24" name="channel_3_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="channel_3_shelf-48" name="channel_3_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="channel_3_shelf-96" name="channel_3_rolloff" value="-96">
+            <label for="-96">-96</label>
+          </div>
           <br>
           <p id="channel_3_filter_detune_text_shelf">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_3_filter_detune_shelf'>
@@ -3154,7 +3436,19 @@
           <button id="channel_3_filter_gain_peaking_rampTo_send_Button" value="channel_3_filter_gain_peaking_rampTo"
             onclick="send(value, channel_3_filter_gain_peaking_rampTo_gain, channel_3_filter_gain_peaking_rampTo_time)">go
           </button>
-
+          <br>
+          <div id="channel_3_filter_rolloff_peaking">
+            <p>RollOff</p>
+            <br>
+            <input type="radio" class="radiobtn" id="channel_3_peaking-12" name="channel_3_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="channel_3_peaking-24" name="channel_3_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="channel_3_peaking-48" name="channel_3_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="channel_3_peaking-96" name="channel_3_rolloff" value="-96">
+            <label for="-96">-96</label>
+          </div>
           <br>
           <p id="channel_3_filter_detune_text_peaking">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_3_filter_detune_peaking'>
@@ -3907,8 +4201,21 @@
           time: <input id="channel_4_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
           <button id="channel_4_filter_Q_rampTo_send_Button" value="channel_4_filter_Q_allpass_rampTo"
             onclick="send(value, channel_4_filter_Q_rampTo_gain, channel_4_filter_Q_rampTo_time)">go </button>
-
           <br>
+          <div id="channel_4_filter_rolloff_allpass">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="channel_4_allpass-12" name="channel_4_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="channel_4_allpass-24" name="channel_4_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="channel_4_allpass-48" name="channel_4_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="channel_4_allpass-96" name="channel_4_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <p id="channel_4_filter_detune_text_allpass">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_4_filter_detune_allpass'>
           <p id="channel_4_filter_detune_allpass_value"></p>
@@ -3951,6 +4258,21 @@
           <button id="channel_4_filter_gain_shelf_rampTo_send_Button" value="channel_4_filter_gain_shelf_rampTo"
             onclick="send(value, channel_4_filter_gain_shelf_rampTo_gain, channel_4_filter_gain_shelf_rampTo_time)">go
           </button>
+          <br>
+          <div id="channel_4_filter_rolloff_shelf">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="channel_4_shelf-12" name="channel_4_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="channel_4_shelf-24" name="channel_4_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="channel_4_shelf-48" name="channel_4_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="channel_4_shelf-96" name="channel_4_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="channel_4_filter_detune_text_shelf">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_4_filter_detune_shelf'>
@@ -4009,7 +4331,21 @@
           <button id="channel_4_filter_gain_peaking_rampTo_send_Button" value="channel_4_filter_gain_peaking_rampTo"
             onclick="send(value, channel_4_filter_gain_peaking_rampTo_gain, channel_4_filter_gain_peaking_rampTo_time)">go
           </button>
-
+          <br>
+          <div id="channel_4_filter_rolloff_peaking">
+            <fieldset>
+            <legend><p>rolloff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="channel_4_peaking-12" name="channel_4_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="channel_4_peaking-24" name="channel_4_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="channel_4_peaking-48" name="channel_4_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="channel_4_peaking-96" name="channel_4_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="channel_4_filter_detune_text_peaking">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='channel_4_filter_detune_peaking'>
@@ -4709,8 +5045,21 @@
           time: <input id="fx_1_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
           <button id="fx_1_filter_Q_rampTo_send_Button" value="fx_1_filter_Q_allpass_rampTo"
             onclick="send(value, fx_1_filter_Q_rampTo_gain, fx_1_filter_Q_rampTo_time)">go </button>
-
           <br>
+          <div id="fx_1_filter_rolloff_allpass">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_1_allpass-12" name="fx_1_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_1_allpass-24" name="fx_1_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_1_allpass-48" name="fx_1_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_1_allpass-96" name="fx_1_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <p id="fx_1_filter_detune_text_allpass">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_1_filter_detune_allpass'>
           <p id="fx_1_filter_detune_allpass_value"></p>
@@ -4751,6 +5100,21 @@
           <button id="fx_1_filter_gain_shelf_rampTo_send_Button" value="fx_1_filter_gain_shelf_rampTo"
             onclick="send(value, fx_1_filter_gain_shelf_rampTo_gain, fx_1_filter_gain_shelf_rampTo_time)">go
           </button>
+          <br>
+          <div id="fx_1_filter_rolloff_shelf">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_1_shelf-12" name="fx_1_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_1_shelf-24" name="fx_1_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_1_shelf-48" name="fx_1_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_1_shelf-96" name="fx_1_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="fx_1_filter_detune_text_shelf">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_1_filter_detune_shelf'>
@@ -4805,7 +5169,21 @@
           <button id="fx_1_filter_gain_peaking_rampTo_send_Button" value="fx_1_filter_gain_peaking_rampTo"
             onclick="send(value, fx_1_filter_gain_peaking_rampTo_gain, fx_1_filter_gain_peaking_rampTo_time)">go
           </button>
-
+          <br>
+          <div id="fx_1_filter_rolloff_peaking">
+            <fieldset>
+            <legend><p>rolloff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_1_peaking-12" name="fx_1_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_1_peaking-24" name="fx_1_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_1_peaking-48" name="fx_1_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_1_peaking-96" name="fx_1_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="fx_1_filter_detune_text_peaking">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_1_filter_detune_peaking'>
@@ -5428,8 +5806,21 @@
           time: <input id="fx_2_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
           <button id="fx_2_filter_Q_rampTo_send_Button" value="fx_2_filter_Q_allpass_rampTo"
             onclick="send(value, fx_2_filter_Q_rampTo_gain, fx_2_filter_Q_rampTo_time)">go </button>
-
           <br>
+          <div id="fx_2_filter_rolloff_allpass">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_2_allpass-12" name="fx_2_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_2_allpass-24" name="fx_2_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_2_allpass-48" name="fx_2_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_2_allpass-96" name="fx_2_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <p id="fx_2_filter_detune_text_allpass">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_2_filter_detune_allpass'>
           <p id="fx_2_filter_detune_allpass_value"></p>
@@ -5470,6 +5861,21 @@
           <button id="fx_2_filter_gain_shelf_rampTo_send_Button" value="fx_2_filter_gain_shelf_rampTo"
             onclick="send(value, fx_2_filter_gain_shelf_rampTo_gain, fx_2_filter_gain_shelf_rampTo_time)">go
           </button>
+          <br>
+          <div id="fx_2_filter_rolloff_shelf">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_2_shelf-12" name="fx_2_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_2_shelf-24" name="fx_2_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_2_shelf-48" name="fx_2_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_2_shelf-96" name="fx_2_rolloff" value="-96">
+            <label for="-96">-96</label>
+          </fieldset>
+          </div>
           <br>
           <p id="fx_2_filter_detune_text_shelf">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_2_filter_detune_shelf'>
@@ -5524,7 +5930,21 @@
           <button id="fx_2_filter_gain_peaking_rampTo_send_Button" value="fx_2_filter_gain_peaking_rampTo"
             onclick="send(value, fx_2_filter_gain_peaking_rampTo_gain, fx_2_filter_gain_peaking_rampTo_time)">go
           </button>
-
+          <br>
+          <div id="fx_2_filter_rolloff_peaking">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_2_peaking-12" name="fx_2_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_2_peaking-24" name="fx_2_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_2_peaking-48" name="fx_2_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_2_peaking-96" name="fx_2_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="fx_2_filter_detune_text_peaking">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_2_filter_detune_peaking'>
@@ -6128,8 +6548,21 @@
           time: <input id="fx_3_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
           <button id="fx_3_filter_Q_rampTo_send_Button" value="fx_3_filter_Q_allpass_rampTo"
             onclick="send(value, fx_3_filter_Q_rampTo_gain, fx_3_filter_Q_rampTo_time)">go </button>
-
           <br>
+          <div id="fx_3_filter_rolloff_allpass">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_3_allpass-12" name="fx_3_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_3_allpass-24" name="fx_3_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_3_allpass-48" name="fx_3_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_3_allpass-96" name="fx_3_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <p id="fx_3_filter_detune_text_allpass">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_3_filter_detune_allpass'>
           <p id="fx_3_filter_detune_allpass_value"></p>
@@ -6170,6 +6603,21 @@
           <button id="fx_3_filter_gain_shelf_rampTo_send_Button" value="fx_3_filter_gain_shelf_rampTo"
             onclick="send(value, fx_3_filter_gain_shelf_rampTo_gain, fx_3_filter_gain_shelf_rampTo_time)">go
           </button>
+          <br>
+          <div id="fx_3_filter_rolloff_shelf">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_3_shelf-12" name="fx_3_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_3_shelf-24" name="fx_3_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_3_shelf-48" name="fx_3_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_3_shelf-96" name="fx_3_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="fx_3_filter_detune_text_shelf">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_3_filter_detune_shelf'>
@@ -6224,7 +6672,21 @@
           <button id="fx_3_filter_gain_peaking_rampTo_send_Button" value="fx_3_filter_gain_peaking_rampTo"
             onclick="send(value, fx_3_filter_gain_peaking_rampTo_gain, fx_3_filter_gain_peaking_rampTo_time)">go
           </button>
-
+          <br>
+          <div id="fx_3_filter_rolloff_peaking">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_3_peaking-12" name="fx_3_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_3_peaking-24" name="fx_3_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_3_peaking-48" name="fx_3_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_3_peaking-96" name="fx_3_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="fx_3_filter_detune_text_peaking">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_3_filter_detune_peaking'>
@@ -6836,8 +7298,22 @@
           time: <input id="fx_4_filter_Q_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
           <button id="fx_4_filter_Q_rampTo_send_Button" value="fx_4_filter_Q_allpass_rampTo"
             onclick="send(value, fx_4_filter_Q_rampTo_gain, fx_4_filter_Q_rampTo_time)">go </button>
-
           <br>
+          <div id="fx_4_filter_rolloff_allpass">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_4_allpass-12" name="fx_4_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_4_allpass-24" name="fx_4_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_4_allpass-48" name="fx_4_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_4_allpass-96" name="fx_4_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
+
           <p id="fx_4_filter_detune_text_allpass">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_4_filter_detune_allpass'>
           <p id="fx_4_filter_detune_allpass_value"></p>
@@ -6878,6 +7354,21 @@
           <button id="fx_4_filter_gain_shelf_rampTo_send_Button" value="fx_4_filter_gain_shelf_rampTo"
             onclick="send(value, fx_4_filter_gain_shelf_rampTo_gain, fx_4_filter_gain_shelf_rampTo_time)">go
           </button>
+          <br>
+          <div id="fx_4_filter_rolloff_shelf">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_4_shelf-12" name="fx_4_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_4_shelf-24" name="fx_4_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_4_shelf-48" name="fx_4_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_4_shelf-96" name="fx_4_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="fx_4_filter_detune_text_shelf">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_4_filter_detune_shelf'>
@@ -6932,7 +7423,21 @@
           <button id="fx_4_filter_gain_peaking_rampTo_send_Button" value="fx_4_filter_gain_peaking_rampTo_rampTo"
             onclick="send(value, fx_4_filter_gain_peaking_rampTo_gain, fx_4_filter_gain_peaking_rampTo_time)">go
           </button>
-
+          <br>
+          <div id="fx_4_filter_rolloff_peaking">
+            <fieldset>
+            <legend><p>RollOff</p></legend>
+            <br>
+            <input type="radio" class="radiobtn" id="fx_4_peaking-12" name="fx_4_rolloff" value=-12>
+            <label for="-12">-12</label>
+            <input type="radio" class="radiobtn" id="fx_4_peaking-24" name="fx_4_rolloff" value=-24>
+            <label for="-24">-24</label>
+            <input type="radio" class="radiobtn" id="fx_4_peaking-48" name="fx_4_rolloff" value="-48">
+            <label for="-48">-48</label>
+            <input type="radio" class="radiobtn" id="fx_4_peaking-96" name="fx_4_rolloff" value="-96">
+            <label for="-96">-96</label>
+            </fieldset>
+          </div>
           <br>
           <p id="fx_4_filter_detune_text_peaking">Detune </p>
           <input type='range' min=0 max=10000 step='10' value="0" id='fx_4_filter_detune_peaking'>
@@ -7234,10 +7739,17 @@
   </div>
 
 </body>
+
+<script src="
+https://cdn.jsdelivr.net/npm/tone@15.1.22/build/Tone.min.js
+"></script>
+<!--
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
   integrity="sha512-jduERlz7En1IUZR54bqzpNI64AbffZWR//KJgF71SJ8D8/liKFZ+s1RxmUmB+bhCnIfzebdZsULwOrbVB5f3nQ=="
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  -->
 <script src="js/step_15.js"></script>
+
 <!--
 <script src="js/recorder.js"></script>   
 ESTO FUNCIONA PERO GRABA OGG
@@ -7249,9 +7761,6 @@ ESTO FUNCIONA PERO GRABA OGG
 <!--
 <script src="https://cdn.jsdelivr.net/npm/audiobuffer-to-wav@1.0.0/index.min.js"></script>
 -->
-
-<script type="module"> import audiobufferToWav from 'https://cdn.jsdelivr.net/npm/audiobuffer-to-wav@1.0.0/+esm' </script>
-
 
 <script src="js/record1.js"></script>
 

@@ -1,0 +1,2 @@
+export const player_1_Node = new Tone.Player().connect(Tone.Destination);
+export const player_2_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3").connect(Tone.Destination);

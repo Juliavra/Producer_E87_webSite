@@ -1,9 +1,13 @@
-﻿//PARA AVERGUAR INFO DE COMPU Y NAVEGADOR
+﻿//import audioBufferToWav from "/audiobuffer-to-wav"
+
+//PARA AVERGUAR INFO DE COMPU Y NAVEGADOR
 //navigator.userAgent
 //window
 //document
 
 "use strict";
+
+
 
 //https://github.com/cstoquer/audio-encoder
 /*
@@ -188,7 +192,7 @@ document.querySelector('#start-record').addEventListener('click', async () => {
   if (Tone.context.state !== 'running') {
     await Tone.context.resume();
   }
-  startRecording2();
+  startRecording();
 });
 
 async function startRecording() {
@@ -227,27 +231,24 @@ document.querySelector('#stop-record').addEventListener('click', () => {
   document.querySelector('#stop-record').disabled = true;
 });
 
+/*
+function startRecording2() {
 
-function startRecording2(){
+  // Assuming 'audioBuffer' is your AudioBuffer object
+  const buffer = audiobufferToWav(audioBuffer);
+  const blob = new Blob([buffer], { type: 'audio/wav' });
+  const url = URL.createObjectURL(blob);
 
-// Assuming 'audioBuffer' is your AudioBuffer object
-const buffer = audiobufferToWav(audioBuffer);
-const blob = new Blob([buffer], { type: 'audio/wav' });
-const url = URL.createObjectURL(blob);
-
-const a = document.createElement('a');
-a.href = url;
-a.download = 'my_audio.wav';
-document.body.appendChild(a);
-a.click();
-document.body.removeChild(a);
-URL.revokeObjectURL(url); // Clean up
-
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'my_audio.wav';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url); // Clean up
 
 }
-
-
-
+/**/
 
 var audioCard = new Tone.UserMedia();
 
@@ -1165,7 +1166,7 @@ document.onkeydown = function (e) {
               grainPlayer_2_Node.volume.value -= 1;
               grainPlayer_2_volume.value = Math.round(`${grainPlayer_2_Node.volume.value}`);
               grainPlayer_2_volume_value.innerHTML = Math.round(`${grainPlayer_2_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2_volume", player_2_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2_volume", grainPlayer_2_Node.volume.value);
             }
             break;
           }
@@ -1334,6 +1335,69 @@ document.onkeydown = function (e) {
   }
 };
 
+//******************************************************
+//******************************************************
+//******************    LFO        *********************
+//******************************************************
+//******************************************************
+const lfo_1_column = document.getElementById("lfo_1_column");
+lfo_1_column.style.display = "none";
+
+const lfo_1_Node = new Tone.LFO();
+const lfo_1_rms_meter = new Tone.Meter(0);
+const lfo_1_dcmeter = new Tone.DCMeter(0);
+
+const lfo_1_rms_meter_inner = document.getElementById("lfo_1_rms_meter_inner");
+const lfo_1_dcmeter_inner = document.getElementById("lfo_1_dcmeter_inner");
+lfo_1_Node.fan(lfo_1_rms_meter, lfo_1_dcmeter);
+
+const lfo_1_volume_text = document.getElementById("lfo_1_volume_text");
+const lfo_1_volume = document.getElementById("lfo_1_volume");
+const lfo_1_volume_value = document.getElementById("lfo_1_volume_value");
+lfo_1_volume.addEventListener("change", function (e) {
+  lfo_1_Node.volume = `${e.currentTarget.value}`;
+  lfo_1_volume_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1_volume", e.currentTarget.value);
+});
+
+const lfo_1_frequency_text = document.getElementById("lfo_1_frequency_text");
+const lfo_1_frequency = document.getElementById("lfo_1_frequency");
+const lfo_1_frequency_value = document.getElementById("lfo_1_frequency_value");
+lfo_1_frequency.addEventListener("change", function (e) {
+  lfo_1_Node.frequency.value = `${e.currentTarget.value}`;
+  lfo_1_frequency_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1_frequency", e.currentTarget.value);
+});
+
+const lfo_1_amplitude_text = document.getElementById("lfo_1_amplitude_text");
+const lfo_1_amplitude = document.getElementById("lfo_1_amplitude");
+const lfo_1_amplitude_value = document.getElementById("lfo_1_amplitude_value");
+lfo_1_amplitude.addEventListener("change", function (e) {
+  lfo_1_Node.amplitude.value = `${e.currentTarget.value}`;
+  lfo_1_amplitude_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1_amplitude", e.currentTarget.value);
+});
+
+const lfo_1_phase_text = document.getElementById("lfo_1_phase_text");
+const lfo_1_phase = document.getElementById("lfo_1_phase");
+const lfo_1_phase_value = document.getElementById("lfo_1_phase_value");
+lfo_1_phase.addEventListener("change", function (e) {
+  lfo_1_Node.phase = e.currentTarget.value;
+  lfo_1_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1_phase", e.currentTarget.value);
+});
+
+const lfo_1_select_type = document.getElementById("lfo_1_select_type");
+lfo_1_select_type.addEventListener("change", function (e) {
+  lfo_1_Node.type = e.currentTarget.value;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1_select_type", e.currentTarget.value);
+});
+
+const lfo_1_Settings = lfo_1_Node.get();
+// Log the resulting options object to the console
+console.log(lfo_1_Settings);
+console.log(lfo_1_Settings.volume);
+
 /**/
 
 //PARA QUITAR UN ELEMENTO CANCION DE LA LISTA DE CANCIONES 
@@ -1343,10 +1407,10 @@ document.onkeydown = function (e) {
 //player.chain(filter, distortion, Tone.Destination);
 
 /*
-  setInterval(() => {
-    console.log(Tone.immediate());
-  }, 3000);
-  /**/
+setInterval(() => {
+  console.log(Tone.immediate());
+}, 1000);
+/**/
 
 /*
 You can use the Math.trunc() method to remove the decimals of a number:
@@ -2589,6 +2653,63 @@ channel_1_filter_Q_allpass.addEventListener("change", function (e) {
   channel_1_filter.Q.value = e.currentTarget.value;
   channel_1_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
   MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_Q_allpass_value", e.currentTarget.value);
+});
+
+// Select all radio buttons in the group
+const radios_channel_1 = document.querySelectorAll('input[name="channel_1_rolloff"]');
+radios_channel_1.forEach(radio => {
+  radio.addEventListener('change', function (e) {
+    channel_1_filter.rolloff = e.currentTarget.value;
+  });
+});
+
+const radios_channel_2 = document.querySelectorAll('input[name="channel_2_rolloff"]');
+radios_channel_2.forEach(radio => {
+  radio.addEventListener('change', function (e) {
+    channel_2_filter.rolloff = e.currentTarget.value;
+  });
+});
+
+const radios_channel_3 = document.querySelectorAll('input[name="channel_3_rolloff"]');
+radios_channel_3.forEach(radio => {
+  radio.addEventListener('change', function (e) {
+    channel_3_filter.rolloff = e.currentTarget.value;
+  });
+});
+
+const radios_channel_4 = document.querySelectorAll('input[name="channel_4_rolloff"]');
+radios_channel_4.forEach(radio => {
+  radio.addEventListener('change', function (e) {
+    channel_4_filter.rolloff = e.currentTarget.value;
+  });
+});
+
+const radios_fx_1 = document.querySelectorAll('input[name="fx_1_rolloff"]');
+radios_fx_1.forEach(radio => {
+  radio.addEventListener('change', function (e) {
+    fx_1_filter.rolloff = e.currentTarget.value;
+  });
+});
+
+const radios_fx_2 = document.querySelectorAll('input[name="fx_2_rolloff"]');
+radios_fx_2.forEach(radio => {
+  radio.addEventListener('change', function (e) {
+    fx_2_filter.rolloff = e.currentTarget.value;
+  });
+});
+
+const radios_fx_3 = document.querySelectorAll('input[name="fx_3_rolloff"]');
+radios_fx_3.forEach(radio => {
+  radio.addEventListener('change', function (e) {
+    fx_3_filter.rolloff = e.currentTarget.value;
+  });
+});
+
+const radios_fx_4 = document.querySelectorAll('input[name="fx_4_rolloff"]');
+radios_fx_4.forEach(radio => {
+  radio.addEventListener('change', function (e) {
+    fx_4_filter.rolloff = e.currentTarget.value;
+  });
 });
 
 const channel_1_filter_detune_allpass = document.getElementById("channel_1_filter_detune_allpass");
@@ -8478,19 +8599,6 @@ catch (error) {
 
 //***************************************************************
 //***************************************************************
-//Tone.Normalize
-/* NO FUNCA
-//BORRAR LUEGO
-var testNormalize = new Tone.Normalize(2,4);
-player_1_Node.connect(testNormalize);
- 
-//var norm = new Tone.Normalize(2, 4);
-//var sig = new Tone.Signal(3).connect(norm);
-//output of norm is 0.5.
-*/
-
-//***************************************************************
-//***************************************************************
 //DEBERIA CREAR LA LISTA DENTRO DE ESTA CLASS Y HACERLA STATIC
 class MixEventObj {
   constructor(_atTime, _element, _action, _newValue, _rampTime) {
@@ -8792,40 +8900,44 @@ fx_1_autoWah_baseFrequency.addEventListener("change", function (e) {
 //***********************  FX 1  BIT CRUSHER    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-
-//const fx_1_bitCrusher_Node = new Tone.BitCrusher();
+const fx_1_bitCrusher_Node = new Tone.BitCrusher();
 //fx_1_bitCrusher_Node.wet = 1;
-/*
+
 const fx_1_bitCrusher_text = document.getElementById("fx_1_bitCrusher_text");
-const fx_1_bitCrusher = document.getElementById("fx_1_bitCrusher");
-const fx_1_bitCrusher_value = document.getElementById("fx_1_bitCrusher_value");
- 
+const fx_1_bitCrusher_bit = document.getElementById("fx_1_bitCrusher_bit");
+const fx_1_bitCrusher_bit_value = document.getElementById("fx_1_bitCrusher_bit_value");
+
+fx_1_bitCrusher_bit.addEventListener("change", function (e) {
+  fx_1_bitCrusher_Node.bits = e.currentTarget.value;
+  fx_1_bitCrusher_bit_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_bitCrusher", e.currentTarget.value);
+});
+
 const fx_1_bitCrusher_div = document.getElementById("fx_1_bitCrusher_div");
 fx_1_bitCrusher_div.style.display = "none";
+
 /**/
 //************************************************************************** */
 //************************************************************************** */
 //*********************** FX 1   CHEBYSHEV    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-/*
 const fx_1_Chebyshev_Node = new Tone.Chebyshev({
   //order : 1 ,
   //oversample : "none",
   wet: 1
 });
- 
- 
+
 const fx_1_Chebyshev_div = document.getElementById("fx_1_Chebyshev_div");
 fx_1_Chebyshev_div.style.display = "none";
- 
+
 const fx_1_Chebyshev_order = document.getElementById("fx_1_Chebyshev_order");
 const fx_1_Chebyshev_order_value = document.getElementById("fx_1_Chebyshev_order_value");
 fx_1_Chebyshev_order.addEventListener("change", function (e) {
   fx_1_Chebyshev_Node.order = Math.round(`${e.currentTarget.value}`);
   fx_1_Chebyshev_order_value.innerHTML = `${e.currentTarget.value}`;
 });
- 
+
 const fx_1_Chebyshev_select_type = document.getElementById("fx_1_Chebyshev_select_type");
 const fx_1_Chebyshev_select_type_value = document.getElementById("fx_1_Chebyshev_select_type_value");
 fx_1_Chebyshev_select_type.addEventListener("change", function (e) {
@@ -14333,6 +14445,11 @@ async function load_Local(value) {
 
 function play(value) {
   switch (value) {
+    case "lfo_1": {
+      lfo_1_Node.start();
+      MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1", "play");
+      break;
+    }
     case "oscillator_1": {
       oscillator_1.start();
       MixEventObj.logIntoListaNewValue(List, Tone.now(), "oscillator_1", "play");
@@ -14484,9 +14601,14 @@ function play(value) {
 
   }//CLOSES SWT6CH
 }
-
+/**/
 function stop(value) {
   switch (value) {
+    case "lfo_1": {
+      lfo_1_Node.stop();
+      MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1", "stop");
+      break;
+    }
     case "oscillator_1": {
       oscillator_1.stop();
       MixEventObj.logIntoListaNewValue(List, Tone.now(), "oscillator_1", "stop");
@@ -14721,6 +14843,24 @@ function mute(value) {
     default:
       { alert("DEFAULT function mute(value)"); break; } 9
   }
+}
+
+function node_Off(value) {
+  switch (value) {
+    case "lfo_1": {
+      stop("lfo_1");
+      lfo_1_column.style.display = "none";
+      console.log("Se ha cerrado LFO_1");
+      break;
+    }
+    case "audio_card": {
+      audioCard.close();
+      audio_card_channel_column.style.display = "none";
+      console.log("Se ha cerrado AudioCard");
+      break;
+    }
+    default: { alert("DEFAULT NODE_OFF"); break; }
+  }//CLOSES Switch
 }
 
 function carga1() {
@@ -23315,15 +23455,15 @@ async function CustomizedButton() {
   muestraLista();
 }
 
-function TransportSTOP() {
+function TransportStart() {
   Tone.Transport.start();
   console.log("Ticks: " + Tone.Transport.ticks);
-  loadMix();
+  console.log("transport_position: " + transport_position);
+  //loadMix();
 
   //alert("Tone.Transport.state: " + Tone.Transport.state);
   //Tone.Transport.stop();
 
-  //scramble("player_1");
   /*
     if (Tone.Transport.state == "stopped") {
       const bassline = [
@@ -23852,24 +23992,24 @@ function sets_New_FX(channel, effecttype) {
           }
         case "BitCrusher":
           {
-            /*
+
             fx_1_bitCrusher_Node.connect(fxReturn_1_fader);
             channel_1_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_1_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_1_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
- 
+
             channel_2_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_2_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_2_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
- 
+
             channel_3_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_3_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_3_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
- 
+
             channel_4_fxSend_1_preEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_4_fxSend_1_postEq_volNode.connect(fx_1_bitCrusher_Node);
             channel_4_fxSend_1_postFdr_volNode.connect(fx_1_bitCrusher_Node);
-*/
+
             fx_1_actual_patch = "fx_1_bitCrusher";
             fx_1_bitCrusher_div.style.display = "block";
             break;
@@ -25298,6 +25438,8 @@ channel_4_volNode.fan(channel_4_rms_meter);
 //---------------------------------
 
 function updatesMeters() {
+  lfo_1_rms_meter_inner.innerHTML = Math.round(`${lfo_1_rms_meter.getValue()}`);
+  lfo_1_dcmeter_inner.innerHTML = (`${lfo_1_dcmeter.getValue()}`);
 
   //audio_card_channel_rms_meter_inner.innerHTML = Math.round(`${audio_card_channel_rms_meter.getValue()}`);
   //audio_card_channel_filter_bypass_meter_inner.innerHTML = Math.round(`${audio_card_channel_filter_bypass_meter.getValue()}`);
@@ -27111,6 +27253,10 @@ function loadMix() {
   }
   //armar foo que cuente todos los buffers a cargar
   loadsBuffersAfterFileLoad();
+  player_1_Node.buffer = buffers.get("19");
+  //schedulesEvents(12.161333333333335);
+  //TransportStart();
+
 
   for (i = 0; i < LoadFileList.length; i++) {
     const testObj = LoadFileList[i];
@@ -27213,7 +27359,21 @@ function loadMix() {
             load_Local("player_1");
             break;
           }
-
+          case "player_2_local": {
+            alert("player_2_local");
+            load_Local("player_2");
+            break;
+          }
+          case "player_3_local": {
+            alert("player_3_local");
+            load_Local("player_3");
+            break;
+          }
+          case "player_4_local": {
+            alert("player_4_local");
+            load_Local("player_4");
+            break;
+          }
           case "player_1_volume": {
             changesVolume(testObj.NewValue, player_1_Node, player_1_volume, player_1_volume_value);
             break;
@@ -28683,7 +28843,6 @@ function changesInt(e, Node, volume, volume_value, parameter) {
       Node.pitch = num1;
       break;
     }
-
     case "sensitivity": {
       Node.sensitivity = num1;
       break;
@@ -28822,6 +28981,14 @@ function changesBoxState_loopEnd(Node, value, element) {
     element.value = num1;
   }
   else { console.log("player_1_Node.loopStart < 0"); }
+}
+
+function changesBpm() {
+  var formulario = new Object();
+  formulario.transport_bpm = document.getElementById("transport_bpm");
+  let value = formulario.transport_bpm.value;
+  Tone.Transport.bpm.value = value;
+  //  console.log("Tone.Transport.bpm.value:  "+Tone.Transport.bpm.value);
 }
 
 async function loadFile() {
@@ -29628,20 +29795,6 @@ rolloffFactor : 1
 // Internally, events are stored in time order 
 // for fast retrieval.
 
-//Tone.Transport: Transport for timing musical events.
-//Supports tempo curves and time changes. 
-// Unlike browser-based timing 
-// (setInterval, requestAnimationFrame) 
-// Tone.Transport timing events pass in the exact time 
-// of the scheduled event in the argument of the callback function.
-// Pass that time value to the object you’re scheduling.
-
-//A single transport is created for you when the library 
-// is initialized.
-
-//The transport emits the events: “start”, “stop”, “pause”, and
-//“loop” which are called with the time of that event 
-// as the argument.
 
 //Tone.TransportTime: is a the time along the Transport’s timeline.
 // It is similar to Tone.Time, but instead of evaluating against
@@ -29649,18 +29802,12 @@ rolloffFactor : 1
 // the Transport’s position.
 //https://github.com/Tonejs/Tone.js/wiki/TransportTime
 
-//Tone.Event abstracts away Tone.Transport.schedule and provides
-// a schedulable callback for a single or repeatable events
-// along the timeline.
-//IMPÓRTANTE!!!!!!!!!!!!
-
 //--------------------------------------------------------------------
 //Tone.StereoXFeedbackEffect: Just like a stereo feedback effect,
 // but the feedback is routed from left to right and right 
 // to left instead of on the same channel.
 
 /*
-//*********************************************************************************** */
 //*********************************************************************************** */
 //********          INIT SETUP      *************************************************************************** */
 //*********************************************************************************** */
@@ -30973,11 +31120,6 @@ function opensAudioCard() {
   }
 }
 
-function audio_card_Off() {
-  audioCard.close();
-  audio_card_channel_column.style.display = "none";
-  console.log("Se ha cerrado AudioCard");
-}
 
 //******************************************************************
 //******************************************************************
@@ -31131,18 +31273,86 @@ function addsElementToLoadedBuffersList(name) {
   loaded_BuffersList.add(option);
 }
 
+function schedulesEvents(atTime) {
+  try {
+    // Schedule the first audio file to play at the start of the Transport (time 0)
+    Tone.Transport.schedule((time) => {
+      console.log('Playing audio file 1 at time:', time);
+      player_1_Node.start(time);
+    }, atTime); // Start time can be specified as a number (seconds) or TransportTime string
+  } catch (error) {
+    console.error('Error loading audio files:', error);
+  }
+}
+
+
+
+//******************************************************************
+//******************************************************************
+//*************        TRANSPORT      ******************************
+//******************************************************************
+//******************************************************************
+const transport_position = document.getElementById("transport_position");
 
 /*
-function loadsBuffersAfterFileLoad() {
-  const buffers = new Tone.ToneAudioBuffers({});
-  var i = 0;
-  for (i = 0; i < ListOfBuffers.length; i++) {
-    /*
-    buffers.add("G1", "tonejs.github.io", () => {
-        console.log("New buffer 'G1' added and loaded");
-    
-    buffers.add(ListOfBuffers[i].id, ListOfBuffers[i].url_src)() => {
-      console.log("New buffer 'G1' added and loaded");
-    }
-  });
-}/**/
+setInterval(() => {
+  console.log("position: "+Tone.Transport.position);
+  console.log("seconds: "+Tone.Transport.seconds);
+  console.log("ticks: "+Tone.Transport.ticks);
+}, 1000);
+/**/
+
+/*
+synth.volume.setState({
+  "0n": -Infinity, // Empieza en silencio
+  "2n": 0,         // Llega a 0 dB (volumen máximo) en 2 tiempos
+});
+/**/
+/*
+//*******************************************************
+//*******************************************************
+//**************     OnePoleFilter      *****************
+//*******************************************************
+//*******************************************************
+//NO FUNCA
+//const OnePoleFilter_1_Node = new OnePoleFilter();
+
+OnePoleFilter_1.set({
+  frequency: 2000,
+  type: "lowpass",
+});
+/**/
+//*******************************************************
+//*******************************************************
+//**************        DCMeter         *****************
+//*******************************************************
+//*******************************************************
+const dcMeter_2_Node = new Tone.DCMeter();
+player_2_Node.connect(dcMeter_2_Node);
+// the current level of the mic
+const level = dcMeter_2_Node.getValue();
+
+
+//Analyser
+//JCReverb
+//Freeverb
+//StereoWidener
+//Envelope
+//FFT
+//FeedbackCombFilter
+//Follower
+//FrequencyEnvelope
+//LowpassCombFilter
+//Merge
+//MidSideCompressor
+//MidSideSplit
+//MidSideMerge
+//MultibandCompressor
+//MultibandSplit
+//Panner3D
+//Recorder
+//Solo
+//Waveform
+//SyncedSignal
+//WaveShaper
+//
