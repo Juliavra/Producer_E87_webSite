@@ -378,6 +378,39 @@
     </fieldset>
   </header>
 
+  <!--FeedbackCombFilter -->
+  <div id="channel_1_FeedbackCombFilter_div">
+    <fieldset>
+      <h2>Feedback Comb Filter</h2>
+      <p id="channel_1_FeedbackCombFilter_delayTime_text"> </p>
+      Dly Time<input type='range' min=0 max=3500 step='1' value="0" id='channel_1_FeedbackCombFilter_delayTime'>
+      <p id="channel_1_FeedbackCombFilter_delayTime_value"></p>
+
+      <input id="channel_1_FeedbackCombFilter_delayTime_rampTo_gain" type="number" min="0" max="1"
+        style="width: 35px;" />
+      time: <input id="channel_1_FeedbackCombFilter_delayTime_rampTo_time" type="number" min="0" max="60"
+        style="width: 35px;" />
+      <button id="channel_1_FeedbackCombFilter_delayTime_rampTo_send_Button"
+        value="channel_1_FeedbackCombFilter_delayTime_rampTo"
+        onclick="send(value, channel_1_FeedbackCombFilter_delayTime_rampTo_gain, channel_1_FeedbackCombFilter_delayTime_rampTo_time)">go
+      </button>
+      <br>
+      <p id="channel_1_FeedbackCombFilter_resonance_text"> </p>
+      Resonance<input type='range' min=0 max=3500 step='1' value="0" id='channel_1_FeedbackCombFilter_resonance'>
+      <p id="channel_1_FeedbackCombFilter_resonance_value"></p>
+
+      <input id="channel_1_FeedbackCombFilter_resonance_rampTo_gain" type="number" min="0" max="1"
+        style="width: 35px;" />
+      time: <input id="channel_1_FeedbackCombFilter_resonance_rampTo_time" type="number" min="0" max="60"
+        style="width: 35px;" />
+      <button id="channel_1_FeedbackCombFilter_resonance_rampTo_send_Button"
+        value="channel_1_FeedbackCombFilter_resonance_rampTo"
+        onclick="send(value, channel_1_FeedbackCombFilter_resonance_rampTo_gain, channel_1_FeedbackCombFilter_resonance_rampTo_time)">go
+      </button>
+      <br><br>
+    </fieldset>
+  </div>
+
   <!--MultibandCompressor -->
   <div id="channel_1_multibandCompressor_div">
     <br>
@@ -805,7 +838,6 @@
 
 
   </div>
-
 
   <!--CHEBYSHEV -->
   <div id="fx_1_Chebyshev_div">

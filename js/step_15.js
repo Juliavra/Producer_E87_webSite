@@ -31339,7 +31339,6 @@ const level = dcMeter_2_Node.getValue();
 //StereoWidener
 //Envelope
 //FFT
-//FeedbackCombFilter
 //Follower
 //FrequencyEnvelope
 //LowpassCombFilter
@@ -31355,7 +31354,19 @@ const level = dcMeter_2_Node.getValue();
 //WaveShaper
 //
 
+//********************************************************
+//********************************************************
+//************      FeedbackCombFilter     ***************
+//********************************************************
+//********************************************************
+const channel_1_FeedbackCombFilter = new Tone.FeedbackCombFilter();
+const channel_1_FeedbackCombFilter_div = document.getElementById("channel_1_FeedbackCombFilter_div");
+channel_1_FeedbackCombFilter_div.style.display = "block"; 
 
+channel_1_FeedbackCombFilter.set({
+    delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
+    resonance: 0.9
+});
 
 //********************************************************
 //********************************************************
