@@ -2665,7 +2665,7 @@ radios_channel_1.forEach(radio => {
 
 const radios_channel_2 = document.querySelectorAll('input[name="channel_2_rolloff"]');
 radios_channel_2.forEach(radio => {
-  radio.addEventListener('change', function (e) {
+    radio.addEventListener('change', function (e) {
     channel_2_filter.rolloff = e.currentTarget.value;
   });
 });
@@ -31344,10 +31344,8 @@ const level = dcMeter_2_Node.getValue();
 //FrequencyEnvelope
 //LowpassCombFilter
 //Merge
-//MidSideCompressor
 //MidSideSplit
 //MidSideMerge
-//MultibandCompressor
 //MultibandSplit
 //Panner3D
 //Recorder
@@ -31356,3 +31354,63 @@ const level = dcMeter_2_Node.getValue();
 //SyncedSignal
 //WaveShaper
 //
+
+
+
+//********************************************************
+//********************************************************
+//************      MultibandCompressor     **************
+//********************************************************
+//********************************************************
+const channel_1_multibandCompressor_div = document.getElementById("channel_1_multibandCompressor_div");
+channel_1_multibandCompressor_div.style.display = "none";
+const channel_1_multibandCompressor = new Tone.MultibandCompressor({
+    lowFrequency: 250, // Crossover point for low/mid bands (defaults to 250 Hz)
+    highFrequency: 2000, // Crossover point for mid/high bands (defaults to 2000 Hz)
+    low: {
+        threshold: -12, // dB
+        ratio: 2, // 2:1 compression ratio
+        attack: 0.001, // 1ms attack time
+        release: 0.2 // 200ms release time
+    },
+    mid: {
+        threshold: -10,
+        ratio: 4,
+        attack: 0.001,
+        release: 0.2
+    },
+    high: {
+        threshold: -10,
+        ratio: 6,
+        attack: 0.001,
+        release: 0.2
+    }
+});
+
+/**/
+
+//********************************************************
+//********************************************************
+//************      MidSideCompressor     **************
+//********************************************************
+//********************************************************
+const channel_1_MidSideCompressor_div = document.getElementById("channel_1_MidSideCompressor_div");
+channel_1_MidSideCompressor_div.style.display = "block";
+
+const channel_1_MidSideCompressor = new Tone.MidSideCompressor({
+    mid: {
+        threshold: -40,
+        ratio: 14,
+        attack: 0.001,
+        release: 0.02
+    },
+    side: {
+        threshold: -10,
+        ratio: 6,
+        attack: 0.001,
+        release: 0.8
+    }
+});
+
+
+
