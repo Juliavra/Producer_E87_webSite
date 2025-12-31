@@ -31359,23 +31359,38 @@ const level = dcMeter_2_Node.getValue();
 //************      FeedbackCombFilter     ***************
 //********************************************************
 //********************************************************
-const channel_1_FeedbackCombFilter = new Tone.FeedbackCombFilter();
+const channel_1_FeedbackCombFilter_Node = new Tone.FeedbackCombFilter();
 const channel_1_FeedbackCombFilter_div = document.getElementById("channel_1_FeedbackCombFilter_div");
 channel_1_FeedbackCombFilter_div.style.display = "block"; 
 
-channel_1_FeedbackCombFilter.set({
+channel_1_FeedbackCombFilter_Node.set({
     delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
     resonance: 0.9
 });
 
+const channel_1_FeedbackCombFilter_delayTime = document.getElementById("channel_1_FeedbackCombFilter_delayTime");
+const channel_1_FeedbackCombFilter_delayTime_value = document.getElementById("channel_1_FeedbackCombFilter_delayTime_value");
+channel_1_FeedbackCombFilter_delayTime.addEventListener("change", function (e) {
+  channel_1_FeedbackCombFilter_Node.delayTime.value = e.currentTarget.value;
+  channel_1_FeedbackCombFilter_delayTime_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_FeedbackCombFilter_delayTime", e.currentTarget.value);
+});
+
+const channel_1_FeedbackCombFilter_resonance = document.getElementById("channel_1_FeedbackCombFilter_resonance");
+const channel_1_FeedbackCombFilter_resonance_value = document.getElementById("channel_1_FeedbackCombFilter_resonance_value");
+channel_1_FeedbackCombFilter_resonance.addEventListener("change", function (e) {
+  channel_1_FeedbackCombFilter_Node.resonance.value = e.currentTarget.value;
+  channel_1_FeedbackCombFilter_resonance_value.innerHTML = `${e.currentTarget.value}`;
+  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_FeedbackCombFilter_resonance", e.currentTarget.value);
+});
 //********************************************************
 //********************************************************
 //************      MultibandCompressor     **************
 //********************************************************
 //********************************************************
 const channel_1_multibandCompressor_div = document.getElementById("channel_1_multibandCompressor_div");
-channel_1_multibandCompressor_div.style.display = "none";
-const channel_1_multibandCompressor = new Tone.MultibandCompressor({
+channel_1_multibandCompressor_div.style.display = "block";
+const channel_1_multibandCompressor_Node = new Tone.MultibandCompressor({
     lowFrequency: 250, // Crossover point for low/mid bands (defaults to 250 Hz)
     highFrequency: 2000, // Crossover point for mid/high bands (defaults to 2000 Hz)
     low: {
@@ -31398,7 +31413,160 @@ const channel_1_multibandCompressor = new Tone.MultibandCompressor({
     }
 });
 
-/**/
+
+const channel_1_MultibandCompressor_lowFrequency_text = document.getElementById("channel_1_MultibandCompressor_lowFrequency_text");
+const channel_1_MultibandCompressor_lowFrequency_value = document.getElementById("channel_1_MultibandCompressor_lowFrequency_value");
+const channel_1_MultibandCompressor_lowFrequency = document.getElementById("channel_1_MultibandCompressor_lowFrequency");
+channel_1_MultibandCompressor_lowFrequency.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.lowFrequency.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MultibandCompressor_lowFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_MultibandCompressor_lowFrequency.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_MultibandCompressor_highFrequency_text = document.getElementById("channel_1_MultibandCompressor_highFrequency_text");
+const channel_1_MultibandCompressor_highFrequency_value = document.getElementById("channel_1_MultibandCompressor_highFrequency_value");
+const channel_1_MultibandCompressor_highFrequency = document.getElementById("channel_1_MultibandCompressor_highFrequency");
+channel_1_MultibandCompressor_highFrequency.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.highFrequency.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MultibandCompressor_highFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_MultibandCompressor_highFrequency.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_low_ratio_text = document.getElementById("channel_1_multibandCompressor_low_ratio_text");
+const channel_1_multibandCompressor_low_ratio_value = document.getElementById("channel_1_multibandCompressor_low_ratio_value");
+const channel_1_multibandCompressor_low_ratio = document.getElementById("channel_1_multibandCompressor_low_ratio");
+channel_1_multibandCompressor_low_ratio.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.low.ratio.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_ratio.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_low_threshold_text = document.getElementById("channel_1_multibandCompressor_low_threshold_text");
+const channel_1_multibandCompressor_low_threshold_value = document.getElementById("channel_1_multibandCompressor_low_threshold_value");
+const channel_1_multibandCompressor_low_threshold = document.getElementById("channel_1_multibandCompressor_low_threshold");
+channel_1_multibandCompressor_low_threshold.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.low.threshold.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_threshold.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_low_release_text = document.getElementById("channel_1_multibandCompressor_low_release_text");
+const channel_1_multibandCompressor_low_release_value = document.getElementById("channel_1_multibandCompressor_low_release_value");
+const channel_1_multibandCompressor_low_release = document.getElementById("channel_1_multibandCompressor_low_release");
+channel_1_multibandCompressor_low_release.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.low.release.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_release_value.innerHTML = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_release.value = (`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_low_attack_text = document.getElementById("channel_1_multibandCompressor_low_attack_text");
+const channel_1_multibandCompressor_low_attack_value = document.getElementById("channel_1_multibandCompressor_low_attack_value");
+const channel_1_multibandCompressor_low_attack = document.getElementById("channel_1_multibandCompressor_low_attack");
+channel_1_multibandCompressor_low_attack.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.low.attack.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_attack_value.innerHTML = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_attack.value = (`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_low_knee_text = document.getElementById("channel_1_multibandCompressor_low_knee_text");
+const channel_1_multibandCompressor_low_knee_value = document.getElementById("channel_1_multibandCompressor_low_knee_value");
+const channel_1_multibandCompressor_low_knee = document.getElementById("channel_1_multibandCompressor_low_knee");
+channel_1_multibandCompressor_low_knee.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.low.knee.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_knee.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_mid_ratio_text = document.getElementById("channel_1_multibandCompressor_mid_ratio_text");
+const channel_1_multibandCompressor_mid_ratio_value = document.getElementById("channel_1_multibandCompressor_mid_ratio_value");
+const channel_1_multibandCompressor_mid_ratio = document.getElementById("channel_1_multibandCompressor_mid_ratio");
+channel_1_multibandCompressor_mid_ratio.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.mid.ratio.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_ratio.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_mid_threshold_text = document.getElementById("channel_1_multibandCompressor_mid_threshold_text");
+const channel_1_multibandCompressor_mid_threshold_value = document.getElementById("channel_1_multibandCompressor_mid_threshold_value");
+const channel_1_multibandCompressor_mid_threshold = document.getElementById("channel_1_multibandCompressor_mid_threshold");
+channel_1_multibandCompressor_mid_threshold.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.mid.threshold.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_threshold.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_mid_release_text = document.getElementById("channel_1_multibandCompressor_mid_release_text");
+const channel_1_multibandCompressor_mid_release_value = document.getElementById("channel_1_multibandCompressor_mid_release_value");
+const channel_1_multibandCompressor_mid_release = document.getElementById("channel_1_multibandCompressor_mid_release");
+channel_1_multibandCompressor_mid_release.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.mid.release.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_release_value.innerHTML = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_release.value = (`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_mid_attack_text = document.getElementById("channel_1_multibandCompressor_mid_attack_text");
+const channel_1_multibandCompressor_mid_attack_value = document.getElementById("channel_1_multibandCompressor_mid_attack_value");
+const channel_1_multibandCompressor_mid_attack = document.getElementById("channel_1_multibandCompressor_mid_attack");
+channel_1_multibandCompressor_mid_attack.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.mid.attack.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_attack_value.innerHTML = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_attack.value = (`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_mid_knee_text = document.getElementById("channel_1_multibandCompressor_mid_knee_text");
+const channel_1_multibandCompressor_mid_knee_value = document.getElementById("channel_1_multibandCompressor_mid_knee_value");
+const channel_1_multibandCompressor_mid_knee = document.getElementById("channel_1_multibandCompressor_mid_knee");
+channel_1_multibandCompressor_mid_knee.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.mid.knee.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_knee.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_high_ratio_text = document.getElementById("channel_1_multibandCompressor_high_ratio_text");
+const channel_1_multibandCompressor_high_ratio_value = document.getElementById("channel_1_multibandCompressor_high_ratio_value");
+const channel_1_multibandCompressor_high_ratio = document.getElementById("channel_1_multibandCompressor_high_ratio");
+channel_1_multibandCompressor_high_ratio.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.high.ratio.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_ratio.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_high_threshold_text = document.getElementById("channel_1_multibandCompressor_high_threshold_text");
+const channel_1_multibandCompressor_high_threshold_value = document.getElementById("channel_1_multibandCompressor_high_threshold_value");
+const channel_1_multibandCompressor_high_threshold = document.getElementById("channel_1_multibandCompressor_high_threshold");
+channel_1_multibandCompressor_high_threshold.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.high.threshold.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_threshold.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_high_release_text = document.getElementById("channel_1_multibandCompressor_high_release_text");
+const channel_1_multibandCompressor_high_release_value = document.getElementById("channel_1_multibandCompressor_high_release_value");
+const channel_1_multibandCompressor_high_release = document.getElementById("channel_1_multibandCompressor_high_release");
+channel_1_multibandCompressor_high_release.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.high.release.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_release_value.innerHTML = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_release.value = (`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_high_attack_text = document.getElementById("channel_1_multibandCompressor_high_attack_text");
+const channel_1_multibandCompressor_high_attack_value = document.getElementById("channel_1_multibandCompressor_high_attack_value");
+const channel_1_multibandCompressor_high_attack = document.getElementById("channel_1_multibandCompressor_high_attack");
+channel_1_multibandCompressor_high_attack.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.high.attack.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_attack_value.innerHTML = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_attack.value = (`${e.currentTarget.value}`);
+});
+
+const channel_1_multibandCompressor_high_knee_text = document.getElementById("channel_1_multibandCompressor_high_knee_text");
+const channel_1_multibandCompressor_high_knee_value = document.getElementById("channel_1_multibandCompressor_high_knee_value");
+const channel_1_multibandCompressor_high_knee = document.getElementById("channel_1_multibandCompressor_high_knee");
+channel_1_multibandCompressor_high_knee.addEventListener("change", function (e){
+channel_1_multibandCompressor_Node.high.knee.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_knee.value = Math.round(`${e.currentTarget.value}`);
+});
+
 
 //********************************************************
 //********************************************************
@@ -31408,7 +31576,7 @@ const channel_1_multibandCompressor = new Tone.MultibandCompressor({
 const channel_1_MidSideCompressor_div = document.getElementById("channel_1_MidSideCompressor_div");
 channel_1_MidSideCompressor_div.style.display = "block";
 
-const channel_1_MidSideCompressor = new Tone.MidSideCompressor({
+const channel_1_MidSideCompressor_Node = new Tone.MidSideCompressor({
     mid: {
         threshold: -40,
         ratio: 14,
@@ -31424,4 +31592,92 @@ const channel_1_MidSideCompressor = new Tone.MidSideCompressor({
 });
 
 
+const channel_1_MidSideCompressor_mid_ratio_text = document.getElementById("channel_1_MidSideCompressor_mid_ratio_text");
+const channel_1_MidSideCompressor_mid_ratio_value = document.getElementById("channel_1_MidSideCompressor_mid_ratio_value");
+const channel_1_MidSideCompressor_mid_ratio = document.getElementById("channel_1_MidSideCompressor_mid_ratio");
+channel_1_MidSideCompressor_mid_ratio.addEventListener("change", function (e){
+channel_1_MidSideCompressor_Node.mid.ratio.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_ratio.value = Math.round(`${e.currentTarget.value}`);
+});
 
+const channel_1_MidSideCompressor_mid_threshold_text = document.getElementById("channel_1_MidSideCompressor_mid_threshold_text");
+const channel_1_MidSideCompressor_mid_threshold_value = document.getElementById("channel_1_MidSideCompressor_mid_threshold_value");
+const channel_1_MidSideCompressor_mid_threshold = document.getElementById("channel_1_MidSideCompressor_mid_threshold");
+channel_1_MidSideCompressor_mid_threshold.addEventListener("change", function (e){
+channel_1_MidSideCompressor_Node.mid.threshold.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_threshold.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_MidSideCompressor_mid_release_text = document.getElementById("channel_1_MidSideCompressor_mid_release_text");
+const channel_1_MidSideCompressor_mid_release_value = document.getElementById("channel_1_MidSideCompressor_mid_release_value");
+const channel_1_MidSideCompressor_mid_release = document.getElementById("channel_1_MidSideCompressor_mid_release");
+channel_1_MidSideCompressor_mid_release.addEventListener("change", function (e){
+channel_1_MidSideCompressor_Node.mid.release.value = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_release_value.innerHTML = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_release.value = (`${e.currentTarget.value}`);
+});
+
+const channel_1_MidSideCompressor_mid_attack_text = document.getElementById("channel_1_MidSideCompressor_mid_attack_text");
+const channel_1_MidSideCompressor_mid_attack_value = document.getElementById("channel_1_MidSideCompressor_mid_attack_value");
+const channel_1_MidSideCompressor_mid_attack = document.getElementById("channel_1_MidSideCompressor_mid_attack");
+channel_1_MidSideCompressor_mid_attack.addEventListener("change", function (e){
+channel_1_MidSideCompressor_Node.mid.attack.value = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_attack_value.innerHTML = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_attack.value = (`${e.currentTarget.value}`);
+});
+
+const channel_1_MidSideCompressor_mid_knee_text = document.getElementById("channel_1_MidSideCompressor_mid_knee_text");
+const channel_1_MidSideCompressor_mid_knee_value = document.getElementById("channel_1_MidSideCompressor_mid_knee_value");
+const channel_1_MidSideCompressor_mid_knee = document.getElementById("channel_1_MidSideCompressor_mid_knee");
+channel_1_MidSideCompressor_mid_knee.addEventListener("change", function (e){
+channel_1_MidSideCompressor_Node.mid.knee.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_knee.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_MidSideCompressor_side_ratio_text = document.getElementById("channel_1_MidSideCompressor_side_ratio_text");
+const channel_1_MidSideCompressor_side_ratio_value = document.getElementById("channel_1_MidSideCompressor_side_ratio_value");
+const channel_1_MidSideCompressor_side_ratio = document.getElementById("channel_1_MidSideCompressor_side_ratio");
+channel_1_MidSideCompressor_side_ratio.addEventListener("change", function (e){
+channel_1_MidSideCompressor_Node.side.ratio.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_ratio.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_MidSideCompressor_side_threshold_text = document.getElementById("channel_1_MidSideCompressor_side_threshold_text");
+const channel_1_MidSideCompressor_side_threshold_value = document.getElementById("channel_1_MidSideCompressor_side_threshold_value");
+const channel_1_MidSideCompressor_side_threshold = document.getElementById("channel_1_MidSideCompressor_side_threshold");
+channel_1_MidSideCompressor_side_threshold.addEventListener("change", function (e){
+channel_1_MidSideCompressor_Node.side.threshold.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_threshold.value = Math.round(`${e.currentTarget.value}`);
+});
+
+const channel_1_MidSideCompressor_side_release_text = document.getElementById("channel_1_MidSideCompressor_side_release_text");
+const channel_1_MidSideCompressor_side_release_value = document.getElementById("channel_1_MidSideCompressor_side_release_value");
+const channel_1_MidSideCompressor_side_release = document.getElementById("channel_1_MidSideCompressor_side_release");
+channel_1_MidSideCompressor_side_release.addEventListener("change", function (e){
+channel_1_MidSideCompressor_Node.side.release.value = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_release_value.innerHTML = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_release.value = (`${e.currentTarget.value}`);
+});
+
+const channel_1_MidSideCompressor_side_attack_text = document.getElementById("channel_1_MidSideCompressor_side_attack_text");
+const channel_1_MidSideCompressor_side_attack_value = document.getElementById("channel_1_MidSideCompressor_side_attack_value");
+const channel_1_MidSideCompressor_side_attack = document.getElementById("channel_1_MidSideCompressor_side_attack");
+channel_1_MidSideCompressor_side_attack.addEventListener("change", function (e){
+channel_1_MidSideCompressor_Node.side.attack.value = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_attack_value.innerHTML = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_attack.value = (`${e.currentTarget.value}`);
+});
+
+const channel_1_MidSideCompressor_side_knee_text = document.getElementById("channel_1_MidSideCompressor_side_knee_text");
+const channel_1_MidSideCompressor_side_knee_value = document.getElementById("channel_1_MidSideCompressor_side_knee_value");
+const channel_1_MidSideCompressor_side_knee = document.getElementById("channel_1_MidSideCompressor_side_knee");
+channel_1_MidSideCompressor_side_knee.addEventListener("change", function (e){
+channel_1_MidSideCompressor_Node.side.knee.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_knee.value = Math.round(`${e.currentTarget.value}`);
+});

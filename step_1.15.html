@@ -383,7 +383,7 @@
     <fieldset>
       <h2>Feedback Comb Filter</h2>
       <p id="channel_1_FeedbackCombFilter_delayTime_text"> </p>
-      Dly Time<input type='range' min=0 max=3500 step='1' value="0" id='channel_1_FeedbackCombFilter_delayTime'>
+      Dly Time<input type='range' min=0 max=1 step='0.001' value="0" id='channel_1_FeedbackCombFilter_delayTime'>
       <p id="channel_1_FeedbackCombFilter_delayTime_value"></p>
 
       <input id="channel_1_FeedbackCombFilter_delayTime_rampTo_gain" type="number" min="0" max="1"
@@ -396,7 +396,7 @@
       </button>
       <br>
       <p id="channel_1_FeedbackCombFilter_resonance_text"> </p>
-      Resonance<input type='range' min=0 max=3500 step='1' value="0" id='channel_1_FeedbackCombFilter_resonance'>
+      Resonance<input type='range' min=0 max=1 step='0.01' value="0" id='channel_1_FeedbackCombFilter_resonance'>
       <p id="channel_1_FeedbackCombFilter_resonance_value"></p>
 
       <input id="channel_1_FeedbackCombFilter_resonance_rampTo_gain" type="number" min="0" max="1"
@@ -416,8 +416,8 @@
     <br>
     <fieldset>
       <h2>MultibandCompressor</h2>
-      <p id="channel_1_MultibandCompressor_text"> </p>
-      lowFreq<input type='range' min=1 max=100 step='1' value="1" id='channel_1_MultibandCompressor_lowFrequency'>
+      <p id="channel_1_MultibandCompressor_lowFrequency_text"> </p>
+      lowFreq<input type='range' min=20 max=1000 step='1' value="20" id='channel_1_MultibandCompressor_lowFrequency'>
       <p id="channel_1_MultibandCompressor_lowFrequency_value"></p>
 
       <input id="channel_1_MultibandCompressor_lowFrequency_rampTo_gain" type="number" min="0" max="1"
@@ -429,7 +429,7 @@
         onclick="send(value, channel_1_MultibandCompressor_lowFrequency_rampTo_gain, channel_1_MultibandCompressor_lowFrequency_rampTo_time)">go
       </button>
       <br>
-      highFreq<input type='range' min=1 max=100 step='1' value="1" id='channel_1_MultibandCompressor_highFrequency'>
+      highFreq<input type='range' min=1000 max=3500 step='10' value="1000" id='channel_1_MultibandCompressor_highFrequency'>
       <p id="channel_1_MultibandCompressor_highFrequency_value"></p>
 
       <input id="channel_1_MultibandCompressor_highFrequency_rampTo_gain" type="number" min="0" max="1"
@@ -447,7 +447,7 @@
           RMS: <p id="channel_1_multibandCompressor_low_rms_meter_inner"> </p>
           <br>
           <p id="channel_1_multibandCompressor_low_ratio_text">Ratio </p>
-          <input type='range' min=0 max=20 step='0.3' value="0" id='channel_1_multibandCompressor_low_ratio'>
+          <input type='range' min=1 max=20 step='0.3' value="0" id='channel_1_multibandCompressor_low_ratio'>
           <p id="channel_1_multibandCompressor_low_ratio_value"> 0</p>
 
           <input id="channel_1_multibandCompressor_low_ratio_rampTo_detune" type="number" min="0" max="10000" step='1'
@@ -460,7 +460,7 @@
           </button>
           <br>
           <p id="channel_1_multibandCompressor_low_threshold_text">threshold </p>
-          <input type='range' min=-100 max=-1 step='0.5' value="-1" id='channel_1_multibandCompressor_low_threshold'>
+          <input type='range' min=-100 max=0 step='1' value="0" id='channel_1_multibandCompressor_low_threshold'>
           <p id="channel_1_multibandCompressor_low_threshold_value"> 0</p>
 
           <input id="channel_1_multibandCompressor_low_threshold_rampTo_detune" type="number" min="0" max="10000"
@@ -473,7 +473,7 @@
           </button>
           <br>
           <p id="channel_1_multibandCompressor_low_release_text">release </p>
-          <input type='range' min=1 max=20 step='1' value="1" id='channel_1_multibandCompressor_low_release'>
+          <input type='range' min=0 max=1 step='0.01' value="0" id='channel_1_multibandCompressor_low_release'>
           <p id="channel_1_multibandCompressor_low_release_value"> 0</p>
 
           <input id="channel_1_multibandCompressor_low_release_rampTo_detune" type="number" min="0" max="10000" step='1'
@@ -548,7 +548,7 @@
             </button>
             <br>
             <p id="channel_1_multibandCompressor_mid_release_text">release </p>
-            <input type='range' min=1 max=20 step='1' value="1" id='channel_1_multibandCompressor_mid_release'>
+            <input type='range' min=0 max=1 step='0.01' value="0" id='channel_1_multibandCompressor_mid_release'>
             <p id="channel_1_multibandCompressor_mid_release_value"> 0</p>
 
             <input id="channel_1_multibandCompressor_mid_release_rampTo_detune" type="number" min="0" max="10000"
@@ -624,7 +624,7 @@
             </button>
             <br>
             <p id="channel_1_multibandCompressor_high_release_text">release </p>
-            <input type='range' min=1 max=20 step='1' value="1" id='channel_1_multibandCompressor_high_release'>
+            <input type='range' min=0 max=1 step='0.01' value="0" id='channel_1_multibandCompressor_high_release'>
             <p id="channel_1_multibandCompressor_high_release_value"> 0</p>
 
             <input id="channel_1_multibandCompressor_high_release_rampTo_detune" type="number" min="0" max="10000"
@@ -710,7 +710,7 @@
           </button>
           <br>
           <p id="channel_1_MidSideCompressor_mid_release_text">release </p>
-          <input type='range' min=1 max=20 step='1' value="1" id='channel_1_MidSideCompressor_mid_release'>
+          <input type='range' min=0 max=1 step='0.001' value="0" id='channel_1_MidSideCompressor_mid_release'>
           <p id="channel_1_MidSideCompressor_mid_release_value"> 0</p>
 
           <input id="channel_1_MidSideCompressor_mid_release_rampTo_detune" type="number" min="0" max="10000" step='1'
@@ -786,7 +786,7 @@
           </button>
           <br>
           <p id="channel_1_MidSideCompressor_side_release_text">release </p>
-          <input type='range' min=1 max=20 step='1' value="1" id='channel_1_MidSideCompressor_side_release'>
+          <input type='range' min=0 max=1 step='0.001' value="0" id='channel_1_MidSideCompressor_side_release'>
           <p id="channel_1_MidSideCompressor_side_release_value"> 0</p>
 
           <input id="channel_1_MidSideCompressor_side_release_rampTo_detune" type="number" min="0" max="10000" step='1'
