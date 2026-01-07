@@ -212,20 +212,38 @@
           <audio id="audio-playback" controls></audio>
         </div>
         <br>
-        Transport
-        <br>
-        bpm
-        <input id="transport_bpm" type="number" min="1" max="1000" step='1' style="width: 35px;" />
-        <button id="transport_bpm_changesBpm_Button" value="transport_bpm" onclick="changesBpm()">go </button>
-        Position: <p id="transport_position"></p>
-        <br>
+        <fieldset>
+          <legend> Transport</legend>
+          <br>
 
+          <!--
+play
+stop
+pausa
+seek (adelante atras)        
+record
+loop
+
+-->
+          bpm
+          <input id="transport_bpm" type="number" min="1" max="1000" step='1' style="width: 35px;" />
+          <button id="transport_bpm_changesBpm_Button" value="transport_bpm" onclick="changesBpm()">go </button>
+          Position: <p id="transport_position"></p>
+
+          Swing: <p id="transport_swing_value"> </p>
+          Subdivision: <p id="transport_subdivision_value"> </p>
+          timeSignature: <p id="transport_timeSignature_value"> </p>
+          loopStart: <p id="transport_loopStart_value"> </p>
+          loopEnd: <p id="transport_loopEnd_value"> </p>
+          PPQ: <p id="transport_PPQ_value"> </p>
+          
+        </fieldset>
 
         <br>
         <br>
         Master Volume:
         <p id="master_volume_text">Vol</p>
-        <input type='range' min=-41 max=12 step='1' value="-40" id='master_volume'>
+        <input type='range' min=-40 max=12 step='1' value="-40" id='master_volume'>
         <p id="master_volume_value"> </p>
         <input id="master_volume_rampTo_gain" type="number" min="-50" max="12" style="width: 35px;" />
         time: <input id="master_volume_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
@@ -235,8 +253,9 @@
         <button id="opensAudioCard" onclick="opensAudioCard()"> Opens AudioCard </button>
         <button id="consoleClear" onclick="consoleClear()"> consoleClear </button>
         <button id="Sinte" onclick="Sinte()"> Sinte </button>
-        <button id="CustomizedButton" onclick="CustomizedButton()"> Start Context</button>
-        <button id="TransportSTOP" onclick="TransportStart()"> Load Mix </button>
+        <button id="CustomizedButton" onclick="stopTransport()"> Stop Transport</button>
+        <button id="TransportStart" onclick="TransportStart()"> Transport Start </button>
+        <button id="loadMix" onclick="loadMix()"> Load Mix </button>
         <button id="offlineContext" onclick="Offline_Context()"> Offline Context </button>
         <button id="load_txt_file" onclick="getFile()">Load File </button>
         <button id="save_txt_file" onclick="saveFile()">Save File </button>
@@ -383,11 +402,11 @@
   <div id="channel_1_Follower_div">
     <fieldset>
       <h2>LowpassCombFilter</h2>
-    <p id="channel_1_Follower_smoothing_text"> </p>
-    Smoothing <input type='range' min=0.001 max=1 step='0.001' value="0.001" id='channel_1_Follower_smoothing'>
-    <p id="channel_1_Follower_smoothing_value"></p>
-    <br>
-</fieldset>
+      <p id="channel_1_Follower_smoothing_text"> </p>
+      Smoothing <input type='range' min=0.001 max=1 step='0.001' value="0.001" id='channel_1_Follower_smoothing'>
+      <p id="channel_1_Follower_smoothing_value"></p>
+      <br>
+    </fieldset>
   </div>
 
   <!--LowpassCombFilter-->
@@ -468,6 +487,72 @@
       <br><br>
     </fieldset>
   </div>
+
+  <!--MultibandSplit -->
+  <div id="channel_1_MultibandSplit_div">
+    <br>
+    <fieldset>
+      <h2>Multiband Split</h2>
+      <p id="channel_1_MultibandSplit_lowFrequency_text"> </p>
+      lowFreq<input type='range' min=20 max=1000 step='1' value="20" id='channel_1_MultibandSplit_lowFrequency'>
+      <p id="channel_1_MultibandSplit_lowFrequency_value"></p>
+
+      <input id="channel_1_MultibandSplit_lowFrequency_rampTo_gain" type="number" min="0" max="1"
+        style="width: 35px;" />
+      time: <input id="channel_1_MultibandSplit_lowFrequency_rampTo_time" type="number" min="0" max="60"
+        style="width: 35px;" />
+      <button id="channel_1_MultibandSplit_lowFrequency_rampTo_send_Button"
+        value="channel_1_MultibandSplit_lowFrequency_rampTo"
+        onclick="send(value, channel_1_MultibandSplit_lowFrequency_rampTo_gain, channel_1_MultibandSplit_lowFrequency_rampTo_time)">go
+      </button>
+      <br>
+      <p id="channel_1_MultibandSplit_low_text"> </p>
+      Low<input type='range' min=-40 max=12 step='1' value="0" id='channel_1_MultibandSplit_low'>
+      <p id="channel_1_MultibandSplit_low_value"></p>
+
+      <input id="channel_1_MultibandSplit_low_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+      time: <input id="channel_1_MultibandSplit_low_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+      <button id="channel_1_MultibandSplit_low_rampTo_send_Button" value="channel_1_MultibandSplit_low_rampTo"
+        onclick="send(value, channel_1_MultibandSplit_low_rampTo_gain, channel_1_MultibandSplit_low_rampTo_time)">go
+      </button>
+      <br>
+
+      <p id="channel_1_MultibandSplit_mid_text"> </p>
+      Mid<input type='range' min=-40 max=12 step='1' value="0" id='channel_1_MultibandSplit_mid'>
+      <p id="channel_1_MultibandSplit_mid_value"></p>
+
+      <input id="channel_1_MultibandSplit_mid_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+      time: <input id="channel_1_MultibandSplit_mid_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+      <button id="channel_1_MultibandSplit_mid_rampTo_send_Button" value="channel_1_MultibandSplit_mid_rampTo"
+        onclick="send(value, channel_1_MultibandSplit_mid_rampTo_gain, channel_1_MultibandSplit_mid_rampTo_time)">go
+      </button>
+      <br>
+      <p id="channel_1_MultibandSplit_high_text"> </p>
+      High<input type='range' min=-40 max=12 step='1' value="0" id='channel_1_MultibandSplit_high'>
+      <p id="channel_1_MultibandSplit_high_value"></p>
+
+      <input id="channel_1_MultibandSplit_high_rampTo_gain" type="number" min="0" max="1" style="width: 35px;" />
+      time: <input id="channel_1_MultibandSplit_high_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
+      <button id="channel_1_MultibandSplit_high_rampTo_send_Button" value="channel_1_MultibandSplit_high_rampTo"
+        onclick="send(value, channel_1_MultibandSplit_high_rampTo_gain, fx_1_MultibandCompressor_high_rampTo_time)">go
+      </button>
+      <br>
+      <p id="channel_1_MultibandSplit_highFrequency_text"> </p>
+      highFreq<input type='range' min=1000 max=3500 step='10' value="1000" id='channel_1_MultibandSplit_highFrequency'>
+      <p id="channel_1_MultibandSplit_highFrequency_value"></p>
+
+      <input id="channel_1_MultibandSplit_highFrequency_rampTo_gain" type="number" min="0" max="1"
+        style="width: 35px;" />
+      time: <input id="channel_1_MultibandSplit_highFrequency_rampTo_time" type="number" min="0" max="60"
+        style="width: 35px;" />
+      <button id="channel_1_MultibandSplit_highFrequency_rampTo_send_Button"
+        value="channel_1_MultibandSplit_highFrequency_rampTo"
+        onclick="send(value, channel_1_MultibandSplit_highFrequency_rampTo_gain, fx_1_MultibandCompressor_highFrequency_rampTo_time)">go
+      </button>
+
+
+  </div>
+
 
   <!--MultibandCompressor -->
   <div id="channel_1_multibandCompressor_div">
@@ -957,7 +1042,7 @@
     <br>
 
     <p id="lfo_1_volume_text">Vol </p>
-    <input type='range' min=-41 max=12 step='1' value="-6" id='lfo_1_volume'>
+    <input type='range' min=-40 max=12 step='1' value="-6" id='lfo_1_volume'>
     <p id="lfo_1_volume_value"></p>
     <br>
 
@@ -997,7 +1082,7 @@
     RMS: <p id="audio_card_channel_rms_meter_inner"></p>
     <br>
     <p id="audio_card_channel_volume_text">Vol</p>
-    <input type='range' min=-41 max=12 step='1' value="-40" id='audio_card_channel_volume'>
+    <input type='range' min=-40 max=12 step='1' value="-40" id='audio_card_channel_volume'>
     <p id="audio_card_channel_volume_value"> </p>
     <br>
     <input id="audio_card_channel_volume_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -1306,7 +1391,7 @@
           </button>
           <br>
           <p id="audio_card_channel_EQ3_low_fader_gain_text">Low Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='audio_card_channel_EQ3_low_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='audio_card_channel_EQ3_low_fader_gain'>
           <p id="audio_card_channel_EQ3_low_fader_gain_value"> </p>
 
           <input id="audio_card_channel_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20"
@@ -1319,7 +1404,7 @@
           </button>
           <br>
           <p id="audio_card_channel_EQ3_mid_fader_gain_text">Mid Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='audio_card_channel_EQ3_mid_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='audio_card_channel_EQ3_mid_fader_gain'>
           <p id="audio_card_channel_EQ3_mid_fader_gain_value"> </p>
 
           <input id="audio_card_channel_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20"
@@ -1332,7 +1417,7 @@
           </button>
           <br>
           <p id="audio_card_channel_EQ3_hi_fader_gain_text">Hi Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='audio_card_channel_EQ3_hi_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='audio_card_channel_EQ3_hi_fader_gain'>
           <p id="audio_card_channel_EQ3_hi_fader_gain_value"> </p>
 
           <input id="audio_card_channel_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20"
@@ -1632,6 +1717,8 @@
   <!--CHANNEL 1 -->
   <div class="column" id="channel_1_column">
     <h2>1</h2>
+    <button id="channel_1_solo" value="channel_1_solo">Solo </button>
+    <br>
     <div id="channel_1_songName_n_duration">
       <p id="channel_1_songName"> </p>
       <p id="channel_1_duration_text"> </p>
@@ -1640,7 +1727,7 @@
     RMS: <p id="channel_1_rms_meter_inner"></p>
     <br>
     <p id="channel_1_volume_text">Vol</p>
-    <input type='range' min=-41 max=12 step='1' value="-40" id='channel_1_volume'>
+    <input type='range' min=-40 max=12 step='1' value="-40" id='channel_1_volume'>
     <p id="channel_1_volume_value"> </p>
     <br>
     <input id="channel_1_volume_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -1700,7 +1787,7 @@
             </select>
             <br>
             <p id="noiseSynth_1_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='noiseSynth_1_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-40" id='noiseSynth_1_volume'>
             <p id="noiseSynth_1_volume_value"> </p>
             <br>
 
@@ -1750,7 +1837,7 @@
             </div>
 
             <p id="grainPlayer_1_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-41" id='grainPlayer_1_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-41" id='grainPlayer_1_volume'>
             <p id="grainPlayer_1_volume_value"> </p>
             <input id="grainPlayer_1_volume_rampTo_gain" type="number" min="-50" max="12" />
             time: <input id="grainPlayer_1_volume_rampTo_time" type="number" min="0" max="60" />
@@ -1805,7 +1892,7 @@
               <button id="noise_1_soloButton" value="noise_1" onclick="solo(value)">Solo </button>
               <br>
               <p id="noise_1_volume_text">Vol</p>
-              <input type='range' min=-41 max=12 step='1' value="-40" id='noise_1_volume'>
+              <input type='range' min=-40 max=12 step='1' value="-40" id='noise_1_volume'>
               <p id="noise_1_volume_value"> </p>
               <input id="noise_1_volume_rampTo_gain" type="number" min="-50" max="12" />
               time: <input id="noise_1_volume_rampTo_time" type="number" min="0" max="60" />
@@ -1858,7 +1945,7 @@
             <button id="player_1_soloButton" value="player_1" onclick="solo(value)">Solo </button>
             <br>
             <p id="player_1_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='player_1_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-40" id='player_1_volume'>
             <p id="player_1_volume_value"> </p>
             <input id="player_1_volume_rampTo_gain" type="number" min="-50" max="12" style="width: 35px;" />
             time: <input id="player_1_volume_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
@@ -2235,7 +2322,7 @@
           </button>
           <br>
           <p id="channel_1_EQ3_low_fader_gain_text">Low Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_1_EQ3_low_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_1_EQ3_low_fader_gain'>
           <p id="channel_1_EQ3_low_fader_gain_value"> </p>
 
           <input id="channel_1_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -2246,7 +2333,7 @@
           </button>
           <br>
           <p id="channel_1_EQ3_mid_fader_gain_text">Mid Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_1_EQ3_mid_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_1_EQ3_mid_fader_gain'>
           <p id="channel_1_EQ3_mid_fader_gain_value"> </p>
 
           <input id="channel_1_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -2257,7 +2344,7 @@
           </button>
           <br>
           <p id="channel_1_EQ3_hi_fader_gain_text">Hi Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_1_EQ3_hi_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_1_EQ3_hi_fader_gain'>
           <p id="channel_1_EQ3_hi_fader_gain_value"> </p>
 
           <input id="channel_1_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -2535,6 +2622,9 @@
   <!--CHANNEL 2 -->
   <div class="column" id="channel_2_column">
     <h2>2</h2>
+    <button id="channel_2_solo" value="channel_2_solo">Solo </button>
+    <br>
+
     <div id="channel_2_songName_n_duration">
       <p id="channel_2_songName"> </p>
       <p id="channel_2_duration_text"> </p>
@@ -2543,7 +2633,7 @@
     RMS: <p id="channel_2_rms_meter_inner"></p>
     <br>
     <p id="channel_2_volume_text">Vol</p>
-    <input type='range' min=-41 max=12 step='1' value="-40" id='channel_2_volume'>
+    <input type='range' min=-40 max=12 step='1' value="-40" id='channel_2_volume'>
     <p id="channel_2_volume_value"> </p>
     <br>
     <input id="channel_2_volume_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -2604,7 +2694,7 @@
             </select>
             <br>
             <p id="noiseSynth_2_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='noiseSynth_2_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-40" id='noiseSynth_2_volume'>
             <p id="noiseSynth_2_volume_value"> </p>
             <br>
             <fieldset>
@@ -2648,7 +2738,7 @@
             </div>
 
             <p id="grainPlayer_2_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-41" id='grainPlayer_2_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-41" id='grainPlayer_2_volume'>
             <p id="grainPlayer_2_volume_value"> </p>
             <input id="grainPlayer_2_volume_rampTo_gain" type="number" min="-50" max="12" />
             time: <input id="grainPlayer_2_volume_rampTo_time" type="number" min="0" max="60" />
@@ -2703,7 +2793,7 @@
               <button id="noise_2_soloButton" value="noise_2" onclick="solo(value)">Solo </button>
               <br>
               <p id="noise_2_volume_text">Vol</p>
-              <input type='range' min=-41 max=12 step='1' value="-40" id='noise_2_volume'>
+              <input type='range' min=-40 max=12 step='1' value="-40" id='noise_2_volume'>
               <p id="noise_2_volume_value"> </p>
               <input id="noise_2_volume_rampTo_gain" type="number" min="-50" max="12" />
               time: <input id="noise_2_volume_rampTo_time" type="number" min="0" max="60" />
@@ -2756,7 +2846,7 @@
             <button id="player_2_soloButton" value="player_2" onclick="solo(value)">Solo </button>
             <br>
             <p id="player_2_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='player_2_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-40" id='player_2_volume'>
             <p id="player_2_volume_value"> </p>
             <input id="player_2_volume_rampTo_gain" type="number" min="-50" max="12" style="width: 35px;" />
             time: <input id="player_2_volume_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
@@ -3163,7 +3253,7 @@
           </button>
           <br>
           <p id="channel_2_EQ3_low_fader_gain_text">Low Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_2_EQ3_low_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_2_EQ3_low_fader_gain'>
           <p id="channel_2_EQ3_low_fader_gain_value"> </p>
 
           <input id="channel_2_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -3174,7 +3264,7 @@
           </button>
           <br>
           <p id="channel_2_EQ3_mid_fader_gain_text">Mid Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_2_EQ3_mid_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_2_EQ3_mid_fader_gain'>
           <p id="channel_2_EQ3_mid_fader_gain_value"> </p>
 
           <input id="channel_2_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -3185,7 +3275,7 @@
           </button>
           <br>
           <p id="channel_2_EQ3_hi_fader_gain_text">Hi Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_2_EQ3_hi_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_2_EQ3_hi_fader_gain'>
           <p id="channel_2_EQ3_hi_fader_gain_value"> </p>
 
           <input id="channel_2_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -3465,6 +3555,8 @@
   <!--CHANNEL 3 -->
   <div class="column" id="channel_3_column">
     <h2>3</h2>
+    <button id="channel_3_solo" value="channel_3_solo">Solo </button>
+    <br>
     <div id="channel_3_songName_n_duration">
       <p id="channel_3_songName"> </p>
       <p id="channel_3_duration_text"> </p>
@@ -3472,7 +3564,7 @@
     RMS: <p id="channel_3_rms_meter_inner"></p>
     <br>
     <p id="channel_3_volume_text">Vol</p>
-    <input type='range' min=-41 max=12 step='1' value="-40" id='channel_3_volume'>
+    <input type='range' min=-40 max=12 step='1' value="-40" id='channel_3_volume'>
     <p id="channel_3_volume_value"> </p>
     <br>
     <input id="channel_3_volume_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -3533,7 +3625,7 @@
             </select>
             <br>
             <p id="noiseSynth_3_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='noiseSynth_3_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-40" id='noiseSynth_3_volume'>
             <p id="noiseSynth_3_volume_value"> </p>
             <br>
             <fieldset>
@@ -3577,7 +3669,7 @@
             </div>
 
             <p id="grainPlayer_3_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-41" id='grainPlayer_3_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-41" id='grainPlayer_3_volume'>
             <p id="grainPlayer_3_volume_value"> </p>
             <input id="grainPlayer_3_volume_rampTo_gain" type="number" min="-50" max="12" />
             time: <input id="grainPlayer_3_volume_rampTo_time" type="number" min="0" max="60" />
@@ -3632,7 +3724,7 @@
               <button id="noise_3_soloButton" value="noise_3" onclick="solo(value)">Solo </button>
               <br>
               <p id="noise_3_volume_text">Vol</p>
-              <input type='range' min=-41 max=12 step='1' value="-40" id='noise_3_volume'>
+              <input type='range' min=-40 max=12 step='1' value="-40" id='noise_3_volume'>
               <p id="noise_3_volume_value"> </p>
               <input id="noise_3_volume_rampTo_gain" type="number" min="-50" max="12" />
               time: <input id="noise_3_volume_rampTo_time" type="number" min="0" max="60" />
@@ -3687,7 +3779,7 @@
             <button id="player_3_soloButton" value="player_3" onclick="solo(value)">Solo </button>
             <br>
             <p id="player_3_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='player_3_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-40" id='player_3_volume'>
             <p id="player_3_volume_value"> </p>
             <input id="player_3_volume_rampTo_gain" type="number" min="-50" max="12" style="width: 35px;" />
             time: <input id="player_3_volume_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
@@ -4058,7 +4150,7 @@
           </button>
           <br>
           <p id="channel_3_EQ3_low_fader_gain_text">Low Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_3_EQ3_low_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_3_EQ3_low_fader_gain'>
           <p id="channel_3_EQ3_low_fader_gain_value"> </p>
 
           <input id="channel_3_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -4069,7 +4161,7 @@
           </button>
           <br>
           <p id="channel_3_EQ3_mid_fader_gain_text">Mid Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_3_EQ3_mid_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_3_EQ3_mid_fader_gain'>
           <p id="channel_3_EQ3_mid_fader_gain_value"> </p>
 
           <input id="channel_3_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -4080,7 +4172,7 @@
           </button>
           <br>
           <p id="channel_3_EQ3_hi_fader_gain_text">Hi Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_3_EQ3_hi_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_3_EQ3_hi_fader_gain'>
           <p id="channel_3_EQ3_hi_fader_gain_value"> </p>
 
           <input id="channel_3_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -4360,6 +4452,8 @@
   <!--CHANNEL 4 -->
   <div class="column" id="channel_4_column">
     <h2>4</h2>
+    <button id="channel_4_solo" value="channel_4_solo">Solo </button>
+    <br>
     <div id="channel_4_songName_n_duration">
       <p id="channel_4_songName"> </p>
       <p id="channel_4_duration_text"> </p>
@@ -4367,7 +4461,7 @@
     RMS: <p id="channel_4_rms_meter_inner"></p>
     <br>
     <p id="channel_4_volume_text">Vol</p>
-    <input type='range' min=-41 max=12 step='1' value="-40" id='channel_4_volume'>
+    <input type='range' min=-40 max=12 step='1' value="-40" id='channel_4_volume'>
     <p id="channel_4_volume_value"> </p>
     <br>
     <input id="channel_4_volume_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -4429,7 +4523,7 @@
             </select>
             <br>
             <p id="noiseSynth_4_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='noiseSynth_4_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-40" id='noiseSynth_4_volume'>
             <p id="noiseSynth_4_volume_value"> </p>
             <br>
             <fieldset>
@@ -4474,7 +4568,7 @@
             </div>
 
             <p id="grainPlayer_4_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-41" id='grainPlayer_4_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-41" id='grainPlayer_4_volume'>
             <p id="grainPlayer_4_volume_value"> </p>
             <input id="grainPlayer_4_volume_rampTo_gain" type="number" min="-50" max="12" />
             time: <input id="grainPlayer_4_volume_rampTo_time" type="number" min="0" max="60" />
@@ -4529,7 +4623,7 @@
               <button id="noise_4_soloButton" value="noise_4" onclick="solo(value)">Solo </button>
               <br>
               <p id="noise_4_volume_text">Vol</p>
-              <input type='range' min=-41 max=12 step='1' value="-40" id='noise_4_volume'>
+              <input type='range' min=-40 max=12 step='1' value="-40" id='noise_4_volume'>
               <p id="noise_4_volume_value"> </p>
               <input id="noise_4_volume_rampTo_gain" type="number" min="-50" max="12" />
               time: <input id="noise_4_volume_rampTo_time" type="number" min="0" max="60" />
@@ -4582,7 +4676,7 @@
             <button id="player_4_soloButton" value="player_4" onclick="solo(value)">Solo </button>
             <br>
             <p id="player_4_volume_text">Vol</p>
-            <input type='range' min=-41 max=12 step='1' value="-40" id='player_4_volume'>
+            <input type='range' min=-40 max=12 step='1' value="-40" id='player_4_volume'>
             <p id="player_4_volume_value"> </p>
             <input id="player_4_volume_rampTo_gain" type="number" min="-50" max="12" style="width: 35px;" />
             time: <input id="player_4_volume_rampTo_time" type="number" min="0" max="60" style="width: 35px;" />
@@ -4961,7 +5055,7 @@
           </button>
           <br>
           <p id="channel_4_EQ3_low_fader_gain_text">Low Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_4_EQ3_low_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_4_EQ3_low_fader_gain'>
           <p id="channel_4_EQ3_low_fader_gain_value"> </p>
 
           <input id="channel_4_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -4972,7 +5066,7 @@
           </button>
           <br>
           <p id="channel_4_EQ3_mid_fader_gain_text">Mid Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_4_EQ3_mid_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_4_EQ3_mid_fader_gain'>
           <p id="channel_4_EQ3_mid_fader_gain_value"> </p>
 
           <input id="channel_4_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -4983,7 +5077,7 @@
           </button>
           <br>
           <p id="channel_4_EQ3_hi_fader_gain_text">Hi Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='channel_4_EQ3_hi_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='channel_4_EQ3_hi_fader_gain'>
           <p id="channel_4_EQ3_hi_fader_gain_value"> </p>
 
           <input id="channel_4_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -5262,6 +5356,8 @@
   <!-- FX 1-->
   <div class="column">
     <h2>FX 1</h2>
+    <button id="fx_1_solo" value="fx_1_solo">Solo </button>
+    <br>
     rms: <p id="fx_1_rms_meter_inner"> </p>
     <br>
     <div id="fx_1_RMS_all">
@@ -5280,7 +5376,7 @@
     </div>
     <div>
       <p id="fx_1_volume_text"> </p>
-      Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx_1_volume'>
+      Vol<input type='range' min=-40 max=12 step='1' value="0" id='fx_1_volume'>
       <p id="fx_1_volume_value"></p>
       <br>
       <input id="fx_1_volume_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -5804,7 +5900,7 @@
           </button>
           <br>
           <p id="fx_1_EQ3_low_fader_gain_text">Low Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_1_EQ3_low_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_1_EQ3_low_fader_gain'>
           <p id="fx_1_EQ3_low_fader_gain_value"> </p>
 
           <input id="fx_1_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -5814,7 +5910,7 @@
           </button>
           <br>
           <p id="fx_1_EQ3_mid_fader_gain_text">Mid Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_1_EQ3_mid_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_1_EQ3_mid_fader_gain'>
           <p id="fx_1_EQ3_mid_fader_gain_value"> </p>
 
           <input id="fx_1_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -5824,7 +5920,7 @@
           </button>
           <br>
           <p id="fx_1_EQ3_hi_fader_gain_text">Hi Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_1_EQ3_hi_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_1_EQ3_hi_fader_gain'>
           <p id="fx_1_EQ3_hi_fader_gain_value"> </p>
 
           <input id="fx_1_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -6031,6 +6127,8 @@
   <!--FX2-->
   <div class="column">
     <h2>FX 2</h2>
+    <button id="fx_2_solo" value="fx_2_solo">Solo </button>
+    <br>
     rms: <p id="fx_2_rms_meter_inner"> </p>
     <br>
 
@@ -6051,7 +6149,7 @@
 
     <div>
       <p id="fx_2_volume_text"> </p>
-      Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx_2_volume'>
+      Vol<input type='range' min=-40 max=12 step='1' value="0" id='fx_2_volume'>
       <p id="fx_2_volume_value"></p>
       <br>
       <input id="fx_2_volume_rampTo_gain" type="number" min="-1" max="1" step='0.01' style="width: 35px;" />
@@ -6569,7 +6667,7 @@
           </button>
           <br>
           <p id="fx_2_EQ3_low_fader_gain_text">Low Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_2_EQ3_low_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_2_EQ3_low_fader_gain'>
           <p id="fx_2_EQ3_low_fader_gain_value"> </p>
 
           <input id="fx_2_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -6579,7 +6677,7 @@
           </button>
           <br>
           <p id="fx_2_EQ3_mid_fader_gain_text">Mid Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_2_EQ3_mid_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_2_EQ3_mid_fader_gain'>
           <p id="fx_2_EQ3_mid_fader_gain_value"> </p>
 
           <input id="fx_2_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -6589,7 +6687,7 @@
           </button>
           <br>
           <p id="fx_2_EQ3_hi_fader_gain_text">Hi Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_2_EQ3_hi_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_2_EQ3_hi_fader_gain'>
           <p id="fx_2_EQ3_hi_fader_gain_value"> </p>
 
           <input id="fx_2_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -6786,11 +6884,13 @@
   <!-- FX 3-->
   <div class="column">
     <h2>FX 3</h2>
+    <button id="fx_3_solo" value="fx_3_solo">Solo </button>
+    <br>
     rms: <p id="fx_3_rms_meter_inner"> </p>
     <br>
     <div>
       <p id="fx_3_volume_text"> </p>
-      Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx_3_volume'>
+      Vol<input type='range' min=-40 max=12 step='1' value="0" id='fx_3_volume'>
       <p id="fx_3_volume_value"></p>
       <br>
 
@@ -7317,7 +7417,7 @@
           </button>
           <br>
           <p id="fx_3_EQ3_low_fader_gain_text">Low Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_3_EQ3_low_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_3_EQ3_low_fader_gain'>
           <p id="fx_3_EQ3_low_fader_gain_value"> </p>
 
           <input id="fx_3_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -7327,7 +7427,7 @@
           </button>
           <br>
           <p id="fx_3_EQ3_mid_fader_gain_text">Mid Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_3_EQ3_mid_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_3_EQ3_mid_fader_gain'>
           <p id="fx_3_EQ3_mid_fader_gain_value"> </p>
 
           <input id="fx_3_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -7337,7 +7437,7 @@
           </button>
           <br>
           <p id="fx_3_EQ3_hi_fader_gain_text">Hi Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_3_EQ3_hi_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_3_EQ3_hi_fader_gain'>
           <p id="fx_3_EQ3_hi_fader_gain_value"> </p>
 
           <input id="fx_3_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -7535,11 +7635,13 @@
   <!-- FX 4-->
   <div class="column">
     <h2>FX 4</h2>
+    <button id="fx_4_solo" value="fx_4_solo">Solo </button>
+    <br>
     rms: <p id="fx_4_rms_meter_inner"> </p>
     <br>
     <div>
       <p id="fx_4_volume_text"> </p>
-      Vol<input type='range' min=-41 max=12 step='1' value="0" id='fx_4_volume'>
+      Vol<input type='range' min=-40 max=12 step='1' value="0" id='fx_4_volume'>
       <p id="fx_4_volume_value"></p>
       <br>
 
@@ -8074,7 +8176,7 @@
           </button>
           <br>
           <p id="fx_4_EQ3_low_fader_gain_text">Low Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_4_EQ3_low_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_4_EQ3_low_fader_gain'>
           <p id="fx_4_EQ3_low_fader_gain_value"> </p>
 
           <input id="fx_4_EQ3_low_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -8084,7 +8186,7 @@
           </button>
           <br>
           <p id="fx_4_EQ3_mid_fader_gain_text">Mid Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_4_EQ3_mid_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_4_EQ3_mid_fader_gain'>
           <p id="fx_4_EQ3_mid_fader_gain_value"> </p>
 
           <input id="fx_4_EQ3_mid_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />
@@ -8094,7 +8196,7 @@
           </button>
           <br>
           <p id="fx_4_EQ3_hi_fader_gain_text">Hi Gain</p>
-          <input type='range' min=-41 max=12 step='1' value="0" id='fx_4_EQ3_hi_fader_gain'>
+          <input type='range' min=-40 max=12 step='1' value="0" id='fx_4_EQ3_hi_fader_gain'>
           <p id="fx_4_EQ3_hi_fader_gain_value"> </p>
 
           <input id="fx_4_EQ3_hi_fader_gain_rampTo_gain" type="number" min="0" max="20" style="width: 35px;" />

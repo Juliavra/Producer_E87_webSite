@@ -180,12 +180,12 @@ let audioChunks = [];
 
 const startRecordLog = document.getElementById("start-record");
 startRecordLog.addEventListener('click', () => {
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "recorder", "start");
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "recorder", "start");
 });
 
 const stopRecordLog = document.getElementById("stop-record");
 stopRecordLog.addEventListener('click', () => {
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "recorder", "stop");
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "recorder", "stop");
 });
 
 document.querySelector('#start-record').addEventListener('click', async () => {
@@ -312,7 +312,7 @@ document.onkeydown = function (e) {
                 {
                   if (player_1_Node.state != "started") {
                     player_1_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
-                    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_http", `${array_Canciones[value_track - 1].title}`);
+                    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_http", `${array_Canciones[value_track - 1].title}`);
                   }
                   else {
                     alert("ELSE: deten la reproduccion");
@@ -323,7 +323,7 @@ document.onkeydown = function (e) {
                 {
                   if (player_2_Node.state != "started") {
                     player_2_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
-                    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_http", `${array_Canciones[value_track - 1].title}`);
+                    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2_http", `${array_Canciones[value_track - 1].title}`);
                   }
                   else { alert("ELSE: deten la reproduccion"); }
                   break;
@@ -332,7 +332,7 @@ document.onkeydown = function (e) {
                 {
                   if (player_3_Node.state != "started") {
                     player_3_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
-                    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_http", `${array_Canciones[value_track - 1].title}`);
+                    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3_http", `${array_Canciones[value_track - 1].title}`);
                   }
                   else { alert("ELSE: deten la reproduccion"); }
                   break;
@@ -341,7 +341,7 @@ document.onkeydown = function (e) {
                 {
                   if (player_4_Node.state != "started") {
                     player_4_Node.load(`${array_Canciones[value_track - 1].url_src}`, callbackLoaded(value_track, value_player));
-                    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_http", `${array_Canciones[value_track - 1].title}`);
+                    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_http", `${array_Canciones[value_track - 1].title}`);
                   }
                   else { alert("ELSE: deten la reproduccion"); }
                   break;
@@ -1037,7 +1037,7 @@ document.onkeydown = function (e) {
               player_1_Node.volume.value += 1;
               player_1_volume.value = Math.round(`${player_1_Node.volume.value}`);
               player_1_volume_value.innerHTML = Math.round(`${player_1_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_volume", player_1_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_volume", player_1_Node.volume.value);
             }
             break;
           }
@@ -1046,7 +1046,7 @@ document.onkeydown = function (e) {
               grainPlayer_1_Node.volume.value += 1;
               grainPlayer_1_volume.value = Math.round(`${grainPlayer_1_Node.volume.value}`);
               grainPlayer_1_volume_value.innerHTML = Math.round(`${grainPlayer_1_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_volume", grainPlayer_1_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_volume", grainPlayer_1_Node.volume.value);
             }
             break;
           }
@@ -1077,7 +1077,7 @@ document.onkeydown = function (e) {
               player_1_Node.volume.value -= 1;
               player_1_volume.value = Math.round(`${player_1_Node.volume.value}`);
               player_1_volume_value.innerHTML = Math.round(`${player_1_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_volume", player_1_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_volume", player_1_Node.volume.value);
             }
             break;
           }
@@ -1086,7 +1086,7 @@ document.onkeydown = function (e) {
               grainPlayer_1_Node.volume.value -= 1;
               grainPlayer_1_volume.value = Math.round(`${grainPlayer_1_Node.volume.value}`);
               grainPlayer_1_volume_value.innerHTML = Math.round(`${grainPlayer_1_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_volume", player_1_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_volume", player_1_Node.volume.value);
             }
             break;
           }
@@ -1117,7 +1117,7 @@ document.onkeydown = function (e) {
               player_2_Node.volume.value += 1;
               player_2_volume.value = Math.round(`${player_2_Node.volume.value}`);
               player_2_volume_value.innerHTML = Math.round(`${player_2_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_volume", player_2_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2_volume", player_2_Node.volume.value);
             }
             break;
           }
@@ -1126,7 +1126,7 @@ document.onkeydown = function (e) {
               grainPlayer_2_Node.volume.value += 1;
               grainPlayer_2_volume.value = Math.round(`${grainPlayer_2_Node.volume.value}`);
               grainPlayer_2_volume_value.innerHTML = Math.round(`${grainPlayer_2_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2_volume", grainPlayer_2_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_2_volume", grainPlayer_2_Node.volume.value);
             }
             break;
           }
@@ -1157,7 +1157,7 @@ document.onkeydown = function (e) {
               player_2_Node.volume.value -= 1;
               player_2_volume.value = Math.round(`${player_2_Node.volume.value}`);
               player_2_volume_value.innerHTML = Math.round(`${player_2_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_volume", player_2_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2_volume", player_2_Node.volume.value);
             }
             break;
           }
@@ -1166,7 +1166,7 @@ document.onkeydown = function (e) {
               grainPlayer_2_Node.volume.value -= 1;
               grainPlayer_2_volume.value = Math.round(`${grainPlayer_2_Node.volume.value}`);
               grainPlayer_2_volume_value.innerHTML = Math.round(`${grainPlayer_2_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2_volume", grainPlayer_2_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_2_volume", grainPlayer_2_Node.volume.value);
             }
             break;
           }
@@ -1196,7 +1196,7 @@ document.onkeydown = function (e) {
               player_3_Node.volume.value += 1;
               player_3_volume.value = Math.round(`${player_3_Node.volume.value}`);
               player_3_volume_value.innerHTML = Math.round(`${player_3_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_volume", player_3_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3_volume", player_3_Node.volume.value);
             }
             break;
           }
@@ -1205,7 +1205,7 @@ document.onkeydown = function (e) {
               grainPlayer_3_Node.volume.value += 1;
               grainPlayer_3_volume_value.innerHTML = Math.round(`${grainPlayer_3_Node.volume.value}`);
               grainPlayer_3_volume.value = Math.round(`${grainPlayer_3_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_volume", grainPlayer_3_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_volume", grainPlayer_3_Node.volume.value);
             }
             break;
           }
@@ -1236,7 +1236,7 @@ document.onkeydown = function (e) {
               player_3_Node.volume.value -= 1;
               player_3_volume.value = Math.round(`${player_3_Node.volume.value}`);
               player_3_volume_value.innerHTML = Math.round(`${player_3_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_volume", player_3_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3_volume", player_3_Node.volume.value);
             }
             break;
           }
@@ -1245,7 +1245,7 @@ document.onkeydown = function (e) {
               grainPlayer_3_Node.volume.value -= 1;
               grainPlayer_3_volume_value.innerHTML = Math.round(`${grainPlayer_3_Node.volume.value}`);
               grainPlayer_3_volume.value = Math.round(`${grainPlayer_3_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_volume", grainPlayer_3_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_volume", grainPlayer_3_Node.volume.value);
             }
             break;
           }
@@ -1275,7 +1275,7 @@ document.onkeydown = function (e) {
               player_4_Node.volume.value += 1;
               player_4_volume.value = Math.round(`${player_4_Node.volume.value}`);
               player_4_volume_value.innerHTML = Math.round(`${player_4_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_volume", player_4_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_volume", player_4_Node.volume.value);
             }
             break;
           }
@@ -1284,7 +1284,7 @@ document.onkeydown = function (e) {
               grainPlayer_4_Node.volume.value += 1;
               grainPlayer_4_volume_value.innerHTML = Math.round(`${grainPlayer_4_Node.volume.value}`);
               grainPlayer_4_volume.value = Math.round(`${grainPlayer_4_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_volume", grainPlayer_4_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_volume", grainPlayer_4_Node.volume.value);
             }
             break;
           }
@@ -1315,7 +1315,7 @@ document.onkeydown = function (e) {
               player_4_Node.volume.value -= 1;
               player_4_volume.value = Math.round(`${player_4_Node.volume.value}`);
               player_4_volume_value.innerHTML = Math.round(`${player_4_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_volume", player_3_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_volume", player_3_Node.volume.value);
             }
             break;
           }
@@ -1324,7 +1324,7 @@ document.onkeydown = function (e) {
               grainPlayer_4_Node.volume.value -= 1;
               grainPlayer_4_volume_value.innerHTML = Math.round(`${grainPlayer_4_Node.volume.value}`);
               grainPlayer_4_volume.value = Math.round(`${grainPlayer_4_Node.volume.value}`);
-              MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_volume", grainPlayer_4_Node.volume.value);
+              MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_volume", grainPlayer_4_Node.volume.value);
             }
             break;
           }
@@ -1357,7 +1357,7 @@ const lfo_1_volume_value = document.getElementById("lfo_1_volume_value");
 lfo_1_volume.addEventListener("change", function (e) {
   lfo_1_Node.volume = `${e.currentTarget.value}`;
   lfo_1_volume_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1_volume", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "lfo_1_volume", e.currentTarget.value);
 });
 
 const lfo_1_frequency_text = document.getElementById("lfo_1_frequency_text");
@@ -1366,7 +1366,7 @@ const lfo_1_frequency_value = document.getElementById("lfo_1_frequency_value");
 lfo_1_frequency.addEventListener("change", function (e) {
   lfo_1_Node.frequency.value = `${e.currentTarget.value}`;
   lfo_1_frequency_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1_frequency", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "lfo_1_frequency", e.currentTarget.value);
 });
 
 const lfo_1_amplitude_text = document.getElementById("lfo_1_amplitude_text");
@@ -1375,7 +1375,7 @@ const lfo_1_amplitude_value = document.getElementById("lfo_1_amplitude_value");
 lfo_1_amplitude.addEventListener("change", function (e) {
   lfo_1_Node.amplitude.value = `${e.currentTarget.value}`;
   lfo_1_amplitude_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1_amplitude", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "lfo_1_amplitude", e.currentTarget.value);
 });
 
 const lfo_1_phase_text = document.getElementById("lfo_1_phase_text");
@@ -1384,13 +1384,13 @@ const lfo_1_phase_value = document.getElementById("lfo_1_phase_value");
 lfo_1_phase.addEventListener("change", function (e) {
   lfo_1_Node.phase = e.currentTarget.value;
   lfo_1_phase_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1_phase", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "lfo_1_phase", e.currentTarget.value);
 });
 
 const lfo_1_select_type = document.getElementById("lfo_1_select_type");
 lfo_1_select_type.addEventListener("change", function (e) {
   lfo_1_Node.type = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1_select_type", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "lfo_1_select_type", e.currentTarget.value);
 });
 
 const lfo_1_Settings = lfo_1_Node.get();
@@ -1425,7 +1425,6 @@ You can use the Math.trunc() method to remove the decimals of a number:
 // AGREGAR .seek() A LOS 4 PLAYERS 
 // REVISAR .sync() PARA USAR EN LOS PLAYERS //.unsync() TAMBIEN 
 // REVISAR .solo
-// AGREGAR BUTTON PARA   rolloff: -12, -24, -48, -96,  
 // noiseSynth_1_Sync_checkbox: Sync no hace NADA 
 // channel_1_Mid_SemiParam_gain_tascam_rampTo NO FUNCA EL MID EQ AT ALL
 // NOISE SYNTH NO TIENE NINGUN SEND
@@ -1469,6 +1468,7 @@ whiteNoiseNode.connect(audioContext.destination);
 //TEST PLAYER
 //const player_test_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3");
 
+/*
 document.querySelector('#CustomizedButton').addEventListener('click', async () => {
   // Start the Tone.js AudioContext
   await Tone.start();
@@ -1476,8 +1476,13 @@ document.querySelector('#CustomizedButton').addEventListener('click', async () =
   // Now you can safely play your Tone.js instruments and sounds
   // e.g., synth.triggerAttackRelease('C4', '8n');
 });
-
-const player_test_Node = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/01_Dark_Ringy_Short_Loop.mp3");
+try {
+  
+} catch (error) {console.log(error);
+  
+}
+*/
+const player_test_Node = new Tone.Player();
 
 const meter_test_Node = new Tone.Meter(0);
 const meter_test_Node_RMS = document.getElementById("meter_test_Node_RMS");
@@ -2182,12 +2187,12 @@ audio_card_channel_volume.addEventListener("change", function (e) {
     audio_card_channel_volNode.volume.value = -100;
     audio_card_channel_volume_value.innerHTML = -100;
     audio_card_channel_volume.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_volume", -100);
   }
   else {
     audio_card_channel_volNode.volume.value = e.currentTarget.value;
     audio_card_channel_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_volume", e.currentTarget.value);
   }
   //PROBAR SI LO DE ABAJO SIRVE
   //  changesVolume(e.currentTarget.value, audio_card_channel_volNode, audio_card_channel_volume, audio_card_channel_volume_value);
@@ -2197,7 +2202,7 @@ audio_card_channel_volume.ondblclick = function () {
   audio_card_channel_volNode.volume.rampTo(0, 0.500);
   audio_card_channel_volume_value.innerHTML = 0;
   audio_card_channel_volume.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_volume_rampTo", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_volume_rampTo", 0);
 };
 
 const channel_1_volume = document.getElementById("channel_1_volume");
@@ -2207,13 +2212,13 @@ channel_1_volume.addEventListener("change", function (e) {
     channel_1_volNode.volume.value = -100;
     channel_1_volume_value.innerHTML = -100;
     channel_1_volume.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_volume", -100);
   }
   else {
     channel_1_volNode.volume.value = e.currentTarget.value;
     channel_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_volume", e.currentTarget.value);
+    channel_1_volume.value = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_volume", e.currentTarget.value);
   }
   //PROBAR SI LO DE ABAJO SIRVE
   //  changesVolume(e.currentTarget.value, channel_1_volNode, channel_1_volume, channel_1_volume_value);
@@ -2223,7 +2228,7 @@ channel_1_volume.ondblclick = function () {
   channel_1_volNode.volume.rampTo(0, 0.500);
   channel_1_volume_value.innerHTML = 0;
   channel_1_volume.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_volume_rampTo", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_volume_rampTo", 0);
 };
 
 const channel_2_volume = document.getElementById("channel_2_volume");
@@ -2232,13 +2237,15 @@ channel_2_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_volNode.volume.value = -100;
     channel_2_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_volume", -100);
+    channel_2_volume.value = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_volume", -100);
 
   }
   else {
     channel_2_volNode.volume.value = e.currentTarget.value;
     channel_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_volume", e.currentTarget.value);
+    channel_2_volume.value = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_volume", e.currentTarget.value);
   }
 });
 
@@ -2246,7 +2253,7 @@ channel_2_volume.ondblclick = function () {
   channel_2_volNode.volume.rampTo(0, 0.500);
   channel_2_volume_value.innerHTML = 0;
   channel_2_volume.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_volume_rampTo", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_volume_rampTo", 0);
 };
 
 const channel_3_volume = document.getElementById("channel_3_volume");
@@ -2255,12 +2262,14 @@ channel_3_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_3_volNode.volume.value = -100;
     channel_3_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_volume", -100);
+    channel_3_volume.value = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_volume", -100);
   }
   else {
     channel_3_volNode.volume.value = e.currentTarget.value;
     channel_3_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_volume", e.currentTarget.value);
+    channel_3_volume.value = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_volume", e.currentTarget.value);
   }
 });
 
@@ -2268,7 +2277,7 @@ channel_3_volume.ondblclick = function () {
   channel_3_volNode.volume.rampTo(0, 0.500);
   channel_3_volume_value.innerHTML = 0;
   channel_3_volume.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_volume_rampTo", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_volume_rampTo", 0);
 };
 
 const channel_4_volume = document.getElementById("channel_4_volume");
@@ -2277,12 +2286,14 @@ channel_4_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_4_volNode.volume.value = -100;
     channel_4_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_volume", -100);
+    channel_4_volume.value = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_volume", -100);
   }
   else {
     channel_4_volNode.volume.value = e.currentTarget.value;
     channel_4_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_volume", e.currentTarget.value);
+    channel_4_volume.value = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_volume", e.currentTarget.value);
   }
 });
 
@@ -2290,7 +2301,7 @@ channel_4_volume.ondblclick = function () {
   channel_4_volNode.volume.rampTo(0, 0.500);
   channel_4_volume_value.innerHTML = 0;
   channel_4_volume.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_volume_rampTo", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_volume_rampTo", 0);
 };
 
 const audio_card_channel_pan = document.getElementById("audio_card_channel_pan");
@@ -2298,14 +2309,14 @@ const audio_card_channel_pan_value = document.getElementById("audio_card_channel
 audio_card_channel_pan.addEventListener("change", function (e) {
   audio_card_channel_panNode.pan.value = e.currentTarget.value;
   audio_card_channel_pan_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_pan", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_pan", e.currentTarget.value);
 });
 
 audio_card_channel_pan.ondblclick = function () {
   audio_card_channel_panNode.pan.rampTo(0, 2);
   audio_card_channel_pan_value.innerHTML = 0;
   audio_card_channel_pan.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_pan", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_pan", 0);
 };
 
 const channel_1_pan = document.getElementById("channel_1_pan");
@@ -2313,14 +2324,14 @@ const channel_1_pan_value = document.getElementById("channel_1_pan_value");
 channel_1_pan.addEventListener("change", function (e) {
   channel_1_panNode.pan.value = e.currentTarget.value;
   channel_1_pan_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_pan", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_pan", e.currentTarget.value);
 });
 
 channel_1_pan.ondblclick = function () {
   channel_1_panNode.pan.rampTo(0, 2);
   channel_1_pan_value.innerHTML = 0;
   channel_1_pan.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_pan", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_pan", 0);
 };
 
 const channel_2_pan = document.getElementById("channel_2_pan");
@@ -2328,42 +2339,42 @@ const channel_2_pan_value = document.getElementById("channel_2_pan_value");
 channel_2_pan.addEventListener("change", function (e) {
   channel_2_panNode.pan.value = e.currentTarget.value;
   channel_2_pan_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_pan", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_pan", e.currentTarget.value);
 });
 
 channel_2_pan.ondblclick = function () {
   channel_2_panNode.pan.rampTo(0, 2);
   channel_2_pan_value.innerHTML = 0;
   channel_2_pan.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_pan", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_pan", 0);
 };
 const channel_3_pan = document.getElementById("channel_3_pan");
 const channel_3_pan_value = document.getElementById("channel_3_pan_value");
 channel_3_pan.addEventListener("change", function (e) {
   channel_3_panNode.pan.value = e.currentTarget.value;
   channel_3_pan_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_pan", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_pan", e.currentTarget.value);
 });
 
 channel_3_pan.ondblclick = function () {
   channel_3_panNode.pan.rampTo(0, 2);
   channel_3_pan_value.innerHTML = 0;
   channel_3_pan.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_pan", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_pan", 0);
 };
 const channel_4_pan = document.getElementById("channel_4_pan");
 const channel_4_pan_value = document.getElementById("channel_4_pan_value");
 channel_4_pan.addEventListener("change", function (e) {
   channel_4_panNode.pan.value = e.currentTarget.value;
   channel_4_pan_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_pan", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_pan", e.currentTarget.value);
 });
 
 channel_4_pan.ondblclick = function () {
   channel_4_panNode.pan.rampTo(0, 2);
   channel_4_pan_value.innerHTML = 0;
   channel_4_pan.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_pan", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_pan", 0);
 };
 
 //*************************************************************************************
@@ -2385,7 +2396,7 @@ audio_card_channel_filter_1_select.addEventListener("change", function (e) {
       {
         audio_card_channel_filter.type = e.currentTarget.value;
         audio_card_channel_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_select", e.currentTarget.value);
         if (audio_card_channel_filter_eq_type == "on") {
           hide_all_EQ_divs("audio_card");
           audio_card_channel_allpass_controls_div.style.display = "block";
@@ -2397,14 +2408,14 @@ audio_card_channel_filter_1_select.addEventListener("change", function (e) {
       {
         audio_card_channel_filter.type = e.currentTarget.value;
         audio_card_channel_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
       {
         audio_card_channel_filter.type = e.currentTarget.value;
         audio_card_channel_filter_eq_type = "peaking";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_select", e.currentTarget.value);
         break;
       }
     case "empty": {
@@ -2416,7 +2427,7 @@ audio_card_channel_filter_1_select.addEventListener("change", function (e) {
         gain: 0,
         rolloff: -96,
       });
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_select", "empty");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_select", "empty");
       break;
     }
     default:
@@ -2431,7 +2442,7 @@ const audio_card_channel_filter_frequency_shelf_value = document.getElementById(
 audio_card_channel_filter_frequency_shelf.addEventListener("change", function (e) {
   audio_card_channel_filter.frequency.value = e.currentTarget.value;
   audio_card_channel_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_frequency_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const audio_card_channel_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -2440,7 +2451,7 @@ const audio_card_channel_filter_detune_shelf_value = document.getElementById("au
 audio_card_channel_filter_detune_shelf.addEventListener("change", function (e) {
   audio_card_channel_filter.detune.value = e.currentTarget.value;
   audio_card_channel_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_detune_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const audio_card_channel_filter_gain_text_shelf = document.getElementById("audio_card_channel_filter_gain_text_shelf");
@@ -2448,7 +2459,7 @@ const audio_card_channel_filter_gain_shelf = document.getElementById("audio_card
 const audio_card_channel_filter_gain_shelf_value = document.getElementById("audio_card_channel_filter_gain_shelf_value");
 audio_card_channel_filter_gain_shelf.addEventListener("change", function (e) {
   audio_card_channel_filter.gain.value = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_gain_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_gain_shelf", e.currentTarget.value);
   audio_card_channel_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -2459,7 +2470,7 @@ const audio_card_channel_filter_frequency_peaking_value = document.getElementByI
 audio_card_channel_filter_frequency_peaking.addEventListener("change", function (e) {
   audio_card_channel_filter.frequency.value = e.currentTarget.value;
   audio_card_channel_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_frequency_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const audio_card_channel_filter_Q_text_peaking = document.getElementById("audio_card_channel_filter_Q_text_peaking");
@@ -2468,7 +2479,7 @@ const audio_card_channel_filter_Q_peaking_value = document.getElementById("audio
 audio_card_channel_filter_Q_peaking.addEventListener("change", function (e) {
   audio_card_channel_filter.Q.value = e.currentTarget.value;
   audio_card_channel_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_Q_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_Q_peaking", e.currentTarget.value);
 });
 
 const audio_card_channel_filter_detune_text_peaking = document.getElementById("audio_card_channel_filter_detune_text_peaking");
@@ -2477,7 +2488,7 @@ const audio_card_channel_filter_detune_peaking_value = document.getElementById("
 audio_card_channel_filter_detune_peaking.addEventListener("change", function (e) {
   audio_card_channel_filter.detune.value = e.currentTarget.value;
   audio_card_channel_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_detune_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_detune_peaking", e.currentTarget.value);
 });
 
 const audio_card_channel_filter_gain_text_peaking = document.getElementById("audio_card_channel_filter_gain_text_peaking");
@@ -2486,7 +2497,7 @@ const audio_card_channel_filter_gain_peaking_value = document.getElementById("au
 audio_card_channel_filter_gain_peaking.addEventListener("change", function (e) {
   audio_card_channel_filter.gain.value = e.currentTarget.value;
   audio_card_channel_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_gain_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -2496,7 +2507,7 @@ const audio_card_channel_filter_frequency_text_allpass = document.getElementById
 audio_card_channel_filter_frequency_allpass.addEventListener("change", function (e) {
   audio_card_channel_filter.frequency.value = e.currentTarget.value;
   audio_card_channel_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_frequency_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const audio_card_channel_filter_Q_allpass = document.getElementById("audio_card_channel_filter_Q_allpass");
@@ -2505,7 +2516,7 @@ const audio_card_channel_filter_Q_text_allpass = document.getElementById("audio_
 audio_card_channel_filter_Q_allpass.addEventListener("change", function (e) {
   audio_card_channel_filter.Q.value = e.currentTarget.value;
   audio_card_channel_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_Q_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const audio_card_channel_filter_detune_allpass = document.getElementById("audio_card_channel_filter_detune_allpass");
@@ -2514,7 +2525,7 @@ const audio_card_channel_filter_detune_text_allpass = document.getElementById("a
 audio_card_channel_filter_detune_allpass.addEventListener("change", function (e) {
   audio_card_channel_filter.detune.value = e.currentTarget.value;
   audio_card_channel_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_detune_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const audio_card_channel_filter_eq_On_Button = document.getElementById("audio_card_channel_filter_eq_On_Button");
@@ -2532,7 +2543,7 @@ channel_1_filter_1_select.addEventListener("change", function (e) {
       {
         channel_1_filter.type = e.currentTarget.value;
         channel_1_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_select", e.currentTarget.value);
         if (channel_1_filter_eq_type == "on") {
           hide_all_EQ_divs("1");
           channel_1_allpass_controls_div.style.display = "block";
@@ -2544,14 +2555,14 @@ channel_1_filter_1_select.addEventListener("change", function (e) {
       {
         channel_1_filter.type = e.currentTarget.value;
         channel_1_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
       {
         channel_1_filter.type = e.currentTarget.value;
         channel_1_filter_eq_type = "peaking";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_select", e.currentTarget.value);
         break;
       }
     case "empty": {
@@ -2563,7 +2574,7 @@ channel_1_filter_1_select.addEventListener("change", function (e) {
         gain: 0,
         rolloff: -96,
       });
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_select", "empty");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_select", "empty");
       break;
     }
     default:
@@ -2578,7 +2589,7 @@ const channel_1_filter_frequency_shelf_value = document.getElementById("channel_
 channel_1_filter_frequency_shelf.addEventListener("change", function (e) {
   channel_1_filter.frequency.value = e.currentTarget.value;
   channel_1_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_frequency_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const channel_1_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -2587,7 +2598,7 @@ const channel_1_filter_detune_shelf_value = document.getElementById("channel_1_f
 channel_1_filter_detune_shelf.addEventListener("change", function (e) {
   channel_1_filter.detune.value = e.currentTarget.value;
   channel_1_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_detune_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const channel_1_filter_gain_text_shelf = document.getElementById("channel_1_filter_gain_text_shelf");
@@ -2595,7 +2606,7 @@ const channel_1_filter_gain_shelf = document.getElementById("channel_1_filter_ga
 const channel_1_filter_gain_shelf_value = document.getElementById("channel_1_filter_gain_shelf_value");
 channel_1_filter_gain_shelf.addEventListener("change", function (e) {
   channel_1_filter.gain.value = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_gain_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_gain_shelf", e.currentTarget.value);
   channel_1_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -2606,7 +2617,7 @@ const channel_1_filter_frequency_peaking_value = document.getElementById("channe
 channel_1_filter_frequency_peaking.addEventListener("change", function (e) {
   channel_1_filter.frequency.value = e.currentTarget.value;
   channel_1_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_frequency_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const channel_1_filter_Q_text_peaking = document.getElementById("channel_1_filter_Q_text_peaking");
@@ -2615,7 +2626,7 @@ const channel_1_filter_Q_peaking_value = document.getElementById("channel_1_filt
 channel_1_filter_Q_peaking.addEventListener("change", function (e) {
   channel_1_filter.Q.value = e.currentTarget.value;
   channel_1_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_Q_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_Q_peaking", e.currentTarget.value);
 });
 
 const channel_1_filter_detune_text_peaking = document.getElementById("channel_1_filter_detune_text_peaking");
@@ -2624,7 +2635,7 @@ const channel_1_filter_detune_peaking_value = document.getElementById("channel_1
 channel_1_filter_detune_peaking.addEventListener("change", function (e) {
   channel_1_filter.detune.value = e.currentTarget.value;
   channel_1_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_detune_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_detune_peaking", e.currentTarget.value);
 });
 
 const channel_1_filter_gain_text_peaking = document.getElementById("channel_1_filter_gain_text_peaking");
@@ -2633,7 +2644,7 @@ const channel_1_filter_gain_peaking_value = document.getElementById("channel_1_f
 channel_1_filter_gain_peaking.addEventListener("change", function (e) {
   channel_1_filter.gain.value = e.currentTarget.value;
   channel_1_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_gain_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -2643,7 +2654,7 @@ const channel_1_filter_frequency_text_allpass = document.getElementById("channel
 channel_1_filter_frequency_allpass.addEventListener("change", function (e) {
   channel_1_filter.frequency.value = e.currentTarget.value;
   channel_1_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_frequency_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const channel_1_filter_Q_allpass = document.getElementById("channel_1_filter_Q_allpass");
@@ -2652,7 +2663,7 @@ const channel_1_filter_Q_text_allpass = document.getElementById("channel_1_filte
 channel_1_filter_Q_allpass.addEventListener("change", function (e) {
   channel_1_filter.Q.value = e.currentTarget.value;
   channel_1_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_Q_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 // Select all radio buttons in the group
@@ -2718,7 +2729,7 @@ const channel_1_filter_detune_text_allpass = document.getElementById("channel_1_
 channel_1_filter_detune_allpass.addEventListener("change", function (e) {
   channel_1_filter.detune.value = e.currentTarget.value;
   channel_1_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_detune_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const channel_1_filter_eq_On_Button = document.getElementById("channel_1_filter_eq_On_Button");
@@ -2734,7 +2745,7 @@ channel_2_filter_1_select.addEventListener("change", function (e) {
       {
         channel_2_filter.type = e.currentTarget.value;
         channel_2_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now(.toFixed(4)), "channel_2_filter_select", e.currentTarget.value);
         if (channel_2_filter_eq_type == "on") {
           hide_all_EQ_divs("2");
           channel_2_allpass_controls_div.style.display = "block";
@@ -2746,14 +2757,14 @@ channel_2_filter_1_select.addEventListener("change", function (e) {
       {
         channel_2_filter.type = e.currentTarget.value;
         channel_2_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now(.toFixed(4)), "channel_2_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
       {
         channel_2_filter.type = e.currentTarget.value;
         channel_2_filter_eq_type = "peaking";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_select", e.currentTarget.value);
         break;
       }
     case "empty": {
@@ -2765,7 +2776,7 @@ channel_2_filter_1_select.addEventListener("change", function (e) {
         gain: 0,
         rolloff: -96,
       });
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_select", "empty");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_select", "empty");
       break;
     }
     default:
@@ -2780,7 +2791,7 @@ const channel_2_filter_frequency_shelf_value = document.getElementById("channel_
 channel_2_filter_frequency_shelf.addEventListener("change", function (e) {
   channel_2_filter.frequency.value = e.currentTarget.value;
   channel_2_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_frequency_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const channel_2_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -2789,7 +2800,7 @@ const channel_2_filter_detune_shelf_value = document.getElementById("channel_2_f
 channel_2_filter_detune_shelf.addEventListener("change", function (e) {
   channel_2_filter.detune.value = e.currentTarget.value;
   channel_2_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_detune_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const channel_2_filter_gain_text_shelf = document.getElementById("channel_2_filter_gain_text_shelf");
@@ -2797,7 +2808,7 @@ const channel_2_filter_gain_shelf = document.getElementById("channel_2_filter_ga
 const channel_2_filter_gain_shelf_value = document.getElementById("channel_2_filter_gain_shelf_value");
 channel_2_filter_gain_shelf.addEventListener("change", function (e) {
   channel_2_filter.gain.value = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_gain_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_gain_shelf", e.currentTarget.value);
   channel_2_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -2808,7 +2819,7 @@ const channel_2_filter_frequency_peaking_value = document.getElementById("channe
 channel_2_filter_frequency_peaking.addEventListener("change", function (e) {
   channel_2_filter.frequency.value = e.currentTarget.value;
   channel_2_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_frequency_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const channel_2_filter_Q_text_peaking = document.getElementById("channel_2_filter_Q_text_peaking");
@@ -2817,7 +2828,7 @@ const channel_2_filter_Q_peaking_value = document.getElementById("channel_2_filt
 channel_2_filter_Q_peaking.addEventListener("change", function (e) {
   channel_2_filter.Q.value = e.currentTarget.value;
   channel_2_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_Q_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_Q_peaking", e.currentTarget.value);
 });
 
 const channel_2_filter_detune_text_peaking = document.getElementById("channel_2_filter_detune_text_peaking");
@@ -2826,7 +2837,7 @@ const channel_2_filter_detune_peaking_value = document.getElementById("channel_2
 channel_2_filter_detune_peaking.addEventListener("change", function (e) {
   channel_2_filter.detune.value = e.currentTarget.value;
   channel_2_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_detune_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_detune_peaking", e.currentTarget.value);
 });
 
 const channel_2_filter_gain_text_peaking = document.getElementById("channel_2_filter_gain_text_peaking");
@@ -2835,7 +2846,7 @@ const channel_2_filter_gain_peaking_value = document.getElementById("channel_2_f
 channel_2_filter_gain_peaking.addEventListener("change", function (e) {
   channel_2_filter.gain.value = e.currentTarget.value;
   channel_2_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_gain_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -2845,7 +2856,7 @@ const channel_2_filter_frequency_text_allpass = document.getElementById("channel
 channel_2_filter_frequency_allpass.addEventListener("change", function (e) {
   channel_2_filter.frequency.value = e.currentTarget.value;
   channel_2_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_frequency_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const channel_2_filter_Q_allpass = document.getElementById("channel_2_filter_Q_allpass");
@@ -2854,7 +2865,7 @@ const channel_2_filter_Q_text_allpass = document.getElementById("channel_2_filte
 channel_2_filter_Q_allpass.addEventListener("change", function (e) {
   channel_2_filter.Q.value = e.currentTarget.value;
   channel_2_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_Q_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const channel_2_filter_detune_allpass = document.getElementById("channel_2_filter_detune_allpass");
@@ -2863,7 +2874,7 @@ const channel_2_filter_detune_text_allpass = document.getElementById("channel_2_
 channel_2_filter_detune_allpass.addEventListener("change", function (e) {
   channel_2_filter.detune.value = e.currentTarget.value;
   channel_2_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_detune_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const channel_2_filter_eq_On_Button = document.getElementById("channel_2_filter_eq_On_Button");
@@ -2879,7 +2890,7 @@ channel_3_filter_1_select.addEventListener("change", function (e) {
       {
         channel_3_filter.type = e.currentTarget.value;
         channel_3_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_select", e.currentTarget.value);
         if (channel_3_filter_eq_type == "on") {
           hide_all_EQ_divs("3");
           channel_3_allpass_controls_div.style.display = "block";
@@ -2891,14 +2902,14 @@ channel_3_filter_1_select.addEventListener("change", function (e) {
       {
         channel_3_filter.type = e.currentTarget.value;
         channel_3_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
       {
         channel_3_filter.type = e.currentTarget.value;
         channel_3_filter_eq_type = "peaking";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_select", e.currentTarget.value);
         break;
       }
     case "empty": {
@@ -2910,7 +2921,7 @@ channel_3_filter_1_select.addEventListener("change", function (e) {
         gain: 0,
         rolloff: -96,
       });
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_select", "empty");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_select", "empty");
       break;
     }
     default:
@@ -2925,7 +2936,7 @@ const channel_3_filter_frequency_shelf_value = document.getElementById("channel_
 channel_3_filter_frequency_shelf.addEventListener("change", function (e) {
   channel_3_filter.frequency.value = e.currentTarget.value;
   channel_3_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_frequency_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const channel_3_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -2934,7 +2945,7 @@ const channel_3_filter_detune_shelf_value = document.getElementById("channel_3_f
 channel_3_filter_detune_shelf.addEventListener("change", function (e) {
   channel_3_filter.detune.value = e.currentTarget.value;
   channel_3_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_detune_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const channel_3_filter_gain_text_shelf = document.getElementById("channel_3_filter_gain_text_shelf");
@@ -2942,7 +2953,7 @@ const channel_3_filter_gain_shelf = document.getElementById("channel_3_filter_ga
 const channel_3_filter_gain_shelf_value = document.getElementById("channel_3_filter_gain_shelf_value");
 channel_3_filter_gain_shelf.addEventListener("change", function (e) {
   channel_3_filter.gain.value = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_gain_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_gain_shelf", e.currentTarget.value);
   channel_3_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -2953,7 +2964,7 @@ const channel_3_filter_frequency_peaking_value = document.getElementById("channe
 channel_3_filter_frequency_peaking.addEventListener("change", function (e) {
   channel_3_filter.frequency.value = e.currentTarget.value;
   channel_3_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_frequency_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const channel_3_filter_Q_text_peaking = document.getElementById("channel_3_filter_Q_text_peaking");
@@ -2962,7 +2973,7 @@ const channel_3_filter_Q_peaking_value = document.getElementById("channel_3_filt
 channel_3_filter_Q_peaking.addEventListener("change", function (e) {
   channel_3_filter.Q.value = e.currentTarget.value;
   channel_3_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_Q_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_Q_peaking", e.currentTarget.value);
 });
 
 const channel_3_filter_detune_text_peaking = document.getElementById("channel_3_filter_detune_text_peaking");
@@ -2971,7 +2982,7 @@ const channel_3_filter_detune_peaking_value = document.getElementById("channel_3
 channel_3_filter_detune_peaking.addEventListener("change", function (e) {
   channel_3_filter.detune.value = e.currentTarget.value;
   channel_3_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_detune_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_detune_peaking", e.currentTarget.value);
 });
 
 const channel_3_filter_gain_text_peaking = document.getElementById("channel_3_filter_gain_text_peaking");
@@ -2980,7 +2991,7 @@ const channel_3_filter_gain_peaking_value = document.getElementById("channel_3_f
 channel_3_filter_gain_peaking.addEventListener("change", function (e) {
   channel_3_filter.gain.value = e.currentTarget.value;
   channel_3_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_gain_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -2990,7 +3001,7 @@ const channel_3_filter_frequency_text_allpass = document.getElementById("channel
 channel_3_filter_frequency_allpass.addEventListener("change", function (e) {
   channel_3_filter.frequency.value = e.currentTarget.value;
   channel_3_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_frequency_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const channel_3_filter_Q_allpass = document.getElementById("channel_3_filter_Q_allpass");
@@ -2999,7 +3010,7 @@ const channel_3_filter_Q_text_allpass = document.getElementById("channel_3_filte
 channel_3_filter_Q_allpass.addEventListener("change", function (e) {
   channel_3_filter.Q.value = e.currentTarget.value;
   channel_3_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_Q_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const channel_3_filter_detune_allpass = document.getElementById("channel_3_filter_detune_allpass");
@@ -3008,7 +3019,7 @@ const channel_3_filter_detune_text_allpass = document.getElementById("channel_3_
 channel_3_filter_detune_allpass.addEventListener("change", function (e) {
   channel_3_filter.detune.value = e.currentTarget.value;
   channel_3_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_detune_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const channel_3_filter_eq_On_Button = document.getElementById("channel_3_filter_eq_On_Button");
@@ -3024,7 +3035,7 @@ channel_4_filter_1_select.addEventListener("change", function (e) {
       {
         channel_4_filter.type = e.currentTarget.value;
         channel_4_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_select", e.currentTarget.value);
         if (channel_4_filter_eq_type == "on") {
           hide_all_EQ_divs("4");
           channel_4_allpass_controls_div.style.display = "block";
@@ -3036,14 +3047,14 @@ channel_4_filter_1_select.addEventListener("change", function (e) {
       {
         channel_4_filter.type = e.currentTarget.value;
         channel_4_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
       {
         channel_4_filter.type = e.currentTarget.value;
         channel_4_filter_eq_type = "peaking";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_select", e.currentTarget.value);
         break;
       }
     case "empty": {
@@ -3055,7 +3066,7 @@ channel_4_filter_1_select.addEventListener("change", function (e) {
         gain: 0,
         rolloff: -96,
       });
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_select", "empty");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_select", "empty");
       break;
     }
     default:
@@ -3070,7 +3081,7 @@ const channel_4_filter_frequency_shelf_value = document.getElementById("channel_
 channel_4_filter_frequency_shelf.addEventListener("change", function (e) {
   channel_4_filter.frequency.value = e.currentTarget.value;
   channel_4_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_frequency_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const channel_4_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -3079,7 +3090,7 @@ const channel_4_filter_detune_shelf_value = document.getElementById("channel_4_f
 channel_4_filter_detune_shelf.addEventListener("change", function (e) {
   channel_4_filter.detune.value = e.currentTarget.value;
   channel_4_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_detune_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const channel_4_filter_gain_text_shelf = document.getElementById("channel_4_filter_gain_text_shelf");
@@ -3087,7 +3098,7 @@ const channel_4_filter_gain_shelf = document.getElementById("channel_4_filter_ga
 const channel_4_filter_gain_shelf_value = document.getElementById("channel_4_filter_gain_shelf_value");
 channel_4_filter_gain_shelf.addEventListener("change", function (e) {
   channel_4_filter.gain.value = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_gain_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_gain_shelf", e.currentTarget.value);
   channel_4_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -3098,7 +3109,7 @@ const channel_4_filter_frequency_peaking_value = document.getElementById("channe
 channel_4_filter_frequency_peaking.addEventListener("change", function (e) {
   channel_4_filter.frequency.value = e.currentTarget.value;
   channel_4_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_frequency_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const channel_4_filter_Q_text_peaking = document.getElementById("channel_4_filter_Q_text_peaking");
@@ -3107,7 +3118,7 @@ const channel_4_filter_Q_peaking_value = document.getElementById("channel_4_filt
 channel_4_filter_Q_peaking.addEventListener("change", function (e) {
   channel_4_filter.Q.value = e.currentTarget.value;
   channel_4_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_Q_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_Q_peaking", e.currentTarget.value);
 });
 
 const channel_4_filter_detune_text_peaking = document.getElementById("channel_4_filter_detune_text_peaking");
@@ -3116,7 +3127,7 @@ const channel_4_filter_detune_peaking_value = document.getElementById("channel_4
 channel_4_filter_detune_peaking.addEventListener("change", function (e) {
   channel_4_filter.detune.value = e.currentTarget.value;
   channel_4_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_detune_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_detune_peaking", e.currentTarget.value);
 });
 
 const channel_4_filter_gain_text_peaking = document.getElementById("channel_4_filter_gain_text_peaking");
@@ -3125,7 +3136,7 @@ const channel_4_filter_gain_peaking_value = document.getElementById("channel_4_f
 channel_4_filter_gain_peaking.addEventListener("change", function (e) {
   channel_4_filter.gain.value = e.currentTarget.value;
   channel_4_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_gain_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -3135,7 +3146,7 @@ const channel_4_filter_frequency_text_allpass = document.getElementById("channel
 channel_4_filter_frequency_allpass.addEventListener("change", function (e) {
   channel_4_filter.frequency.value = e.currentTarget.value;
   channel_4_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_frequency_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const channel_4_filter_Q_allpass = document.getElementById("channel_4_filter_Q_allpass");
@@ -3144,7 +3155,7 @@ const channel_4_filter_Q_text_allpass = document.getElementById("channel_4_filte
 channel_4_filter_Q_allpass.addEventListener("change", function (e) {
   channel_4_filter.Q.value = e.currentTarget.value;
   channel_4_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_Q_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const channel_4_filter_detune_allpass = document.getElementById("channel_4_filter_detune_allpass");
@@ -3153,7 +3164,7 @@ const channel_4_filter_detune_text_allpass = document.getElementById("channel_4_
 channel_4_filter_detune_allpass.addEventListener("change", function (e) {
   channel_4_filter.detune.value = e.currentTarget.value;
   channel_4_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_detune_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const channel_4_filter_eq_On_Button = document.getElementById("channel_4_filter_eq_On_Button");
@@ -3169,7 +3180,7 @@ fx_1_filter_1_select.addEventListener("change", function (e) {
       {
         fx_1_filter.type = e.currentTarget.value;
         fx_1_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_select", e.currentTarget.value);
         if (fx_1_filter_eq_type == "on") {
           hide_all_EQ_divs("fx_1");
           fx_1_allpass_controls_div.style.display = "block";
@@ -3181,14 +3192,14 @@ fx_1_filter_1_select.addEventListener("change", function (e) {
       {
         fx_1_filter.type = e.currentTarget.value;
         fx_1_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
       {
         fx_1_filter.type = e.currentTarget.value;
         fx_1_filter_eq_type = "peaking";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_select", e.currentTarget.value);
         break;
       }
     case "empty": {
@@ -3200,7 +3211,7 @@ fx_1_filter_1_select.addEventListener("change", function (e) {
         gain: 0,
         rolloff: -96,
       });
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_select", "empty");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_select", "empty");
       break;
     }
     default:
@@ -3215,7 +3226,7 @@ const fx_1_filter_frequency_shelf_value = document.getElementById("fx_1_filter_f
 fx_1_filter_frequency_shelf.addEventListener("change", function (e) {
   fx_1_filter.frequency.value = e.currentTarget.value;
   fx_1_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_frequency_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const fx_1_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -3224,7 +3235,7 @@ const fx_1_filter_detune_shelf_value = document.getElementById("fx_1_filter_detu
 fx_1_filter_detune_shelf.addEventListener("change", function (e) {
   fx_1_filter.detune.value = e.currentTarget.value;
   fx_1_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_detune_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const fx_1_filter_gain_text_shelf = document.getElementById("fx_1_filter_gain_text_shelf");
@@ -3232,7 +3243,7 @@ const fx_1_filter_gain_shelf = document.getElementById("fx_1_filter_gain_shelf")
 const fx_1_filter_gain_shelf_value = document.getElementById("fx_1_filter_gain_shelf_value");
 fx_1_filter_gain_shelf.addEventListener("change", function (e) {
   fx_1_filter.gain.value = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_gain_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_gain_shelf", e.currentTarget.value);
   fx_1_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -3243,7 +3254,7 @@ const fx_1_filter_frequency_peaking_value = document.getElementById("fx_1_filter
 fx_1_filter_frequency_peaking.addEventListener("change", function (e) {
   fx_1_filter.frequency.value = e.currentTarget.value;
   fx_1_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_frequency_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const fx_1_filter_Q_text_peaking = document.getElementById("fx_1_filter_Q_text_peaking");
@@ -3252,7 +3263,7 @@ const fx_1_filter_Q_peaking_value = document.getElementById("fx_1_filter_Q_peaki
 fx_1_filter_Q_peaking.addEventListener("change", function (e) {
   fx_1_filter.Q.value = e.currentTarget.value;
   fx_1_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_Q_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_Q_peaking", e.currentTarget.value);
 });
 
 const fx_1_filter_detune_text_peaking = document.getElementById("fx_1_filter_detune_text_peaking");
@@ -3261,7 +3272,7 @@ const fx_1_filter_detune_peaking_value = document.getElementById("fx_1_filter_de
 fx_1_filter_detune_peaking.addEventListener("change", function (e) {
   fx_1_filter.detune.value = e.currentTarget.value;
   fx_1_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_detune_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_detune_peaking", e.currentTarget.value);
 });
 
 const fx_1_filter_gain_text_peaking = document.getElementById("fx_1_filter_gain_text_peaking");
@@ -3270,7 +3281,7 @@ const fx_1_filter_gain_peaking_value = document.getElementById("fx_1_filter_gain
 fx_1_filter_gain_peaking.addEventListener("change", function (e) {
   fx_1_filter.gain.value = e.currentTarget.value;
   fx_1_filter_gain_value_peaking.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_gain_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -3280,7 +3291,7 @@ const fx_1_filter_frequency_text_allpass = document.getElementById("fx_1_filter_
 fx_1_filter_frequency_allpass.addEventListener("change", function (e) {
   fx_1_filter.frequency.value = e.currentTarget.value;
   fx_1_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_frequency_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const fx_1_filter_Q_allpass = document.getElementById("fx_1_filter_Q_allpass");
@@ -3289,7 +3300,7 @@ const fx_1_filter_Q_text_allpass = document.getElementById("fx_1_filter_Q_text_a
 fx_1_filter_Q_allpass.addEventListener("change", function (e) {
   fx_1_filter.Q.value = e.currentTarget.value;
   fx_1_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_Q_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const fx_1_filter_detune_allpass = document.getElementById("fx_1_filter_detune_allpass");
@@ -3298,7 +3309,7 @@ const fx_1_filter_detune_text_allpass = document.getElementById("fx_1_filter_det
 fx_1_filter_detune_allpass.addEventListener("change", function (e) {
   fx_1_filter.detune.value = e.currentTarget.value;
   fx_1_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_detune_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const fx_1_filter_eq_On_Button = document.getElementById("fx_1_filter_eq_On_Button");
@@ -3314,7 +3325,7 @@ fx_2_filter_1_select.addEventListener("change", function (e) {
       {
         fx_2_filter.type = e.currentTarget.value;
         fx_2_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_select", e.currentTarget.value);
         if (fx_2_filter_eq_type == "on") {
           hide_all_EQ_divs("fx_2");
           fx_2_allpass_controls_div.style.display = "block";
@@ -3326,14 +3337,14 @@ fx_2_filter_1_select.addEventListener("change", function (e) {
       {
         fx_2_filter.type = e.currentTarget.value;
         fx_2_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
       {
         fx_2_filter.type = e.currentTarget.value;
         fx_2_filter_eq_type = "peaking";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_select", e.currentTarget.value);
         break;
       }
     case "empty": {
@@ -3345,7 +3356,7 @@ fx_2_filter_1_select.addEventListener("change", function (e) {
         gain: 0,
         rolloff: -96,
       });
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_select", "empty");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_select", "empty");
       break;
     }
     default:
@@ -3360,7 +3371,7 @@ const fx_2_filter_frequency_shelf_value = document.getElementById("fx_2_filter_f
 fx_2_filter_frequency_shelf.addEventListener("change", function (e) {
   fx_2_filter.frequency.value = e.currentTarget.value;
   fx_2_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_frequency_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const fx_2_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -3369,7 +3380,7 @@ const fx_2_filter_detune_shelf_value = document.getElementById("fx_2_filter_detu
 fx_2_filter_detune_shelf.addEventListener("change", function (e) {
   fx_2_filter.detune.value = e.currentTarget.value;
   fx_2_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_detune_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const fx_2_filter_gain_text_shelf = document.getElementById("fx_2_filter_gain_text_shelf");
@@ -3377,7 +3388,7 @@ const fx_2_filter_gain_shelf = document.getElementById("fx_2_filter_gain_shelf")
 const fx_2_filter_gain_shelf_value = document.getElementById("fx_2_filter_gain_shelf_value");
 fx_2_filter_gain_shelf.addEventListener("change", function (e) {
   fx_2_filter.gain.value = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_gain_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_gain_shelf", e.currentTarget.value);
   fx_2_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -3388,7 +3399,7 @@ const fx_2_filter_frequency_peaking_value = document.getElementById("fx_2_filter
 fx_2_filter_frequency_peaking.addEventListener("change", function (e) {
   fx_2_filter.frequency.value = e.currentTarget.value;
   fx_2_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_frequency_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const fx_2_filter_Q_text_peaking = document.getElementById("fx_2_filter_Q_text_peaking");
@@ -3397,7 +3408,7 @@ const fx_2_filter_Q_peaking_value = document.getElementById("fx_2_filter_Q_peaki
 fx_2_filter_Q_peaking.addEventListener("change", function (e) {
   fx_2_filter.Q.value = e.currentTarget.value;
   fx_2_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_Q_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_Q_peaking", e.currentTarget.value);
 });
 
 const fx_2_filter_detune_text_peaking = document.getElementById("fx_2_filter_detune_text_peaking");
@@ -3406,7 +3417,7 @@ const fx_2_filter_detune_peaking_value = document.getElementById("fx_2_filter_de
 fx_2_filter_detune_peaking.addEventListener("change", function (e) {
   fx_2_filter.detune.value = e.currentTarget.value;
   fx_2_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_detune_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_detune_peaking", e.currentTarget.value);
 });
 
 const fx_2_filter_gain_text_peaking = document.getElementById("fx_2_filter_gain_text_peaking");
@@ -3415,7 +3426,7 @@ const fx_2_filter_gain_peaking_value = document.getElementById("fx_2_filter_gain
 fx_2_filter_gain_peaking.addEventListener("change", function (e) {
   fx_2_filter.gain.value = e.currentTarget.value;
   fx_2_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_gain_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -3425,7 +3436,7 @@ const fx_2_filter_frequency_text_allpass = document.getElementById("fx_2_filter_
 fx_2_filter_frequency_allpass.addEventListener("change", function (e) {
   fx_2_filter.frequency.value = e.currentTarget.value;
   fx_2_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_frequency_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const fx_2_filter_Q_allpass = document.getElementById("fx_2_filter_Q_allpass");
@@ -3434,7 +3445,7 @@ const fx_2_filter_Q_text_allpass = document.getElementById("fx_2_filter_Q_text_a
 fx_2_filter_Q_allpass.addEventListener("change", function (e) {
   fx_2_filter.Q.value = e.currentTarget.value;
   fx_2_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_Q_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const fx_2_filter_detune_allpass = document.getElementById("fx_2_filter_detune_allpass");
@@ -3443,7 +3454,7 @@ const fx_2_filter_detune_text_allpass = document.getElementById("fx_2_filter_det
 fx_2_filter_detune_allpass.addEventListener("change", function (e) {
   fx_2_filter.detune.value = e.currentTarget.value;
   fx_2_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_detune_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const fx_2_filter_eq_On_Button = document.getElementById("fx_2_filter_eq_On_Button");
@@ -3459,7 +3470,7 @@ fx_3_filter_1_select.addEventListener("change", function (e) {
       {
         fx_3_filter.type = e.currentTarget.value;
         fx_3_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_select", e.currentTarget.value);
         if (fx_3_filter_eq_type == "on") {
           hide_all_EQ_divs("fx_3");
           fx_3_allpass_controls_div.style.display = "block";
@@ -3471,14 +3482,14 @@ fx_3_filter_1_select.addEventListener("change", function (e) {
       {
         fx_3_filter.type = e.currentTarget.value;
         fx_3_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
       {
         fx_3_filter.type = e.currentTarget.value;
         fx_3_filter_eq_type = "peaking";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_select", e.currentTarget.value);
         break;
       }
     case "empty": {
@@ -3490,7 +3501,7 @@ fx_3_filter_1_select.addEventListener("change", function (e) {
         gain: 0,
         rolloff: -96,
       });
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_select", "empty");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_select", "empty");
       break;
     }
     default:
@@ -3505,7 +3516,7 @@ const fx_3_filter_frequency_shelf_value = document.getElementById("fx_3_filter_f
 fx_3_filter_frequency_shelf.addEventListener("change", function (e) {
   fx_3_filter.frequency.value = e.currentTarget.value;
   fx_3_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_frequency_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const fx_3_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -3514,7 +3525,7 @@ const fx_3_filter_detune_shelf_value = document.getElementById("fx_3_filter_detu
 fx_3_filter_detune_shelf.addEventListener("change", function (e) {
   fx_3_filter.detune.value = e.currentTarget.value;
   fx_3_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_detune_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const fx_3_filter_gain_text_shelf = document.getElementById("fx_3_filter_gain_text_shelf");
@@ -3522,7 +3533,7 @@ const fx_3_filter_gain_shelf = document.getElementById("fx_3_filter_gain_shelf")
 const fx_3_filter_gain_shelf_value = document.getElementById("fx_3_filter_gain_shelf_value");
 fx_3_filter_gain_shelf.addEventListener("change", function (e) {
   fx_3_filter.gain.value = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_gain_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_gain_shelf", e.currentTarget.value);
   fx_3_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -3533,7 +3544,7 @@ const fx_3_filter_frequency_peaking_value = document.getElementById("fx_3_filter
 fx_3_filter_frequency_peaking.addEventListener("change", function (e) {
   fx_3_filter.frequency.value = e.currentTarget.value;
   fx_3_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_frequency_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const fx_3_filter_Q_text_peaking = document.getElementById("fx_3_filter_Q_text_peaking");
@@ -3542,7 +3553,7 @@ const fx_3_filter_Q_peaking_value = document.getElementById("fx_3_filter_Q_peaki
 fx_3_filter_Q_peaking.addEventListener("change", function (e) {
   fx_3_filter.Q.value = e.currentTarget.value;
   fx_3_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_Q_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_Q_peaking", e.currentTarget.value);
 });
 
 const fx_3_filter_detune_text_peaking = document.getElementById("fx_3_filter_detune_text_peaking");
@@ -3551,7 +3562,7 @@ const fx_3_filter_detune_peaking_value = document.getElementById("fx_3_filter_de
 fx_3_filter_detune_peaking.addEventListener("change", function (e) {
   fx_3_filter.detune.value = e.currentTarget.value;
   fx_3_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_detune_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_detune_peaking", e.currentTarget.value);
 });
 
 const fx_3_filter_gain_text_peaking = document.getElementById("fx_3_filter_gain_text_peaking");
@@ -3560,7 +3571,7 @@ const fx_3_filter_gain_peaking_value = document.getElementById("fx_3_filter_gain
 fx_3_filter_gain_peaking.addEventListener("change", function (e) {
   fx_3_filter.gain.value = e.currentTarget.value;
   fx_3_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_gain_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -3570,7 +3581,7 @@ const fx_3_filter_frequency_text_allpass = document.getElementById("fx_3_filter_
 fx_3_filter_frequency_allpass.addEventListener("change", function (e) {
   fx_3_filter.frequency.value = e.currentTarget.value;
   fx_3_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_frequency_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const fx_3_filter_Q_allpass = document.getElementById("fx_3_filter_Q_allpass");
@@ -3579,7 +3590,7 @@ const fx_3_filter_Q_text_allpass = document.getElementById("fx_3_filter_Q_text_a
 fx_3_filter_Q_allpass.addEventListener("change", function (e) {
   fx_3_filter.Q.value = e.currentTarget.value;
   fx_3_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_Q_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const fx_3_filter_detune_allpass = document.getElementById("fx_3_filter_detune_allpass");
@@ -3588,7 +3599,7 @@ const fx_3_filter_detune_text_allpass = document.getElementById("fx_3_filter_det
 fx_3_filter_detune_allpass.addEventListener("change", function (e) {
   fx_3_filter.detune.value = e.currentTarget.value;
   fx_3_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_detune_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const fx_3_filter_eq_On_Button = document.getElementById("fx_3_filter_eq_On_Button");
@@ -3604,7 +3615,7 @@ fx_4_filter_1_select.addEventListener("change", function (e) {
       {
         fx_4_filter.type = e.currentTarget.value;
         fx_4_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_select", e.currentTarget.value);
         if (fx_4_filter_eq_type == "on") {
           hide_all_EQ_divs("fx_4");
           fx_4_allpass_controls_div.style.display = "block";
@@ -3616,14 +3627,14 @@ fx_4_filter_1_select.addEventListener("change", function (e) {
       {
         fx_4_filter.type = e.currentTarget.value;
         fx_4_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
       {
         fx_4_filter.type = e.currentTarget.value;
         fx_4_filter_eq_type = "peaking";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_select", e.currentTarget.value);
         break;
       }
     case "empty": {
@@ -3635,7 +3646,7 @@ fx_4_filter_1_select.addEventListener("change", function (e) {
         gain: 0,
         rolloff: -96,
       });
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_select", "empty");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_select", "empty");
       break;
     }
     default:
@@ -3650,7 +3661,7 @@ const fx_4_filter_frequency_shelf_value = document.getElementById("fx_4_filter_f
 fx_4_filter_frequency_shelf.addEventListener("change", function (e) {
   fx_4_filter.frequency.value = e.currentTarget.value;
   fx_4_filter_frequency_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_frequency_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_frequency_text_shelf", e.currentTarget.value);
 });
 
 const fx_4_filter_detune_text_shelf = document.getElementById("player_1_filter_detune_text_shelf");
@@ -3659,7 +3670,7 @@ const fx_4_filter_detune_shelf_value = document.getElementById("fx_4_filter_detu
 fx_4_filter_detune_shelf.addEventListener("change", function (e) {
   fx_4_filter.detune.value = e.currentTarget.value;
   fx_4_filter_detune_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_detune_text_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_detune_text_shelf", e.currentTarget.value);
 });
 
 const fx_4_filter_gain_text_shelf = document.getElementById("fx_4_filter_gain_text_shelf");
@@ -3667,7 +3678,7 @@ const fx_4_filter_gain_shelf = document.getElementById("fx_4_filter_gain_shelf")
 const fx_4_filter_gain_shelf_value = document.getElementById("fx_4_filter_gain_shelf_value");
 fx_4_filter_gain_shelf.addEventListener("change", function (e) {
   fx_4_filter.gain.value = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_gain_shelf", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_gain_shelf", e.currentTarget.value);
   fx_4_filter_gain_shelf_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 });
 
@@ -3678,7 +3689,7 @@ const fx_4_filter_frequency_peaking_value = document.getElementById("fx_4_filter
 fx_4_filter_frequency_peaking.addEventListener("change", function (e) {
   fx_4_filter.frequency.value = e.currentTarget.value;
   fx_4_filter_frequency_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_frequency_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_frequency_peaking", e.currentTarget.value);
 });
 
 const fx_4_filter_Q_text_peaking = document.getElementById("fx_4_filter_Q_text_peaking");
@@ -3687,7 +3698,7 @@ const fx_4_filter_Q_peaking_value = document.getElementById("fx_4_filter_Q_peaki
 fx_4_filter_Q_peaking.addEventListener("change", function (e) {
   fx_4_filter.Q.value = e.currentTarget.value;
   fx_4_filter_Q_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_Q_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_Q_peaking", e.currentTarget.value);
 });
 
 const fx_4_filter_detune_text_peaking = document.getElementById("fx_4_filter_detune_text_peaking");
@@ -3696,7 +3707,7 @@ const fx_4_filter_detune_peaking_value = document.getElementById("fx_4_filter_de
 fx_4_filter_detune_peaking.addEventListener("change", function (e) {
   fx_4_filter.detune.value = e.currentTarget.value;
   fx_4_filter_detune_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_detune_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_detune_peaking", e.currentTarget.value);
 });
 
 const fx_4_filter_gain_text_peaking = document.getElementById("fx_4_filter_gain_text_peaking");
@@ -3705,7 +3716,7 @@ const fx_4_filter_gain_peaking_value = document.getElementById("fx_4_filter_gain
 fx_4_filter_gain_peaking.addEventListener("change", function (e) {
   fx_4_filter.gain.value = e.currentTarget.value;
   fx_4_filter_gain_peaking_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_gain_peaking", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_gain_peaking", e.currentTarget.value);
 });
 
 //ALLPASS
@@ -3715,7 +3726,7 @@ const fx_4_filter_frequency_text_allpass = document.getElementById("fx_4_filter_
 fx_4_filter_frequency_allpass.addEventListener("change", function (e) {
   fx_4_filter.frequency.value = e.currentTarget.value;
   fx_4_filter_frequency_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_frequency_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_frequency_allpass_value", e.currentTarget.value);
 });
 
 const fx_4_filter_Q_allpass = document.getElementById("fx_4_filter_Q_allpass");
@@ -3724,7 +3735,7 @@ const fx_4_filter_Q_text_allpass = document.getElementById("fx_4_filter_Q_text_a
 fx_4_filter_Q_allpass.addEventListener("change", function (e) {
   fx_4_filter.Q.value = e.currentTarget.value;
   fx_4_filter_Q_allpass_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_Q_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_Q_allpass_value", e.currentTarget.value);
 });
 
 const fx_4_filter_detune_allpass = document.getElementById("fx_4_filter_detune_allpass");
@@ -3733,7 +3744,7 @@ const fx_4_filter_detune_text_allpass = document.getElementById("fx_4_filter_det
 fx_4_filter_detune_allpass.addEventListener("change", function (e) {
   fx_4_filter.detune.value = e.currentTarget.value;
   fx_4_filter_detune_allpass_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_detune_allpass_value", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_detune_allpass_value", e.currentTarget.value);
 });
 
 const fx_4_filter_eq_On_Button = document.getElementById("fx_4_filter_eq_On_Button");
@@ -3823,11 +3834,11 @@ audio_card_channel_fxSend_1.addEventListener("change", function (e) {
     audio_card_channel_fxSend_1_postFdr_volNode.volume.value = -100;
     audio_card_channel_fxSend_1_value.innerHTML = -100;
     audio_card_channel_fxSend_1.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_1", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_1", -100);
   }
   else {
     const nombre = "audio_card_channel_fxSend_1";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_1", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_1", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -3840,11 +3851,11 @@ audio_card_channel_fxSend_2.addEventListener("change", function (e) {
     audio_card_channel_fxSend_2_postFdr_volNode.volume.value = -100;
     audio_card_channel_fxSend_2_value.innerHTML = -100;
     audio_card_channel_fxSend_2.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_2", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_2", -100);
   }
   else {
     const nombre = "audio_card_channel_fxSend_2";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_2", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_2", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -3857,11 +3868,11 @@ audio_card_channel_fxSend_3.addEventListener("change", function (e) {
     audio_card_channel_fxSend_3_postFdr_volNode.volume.value = -100;
     audio_card_channel_fxSend_3_value.innerHTML = -100;
     audio_card_channel_fxSend_3.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_3", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_3", -100);
   }
   else {
     const nombre = "audio_card_channel_fxSend_3";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_3", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_3", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -3874,11 +3885,11 @@ audio_card_channel_fxSend_4.addEventListener("change", function (e) {
     audio_card_channel_fxSend_4_postFdr_volNode.volume.value = -100;
     audio_card_channel_fxSend_4_value.innerHTML = -100;
     audio_card_channel_fxSend_4.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_4", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_4", -100);
   }
   else {
     const nombre = "audio_card_channel_fxSend_4";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_4", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_4", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -3918,11 +3929,11 @@ channel_1_fxSend_1.addEventListener("change", function (e) {
     channel_1_fxSend_1_postFdr_volNode.volume.value = -100;
     channel_1_fxSend_1_value.innerHTML = -100;
     channel_1_fxSend_1.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_1", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_1", -100);
   }
   else {
     const nombre = "channel_1_fxSend_1";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_1", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_1", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -3935,11 +3946,11 @@ channel_1_fxSend_2.addEventListener("change", function (e) {
     channel_1_fxSend_2_postFdr_volNode.volume.value = -100;
     channel_1_fxSend_2_value.innerHTML = -100;
     channel_1_fxSend_2.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_2", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_2", -100);
   }
   else {
     const nombre = "channel_1_fxSend_2";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_2", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_2", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -3952,11 +3963,11 @@ channel_1_fxSend_3.addEventListener("change", function (e) {
     channel_1_fxSend_3_postFdr_volNode.volume.value = -100;
     channel_1_fxSend_3_value.innerHTML = -100;
     channel_1_fxSend_3.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_3", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_3", -100);
   }
   else {
     const nombre = "channel_1_fxSend_3";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_3", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_3", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -3969,11 +3980,11 @@ channel_1_fxSend_4.addEventListener("change", function (e) {
     channel_1_fxSend_4_postFdr_volNode.volume.value = -100;
     channel_1_fxSend_4_value.innerHTML = -100;
     channel_1_fxSend_4.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_4", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_4", -100);
   }
   else {
     const nombre = "channel_1_fxSend_4";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_4", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_4", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4015,11 +4026,11 @@ channel_2_fxSend_1.addEventListener("change", function (e) {
     channel_2_fxSend_1_postFdr_volNode.volume.value = -100;
     channel_2_fxSend_1_value.innerHTML = -100;
     channel_2_fxSend_1.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_1", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_1", -100);
   }
   else {
     const nombre = "channel_2_fxSend_1";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_1", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_1", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4032,11 +4043,11 @@ channel_2_fxSend_2.addEventListener("change", function (e) {
     channel_2_fxSend_2_postFdr_volNode.volume.value = -100;
     channel_2_fxSend_2_value.innerHTML = -100;
     channel_2_fxSend_2.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_2", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_2", -100);
   }
   else {
     const nombre = "channel_2_fxSend_2";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_2", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_2", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4049,11 +4060,11 @@ channel_2_fxSend_3.addEventListener("change", function (e) {
     channel_2_fxSend_3_postFdr_volNode.volume.value = -100;
     channel_2_fxSend_3_value.innerHTML = -100;
     channel_2_fxSend_3.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_3", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_3", -100);
   }
   else {
     const nombre = "channel_2_fxSend_3";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_3", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_3", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4066,11 +4077,11 @@ channel_2_fxSend_4.addEventListener("change", function (e) {
     channel_2_fxSend_4_postFdr_volNode.volume.value = -100;
     channel_2_fxSend_4_value.innerHTML = -100;
     channel_2_fxSend_4.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_4", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_4", -100);
   }
   else {
     const nombre = "channel_2_fxSend_4";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_4", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_4", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4113,11 +4124,11 @@ channel_3_fxSend_1.addEventListener("change", function (e) {
     channel_3_fxSend_1_postFdr_volNode.volume.value = -100;
     channel_3_fxSend_1_value.innerHTML = -100;
     channel_3_fxSend_1.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_1", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_1", -100);
   }
   else {
     const nombre = "channel_3_fxSend_1";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_1", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_1", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4130,11 +4141,11 @@ channel_3_fxSend_2.addEventListener("change", function (e) {
     channel_3_fxSend_2_postFdr_volNode.volume.value = -100;
     channel_3_fxSend_2_value.innerHTML = -100;
     channel_3_fxSend_2.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_2", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_2", -100);
   }
   else {
     const nombre = "channel_3_fxSend_2";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_2", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_2", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4147,11 +4158,11 @@ channel_3_fxSend_3.addEventListener("change", function (e) {
     channel_3_fxSend_3_postFdr_volNode.volume.value = -100;
     channel_3_fxSend_3_value.innerHTML = -100;
     channel_3_fxSend_3.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_3", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_3", -100);
   }
   else {
     const nombre = "channel_3_fxSend_3";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_3", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_3", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4164,11 +4175,11 @@ channel_3_fxSend_4.addEventListener("change", function (e) {
     channel_3_fxSend_4_postFdr_volNode.volume.value = -100;
     channel_3_fxSend_4_value.innerHTML = -100;
     channel_3_fxSend_4.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_4", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_4", -100);
   }
   else {
     const nombre = "channel_3_fxSend_4";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_4", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_4", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4210,11 +4221,11 @@ channel_4_fxSend_1.addEventListener("change", function (e) {
     channel_4_fxSend_1_postFdr_volNode.volume.value = -100;
     channel_4_fxSend_1_value.innerHTML = -100;
     channel_4_fxSend_1.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_1", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_1", -100);
   }
   else {
     const nombre = "channel_4_fxSend_1";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_1", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_1", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4227,11 +4238,11 @@ channel_4_fxSend_2.addEventListener("change", function (e) {
     channel_4_fxSend_2_postFdr_volNode.volume.value = -100;
     channel_4_fxSend_2_value.innerHTML = -100;
     channel_4_fxSend_2.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_2", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_2", -100);
   }
   else {
     const nombre = "channel_4_fxSend_2";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_2", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_2", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4244,11 +4255,11 @@ channel_4_fxSend_3.addEventListener("change", function (e) {
     channel_4_fxSend_3_postFdr_volNode.volume.value = -100;
     channel_4_fxSend_3_value.innerHTML = -100;
     channel_4_fxSend_3.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_3", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_3", -100);
   }
   else {
     const nombre = "channel_4_fxSend_3";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_3", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_3", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4261,11 +4272,11 @@ channel_4_fxSend_4.addEventListener("change", function (e) {
     channel_4_fxSend_4_postFdr_volNode.volume.value = -100;
     channel_4_fxSend_4_value.innerHTML = -100;
     channel_4_fxSend_4.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_4", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_4", -100);
   }
   else {
     const nombre = "channel_4_fxSend_4";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_4", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_4", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4302,11 +4313,11 @@ fx_1_fxSend_2.addEventListener("change", function (e) {
     fx_1_fxSend_2_postFdr_volNode.volume.value = -100;
     fx_1_fxSend_2_value.innerHTML = -100;
     fx_1_fxSend_2.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_2", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_fxSend_2", -100);
   }
   else {
     const nombre = "fx_1_fxSend_2";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_2", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_fxSend_2", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4320,11 +4331,11 @@ fx_1_fxSend_3.addEventListener("change", function (e) {
     fx_1_fxSend_3_postFdr_volNode.volume.value = -100;
     fx_1_fxSend_3_value.innerHTML = -100;
     fx_1_fxSend_3.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_3", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_fxSend_3", -100);
   }
   else {
     const nombre = "fx_1_fxSend_3";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_3", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_fxSend_3", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4338,11 +4349,11 @@ fx_1_fxSend_4.addEventListener("change", function (e) {
     fx_1_fxSend_4_postFdr_volNode.volume.value = -100;
     fx_1_fxSend_4_value.innerHTML = -100;
     fx_1_fxSend_4.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_4", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_fxSend_4", -100);
   }
   else {
     const nombre = "fx_1_fxSend_4";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_4", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_fxSend_4", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4376,11 +4387,11 @@ fx_2_fxSend_1.addEventListener("change", function (e) {
     fx_2_fxSend_1_postFdr_volNode.volume.value = -100;
     fx_2_fxSend_1_value.innerHTML = -100;
     fx_2_fxSend_1.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_1", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_1", -100);
   }
   else {
     const nombre = "fx_2_fxSend_1";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_1", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_1", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4394,11 +4405,11 @@ fx_2_fxSend_2.addEventListener("change", function (e) {
     fx_2_fxSend_2_postFdr_volNode.volume.value = -100;
     fx_2_fxSend_2_value.innerHTML = -100;
     fx_2_fxSend_2.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_2", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_2", -100);
   }
   else {
     const nombre = "fx_2_fxSend_2";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_2", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_2", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4412,11 +4423,11 @@ fx_2_fxSend_3.addEventListener("change", function (e) {
     fx_2_fxSend_3_postFdr_volNode.volume.value = -100;
     fx_2_fxSend_3_value.innerHTML = -100;
     fx_2_fxSend_3.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_3", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_3", -100);
   }
   else {
     const nombre = "fx_2_fxSend_3";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_3", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_3", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4430,11 +4441,11 @@ fx_2_fxSend_4.addEventListener("change", function (e) {
     fx_2_fxSend_4_postFdr_volNode.volume.value = -100;
     fx_2_fxSend_4_value.innerHTML = -100;
     fx_2_fxSend_4.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_4", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_4", -100);
   }
   else {
     const nombre = "fx_2_fxSend_4";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_4", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_4", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4469,11 +4480,11 @@ fx_3_fxSend_1.addEventListener("change", function (e) {
     fx_3_fxSend_1_postFdr_volNode.volume.value = -100;
     fx_3_fxSend_1_value.innerHTML = -100;
     fx_3_fxSend_1.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_1", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_1", -100);
   }
   else {
     const nombre = "fx_3_fxSend_1";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_1", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_1", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4487,11 +4498,11 @@ fx_3_fxSend_2.addEventListener("change", function (e) {
     fx_3_fxSend_2_postFdr_volNode.volume.value = -100;
     fx_3_fxSend_2_value.innerHTML = -100;
     fx_3_fxSend_2.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_2", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_2", -100);
   }
   else {
     const nombre = "fx_3_fxSend_2";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_2", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_2", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4505,11 +4516,11 @@ fx_3_fxSend_3.addEventListener("change", function (e) {
     fx_3_fxSend_3_postFdr_volNode.volume.value = -100;
     fx_3_fxSend_3_value.innerHTML = -100;
     fx_3_fxSend_3.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_3", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_3", -100);
   }
   else {
     const nombre = "fx_3_fxSend_3";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_3", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_3", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4523,11 +4534,11 @@ fx_3_fxSend_4.addEventListener("change", function (e) {
     fx_3_fxSend_4_postFdr_volNode.volume.value = -100;
     fx_3_fxSend_4_value.innerHTML = -100;
     fx_3_fxSend_4.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_4", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_4", -100);
   }
   else {
     const nombre = "fx_3_fxSend_4";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_4", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_4", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4560,11 +4571,11 @@ fx_4_fxSend_1.addEventListener("change", function (e) {
     fx_4_fxSend_1_postFdr_volNode.volume.value = -100;
     fx_4_fxSend_1_value.innerHTML = -100;
     fx_4_fxSend_1.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_1", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_1", -100);
   }
   else {
     const nombre = "fx_4_fxSend_1";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_1", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_1", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4578,11 +4589,11 @@ fx_4_fxSend_2.addEventListener("change", function (e) {
     fx_4_fxSend_2_postFdr_volNode.volume.value = -100;
     fx_4_fxSend_2_value.innerHTML = -100;
     fx_4_fxSend_2.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_2", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_2", -100);
   }
   else {
     const nombre = "fx_4_fxSend_2";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_2", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_2", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4596,11 +4607,11 @@ fx_4_fxSend_3.addEventListener("change", function (e) {
     fx_4_fxSend_3_postFdr_volNode.volume.value = -100;
     fx_4_fxSend_3_value.innerHTML = -100;
     fx_4_fxSend_3.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_3", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_3", -100);
   }
   else {
     const nombre = "fx_4_fxSend_3";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_3", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_3", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4614,11 +4625,11 @@ fx_4_fxSend_4.addEventListener("change", function (e) {
     fx_4_fxSend_4_postFdr_volNode.volume.value = -100;
     fx_4_fxSend_4_value.innerHTML = -100;
     fx_4_fxSend_4.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_4", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_4", -100);
   }
   else {
     const nombre = "fx_4_fxSend_4";
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_4", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_4", e.currentTarget.value);
     recieves_player_x_fxSend_x_value_Sets_Volume_value(e.currentTarget.value, nombre);
   }
 });
@@ -4783,7 +4794,7 @@ audio_card_channel_dynamics_ratio.addEventListener("change", function (e) {
   audio_card_channel_dynamics_compressorNode.ratio.value = e.currentTarget.value;
   audio_card_channel_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   audio_card_channel_dynamics_reduction_value.innerHTML = audio_card_channel_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_dynamics_ratio", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_dynamics_ratio", e.currentTarget.value);
 });
 
 const audio_card_channel_dynamics_threshold = document.getElementById("audio_card_channel_dynamics_threshold");
@@ -4792,7 +4803,7 @@ audio_card_channel_dynamics_threshold.addEventListener("change", function (e) {
   audio_card_channel_dynamics_compressorNode.threshold.value = e.currentTarget.value;
   audio_card_channel_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   audio_card_channel_dynamics_reduction_value.innerHTML = audio_card_channel_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_dynamics_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_dynamics_threshold", e.currentTarget.value);
 });
 
 const audio_card_channel_dynamics_release = document.getElementById("audio_card_channel_dynamics_release");
@@ -4801,7 +4812,7 @@ audio_card_channel_dynamics_release.addEventListener("change", function (e) {
   audio_card_channel_dynamics_compressorNode.release.value = e.currentTarget.value;
   audio_card_channel_dynamics_release_value.innerHTML = `${e.currentTarget.value}`;
   audio_card_channel_dynamics_reduction_value.innerHTML = audio_card_channel_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_dynamics_release", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_dynamics_release", e.currentTarget.value);
 });
 
 const audio_card_channel_dynamics_attack = document.getElementById("audio_card_channel_dynamics_attack");
@@ -4810,7 +4821,7 @@ audio_card_channel_dynamics_attack.addEventListener("change", function (e) {
   audio_card_channel_dynamics_compressorNode.attack.value = e.currentTarget.value;
   audio_card_channel_dynamics_attack_value.innerHTML = `${e.currentTarget.value}`;
   audio_card_channel_dynamics_reduction_value.innerHTML = audio_card_channel_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_dynamics_attack", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_dynamics_attack", e.currentTarget.value);
 });
 
 const audio_card_channel_dynamics_knee = document.getElementById("audio_card_channel_dynamics_knee");
@@ -4819,7 +4830,7 @@ audio_card_channel_dynamics_knee.addEventListener("change", function (e) {
   audio_card_channel_dynamics_compressorNode.knee.value = e.currentTarget.value;
   audio_card_channel_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   audio_card_channel_dynamics_reduction_value.innerHTML = audio_card_channel_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_dynamics_knee", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_dynamics_knee", e.currentTarget.value);
 });
 
 
@@ -4834,7 +4845,7 @@ channel_1_dynamics_ratio.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.ratio.value = e.currentTarget.value;
   channel_1_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_dynamics_ratio", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_dynamics_ratio", e.currentTarget.value);
 });
 
 const channel_1_dynamics_threshold = document.getElementById("channel_1_dynamics_threshold");
@@ -4843,7 +4854,7 @@ channel_1_dynamics_threshold.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.threshold.value = e.currentTarget.value;
   channel_1_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_dynamics_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_dynamics_threshold", e.currentTarget.value);
 });
 
 const channel_1_dynamics_release = document.getElementById("channel_1_dynamics_release");
@@ -4852,7 +4863,7 @@ channel_1_dynamics_release.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.release.value = e.currentTarget.value;
   channel_1_dynamics_release_value.innerHTML = `${e.currentTarget.value}`;
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_dynamics_release", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_dynamics_release", e.currentTarget.value);
 });
 
 const channel_1_dynamics_attack = document.getElementById("channel_1_dynamics_attack");
@@ -4861,7 +4872,7 @@ channel_1_dynamics_attack.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.attack.value = e.currentTarget.value;
   channel_1_dynamics_attack_value.innerHTML = `${e.currentTarget.value}`;
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_dynamics_attack", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_dynamics_attack", e.currentTarget.value);
 });
 
 const channel_1_dynamics_knee = document.getElementById("channel_1_dynamics_knee");
@@ -4870,7 +4881,7 @@ channel_1_dynamics_knee.addEventListener("change", function (e) {
   channel_1_dynamics_compressorNode.knee.value = e.currentTarget.value;
   channel_1_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_1_dynamics_reduction_value.innerHTML = channel_1_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_dynamics_knee", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_dynamics_knee", e.currentTarget.value);
 });
 //------------------
 const channel_2_compressor_On_Off_Button = document.getElementById("channel_2_compressor_On_Off_Button");
@@ -4884,7 +4895,7 @@ channel_2_dynamics_ratio.addEventListener("change", function (e) {
   channel_2_dynamics_compressorNode.ratio.value = e.currentTarget.value;
   channel_2_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_2_dynamics_reduction_value.innerHTML = channel_2_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_dynamics_ratio", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_dynamics_ratio", e.currentTarget.value);
 });
 
 const channel_2_dynamics_threshold = document.getElementById("channel_2_dynamics_threshold");
@@ -4893,7 +4904,7 @@ channel_2_dynamics_threshold.addEventListener("change", function (e) {
   channel_2_dynamics_compressorNode.threshold.value = e.currentTarget.value;
   channel_2_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_2_dynamics_reduction_value.innerHTML = channel_2_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_dynamics_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_dynamics_threshold", e.currentTarget.value);
 });
 
 const channel_2_dynamics_release = document.getElementById("channel_2_dynamics_release");
@@ -4902,7 +4913,7 @@ channel_2_dynamics_release.addEventListener("change", function (e) {
   channel_2_dynamics_compressorNode.release.value = e.currentTarget.value;
   channel_2_dynamics_release_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_2_dynamics_reduction_value.innerHTML = channel_2_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_dynamics_release", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_dynamics_release", e.currentTarget.value);
 });
 
 const channel_2_dynamics_attack = document.getElementById("channel_2_dynamics_attack");
@@ -4911,7 +4922,7 @@ channel_2_dynamics_attack.addEventListener("change", function (e) {
   channel_2_dynamics_compressorNode.attack.value = e.currentTarget.value;
   channel_2_dynamics_attack_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_2_dynamics_reduction_value.innerHTML = channel_2_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_dynamics_attack", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_dynamics_attack", e.currentTarget.value);
 });
 
 const channel_2_dynamics_knee = document.getElementById("channel_2_dynamics_knee");
@@ -4920,7 +4931,7 @@ channel_2_dynamics_knee.addEventListener("change", function (e) {
   channel_2_dynamics_compressorNode.knee.value = e.currentTarget.value;
   channel_2_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_2_dynamics_reduction_value.innerHTML = channel_2_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_dynamics_knee", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_dynamics_knee", e.currentTarget.value);
 });
 //------------------
 const channel_3_compressor_On_Off_Button = document.getElementById("channel_3_compressor_On_Off_Button");
@@ -4934,7 +4945,7 @@ channel_3_dynamics_ratio.addEventListener("change", function (e) {
   channel_3_dynamics_compressorNode.ratio.value = e.currentTarget.value;
   channel_3_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_3_dynamics_reduction_value.innerHTML = channel_3_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_dynamics_ratio", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_dynamics_ratio", e.currentTarget.value);
 });
 
 const channel_3_dynamics_threshold = document.getElementById("channel_3_dynamics_threshold");
@@ -4943,7 +4954,7 @@ channel_3_dynamics_threshold.addEventListener("change", function (e) {
   channel_3_dynamics_compressorNode.threshold.value = e.currentTarget.value;
   channel_3_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_3_dynamics_reduction_value.innerHTML = channel_3_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_dynamics_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_dynamics_threshold", e.currentTarget.value);
 });
 
 const channel_3_dynamics_release = document.getElementById("channel_3_dynamics_release");
@@ -4952,7 +4963,7 @@ channel_3_dynamics_release.addEventListener("change", function (e) {
   channel_3_dynamics_compressorNode.release.value = e.currentTarget.value;
   channel_3_dynamics_release_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_3_dynamics_reduction_value.innerHTML = channel_3_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_dynamics_release", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_dynamics_release", e.currentTarget.value);
 });
 
 const channel_3_dynamics_attack = document.getElementById("channel_3_dynamics_attack");
@@ -4961,7 +4972,7 @@ channel_3_dynamics_attack.addEventListener("change", function (e) {
   channel_3_dynamics_compressorNode.attack.value = e.currentTarget.value;
   channel_3_dynamics_attack_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_3_dynamics_reduction_value.innerHTML = channel_3_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_dynamics_attack", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_dynamics_attack", e.currentTarget.value);
 });
 
 const channel_3_dynamics_knee = document.getElementById("channel_3_dynamics_knee");
@@ -4970,7 +4981,7 @@ channel_3_dynamics_knee.addEventListener("change", function (e) {
   channel_3_dynamics_compressorNode.knee.value = e.currentTarget.value;
   channel_3_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_3_dynamics_reduction_value.innerHTML = channel_3_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_dynamics_knee", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_dynamics_knee", e.currentTarget.value);
 });
 //------------------
 const channel_4_compressor_On_Off_Button = document.getElementById("channel_4_compressor_On_Off_Button");
@@ -4984,7 +4995,7 @@ channel_4_dynamics_ratio.addEventListener("change", function (e) {
   channel_4_dynamics_compressorNode.ratio.value = e.currentTarget.value;
   channel_4_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_4_dynamics_reduction_value.innerHTML = channel_4_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_dynamics_ratio", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_dynamics_ratio", e.currentTarget.value);
 });
 
 const channel_4_dynamics_threshold = document.getElementById("channel_4_dynamics_threshold");
@@ -4993,7 +5004,7 @@ channel_4_dynamics_threshold.addEventListener("change", function (e) {
   channel_4_dynamics_compressorNode.threshold.value = e.currentTarget.value;
   channel_4_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_4_dynamics_reduction_value.innerHTML = channel_4_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_dynamics_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_dynamics_threshold", e.currentTarget.value);
 });
 
 const channel_4_dynamics_release = document.getElementById("channel_4_dynamics_release");
@@ -5002,7 +5013,7 @@ channel_4_dynamics_release.addEventListener("change", function (e) {
   channel_4_dynamics_compressorNode.release.value = e.currentTarget.value;
   channel_4_dynamics_release_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_4_dynamics_reduction_value.innerHTML = channel_4_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_dynamics_release", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_dynamics_release", e.currentTarget.value);
 });
 
 const channel_4_dynamics_attack = document.getElementById("channel_4_dynamics_attack");
@@ -5011,7 +5022,7 @@ channel_4_dynamics_attack.addEventListener("change", function (e) {
   channel_4_dynamics_compressorNode.attack.value = e.currentTarget.value;
   channel_4_dynamics_attack_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_4_dynamics_reduction_value.innerHTML = channel_4_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_dynamics_attack", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_dynamics_attack", e.currentTarget.value);
 });
 
 const channel_4_dynamics_knee = document.getElementById("channel_4_dynamics_knee");
@@ -5020,7 +5031,7 @@ channel_4_dynamics_knee.addEventListener("change", function (e) {
   channel_4_dynamics_compressorNode.knee.value = e.currentTarget.value;
   channel_4_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   channel_4_dynamics_reduction_value.innerHTML = channel_4_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_dynamics_knee", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_dynamics_knee", e.currentTarget.value);
 });
 
 const fx_1_compressor_On_Off_Button = document.getElementById("fx_1_compressor_On_Off_Button");
@@ -5034,7 +5045,7 @@ fx_1_dynamics_ratio.addEventListener("change", function (e) {
   fx_1_dynamics_compressorNode.ratio.value = e.currentTarget.value;
   fx_1_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_1_dynamics_reduction_value.innerHTML = fx_1_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_dynamics_ratio", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_dynamics_ratio", e.currentTarget.value);
 });
 
 const fx_1_dynamics_threshold = document.getElementById("fx_1_dynamics_threshold");
@@ -5043,7 +5054,7 @@ fx_1_dynamics_threshold.addEventListener("change", function (e) {
   fx_1_dynamics_compressorNode.threshold.value = e.currentTarget.value;
   fx_1_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_1_dynamics_reduction_value.innerHTML = fx_1_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_dynamics_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_dynamics_threshold", e.currentTarget.value);
 });
 
 const fx_1_dynamics_release = document.getElementById("fx_1_dynamics_release");
@@ -5052,7 +5063,7 @@ fx_1_dynamics_release.addEventListener("change", function (e) {
   fx_1_dynamics_compressorNode.release.value = e.currentTarget.value;
   fx_1_dynamics_release_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_1_dynamics_reduction_value.innerHTML = fx_1_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_dynamics_release", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_dynamics_release", e.currentTarget.value);
 });
 
 const fx_1_dynamics_attack = document.getElementById("fx_1_dynamics_attack");
@@ -5061,7 +5072,7 @@ fx_1_dynamics_attack.addEventListener("change", function (e) {
   fx_1_dynamics_compressorNode.attack.value = e.currentTarget.value;
   fx_1_dynamics_attack_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_1_dynamics_reduction_value.innerHTML = fx_1_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_dynamics_attack", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_dynamics_attack", e.currentTarget.value);
 });
 
 const fx_1_dynamics_knee = document.getElementById("fx_1_dynamics_knee");
@@ -5070,7 +5081,7 @@ fx_1_dynamics_knee.addEventListener("change", function (e) {
   fx_1_dynamics_compressorNode.knee.value = e.currentTarget.value;
   fx_1_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_1_dynamics_reduction_value.innerHTML = fx_1_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_dynamics_knee", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_dynamics_knee", e.currentTarget.value);
 });
 //------------------
 const fx_2_compressor_On_Off_Button = document.getElementById("fx_2_compressor_On_Off_Button");
@@ -5084,7 +5095,7 @@ fx_2_dynamics_ratio.addEventListener("change", function (e) {
   fx_2_dynamics_compressorNode.ratio.value = e.currentTarget.value;
   fx_2_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_2_dynamics_reduction_value.innerHTML = fx_2_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_dynamics_ratio", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_dynamics_ratio", e.currentTarget.value);
 });
 
 const fx_2_dynamics_threshold = document.getElementById("fx_2_dynamics_threshold");
@@ -5093,7 +5104,7 @@ fx_2_dynamics_threshold.addEventListener("change", function (e) {
   fx_2_dynamics_compressorNode.threshold.value = e.currentTarget.value;
   fx_2_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_2_dynamics_reduction_value.innerHTML = fx_2_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_dynamics_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_dynamics_threshold", e.currentTarget.value);
 });
 
 const fx_2_dynamics_release = document.getElementById("fx_2_dynamics_release");
@@ -5102,7 +5113,7 @@ fx_2_dynamics_release.addEventListener("change", function (e) {
   fx_2_dynamics_compressorNode.release.value = e.currentTarget.value;
   fx_2_dynamics_release_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_2_dynamics_reduction_value.innerHTML = fx_2_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_dynamics_release", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_dynamics_release", e.currentTarget.value);
 });
 
 const fx_2_dynamics_attack = document.getElementById("fx_2_dynamics_attack");
@@ -5111,7 +5122,7 @@ fx_2_dynamics_attack.addEventListener("change", function (e) {
   fx_2_dynamics_compressorNode.attack.value = e.currentTarget.value;
   fx_2_dynamics_attack_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_2_dynamics_reduction_value.innerHTML = fx_2_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_dynamics_attack", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_dynamics_attack", e.currentTarget.value);
 });
 
 const fx_2_dynamics_knee = document.getElementById("fx_2_dynamics_knee");
@@ -5120,7 +5131,7 @@ fx_2_dynamics_knee.addEventListener("change", function (e) {
   fx_2_dynamics_compressorNode.knee.value = e.currentTarget.value;
   fx_2_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_2_dynamics_reduction_value.innerHTML = fx_2_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_dynamics_knee", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_dynamics_knee", e.currentTarget.value);
 });
 //------------------
 const fx_3_compressor_On_Off_Button = document.getElementById("fx_3_compressor_On_Off_Button");
@@ -5134,7 +5145,7 @@ fx_3_dynamics_ratio.addEventListener("change", function (e) {
   fx_3_dynamics_compressorNode.ratio.value = e.currentTarget.value;
   fx_3_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_3_dynamics_reduction_value.innerHTML = fx_3_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_dynamics_ratio", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_dynamics_ratio", e.currentTarget.value);
 });
 
 const fx_3_dynamics_threshold = document.getElementById("fx_3_dynamics_threshold");
@@ -5143,7 +5154,7 @@ fx_3_dynamics_threshold.addEventListener("change", function (e) {
   fx_3_dynamics_compressorNode.threshold.value = e.currentTarget.value;
   fx_3_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_3_dynamics_reduction_value.innerHTML = fx_3_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_dynamics_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_dynamics_threshold", e.currentTarget.value);
 });
 
 const fx_3_dynamics_release = document.getElementById("fx_3_dynamics_release");
@@ -5152,7 +5163,7 @@ fx_3_dynamics_release.addEventListener("change", function (e) {
   fx_3_dynamics_compressorNode.release.value = e.currentTarget.value;
   fx_3_dynamics_release_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_3_dynamics_reduction_value.innerHTML = fx_3_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_dynamics_release", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_dynamics_release", e.currentTarget.value);
 });
 
 const fx_3_dynamics_attack = document.getElementById("fx_3_dynamics_attack");
@@ -5161,7 +5172,7 @@ fx_3_dynamics_attack.addEventListener("change", function (e) {
   fx_3_dynamics_compressorNode.attack.value = e.currentTarget.value;
   fx_3_dynamics_attack_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_3_dynamics_reduction_value.innerHTML = fx_3_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_dynamics_attack", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_dynamics_attack", e.currentTarget.value);
 });
 
 const fx_3_dynamics_knee = document.getElementById("fx_3_dynamics_knee");
@@ -5170,7 +5181,7 @@ fx_3_dynamics_knee.addEventListener("change", function (e) {
   fx_3_dynamics_compressorNode.knee.value = e.currentTarget.value;
   fx_3_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_3_dynamics_reduction_value.innerHTML = fx_3_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_dynamics_knee", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_dynamics_knee", e.currentTarget.value);
 });
 //------------------
 const fx_4_compressor_On_Off_Button = document.getElementById("fx_4_compressor_On_Off_Button");
@@ -5184,7 +5195,7 @@ fx_4_dynamics_ratio.addEventListener("change", function (e) {
   fx_4_dynamics_compressorNode.ratio.value = e.currentTarget.value;
   fx_4_dynamics_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_4_dynamics_reduction_value.innerHTML = fx_4_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_dynamics_ratio", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_dynamics_ratio", e.currentTarget.value);
 });
 
 const fx_4_dynamics_threshold = document.getElementById("fx_4_dynamics_threshold");
@@ -5193,7 +5204,7 @@ fx_4_dynamics_threshold.addEventListener("change", function (e) {
   fx_4_dynamics_compressorNode.threshold.value = e.currentTarget.value;
   fx_4_dynamics_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_4_dynamics_reduction_value.innerHTML = fx_4_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_dynamics_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_dynamics_threshold", e.currentTarget.value);
 });
 
 const fx_4_dynamics_release = document.getElementById("fx_4_dynamics_release");
@@ -5202,7 +5213,7 @@ fx_4_dynamics_release.addEventListener("change", function (e) {
   fx_4_dynamics_compressorNode.release.value = e.currentTarget.value;
   fx_4_dynamics_release_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_4_dynamics_reduction_value.innerHTML = fx_4_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_dynamics_release", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_dynamics_release", e.currentTarget.value);
 });
 
 const fx_4_dynamics_attack = document.getElementById("fx_4_dynamics_attack");
@@ -5211,7 +5222,7 @@ fx_4_dynamics_attack.addEventListener("change", function (e) {
   fx_4_dynamics_compressorNode.attack.value = e.currentTarget.value;
   fx_4_dynamics_attack_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_4_dynamics_reduction_value.innerHTML = fx_4_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_dynamics_attack", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_dynamics_attack", e.currentTarget.value);
 });
 
 const fx_4_dynamics_knee = document.getElementById("fx_4_dynamics_knee");
@@ -5220,7 +5231,7 @@ fx_4_dynamics_knee.addEventListener("change", function (e) {
   fx_4_dynamics_compressorNode.knee.value = e.currentTarget.value;
   fx_4_dynamics_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
   fx_4_dynamics_reduction_value.innerHTML = fx_4_dynamics_compressorNode.reduction;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_dynamics_knee", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_dynamics_knee", e.currentTarget.value);
 });
 //*********************************************************************************************** */ */
 //*********************************************************************************************** */
@@ -5239,7 +5250,7 @@ const audio_card_channel_gate_threshold_value = document.getElementById("audio_c
 audio_card_channel_gate_threshold.addEventListener("change", function (e) {
   audio_card_channel_dynamics_gateNode.threshold = e.currentTarget.value;
   audio_card_channel_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_gate_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_gate_threshold", e.currentTarget.value);
 });
 
 const audio_card_channel_gate_smoothing = document.getElementById("audio_card_channel_gate_smoothing");
@@ -5247,7 +5258,7 @@ const audio_card_channel_gate_smoothing_value = document.getElementById("audio_c
 audio_card_channel_gate_smoothing.addEventListener("change", function (e) {
   audio_card_channel_dynamics_gateNode.smoothing = e.currentTarget.value;
   audio_card_channel_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_gate_smoothing", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_gate_smoothing", e.currentTarget.value);
 });
 
 const channel_1_gate_On_Off_Button = document.getElementById("channel_1_gate_On_Off_Button");
@@ -5259,7 +5270,7 @@ const channel_1_gate_threshold_value = document.getElementById("channel_1_gate_t
 channel_1_gate_threshold.addEventListener("change", function (e) {
   channel_1_dynamics_gateNode.threshold = e.currentTarget.value;
   channel_1_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_gate_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_gate_threshold", e.currentTarget.value);
 });
 
 const channel_1_gate_smoothing = document.getElementById("channel_1_gate_smoothing");
@@ -5267,7 +5278,7 @@ const channel_1_gate_smoothing_value = document.getElementById("channel_1_gate_s
 channel_1_gate_smoothing.addEventListener("change", function (e) {
   channel_1_dynamics_gateNode.smoothing = e.currentTarget.value;
   channel_1_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_gate_smoothing", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_gate_smoothing", e.currentTarget.value);
 });
 //------------------
 const channel_2_gate_On_Off_Button = document.getElementById("channel_2_gate_On_Off_Button");
@@ -5279,7 +5290,7 @@ const channel_2_gate_threshold_value = document.getElementById("channel_2_gate_t
 channel_2_gate_threshold.addEventListener("change", function (e) {
   channel_2_dynamics_gateNode.threshold = e.currentTarget.value;
   channel_2_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_gate_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_gate_threshold", e.currentTarget.value);
 });
 
 const channel_2_gate_smoothing = document.getElementById("channel_2_gate_smoothing");
@@ -5287,7 +5298,7 @@ const channel_2_gate_smoothing_value = document.getElementById("channel_2_gate_s
 channel_2_gate_smoothing.addEventListener("change", function (e) {
   channel_2_dynamics_gateNode.smoothing = e.currentTarget.value;
   channel_2_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_gate_smoothing", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_gate_smoothing", e.currentTarget.value);
 });
 //------------------
 const channel_3_gate_On_Off_Button = document.getElementById("channel_3_gate_On_Off_Button");
@@ -5299,7 +5310,7 @@ const channel_3_gate_threshold_value = document.getElementById("channel_3_gate_t
 channel_3_gate_threshold.addEventListener("change", function (e) {
   channel_3_dynamics_gateNode.threshold = e.currentTarget.value;
   channel_3_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_gate_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_gate_threshold", e.currentTarget.value);
 });
 
 const channel_3_gate_smoothing = document.getElementById("channel_3_gate_smoothing");
@@ -5307,7 +5318,7 @@ const channel_3_gate_smoothing_value = document.getElementById("channel_3_gate_s
 channel_3_gate_smoothing.addEventListener("change", function (e) {
   channel_3_dynamics_gateNode.smoothing = e.currentTarget.value;
   channel_3_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_gate_smoothing", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_gate_smoothing", e.currentTarget.value);
 });
 //------------------
 const channel_4_gate_On_Off_Button = document.getElementById("channel_4_gate_On_Off_Button");
@@ -5319,7 +5330,7 @@ const channel_4_gate_threshold_value = document.getElementById("channel_4_gate_t
 channel_4_gate_threshold.addEventListener("change", function (e) {
   channel_4_dynamics_gateNode.threshold = e.currentTarget.value;
   channel_4_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_gate_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_gate_threshold", e.currentTarget.value);
 });
 
 const channel_4_gate_smoothing = document.getElementById("channel_4_gate_smoothing");
@@ -5327,7 +5338,7 @@ const channel_4_gate_smoothing_value = document.getElementById("channel_4_gate_s
 channel_4_gate_smoothing.addEventListener("change", function (e) {
   channel_4_dynamics_gateNode.smoothing = e.currentTarget.value;
   channel_4_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_gate_smoothing", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_gate_smoothing", e.currentTarget.value);
 });
 
 //*********************************************************************************************** */ */
@@ -5346,7 +5357,7 @@ const fx_1_gate_threshold_value = document.getElementById("fx_1_gate_threshold_v
 fx_1_gate_threshold.addEventListener("change", function (e) {
   fx_1_dynamics_gateNode.threshold = e.currentTarget.value;
   fx_1_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_gate_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_gate_threshold", e.currentTarget.value);
 });
 
 const fx_1_gate_smoothing = document.getElementById("fx_1_gate_smoothing");
@@ -5354,7 +5365,7 @@ const fx_1_gate_smoothing_value = document.getElementById("fx_1_gate_smoothing_v
 fx_1_gate_smoothing.addEventListener("change", function (e) {
   fx_1_dynamics_gateNode.smoothing = e.currentTarget.value;
   fx_1_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_gate_smoothing", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_gate_smoothing", e.currentTarget.value);
 });
 //------------------
 const fx_2_gate_On_Off_Button = document.getElementById("fx_2_gate_On_Off_Button");
@@ -5366,7 +5377,7 @@ const fx_2_gate_threshold_value = document.getElementById("fx_2_gate_threshold_v
 fx_2_gate_threshold.addEventListener("change", function (e) {
   fx_2_dynamics_gateNode.threshold = e.currentTarget.value;
   fx_2_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_gate_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_gate_threshold", e.currentTarget.value);
 });
 
 const fx_2_gate_smoothing = document.getElementById("fx_2_gate_smoothing");
@@ -5374,7 +5385,7 @@ const fx_2_gate_smoothing_value = document.getElementById("fx_2_gate_smoothing_v
 fx_2_gate_smoothing.addEventListener("change", function (e) {
   fx_2_dynamics_gateNode.smoothing = e.currentTarget.value;
   fx_2_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_gate_smoothing", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_gate_smoothing", e.currentTarget.value);
 });
 //------------------
 const fx_3_gate_On_Off_Button = document.getElementById("fx_3_gate_On_Off_Button");
@@ -5386,7 +5397,7 @@ const fx_3_gate_threshold_value = document.getElementById("fx_3_gate_threshold_v
 fx_3_gate_threshold.addEventListener("change", function (e) {
   fx_3_dynamics_gateNode.threshold = e.currentTarget.value;
   fx_3_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_gate_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_gate_threshold", e.currentTarget.value);
 });
 
 const fx_3_gate_smoothing = document.getElementById("fx_3_gate_smoothing");
@@ -5394,7 +5405,7 @@ const fx_3_gate_smoothing_value = document.getElementById("fx_3_gate_smoothing_v
 fx_3_gate_smoothing.addEventListener("change", function (e) {
   fx_3_dynamics_gateNode.smoothing = e.currentTarget.value;
   fx_3_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_gate_smoothing", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_gate_smoothing", e.currentTarget.value);
 });
 //------------------
 const fx_4_gate_On_Off_Button = document.getElementById("fx_4_gate_On_Off_Button");
@@ -5406,7 +5417,7 @@ const fx_4_gate_threshold_value = document.getElementById("fx_4_gate_threshold_v
 fx_4_gate_threshold.addEventListener("change", function (e) {
   fx_4_dynamics_gateNode.threshold = e.currentTarget.value;
   fx_4_gate_threshold_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_gate_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_gate_threshold", e.currentTarget.value);
 });
 
 const fx_4_gate_smoothing = document.getElementById("fx_4_gate_smoothing");
@@ -5414,7 +5425,7 @@ const fx_4_gate_smoothing_value = document.getElementById("fx_4_gate_smoothing_v
 fx_4_gate_smoothing.addEventListener("change", function (e) {
   fx_4_dynamics_gateNode.smoothing = e.currentTarget.value;
   fx_4_gate_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_gate_smoothing", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_gate_smoothing", e.currentTarget.value);
 });
 
 //*********************************************************************************************** */
@@ -5432,7 +5443,7 @@ const audio_card_channel_limiter_threshold_value = document.getElementById("audi
 audio_card_channel_limiter_threshold.addEventListener("change", function (e) {
   audio_card_channel_dynamics_limiterNode.threshold.value = e.currentTarget.value;
   audio_card_channel_limiter_threshold_value.innerHTML = audio_card_channel_dynamics_limiterNode.threshold.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_limiter_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_limiter_threshold", e.currentTarget.value);
 });
 
 const channel_1_limiter_On_Off_Button = document.getElementById("channel_1_limiter_On_Off_Button");
@@ -5444,7 +5455,7 @@ const channel_1_limiter_threshold_value = document.getElementById("channel_1_lim
 channel_1_limiter_threshold.addEventListener("change", function (e) {
   channel_1_dynamics_limiterNode.threshold.value = e.currentTarget.value;
   channel_1_limiter_threshold_value.innerHTML = channel_1_dynamics_limiterNode.threshold.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_limiter_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_limiter_threshold", e.currentTarget.value);
 });
 
 //------------------
@@ -5457,7 +5468,7 @@ const channel_2_limiter_threshold_value = document.getElementById("channel_2_lim
 channel_2_limiter_threshold.addEventListener("change", function (e) {
   channel_2_dynamics_limiterNode.threshold.value = e.currentTarget.value;
   channel_2_limiter_threshold_value.innerHTML = channel_2_dynamics_limiterNode.threshold.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_limiter_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_limiter_threshold", e.currentTarget.value);
 });
 
 //------------------
@@ -5470,7 +5481,7 @@ const channel_3_limiter_threshold_value = document.getElementById("channel_3_lim
 channel_3_limiter_threshold.addEventListener("change", function (e) {
   channel_3_dynamics_limiterNode.threshold.value = e.currentTarget.value;
   channel_3_limiter_threshold_value.innerHTML = channel_3_dynamics_limiterNode.threshold.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_limiter_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_limiter_threshold", e.currentTarget.value);
 });
 
 //------------------
@@ -5483,7 +5494,7 @@ const channel_4_limiter_threshold_value = document.getElementById("channel_4_lim
 channel_4_limiter_threshold.addEventListener("change", function (e) {
   channel_4_dynamics_limiterNode.threshold.value = e.currentTarget.value;
   channel_4_limiter_threshold_value.innerHTML = channel_4_dynamics_limiterNode.threshold.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_limiter_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_limiter_threshold", e.currentTarget.value);
 });
 
 //*********************************************************************************************** */
@@ -5501,7 +5512,7 @@ const fx_1_limiter_threshold_value = document.getElementById("fx_1_limiter_thres
 fx_1_limiter_threshold.addEventListener("change", function (e) {
   fx_1_dynamics_limiterNode.threshold.value = e.currentTarget.value;
   fx_1_limiter_threshold_value.innerHTML = fx_1_dynamics_limiterNode.threshold.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_limiter_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_limiter_threshold", e.currentTarget.value);
 });
 
 //------------------
@@ -5514,7 +5525,7 @@ const fx_2_limiter_threshold_value = document.getElementById("fx_2_limiter_thres
 fx_2_limiter_threshold.addEventListener("change", function (e) {
   fx_2_dynamics_limiterNode.threshold.value = e.currentTarget.value;
   fx_2_limiter_threshold_value.innerHTML = fx_2_dynamics_limiterNode.threshold.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_limiter_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_limiter_threshold", e.currentTarget.value);
 });
 
 //------------------
@@ -5527,7 +5538,7 @@ const fx_3_limiter_threshold_value = document.getElementById("fx_3_limiter_thres
 fx_3_limiter_threshold.addEventListener("change", function (e) {
   fx_3_dynamics_limiterNode.threshold.value = e.currentTarget.value;
   fx_3_limiter_threshold_value.innerHTML = fx_3_dynamics_limiterNode.threshold.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_limiter_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_limiter_threshold", e.currentTarget.value);
 });
 
 //------------------
@@ -5540,7 +5551,7 @@ const fx_4_limiter_threshold_value = document.getElementById("fx_4_limiter_thres
 fx_4_limiter_threshold.addEventListener("change", function (e) {
   fx_4_dynamics_limiterNode.threshold.value = e.currentTarget.value;
   fx_4_limiter_threshold_value.innerHTML = fx_4_dynamics_limiterNode.threshold.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_limiter_threshold", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_limiter_threshold", e.currentTarget.value);
 });
 
 //*********************************************************************************************** */
@@ -5571,7 +5582,7 @@ audio_card_channel_tascam_LowShelf_gain.addEventListener("change", function (e) 
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     audio_card_channel_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
     audio_card_channel_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_tascam_LowShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_tascam_LowShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE audio_card_channel_tascam_LowShelf_gain");
@@ -5599,7 +5610,7 @@ audio_card_channel_tascam_Mid_SemiParam_gain.addEventListener("change", function
     audio_card_channel_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
     console.log("audio_card_channel_tascam_Mid_SemiParam_FilterNode.gain.value:  " + audio_card_channel_tascam_Mid_SemiParam_FilterNode.gain.value)
     audio_card_channel_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_tascam_Mid_SemiParam_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE audio_card_channel_tascam_Mid_SemiParam_gain");
@@ -5609,7 +5620,7 @@ audio_card_channel_tascam_Mid_SemiParam_frequency.addEventListener("change", fun
   if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
     audio_card_channel_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
     audio_card_channel_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
   }
   else {
     alert("ELSE audio_card_channel_tascam_Mid_SemiParam_frec");
@@ -5633,7 +5644,7 @@ audio_card_channel_tascam_HighShelf_gain.addEventListener("change", function (e)
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     audio_card_channel_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
     audio_card_channel_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_tascam_HighShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_tascam_HighShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE audio_card_channel_tascam_HighShelf_gain");
@@ -5670,7 +5681,7 @@ channel_1_tascam_LowShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_1_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
     channel_1_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_tascam_LowShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_tascam_LowShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_1_tascam_LowShelf_gain");
@@ -5698,7 +5709,7 @@ channel_1_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
     channel_1_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
     console.log("channel_1_tascam_Mid_SemiParam_FilterNode.gain.value:  " + channel_1_tascam_Mid_SemiParam_FilterNode.gain.value)
     channel_1_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_tascam_Mid_SemiParam_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_1_tascam_Mid_SemiParam_gain");
@@ -5708,7 +5719,7 @@ channel_1_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e)
   if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
     channel_1_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
     channel_1_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_1_tascam_Mid_SemiParam_frec");
@@ -5732,7 +5743,7 @@ channel_1_tascam_HighShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_1_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
     channel_1_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_tascam_HighShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_tascam_HighShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_1_tascam_HighShelf_gain");
@@ -5771,7 +5782,7 @@ channel_2_tascam_LowShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_2_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
     channel_2_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_tascam_LowShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_tascam_LowShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_2_tascam_LowShelf_gain");
@@ -5798,7 +5809,7 @@ channel_2_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_2_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
     channel_2_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_tascam_Mid_SemiParam_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_2_tascam_Mid_SemiParam_gain");
@@ -5808,7 +5819,7 @@ channel_2_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e)
   if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
     channel_2_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
     channel_2_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_2_tascam_Mid_SemiParam_frec");
@@ -5832,7 +5843,7 @@ channel_2_tascam_HighShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_2_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
     channel_2_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_tascam_HighShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_tascam_HighShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_2_tascam_HighShelf_gain");
@@ -5871,7 +5882,7 @@ channel_3_tascam_LowShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_3_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
     channel_3_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_tascam_LowShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_tascam_LowShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_3_tascam_LowShelf_gain");
@@ -5898,7 +5909,7 @@ channel_3_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_3_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
     channel_3_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_tascam_Mid_SemiParam_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_3_tascam_Mid_SemiParam_gain");
@@ -5908,7 +5919,7 @@ channel_3_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e)
   if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
     channel_3_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
     channel_3_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_3_tascam_Mid_SemiParam_frec");
@@ -5933,7 +5944,7 @@ channel_3_tascam_HighShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_3_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
     channel_3_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_tascam_HighShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_tascam_HighShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_3_tascam_HighShelf_gain");
@@ -5972,7 +5983,7 @@ channel_4_tascam_LowShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_4_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
     channel_4_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_tascam_LowShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_tascam_LowShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_4_tascam_LowShelf_gain");
@@ -5999,7 +6010,7 @@ channel_4_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_4_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
     channel_4_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_tascam_Mid_SemiParam_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_4_tascam_Mid_SemiParam_gain");
@@ -6009,7 +6020,7 @@ channel_4_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e)
   if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
     channel_4_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
     channel_4_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_4_tascam_Mid_SemiParam_frec");
@@ -6034,7 +6045,7 @@ channel_4_tascam_HighShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     channel_4_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
     channel_4_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_tascam_HighShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_tascam_HighShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE channel_4_tascam_HighShelf_gain");
@@ -6070,7 +6081,7 @@ fx_1_tascam_LowShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_1_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
     fx_1_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_tascam_LowShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_tascam_LowShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_1_tascam_LowShelf_gain");
@@ -6097,7 +6108,7 @@ fx_1_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_1_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
     fx_1_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_tascam_Mid_SemiParam_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_1_tascam_Mid_SemiParam_gain");
@@ -6107,7 +6118,7 @@ fx_1_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
     fx_1_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
     fx_1_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_1_tascam_Mid_SemiParam_frec");
@@ -6132,7 +6143,7 @@ fx_1_tascam_HighShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_1_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
     fx_1_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_tascam_HighShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_tascam_HighShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_1_tascam_HighShelf_gain");
@@ -6168,7 +6179,7 @@ fx_2_tascam_LowShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_2_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
     fx_2_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_tascam_LowShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_tascam_LowShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_2_tascam_LowShelf_gain");
@@ -6195,7 +6206,7 @@ fx_2_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_2_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
     fx_2_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_tascam_Mid_SemiParam_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_2_tascam_Mid_SemiParam_gain");
@@ -6205,7 +6216,7 @@ fx_2_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
     fx_2_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
     fx_2_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_2_tascam_Mid_SemiParam_frec");
@@ -6229,7 +6240,7 @@ fx_2_tascam_HighShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_2_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
     fx_2_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_tascam_HighShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_tascam_HighShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_2_tascam_HighShelf_gain");
@@ -6267,7 +6278,7 @@ fx_3_tascam_LowShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_3_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
     fx_3_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_tascam_LowShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_tascam_LowShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_3_tascam_LowShelf_gain");
@@ -6294,7 +6305,7 @@ fx_3_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_3_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
     fx_3_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_tascam_Mid_SemiParam_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_3_tascam_Mid_SemiParam_gain");
@@ -6304,7 +6315,7 @@ fx_3_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
     fx_3_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
     fx_3_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_3_tascam_Mid_SemiParam_frec");
@@ -6329,7 +6340,7 @@ fx_3_tascam_HighShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_3_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
     fx_3_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_tascam_HighShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_tascam_HighShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_3_tascam_HighShelf_gain");
@@ -6367,7 +6378,7 @@ fx_4_tascam_LowShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_4_tascam_LowShelf_FilterNode.gain.value = e.currentTarget.value;
     fx_4_tascam_LowShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_tascam_LowShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_tascam_LowShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_4_tascam_LowShelf_gain");
@@ -6394,7 +6405,7 @@ fx_4_tascam_Mid_SemiParam_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_4_tascam_Mid_SemiParam_FilterNode.gain.value = e.currentTarget.value;
     fx_4_tascam_Mid_SemiParam_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_tascam_Mid_SemiParam_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_tascam_Mid_SemiParam_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_4_tascam_Mid_SemiParam_gain");
@@ -6404,7 +6415,7 @@ fx_4_tascam_Mid_SemiParam_frequency.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 5000 && e.currentTarget.value >= 250) {
     fx_4_tascam_Mid_SemiParam_FilterNode.frequency.value = e.currentTarget.value;
     fx_4_tascam_Mid_SemiParam_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_tascam_Mid_SemiParam_frequency", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_4_tascam_Mid_SemiParam_frec");
@@ -6429,7 +6440,7 @@ fx_4_tascam_HighShelf_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= 100 && e.currentTarget.value >= -100) {
     fx_4_tascam_HighShelf_FilterNode.gain.value = e.currentTarget.value;
     fx_4_tascam_HighShelf_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_tascam_HighShelf_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_tascam_HighShelf_gain", e.currentTarget.value);
   }
   else {
     alert("ELSE fx_4_tascam_HighShelf_gain");
@@ -6845,12 +6856,12 @@ master_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     masterVolumeNode.volume.value = -100;
     master_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "master_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "master_volume", -100);
   }
   else {
     masterVolumeNode.volume.value = e.currentTarget.value;
     master_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "master_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "master_volume", e.currentTarget.value);
   }
 });
 
@@ -6858,7 +6869,7 @@ master_volume.ondblclick = function () {
   masterVolumeNode.volume.value = -6;
   master_volume_value.innerHTML = -6;
   master_volume.value = -6;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "master_volume", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "master_volume", 0);
 };
 //ESTO SIRVE O NO????
 /*
@@ -6901,30 +6912,30 @@ noise_1_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     noise_1_Node.volume.value = -100;
     noise_1_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_volume", -100);
   }
   else {
     noise_1_Node.volume.value = e.currentTarget.value;
     noise_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_volume", e.currentTarget.value);
   }
 });
 
 noise_1_playback_rate.addEventListener("change", function (e) {
   noise_1_Node.playbackRate = e.currentTarget.value;
   noise_1_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_1_playback_rate", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_1_playback_rate", e.currentTarget.value);
 });
 
 noise_1_select_type.addEventListener("change", function (e) {
   noise_1_Node.type = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_1_select_type", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_1_select_type", e.currentTarget.value);
 });
 
 noise_1_fadeIn.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     noise_1_Node.fadeIn = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_1_fadeIn", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_1_fadeIn", e.currentTarget.value);
   }
   else {
     alert("Else noise_1_Node.fadeIn_1");
@@ -6934,7 +6945,7 @@ noise_1_fadeIn.addEventListener("change", function (e) {
 noise_1_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     noise_1_Node.fadeOut = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_1_fadeOut", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_1_fadeOut", e.currentTarget.value);
   }
   else {
     alert("Else noise_1_Node.fadeOut");
@@ -7016,7 +7027,7 @@ player_1_scrambler_checkbox.addEventListener("change", function () {
   else {
     player_1_scrambler = false;
   }
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_scrambler_checkbox", player_1_scrambler);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_scrambler_checkbox", player_1_scrambler);
 });
 
 const player_1_playButton = document.getElementById("player_1_playButton");
@@ -7038,13 +7049,13 @@ player_1_volume.ondblclick = function () {
   player_1_Node.volume.value = 0;
   player_1_volume_value.innerHTML = 0;
   player_1_volume.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_volume", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_volume", 0);
 };
 
 player_1_playback_rate.addEventListener("change", function (e) {
   player_1_Node.playbackRate = e.currentTarget.value;
   player_1_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_playback_rate", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_playback_rate", e.currentTarget.value);
 });
 
 
@@ -7059,7 +7070,7 @@ player_1_loop_checkbox.addEventListener("change", function () {
     player_1_Node.loop = false;
   }  /**/
   changesBoxState_loop(player_1_Node, player_1_loop_checkbox.checked.toString(), player_1_loop_checkbox);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_checkbox", player_1_Node.loop);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_loop_checkbox", player_1_Node.loop);
 });
 
 const player_1_autoplay_checkbox = document.getElementById("player_1_autoplay_checkbox");
@@ -7070,18 +7081,18 @@ player_1_autoplay_checkbox.addEventListener("change", function () {
   else {
     player_1_Node.autoplay = false;
   }
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_autoplay_checkbox", player_1_Node.autoplay);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_autoplay_checkbox", player_1_Node.autoplay);
 });
 
 const player_1_reverse_checkbox = document.getElementById("player_1_reverse_checkbox");
 player_1_reverse_checkbox.addEventListener("change", function () {
   changesBoxState_reverse(player_1_Node, player_1_reverse_checkbox.checked.toString(), player_1_reverse_checkbox);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_reverse_checkbox", player_1_Node.reverse);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_reverse_checkbox", player_1_Node.reverse);
 });
 
 const player_1_loop_start = document.getElementById("player_1_loop_start");
 player_1_loop_start.addEventListener("change", function (e) {
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_start", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_loop_start", e.currentTarget.value);
   changesBoxState_loopStart(player_1_Node, e.currentTarget.value, player_1_loop_start);
 });
 
@@ -7089,7 +7100,7 @@ const player_1_loop_end = document.getElementById("player_1_loop_end");
 player_1_loop_end.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 300 && e.currentTarget.value > player_1_Node.loopStart) {
     player_1_Node.loopEnd = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_end", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_loop_end", e.currentTarget.value);
   }
   else {
     alert("Else player_1_Node.loopEnd");
@@ -7100,7 +7111,7 @@ const player_1_fadeIn = document.getElementById("player_1_fadeIn");
 player_1_fadeIn.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player_1_Node.fadeIn = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_fadeIn", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_fadeIn", e.currentTarget.value);
   }
   else {
     alert("Else player_1_Node.fadeIn_1");
@@ -7111,7 +7122,7 @@ const player_1_fadeOut = document.getElementById("player_1_fadeOut");
 player_1_fadeOut.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     player_1_Node.fadeOut = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_fadeOut", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_fadeOut", e.currentTarget.value);
   }
   else {
     alert("Else player_1_Node.fadeOut");
@@ -7132,7 +7143,7 @@ player_1_div.style.display = "none";
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
 //GRAIN PLAYER 1
-const grainPlayer_1_Node = new Tone.GrainPlayer("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3");
+const grainPlayer_1_Node = new Tone.GrainPlayer();
 const grainPlayer_1_rmsNode = new Tone.Meter(0);
 grainPlayer_1_Node.fan(grainPlayer_1_rmsNode);
 grainPlayer_1_Node.autoplay = false;//POR AHORA ACA
@@ -7181,70 +7192,70 @@ grainPlayer_1_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     grainPlayer_1_Node.volume.value = -100;
     grainPlayer_1_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_volume", -100);
   }
   else {
     grainPlayer_1_Node.volume.value = e.currentTarget.value;
     grainPlayer_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_volume", e.currentTarget.value);
   }
 });
 
 grainPlayer_1_grainSize.addEventListener("change", function (e) {
   grainPlayer_1_Node.grainSize = e.currentTarget.value;
   grainPlayer_1_grainSize_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_grainSize", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_grainSize", e.currentTarget.value);
 });
 
 grainPlayer_1_overlap.addEventListener("change", function (e) {
   grainPlayer_1_Node.overlap = e.currentTarget.value;
   grainPlayer_1_overlap_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_overlap", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_overlap", e.currentTarget.value);
 
 });
 
 grainPlayer_1_playback_rate.addEventListener("change", function (e) {
   grainPlayer_1_Node.playbackRate = e.currentTarget.value;
   grainPlayer_1_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_playback_rate", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_playback_rate", e.currentTarget.value);
 });
 
 grainPlayer_1_detune.addEventListener("change", function (e) {
   grainPlayer_1_Node.detune = e.currentTarget.value;
   grainPlayer_1_detune_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_detune", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_detune", e.currentTarget.value);
 });
 
 grainPlayer_1_loop_checkbox.addEventListener("change", function () {
   if (grainPlayer_1_loop_checkbox.checked) {
     grainPlayer_1_Node.loop = true;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_checkbox", true);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_loop_checkbox", true);
   }
   else {
     grainPlayer_1_Node.loop = false;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_checkbox", false);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_loop_checkbox", false);
   }
 });
 /**/
 grainPlayer_1_reverse_checkbox.addEventListener("change", function () {
   if (grainPlayer_1_reverse_checkbox.checked) {
     grainPlayer_1_Node.reverse = true;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_reverse_checkbox", true);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_reverse_checkbox", true);
   }
   else {
     grainPlayer_1_Node.reverse = false;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_reverse_checkbox", false);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_reverse_checkbox", false);
   }
 });
 
 grainPlayer_1_autoplay_checkbox.addEventListener("change", function () {
   if (grainPlayer_1_autoplay_checkbox.checked) {
     grainPlayer_1_Node.autoplay = true;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_autoplay_checkbox", true);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_autoplay_checkbox", true);
   }
   else {
     grainPlayer_1_Node.autoplay = false;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_autoplay_checkbox", false);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_autoplay_checkbox", false);
   }
 });
 /**/
@@ -7252,7 +7263,7 @@ grainPlayer_1_autoplay_checkbox.addEventListener("change", function () {
 grainPlayer_1_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_1_Node.loopStart = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_loop_start", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_loop_start", e.currentTarget.value);
   }
   else {
     alert("Else grainPlayer_1_Node.loopStart");
@@ -7262,7 +7273,7 @@ grainPlayer_1_loop_start.addEventListener("change", function (e) {
 grainPlayer_1_loop_end.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_1_Node.loopEnd = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_loop_end", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_loop_end", e.currentTarget.value);
   }
   else {
     alert("else grainPlayer_1_Node.loopStart");
@@ -7275,7 +7286,7 @@ grainPlayer_1_div.style.display = "none";
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
 //GRAIN PLAYER
-const grainPlayer_2_Node = new Tone.GrainPlayer("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3");
+const grainPlayer_2_Node = new Tone.GrainPlayer();
 const grainPlayer_2_rmsNode = new Tone.Meter(0);
 grainPlayer_2_Node.fan(grainPlayer_2_rmsNode);
 grainPlayer_2_Node.autoplay = false;
@@ -7324,12 +7335,12 @@ grainPlayer_2_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     grainPlayer_2_Node.volume.value = -100;
     grainPlayer_2_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_2_volume", -100);
   }
   else {
     grainPlayer_2_Node.volume.value = e.currentTarget.value;
     grainPlayer_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_2_volume", e.currentTarget.value);
   }
 });
 
@@ -7347,7 +7358,7 @@ grainPlayer_2_overlap.addEventListener("change", function (e) {
 grainPlayer_2_playback_rate.addEventListener("change", function (e) {
   grainPlayer_2_Node.playbackRate = e.currentTarget.value;
   grainPlayer_2_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2_playback_rate", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_2_playback_rate", e.currentTarget.value);
 });
 
 
@@ -7396,7 +7407,7 @@ grainPlayer_2_div.style.display = "none";
 //************************************************************************
 //************************************************************************
 //GRAIN PLAYER 3
-const grainPlayer_3_Node = new Tone.GrainPlayer("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3");
+const grainPlayer_3_Node = new Tone.GrainPlayer();
 const grainPlayer_3_rmsNode = new Tone.Meter(0);
 grainPlayer_3_Node.fan(grainPlayer_3_rmsNode);
 grainPlayer_3_Node.autoplay = false;
@@ -7445,77 +7456,77 @@ grainPlayer_3_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     grainPlayer_3_Node.volume.value = -100;
     grainPlayer_3_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_volume", -100);
   }
   else {
     grainPlayer_3_Node.volume.value = e.currentTarget.value;
     grainPlayer_3_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_volume", e.currentTarget.value);
   }
 });
 
 grainPlayer_3_grainSize.addEventListener("change", function (e) {
   grainPlayer_3_Node.grainSize = e.currentTarget.value;
   grainPlayer_3_grainSize_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_grainSize", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_grainSize", e.currentTarget.value);
 });
 
 grainPlayer_3_overlap.addEventListener("change", function (e) {
   grainPlayer_3_Node.overlap = e.currentTarget.value;
   grainPlayer_3_overlap_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_overlap", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_overlap", e.currentTarget.value);
 
 });
 
 grainPlayer_3_playback_rate.addEventListener("change", function (e) {
   grainPlayer_3_Node.playbackRate = e.currentTarget.value;
   grainPlayer_3_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_playback_rate", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_playback_rate", e.currentTarget.value);
 });
 
 grainPlayer_3_detune.addEventListener("change", function (e) {
   grainPlayer_3_Node.detune = e.currentTarget.value;
   grainPlayer_3_detune_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_detune", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_detune", e.currentTarget.value);
 });
 
 grainPlayer_3_loop_checkbox.addEventListener("change", function () {
   if (grainPlayer_3_loop_checkbox.checked) {
     grainPlayer_3_Node.loop = true;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_checkbox", true);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_loop_checkbox", true);
   }
   else {
     grainPlayer_3_Node.loop = false;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_checkbox", false);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_loop_checkbox", false);
   }
 });
 /**/
 grainPlayer_3_reverse_checkbox.addEventListener("change", function () {
   if (grainPlayer_3_reverse_checkbox.checked) {
     grainPlayer_3_Node.reverse = true;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_reverse_checkbox", true);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_reverse_checkbox", true);
   }
   else {
     grainPlayer_3_Node.reverse = false;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_reverse_checkbox", false);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_reverse_checkbox", false);
   }
 });
 
 grainPlayer_3_autoplay_checkbox.addEventListener("change", function () {
   if (grainPlayer_3_autoplay_checkbox.checked) {
     grainPlayer_3_Node.autoplay = true;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_autoplay_checkbox", true);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_autoplay_checkbox", true);
   }
   else {
     grainPlayer_3_Node.autoplay = false;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_autoplay_checkbox", false);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_autoplay_checkbox", false);
   }
 });
 /**/
 grainPlayer_3_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_3_Node.loopStart = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_loop_start", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_loop_start", e.currentTarget.value);
   }
   else {
     alert("Else grainPlayer_3_Node.loopStart");
@@ -7525,7 +7536,7 @@ grainPlayer_3_loop_start.addEventListener("change", function (e) {
 grainPlayer_3_loop_end.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_3_Node.loopEnd = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_loop_end", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_loop_end", e.currentTarget.value);
   }
   else {
     alert("else grainPlayer_3_Node.loopStart");
@@ -7537,7 +7548,7 @@ grainPlayer_3_div.style.display = "none";
 //************************************************************************
 //************************************************************************
 //GRAIN PLAYER 4
-const grainPlayer_4_Node = new Tone.GrainPlayer("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3");
+const grainPlayer_4_Node = new Tone.GrainPlayer();
 const grainPlayer_4_rmsNode = new Tone.Meter(0);
 grainPlayer_4_Node.fan(grainPlayer_4_rmsNode);
 grainPlayer_4_Node.autoplay = false;
@@ -7586,70 +7597,70 @@ grainPlayer_4_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     grainPlayer_4_Node.volume.value = -100;
     grainPlayer_4_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_volume", -100);
   }
   else {
     grainPlayer_4_Node.volume.value = e.currentTarget.value;
     grainPlayer_4_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_volume", e.currentTarget.value);
   }
 });
 
 grainPlayer_4_grainSize.addEventListener("change", function (e) {
   grainPlayer_4_Node.grainSize = e.currentTarget.value;
   grainPlayer_4_grainSize_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_grainSize", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_grainSize", e.currentTarget.value);
 });
 
 grainPlayer_4_overlap.addEventListener("change", function (e) {
   grainPlayer_4_Node.overlap = e.currentTarget.value;
   grainPlayer_4_overlap_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_overlap", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_overlap", e.currentTarget.value);
 
 });
 
 grainPlayer_4_playback_rate.addEventListener("change", function (e) {
   grainPlayer_4_Node.playbackRate = e.currentTarget.value;
   grainPlayer_4_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_playback_rate", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_playback_rate", e.currentTarget.value);
 });
 
 grainPlayer_4_detune.addEventListener("change", function (e) {
   grainPlayer_4_Node.detune = e.currentTarget.value;
   grainPlayer_4_detune_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_detune", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_detune", e.currentTarget.value);
 });
 
 grainPlayer_4_loop_checkbox.addEventListener("change", function () {
   if (grainPlayer_4_loop_checkbox.checked) {
     grainPlayer_4_Node.loop = true;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_checkbox", true);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_loop_checkbox", true);
   }
   else {
     grainPlayer_4_Node.loop = false;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_loop_checkbox", false);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_loop_checkbox", false);
   }
 });
 /**/
 grainPlayer_4_reverse_checkbox.addEventListener("change", function () {
   if (grainPlayer_4_reverse_checkbox.checked) {
     grainPlayer_4_Node.reverse = true;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_reverse_checkbox", true);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_reverse_checkbox", true);
   }
   else {
     grainPlayer_4_Node.reverse = false;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_reverse_checkbox", false);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_reverse_checkbox", false);
   }
 });
 
 grainPlayer_4_autoplay_checkbox.addEventListener("change", function () {
   if (grainPlayer_4_autoplay_checkbox.checked) {
     grainPlayer_4_Node.autoplay = true;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_autoplay_checkbox", true);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_autoplay_checkbox", true);
   }
   else {
     grainPlayer_4_Node.autoplay = false;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_autoplay_checkbox", false);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_autoplay_checkbox", false);
   }
 });
 /**/
@@ -7657,7 +7668,7 @@ grainPlayer_4_autoplay_checkbox.addEventListener("change", function () {
 grainPlayer_4_loop_start.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_4_Node.loopStart = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_loop_start", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_loop_start", e.currentTarget.value);
   }
   else {
     alert("Else grainPlayer_4_Node.loopStart");
@@ -7667,7 +7678,7 @@ grainPlayer_4_loop_start.addEventListener("change", function (e) {
 grainPlayer_4_loop_end.addEventListener("change", function (e) {
   if (e.currentTarget.value >= 0 && e.currentTarget.value <= 1234) {
     grainPlayer_4_Node.loopEnd = e.currentTarget.value;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_loop_end", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_loop_end", e.currentTarget.value);
   }
   else {
     alert("else grainPlayer_4_Node.loopStart");
@@ -7697,7 +7708,7 @@ const noiseSynth_1 = new Tone.NoiseSynth(
 const noiseSynth_1_select_type = document.getElementById("noiseSynth_1_select_type");
 noiseSynth_1_select_type.addEventListener("change", function (e) {
   noiseSynth_1.type = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "noiseSynth_1_select_type", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noiseSynth_1_select_type", e.currentTarget.value);
 });
 
 const noiseSynth_1_volume = document.getElementById("noiseSynth_1_volume");
@@ -7706,13 +7717,13 @@ noiseSynth_1_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     noiseSynth_1.volume.value = -100;
     noiseSynth_1_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "noiseSynth_1_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noiseSynth_1_volume", -100);
 
   }
   else {
     noiseSynth_1.volume.value = e.currentTarget.value;
     noiseSynth_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "noiseSynth_1_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noiseSynth_1_volume", e.currentTarget.value);
   }
 });
 
@@ -7722,7 +7733,7 @@ const noiseSynth_1_envelope_attack_value = document.getElementById("noiseSynth_1
 noiseSynth_1_envelope_attack.addEventListener("change", function (e) {
   noiseSynth_1.envelope.attack = e.currentTarget.value;
   noiseSynth_1_envelope_attack_value.innerHTML = (`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "noiseSynth_1_envelope_attack", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noiseSynth_1_envelope_attack", e.currentTarget.value);
 });
 
 const noiseSynth_1_envelope_decay_text = document.getElementById("noiseSynth_1_envelope_decay_text");
@@ -7731,7 +7742,7 @@ const noiseSynth_1_envelope_decay_value = document.getElementById("noiseSynth_1_
 noiseSynth_1_envelope_decay.addEventListener("change", function (e) {
   noiseSynth_1.envelope.decay = e.currentTarget.value;
   noiseSynth_1_envelope_decay_value.innerHTML = (`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "noiseSynth_1_envelope_decay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noiseSynth_1_envelope_decay", e.currentTarget.value);
 });
 
 const noiseSynth_1_envelope_sustain_text = document.getElementById("noiseSynth_1_envelope_sustain_text");
@@ -7740,7 +7751,7 @@ const noiseSynth_1_envelope_sustain_value = document.getElementById("noiseSynth_
 noiseSynth_1_envelope_sustain.addEventListener("change", function (e) {
   noiseSynth_1.envelope.sustain = e.currentTarget.value;
   noiseSynth_1_envelope_sustain_value.innerHTML = (`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "noiseSynth_1_envelope_sustain", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noiseSynth_1_envelope_sustain", e.currentTarget.value);
 });
 
 const noiseSynth_1_div = document.getElementById("noiseSynth_1_div");
@@ -7775,14 +7786,14 @@ player_2_volume.ondblclick = function () {
   player_2_Node.volume.value = 0;
   player_2_volume_value.innerHTML = 0;
   player_2_volume.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_volume", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2_volume", 0);
 
 };
 
 player_2_playback_rate.addEventListener("change", function (e) {
   player_2_Node.playbackRate = e.currentTarget.value;
   player_2_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_playback_rate", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2_playback_rate", e.currentTarget.value);
 });
 
 const player_2_loop_checkbox = document.getElementById("player_2_loop_checkbox");
@@ -7792,7 +7803,7 @@ player_2_loop_checkbox.addEventListener("change", function () {
   else { player_2_Node.loop = false; }
   /**/
   changesBoxState_loop(player_2_Node, player_2_loop_checkbox.checked.toString(), player_2_loop_checkbox);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_loop_checkbox", player_2_Node.loop);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2_loop_checkbox", player_2_Node.loop);
 
 });
 
@@ -7805,7 +7816,7 @@ player_2_autoplay_checkbox.addEventListener("change", function () {
 const player_2_reverse_checkbox = document.getElementById("player_2_reverse_checkbox");
 player_2_reverse_checkbox.addEventListener("change", function () {
   changesBoxState_reverse(player_2_Node, player_2_reverse_checkbox.checked.toString(), player_2_reverse_checkbox);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_reverse_checkbox", player_2_Node.reverse);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2_reverse_checkbox", player_2_Node.reverse);
 });
 
 const player_2_loop_start = document.getElementById("player_2_loop_start");
@@ -7914,7 +7925,7 @@ player_3_volume.ondblclick = function () {
 player_3_playback_rate.addEventListener("change", function (e) {
   player_3_Node.playbackRate = e.currentTarget.value;
   player_3_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_playback_rate", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3_playback_rate", e.currentTarget.value);
 });
 
 const player_3_loop_checkbox = document.getElementById("player_3_loop_checkbox");
@@ -7924,7 +7935,7 @@ player_3_loop_checkbox.addEventListener("change", function () {
     else { player_3_Node.loop = false; }
   /**/
   changesBoxState_loop(player_3_Node, player_3_loop_checkbox.checked.toString(), player_3_loop_checkbox);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_loop_checkbox", player_3_Node.loop);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3_loop_checkbox", player_3_Node.loop);
 
 });
 
@@ -7937,7 +7948,7 @@ player_3_autoplay_checkbox.addEventListener("change", function () {
 const player_3_reverse_checkbox = document.getElementById("player_3_reverse_checkbox");
 player_3_reverse_checkbox.addEventListener("change", function () {
   changesBoxState_reverse(player_3_Node, player_3_reverse_checkbox.checked.toString(), player_3_reverse_checkbox);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_reverse_checkbox", player_3_Node.reverse);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3_reverse_checkbox", player_3_Node.reverse);
 });
 
 const player_3_loop_start = document.getElementById("player_3_loop_start");
@@ -8014,13 +8025,13 @@ player_4_volume.ondblclick = function () {
   player_4_Node.volume.value = 0;
   player_4_volume_value.innerHTML = 0;
   player_4_volume.value = 0;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_volume", 0);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_volume", 0);
 };
 
 player_4_playback_rate.addEventListener("change", function (e) {
   player_4_Node.playbackRate = e.currentTarget.value;
   player_4_playback_rate_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_playback_rate", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_playback_rate", e.currentTarget.value);
 });
 
 const player_4_loop_checkbox = document.getElementById("player_4_loop_checkbox");
@@ -8030,7 +8041,7 @@ player_4_loop_checkbox.addEventListener("change", function () {
   else { player_4_Node.loop = false; }
 /**/
   changesBoxState_loop(player_4_Node, player_4_loop_checkbox.checked.toString(), player_4_loop_checkbox);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_loop_checkbox", player_4_Node.loop);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_loop_checkbox", player_4_Node.loop);
 });
 
 const player_4_autoplay_checkbox = document.getElementById("player_4_autoplay_checkbox");
@@ -8042,7 +8053,7 @@ player_4_autoplay_checkbox.addEventListener("change", function () {
 const player_4_reverse_checkbox = document.getElementById("player_4_reverse_checkbox");
 player_4_reverse_checkbox.addEventListener("change", function () {
   changesBoxState_reverse(player_4_Node, player_4_reverse_checkbox.checked.toString(), player_4_reverse_checkbox);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_reverse_checkbox", player_4_Node.reverse);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_reverse_checkbox", player_4_Node.reverse);
 });
 
 const player_4_loop_start = document.getElementById("player_4_loop_start");
@@ -8130,12 +8141,12 @@ noise_2_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     noise_2_Node.volume.value = -100;
     noise_2_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_2_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_2_volume", -100);
   }
   else {
     noise_2_Node.volume.value = e.currentTarget.value;
     noise_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_2_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_2_volume", e.currentTarget.value);
   }
 });
 
@@ -8205,12 +8216,12 @@ noise_3_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     noise_3_Node.volume.value = -100;
     noise_3_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_3_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_3_volume", -100);
   }
   else {
     noise_3_Node.volume.value = e.currentTarget.value;
     noise_3_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_3_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_3_volume", e.currentTarget.value);
   }
 });
 
@@ -8280,12 +8291,12 @@ noise_4_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     noise_4_Node.volume.value = -100;
     noise_4_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_4_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_4_volume", -100);
   }
   else {
     noise_4_Node.volume.value = e.currentTarget.value;
     noise_4_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_4_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_4_volume", e.currentTarget.value);
   }
 });
 
@@ -8748,7 +8759,7 @@ const fx_1_autofilter_baseFrequency_value = document.getElementById("fx_1_autofi
 fx_1_autofilter_baseFrequency.addEventListener("change", function (e) {
   fx_1_AutoFilter_Node.baseFrequency = e.currentTarget.value;
   fx_1_autofilter_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autofilter_baseFrequency", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autofilter_baseFrequency", e.currentTarget.value);
 });
 
 const fx_1_autofilter_depth = document.getElementById("fx_1_autofilter_depth");
@@ -8756,7 +8767,7 @@ const fx_1_autofilter_depth_value = document.getElementById("fx_1_autofilter_dep
 fx_1_autofilter_depth.addEventListener("change", function (e) {
   fx_1_AutoFilter_Node.depth.value = e.currentTarget.value;
   fx_1_autofilter_depth_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autofilter_depth", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autofilter_depth", e.currentTarget.value);
 });
 
 const fx_1_autofilter_frequency = document.getElementById("fx_1_autofilter_frequency");
@@ -8764,7 +8775,7 @@ const fx_1_autofilter_frequency_value = document.getElementById("fx_1_autofilter
 fx_1_autofilter_frequency.addEventListener("change", function (e) {
   fx_1_AutoFilter_Node.frequency.value = e.currentTarget.value;
   fx_1_autofilter_frequency_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autofilter_frequency", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autofilter_frequency", e.currentTarget.value);
 });
 
 const fx_1_autofilter_octaves = document.getElementById("fx_1_autofilter_octaves");
@@ -8772,13 +8783,13 @@ const fx_1_autofilter_octaves_value = document.getElementById("fx_1_autofilter_o
 fx_1_autofilter_octaves.addEventListener("change", function (e) {
   fx_1_AutoFilter_Node.octaves = e.currentTarget.value;
   fx_1_autofilter_octaves_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autofilter_octaves", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autofilter_octaves", e.currentTarget.value);
 });
 
 const fx_1_autofilter_select_type = document.getElementById("fx_1_autofilter_select_type");
 fx_1_autofilter_select_type.addEventListener("change", function (e) {
   fx_1_AutoFilter_Node.type = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autofilter_select_type", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autofilter_select_type", e.currentTarget.value);
 });
 
 /*
@@ -8809,7 +8820,7 @@ const fx_1_autoPanner_frequency_value = document.getElementById("fx_1_autoPanner
 fx_1_autoPanner_frequency.addEventListener("change", function (e) {
   fx_1_AutoPanner_Node.frequency.value = e.currentTarget.value;
   fx_1_autoPanner_frequency_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autoPanner_frequency", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autoPanner_frequency", e.currentTarget.value);
 });
 
 const fx_1_autoPanner_depth = document.getElementById("fx_1_autoPanner_depth");
@@ -8817,14 +8828,14 @@ const fx_1_autoPanner_depth_value = document.getElementById("fx_1_autoPanner_dep
 fx_1_autoPanner_depth.addEventListener("change", function (e) {
   fx_1_AutoPanner_Node.depth.value = e.currentTarget.value;
   fx_1_autoPanner_depth_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autoPanner_depth", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autoPanner_depth", e.currentTarget.value);
 });
 
 const fx_1_autoPanner_select_type = document.getElementById("fx_1_autoPanner_select_type");
 const fx_1_autoPanner_select_type_value = document.getElementById("fx_1_autoPanner_select_type_value");
 fx_1_autoPanner_select_type.addEventListener("change", function (e) {
   fx_1_AutoPanner_Node.type = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autoPanner_select_type", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autoPanner_select_type", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -8852,7 +8863,7 @@ const fx_1_autoWah_octaves_value = document.getElementById("fx_1_autoWah_octaves
 fx_1_autoWah_octaves.addEventListener("change", function (e) {
   fx_1_AutoWah_Node.octaves = e.currentTarget.value;
   fx_1_autoWah_octaves_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autoWah_octaves", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autoWah_octaves", e.currentTarget.value);
 });
 
 const fx_1_autoWah_sensitivity = document.getElementById("fx_1_autoWah_sensitivity");
@@ -8860,7 +8871,7 @@ const fx_1_autoWah_sensitivity_value = document.getElementById("fx_1_autoWah_sen
 fx_1_autoWah_sensitivity.addEventListener("change", function (e) {
   fx_1_AutoWah_Node.sensitivity = e.currentTarget.value;
   fx_1_autoWah_sensitivity_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autoWah_sensitivity", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autoWah_sensitivity", e.currentTarget.value);
 });
 
 const fx_1_autoWah_Q = document.getElementById("fx_1_autoWah_Q");
@@ -8868,7 +8879,7 @@ const fx_1_autoWah_Q_value = document.getElementById("fx_1_autoWah_Q_value");
 fx_1_autoWah_Q.addEventListener("change", function (e) {
   fx_1_AutoWah_Node.Q.value = e.currentTarget.value;
   fx_1_autoWah_Q_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autoWah_Q", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autoWah_Q", e.currentTarget.value);
 });
 
 const fx_1_autoWah_gain = document.getElementById("fx_1_autoWah_gain");
@@ -8876,7 +8887,7 @@ const fx_1_autoWah_gain_value = document.getElementById("fx_1_autoWah_gain_value
 fx_1_autoWah_gain.addEventListener("change", function (e) {
   fx_1_AutoWah_Node.gain.value = e.currentTarget.value;
   fx_1_autoWah_gain_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autoWah_gain", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autoWah_gain", e.currentTarget.value);
 });
 
 const fx_1_autoWah_follower = document.getElementById("fx_1_autoWah_follower");
@@ -8884,7 +8895,7 @@ const fx_1_autoWah_follower_value = document.getElementById("fx_1_autoWah_follow
 fx_1_autoWah_follower.addEventListener("change", function (e) {
   fx_1_AutoWah_Node.follower = e.currentTarget.value;
   fx_1_autoWah_follower_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autoWah_follower", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autoWah_follower", e.currentTarget.value);
 });
 
 const fx_1_autoWah_baseFrequency = document.getElementById("fx_1_autoWah_baseFrequency");
@@ -8892,7 +8903,7 @@ const fx_1_autoWah_baseFrequency_value = document.getElementById("fx_1_autoWah_b
 fx_1_autoWah_baseFrequency.addEventListener("change", function (e) {
   fx_1_AutoWah_Node.baseFrequency = e.currentTarget.value;
   fx_1_autoWah_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_autoWah_baseFrequency", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_autoWah_baseFrequency", e.currentTarget.value);
 });
 /**/
 //************************************************************************** */
@@ -8910,7 +8921,7 @@ const fx_1_bitCrusher_bit_value = document.getElementById("fx_1_bitCrusher_bit_v
 fx_1_bitCrusher_bit.addEventListener("change", function (e) {
   fx_1_bitCrusher_Node.bits = e.currentTarget.value;
   fx_1_bitCrusher_bit_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_bitCrusher", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_bitCrusher", e.currentTarget.value);
 });
 
 const fx_1_bitCrusher_div = document.getElementById("fx_1_bitCrusher_div");
@@ -8962,7 +8973,7 @@ const fx_1_chorus_delayTime_value = document.getElementById("fx_1_chorus_delayTi
 fx_1_chorus_delayTime.addEventListener("change", function (e) {
   fx_1_chorus_Node.delayTime = e.currentTarget.value;
   fx_1_chorus_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_chorus_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_chorus_delayTime", e.currentTarget.value);
 });
  
 const fx_1_chorus_freq = document.getElementById("fx_1_chorus_freq");
@@ -8970,7 +8981,7 @@ const fx_1_chorus_freq_value = document.getElementById("fx_1_chorus_freq_value")
 fx_1_chorus_freq.addEventListener("change", function (e) {
   fx_1_chorus_Node.frequency.value = e.currentTarget.value;
   fx_1_chorus_freq_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_chorus_freq", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_chorus_freq", e.currentTarget.value);
 });
  
 const fx_1_chorus_depth = document.getElementById("fx_1_chorus_depth");
@@ -8978,7 +8989,7 @@ const fx_1_chorus_depth_value = document.getElementById("fx_1_chorus_depth_value
 fx_1_chorus_depth.addEventListener("change", function (e) {
   fx_1_chorus_Node.depth = e.currentTarget.value;
   fx_1_chorus_depth_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_chorus_depth", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_chorus_depth", e.currentTarget.value);
 });
  
 const fx_1_chorus_spread = document.getElementById("fx_1_chorus_spread");
@@ -8986,7 +8997,7 @@ const fx_1_chorus_spread_value = document.getElementById("fx_1_chorus_spread_val
 fx_1_chorus_spread.addEventListener("change", function (e) {
   fx_1_chorus_Node.spread = e.currentTarget.value;
   fx_1_chorus_spread_value.innerHTML = `${e.currentTarget.value}`;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_chorus_spread", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_chorus_spread", e.currentTarget.value);
 });
  
 const fx_1_chorus_feedback = document.getElementById("fx_1_chorus_feedback");
@@ -8994,13 +9005,13 @@ const fx_1_chorus_feedback_value = document.getElementById("fx_1_chorus_feedback
 fx_1_chorus_feedback.addEventListener("change", function (e) {
   fx_1_chorus_Node.delayTime.value = e.currentTarget.value;
   fx_1_chorus_feedbdelayTimee.innerHTML = `${e.currentTarget.value1`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_chorus_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_chorus_feedback", e.currentTarget.value);
 });
  
 const fx_1_chorus_select_type = document.getElementById("fx_1_chorus_select_type");
 fx_1_chorus_select_type.addEventListener("change", function (e) {
   fx_1_chorus_Node.type = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_chorus_select_type", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_chorus_select_type", e.currentTarget.value);
 });
 /**/
 //************************************************************************** */
@@ -9020,13 +9031,13 @@ const fx_1_distortion_value = document.getElementById("fx_1_distortion_value");
 fx_1_distortion.addEventListener("change", function (e) {
   fx_1_distortion_Node.distortion = e.currentTarget.value;
   fx_1_distortion_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_distortion", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_distortion", e.currentTarget.value);
 });
 
 const fx_1_distortion_select_type = document.getElementById("fx_1_distortion_select_type");
 fx_1_distortion_select_type.addEventListener("change", function (e) {
   fx_1_distortion_Node.type = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_distortion_select_type", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_distortion_select_type", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9047,7 +9058,7 @@ const fx_1_feedback_value = document.getElementById("fx_1_feedback_value");
 fx_1_feedback.addEventListener("change", function (e) {
   fx_1_feedback_Node.feedback.value = e.currentTarget.value;
   fx_1_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_feedback", e.currentTarget.value);
 });
  
 const fx_1_feedback_delayTime = document.getElementById("fx_1_feedback_delayTime");
@@ -9055,7 +9066,7 @@ const fx_1_feedback_delayTime_value = document.getElementById("fx_1_feedback_del
 fx_1_feedback_delayTime.addEventListener("change", function (e) {
   fx_1_feedback_Node.delayTime.value = e.currentTarget.value;
   fx_1_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_feedback_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_feedback_delayTime", e.currentTarget.value);
 });
  
 const fx_1_feedback_maxDelay = document.getElementById("fx_1_feedback_maxDelay");
@@ -9063,7 +9074,7 @@ const fx_1_feedback_maxDelay_value = document.getElementById("fx_1_feedback_maxD
 fx_1_feedback_maxDelay.addEventListener("change", function (e) {
   fx_1_feedback_Node.maxDelay = e.currentTarget.value;
   fx_1_feedback_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_feedback_maxDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_feedback_maxDelay", e.currentTarget.value);
 });
 /**/
 
@@ -9085,7 +9096,7 @@ const fx_1_pingpong_feedback_value = document.getElementById("fx_1_pingpong_feed
 fx_1_pingpong_feedback.addEventListener("change", function (e) {
   fx_1_pingpong_Node.feedback.value = e.currentTarget.value;
   fx_1_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_pingpong_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_pingpong_feedback", e.currentTarget.value);
 });
 
 const fx_1_pingpong_delayTime = document.getElementById("fx_1_pingpong_delayTime");
@@ -9093,7 +9104,7 @@ const fx_1_pingpong_delayTime_value = document.getElementById("fx_1_pingpong_del
 fx_1_pingpong_delayTime.addEventListener("change", function (e) {
   fx_1_pingpong_Node.delayTime.value = e.currentTarget.value;
   fx_1_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_pingpong_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_pingpong_delayTime", e.currentTarget.value);
 });
 
 const fx_1_pingpong_maxDelay = document.getElementById("fx_1_pingpong_maxDelay");
@@ -9101,7 +9112,7 @@ const fx_1_pingpong_maxDelay_value = document.getElementById("fx_1_pingpong_maxD
 fx_1_pingpong_maxDelay.addEventListener("change", function (e) {
   fx_1_pingpong_Node.maxDelay = e.currentTarget.value;
   fx_1_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_pingpong_maxDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_pingpong_maxDelay", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9121,7 +9132,7 @@ const fx_1_vibrato_frequency_value = document.getElementById("fx_1_vibrato_frequ
 fx_1_vibrato_frequency.addEventListener("change", function (e) {
   fx_1_vibrato_Node.frequency.value = e.currentTarget.value;
   fx_1_vibrato_frequency_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_vibrato_frequency", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_vibrato_frequency", e.currentTarget.value);
 });
 
 const fx_1_vibrato_depth = document.getElementById("fx_1_vibrato_depth");
@@ -9129,7 +9140,7 @@ const fx_1_vibrato_depth_value = document.getElementById("fx_1_vibrato_depth_val
 fx_1_vibrato_depth.addEventListener("change", function (e) {
   fx_1_vibrato_Node.depth.value = e.currentTarget.value;
   fx_1_vibrato_depth_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_vibrato_depth", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_vibrato_depth", e.currentTarget.value);
 });
 
 const fx_1_vibrato_maxDelay = document.getElementById("fx_1_vibrato_maxDelay");
@@ -9137,7 +9148,7 @@ const fx_1_vibrato_maxDelay_value = document.getElementById("fx_1_vibrato_maxDel
 fx_1_vibrato_maxDelay.addEventListener("change", function (e) {
   fx_1_vibrato_Node.maxDelay = e.currentTarget.value;
   fx_1_vibrato_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_vibrato_maxDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_vibrato_maxDelay", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9157,13 +9168,13 @@ const fx_2_distortion_value = document.getElementById("fx_2_distortion_value");
 fx_2_distortion.addEventListener("change", function (e) {
   fx_2_distortion_Node.distortion = e.currentTarget.value;
   fx_2_distortion_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_distortion", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_distortion", e.currentTarget.value);
 });
 
 const fx_2_distortion_select_type = document.getElementById("fx_2_distortion_select_type");
 fx_2_distortion_select_type.addEventListener("change", function (e) {
   fx_2_distortion_Node.type = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_distortion_select_type", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_distortion_select_type", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9184,7 +9195,7 @@ const fx_2_feedback_value = document.getElementById("fx_2_feedback_value");
 fx_2_feedback.addEventListener("change", function (e) {
   fx_2_feedback_Node.feedback.value = e.currentTarget.value;
   fx_2_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_feedback", e.currentTarget.value);
 });
 
 const fx_2_feedback_delayTime = document.getElementById("fx_2_feedback_delayTime");
@@ -9192,7 +9203,7 @@ const fx_2_feedback_delayTime_value = document.getElementById("fx_2_feedback_del
 fx_2_feedback_delayTime.addEventListener("change", function (e) {
   fx_2_feedback_Node.delayTime.value = e.currentTarget.value;
   fx_2_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_feedback_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_feedback_delayTime", e.currentTarget.value);
 });
 
 const fx_2_feedback_maxDelay = document.getElementById("fx_2_feedback_maxDelay");
@@ -9200,7 +9211,7 @@ const fx_2_feedback_maxDelay_value = document.getElementById("fx_2_feedback_maxD
 fx_2_feedback_maxDelay.addEventListener("change", function (e) {
   fx_2_feedback_Node.maxDelay = e.currentTarget.value;
   fx_2_feedback_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_feedback_maxDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_feedback_maxDelay", e.currentTarget.value);
 });
 
 
@@ -9220,7 +9231,7 @@ const fx_2_phaser_frequency_value = document.getElementById("fx_2_phaser_frequen
 fx_2_phaser_frequency.addEventListener("change", function (e) {
   fx_2_phaser_Node.frequency.value = e.currentTarget.value;
   fx_2_phaser_frequency_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_phaser_frequency", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_phaser_frequency", e.currentTarget.value);
 });
 
 const fx_2_phaser_octaves = document.getElementById("fx_2_phaser_octaves");
@@ -9228,7 +9239,7 @@ const fx_2_phaser_octaves_value = document.getElementById("fx_2_phaser_octaves_v
 fx_2_phaser_octaves.addEventListener("change", function (e) {
   fx_2_phaser_Node.octaves = e.currentTarget.value;
   fx_2_phaser_octaves_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_phaser_octaves", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_phaser_octaves", e.currentTarget.value);
 });
 
 const fx_2_phaser_Q = document.getElementById("fx_2_phaser_Q");
@@ -9236,7 +9247,7 @@ const fx_2_phaser_Q_value = document.getElementById("fx_2_phaser_Q_value");
 fx_2_phaser_Q.addEventListener("change", function (e) {
   fx_2_phaser_Node.Q.value = e.currentTarget.value;
   fx_2_phaser_Q_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_phaser_Q", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_phaser_Q", e.currentTarget.value);
 });
 
 const fx_2_phaser_baseFrequency = document.getElementById("fx_2_phaser_baseFrequency");
@@ -9244,7 +9255,7 @@ const fx_2_phaser_baseFrequency_value = document.getElementById("fx_2_phaser_bas
 fx_2_phaser_baseFrequency.addEventListener("change", function (e) {
   fx_2_phaser_Node.baseFrequency = e.currentTarget.value;
   fx_2_phaser_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_phaser_baseFrequency", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_phaser_baseFrequency", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9265,7 +9276,7 @@ const fx_2_pingpong_feedback_value = document.getElementById("fx_2_pingpong_feed
 fx_2_pingpong_feedback.addEventListener("change", function (e) {
   fx_2_pingpong_Node.feedback.value = e.currentTarget.value;
   fx_2_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_pingpong_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_pingpong_feedback", e.currentTarget.value);
 });
 
 const fx_2_pingpong_delayTime = document.getElementById("fx_2_pingpong_delayTime");
@@ -9273,7 +9284,7 @@ const fx_2_pingpong_delayTime_value = document.getElementById("fx_2_pingpong_del
 fx_2_pingpong_delayTime.addEventListener("change", function (e) {
   fx_2_pingpong_Node.delayTime.value = e.currentTarget.value;
   fx_2_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_pingpong_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_pingpong_delayTime", e.currentTarget.value);
 });
 
 const fx_2_pingpong_maxDelay = document.getElementById("fx_2_pingpong_maxDelay");
@@ -9281,7 +9292,7 @@ const fx_2_pingpong_maxDelay_value = document.getElementById("fx_2_pingpong_maxD
 fx_2_pingpong_maxDelay.addEventListener("change", function (e) {
   fx_2_pingpong_Node.maxDelay = e.currentTarget.value;
   fx_2_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_pingpong_maxDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_pingpong_maxDelay", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9301,7 +9312,7 @@ const fx_2_pitchshift_feedback_value = document.getElementById("fx_2_pitchshift_
 fx_2_pitchshift_feedback.addEventListener("change", function (e) {
   fx_2_pitchshift_Node.feedback.value = e.currentTarget.value;
   fx_2_pitchshift_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_pitchshift_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_pitchshift_feedback", e.currentTarget.value);
 });
 
 const fx_2_pitchshift_delayTime = document.getElementById("fx_2_pitchshift_delayTime");
@@ -9309,7 +9320,7 @@ const fx_2_pitchshift_delayTime_value = document.getElementById("fx_2_pitchshift
 fx_2_pitchshift_delayTime.addEventListener("change", function (e) {
   fx_2_pitchshift_Node.delayTime.value = e.currentTarget.value;
   fx_2_pitchshift_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_pitchshift_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_pitchshift_delayTime", e.currentTarget.value);
 });
 
 const fx_2_pitchshift_pitch = document.getElementById("fx_2_pitchshift_pitch");
@@ -9317,7 +9328,7 @@ const fx_2_pitchshift_pitch_value = document.getElementById("fx_2_pitchshift_pit
 fx_2_pitchshift_pitch.addEventListener("change", function (e) {
   fx_2_pitchshift_Node.pitch = e.currentTarget.value;
   fx_2_pitchshift_pitch_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_pitchshift_pitch", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_pitchshift_pitch", e.currentTarget.value);
 });
 
 const fx_2_pitchshift_windowSize = document.getElementById("fx_2_pitchshift_windowSize");
@@ -9325,7 +9336,7 @@ const fx_2_pitchshift_windowSize_value = document.getElementById("fx_2_pitchshif
 fx_2_pitchshift_windowSize.addEventListener("change", function (e) {
   fx_2_pitchshift_Node.windowSize = e.currentTarget.value;
   fx_2_pitchshift_windowSize_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_pitchshift_windowSize", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_pitchshift_windowSize", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9347,7 +9358,7 @@ const fx_2_reverb_preDelay_value = document.getElementById("fx_2_reverb_preDelay
 fx_2_reverb_preDelay.addEventListener("change", function (e) {
   fx_2_reverb_Node.preDelay = e.currentTarget.value;
   fx_2_reverb_preDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_reverb_preDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_reverb_preDelay", e.currentTarget.value);
 });
 
 const fx_2_reverb_decay = document.getElementById("fx_2_reverb_decay");
@@ -9355,7 +9366,7 @@ const fx_2_reverb_decay_value = document.getElementById("fx_2_reverb_decay_value
 fx_2_reverb_decay.addEventListener("change", function (e) {
   fx_2_reverb_Node.decay = e.currentTarget.value;
   fx_2_reverb_decay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_reverb_decay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_reverb_decay", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9376,7 +9387,7 @@ const fx_3_chorus_delayTime_value = document.getElementById("fx_3_chorus_delayTi
 fx_3_chorus_delayTime.addEventListener("change", function (e) {
   fx_3_chorus_Node.delayTime = e.currentTarget.value;
   fx_3_chorus_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_chorus_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_chorus_delayTime", e.currentTarget.value);
 });
 
 const fx_3_chorus_freq = document.getElementById("fx_3_chorus_freq");
@@ -9384,7 +9395,7 @@ const fx_3_chorus_freq_value = document.getElementById("fx_3_chorus_freq_value")
 fx_3_chorus_freq.addEventListener("change", function (e) {
   fx_3_chorus_Node.frequency.value = e.currentTarget.value;
   fx_3_chorus_freq_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_chorus_freq", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_chorus_freq", e.currentTarget.value);
 });
 
 const fx_3_chorus_depth = document.getElementById("fx_3_chorus_depth");
@@ -9392,7 +9403,7 @@ const fx_3_chorus_depth_value = document.getElementById("fx_3_chorus_depth_value
 fx_3_chorus_depth.addEventListener("change", function (e) {
   fx_3_chorus_Node.depth = e.currentTarget.value;
   fx_3_chorus_depth_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_chorus_depth", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_chorus_depth", e.currentTarget.value);
 });
 
 const fx_3_chorus_spread = document.getElementById("fx_3_chorus_spread");
@@ -9400,7 +9411,7 @@ const fx_3_chorus_spread_value = document.getElementById("fx_3_chorus_spread_val
 fx_3_chorus_spread.addEventListener("change", function (e) {
   fx_3_chorus_Node.spread = e.currentTarget.value;
   fx_3_chorus_spread_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_chorus_spread", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_chorus_spread", e.currentTarget.value);
 });
 
 const fx_3_chorus_feedback = document.getElementById("fx_3_chorus_feedback");
@@ -9408,13 +9419,13 @@ const fx_3_chorus_feedback_value = document.getElementById("fx_3_chorus_feedback
 fx_3_chorus_feedback.addEventListener("change", function (e) {
   fx_3_chorus_Node.feedback.value = e.currentTarget.value;
   fx_3_chorus_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_chorus_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_chorus_feedback", e.currentTarget.value);
 });
 
 const fx_3_chorus_select_type = document.getElementById("fx_3_chorus_select_type");
 fx_3_chorus_select_type.addEventListener("change", function (e) {
   fx_3_chorus_Node.type = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_chorus_select_type", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_chorus_select_type", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9435,7 +9446,7 @@ const fx_3_feedback_value = document.getElementById("fx_3_feedback_value");
 fx_3_feedback.addEventListener("change", function (e) {
   fx_3_feedback_Node.feedback.value = e.currentTarget.value;
   fx_3_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_feedback", e.currentTarget.value);
 });
 
 const fx_3_feedback_delayTime = document.getElementById("fx_3_feedback_delayTime");
@@ -9443,7 +9454,7 @@ const fx_3_feedback_delayTime_value = document.getElementById("fx_3_feedback_del
 fx_3_feedback_delayTime.addEventListener("change", function (e) {
   fx_3_feedback_Node.delayTime.value = e.currentTarget.value;
   fx_3_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_feedback_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_feedback_delayTime", e.currentTarget.value);
 });
 
 const fx_3_feedback_maxDelay = document.getElementById("fx_3_feedback_maxDelay");
@@ -9451,7 +9462,7 @@ const fx_3_feedback_maxDelay_value = document.getElementById("fx_3_feedback_maxD
 fx_3_feedback_maxDelay.addEventListener("change", function (e) {
   fx_3_feedback_Node.maxDelay = e.currentTarget.value;
   fx_3_feedback_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_feedback_maxDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_feedback_maxDelay", e.currentTarget.value);
 });
 
 //*****************************************************************************************************
@@ -9470,7 +9481,7 @@ const fx_3_frequencyShifter_value = document.getElementById("fx_3_frequencyShift
 fx_3_frequencyShifter.addEventListener("change", function (e) {
   fx_3_FrequencyShifter_Node.frequency.value = e.currentTarget.value;
   fx_3_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_frequencyShifter", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_frequencyShifter", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9491,7 +9502,7 @@ const fx_3_pingpong_feedback_value = document.getElementById("fx_3_pingpong_feed
 fx_3_pingpong_feedback.addEventListener("change", function (e) {
   fx_3_pingpong_Node.feedback.value = e.currentTarget.value;
   fx_3_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_pingpong_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_pingpong_feedback", e.currentTarget.value);
 });
 
 const fx_3_pingpong_delayTime = document.getElementById("fx_3_pingpong_delayTime");
@@ -9499,7 +9510,7 @@ const fx_3_pingpong_delayTime_value = document.getElementById("fx_3_pingpong_del
 fx_3_pingpong_delayTime.addEventListener("change", function (e) {
   fx_3_pingpong_Node.delayTime.value = e.currentTarget.value;
   fx_3_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_pingpong_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_pingpong_delayTime", e.currentTarget.value);
 });
 
 const fx_3_pingpong_maxDelay = document.getElementById("fx_3_pingpong_maxDelay");
@@ -9507,7 +9518,7 @@ const fx_3_pingpong_maxDelay_value = document.getElementById("fx_3_pingpong_maxD
 fx_3_pingpong_maxDelay.addEventListener("change", function (e) {
   fx_3_pingpong_Node.maxDelay = e.currentTarget.value;
   fx_3_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_pingpong_maxDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_pingpong_maxDelay", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9527,7 +9538,7 @@ const fx_3_pitchshift_feedback_value = document.getElementById("fx_3_pitchshift_
 fx_3_pitchshift_feedback.addEventListener("change", function (e) {
   fx_3_pitchshift_Node.feedback.value = e.currentTarget.value;
   fx_3_pitchshift_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_pitchshift_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_pitchshift_feedback", e.currentTarget.value);
 });
 
 const fx_3_pitchshift_delayTime = document.getElementById("fx_3_pitchshift_delayTime");
@@ -9535,7 +9546,7 @@ const fx_3_pitchshift_delayTime_value = document.getElementById("fx_3_pitchshift
 fx_3_pitchshift_delayTime.addEventListener("change", function (e) {
   fx_3_pitchshift_Node.delayTime.value = e.currentTarget.value;
   fx_3_pitchshift_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_pitchshift_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_pitchshift_delayTime", e.currentTarget.value);
 });
 
 const fx_3_pitchshift_pitch = document.getElementById("fx_3_pitchshift_pitch");
@@ -9543,7 +9554,7 @@ const fx_3_pitchshift_pitch_value = document.getElementById("fx_3_pitchshift_pit
 fx_3_pitchshift_pitch.addEventListener("change", function (e) {
   fx_3_pitchshift_Node.pitch = e.currentTarget.value;
   fx_3_pitchshift_pitch_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_pitchshift_pitch", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_pitchshift_pitch", e.currentTarget.value);
 });
 
 const fx_3_pitchshift_windowSize = document.getElementById("fx_3_pitchshift_windowSize");
@@ -9551,7 +9562,7 @@ const fx_3_pitchshift_windowSize_value = document.getElementById("fx_3_pitchshif
 fx_3_pitchshift_windowSize.addEventListener("change", function (e) {
   fx_3_pitchshift_Node.windowSize = e.currentTarget.value;
   fx_3_pitchshift_windowSize_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_pitchshift_windowSize", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_pitchshift_windowSize", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9573,7 +9584,7 @@ const fx_3_reverb_preDelay_value = document.getElementById("fx_3_reverb_preDelay
 fx_3_reverb_preDelay.addEventListener("change", function (e) {
   fx_3_reverb_Node.preDelay = e.currentTarget.value;
   fx_3_reverb_preDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_reverb_preDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_reverb_preDelay", e.currentTarget.value);
 });
 
 const fx_3_reverb_decay = document.getElementById("fx_3_reverb_decay");
@@ -9581,7 +9592,7 @@ const fx_3_reverb_decay_value = document.getElementById("fx_3_reverb_decay_value
 fx_3_reverb_decay.addEventListener("change", function (e) {
   fx_3_reverb_Node.decay = e.currentTarget.value;
   fx_3_reverb_decay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_reverb_decay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_reverb_decay", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9601,7 +9612,7 @@ const fx_4_chorus_delayTime_value = document.getElementById("fx_4_chorus_delayTi
 fx_4_chorus_delayTime.addEventListener("change", function (e) {
   fx_4_chorus_Node.delayTime = e.currentTarget.value;
   fx_4_chorus_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_chorus_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_chorus_delayTime", e.currentTarget.value);
 });
 
 const fx_4_chorus_freq = document.getElementById("fx_4_chorus_freq");
@@ -9609,7 +9620,7 @@ const fx_4_chorus_freq_value = document.getElementById("fx_4_chorus_freq_value")
 fx_4_chorus_freq.addEventListener("change", function (e) {
   fx_4_chorus_Node.frequency.value = e.currentTarget.value;
   fx_4_chorus_freq_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_chorus_freq", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_chorus_freq", e.currentTarget.value);
 });
 
 const fx_4_chorus_depth = document.getElementById("fx_4_chorus_depth");
@@ -9617,7 +9628,7 @@ const fx_4_chorus_depth_value = document.getElementById("fx_4_chorus_depth_value
 fx_4_chorus_depth.addEventListener("change", function (e) {
   fx_4_chorus_Node.depth = e.currentTarget.value;
   fx_4_chorus_depth_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_chorus_depth", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_chorus_depth", e.currentTarget.value);
 });
 
 const fx_4_chorus_spread = document.getElementById("fx_4_chorus_spread");
@@ -9625,7 +9636,7 @@ const fx_4_chorus_spread_value = document.getElementById("fx_4_chorus_spread_val
 fx_4_chorus_spread.addEventListener("change", function (e) {
   fx_4_chorus_Node.spread = e.currentTarget.value;
   fx_4_chorus_spread_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_chorus_spread", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_chorus_spread", e.currentTarget.value);
 });
 
 const fx_4_chorus_feedback = document.getElementById("fx_4_chorus_feedback");
@@ -9633,13 +9644,13 @@ const fx_4_chorus_feedback_value = document.getElementById("fx_4_chorus_feedback
 fx_4_chorus_feedback.addEventListener("change", function (e) {
   fx_4_chorus_Node.feedback.value = e.currentTarget.value;
   fx_4_chorus_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_chorus_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_chorus_feedback", e.currentTarget.value);
 });
 
 const fx_4_chorus_select_type = document.getElementById("fx_4_chorus_select_type");
 fx_4_chorus_select_type.addEventListener("change", function (e) {
   fx_4_chorus_Node.type = e.currentTarget.value;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_chorus_select_type", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_chorus_select_type", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9659,7 +9670,7 @@ const fx_4_feedback_value = document.getElementById("fx_4_feedback_value");
 fx_4_feedback.addEventListener("change", function (e) {
   fx_4_feedback_Node.feedback.value = e.currentTarget.value;
   fx_4_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_feedback", e.currentTarget.value);
 });
 
 const fx_4_feedback_delayTime = document.getElementById("fx_4_feedback_delayTime");
@@ -9667,7 +9678,7 @@ const fx_4_feedback_delayTime_value = document.getElementById("fx_4_feedback_del
 fx_4_feedback_delayTime.addEventListener("change", function (e) {
   fx_4_feedback_Node.delayTime.value = e.currentTarget.value;
   fx_4_feedback_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_feedback_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_feedback_delayTime", e.currentTarget.value);
 });
 
 const fx_4_feedback_maxDelay = document.getElementById("fx_4_feedback_maxDelay");
@@ -9675,7 +9686,7 @@ const fx_4_feedback_maxDelay_value = document.getElementById("fx_4_feedback_maxD
 fx_4_feedback_maxDelay.addEventListener("change", function (e) {
   fx_4_feedback_Node.maxDelay = e.currentTarget.value;
   fx_4_feedback_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_feedback_maxDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_feedback_maxDelay", e.currentTarget.value);
 });
 
 //*****************************************************************************************************
@@ -9694,7 +9705,7 @@ const fx_4_frequencyShifter_value = document.getElementById("fx_4_frequencyShift
 fx_4_frequencyShifter.addEventListener("change", function (e) {
   fx_4_FrequencyShifter_Node.frequency.value = e.currentTarget.value;
   fx_4_frequencyShifter_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_frequencyShifter", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_frequencyShifter", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9713,7 +9724,7 @@ const fx_4_phaser_frequency_value = document.getElementById("fx_4_phaser_frequen
 fx_4_phaser_frequency.addEventListener("change", function (e) {
   fx_4_phaser_Node.frequency.value = e.currentTarget.value;
   fx_4_phaser_frequency_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_phaser_frequency", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_phaser_frequency", e.currentTarget.value);
 });
 
 const fx_4_phaser_octaves = document.getElementById("fx_4_phaser_octaves");
@@ -9721,7 +9732,7 @@ const fx_4_phaser_octaves_value = document.getElementById("fx_4_phaser_octaves_v
 fx_4_phaser_octaves.addEventListener("change", function (e) {
   fx_4_phaser_Node.octaves = e.currentTarget.value;
   fx_4_phaser_octaves_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_phaser_octaves", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_phaser_octaves", e.currentTarget.value);
 });
 
 const fx_4_phaser_Q = document.getElementById("fx_4_phaser_Q");
@@ -9729,7 +9740,7 @@ const fx_4_phaser_Q_value = document.getElementById("fx_4_phaser_Q_value");
 fx_4_phaser_Q.addEventListener("change", function (e) {
   fx_4_phaser_Node.Q.value = e.currentTarget.value;
   fx_4_phaser_Q_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_phaser_Q", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_phaser_Q", e.currentTarget.value);
 });
 
 const fx_4_phaser_baseFrequency = document.getElementById("fx_4_phaser_baseFrequency");
@@ -9737,7 +9748,7 @@ const fx_4_phaser_baseFrequency_value = document.getElementById("fx_4_phaser_bas
 fx_4_phaser_baseFrequency.addEventListener("change", function (e) {
   fx_4_phaser_Node.baseFrequency = e.currentTarget.value;
   fx_4_phaser_baseFrequency_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_phaser_baseFrequency", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_phaser_baseFrequency", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9758,7 +9769,7 @@ const fx_4_pingpong_feedback_value = document.getElementById("fx_4_pingpong_feed
 fx_4_pingpong_feedback.addEventListener("change", function (e) {
   fx_4_pingpong_Node.feedback.value = e.currentTarget.value;
   fx_4_pingpong_feedback_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_pingpong_feedback", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_pingpong_feedback", e.currentTarget.value);
 });
 
 const fx_4_pingpong_delayTime = document.getElementById("fx_4_pingpong_delayTime");
@@ -9766,7 +9777,7 @@ const fx_4_pingpong_delayTime_value = document.getElementById("fx_4_pingpong_del
 fx_4_pingpong_delayTime.addEventListener("change", function (e) {
   fx_4_pingpong_Node.delayTime.value = e.currentTarget.value;
   fx_4_pingpong_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_pingpong_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_pingpong_delayTime", e.currentTarget.value);
 });
 
 const fx_4_pingpong_maxDelay = document.getElementById("fx_4_pingpong_maxDelay");
@@ -9774,7 +9785,7 @@ const fx_4_pingpong_maxDelay_value = document.getElementById("fx_4_pingpong_maxD
 fx_4_pingpong_maxDelay.addEventListener("change", function (e) {
   fx_4_pingpong_Node.maxDelay = e.currentTarget.value;
   fx_4_pingpong_maxDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_pingpong_maxDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_pingpong_maxDelay", e.currentTarget.value);
 });
 
 //************************************************************************** */
@@ -9797,7 +9808,7 @@ const fx_4_reverb_preDelay_value = document.getElementById("fx_4_reverb_preDelay
 fx_4_reverb_preDelay.addEventListener("change", function (e) {
   fx_4_reverb_Node.preDelay = e.currentTarget.value;
   fx_4_reverb_preDelay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_reverb_preDelay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_reverb_preDelay", e.currentTarget.value);
 });
 
 const fx_4_reverb_decay = document.getElementById("fx_4_reverb_decay");
@@ -9805,7 +9816,7 @@ const fx_4_reverb_decay_value = document.getElementById("fx_4_reverb_decay_value
 fx_4_reverb_decay.addEventListener("change", function (e) {
   fx_4_reverb_Node.decay = e.currentTarget.value;
   fx_4_reverb_decay_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_reverb_decay", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_reverb_decay", e.currentTarget.value);
 });
 /**/
 
@@ -9862,7 +9873,11 @@ audio_card_channel_volNode.fan(audio_card_channel_fxSend_1_postFdr_volNode, audi
 //para tascam
 audio_card_channel_tascam_out_Node.fan(audio_card_channel_fxSend_1_postEq_volNode, audio_card_channel_fxSend_2_postEq_volNode, audio_card_channel_fxSend_3_postEq_volNode, audio_card_channel_fxSend_4_postEq_volNode);
 
-
+//**********************************************************
+//**********************************************************
+//***************   channel 1   ****************************
+//**********************************************************
+//**********************************************************
 
 const channel_1_volNode = new Tone.Volume(-100).connect(masterVolumeNode);
 const channel_1_rms_meter = new Tone.Meter(0);
@@ -10311,12 +10326,12 @@ audio_card_channel_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     audio_card_channel_filter_eq3.low.value = -100;
     audio_card_channel_EQ3_low_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_low_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_low_fader_gain", -100);
   }
   else {
     audio_card_channel_filter_eq3.low.value = e.currentTarget.value;
     audio_card_channel_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_low_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10326,12 +10341,12 @@ audio_card_channel_EQ3_low_frequency_fader.addEventListener("change", function (
   if (e.currentTarget.value <= -40) {
     audio_card_channel_filter_eq3.lowFrequency.value = -100;
     audio_card_channel_EQ3_low_frequency_fader_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_low_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_low_frequency_fader", -100);
   }
   else {
     audio_card_channel_filter_eq3.lowFrequency.value = e.currentTarget.value;
     audio_card_channel_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_low_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10341,12 +10356,12 @@ audio_card_channel_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     audio_card_channel_filter_eq3.mid.value = -100;
     audio_card_channel_EQ3_mid_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_mid_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_mid_fader_gain", -100);
   }
   else {
     audio_card_channel_filter_eq3.mid.value = e.currentTarget.value;
     audio_card_channel_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_mid_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10356,12 +10371,12 @@ audio_card_channel_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     audio_card_channel_filter_eq3.mid.value = -100;
     audio_card_channel_EQ3_hi_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_hi_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_hi_fader_gain", -100);
   }
   else {
     audio_card_channel_filter_eq3.high.value = e.currentTarget.value;
     audio_card_channel_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_hi_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10371,12 +10386,12 @@ audio_card_channel_EQ3_high_frequency_fader.addEventListener("change", function 
   if (e.currentTarget.value <= -40) {
     audio_card_channel_filter_eq3.highFrequency.value = -100;
     audio_card_channel_EQ3_high_frequency_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_high_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_high_frequency_fader", -100);
   }
   else {
     audio_card_channel_filter_eq3.highFrequency.value = e.currentTarget.value;
     audio_card_channel_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_high_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10385,7 +10400,7 @@ const audio_card_channel_EQ3_Q_value = document.getElementById("audio_card_chann
 audio_card_channel_EQ3_Q_fader.addEventListener("change", function (e) {
   audio_card_channel_filter_eq3.Q.value = e.currentTarget.value;
   audio_card_channel_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_EQ3_Q_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_EQ3_Q_fader", e.currentTarget.value);
 });
 
 audio_card_channel_filter_eq3.fan(audio_card_channel_fxSend_1_postEq_volNode, audio_card_channel_fxSend_2_postEq_volNode, audio_card_channel_fxSend_3_postEq_volNode, audio_card_channel_fxSend_4_postEq_volNode);
@@ -10409,12 +10424,12 @@ channel_1_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_filter_eq3.low.value = -100;
     channel_1_EQ3_low_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_low_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_low_fader_gain", -100);
   }
   else {
     channel_1_filter_eq3.low.value = e.currentTarget.value;
     channel_1_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_low_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10424,12 +10439,12 @@ channel_1_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_filter_eq3.lowFrequency.value = -100;
     channel_1_EQ3_low_frequency_fader_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_low_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_low_frequency_fader", -100);
   }
   else {
     channel_1_filter_eq3.lowFrequency.value = e.currentTarget.value;
     channel_1_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_low_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10439,12 +10454,12 @@ channel_1_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_filter_eq3.mid.value = -100;
     channel_1_EQ3_mid_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_mid_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_mid_fader_gain", -100);
   }
   else {
     channel_1_filter_eq3.mid.value = e.currentTarget.value;
     channel_1_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_mid_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10454,12 +10469,12 @@ channel_1_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_filter_eq3.mid.value = -100;
     channel_1_EQ3_hi_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_hi_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_hi_fader_gain", -100);
   }
   else {
     channel_1_filter_eq3.high.value = e.currentTarget.value;
     channel_1_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_hi_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10469,12 +10484,12 @@ channel_1_EQ3_high_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_1_filter_eq3.highFrequency.value = -100;
     channel_1_EQ3_high_frequency_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_high_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_high_frequency_fader", -100);
   }
   else {
     channel_1_filter_eq3.highFrequency.value = e.currentTarget.value;
     channel_1_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_high_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10483,7 +10498,7 @@ const channel_1_EQ3_Q_value = document.getElementById("channel_1_EQ3_Q_value");
 channel_1_EQ3_Q_fader.addEventListener("change", function (e) {
   channel_1_filter_eq3.Q.value = e.currentTarget.value;
   channel_1_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_EQ3_Q_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_EQ3_Q_fader", e.currentTarget.value);
 });
 
 channel_1_filter_eq3.fan(channel_1_fxSend_1_postEq_volNode, channel_1_fxSend_2_postEq_volNode, channel_1_fxSend_3_postEq_volNode, channel_1_fxSend_4_postEq_volNode);
@@ -10507,12 +10522,12 @@ channel_2_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_filter_eq3.low.value = -100;
     channel_2_EQ3_low_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_low_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_low_fader_gain", -100);
   }
   else {
     channel_2_filter_eq3.low.value = e.currentTarget.value;
     channel_2_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_low_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10522,12 +10537,12 @@ channel_2_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_filter_eq3.lowFrequency.value = -100;
     channel_2_EQ3_low_frequency_fader_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_low_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_low_frequency_fader", -100);
   }
   else {
     channel_2_filter_eq3.lowFrequency.value = e.currentTarget.value;
     channel_2_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_low_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10537,12 +10552,12 @@ channel_2_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_filter_eq3.mid.value = -100;
     channel_2_EQ3_mid_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_mid_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_mid_fader_gain", -100);
   }
   else {
     channel_2_filter_eq3.mid.value = e.currentTarget.value;
     channel_2_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_mid_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10552,12 +10567,12 @@ channel_2_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_filter_eq3.mid.value = -100;
     channel_2_EQ3_hi_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_hi_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_hi_fader_gain", -100);
   }
   else {
     channel_2_filter_eq3.high.value = e.currentTarget.value;
     channel_2_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_hi_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10567,12 +10582,12 @@ channel_2_EQ3_high_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_2_filter_eq3.highFrequency.value = -100;
     channel_2_EQ3_high_frequency_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_high_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_high_frequency_fader", -100);
   }
   else {
     channel_2_filter_eq3.highFrequency.value = e.currentTarget.value;
     channel_2_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_high_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10581,7 +10596,7 @@ const channel_2_EQ3_Q_value = document.getElementById("channel_2_EQ3_Q_value");
 channel_2_EQ3_Q_fader.addEventListener("change", function (e) {
   channel_2_filter_eq3.Q.value = e.currentTarget.value;
   channel_2_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_EQ3_Q_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_EQ3_Q_fader", e.currentTarget.value);
 });
 
 channel_2_filter_eq3.fan(channel_2_fxSend_1_postEq_volNode, channel_2_fxSend_2_postEq_volNode, channel_2_fxSend_3_postEq_volNode, channel_2_fxSend_4_postEq_volNode);
@@ -10606,12 +10621,12 @@ channel_3_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_3_filter_eq3.low.value = -100;
     channel_3_EQ3_low_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_low_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_low_fader_gain", -100);
   }
   else {
     channel_3_filter_eq3.low.value = e.currentTarget.value;
     channel_3_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_low_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10621,12 +10636,12 @@ channel_3_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_3_filter_eq3.lowFrequency.value = -100;
     channel_3_EQ3_low_frequency_fader_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_low_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_low_frequency_fader", -100);
   }
   else {
     channel_3_filter_eq3.lowFrequency.value = e.currentTarget.value;
     channel_3_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_low_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10636,12 +10651,12 @@ channel_3_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_3_filter_eq3.mid.value = -100;
     channel_3_EQ3_mid_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_mid_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_mid_fader_gain", -100);
   }
   else {
     channel_3_filter_eq3.mid.value = e.currentTarget.value;
     channel_3_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_mid_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10651,12 +10666,12 @@ channel_3_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_3_filter_eq3.mid.value = -100;
     channel_3_EQ3_hi_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_hi_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_hi_fader_gain", -100);
   }
   else {
     channel_3_filter_eq3.high.value = e.currentTarget.value;
     channel_3_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_hi_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10666,12 +10681,12 @@ channel_3_EQ3_high_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_3_filter_eq3.highFrequency.value = -100;
     channel_3_EQ3_high_frequency_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_high_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_high_frequency_fader", -100);
   }
   else {
     channel_3_filter_eq3.highFrequency.value = e.currentTarget.value;
     channel_3_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_high_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10680,7 +10695,7 @@ const channel_3_EQ3_Q_value = document.getElementById("channel_3_EQ3_Q_value");
 channel_3_EQ3_Q_fader.addEventListener("change", function (e) {
   channel_3_filter_eq3.Q.value = e.currentTarget.value;
   channel_3_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_EQ3_Q_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_EQ3_Q_fader", e.currentTarget.value);
 });
 
 channel_3_filter_eq3.fan(channel_3_fxSend_1_postEq_volNode, channel_3_fxSend_2_postEq_volNode, channel_3_fxSend_3_postEq_volNode, channel_3_fxSend_4_postEq_volNode);
@@ -10705,12 +10720,12 @@ channel_4_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_4_filter_eq3.low.value = -100;
     channel_4_EQ3_low_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_low_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_low_fader_gain", -100);
   }
   else {
     channel_4_filter_eq3.low.value = e.currentTarget.value;
     channel_4_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_low_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10720,12 +10735,12 @@ channel_4_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_4_filter_eq3.lowFrequency.value = -100;
     channel_4_EQ3_low_frequency_fader_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_low_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_low_frequency_fader", -100);
   }
   else {
     channel_4_filter_eq3.lowFrequency.value = e.currentTarget.value;
     channel_4_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_low_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10735,12 +10750,12 @@ channel_4_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_4_filter_eq3.mid.value = -100;
     channel_4_EQ3_mid_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_mid_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_mid_fader_gain", -100);
   }
   else {
     channel_4_filter_eq3.mid.value = e.currentTarget.value;
     channel_4_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_mid_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10750,12 +10765,12 @@ channel_4_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_4_filter_eq3.mid.value = -100;
     channel_4_EQ3_hi_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_hi_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_hi_fader_gain", -100);
   }
   else {
     channel_4_filter_eq3.high.value = e.currentTarget.value;
     channel_4_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_hi_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10765,12 +10780,12 @@ channel_4_EQ3_high_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     channel_4_filter_eq3.highFrequency.value = -100;
     channel_4_EQ3_high_frequency_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_high_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_high_frequency_fader", -100);
   }
   else {
     channel_4_filter_eq3.highFrequency.value = e.currentTarget.value;
     channel_4_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_high_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10779,7 +10794,7 @@ const channel_4_EQ3_Q_value = document.getElementById("channel_4_EQ3_Q_value");
 channel_4_EQ3_Q_fader.addEventListener("change", function (e) {
   channel_4_filter_eq3.Q.value = e.currentTarget.value;
   channel_4_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_EQ3_Q_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_EQ3_Q_fader", e.currentTarget.value);
 });
 
 channel_4_filter_eq3.fan(channel_4_fxSend_1_postEq_volNode, channel_4_fxSend_2_postEq_volNode, channel_4_fxSend_3_postEq_volNode, channel_4_fxSend_4_postEq_volNode);
@@ -10805,12 +10820,12 @@ fx_1_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_1_filter_eq3.low.value = -100;
     fx_1_EQ3_low_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_low_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_low_fader_gain", -100);
   }
   else {
     fx_1_filter_eq3.low.value = e.currentTarget.value;
     fx_1_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_low_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10820,12 +10835,12 @@ fx_1_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_1_filter_eq3.lowFrequency.value = -100;
     fx_1_EQ3_low_frequency_fader_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_low_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_low_frequency_fader", -100);
   }
   else {
     fx_1_filter_eq3.lowFrequency.value = e.currentTarget.value;
     fx_1_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_low_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10835,12 +10850,12 @@ fx_1_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_1_filter_eq3.mid.value = -100;
     fx_1_EQ3_mid_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_mid_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_mid_fader_gain", -100);
   }
   else {
     fx_1_filter_eq3.mid.value = e.currentTarget.value;
     fx_1_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_mid_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10850,12 +10865,12 @@ fx_1_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_1_filter_eq3.mid.value = -100;
     fx_1_EQ3_hi_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_hi_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_hi_fader_gain", -100);
   }
   else {
     fx_1_filter_eq3.high.value = e.currentTarget.value;
     fx_1_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_hi_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10865,12 +10880,12 @@ fx_1_EQ3_high_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_1_filter_eq3.highFrequency.value = -100;
     fx_1_EQ3_high_frequency_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_high_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_high_frequency_fader", -100);
   }
   else {
     fx_1_filter_eq3.highFrequency.value = e.currentTarget.value;
     fx_1_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_high_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10879,7 +10894,7 @@ const fx_1_EQ3_Q_value = document.getElementById("fx_1_EQ3_Q_value");
 fx_1_EQ3_Q_fader.addEventListener("change", function (e) {
   fx_1_filter_eq3.Q.value = e.currentTarget.value;
   fx_1_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_EQ3_Q_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_EQ3_Q_fader", e.currentTarget.value);
 });
 
 fx_1_filter_eq3.fan(fx_1_fxSend_1_postEq_volNode, fx_1_fxSend_2_postEq_volNode, fx_1_fxSend_3_postEq_volNode, fx_1_fxSend_4_postEq_volNode);
@@ -10903,12 +10918,12 @@ fx_2_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_2_filter_eq3.low.value = -100;
     fx_2_EQ3_low_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_low_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_low_fader_gain", -100);
   }
   else {
     fx_2_filter_eq3.low.value = e.currentTarget.value;
     fx_2_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_low_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10918,12 +10933,12 @@ fx_2_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_2_filter_eq3.lowFrequency.value = -100;
     fx_2_EQ3_low_frequency_fader_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_low_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_low_frequency_fader", -100);
   }
   else {
     fx_2_filter_eq3.lowFrequency.value = e.currentTarget.value;
     fx_2_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_low_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10933,12 +10948,12 @@ fx_2_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_2_filter_eq3.mid.value = -100;
     fx_2_EQ3_mid_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_mid_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_mid_fader_gain", -100);
   }
   else {
     fx_2_filter_eq3.mid.value = e.currentTarget.value;
     fx_2_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_mid_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10948,12 +10963,12 @@ fx_2_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_2_filter_eq3.mid.value = -100;
     fx_2_EQ3_hi_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_hi_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_hi_fader_gain", -100);
   }
   else {
     fx_2_filter_eq3.high.value = e.currentTarget.value;
     fx_2_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_hi_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -10963,12 +10978,12 @@ fx_2_EQ3_high_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_2_filter_eq3.highFrequency.value = -100;
     fx_2_EQ3_high_frequency_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_high_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_high_frequency_fader", -100);
   }
   else {
     fx_2_filter_eq3.highFrequency.value = e.currentTarget.value;
     fx_2_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_high_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -10977,7 +10992,7 @@ const fx_2_EQ3_Q_value = document.getElementById("fx_2_EQ3_Q_value");
 fx_2_EQ3_Q_fader.addEventListener("change", function (e) {
   fx_2_filter_eq3.Q.value = e.currentTarget.value;
   fx_2_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_EQ3_Q_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_EQ3_Q_fader", e.currentTarget.value);
 });
 
 fx_2_filter_eq3.fan(fx_2_fxSend_1_postEq_volNode, fx_2_fxSend_2_postEq_volNode, fx_2_fxSend_3_postEq_volNode, fx_2_fxSend_4_postEq_volNode);
@@ -11001,12 +11016,12 @@ fx_3_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_3_filter_eq3.low.value = -100;
     fx_3_EQ3_low_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_low_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_low_fader_gain", -100);
   }
   else {
     fx_3_filter_eq3.low.value = e.currentTarget.value;
     fx_3_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_low_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -11016,12 +11031,12 @@ fx_3_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_3_filter_eq3.lowFrequency.value = -100;
     fx_3_EQ3_low_frequency_fader_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_low_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_low_frequency_fader", -100);
   }
   else {
     fx_3_filter_eq3.lowFrequency.value = e.currentTarget.value;
     fx_3_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_low_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -11031,12 +11046,12 @@ fx_3_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_3_filter_eq3.mid.value = -100;
     fx_3_EQ3_mid_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_mid_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_mid_fader_gain", -100);
   }
   else {
     fx_3_filter_eq3.mid.value = e.currentTarget.value;
     fx_3_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_mid_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -11046,12 +11061,12 @@ fx_3_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_3_filter_eq3.mid.value = -100;
     fx_3_EQ3_hi_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_hi_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_hi_fader_gain", -100);
   }
   else {
     fx_3_filter_eq3.high.value = e.currentTarget.value;
     fx_3_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_hi_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -11061,12 +11076,12 @@ fx_3_EQ3_high_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_3_filter_eq3.highFrequency.value = -100;
     fx_3_EQ3_high_frequency_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_high_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_high_frequency_fader", -100);
   }
   else {
     fx_3_filter_eq3.highFrequency.value = e.currentTarget.value;
     fx_3_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_high_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -11075,7 +11090,7 @@ const fx_3_EQ3_Q_value = document.getElementById("fx_3_EQ3_Q_value");
 fx_3_EQ3_Q_fader.addEventListener("change", function (e) {
   fx_3_filter_eq3.Q.value = e.currentTarget.value;
   fx_3_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_EQ3_Q_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_EQ3_Q_fader", e.currentTarget.value);
 });
 
 fx_3_filter_eq3.fan(fx_3_fxSend_1_postEq_volNode, fx_3_fxSend_2_postEq_volNode, fx_3_fxSend_3_postEq_volNode, fx_3_fxSend_4_postEq_volNode);
@@ -11099,12 +11114,12 @@ fx_4_EQ3_low_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_4_filter_eq3.low.value = -100;
     fx_4_EQ3_low_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_low_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_low_fader_gain", -100);
   }
   else {
     fx_4_filter_eq3.low.value = e.currentTarget.value;
     fx_4_EQ3_low_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_low_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_low_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -11114,12 +11129,12 @@ fx_4_EQ3_low_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_4_filter_eq3.lowFrequency.value = -100;
     fx_4_EQ3_low_frequency_fader_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_low_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_low_frequency_fader", -100);
   }
   else {
     fx_4_filter_eq3.lowFrequency.value = e.currentTarget.value;
     fx_4_EQ3_low_frequency_fader_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_low_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_low_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -11129,12 +11144,12 @@ fx_4_EQ3_mid_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_4_filter_eq3.mid.value = -100;
     fx_4_EQ3_mid_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_mid_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_mid_fader_gain", -100);
   }
   else {
     fx_4_filter_eq3.mid.value = e.currentTarget.value;
     fx_4_EQ3_mid_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_mid_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_mid_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -11144,12 +11159,12 @@ fx_4_EQ3_hi_fader_gain.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_4_filter_eq3.mid.value = -100;
     fx_4_EQ3_hi_fader_gain_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_hi_fader_gain", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_hi_fader_gain", -100);
   }
   else {
     fx_4_filter_eq3.high.value = e.currentTarget.value;
     fx_4_EQ3_hi_fader_gain_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_hi_fader_gain", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_hi_fader_gain", e.currentTarget.value);
   }
 });
 
@@ -11159,12 +11174,12 @@ fx_4_EQ3_high_frequency_fader.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_4_filter_eq3.highFrequency.value = -100;
     fx_4_EQ3_high_frequency_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_high_frequency_fader", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_high_frequency_fader", -100);
   }
   else {
     fx_4_filter_eq3.highFrequency.value = e.currentTarget.value;
     fx_4_EQ3_high_frequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_high_frequency_fader", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_high_frequency_fader", e.currentTarget.value);
   }
 });
 
@@ -11173,7 +11188,7 @@ const fx_4_EQ3_Q_value = document.getElementById("fx_4_EQ3_Q_value");
 fx_4_EQ3_Q_fader.addEventListener("change", function (e) {
   fx_4_filter_eq3.Q.value = e.currentTarget.value;
   fx_4_EQ3_Q_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_EQ3_Q_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_EQ3_Q_fader", e.currentTarget.value);
 });
 
 fx_4_filter_eq3.fan(fx_4_fxSend_1_postEq_volNode, fx_4_fxSend_2_postEq_volNode, fx_4_fxSend_3_postEq_volNode, fx_4_fxSend_4_postEq_volNode);
@@ -11581,76 +11596,76 @@ fx_1_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fx_1_volNode.volume.value = -100;
     fx_1_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_volume", -100);
   }
   else {
     fx_1_volNode.volume.value = e.currentTarget.value;
     fx_1_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_volume", e.currentTarget.value);
   }
 });
 
 fx_1_pan_fader.addEventListener("change", function (e) {
   fx_1_panNode.pan.value = e.currentTarget.value;
   fx_1_pan_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_pan_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_pan_fader", e.currentTarget.value);
 });
 
 fx_2_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fxReturn_2_fader.volume.value = -100;
     fx_2_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_volume", -100);
   }
   else {
     fxReturn_2_fader.volume.value = e.currentTarget.value;
     fx_2_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_volume", e.currentTarget.value);
   }
 });
 
 fx_2_pan_fader.addEventListener("change", function (e) {
   fx_2_pan.pan.value = e.currentTarget.value;
   fx_2_pan_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_pan_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_pan_fader", e.currentTarget.value);
 });
 
 fx_3_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fxReturn_3_fader.volume.value = -100;
     fx_3_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_volume", -100);
   }
   else {
     fxReturn_3_fader.volume.value = e.currentTarget.value;
     fx_3_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_volume", e.currentTarget.value);
   }
 });
 
 fx_3_pan_fader.addEventListener("change", function (e) {
   fx_3_pan.pan.value = e.currentTarget.value;
   fx_3_pan_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_pan_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_pan_fader", e.currentTarget.value);
 });
 
 fx_4_volume.addEventListener("change", function (e) {
   if (e.currentTarget.value <= -40) {
     fxReturn_4_fader.volume.value = -100;
     fx_4_volume_value.innerHTML = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_volume", -100);
   }
   else {
     fxReturn_4_fader.volume.value = e.currentTarget.value;
     fx_4_volume_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_volume", e.currentTarget.value);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_volume", e.currentTarget.value);
   }
 });
 
 fx_4_pan_fader.addEventListener("change", function (e) {
   fx_4_pan.pan.value = e.currentTarget.value;
   fx_4_pan_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_pan_fader", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_pan_fader", e.currentTarget.value);
 });
 
 //*********************************************************************************** */
@@ -11662,28 +11677,28 @@ const fx_1_select = document.getElementById("fx_1_select");
 fx_1_select.addEventListener("change", function (e) {
   changes_fx_name("FX1", e.currentTarget.value);
   sets_New_FX("FX1", e.currentTarget.value);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_select", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_select", e.currentTarget.value);
 });
 
 const fx_2_select = document.getElementById("fx_2_select")
 fx_2_select.addEventListener("change", function (e) {
   changes_fx_name("FX2", e.currentTarget.value);
   sets_New_FX("FX2", e.currentTarget.value);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_select", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_select", e.currentTarget.value);
 });
 
 const fx_3_select = document.getElementById("fx_3_select")
 fx_3_select.addEventListener("change", function (e) {
   changes_fx_name("FX3", e.currentTarget.value);
   sets_New_FX("FX3", e.currentTarget.value);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_select", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_select", e.currentTarget.value);
 });
 
 const fx_4_select = document.getElementById("fx_4_select")
 fx_4_select.addEventListener("change", function (e) {
   changes_fx_name("FX4", e.currentTarget.value);
   sets_New_FX("FX4", e.currentTarget.value);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_select", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_select", e.currentTarget.value);
 });
 
 //*********************************************************************************** */
@@ -14083,7 +14098,7 @@ function send(value, rampTo_newValue, rampTo_time) {
   else {
     alert("ELSE rampTo_newValue.value!= && rampTo_time.value!=")
   }
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), value, `${rampTo_newValue.value}`, `${rampTo_time.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), value, `${rampTo_newValue.value}`, `${rampTo_time.value}`);
 }
 
 async function load_Local(value) {
@@ -14114,7 +14129,7 @@ async function load_Local(value) {
           grainPlayer_1_load_text.innerHTML = fileHandle.name;
           channel_1_songName.innerHTML = fileHandle.name;
           channel_1_duration_text.innerHTML = Math.round(`${grainPlayer_1_Node.buffer.duration}`);
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1", fileHandle.name);
           break;
         }
       case "grainPlayer_2":
@@ -14123,7 +14138,7 @@ async function load_Local(value) {
           grainPlayer_2_load_text.innerHTML = fileHandle.name;
           channel_2_songName.innerHTML = fileHandle.name;
           channel_2_duration_text.innerHTML = Math.round(`${grainPlayer_2_Node.buffer.duration}`);
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_2", fileHandle.name);
           break;
         }
       case "grainPlayer_3":
@@ -14132,7 +14147,7 @@ async function load_Local(value) {
           grainPlayer_3_load_text.innerHTML = fileHandle.name;
           channel_3_songName.innerHTML = fileHandle.name;
           channel_3_duration_text.innerHTML = Math.round(`${grainPlayer_3_Node.buffer.duration}`);
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3", fileHandle.name);
           break;
         }
       case "grainPlayer_4":
@@ -14141,7 +14156,7 @@ async function load_Local(value) {
           grainPlayer_4_load_text.innerHTML = fileHandle.name;
           channel_4_songName.innerHTML = fileHandle.name;
           channel_4_duration_text.innerHTML = Math.round(`${grainPlayer_4_Node.buffer.duration}`);
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4", fileHandle.name);
           break;
         }
       case "player_1":
@@ -14211,8 +14226,8 @@ async function load_Local(value) {
           const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
           player_1_Node.buffer.set(decodedBuffer_twosecs);
           /**/
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_local", fileHandle.name);
-          //   MixEventObj.logIntoListaLoadFile(List, Tone.now(), "player_1", "load", fileHandle.name)
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_local", fileHandle.name);
+          //   MixEventObj.logIntoListaLoadFile(List, Tone.now().toFixed(4), "player_1", "load", fileHandle.name)
           break;
         }
       case "player_2":
@@ -14283,7 +14298,7 @@ async function load_Local(value) {
           const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
           player_2_Node.buffer.set(decodedBuffer_twosecs);
           /**/
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2_load", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2_load", fileHandle.name);
           break;
         }
       case "player_3":
@@ -14354,7 +14369,7 @@ async function load_Local(value) {
           const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
           player_3_Node.buffer.set(decodedBuffer_twosecs);
           /**/
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_load", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3_load", fileHandle.name);
           break;
         }
       case "player_4":
@@ -14425,7 +14440,7 @@ async function load_Local(value) {
           const decodedBuffer_twosecs = Tone.Buffer.fromArray(Float32);
           player_4_Node.buffer.set(decodedBuffer_twosecs);
           /**/
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_load", fileHandle.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_load", fileHandle.name);
           break;
         }
       default:
@@ -14447,12 +14462,12 @@ function play(value) {
   switch (value) {
     case "lfo_1": {
       lfo_1_Node.start();
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1", "play");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "lfo_1", "play");
       break;
     }
     case "oscillator_1": {
       oscillator_1.start();
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "oscillator_1", "play");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "oscillator_1", "play");
       break;
     }
     case "grainPlayer_1":
@@ -14465,13 +14480,13 @@ function play(value) {
           grainPlayer_1_duration_value.innerHTML = Math.round(`${duration}`);
           grainPlayer_1_Node.start();
           grainPlayer_1_playButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1", "play");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1", "play");
         }
         break;
       }
     case "oscillator_2": {
       oscillator_2.start();
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "oscillator_2", "play");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "oscillator_2", "play");
       break;
     }
     case "grainPlayer_2":
@@ -14484,7 +14499,7 @@ function play(value) {
           grainPlayer_2_duration_value.innerHTML = Math.round(`${duration}`);
           grainPlayer_2_Node.start();
           grainPlayer_2_playButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "Grain_2", "play");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "Grain_2", "play");
         }
         break;
       }
@@ -14498,7 +14513,7 @@ function play(value) {
           grainPlayer_3_duration_value.innerHTML = Math.round(`${duration}`);
           grainPlayer_3_Node.start();
           grainPlayer_3_playButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "Grain_3", "play");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "Grain_3", "play");
         }
         break;
       }
@@ -14512,7 +14527,7 @@ function play(value) {
           grainPlayer_4_duration_value.innerHTML = Math.round(`${duration}`);
           grainPlayer_4_Node.start();
           grainPlayer_4_playButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "Grain_4", "play");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "Grain_4", "play");
         }
         break;
       }
@@ -14526,7 +14541,7 @@ function play(value) {
           channel_1_duration_text.innerHTML = Math.round(`${duration}`);
           player_1_Node.start();
           player_1_playButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1", "play");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1", "play");
         }
         break;
       }
@@ -14540,7 +14555,7 @@ function play(value) {
           player_2_duration_value.innerHTML = Math.round(`${duration}`);
           player_2_Node.start();
           player_2_playButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", "play");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2", "play");
         }
         break;
       }
@@ -14554,7 +14569,7 @@ function play(value) {
           player_3_duration_value.innerHTML = Math.round(`${duration}`);
           player_3_Node.start();
           player_3_playButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", "play");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3", "play");
         }
         break;
       }
@@ -14568,32 +14583,32 @@ function play(value) {
           player_4_duration_value.innerHTML = Math.round(`${duration}`);
           player_4_Node.start();
           player_4_playButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4", "play");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4", "play");
         }
         break;
       }
     case "noise_1":
       {
         noise_1_Node.start();
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_1", "play");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_1", "play");
         break;
       }
     case "noise_2":
       {
         noise_2_Node.start();
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_2", "play");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_2", "play");
         break;
       }
     case "noise_3":
       {
         noise_3_Node.start();
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_3", "play");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_3", "play");
         break;
       }
     case "noise_4":
       {
         noise_4_Node.start();
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_4", "play");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_4", "play");
         break;
       }
     default:
@@ -14606,97 +14621,97 @@ function stop(value) {
   switch (value) {
     case "lfo_1": {
       lfo_1_Node.stop();
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "lfo_1", "stop");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "lfo_1", "stop");
       break;
     }
     case "oscillator_1": {
       oscillator_1.stop();
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "oscillator_1", "stop");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "oscillator_1", "stop");
       break;
     }
     case "grainPlayer_1":
       {
         grainPlayer_1_Node.stop();
         grainPlayer_1_playButton.style.backgroundColor = "white";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1", "stop");
         break;
       }
     case "oscillator_2": {
       oscillator_2.stop();
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "oscillator_2", "stop");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "oscillator_2", "stop");
       break;
     }
     case "grainPlayer_2":
       {
         grainPlayer_2_Node.stop();
         grainPlayer_2_playButton.style.backgroundColor = "white";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_2", "stop");
         break;
       }
     case "grainPlayer_3":
       {
         grainPlayer_3_Node.stop();
         grainPlayer_3_playButton.style.backgroundColor = "white";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3", "stop");
         break;
       }
     case "grainPlayer_4":
       {
         grainPlayer_4_Node.stop();
         grainPlayer_4_playButton.style.backgroundColor = "white";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4", "stop");
         break;
       }
     case "player_1":
       {
         player_1_Node.stop();
         player_1_playButton.style.backgroundColor = "white";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1", "stop");
         break;
       }
     case "player_2":
       {
         player_2_Node.stop();
         player_2_playButton.style.backgroundColor = "white";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2", "stop");
         break;
       }
     case "player_3":
       {
         player_3_Node.stop();
         player_3_playButton.style.backgroundColor = "white";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3", "stop");
         break;
       }
     case "player_4":
       {
         player_4_Node.stop();
         player_4_playButton.style.backgroundColor = "white";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4", "stop");
         break;
       }
     case "noise_1":
       {
         noise_1_Node.stop();
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_1", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_1", "stop");
         break;
       }
     case "noise_2":
       {
         noise_2_Node.stop();
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_2", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_2", "stop");
         break;
       }
     case "noise_3":
       {
         noise_3_Node.stop();
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_3", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_3", "stop");
         break;
       }
     case "noise_4":
       {
         noise_4_Node.stop();
-        MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_4", "stop");
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_4", "stop");
         break;
       }
     default:
@@ -14715,11 +14730,11 @@ function mute(value) {
         player_1_Node.mute = !player_1_Node.mute;
         if (player_1_Node.mute == true) {
           player_1_muteButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_mute", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_mute", "on");
         }
         else {
           player_1_muteButton.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_mute", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_mute", "off");
         }
         break;
       }
@@ -14728,11 +14743,11 @@ function mute(value) {
         player_2_Node.mute = !player_2_Node.mute;
         if (player_2_Node.mute == true) {
           player_2_muteButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_mute", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_mute", "on");
         }
         else {
           player_2_muteButton.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_mute", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_mute", "off");
         }
         break;
       }
@@ -14741,11 +14756,11 @@ function mute(value) {
         player_3_Node.mute = !player_3_Node.mute;
         if (player_3_Node.mute == true) {
           player_3_muteButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_mute", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3_mute", "on");
         }
         else {
           player_3_muteButton.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3_mute", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3_mute", "off");
         }
         break;
       }
@@ -14754,11 +14769,11 @@ function mute(value) {
         player_4_Node.mute = !player_4_Node.mute;
         if (player_4_Node.mute == true) {
           player_4_muteButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_mute", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_mute", "on");
         }
         else {
           player_4_muteButton.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4_mute", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_mute", "off");
         }
         break;
       }
@@ -14767,11 +14782,11 @@ function mute(value) {
         grainPlayer_1_Node.mute = !grainPlayer_1_Node.mute;
         if (grainPlayer_1_Node.mute == true) {
           grainPlayer_1_muteButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_mute", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_mute", "on");
         }
         else {
           grainPlayer_1_muteButton.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_1_mute", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_1_mute", "off");
         }
         break;
       }
@@ -14780,11 +14795,11 @@ function mute(value) {
         grainPlayer_2_Node.mute = !grainPlayer_2_Node.mute;
         if (grainPlayer_2_Node.mute == true) {
           grainPlayer_2_muteButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2_mute", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_2_mute", "on");
         }
         else {
           grainPlayer_2_muteButton.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_2_mute", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_2_mute", "off");
         }
         break;
       }
@@ -14793,11 +14808,11 @@ function mute(value) {
         grainPlayer_3_Node.mute = !grainPlayer_3_Node.mute;
         if (grainPlayer_3_Node.mute == true) {
           grainPlayer_3_muteButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_mute", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_mute", "on");
         }
         else {
           grainPlayer_3_muteButton.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_3_mute", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_3_mute", "off");
         }
         break;
       }
@@ -14806,11 +14821,11 @@ function mute(value) {
         grainPlayer_4_Node.mute = !grainPlayer_4_Node.mute;
         if (grainPlayer_4_Node.mute == true) {
           grainPlayer_4_muteButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_mute", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_mute", "on");
         }
         else {
           grainPlayer_4_muteButton.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "grainPlayer_4_mute", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "grainPlayer_4_mute", "off");
         }
         break;
       }
@@ -14831,11 +14846,11 @@ function mute(value) {
         noise_1_Node.mute = !noise_1_Node.mute;
         if (noise_1_Node.mute == true) {
           noise_1_muteButton.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_1_mute", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_1_mute", "on");
         }
         else {
           noise_1_muteButton.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "noise_1_mute", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "noise_1_mute", "off");
         }
         break;
       }
@@ -14918,7 +14933,7 @@ function busca1() {
       {
         if (player_1_Node.state != "started") {
           player_1_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_http", `${array_Canciones[songNumber - 1].title}`);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_http", `${array_Canciones[songNumber - 1].title}`);
         }
         else {
           alert("ELSE: deten la reproduccion");
@@ -14929,7 +14944,7 @@ function busca1() {
       {
         if (player_2_Node.state != "started") {
           player_2_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", `${array_Canciones[songNumber - 1].title}`);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2", `${array_Canciones[songNumber - 1].title}`);
         }
         else { alert("ELSE: deten la reproduccion"); }
         break;
@@ -14938,7 +14953,7 @@ function busca1() {
       {
         if (player_3_Node.state != "started") {
           player_3_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", `${array_Canciones[songNumber - 1].title}`);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3", `${array_Canciones[songNumber - 1].title}`);
         }
         else { alert("ELSE: deten la reproduccion"); }
         break;
@@ -14947,7 +14962,7 @@ function busca1() {
       {
         if (player_4_Node.state != "started") {
           player_4_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4", `${array_Canciones[songNumber - 1].title}`);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4", `${array_Canciones[songNumber - 1].title}`);
         }
         else { alert("ELSE: deten la reproduccion"); }
         break;
@@ -14995,7 +15010,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
       if (audio_card_channel_filter_eq_selection != value) {
         switch (value) {
           case "on": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_eq_selection", value);
             if (audio_card_channel_filter_eq_selection == "bypass") {
               audio_card_channel_panNode.disconnect(audio_card_channel_filter_Bypass);
               audio_card_channel_panNode.connect(audio_card_channel_filter);
@@ -15057,7 +15072,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "bypass": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_eq_selection", value);
             if (audio_card_channel_filter_eq_selection == "on") {
               audio_card_channel_panNode.disconnect(audio_card_channel_filter);
               audio_card_channel_panNode.connect(audio_card_channel_filter_Bypass);
@@ -15100,7 +15115,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "eq3": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_eq_selection", value);
             if (audio_card_channel_filter_eq_selection == "on") {
               audio_card_channel_panNode.disconnect(audio_card_channel_filter);
               audio_card_channel_panNode.connect(audio_card_channel_filter_eq3);
@@ -15143,7 +15158,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "tascam": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_filter_eq_selection", value);
             if (audio_card_channel_filter_eq_selection == "on") {
               audio_card_channel_panNode.disconnect(audio_card_channel_filter);
               audio_card_channel_panNode.connect(audio_card_channel_tascam_in_Node);
@@ -15195,7 +15210,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
       if (channel_1_filter_eq_selection != value) {
         switch (value) {
           case "on": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_eq_selection", value);
             if (channel_1_filter_eq_selection == "bypass") {
               channel_1_panNode.disconnect(channel_1_filter_Bypass);
               channel_1_panNode.connect(channel_1_filter);
@@ -15257,7 +15272,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "bypass": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_eq_selection", value);
             if (channel_1_filter_eq_selection == "on") {
               channel_1_panNode.disconnect(channel_1_filter);
               channel_1_panNode.connect(channel_1_filter_Bypass);
@@ -15300,7 +15315,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "eq3": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_eq_selection", value);
             if (channel_1_filter_eq_selection == "on") {
               channel_1_panNode.disconnect(channel_1_filter);
               channel_1_panNode.connect(channel_1_filter_eq3);
@@ -15343,7 +15358,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "tascam": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_eq_selection", value);
             if (channel_1_filter_eq_selection == "on") {
               channel_1_panNode.disconnect(channel_1_filter);
               channel_1_panNode.connect(channel_1_tascam_in_Node);
@@ -15395,7 +15410,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
       if (channel_2_filter_eq_selection != value) {
         switch (value) {
           case "on": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_eq_selection", value);
             if (channel_2_filter_eq_selection == "bypass") {
               channel_2_panNode.disconnect(channel_2_filter_Bypass);
               channel_2_panNode.connect(channel_2_filter);
@@ -15456,7 +15471,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "bypass": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_eq_selection", value);
             if (channel_2_filter_eq_selection == "on") {
               channel_2_panNode.disconnect(channel_2_filter);
               channel_2_panNode.connect(channel_2_filter_Bypass);
@@ -15499,7 +15514,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "eq3": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_eq_selection", value);
             if (channel_2_filter_eq_selection == "on") {
               channel_2_panNode.disconnect(channel_2_filter);
               channel_2_panNode.connect(channel_2_filter_eq3);
@@ -15542,7 +15557,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "tascam": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_eq_selection", value);
             if (channel_2_filter_eq_selection == "on") {
               channel_2_panNode.disconnect(channel_2_filter);
               channel_2_panNode.connect(channel_2_tascam_in_Node);
@@ -15594,7 +15609,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
       if (channel_3_filter_eq_selection != value) {
         switch (value) {
           case "on": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_eq_selection", value);
             if (channel_3_filter_eq_selection == "bypass") {
               channel_3_panNode.disconnect(channel_3_filter_Bypass);
               channel_3_panNode.connect(channel_3_filter);
@@ -15655,7 +15670,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "bypass": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_eq_selection", value);
             if (channel_3_filter_eq_selection == "on") {
               channel_3_panNode.disconnect(channel_3_filter);
               channel_3_panNode.connect(channel_3_filter_Bypass);
@@ -15698,7 +15713,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "eq3": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_eq_selection", value);
             if (channel_3_filter_eq_selection == "on") {
               channel_3_panNode.disconnect(channel_3_filter);
               channel_3_panNode.connect(channel_3_filter_eq3);
@@ -15741,7 +15756,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "tascam": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_filter_eq_selection", value);
             if (channel_3_filter_eq_selection == "on") {
               channel_3_panNode.disconnect(channel_3_filter);
               channel_3_panNode.connect(channel_3_tascam_in_Node);
@@ -15792,7 +15807,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
       if (channel_4_filter_eq_selection != value) {
         switch (value) {
           case "on": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_eq_selection", value);
             if (channel_4_filter_eq_selection == "bypass") {
               channel_4_panNode.disconnect(channel_4_filter_Bypass);
               channel_4_panNode.connect(channel_4_filter);
@@ -15853,7 +15868,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "bypass": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_eq_selection", value);
             if (channel_4_filter_eq_selection == "on") {
               channel_4_panNode.disconnect(channel_4_filter);
               channel_4_panNode.connect(channel_4_filter_Bypass);
@@ -15896,7 +15911,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "eq3": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_eq_selection", value);
             if (channel_4_filter_eq_selection == "on") {
               channel_4_panNode.disconnect(channel_4_filter);
               channel_4_panNode.connect(channel_4_filter_eq3);
@@ -15939,7 +15954,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "tascam": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_filter_eq_selection", value);
             if (channel_4_filter_eq_selection == "on") {
               channel_4_panNode.disconnect(channel_4_filter);
               channel_4_panNode.connect(channel_4_tascam_in_Node);
@@ -15990,7 +16005,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
       if (fx_1_filter_eq_selection != value) {
         switch (value) {
           case "on": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "bypass") {
               fx_1_panNode.disconnect(fx_1_filter_Bypass);
               fx_1_panNode.connect(fx_1_filter);
@@ -16055,7 +16070,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "bypass": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "on") {
               fx_1_panNode.disconnect(fx_1_filter);
               fx_1_panNode.connect(fx_1_filter_Bypass);
@@ -16098,7 +16113,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "eq3": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "on") {
               alert("BBB");
               fx_1_panNode.disconnect(fx_1_filter);
@@ -16150,7 +16165,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "tascam": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_filter_eq_selection", value);
             if (fx_1_filter_eq_selection == "on") {
               fx_1_panNode.disconnect(fx_1_filter);
               fx_1_panNode.connect(fx_1_tascam_in_Node);
@@ -16202,7 +16217,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
       if (fx_2_filter_eq_selection != value) {
         switch (value) {
           case "on": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_eq_selection", value);
             if (fx_2_filter_eq_selection == "bypass") {
               fx_2_panNode.disconnect(fx_2_filter_Bypass);
               fx_2_panNode.connect(fx_2_filter);
@@ -16263,7 +16278,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "bypass": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_eq_selection", value);
             if (fx_2_filter_eq_selection == "on") {
               fx_2_panNode.disconnect(fx_2_filter);
               fx_2_panNode.connect(fx_2_filter_Bypass);
@@ -16306,7 +16321,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "eq3": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_eq_selection", value);
             if (fx_2_filter_eq_selection == "on") {
               fx_2_panNode.disconnect(fx_2_filter);
               fx_2_panNode.connect(fx_2_filter_eq3);
@@ -16349,7 +16364,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "tascam": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_filter_eq_selection", value);
             if (fx_2_filter_eq_selection == "on") {
               fx_2_panNode.disconnect(fx_2_filter);
               fx_2_panNode.connect(fx_2_tascam_in_Node);
@@ -16401,7 +16416,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
       if (fx_3_filter_eq_selection != value) {
         switch (value) {
           case "on": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_eq_selection", value);
             if (fx_3_filter_eq_selection == "bypass") {
               fx_3_panNode.disconnect(fx_3_filter_Bypass);
               fx_3_panNode.connect(fx_3_filter);
@@ -16462,7 +16477,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "bypass": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_eq_selection", value);
             if (fx_3_filter_eq_selection == "on") {
               fx_3_panNode.disconnect(fx_3_filter);
               fx_3_panNode.connect(fx_3_filter_Bypass);
@@ -16505,7 +16520,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "eq3": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_eq_selection", value);
             if (fx_3_filter_eq_selection == "on") {
               fx_3_panNode.disconnect(fx_3_filter);
               fx_3_panNode.connect(fx_3_filter_eq3);
@@ -16548,7 +16563,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "tascam": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_filter_eq_selection", value);
             if (fx_3_filter_eq_selection == "on") {
               fx_3_panNode.disconnect(fx_3_filter);
               fx_3_panNode.connect(fx_3_tascam_in_Node);
@@ -16599,7 +16614,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
       if (fx_4_filter_eq_selection != value) {
         switch (value) {
           case "on": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_eq_selection", value);
             if (fx_4_filter_eq_selection == "bypass") {
               fx_4_panNode.disconnect(fx_4_filter_Bypass);
               fx_4_panNode.connect(fx_4_filter);
@@ -16660,7 +16675,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "bypass": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_eq_selection", value);
             if (fx_4_filter_eq_selection == "on") {
               fx_4_panNode.disconnect(fx_4_filter);
               fx_4_panNode.connect(fx_4_filter_Bypass);
@@ -16703,7 +16718,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "eq3": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_eq_selection", value);
             if (fx_4_filter_eq_selection == "on") {
               fx_4_panNode.disconnect(fx_4_filter);
               fx_4_panNode.connect(fx_4_filter_eq3);
@@ -16746,7 +16761,7 @@ function channel_x_filter_eq_selection_foo(name, value) {
             break;
           }
           case "tascam": {
-            MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_filter_eq_selection", value);
+            MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_filter_eq_selection", value);
             if (fx_4_filter_eq_selection == "on") {
               fx_4_panNode.disconnect(fx_4_filter);
               fx_4_panNode.connect(fx_4_tascam_in_Node);
@@ -16859,7 +16874,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_1_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_1_state", value);
           break;
         }
         else { alert("is_audio_card_channel_fxSend_1_On == FALSE"); }
@@ -16924,7 +16939,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_2_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_2_state", value);
           break;
         }
         else { alert("is_audio_card_channel_fxSend_2_On == FALSE"); }
@@ -16989,7 +17004,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_3_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_3_state", value);
           break;
         }
         else { alert("is_audio_card_channel_fxSend_3_On == FALSE"); }
@@ -17054,7 +17069,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_fxSend_4_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_fxSend_4_state", value);
           break;
         }
         else { alert("is_audio_card_channel_fxSend_4_On == FALSE"); }
@@ -17119,7 +17134,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_1_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_1_state", value);
           break;
         }
         else { alert("is_channel_1_fxSend_1_On == FALSE"); }
@@ -17184,7 +17199,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_2_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_2_state", value);
           break;
         }
         else { alert("is_channel_1_fxSend_2_On == FALSE"); }
@@ -17249,7 +17264,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_3_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_3_state", value);
           break;
         }
         else { alert("is_channel_1_fxSend_3_On == FALSE"); }
@@ -17314,7 +17329,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_fxSend_4_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_fxSend_4_state", value);
           break;
         }
         else { alert("is_channel_1_fxSend_4_On == FALSE"); }
@@ -17379,7 +17394,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_1_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_1_state", value);
           break;
         }
         else { alert("is_channel_2_fxSend_1_On == FALSE"); }
@@ -17444,7 +17459,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_2_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_2_state", value);
           break;
         }
         else { alert("is_channel_2_fxSend_2_On == FALSE"); }
@@ -17509,7 +17524,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_3_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_3_state", value);
           break;
         }
         else { alert("is_channel_2_fxSend_2_On == FALSE"); }
@@ -17574,7 +17589,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_fxSend_4_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_fxSend_4_state", value);
           break;
         }
         else { alert("is_channel_2_fxSend_4_On == FALSE"); }
@@ -17639,7 +17654,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_1_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_1_state", value);
           break;
         }
         else { alert("is_channel_3_fxSend_1_On == FALSE"); }
@@ -17704,7 +17719,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_2_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_2_state", value);
           break;
         }
         else { alert("is_channel_3_fxSend_2_On == FALSE"); }
@@ -17769,7 +17784,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_3_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_3_state", value);
           break;
         }
         else { alert("is_channel_3_fxSend_3_On == FALSE"); }
@@ -17834,7 +17849,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_fxSend_4_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_fxSend_4_state", value);
           break;
         }
         else { alert("is_channel_3_fxSend_4_On == FALSE"); }
@@ -17899,7 +17914,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_1_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_1_state", value);
           break;
         }
         else { alert("is_channel_4_fxSend_1_On == FALSE"); }
@@ -17964,7 +17979,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_2_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_2_state", value);
           break;
         }
         else { alert("is_channel_4_fxSend_2_On == FALSE"); }
@@ -18029,7 +18044,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_3_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_3_state", value);
           break;
         }
         else { alert("is_channel_4_fxSend_3_On == FALSE"); }
@@ -18094,7 +18109,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_fxSend_4_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_fxSend_4_state", value);
           break;
         }
         else { alert("is_channel_4_fxSend_4_On == FALSE"); }
@@ -18159,7 +18174,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_1_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_fxSend_1_state", value);
           break;
         }
         else { alert("is_fx_1_fxSend_1_On == FALSE"); }
@@ -18224,7 +18239,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_2_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_fxSend_2_state", value);
           break;
         }
         else { alert("is_fx_1_fxSend_2_On == FALSE"); }
@@ -18289,7 +18304,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_3_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_fxSend_3_state", value);
           break;
         }
         else { alert("is_fx_1_fxSend_3_On == FALSE"); }
@@ -18354,7 +18369,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_fxSend_4_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_fxSend_4_state", value);
           break;
         }
         else { alert("is_fx_1_fxSend_4_On == FALSE"); }
@@ -18419,7 +18434,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_1_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_1_state", value);
           break;
         }
         else { alert("is_fx_2_fxSend_1_On == FALSE"); }
@@ -18484,7 +18499,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_2_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_2_state", value);
           break;
         }
         else { alert("is_fx_2_fxSend_1_On == FALSE"); }
@@ -18549,7 +18564,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_3_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_3_state", value);
           break;
         }
         else { alert("is_fx_2_fxSend_1_On == FALSE"); }
@@ -18614,7 +18629,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_fxSend_4_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_fxSend_4_state", value);
           break;
         }
         else { alert("is_fx_2_fxSend_1_On == FALSE"); }
@@ -18679,7 +18694,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_1_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_1_state", value);
           break;
         }
         else { alert("is_fx_3_fxSend_1_On == FALSE"); }
@@ -18744,7 +18759,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_2_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_2_state", value);
           break;
         }
         else { alert("is_fx_3_fxSend_1_On == FALSE"); }
@@ -18809,7 +18824,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_3_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_3_state", value);
           break;
         }
         else { alert("is_fx_3_fxSend_1_On == FALSE"); }
@@ -18874,7 +18889,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_fxSend_4_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_fxSend_4_state", value);
           break;
         }
         else { alert("is_fx_3_fxSend_1_On == FALSE"); }
@@ -18939,7 +18954,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_1_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_1_state", value);
           break;
         }
         else { alert("is_fx_4_fxSend_1_On == FALSE"); }
@@ -19004,7 +19019,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_2_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_2_state", value);
           break;
         }
         else { alert("is_fx_4_fxSend_1_On == FALSE"); }
@@ -19069,7 +19084,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_3_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_3_state", value);
           break;
         }
         else { alert("is_fx_4_fxSend_1_On == FALSE"); }
@@ -19134,7 +19149,7 @@ function player_x_fxSend_x_state_foo(name, value) {
             }
           }
           else { }
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_fxSend_4_state", value);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_fxSend_4_state", value);
           break;
         }
         else { alert("is_fx_4_fxSend_1_On == FALSE"); }
@@ -21398,7 +21413,7 @@ function player_x_dynamics_select_unit(name, value) {
       }
     default: { alert("DEFAULT (name) player_x_dynamics_select_unit "); break; }
   }
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), name, value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), name, value);
 }
 
 function player_x_dynamics_On_Off(name, value) {
@@ -23451,15 +23466,23 @@ function playsTestSynth() {
   //To replace an element to the HTML DOM, use the replaceChild() method:
 }
 
-async function CustomizedButton() {
-  muestraLista();
+async function stopTransport() {
+  Tone.Transport.stop();
+  Tone.Transport.position = 0;
+  console.log("STOP transport_position: " + `${Tone.Transport.toSeconds().toFixed(3)}`);
+
 }
 
 function TransportStart() {
+  console.log("transport_position: " + `${Tone.Transport.toSeconds().toFixed(3)}`);
+  transport_position.innerHTML = Tone.Transport.position;
+  transport_swing_value.innerHTML = `${Tone.Transport.swing}`;
+  transport_subdivision_value.innerHTML = `${Tone.Transport.swingSubdivision}`;
+  transport_timeSignature_value.innerHTML = `${Tone.Transport.timeSignature}`;
+  transport_loopStart_value.innerHTML = `${Tone.Transport.loopStart}`
+  transport_loopEnd_value.innerHTML = `${Tone.Transport.loopEnd}`;
+  transport_PPQ_value.innerHTML = `${Tone.Transport.PPQ}`;
   Tone.Transport.start();
-  console.log("Ticks: " + Tone.Transport.ticks);
-  console.log("transport_position: " + transport_position);
-  //loadMix();
 
   //alert("Tone.Transport.state: " + Tone.Transport.state);
   //Tone.Transport.stop();
@@ -25438,6 +25461,9 @@ channel_4_volNode.fan(channel_4_rms_meter);
 //---------------------------------
 
 function updatesMeters() {
+
+  //transport_position.innerHTML = (`${Tone.Transport.toSeconds().toFixed(3)}`);
+  
   lfo_1_rms_meter_inner.innerHTML = Math.round(`${lfo_1_rms_meter.getValue()}`);
   lfo_1_dcmeter_inner.innerHTML = (`${lfo_1_dcmeter.getValue()}`);
 
@@ -25583,13 +25609,13 @@ function switchState_dynamics(name) {
           audio_card_channel_compressor_On_Off_Button_State = "off";
           audio_card_channel_compressor_On_Off_Button.innerText = "Off";
           audio_card_channel_compressor_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_compressor_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_compressor_On_Off_Button", "off");
         }
         else if (audio_card_channel_compressor_On_Off_Button_State == "off") {
           audio_card_channel_compressor_On_Off_Button_State = "on";
           audio_card_channel_compressor_On_Off_Button.innerText = "On"
           audio_card_channel_compressor_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_compressor_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_compressor_On_Off_Button", "on");
         }
         break;
       }
@@ -25599,13 +25625,13 @@ function switchState_dynamics(name) {
           audio_card_channel_gate_On_Off_Button_State = "off";
           audio_card_channel_gate_On_Off_Button.innerText = "Off";
           audio_card_channel_gate_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_gate_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_gate_On_Off_Button", "off");
         }
         else if (audio_card_channel_gate_On_Off_Button_State == "off") {
           audio_card_channel_gate_On_Off_Button_State = "on";
           audio_card_channel_gate_On_Off_Button.innerText = "On"
           audio_card_channel_gate_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_gate_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_gate_On_Off_Button", "on");
         }
         break;
       }
@@ -25615,13 +25641,13 @@ function switchState_dynamics(name) {
           audio_card_channel_limiter_On_Off_Button_State = "off";
           audio_card_channel_limiter_On_Off_Button.innerText = "Off";
           audio_card_channel_limiter_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_limiter_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_limiter_On_Off_Button", "off");
         }
         else if (audio_card_channel_limiter_On_Off_Button_State == "off") {
           audio_card_channel_limiter_On_Off_Button_State = "on";
           audio_card_channel_limiter_On_Off_Button.innerText = "On"
           audio_card_channel_limiter_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "audio_card_channel_limiter_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "audio_card_channel_limiter_On_Off_Button", "on");
 
         }
         break;
@@ -25632,13 +25658,13 @@ function switchState_dynamics(name) {
           channel_1_compressor_On_Off_Button_State = "off";
           channel_1_compressor_On_Off_Button.innerText = "Off";
           channel_1_compressor_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_compressor_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_compressor_On_Off_Button", "off");
         }
         else if (channel_1_compressor_On_Off_Button_State == "off") {
           channel_1_compressor_On_Off_Button_State = "on";
           channel_1_compressor_On_Off_Button.innerText = "On"
           channel_1_compressor_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_compressor_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_compressor_On_Off_Button", "on");
         }
         break;
       }
@@ -25648,13 +25674,13 @@ function switchState_dynamics(name) {
           channel_1_gate_On_Off_Button_State = "off";
           channel_1_gate_On_Off_Button.innerText = "Off";
           channel_1_gate_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_gate_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_gate_On_Off_Button", "off");
         }
         else if (channel_1_gate_On_Off_Button_State == "off") {
           channel_1_gate_On_Off_Button_State = "on";
           channel_1_gate_On_Off_Button.innerText = "On"
           channel_1_gate_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_gate_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_gate_On_Off_Button", "on");
         }
         break;
       }
@@ -25664,13 +25690,13 @@ function switchState_dynamics(name) {
           channel_1_limiter_On_Off_Button_State = "off";
           channel_1_limiter_On_Off_Button.innerText = "Off";
           channel_1_limiter_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_limiter_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_limiter_On_Off_Button", "off");
         }
         else if (channel_1_limiter_On_Off_Button_State == "off") {
           channel_1_limiter_On_Off_Button_State = "on";
           channel_1_limiter_On_Off_Button.innerText = "On"
           channel_1_limiter_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_limiter_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_limiter_On_Off_Button", "on");
 
         }
         break;
@@ -25681,13 +25707,13 @@ function switchState_dynamics(name) {
           channel_2_compressor_On_Off_Button_State = "off";
           channel_2_compressor_On_Off_Button.innerText = "Off";
           channel_2_compressor_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_compressor_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_compressor_On_Off_Button", "off");
         }
         else if (channel_2_compressor_On_Off_Button_State == "off") {
           channel_2_compressor_On_Off_Button_State = "on";
           channel_2_compressor_On_Off_Button.innerText = "On"
           channel_2_compressor_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_compressor_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_compressor_On_Off_Button", "on");
         }
         break;
       }
@@ -25697,13 +25723,13 @@ function switchState_dynamics(name) {
           channel_2_gate_On_Off_Button_State = "off";
           channel_2_gate_On_Off_Button.innerText = "Off";
           channel_2_gate_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_gate_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_gate_On_Off_Button", "off");
         }
         else if (channel_2_gate_On_Off_Button_State == "off") {
           channel_2_gate_On_Off_Button_State = "on";
           channel_2_gate_On_Off_Button.innerText = "On"
           channel_2_gate_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_gate_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_gate_On_Off_Button", "on");
         }
         break;
       }
@@ -25713,13 +25739,13 @@ function switchState_dynamics(name) {
           channel_2_limiter_On_Off_Button_State = "off";
           channel_2_limiter_On_Off_Button.innerText = "Off";
           channel_2_limiter_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_limiter_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_limiter_On_Off_Button", "off");
         }
         else if (channel_2_limiter_On_Off_Button_State == "off") {
           channel_2_limiter_On_Off_Button_State = "on";
           channel_2_limiter_On_Off_Button.innerText = "On"
           channel_2_limiter_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_limiter_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_limiter_On_Off_Button", "on");
 
         }
         break;
@@ -25730,13 +25756,13 @@ function switchState_dynamics(name) {
           channel_3_compressor_On_Off_Button_State = "off";
           channel_3_compressor_On_Off_Button.innerText = "Off";
           channel_3_compressor_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_compressor_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_compressor_On_Off_Button", "off");
         }
         else if (channel_3_compressor_On_Off_Button_State == "off") {
           channel_3_compressor_On_Off_Button_State = "on";
           channel_3_compressor_On_Off_Button.innerText = "On"
           channel_3_compressor_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_compressor_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_compressor_On_Off_Button", "on");
         }
         break;
       }
@@ -25746,13 +25772,13 @@ function switchState_dynamics(name) {
           channel_3_gate_On_Off_Button_State = "off";
           channel_3_gate_On_Off_Button.innerText = "Off";
           channel_3_gate_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_gate_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_gate_On_Off_Button", "off");
         }
         else if (channel_3_gate_On_Off_Button_State == "off") {
           channel_3_gate_On_Off_Button_State = "on";
           channel_3_gate_On_Off_Button.innerText = "On"
           channel_3_gate_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_gate_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_gate_On_Off_Button", "on");
         }
         break;
       }
@@ -25762,13 +25788,13 @@ function switchState_dynamics(name) {
           channel_3_limiter_On_Off_Button_State = "off";
           channel_3_limiter_On_Off_Button.innerText = "Off";
           channel_3_limiter_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_limiter_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_limiter_On_Off_Button", "off");
         }
         else if (channel_3_limiter_On_Off_Button_State == "off") {
           channel_3_limiter_On_Off_Button_State = "on";
           channel_3_limiter_On_Off_Button.innerText = "On"
           channel_3_limiter_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_limiter_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_limiter_On_Off_Button", "on");
 
         }
         break;
@@ -25779,13 +25805,13 @@ function switchState_dynamics(name) {
           channel_4_compressor_On_Off_Button_State = "off";
           channel_4_compressor_On_Off_Button.innerText = "Off";
           channel_4_compressor_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_compressor_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_compressor_On_Off_Button", "off");
         }
         else if (channel_4_compressor_On_Off_Button_State == "off") {
           channel_4_compressor_On_Off_Button_State = "on";
           channel_4_compressor_On_Off_Button.innerText = "On"
           channel_4_compressor_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_compressor_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_compressor_On_Off_Button", "on");
         }
         break;
       }
@@ -25795,13 +25821,13 @@ function switchState_dynamics(name) {
           channel_4_gate_On_Off_Button_State = "off";
           channel_4_gate_On_Off_Button.innerText = "Off";
           channel_4_gate_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_gate_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_gate_On_Off_Button", "off");
         }
         else if (channel_4_gate_On_Off_Button_State == "off") {
           channel_4_gate_On_Off_Button_State = "on";
           channel_4_gate_On_Off_Button.innerText = "On"
           channel_4_gate_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_gate_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_gate_On_Off_Button", "on");
         }
         break;
       }
@@ -25811,13 +25837,13 @@ function switchState_dynamics(name) {
           channel_4_limiter_On_Off_Button_State = "off";
           channel_4_limiter_On_Off_Button.innerText = "Off";
           channel_4_limiter_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_limiter_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_limiter_On_Off_Button", "off");
         }
         else if (channel_4_limiter_On_Off_Button_State == "off") {
           channel_4_limiter_On_Off_Button_State = "on";
           channel_4_limiter_On_Off_Button.innerText = "On"
           channel_4_limiter_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_limiter_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_limiter_On_Off_Button", "on");
         }
         break;
       }
@@ -25827,13 +25853,13 @@ function switchState_dynamics(name) {
           fx_1_compressor_On_Off_Button_State = "off";
           fx_1_compressor_On_Off_Button.innerText = "Off";
           fx_1_compressor_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_compressor_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_compressor_On_Off_Button", "off");
         }
         else if (fx_1_compressor_On_Off_Button_State == "off") {
           fx_1_compressor_On_Off_Button_State = "on";
           fx_1_compressor_On_Off_Button.innerText = "On"
           fx_1_compressor_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_compressor_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_compressor_On_Off_Button", "on");
         }
         break;
       }
@@ -25843,13 +25869,13 @@ function switchState_dynamics(name) {
           fx_1_gate_On_Off_Button_State = "off";
           fx_1_gate_On_Off_Button.innerText = "Off";
           fx_1_gate_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_gate_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_gate_On_Off_Button", "off");
         }
         else if (fx_1_gate_On_Off_Button_State == "off") {
           fx_1_gate_On_Off_Button_State = "on";
           fx_1_gate_On_Off_Button.innerText = "On"
           fx_1_gate_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_gate_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_gate_On_Off_Button", "on");
         }
         break;
       }
@@ -25859,13 +25885,13 @@ function switchState_dynamics(name) {
           fx_1_limiter_On_Off_Button_State = "off";
           fx_1_limiter_On_Off_Button.innerText = "Off";
           fx_1_limiter_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_limiter_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_limiter_On_Off_Button", "off");
         }
         else if (fx_1_limiter_On_Off_Button_State == "off") {
           fx_1_limiter_On_Off_Button_State = "on";
           fx_1_limiter_On_Off_Button.innerText = "On"
           fx_1_limiter_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_1_limiter_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_1_limiter_On_Off_Button", "on");
         }
         break;
       }
@@ -25875,13 +25901,13 @@ function switchState_dynamics(name) {
           fx_2_compressor_On_Off_Button_State = "off";
           fx_2_compressor_On_Off_Button.innerText = "Off";
           fx_2_compressor_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_compressor_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_compressor_On_Off_Button", "off");
         }
         else if (fx_2_compressor_On_Off_Button_State == "off") {
           fx_2_compressor_On_Off_Button_State = "on";
           fx_2_compressor_On_Off_Button.innerText = "On"
           fx_2_compressor_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_compressor_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_compressor_On_Off_Button", "on");
         }
         break;
       }
@@ -25891,13 +25917,13 @@ function switchState_dynamics(name) {
           fx_2_gate_On_Off_Button_State = "off";
           fx_2_gate_On_Off_Button.innerText = "Off";
           fx_2_gate_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_gate_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_gate_On_Off_Button", "off");
         }
         else if (fx_2_gate_On_Off_Button_State == "off") {
           fx_2_gate_On_Off_Button_State = "on";
           fx_2_gate_On_Off_Button.innerText = "On"
           fx_2_gate_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_gate_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_gate_On_Off_Button", "on");
         }
         break;
       }
@@ -25907,13 +25933,13 @@ function switchState_dynamics(name) {
           fx_2_limiter_On_Off_Button_State = "off";
           fx_2_limiter_On_Off_Button.innerText = "Off";
           fx_2_limiter_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_limiter_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_limiter_On_Off_Button", "off");
         }
         else if (fx_2_limiter_On_Off_Button_State == "off") {
           fx_2_limiter_On_Off_Button_State = "on";
           fx_2_limiter_On_Off_Button.innerText = "On"
           fx_2_limiter_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_2_limiter_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_2_limiter_On_Off_Button", "on");
         }
         break;
       }
@@ -25923,13 +25949,13 @@ function switchState_dynamics(name) {
           fx_3_compressor_On_Off_Button_State = "off";
           fx_3_compressor_On_Off_Button.innerText = "Off";
           fx_3_compressor_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_compressor_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_compressor_On_Off_Button", "off");
         }
         else if (fx_3_compressor_On_Off_Button_State == "off") {
           fx_3_compressor_On_Off_Button_State = "on";
           fx_3_compressor_On_Off_Button.innerText = "On"
           fx_3_compressor_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_compressor_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_compressor_On_Off_Button", "on");
         }
         break;
       }
@@ -25939,13 +25965,13 @@ function switchState_dynamics(name) {
           fx_3_gate_On_Off_Button_State = "off";
           fx_3_gate_On_Off_Button.innerText = "Off";
           fx_3_gate_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_gate_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_gate_On_Off_Button", "off");
         }
         else if (fx_3_gate_On_Off_Button_State == "off") {
           fx_3_gate_On_Off_Button_State = "on";
           fx_3_gate_On_Off_Button.innerText = "On"
           fx_3_gate_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_gate_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_gate_On_Off_Button", "on");
         }
         break;
       }
@@ -25955,13 +25981,13 @@ function switchState_dynamics(name) {
           fx_3_limiter_On_Off_Button_State = "off";
           fx_3_limiter_On_Off_Button.innerText = "Off";
           fx_3_limiter_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_limiter_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_limiter_On_Off_Button", "off");
         }
         else if (fx_3_limiter_On_Off_Button_State == "off") {
           fx_3_limiter_On_Off_Button_State = "on";
           fx_3_limiter_On_Off_Button.innerText = "On"
           fx_3_limiter_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_3_limiter_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_3_limiter_On_Off_Button", "on");
         }
         break;
       }
@@ -25971,13 +25997,13 @@ function switchState_dynamics(name) {
           fx_4_compressor_On_Off_Button_State = "off";
           fx_4_compressor_On_Off_Button.innerText = "Off";
           fx_4_compressor_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_compressor_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_compressor_On_Off_Button", "off");
         }
         else if (fx_4_compressor_On_Off_Button_State == "off") {
           fx_4_compressor_On_Off_Button_State = "on";
           fx_4_compressor_On_Off_Button.innerText = "On"
           fx_4_compressor_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_compressor_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_compressor_On_Off_Button", "on");
         }
         break;
       }
@@ -25987,13 +26013,13 @@ function switchState_dynamics(name) {
           fx_4_gate_On_Off_Button_State = "off";
           fx_4_gate_On_Off_Button.innerText = "Off";
           fx_4_gate_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_gate_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_gate_On_Off_Button", "off");
         }
         else if (fx_4_gate_On_Off_Button_State == "off") {
           fx_4_gate_On_Off_Button_State = "on";
           fx_4_gate_On_Off_Button.innerText = "On"
           fx_4_gate_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_gate_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_gate_On_Off_Button", "on");
         }
         break;
       }
@@ -26003,13 +26029,13 @@ function switchState_dynamics(name) {
           fx_4_limiter_On_Off_Button_State = "off";
           fx_4_limiter_On_Off_Button.innerText = "Off";
           fx_4_limiter_On_Off_Button.style.backgroundColor = "white";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_limiter_On_Off_Button", "off");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_limiter_On_Off_Button", "off");
         }
         else if (fx_4_limiter_On_Off_Button_State == "off") {
           fx_4_limiter_On_Off_Button_State = "on";
           fx_4_limiter_On_Off_Button.innerText = "On"
           fx_4_limiter_On_Off_Button.style.backgroundColor = "green";
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "fx_4_limiter_On_Off_Button", "on");
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_limiter_On_Off_Button", "on");
         }
         break;
       }
@@ -26758,25 +26784,25 @@ function removeElement(tagName) {
 let channel_1_select_Available_Nodes = document.getElementById("channel_1_select_Available_Nodes");
 channel_1_select_Available_Nodes.addEventListener("change", function (e) {
   sets_New_Source("source_1", e.currentTarget.value);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_select_Available_Nodes", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_select_Available_Nodes", e.currentTarget.value);
 });
 
 let channel_2_select_Available_Nodes = document.getElementById("channel_2_select_Available_Nodes");
 channel_2_select_Available_Nodes.addEventListener("change", function (e) {
   sets_New_Source("source_2", e.currentTarget.value);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_2_select_Available_Nodes", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_select_Available_Nodes", e.currentTarget.value);
 });
 
 let channel_3_select_Available_Nodes = document.getElementById("channel_3_select_Available_Nodes");
 channel_3_select_Available_Nodes.addEventListener("change", function (e) {
   sets_New_Source("source_3", e.currentTarget.value);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_3_select_Available_Nodes", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_3_select_Available_Nodes", e.currentTarget.value);
 });
 
 let channel_4_select_Available_Nodes = document.getElementById("channel_4_select_Available_Nodes");
 channel_4_select_Available_Nodes.addEventListener("change", function (e) {
   sets_New_Source("source_4", e.currentTarget.value);
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_4_select_Available_Nodes", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_4_select_Available_Nodes", e.currentTarget.value);
 });
 
 function multiPlay() {
@@ -26784,28 +26810,28 @@ function multiPlay() {
     if (player_1_Node.buffer.duration != 0) {
       player_1_Node.start();
       player_1_playButton.style.backgroundColor = "green";
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1", "multiPlay");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1", "multiPlay");
     }
   }
   if (multiple_play_source_2.checked == true) {
     if (player_2_Node.buffer.duration != 0) {
       player_2_Node.start();
       player_2_playButton.style.backgroundColor = "green";
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", "multiPlay");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2", "multiPlay");
     }
   }
   if (multiple_play_source_3.checked == true) {
     if (player_3_Node.buffer.duration != 0) {
       player_3_Node.start();
       player_3_playButton.style.backgroundColor = "green";
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", "multiPlay");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3", "multiPlay");
     }
   }
   if (multiple_play_source_4.checked == true) {
     if (player_4_Node.buffer.duration != 0) {
       player_4_Node.start();
       player_4_playButton.style.backgroundColor = "green";
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4", "multiPlay");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4", "multiPlay");
     }
     if (multiple_play_test_player.checked == true) {
       if (player_test_Node.buffer.duration != 0) {
@@ -26824,28 +26850,28 @@ function multiStop() {
     if (player_1_Node.buffer.duration != 0) {
       player_1_Node.stop();
       player_1_playButton.style.backgroundColor = "white";
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1", "multiStop");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1", "multiStop");
     }
   }
   if (multiple_play_source_2.checked == true) {
     if (player_2_Node.buffer.duration != 0) {
       player_2_Node.stop();
       player_2_playButton.style.backgroundColor = "white";
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", "multiStop");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2", "multiStop");
     }
   }
   if (multiple_play_source_3.checked == true) {
     if (player_3_Node.buffer.duration != 0) {
       player_3_Node.stop();
       player_3_playButton.style.backgroundColor = "white";
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", "multiStop");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3", "multiStop");
     }
   }
   if (multiple_play_source_4.checked == true) {
     if (player_4_Node.buffer.duration != 0) {
       player_4_Node.stop();
       player_4_playButton.style.backgroundColor = "white";
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4", "multiStop");
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4", "multiStop");
     }
   }
   if (multiple_play_test_player.checked == true) {
@@ -26854,8 +26880,7 @@ function multiStop() {
     }
   }
 }
-//MODIFICAR ASIGNACION DE BUFFER, ES EL MISMO BUFFER
-//ENTONCES REVERSE Y LOOP ES IGUAL PARA LOS 4 PLAYERS
+
 async function multiLoad() {
   try {
     const ctx = new window.AudioContext();
@@ -26883,7 +26908,7 @@ async function multiLoad() {
       channel_1_songName.innerHTML = fileHandle.name;
       channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
       player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1", fileHandle.name);
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1", fileHandle.name);
     }
     if (multiple_play_source_2.checked == true) {
       const arrayBuffer2 = arrayBuffer.slice(0);
@@ -26893,7 +26918,7 @@ async function multiLoad() {
       channel_2_songName.innerHTML = fileHandle.name;
       channel_2_duration_text.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
       player_2_duration_value.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_2", fileHandle.name);
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2", fileHandle.name);
     }
     if (multiple_play_source_3.checked == true) {
       const arrayBuffer3 = arrayBuffer.slice(0);
@@ -26903,7 +26928,7 @@ async function multiLoad() {
       channel_3_songName.innerHTML = fileHandle.name;
       channel_3_duration_text.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
       player_3_duration_value.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_3", fileHandle.name);
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3", fileHandle.name);
     }
     if (multiple_play_source_4.checked == true) {
       const arrayBuffer4 = arrayBuffer.slice(0);
@@ -26913,7 +26938,7 @@ async function multiLoad() {
       channel_4_songName.innerHTML = fileHandle.name;
       channel_4_duration_text.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
       player_4_duration_value.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
-      MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_4", fileHandle.name);
+      MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4", fileHandle.name);
     }
     if (multiple_play_test_player.checked == true) {
       const arrayBufferTest = arrayBuffer.slice(0);
@@ -27174,14 +27199,6 @@ function scrambler(tempScramblerFloat32Array) {
  
 /**/
 
-function createMatrix(N, M) {
-  var matrix = new Array(N);
-  // Array with initial size of N, not fixed!
-  for (var i = 0; i < N; ++i) {
-    matrix[i] = new Array(M);
-  }
-  return matrix;
-}
 
 function isShowOpenFilePickerSupported() {
   if ('showOpenFilePicker' in self) {
@@ -27196,9 +27213,6 @@ function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function alerta(texto) {
-  alert(texto + "\n");
-}
 
 function agregaReverbWorklet() {
   /**
@@ -27251,20 +27265,32 @@ function loadMix() {
       MixEventObj.logIntoListaBuffers(ListOfBuffers, LoadFileList[i].atTime, LoadFileList[i].element, LoadFileList[i].action, LoadFileList[i].newValue, LoadFileList[i].rampTime);
     }
   }
-  //armar foo que cuente todos los buffers a cargar
   loadsBuffersAfterFileLoad();
-  player_1_Node.buffer = buffers.get("19");
+  //player_1_Node.buffer = buffers.get("19");
   //schedulesEvents(12.161333333333335);
-  //TransportStart();
 
-
+  
   for (i = 0; i < LoadFileList.length; i++) {
     const testObj = LoadFileList[i];
     if (testObj.rampTime == "undefined" || testObj.rampTime == "NaN") {
       if (testObj.element != "undefined") {
         switch (testObj.Element) {
           case "master_volume": {
-            changesVolume(testObj.NewValue, masterVolumeNode, master_volume, master_volume_value)
+      //console.log('time:', time);
+      //console.log('atTime:', testObj.atTime)
+
+  try {
+    Tone.Transport.schedule((time) => {
+  //    console.log('master volume:', time);
+      changesVolume(testObj.NewValue, masterVolumeNode, master_volume, master_volume_value)
+ //     console.log('time:', time);
+//      console.log('atTime:', testObj.atTime);
+    }, testObj.atTime); // Start time can be specified as a number (seconds) or TransportTime string
+  } catch (error) {
+    console.error('Error:', error);
+  }
+
+//            changesVolume(testObj.NewValue, masterVolumeNode, master_volume, master_volume_value)
             break;
           }
           case "recorder": {
@@ -28779,14 +28805,14 @@ function changesVolume(e, Node, volume, volume_value) {
     Node.volume.value = -100;
     volume_value.innerHTML = -100;
     volume.value = -100;
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_volume", -100);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_volume", -100);
     //CORREGIR player_1_volume POR LO QUE VENGA VOLUME
   }
   else {
     Node.volume.value = num1;
     volume_value.innerHTML = Math.round(`${e}`);
     volume.value = Math.round(`${e}`);
-    MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_volume", num1);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_volume", num1);
   }
   /*
   let num1 = Number(e);
@@ -28945,7 +28971,7 @@ function changesFloat(e, Node, volume, volume_value, parameter) {
   }
   volume_value.innerHTML = Math.round(`${num1}` * 100);
   volume.value = (`${num1}`);
-  //MixEventObj.logIntoListaNewValue(List, Tone.now(), "player_1_playback_rate", num1);
+  //MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_playback_rate", num1);
 
 }
 
@@ -28984,11 +29010,12 @@ function changesBoxState_loopEnd(Node, value, element) {
 }
 
 function changesBpm() {
+  transport_bpm.setAttribute('placeholder',Tone.Transport.bpm.value );
   var formulario = new Object();
   formulario.transport_bpm = document.getElementById("transport_bpm");
   let value = formulario.transport_bpm.value;
   Tone.Transport.bpm.value = value;
-  //  console.log("Tone.Transport.bpm.value:  "+Tone.Transport.bpm.value);
+  //console.log("Tone.Transport.bpm.value:  "+Tone.Transport.bpm.value);
 }
 
 async function loadFile() {
@@ -29015,7 +29042,6 @@ async function loadFile() {
       rampTime = lines[4].trim();
       MixEventObj.logIntoListaLoadFile(LoadFileList, atTime, element, action, newValue, rampTime);
     }
-    //loadMix();
   } catch (err) {
     if (err.name === 'AbortError') {
       console.log("File picker was dismissed.");
@@ -29494,7 +29520,7 @@ function channel_x_filter_1_select(e, Node) {
       {
         Node.type = e;
         channel_1_filter_eq_type = "allpass";
-        // MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_select", e);
+        // MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_select", e);
         if (channel_1_filter_eq_type == "on") {
           hide_all_EQ_divs("1");
           channel_1_allpass_controls_div.style.display = "block";
@@ -29506,7 +29532,7 @@ function channel_x_filter_1_select(e, Node) {
       {
         Node.type = e;
         channel_1_filter_eq_type = "shelf";
-        //    MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_select", e);
+        //    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_select", e);
         if (channel_1_filter_eq_type == "on") {
           hide_all_EQ_divs("1");
           channel_1_shelf_controls_div.style.display = "block";
@@ -29517,7 +29543,7 @@ function channel_x_filter_1_select(e, Node) {
       {
         Node.type = e;
         channel_1_filter_eq_type = "peaking";
-        //  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_select", e);
+        //  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_select", e);
         break;
       }
     case "empty": {
@@ -29529,14 +29555,13 @@ function channel_x_filter_1_select(e, Node) {
         gain: 0,
         rolloff: -96,
       });
-      //  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_filter_select", "empty");
+      //  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_filter_select", "empty");
       break;
     }
     default:
       { alert(" EQ1 DEFAULT channel_1_filter_select switch"); }
   }
 }
-
 
 //USAR ESTO PARA BAJAR ARCHIVOS DE AUDIO QUIZAS
 /*
@@ -30940,7 +30965,7 @@ function handleFile(file, element) {
           channel_1_duration_text.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
           player_1_duration_value.innerHTML = Math.round(`${player_1_Node.buffer.duration}`);
           deposito_1.innerHTML = file.name;
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "deposito_1", file.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "deposito_1", file.name);
 
           break;
         }
@@ -30951,7 +30976,7 @@ function handleFile(file, element) {
           channel_2_duration_text.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
           player_2_duration_value.innerHTML = Math.round(`${player_2_Node.buffer.duration}`);
           deposito_2.innerHTML = file.name;
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "deposito_2", file.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "deposito_2", file.name);
           break;
         }
         case "deposito_3": {
@@ -30961,7 +30986,7 @@ function handleFile(file, element) {
           channel_3_duration_text.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
           player_3_duration_value.innerHTML = Math.round(`${player_3_Node.buffer.duration}`);
           deposito_3.innerHTML = file.name;
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "deposito_3", file.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "deposito_3", file.name);
           break;
         }
         case "deposito_4": {
@@ -30971,7 +30996,7 @@ function handleFile(file, element) {
           channel_4_duration_text.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
           player_4_duration_value.innerHTML = Math.round(`${player_4_Node.buffer.duration}`);
           deposito_4.innerHTML = file.name;
-          MixEventObj.logIntoListaNewValue(List, Tone.now(), "deposito_4", file.name);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "deposito_4", file.name);
           break;
         }
         default: { alert("default  function handleFile"); break; }
@@ -31178,7 +31203,6 @@ let event3 = new MouseEvent("change", {
 
 //element.dispatchEvent(new Event('input'))
 
-
 /*
 // COMO SELEECIONAR UN OPTION DE SELECT CON DISPATCH EVENT
 const selectElement = document.getElementById("channel_1_select_Available_Nodes");
@@ -31285,6 +31309,75 @@ function schedulesEvents(atTime) {
   }
 }
 
+/*
+function schedulesEvents(atTime, element) {
+  try {
+    // Schedule the first audio file to play at the start of the Transport (time 0)
+    Tone.Transport.schedule((time) => {
+      console.log('Playing audio file 1 at time:', time);
+      element.start(time);
+    }, atTime); // Start time can be specified as a number (seconds) or TransportTime string
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+*/
+
+/*
+// Define the paths to your audio files
+        const audioUrls = {
+            file1: 'audio1.mp3', // Replace with your actual path
+            file2: 'audio2.mp3', // Replace with your actual path
+            file3: 'audio3.mp3', // Replace with your actual path
+            file4: 'audio4.mp3'  // Replace with your actual path
+        };
+
+        // Function to handle the audio logic
+        async function startAudioSequence() {
+            // Wait for the user's interaction (click) to start the audio context
+            await Tone.start();
+            console.log('Audio context started');
+
+            // --- 1. Create and Load Players ---
+            // Tone.Players loads multiple audio files in parallel from an object of URLs.
+            const players = new Tone.Players(audioUrls, () => {
+                console.log('All audio files loaded');
+            }).toDestination(); // Connect the players to the speakers
+
+            // --- 2. Schedule Playback Events ---
+            // Schedule each file to play at specific times along the Tone.Transport timeline.
+            // Times can be specified in seconds ("0"), musical notation ("4n" for a quarter note),
+            // or as measures:beats:sixteenths ("1:0:0" for the beginning of measure 1) [1].
+
+            // Play the first file at time 0s (immediately after transport starts)
+            Tone.Transport.scheduleOnce((time) => {
+                players.get('file1').start(time);
+                console.log('Playing file 1 at', time.toFixed(2), 'seconds');
+            }, "0");
+
+            // Play the second file at 2 seconds
+            Tone.Transport.scheduleOnce((time) => {
+                players.get('file2').start(time);
+                console.log('Playing file 2 at', time.toFixed(2), 'seconds');
+            }, "2");
+
+            // Play the third file at 4 seconds
+            Tone.Transport.scheduleOnce((time) => {
+                players.get('file3').start(time);
+                console.log('Playing file 3 at', time.toFixed(2), 'seconds');
+            }, "4");
+
+            // Play the fourth file at 6 seconds
+            Tone.Transport.scheduleOnce((time) => {
+                players.get('file4').start(time);
+                console.log('Playing file 4 at', time.toFixed(2), 'seconds');
+            }, "6");
+
+            // --- 3. Start the Transport (the master clock) ---
+            // The timeline starts now, and the events above will fire at their scheduled times.
+            Tone.Transport.start();
+        }
+*/
 
 
 //******************************************************************
@@ -31292,8 +31385,22 @@ function schedulesEvents(atTime) {
 //*************        TRANSPORT      ******************************
 //******************************************************************
 //******************************************************************
+const transport_bpm = document.getElementById("transport_bpm");
 const transport_position = document.getElementById("transport_position");
-
+const transport_swing_value = document.getElementById("transport_swing_value");
+const transport_subdivision_value = document.getElementById("transport_subdivision_value");
+const transport_timeSignature_value = document.getElementById("transport_timeSignature_value");
+const transport_loopStart_value = document.getElementById("transport_loopStart_value");
+const transport_loopEnd_value = document.getElementById("transport_loopEnd_value");
+const transport_PPQ_value = document.getElementById("transport_PPQ_value");
+transport_bpm.value = Tone.Transport.bpm.value;
+transport_bpm.setAttribute('placeholder',Tone.Transport.bpm.value );
+transport_swing_value.innerHTML = Tone.Transport.swing; 
+transport_subdivision_value.innerHTML = Tone.Transport.swingSubdivision; 
+transport_timeSignature_value.innerHTML = Tone.Transport.timeSignature;
+transport_loopStart_value.innerHTML = Tone.Transport.loopStart;
+transport_loopEnd_value.innerHTML = Tone.Transport.loopEnd;
+transport_PPQ_value.innerHTML = Tone.Transport.PPQ;
 /*
 setInterval(() => {
   console.log("position: "+Tone.Transport.position);
@@ -31332,7 +31439,6 @@ player_2_Node.connect(dcMeter_2_Node);
 // the current level of the mic
 const level = dcMeter_2_Node.getValue();
 
-//Analyser
 //JCReverb
 //Freeverb
 //StereoWidener
@@ -31347,6 +31453,139 @@ const level = dcMeter_2_Node.getValue();
 //SyncedSignal
 //WaveShaper
 //
+
+
+
+//********************************************************
+//********************************************************
+//************       Analyser        ***************
+//********************************************************
+//********************************************************
+const channel_1_analyser = new Tone.Analyser("waveform", 1024);
+
+// Alternatively, create an FFT analyser (default)
+// const analyser = new Tone.Analyser("fft", 2048);
+
+
+/*
+// Start the audio source (e.g., play a note)
+await Tone.start();
+synth.triggerAttackRelease("C4", "8n");
+
+// Use requestAnimationFrame for a continuous loop
+function draw() {
+    requestAnimationFrame(draw);
+
+    // Get the data
+    const values = analyser.getValue();
+    // values will be a Float32Array or array of Float32Arrays
+
+    // Use the values to draw on a <canvas> element, for example
+    // console.log(values);
+    // ... visualization code here ...
+}
+
+draw();
+
+*/
+
+/*
+interface AnalyserOptions
+channels : number
+context : BaseContext
+size : PowerOfTwo
+smoothing : NormalRange
+type : AnalyserType "fft" | "waveform"
+*/
+
+
+
+//********************************************************
+//********************************************************
+//************       MultibandSplit        ***************
+//********************************************************
+//********************************************************
+const channel_1_MultibandSplit_div = document.getElementById("channel_1_MultibandSplit_div");
+channel_1_MultibandSplit_div.style.display = "block";
+const channel_1_MultibandSplit_Node = new Tone.MultibandSplit();
+channel_1_MultibandSplit_Node.set({
+lowFrequency: 250,
+low:0,
+mid:0,
+high:0,
+highFrequency:2500,
+Q:0,
+});
+
+const channel_1_MultibandSplit_lowFrequency_text = document.getElementById("channel_1_MultibandSplit_lowFrequency_text");
+const channel_1_MultibandSplit_lowFrequency_value = document.getElementById("channel_1_MultibandSplit_lowFrequency_value");
+const channel_1_MultibandSplit_lowFrequency = document.getElementById("channel_1_MultibandSplit_lowFrequency");
+channel_1_MultibandSplit_lowFrequency.addEventListener("change", function (e){
+channel_1_MultibandSplit_Node.lowFrequency.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MultibandSplit_lowFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_MultibandSplit_lowFrequency.value = Math.round(`${e.currentTarget.value}`);
+MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_lowFrequency", e.currentTarget.value);
+});
+
+const channel_1_MultibandSplit_highFrequency_text = document.getElementById("channel_1_MultibandSplit_highFrequency_text");
+const channel_1_MultibandSplit_highFrequency_value = document.getElementById("channel_1_MultibandSplit_highFrequency_value");
+const channel_1_MultibandSplit_highFrequency = document.getElementById("channel_1_MultibandSplit_highFrequency");
+channel_1_MultibandSplit_highFrequency.addEventListener("change", function (e){
+channel_1_MultibandSplit_Node.highFrequency.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MultibandSplit_highFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+channel_1_MultibandSplit_highFrequency.value = Math.round(`${e.currentTarget.value}`);
+MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_highFrequency", e.currentTarget.value);
+});
+
+const channel_1_MultibandSplit_low_text = document.getElementById("channel_1_MultibandSplit_low_text");
+const channel_1_MultibandSplit_low = document.getElementById("channel_1_MultibandSplit_low");
+const channel_1_MultibandSplit_low_value = document.getElementById("channel_1_MultibandSplit_low_value");
+channel_1_MultibandSplit_low.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    channel_1_MultibandSplit_Node.low.value = -100;
+    channel_1_MultibandSplit_low_value.innerHTML = -100;
+    channel_1_MultibandSplit_low.value = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_low_fader_gain", -100);
+  }
+  else {
+    channel_1_MultibandSplit_Node.low.value = e.currentTarget.value;
+    channel_1_MultibandSplit_low_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    channel_1_MultibandSplit_low.value = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_low_fader_gain", e.currentTarget.value);
+  }
+});
+
+const channel_1_MultibandSplit_mid_text = document.getElementById("channel_1_MultibandSplit_mid_text");
+const channel_1_MultibandSplit_mid = document.getElementById("channel_1_MultibandSplit_mid");
+const channel_1_MultibandSplit_mid_value = document.getElementById("channel_1_MultibandSplit_mid_value");
+channel_1_MultibandSplit_mid.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    channel_1_MultibandSplit_Node.mid.value = -100;
+    channel_1_MultibandSplit_mid_value.innerHTML = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_mid_fader_gain", -100);
+  }
+  else {
+    channel_1_MultibandSplit_Node.mid.value = e.currentTarget.value;
+    channel_1_MultibandSplit_mid_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_mid_fader_gain", e.currentTarget.value);
+  }
+});
+
+const channel_1_MultibandSplit_high_text = document.getElementById("channel_1_MultibandSplit_high_text");
+const channel_1_MultibandSplit_high = document.getElementById("channel_1_MultibandSplit_high");
+const channel_1_MultibandSplit_high_value = document.getElementById("channel_1_MultibandSplit_high_value");
+channel_1_MultibandSplit_high.addEventListener("change", function (e) {
+  if (e.currentTarget.value <= -40) {
+    channel_1_MultibandSplit_Node.high.value = -100;
+    channel_1_MultibandSplit_high_value.innerHTML = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_high_fader_gain", -100);
+  }
+  else {
+    channel_1_MultibandSplit_Node.high.value = e.currentTarget.value;
+    channel_1_MultibandSplit_high_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_high_fader_gain", e.currentTarget.value);
+  }
+});
 
 //********************************************************
 //********************************************************
@@ -31376,6 +31615,79 @@ soloA.solo = true;
 //PUEDO CONNECTAR LOS SOLOS A DONDE SE ME CANTE?
 // ES SOLO STEREO???
 
+const channel_1_solo_Node = new Tone.Solo().connect(masterVolumeNode);
+channel_1_volNode.connect(channel_1_solo_Node);
+
+const channel_1_solo = document.getElementById("channel_1_solo");
+channel_1_solo.addEventListener("click", function(e){
+channel_1_solo_Node.solo = !channel_1_solo_Node.solo;
+alert("SOLO: "+ channel_1_solo_Node.solo);
+});
+
+const channel_2_solo_Node = new Tone.Solo().connect(masterVolumeNode);
+channel_2_volNode.connect(channel_2_solo_Node);
+
+const channel_2_solo = document.getElementById("channel_2_solo");
+channel_2_solo.addEventListener("click", function(e){
+channel_2_solo_Node.solo = !channel_2_solo_Node.solo;
+alert("SOLO: "+ channel_2_solo_Node.solo);
+});
+
+const channel_3_solo_Node = new Tone.Solo().connect(masterVolumeNode);
+channel_3_volNode.connect(channel_3_solo_Node);
+
+const channel_3_solo = document.getElementById("channel_3_solo");
+channel_3_solo.addEventListener("click", function(e){
+channel_3_solo_Node.solo = !channel_3_solo_Node.solo;
+alert("SOLO: "+ channel_3_solo_Node.solo);
+});
+
+const channel_4_solo_Node = new Tone.Solo().connect(masterVolumeNode);
+channel_4_volNode.connect(channel_4_solo_Node);
+
+const channel_4_solo = document.getElementById("channel_4_solo");
+channel_4_solo.addEventListener("click", function(e){
+channel_4_solo_Node.solo = !channel_4_solo_Node.solo;
+alert("SOLO: "+ channel_4_solo_Node.solo);
+});
+
+const fx_1_solo_Node = new Tone.Solo().connect(masterVolumeNode);
+fx_1_volNode.connect(fx_1_solo_Node);
+
+const fx_1_solo = document.getElementById("fx_1_solo");
+fx_1_solo.addEventListener("click", function(e){
+fx_1_solo_Node.solo = !fx_1_solo_Node.solo;
+alert("SOLO: "+ fx_1_solo_Node.solo);
+});
+
+const fx_2_solo_Node = new Tone.Solo().connect(masterVolumeNode);
+fx_2_volNode.connect(fx_2_solo_Node);
+
+const fx_2_solo = document.getElementById("fx_2_solo");
+fx_2_solo.addEventListener("click", function(e){
+fx_2_solo_Node.solo = !fx_2_solo_Node.solo;
+alert("SOLO: "+ fx_2_solo_Node.solo);
+});
+
+const fx_3_solo_Node = new Tone.Solo().connect(masterVolumeNode);
+fx_3_volNode.connect(fx_3_solo_Node);
+
+const fx_3_solo = document.getElementById("fx_3_solo");
+fx_3_solo.addEventListener("click", function(e){
+fx_3_solo_Node.solo = !fx_3_solo_Node.solo;
+alert("SOLO: "+ fx_3_solo_Node.solo);
+});
+
+const fx_4_solo_Node = new Tone.Solo().connect(masterVolumeNode);
+fx_4_volNode.connect(fx_4_solo_Node);
+
+const fx_4_solo = document.getElementById("fx_4_solo");
+fx_4_solo.addEventListener("click", function(e){
+fx_4_solo_Node.solo = !fx_4_solo_Node.solo;
+alert("SOLO: "+ fx_4_solo_Node.solo);
+});
+
+
 //********************************************************
 //********************************************************
 //************     FrequencyEnvelope       ***************
@@ -31397,8 +31709,42 @@ interface FrequencyEnvelopeOptions {
     sustain: number;
 }
     */
+/*
+return Tone.Offline(() => {
+	const env = new Tone.Envelope({
+		attack: 0.1,
+		decay: 0.2,
+		sustain: 0.5,
+		release: 0.8,
+	}).toDestination();
+	env.triggerAttackRelease(0.5);
+}, 1.5, 1);
+*/
+/*
+return Tone.Offline(() => {
+    const ampEnv = new Tone.AmplitudeEnvelope({
+        attack: 0.1,
+        decay: 0.2,
+        sustain: 1.0,
+        release: 0.8
+    }).toDestination();
+    // create an oscillator and connect it
+    const osc = new Tone.Oscillator().connect(ampEnv).start();
+    // trigger the envelopes attack and release "8t" apart
+    ampEnv.triggerAttackRelease("8t");
+}, 1.5, 1);
+*/
 
-
+/*
+const oscillator = new Tone.Oscillator().toDestination().start();
+const freqEnv = new Tone.FrequencyEnvelope({
+    attack: 0.2,
+    baseFrequency: "C2",
+    octaves: 4
+});
+freqEnv.connect(oscillator.frequency);
+freqEnv.triggerAttack();
+*/
 
 //********************************************************
 //********************************************************
@@ -31412,7 +31758,6 @@ interface FrequencyEnvelopeOptions {
         release: 0.8,
     }).toDestination();
    
-
 /*
 interface EnvelopeOptions {
     attack: Unit.Time;
@@ -31441,8 +31786,6 @@ The shape of the decay either "linear" or "exponential"
 The shape of the release. See the attack curve types.
 */
 
-
-
 //********************************************************
 //********************************************************
 //************           Follower          ***************
@@ -31450,14 +31793,14 @@ The shape of the release. See the attack curve types.
 //********************************************************
 const channel_1_Follower_Node = new Tone.Follower();
 const channel_1_Follower_div = document.getElementById("channel_1_Follower_div");
-channel_1_Follower_div.style.display = "block"; 
+channel_1_Follower_div.style.display = "none"; 
 
 const channel_1_Follower_smoothing = document.getElementById("channel_1_Follower_smoothing");
 const channel_1_Follower_smoothing_value = document.getElementById("channel_1_Follower_smoothing_value");
 channel_1_Follower_smoothing.addEventListener("change", function (e) {
   channel_1_Follower_Node.smoothing = e.currentTarget.value;
   channel_1_Follower_smoothing_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_Follower_smoothing", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_Follower_smoothing", e.currentTarget.value);
 });
 
 //********************************************************
@@ -31467,7 +31810,7 @@ channel_1_Follower_smoothing.addEventListener("change", function (e) {
 //********************************************************
 const channel_1_LowpassCombFilter_Node = new Tone.LowpassCombFilter();
 const channel_1_LowpassCombFilter_div = document.getElementById("channel_1_LowpassCombFilter_div");
-channel_1_LowpassCombFilter_div.style.display = "block"; 
+channel_1_LowpassCombFilter_div.style.display = "none"; 
 
 channel_1_LowpassCombFilter_Node.set({
     delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
@@ -31479,7 +31822,7 @@ const channel_1_LowpassCombFilter_delayTime_value = document.getElementById("cha
 channel_1_LowpassCombFilter_delayTime.addEventListener("change", function (e) {
   channel_1_LowpassCombFilter_Node.delayTime.value = e.currentTarget.value;
   channel_1_LowpassCombFilter_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_LowpassCombFilter_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_LowpassCombFilter_delayTime", e.currentTarget.value);
 });
 
 const channel_1_LowpassCombFilter_resonance = document.getElementById("channel_1_LowpassCombFilter_resonance");
@@ -31487,7 +31830,7 @@ const channel_1_LowpassCombFilter_resonance_value = document.getElementById("cha
 channel_1_LowpassCombFilter_resonance.addEventListener("change", function (e) {
   channel_1_LowpassCombFilter_Node.resonance.value = e.currentTarget.value;
   channel_1_LowpassCombFilter_resonance_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_LowpassCombFilter_resonance", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_LowpassCombFilter_resonance", e.currentTarget.value);
 });
 
 const channel_1_LowpassCombFilter_dampening = document.getElementById("channel_1_LowpassCombFilter_dampening");
@@ -31495,7 +31838,7 @@ const channel_1_LowpassCombFilter_dampening_value = document.getElementById("cha
 channel_1_LowpassCombFilter_dampening.addEventListener("change", function (e) {
   channel_1_LowpassCombFilter_Node.dampening = e.currentTarget.value;
   channel_1_LowpassCombFilter_dampening_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_LowpassCombFilter_dampening", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_LowpassCombFilter_dampening", e.currentTarget.value);
 });
 
 //********************************************************
@@ -31505,7 +31848,7 @@ channel_1_LowpassCombFilter_dampening.addEventListener("change", function (e) {
 //********************************************************
 const channel_1_FeedbackCombFilter_Node = new Tone.FeedbackCombFilter();
 const channel_1_FeedbackCombFilter_div = document.getElementById("channel_1_FeedbackCombFilter_div");
-channel_1_FeedbackCombFilter_div.style.display = "block"; 
+channel_1_FeedbackCombFilter_div.style.display = "none"; 
 
 channel_1_FeedbackCombFilter_Node.set({
     delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
@@ -31517,7 +31860,7 @@ const channel_1_FeedbackCombFilter_delayTime_value = document.getElementById("ch
 channel_1_FeedbackCombFilter_delayTime.addEventListener("change", function (e) {
   channel_1_FeedbackCombFilter_Node.delayTime.value = e.currentTarget.value;
   channel_1_FeedbackCombFilter_delayTime_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_FeedbackCombFilter_delayTime", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_FeedbackCombFilter_delayTime", e.currentTarget.value);
 });
 
 const channel_1_FeedbackCombFilter_resonance = document.getElementById("channel_1_FeedbackCombFilter_resonance");
@@ -31525,7 +31868,7 @@ const channel_1_FeedbackCombFilter_resonance_value = document.getElementById("ch
 channel_1_FeedbackCombFilter_resonance.addEventListener("change", function (e) {
   channel_1_FeedbackCombFilter_Node.resonance.value = e.currentTarget.value;
   channel_1_FeedbackCombFilter_resonance_value.innerHTML = `${e.currentTarget.value}`;
-  MixEventObj.logIntoListaNewValue(List, Tone.now(), "channel_1_FeedbackCombFilter_resonance", e.currentTarget.value);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_FeedbackCombFilter_resonance", e.currentTarget.value);
 });
 //********************************************************
 //********************************************************
@@ -31533,7 +31876,7 @@ channel_1_FeedbackCombFilter_resonance.addEventListener("change", function (e) {
 //********************************************************
 //********************************************************
 const channel_1_multibandCompressor_div = document.getElementById("channel_1_multibandCompressor_div");
-channel_1_multibandCompressor_div.style.display = "block";
+channel_1_multibandCompressor_div.style.display = "none";
 const channel_1_multibandCompressor_Node = new Tone.MultibandCompressor({
     lowFrequency: 250, // Crossover point for low/mid bands (defaults to 250 Hz)
     highFrequency: 2000, // Crossover point for mid/high bands (defaults to 2000 Hz)
@@ -31556,7 +31899,6 @@ const channel_1_multibandCompressor_Node = new Tone.MultibandCompressor({
         release: 0.2
     }
 });
-
 
 const channel_1_MultibandCompressor_lowFrequency_text = document.getElementById("channel_1_MultibandCompressor_lowFrequency_text");
 const channel_1_MultibandCompressor_lowFrequency_value = document.getElementById("channel_1_MultibandCompressor_lowFrequency_value");
@@ -31717,7 +32059,7 @@ channel_1_multibandCompressor_high_knee.value = Math.round(`${e.currentTarget.va
 //********************************************************
 //********************************************************
 const channel_1_MidSideCompressor_div = document.getElementById("channel_1_MidSideCompressor_div");
-channel_1_MidSideCompressor_div.style.display = "block";
+channel_1_MidSideCompressor_div.style.display = "none";
 
 const channel_1_MidSideCompressor_Node = new Tone.MidSideCompressor({
     mid: {
@@ -31823,3 +32165,6 @@ channel_1_MidSideCompressor_Node.side.knee.value = Math.round(`${e.currentTarget
 channel_1_MidSideCompressor_side_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
 channel_1_MidSideCompressor_side_knee.value = Math.round(`${e.currentTarget.value}`);
 });
+
+
+
