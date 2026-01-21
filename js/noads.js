@@ -46,8 +46,8 @@ function cargarLink() {
 }//CLOSES cargarLink
 
 function muestraLista(lista) {
-    // console.log(`LISTA: ` + `${lista}`);
-    //playlist.innerHTML = (`${lista}`);
+     console.log(`LISTA: ` + `${lista}`);
+    playlist.innerHTML = (`${lista}`);
     var cadena_Lista = "";
 
     for (i = 0; i < lista.length; i++) {

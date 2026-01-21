@@ -2676,7 +2676,7 @@ radios_channel_1.forEach(radio => {
 
 const radios_channel_2 = document.querySelectorAll('input[name="channel_2_rolloff"]');
 radios_channel_2.forEach(radio => {
-    radio.addEventListener('change', function (e) {
+  radio.addEventListener('change', function (e) {
     channel_2_filter.rolloff = e.currentTarget.value;
   });
 });
@@ -2745,7 +2745,7 @@ channel_2_filter_1_select.addEventListener("change", function (e) {
       {
         channel_2_filter.type = e.currentTarget.value;
         channel_2_filter_eq_type = "allpass";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(.toFixed(4)), "channel_2_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_select", e.currentTarget.value);
         if (channel_2_filter_eq_type == "on") {
           hide_all_EQ_divs("2");
           channel_2_allpass_controls_div.style.display = "block";
@@ -2757,7 +2757,7 @@ channel_2_filter_1_select.addEventListener("change", function (e) {
       {
         channel_2_filter.type = e.currentTarget.value;
         channel_2_filter_eq_type = "shelf";
-        MixEventObj.logIntoListaNewValue(List, Tone.now(.toFixed(4)), "channel_2_filter_select", e.currentTarget.value);
+        MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_2_filter_select", e.currentTarget.value);
         break;
       }
     case "peaking":
@@ -6624,6 +6624,14 @@ var is_fx_4_fxSend_1_On = true;
 var is_fx_4_fxSend_2_On = true;
 var is_fx_4_fxSend_3_On = true;
 var is_fx_4_fxSend_4_On = true;
+
+//--------------------------------
+var is_player_1_buffer_empty = true;
+var is_player_2_buffer_empty = true;
+var is_player_3_buffer_empty = true;
+var is_player_4_buffer_empty = true;
+
+
 
 //*********************************************************************************** */
 //*********************************************************************************** */
@@ -14944,7 +14952,7 @@ function busca1() {
       {
         if (player_2_Node.state != "started") {
           player_2_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
-          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2", `${array_Canciones[songNumber - 1].title}`);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_2_http", `${array_Canciones[songNumber - 1].title}`);
         }
         else { alert("ELSE: deten la reproduccion"); }
         break;
@@ -14953,7 +14961,7 @@ function busca1() {
       {
         if (player_3_Node.state != "started") {
           player_3_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
-          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3", `${array_Canciones[songNumber - 1].title}`);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_3_http", `${array_Canciones[songNumber - 1].title}`);
         }
         else { alert("ELSE: deten la reproduccion"); }
         break;
@@ -14962,7 +14970,7 @@ function busca1() {
       {
         if (player_4_Node.state != "started") {
           player_4_Node.load(`${array_Canciones[songNumber - 1].url_src}`, callbackLoaded(songNumber, playerNumber));
-          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4", `${array_Canciones[songNumber - 1].title}`);
+          MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_4_http", `${array_Canciones[songNumber - 1].title}`);
         }
         else { alert("ELSE: deten la reproduccion"); }
         break;
@@ -25462,8 +25470,8 @@ channel_4_volNode.fan(channel_4_rms_meter);
 
 function updatesMeters() {
 
-  //transport_position.innerHTML = (`${Tone.Transport.toSeconds().toFixed(3)}`);
-  
+  transport_position.innerHTML = (`${Tone.Transport.toSeconds().toFixed(3)}`);
+
   lfo_1_rms_meter_inner.innerHTML = Math.round(`${lfo_1_rms_meter.getValue()}`);
   lfo_1_dcmeter_inner.innerHTML = (`${lfo_1_dcmeter.getValue()}`);
 
@@ -27266,31 +27274,22 @@ function loadMix() {
     }
   }
   loadsBuffersAfterFileLoad();
-  //player_1_Node.buffer = buffers.get("19");
-  //schedulesEvents(12.161333333333335);
-
   
   for (i = 0; i < LoadFileList.length; i++) {
+    let time = Tone.Transport.toSeconds().toFixed(3);
+    console.log("TIME: "+"\n"+time);
     const testObj = LoadFileList[i];
     if (testObj.rampTime == "undefined" || testObj.rampTime == "NaN") {
       if (testObj.element != "undefined") {
         switch (testObj.Element) {
           case "master_volume": {
-      //console.log('time:', time);
-      //console.log('atTime:', testObj.atTime)
-
-  try {
-    Tone.Transport.schedule((time) => {
-  //    console.log('master volume:', time);
-      changesVolume(testObj.NewValue, masterVolumeNode, master_volume, master_volume_value)
- //     console.log('time:', time);
-//      console.log('atTime:', testObj.atTime);
-    }, testObj.atTime); // Start time can be specified as a number (seconds) or TransportTime string
-  } catch (error) {
-    console.error('Error:', error);
-  }
-
-//            changesVolume(testObj.NewValue, masterVolumeNode, master_volume, master_volume_value)
+            try {
+              Tone.Transport.schedule((time) => {
+                changesVolume(testObj.NewValue, masterVolumeNode, master_volume, master_volume_value)
+              }, time + testObj.atTime); // Start time can be specified as a number (seconds) or TransportTime string
+            } catch (error) {
+              console.error('Error:', error);
+            }
             break;
           }
           case "recorder": {
@@ -27341,12 +27340,24 @@ function loadMix() {
               switch (testObj.NewValue) {
                 case "play":
                 case "multiPlay": {
-                  play(testObj.Element);
+                  try {
+                    Tone.Transport.schedule((time) => {
+                      play(testObj.Element);
+                    }, time + testObj.atTime); // Start time can be specified as a number (seconds) or TransportTime string
+                  } catch (error) {
+                    console.error('Error:', error);
+                  }
                   break;
                 }
                 case "stop":
                 case "multiStop": {
-                  stop(testObj.Element);
+                  try {
+                    Tone.Transport.schedule((time) => {
+                      stop(testObj.Element);
+                    }, time + testObj.atTime);
+                  } catch (error) {
+                    console.error('Error:', error);
+                  }
                   break;
                 }
                 case "mute": {
@@ -27401,7 +27412,13 @@ function loadMix() {
             break;
           }
           case "player_1_volume": {
-            changesVolume(testObj.NewValue, player_1_Node, player_1_volume, player_1_volume_value);
+            try {
+              Tone.Transport.schedule((time) => {
+                changesVolume(testObj.NewValue, player_1_Node, player_1_volume, player_1_volume_value);
+              }, time + testObj.atTime); // Start time can be specified as a number (seconds) or TransportTime string
+            } catch (error) {
+              console.error('Error:', error);
+            }
             break;
           }
           case "player_2_volume": {
@@ -28729,7 +28746,7 @@ function loadMix() {
             changesFloat(testObj.NewValue, fx_4_reverb_Node, fx_4_reverb_decay, fx_4_reverb_decay_value, "decay");
             break;
           }
-          default: { console.log("LoadMix default testObj.element"); break; }
+          default: { console.log("LoadMix default testObj.element: " + testObj.element); break; }
         }
       }
       else { console.log("testObj.element == undefined"); }
@@ -28747,6 +28764,7 @@ function loadMix() {
     /**/
     //sets_LoadedFile(testObj);
   }
+  Tone.Transport.start();
 }
 
 function select_type(Node, element, value) {
@@ -28809,24 +28827,34 @@ function changesVolume(e, Node, volume, volume_value) {
     //CORREGIR player_1_volume POR LO QUE VENGA VOLUME
   }
   else {
+    // Node.volume.value = num1;
+    volume_value.innerHTML = Math.round(`${e}`);
+    volume.value = Math.round(`${e}`);
+    Node.volume.rampTo(num1, 0.30);
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_volume", num1);
+  }
+}
+
+
+
+/*
+function changesVolume(e, Node, volume, volume_value) {
+  const num1 = Number(e);
+  if (num1 <= -40) {
+    Node.volume.value = -100;
+    volume_value.innerHTML = -100;
+    volume.value = -100;
+    MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_volume", -100);
+    //CORREGIR player_1_volume POR LO QUE VENGA VOLUME
+  }
+  else {
     Node.volume.value = num1;
     volume_value.innerHTML = Math.round(`${e}`);
     volume.value = Math.round(`${e}`);
     MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_volume", num1);
   }
-  /*
-  let num1 = Number(e);
-  if (num1 <= -40) {
-    num1 = -100;
-  }
-  else {
-    Node.volume.value = num1;
-    volume_value.innerHTML = Math.round(`${num1}`);
-    volume.value = Math.round(`${num1}`);
-  }
-  /**/
 }
-
+*/
 function changesPan(e, Node, element, value) {
   const num1 = parseFloat(e);
   Node.pan.value = num1;
@@ -29010,7 +29038,7 @@ function changesBoxState_loopEnd(Node, value, element) {
 }
 
 function changesBpm() {
-  transport_bpm.setAttribute('placeholder',Tone.Transport.bpm.value );
+  transport_bpm.setAttribute('placeholder', Tone.Transport.bpm.value);
   var formulario = new Object();
   formulario.transport_bpm = document.getElementById("transport_bpm");
   let value = formulario.transport_bpm.value;
@@ -31269,12 +31297,26 @@ function loadsBuffersAfterFileLoad() {
   for (i = 0; i < ListOfBuffers.length; i++) {
     result = checksArrayReturnsBoolean(ListOfBuffers[i].newValue);
     if (result != false && result >= 0 && result < array_Canciones.length) {
-      addNewBuffer(array_Canciones[result - 1].id.toString(), array_Canciones[result - 1].url_src.toString());
+      addNewBuffer(array_Canciones[result - 1].id.toString(), array_Canciones[result - 1].url_src.toString(), ListOfBuffers[i].element);
+      /*  
+          retorno = addNewBuffer(array_Canciones[result - 1].id.toString(), array_Canciones[result - 1].url_src.toString());
+          alert("RETORNO loadsBuffersAfterFileLoad: "+ retorno);
+          if (retorno == true) {
+          alert("ESTOY ACAAAAAA: "+ retorno);
+    
+            if (ListOfBuffers[i].element == "player_1" && is_player_1_buffer_empty == true) {
+              alert("TIENE QUE CARGAR EL AUDIO EN EL PLAYER 1");
+              load_http(ListOfBuffers[i].element, array_Canciones[result - 1].url_src.toString(), array_Canciones[result - 1].id.toString());
+              is_player_1_buffer_empty = false;
+            }
+          }
+          */
     }// CLOSES if
   } //CLOSES for
 }// CLOSES loadsBuffersAfterFileLoad
 
-function addNewBuffer(name, url) {
+function addNewBuffer(name, url, element) {
+  var retorno = false;
   console.log(`Attempting to load new buffer: ${name} from ${url}`);
   buffers.add(
     name,
@@ -31283,11 +31325,32 @@ function addNewBuffer(name, url) {
     () => {
       addsElementToLoadedBuffersList(name);
       console.log(`--> New buffer "${name}" loaded successfully!`);
+      if (element == "player_1_http" && is_player_1_buffer_empty == true) {
+        player_1_Node.buffer = buffers.get(name.toString());
+        callbackLoaded(name, "1");//name tiene nque ser el name y no el id
+        is_player_1_buffer_empty = false;
+      }
+      else if (element == "player_2_http" && is_player_2_buffer_empty == true) {
+        player_2_Node.buffer = buffers.get(name.toString());
+        callbackLoaded(name, "2");
+        is_player_2_buffer_empty = false;
+      }
+      else if (element == "player_3_http" && is_player_3_buffer_empty == true) {
+        player_3_Node.buffer = buffers.get(name.toString());
+        callbackLoaded(name, "3");
+        is_player_3_buffer_empty = false;
+      }
+      else if (element == "player_4_http" && is_player_4_buffer_empty == true) {
+        player_4_Node.buffer = buffers.get(name.toString());
+        callbackLoaded(name, "4");
+        is_player_4_buffer_empty = false;
+      }
     },
     (error) => {
       console.error(`Error loading buffer "${name}":`, error);
     }
   );
+  return retorno;
 }
 
 
@@ -31308,6 +31371,18 @@ function schedulesEvents(atTime) {
     console.error('Error loading audio files:', error);
   }
 }
+
+function schedulesEventsVolumeChange(testObj) {
+  try {
+    Tone.Transport.schedule((time) => {
+      //      console.log('Playing audio file 1 at time:', time);
+      player_1_Node.start(time);
+    }, testObj.atTime); // Start time can be specified as a number (seconds) or TransportTime string
+  } catch (error) {
+    console.error('Error loading audio files:', error);
+  }
+}
+
 
 /*
 function schedulesEvents(atTime, element) {
@@ -31394,9 +31469,9 @@ const transport_loopStart_value = document.getElementById("transport_loopStart_v
 const transport_loopEnd_value = document.getElementById("transport_loopEnd_value");
 const transport_PPQ_value = document.getElementById("transport_PPQ_value");
 transport_bpm.value = Tone.Transport.bpm.value;
-transport_bpm.setAttribute('placeholder',Tone.Transport.bpm.value );
-transport_swing_value.innerHTML = Tone.Transport.swing; 
-transport_subdivision_value.innerHTML = Tone.Transport.swingSubdivision; 
+transport_bpm.setAttribute('placeholder', Tone.Transport.bpm.value);
+transport_swing_value.innerHTML = Tone.Transport.swing;
+transport_subdivision_value.innerHTML = Tone.Transport.swingSubdivision;
 transport_timeSignature_value.innerHTML = Tone.Transport.timeSignature;
 transport_loopStart_value.innerHTML = Tone.Transport.loopStart;
 transport_loopEnd_value.innerHTML = Tone.Transport.loopEnd;
@@ -31506,35 +31581,35 @@ type : AnalyserType "fft" | "waveform"
 //********************************************************
 //********************************************************
 const channel_1_MultibandSplit_div = document.getElementById("channel_1_MultibandSplit_div");
-channel_1_MultibandSplit_div.style.display = "block";
+channel_1_MultibandSplit_div.style.display = "none";
 const channel_1_MultibandSplit_Node = new Tone.MultibandSplit();
 channel_1_MultibandSplit_Node.set({
-lowFrequency: 250,
-low:0,
-mid:0,
-high:0,
-highFrequency:2500,
-Q:0,
+  lowFrequency: 250,
+  low: 0,
+  mid: 0,
+  high: 0,
+  highFrequency: 2500,
+  Q: 0,
 });
 
 const channel_1_MultibandSplit_lowFrequency_text = document.getElementById("channel_1_MultibandSplit_lowFrequency_text");
 const channel_1_MultibandSplit_lowFrequency_value = document.getElementById("channel_1_MultibandSplit_lowFrequency_value");
 const channel_1_MultibandSplit_lowFrequency = document.getElementById("channel_1_MultibandSplit_lowFrequency");
-channel_1_MultibandSplit_lowFrequency.addEventListener("change", function (e){
-channel_1_MultibandSplit_Node.lowFrequency.value = Math.round(`${e.currentTarget.value}`);
-channel_1_MultibandSplit_lowFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_MultibandSplit_lowFrequency.value = Math.round(`${e.currentTarget.value}`);
-MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_lowFrequency", e.currentTarget.value);
+channel_1_MultibandSplit_lowFrequency.addEventListener("change", function (e) {
+  channel_1_MultibandSplit_Node.lowFrequency.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_MultibandSplit_lowFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_MultibandSplit_lowFrequency.value = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_lowFrequency", e.currentTarget.value);
 });
 
 const channel_1_MultibandSplit_highFrequency_text = document.getElementById("channel_1_MultibandSplit_highFrequency_text");
 const channel_1_MultibandSplit_highFrequency_value = document.getElementById("channel_1_MultibandSplit_highFrequency_value");
 const channel_1_MultibandSplit_highFrequency = document.getElementById("channel_1_MultibandSplit_highFrequency");
-channel_1_MultibandSplit_highFrequency.addEventListener("change", function (e){
-channel_1_MultibandSplit_Node.highFrequency.value = Math.round(`${e.currentTarget.value}`);
-channel_1_MultibandSplit_highFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_MultibandSplit_highFrequency.value = Math.round(`${e.currentTarget.value}`);
-MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_highFrequency", e.currentTarget.value);
+channel_1_MultibandSplit_highFrequency.addEventListener("change", function (e) {
+  channel_1_MultibandSplit_Node.highFrequency.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_MultibandSplit_highFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_MultibandSplit_highFrequency.value = Math.round(`${e.currentTarget.value}`);
+  MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "channel_1_MultibandSplit_highFrequency", e.currentTarget.value);
 });
 
 const channel_1_MultibandSplit_low_text = document.getElementById("channel_1_MultibandSplit_low_text");
@@ -31619,72 +31694,72 @@ const channel_1_solo_Node = new Tone.Solo().connect(masterVolumeNode);
 channel_1_volNode.connect(channel_1_solo_Node);
 
 const channel_1_solo = document.getElementById("channel_1_solo");
-channel_1_solo.addEventListener("click", function(e){
-channel_1_solo_Node.solo = !channel_1_solo_Node.solo;
-alert("SOLO: "+ channel_1_solo_Node.solo);
+channel_1_solo.addEventListener("click", function (e) {
+  channel_1_solo_Node.solo = !channel_1_solo_Node.solo;
+  alert("SOLO: " + channel_1_solo_Node.solo);
 });
 
 const channel_2_solo_Node = new Tone.Solo().connect(masterVolumeNode);
 channel_2_volNode.connect(channel_2_solo_Node);
 
 const channel_2_solo = document.getElementById("channel_2_solo");
-channel_2_solo.addEventListener("click", function(e){
-channel_2_solo_Node.solo = !channel_2_solo_Node.solo;
-alert("SOLO: "+ channel_2_solo_Node.solo);
+channel_2_solo.addEventListener("click", function (e) {
+  channel_2_solo_Node.solo = !channel_2_solo_Node.solo;
+  alert("SOLO: " + channel_2_solo_Node.solo);
 });
 
 const channel_3_solo_Node = new Tone.Solo().connect(masterVolumeNode);
 channel_3_volNode.connect(channel_3_solo_Node);
 
 const channel_3_solo = document.getElementById("channel_3_solo");
-channel_3_solo.addEventListener("click", function(e){
-channel_3_solo_Node.solo = !channel_3_solo_Node.solo;
-alert("SOLO: "+ channel_3_solo_Node.solo);
+channel_3_solo.addEventListener("click", function (e) {
+  channel_3_solo_Node.solo = !channel_3_solo_Node.solo;
+  alert("SOLO: " + channel_3_solo_Node.solo);
 });
 
 const channel_4_solo_Node = new Tone.Solo().connect(masterVolumeNode);
 channel_4_volNode.connect(channel_4_solo_Node);
 
 const channel_4_solo = document.getElementById("channel_4_solo");
-channel_4_solo.addEventListener("click", function(e){
-channel_4_solo_Node.solo = !channel_4_solo_Node.solo;
-alert("SOLO: "+ channel_4_solo_Node.solo);
+channel_4_solo.addEventListener("click", function (e) {
+  channel_4_solo_Node.solo = !channel_4_solo_Node.solo;
+  alert("SOLO: " + channel_4_solo_Node.solo);
 });
 
 const fx_1_solo_Node = new Tone.Solo().connect(masterVolumeNode);
 fx_1_volNode.connect(fx_1_solo_Node);
 
 const fx_1_solo = document.getElementById("fx_1_solo");
-fx_1_solo.addEventListener("click", function(e){
-fx_1_solo_Node.solo = !fx_1_solo_Node.solo;
-alert("SOLO: "+ fx_1_solo_Node.solo);
+fx_1_solo.addEventListener("click", function (e) {
+  fx_1_solo_Node.solo = !fx_1_solo_Node.solo;
+  alert("SOLO: " + fx_1_solo_Node.solo);
 });
 
 const fx_2_solo_Node = new Tone.Solo().connect(masterVolumeNode);
 fx_2_volNode.connect(fx_2_solo_Node);
 
 const fx_2_solo = document.getElementById("fx_2_solo");
-fx_2_solo.addEventListener("click", function(e){
-fx_2_solo_Node.solo = !fx_2_solo_Node.solo;
-alert("SOLO: "+ fx_2_solo_Node.solo);
+fx_2_solo.addEventListener("click", function (e) {
+  fx_2_solo_Node.solo = !fx_2_solo_Node.solo;
+  alert("SOLO: " + fx_2_solo_Node.solo);
 });
 
 const fx_3_solo_Node = new Tone.Solo().connect(masterVolumeNode);
 fx_3_volNode.connect(fx_3_solo_Node);
 
 const fx_3_solo = document.getElementById("fx_3_solo");
-fx_3_solo.addEventListener("click", function(e){
-fx_3_solo_Node.solo = !fx_3_solo_Node.solo;
-alert("SOLO: "+ fx_3_solo_Node.solo);
+fx_3_solo.addEventListener("click", function (e) {
+  fx_3_solo_Node.solo = !fx_3_solo_Node.solo;
+  alert("SOLO: " + fx_3_solo_Node.solo);
 });
 
 const fx_4_solo_Node = new Tone.Solo().connect(masterVolumeNode);
 fx_4_volNode.connect(fx_4_solo_Node);
 
 const fx_4_solo = document.getElementById("fx_4_solo");
-fx_4_solo.addEventListener("click", function(e){
-fx_4_solo_Node.solo = !fx_4_solo_Node.solo;
-alert("SOLO: "+ fx_4_solo_Node.solo);
+fx_4_solo.addEventListener("click", function (e) {
+  fx_4_solo_Node.solo = !fx_4_solo_Node.solo;
+  alert("SOLO: " + fx_4_solo_Node.solo);
 });
 
 
@@ -31711,13 +31786,13 @@ interface FrequencyEnvelopeOptions {
     */
 /*
 return Tone.Offline(() => {
-	const env = new Tone.Envelope({
-		attack: 0.1,
-		decay: 0.2,
-		sustain: 0.5,
-		release: 0.8,
-	}).toDestination();
-	env.triggerAttackRelease(0.5);
+  const env = new Tone.Envelope({
+    attack: 0.1,
+    decay: 0.2,
+    sustain: 0.5,
+    release: 0.8,
+  }).toDestination();
+  env.triggerAttackRelease(0.5);
 }, 1.5, 1);
 */
 /*
@@ -31751,13 +31826,13 @@ freqEnv.triggerAttack();
 //************           Envelope          ***************
 //********************************************************
 //********************************************************
-    const channel_1_envelope = new Tone.Envelope({
-        attack: 0.1,
-        decay: 0.2,
-        sustain: 0.5,
-        release: 0.8,
-    }).toDestination();
-   
+const channel_1_envelope = new Tone.Envelope({
+  attack: 0.1,
+  decay: 0.2,
+  sustain: 0.5,
+  release: 0.8,
+}).toDestination();
+
 /*
 interface EnvelopeOptions {
     attack: Unit.Time;
@@ -31793,7 +31868,7 @@ The shape of the release. See the attack curve types.
 //********************************************************
 const channel_1_Follower_Node = new Tone.Follower();
 const channel_1_Follower_div = document.getElementById("channel_1_Follower_div");
-channel_1_Follower_div.style.display = "none"; 
+channel_1_Follower_div.style.display = "none";
 
 const channel_1_Follower_smoothing = document.getElementById("channel_1_Follower_smoothing");
 const channel_1_Follower_smoothing_value = document.getElementById("channel_1_Follower_smoothing_value");
@@ -31810,11 +31885,11 @@ channel_1_Follower_smoothing.addEventListener("change", function (e) {
 //********************************************************
 const channel_1_LowpassCombFilter_Node = new Tone.LowpassCombFilter();
 const channel_1_LowpassCombFilter_div = document.getElementById("channel_1_LowpassCombFilter_div");
-channel_1_LowpassCombFilter_div.style.display = "none"; 
+channel_1_LowpassCombFilter_div.style.display = "none";
 
 channel_1_LowpassCombFilter_Node.set({
-    delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
-    resonance: 0.9
+  delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
+  resonance: 0.9
 });
 
 const channel_1_LowpassCombFilter_delayTime = document.getElementById("channel_1_LowpassCombFilter_delayTime");
@@ -31848,11 +31923,11 @@ channel_1_LowpassCombFilter_dampening.addEventListener("change", function (e) {
 //********************************************************
 const channel_1_FeedbackCombFilter_Node = new Tone.FeedbackCombFilter();
 const channel_1_FeedbackCombFilter_div = document.getElementById("channel_1_FeedbackCombFilter_div");
-channel_1_FeedbackCombFilter_div.style.display = "none"; 
+channel_1_FeedbackCombFilter_div.style.display = "none";
 
 channel_1_FeedbackCombFilter_Node.set({
-    delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
-    resonance: 0.9
+  delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
+  resonance: 0.9
 });
 
 const channel_1_FeedbackCombFilter_delayTime = document.getElementById("channel_1_FeedbackCombFilter_delayTime");
@@ -31878,179 +31953,179 @@ channel_1_FeedbackCombFilter_resonance.addEventListener("change", function (e) {
 const channel_1_multibandCompressor_div = document.getElementById("channel_1_multibandCompressor_div");
 channel_1_multibandCompressor_div.style.display = "none";
 const channel_1_multibandCompressor_Node = new Tone.MultibandCompressor({
-    lowFrequency: 250, // Crossover point for low/mid bands (defaults to 250 Hz)
-    highFrequency: 2000, // Crossover point for mid/high bands (defaults to 2000 Hz)
-    low: {
-        threshold: -12, // dB
-        ratio: 2, // 2:1 compression ratio
-        attack: 0.001, // 1ms attack time
-        release: 0.2 // 200ms release time
-    },
-    mid: {
-        threshold: -10,
-        ratio: 4,
-        attack: 0.001,
-        release: 0.2
-    },
-    high: {
-        threshold: -10,
-        ratio: 6,
-        attack: 0.001,
-        release: 0.2
-    }
+  lowFrequency: 250, // Crossover point for low/mid bands (defaults to 250 Hz)
+  highFrequency: 2000, // Crossover point for mid/high bands (defaults to 2000 Hz)
+  low: {
+    threshold: -12, // dB
+    ratio: 2, // 2:1 compression ratio
+    attack: 0.001, // 1ms attack time
+    release: 0.2 // 200ms release time
+  },
+  mid: {
+    threshold: -10,
+    ratio: 4,
+    attack: 0.001,
+    release: 0.2
+  },
+  high: {
+    threshold: -10,
+    ratio: 6,
+    attack: 0.001,
+    release: 0.2
+  }
 });
 
 const channel_1_MultibandCompressor_lowFrequency_text = document.getElementById("channel_1_MultibandCompressor_lowFrequency_text");
 const channel_1_MultibandCompressor_lowFrequency_value = document.getElementById("channel_1_MultibandCompressor_lowFrequency_value");
 const channel_1_MultibandCompressor_lowFrequency = document.getElementById("channel_1_MultibandCompressor_lowFrequency");
-channel_1_MultibandCompressor_lowFrequency.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.lowFrequency.value = Math.round(`${e.currentTarget.value}`);
-channel_1_MultibandCompressor_lowFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_MultibandCompressor_lowFrequency.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MultibandCompressor_lowFrequency.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.lowFrequency.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_MultibandCompressor_lowFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_MultibandCompressor_lowFrequency.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_MultibandCompressor_highFrequency_text = document.getElementById("channel_1_MultibandCompressor_highFrequency_text");
 const channel_1_MultibandCompressor_highFrequency_value = document.getElementById("channel_1_MultibandCompressor_highFrequency_value");
 const channel_1_MultibandCompressor_highFrequency = document.getElementById("channel_1_MultibandCompressor_highFrequency");
-channel_1_MultibandCompressor_highFrequency.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.highFrequency.value = Math.round(`${e.currentTarget.value}`);
-channel_1_MultibandCompressor_highFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_MultibandCompressor_highFrequency.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MultibandCompressor_highFrequency.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.highFrequency.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_MultibandCompressor_highFrequency_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_MultibandCompressor_highFrequency.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_low_ratio_text = document.getElementById("channel_1_multibandCompressor_low_ratio_text");
 const channel_1_multibandCompressor_low_ratio_value = document.getElementById("channel_1_multibandCompressor_low_ratio_value");
 const channel_1_multibandCompressor_low_ratio = document.getElementById("channel_1_multibandCompressor_low_ratio");
-channel_1_multibandCompressor_low_ratio.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.low.ratio.value = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_low_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_low_ratio.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_ratio.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.low.ratio.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_low_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_low_ratio.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_low_threshold_text = document.getElementById("channel_1_multibandCompressor_low_threshold_text");
 const channel_1_multibandCompressor_low_threshold_value = document.getElementById("channel_1_multibandCompressor_low_threshold_value");
 const channel_1_multibandCompressor_low_threshold = document.getElementById("channel_1_multibandCompressor_low_threshold");
-channel_1_multibandCompressor_low_threshold.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.low.threshold.value = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_low_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_low_threshold.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_threshold.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.low.threshold.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_low_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_low_threshold.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_low_release_text = document.getElementById("channel_1_multibandCompressor_low_release_text");
 const channel_1_multibandCompressor_low_release_value = document.getElementById("channel_1_multibandCompressor_low_release_value");
 const channel_1_multibandCompressor_low_release = document.getElementById("channel_1_multibandCompressor_low_release");
-channel_1_multibandCompressor_low_release.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.low.release.value = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_low_release_value.innerHTML = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_low_release.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_release.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.low.release.value = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_low_release_value.innerHTML = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_low_release.value = (`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_low_attack_text = document.getElementById("channel_1_multibandCompressor_low_attack_text");
 const channel_1_multibandCompressor_low_attack_value = document.getElementById("channel_1_multibandCompressor_low_attack_value");
 const channel_1_multibandCompressor_low_attack = document.getElementById("channel_1_multibandCompressor_low_attack");
-channel_1_multibandCompressor_low_attack.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.low.attack.value = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_low_attack_value.innerHTML = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_low_attack.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_attack.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.low.attack.value = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_low_attack_value.innerHTML = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_low_attack.value = (`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_low_knee_text = document.getElementById("channel_1_multibandCompressor_low_knee_text");
 const channel_1_multibandCompressor_low_knee_value = document.getElementById("channel_1_multibandCompressor_low_knee_value");
 const channel_1_multibandCompressor_low_knee = document.getElementById("channel_1_multibandCompressor_low_knee");
-channel_1_multibandCompressor_low_knee.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.low.knee.value = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_low_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_low_knee.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_low_knee.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.low.knee.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_low_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_low_knee.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_mid_ratio_text = document.getElementById("channel_1_multibandCompressor_mid_ratio_text");
 const channel_1_multibandCompressor_mid_ratio_value = document.getElementById("channel_1_multibandCompressor_mid_ratio_value");
 const channel_1_multibandCompressor_mid_ratio = document.getElementById("channel_1_multibandCompressor_mid_ratio");
-channel_1_multibandCompressor_mid_ratio.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.mid.ratio.value = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_mid_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_mid_ratio.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_ratio.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.mid.ratio.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_mid_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_mid_ratio.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_mid_threshold_text = document.getElementById("channel_1_multibandCompressor_mid_threshold_text");
 const channel_1_multibandCompressor_mid_threshold_value = document.getElementById("channel_1_multibandCompressor_mid_threshold_value");
 const channel_1_multibandCompressor_mid_threshold = document.getElementById("channel_1_multibandCompressor_mid_threshold");
-channel_1_multibandCompressor_mid_threshold.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.mid.threshold.value = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_mid_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_mid_threshold.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_threshold.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.mid.threshold.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_mid_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_mid_threshold.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_mid_release_text = document.getElementById("channel_1_multibandCompressor_mid_release_text");
 const channel_1_multibandCompressor_mid_release_value = document.getElementById("channel_1_multibandCompressor_mid_release_value");
 const channel_1_multibandCompressor_mid_release = document.getElementById("channel_1_multibandCompressor_mid_release");
-channel_1_multibandCompressor_mid_release.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.mid.release.value = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_mid_release_value.innerHTML = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_mid_release.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_release.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.mid.release.value = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_mid_release_value.innerHTML = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_mid_release.value = (`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_mid_attack_text = document.getElementById("channel_1_multibandCompressor_mid_attack_text");
 const channel_1_multibandCompressor_mid_attack_value = document.getElementById("channel_1_multibandCompressor_mid_attack_value");
 const channel_1_multibandCompressor_mid_attack = document.getElementById("channel_1_multibandCompressor_mid_attack");
-channel_1_multibandCompressor_mid_attack.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.mid.attack.value = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_mid_attack_value.innerHTML = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_mid_attack.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_attack.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.mid.attack.value = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_mid_attack_value.innerHTML = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_mid_attack.value = (`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_mid_knee_text = document.getElementById("channel_1_multibandCompressor_mid_knee_text");
 const channel_1_multibandCompressor_mid_knee_value = document.getElementById("channel_1_multibandCompressor_mid_knee_value");
 const channel_1_multibandCompressor_mid_knee = document.getElementById("channel_1_multibandCompressor_mid_knee");
-channel_1_multibandCompressor_mid_knee.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.mid.knee.value = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_mid_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_mid_knee.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_mid_knee.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.mid.knee.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_mid_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_mid_knee.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_high_ratio_text = document.getElementById("channel_1_multibandCompressor_high_ratio_text");
 const channel_1_multibandCompressor_high_ratio_value = document.getElementById("channel_1_multibandCompressor_high_ratio_value");
 const channel_1_multibandCompressor_high_ratio = document.getElementById("channel_1_multibandCompressor_high_ratio");
-channel_1_multibandCompressor_high_ratio.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.high.ratio.value = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_high_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_high_ratio.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_ratio.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.high.ratio.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_high_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_high_ratio.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_high_threshold_text = document.getElementById("channel_1_multibandCompressor_high_threshold_text");
 const channel_1_multibandCompressor_high_threshold_value = document.getElementById("channel_1_multibandCompressor_high_threshold_value");
 const channel_1_multibandCompressor_high_threshold = document.getElementById("channel_1_multibandCompressor_high_threshold");
-channel_1_multibandCompressor_high_threshold.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.high.threshold.value = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_high_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_high_threshold.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_threshold.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.high.threshold.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_high_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_high_threshold.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_high_release_text = document.getElementById("channel_1_multibandCompressor_high_release_text");
 const channel_1_multibandCompressor_high_release_value = document.getElementById("channel_1_multibandCompressor_high_release_value");
 const channel_1_multibandCompressor_high_release = document.getElementById("channel_1_multibandCompressor_high_release");
-channel_1_multibandCompressor_high_release.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.high.release.value = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_high_release_value.innerHTML = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_high_release.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_release.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.high.release.value = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_high_release_value.innerHTML = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_high_release.value = (`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_high_attack_text = document.getElementById("channel_1_multibandCompressor_high_attack_text");
 const channel_1_multibandCompressor_high_attack_value = document.getElementById("channel_1_multibandCompressor_high_attack_value");
 const channel_1_multibandCompressor_high_attack = document.getElementById("channel_1_multibandCompressor_high_attack");
-channel_1_multibandCompressor_high_attack.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.high.attack.value = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_high_attack_value.innerHTML = (`${e.currentTarget.value}`);
-channel_1_multibandCompressor_high_attack.value = (`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_attack.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.high.attack.value = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_high_attack_value.innerHTML = (`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_high_attack.value = (`${e.currentTarget.value}`);
 });
 
 const channel_1_multibandCompressor_high_knee_text = document.getElementById("channel_1_multibandCompressor_high_knee_text");
 const channel_1_multibandCompressor_high_knee_value = document.getElementById("channel_1_multibandCompressor_high_knee_value");
 const channel_1_multibandCompressor_high_knee = document.getElementById("channel_1_multibandCompressor_high_knee");
-channel_1_multibandCompressor_high_knee.addEventListener("change", function (e){
-channel_1_multibandCompressor_Node.high.knee.value = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_high_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_multibandCompressor_high_knee.value = Math.round(`${e.currentTarget.value}`);
+channel_1_multibandCompressor_high_knee.addEventListener("change", function (e) {
+  channel_1_multibandCompressor_Node.high.knee.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_high_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_multibandCompressor_high_knee.value = Math.round(`${e.currentTarget.value}`);
 });
 
 //********************************************************
@@ -32062,109 +32137,116 @@ const channel_1_MidSideCompressor_div = document.getElementById("channel_1_MidSi
 channel_1_MidSideCompressor_div.style.display = "none";
 
 const channel_1_MidSideCompressor_Node = new Tone.MidSideCompressor({
-    mid: {
-        threshold: -40,
-        ratio: 14,
-        attack: 0.001,
-        release: 0.02
-    },
-    side: {
-        threshold: -10,
-        ratio: 6,
-        attack: 0.001,
-        release: 0.8
-    }
+  mid: {
+    threshold: -40,
+    ratio: 14,
+    attack: 0.001,
+    release: 0.02
+  },
+  side: {
+    threshold: -10,
+    ratio: 6,
+    attack: 0.001,
+    release: 0.8
+  }
 });
 
 const channel_1_MidSideCompressor_mid_ratio_text = document.getElementById("channel_1_MidSideCompressor_mid_ratio_text");
 const channel_1_MidSideCompressor_mid_ratio_value = document.getElementById("channel_1_MidSideCompressor_mid_ratio_value");
 const channel_1_MidSideCompressor_mid_ratio = document.getElementById("channel_1_MidSideCompressor_mid_ratio");
-channel_1_MidSideCompressor_mid_ratio.addEventListener("change", function (e){
-channel_1_MidSideCompressor_Node.mid.ratio.value = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_mid_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_mid_ratio.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_ratio.addEventListener("change", function (e) {
+  channel_1_MidSideCompressor_Node.mid.ratio.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_mid_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_mid_ratio.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_MidSideCompressor_mid_threshold_text = document.getElementById("channel_1_MidSideCompressor_mid_threshold_text");
 const channel_1_MidSideCompressor_mid_threshold_value = document.getElementById("channel_1_MidSideCompressor_mid_threshold_value");
 const channel_1_MidSideCompressor_mid_threshold = document.getElementById("channel_1_MidSideCompressor_mid_threshold");
-channel_1_MidSideCompressor_mid_threshold.addEventListener("change", function (e){
-channel_1_MidSideCompressor_Node.mid.threshold.value = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_mid_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_mid_threshold.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_threshold.addEventListener("change", function (e) {
+  channel_1_MidSideCompressor_Node.mid.threshold.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_mid_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_mid_threshold.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_MidSideCompressor_mid_release_text = document.getElementById("channel_1_MidSideCompressor_mid_release_text");
 const channel_1_MidSideCompressor_mid_release_value = document.getElementById("channel_1_MidSideCompressor_mid_release_value");
 const channel_1_MidSideCompressor_mid_release = document.getElementById("channel_1_MidSideCompressor_mid_release");
-channel_1_MidSideCompressor_mid_release.addEventListener("change", function (e){
-channel_1_MidSideCompressor_Node.mid.release.value = (`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_mid_release_value.innerHTML = (`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_mid_release.value = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_release.addEventListener("change", function (e) {
+  channel_1_MidSideCompressor_Node.mid.release.value = (`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_mid_release_value.innerHTML = (`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_mid_release.value = (`${e.currentTarget.value}`);
 });
 
 const channel_1_MidSideCompressor_mid_attack_text = document.getElementById("channel_1_MidSideCompressor_mid_attack_text");
 const channel_1_MidSideCompressor_mid_attack_value = document.getElementById("channel_1_MidSideCompressor_mid_attack_value");
 const channel_1_MidSideCompressor_mid_attack = document.getElementById("channel_1_MidSideCompressor_mid_attack");
-channel_1_MidSideCompressor_mid_attack.addEventListener("change", function (e){
-channel_1_MidSideCompressor_Node.mid.attack.value = (`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_mid_attack_value.innerHTML = (`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_mid_attack.value = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_attack.addEventListener("change", function (e) {
+  channel_1_MidSideCompressor_Node.mid.attack.value = (`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_mid_attack_value.innerHTML = (`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_mid_attack.value = (`${e.currentTarget.value}`);
 });
 
 const channel_1_MidSideCompressor_mid_knee_text = document.getElementById("channel_1_MidSideCompressor_mid_knee_text");
 const channel_1_MidSideCompressor_mid_knee_value = document.getElementById("channel_1_MidSideCompressor_mid_knee_value");
 const channel_1_MidSideCompressor_mid_knee = document.getElementById("channel_1_MidSideCompressor_mid_knee");
-channel_1_MidSideCompressor_mid_knee.addEventListener("change", function (e){
-channel_1_MidSideCompressor_Node.mid.knee.value = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_mid_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_mid_knee.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_mid_knee.addEventListener("change", function (e) {
+  channel_1_MidSideCompressor_Node.mid.knee.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_mid_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_mid_knee.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_MidSideCompressor_side_ratio_text = document.getElementById("channel_1_MidSideCompressor_side_ratio_text");
 const channel_1_MidSideCompressor_side_ratio_value = document.getElementById("channel_1_MidSideCompressor_side_ratio_value");
 const channel_1_MidSideCompressor_side_ratio = document.getElementById("channel_1_MidSideCompressor_side_ratio");
-channel_1_MidSideCompressor_side_ratio.addEventListener("change", function (e){
-channel_1_MidSideCompressor_Node.side.ratio.value = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_side_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_side_ratio.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_ratio.addEventListener("change", function (e) {
+  channel_1_MidSideCompressor_Node.side.ratio.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_side_ratio_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_side_ratio.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_MidSideCompressor_side_threshold_text = document.getElementById("channel_1_MidSideCompressor_side_threshold_text");
 const channel_1_MidSideCompressor_side_threshold_value = document.getElementById("channel_1_MidSideCompressor_side_threshold_value");
 const channel_1_MidSideCompressor_side_threshold = document.getElementById("channel_1_MidSideCompressor_side_threshold");
-channel_1_MidSideCompressor_side_threshold.addEventListener("change", function (e){
-channel_1_MidSideCompressor_Node.side.threshold.value = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_side_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_side_threshold.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_threshold.addEventListener("change", function (e) {
+  channel_1_MidSideCompressor_Node.side.threshold.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_side_threshold_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_side_threshold.value = Math.round(`${e.currentTarget.value}`);
 });
 
 const channel_1_MidSideCompressor_side_release_text = document.getElementById("channel_1_MidSideCompressor_side_release_text");
 const channel_1_MidSideCompressor_side_release_value = document.getElementById("channel_1_MidSideCompressor_side_release_value");
 const channel_1_MidSideCompressor_side_release = document.getElementById("channel_1_MidSideCompressor_side_release");
-channel_1_MidSideCompressor_side_release.addEventListener("change", function (e){
-channel_1_MidSideCompressor_Node.side.release.value = (`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_side_release_value.innerHTML = (`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_side_release.value = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_release.addEventListener("change", function (e) {
+  channel_1_MidSideCompressor_Node.side.release.value = (`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_side_release_value.innerHTML = (`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_side_release.value = (`${e.currentTarget.value}`);
 });
 
 const channel_1_MidSideCompressor_side_attack_text = document.getElementById("channel_1_MidSideCompressor_side_attack_text");
 const channel_1_MidSideCompressor_side_attack_value = document.getElementById("channel_1_MidSideCompressor_side_attack_value");
 const channel_1_MidSideCompressor_side_attack = document.getElementById("channel_1_MidSideCompressor_side_attack");
-channel_1_MidSideCompressor_side_attack.addEventListener("change", function (e){
-channel_1_MidSideCompressor_Node.side.attack.value = (`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_side_attack_value.innerHTML = (`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_side_attack.value = (`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_attack.addEventListener("change", function (e) {
+  channel_1_MidSideCompressor_Node.side.attack.value = (`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_side_attack_value.innerHTML = (`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_side_attack.value = (`${e.currentTarget.value}`);
 });
 
 const channel_1_MidSideCompressor_side_knee_text = document.getElementById("channel_1_MidSideCompressor_side_knee_text");
 const channel_1_MidSideCompressor_side_knee_value = document.getElementById("channel_1_MidSideCompressor_side_knee_value");
 const channel_1_MidSideCompressor_side_knee = document.getElementById("channel_1_MidSideCompressor_side_knee");
-channel_1_MidSideCompressor_side_knee.addEventListener("change", function (e){
-channel_1_MidSideCompressor_Node.side.knee.value = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_side_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
-channel_1_MidSideCompressor_side_knee.value = Math.round(`${e.currentTarget.value}`);
+channel_1_MidSideCompressor_side_knee.addEventListener("change", function (e) {
+  channel_1_MidSideCompressor_Node.side.knee.value = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_side_knee_value.innerHTML = Math.round(`${e.currentTarget.value}`);
+  channel_1_MidSideCompressor_side_knee.value = Math.round(`${e.currentTarget.value}`);
 });
 
+/*
+autoFilter = new Tone.LFO(2, 200, 1000).connect(filter.frequency).start();
+autoPan = new Tone.LFO(1, -1, 1).connect(panner.pan).start();
 
+ <script src="https://unpkg.com/tone-rhythm@0.0.2/dist/tone-rhythm.min.js"></script>
 
+Tune.js 
+
+*/
