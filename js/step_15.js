@@ -67,8 +67,6 @@ console.log("AudioEncoder.isConfigSupported: " + AudioEncoder.isConfigSupported(
 //setTimeout(); 
 // USAR PARA LLAMAR UNA FOO SOLO UNA VEZ
 //
-
-
 //recorder.exportWAV(function(blob){audio.src = URL.createObjectURL(blob)}
 //var context = Tone.context;
 
@@ -81,9 +79,7 @@ function Recording() {
   //this.context, this.config.bufferLen, this.config.numChannels, this.config.numChannels
   var Recording = new Recorder(audioCtx);
   Recording.record();
-
   //Recording.exportWAV(blob => audio.src = URL.createObjectURL(blob));
-
 }
 
 async function Offline_Context() {
@@ -178,6 +174,7 @@ const loaded_BuffersList = document.getElementById("loaded_BuffersList");
 let mediaRecorder;
 let audioChunks = [];
 
+
 const startRecordLog = document.getElementById("start-record");
 startRecordLog.addEventListener('click', () => {
   MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "recorder", "start");
@@ -197,11 +194,10 @@ document.querySelector('#start-record').addEventListener('click', async () => {
 
 async function startRecording() {
   // Create a destination node
+  const clock = new Timer();
   const destination = Tone.context.createMediaStreamDestination();
-
   // Connect the destination to the Tone.js master output
   Tone.Master.connect(destination);
-
   // Set up MediaRecorder to record from the destination node
   const options = {
     mimeType: 'audio/webm;codecs=opus', // WebM Opus codec
@@ -215,12 +211,37 @@ async function startRecording() {
   mediaRecorder.onstop = () => {
     const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
     const audioUrl = URL.createObjectURL(audioBlob);
+
+
+// 1. Set the name you want here
+    const fileName = "my-custom-recording.webm";
+
+    // 2. Create a temporary link element
+    const link = document.createElement('a');
+    link.href = audioUrl;
+    link.download = fileName; // This assigns the filename
+    
+    // 3. (Optional) Automatically trigger the download
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
+
+
+
+
+
     const audio = document.querySelector('#audio-playback');
     audio.src = audioUrl;
     audioChunks = []; // Clear chunks for the next recording
+    clock.stop();
+    alert(clock.total_seconds());
   };
 
   mediaRecorder.start();
+  clock.start();
+    setInterval(() => {
+    console.log("record Time: " + Tone.immediate());
+  }, 1000);
   document.querySelector('#start-record').disabled = true;
   document.querySelector('#stop-record').disabled = false;
 }
@@ -235,7 +256,7 @@ document.querySelector('#stop-record').addEventListener('click', () => {
 function startRecording2() {
 
   // Assuming 'audioBuffer' is your AudioBuffer object
-  const buffer = audiobufferToWav(audioBuffer);
+  const buffer = 
   const blob = new Blob([buffer], { type: 'audio/wav' });
   const url = URL.createObjectURL(blob);
 
@@ -23542,7 +23563,6 @@ function Sinte() {
   
     player_4_playButton.dispatchEvent(event2);
   /**/
-
 }
 
 function changes_fx_name(channel, effecttype) {
@@ -25467,6 +25487,15 @@ channel_3_volNode.fan(channel_3_rms_meter);
 channel_4_volNode.fan(channel_4_rms_meter);
 
 //---------------------------------
+const Recorded_Time_value = document.getElementById("Recorded_Time_value");
+
+
+function updatesRecordingTime() {
+
+    Recorded_Time_value.innerHTML = (`${12}`);
+
+  //  Recorded_Time_value.innerHTML = (`${Tone.Transport.toSeconds().toFixed(3)}`);
+}
 
 function updatesMeters() {
 
@@ -27207,7 +27236,6 @@ function scrambler(tempScramblerFloat32Array) {
  
 /**/
 
-
 function isShowOpenFilePickerSupported() {
   if ('showOpenFilePicker' in self) {
     console.log("showOpenFilePicker is Supported");
@@ -27220,7 +27248,6 @@ function isShowOpenFilePickerSupported() {
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
 
 function agregaReverbWorklet() {
   /**
@@ -28834,8 +28861,6 @@ function changesVolume(e, Node, volume, volume_value) {
     MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "player_1_volume", num1);
   }
 }
-
-
 
 /*
 function changesVolume(e, Node, volume, volume_value) {
@@ -31173,7 +31198,6 @@ function opensAudioCard() {
   }
 }
 
-
 //******************************************************************
 //******************************************************************
 //*************    DISPATCH EVENT     ******************************
@@ -31353,7 +31377,6 @@ function addNewBuffer(name, url, element) {
   return retorno;
 }
 
-
 function addsElementToLoadedBuffersList(name) {
   var option = document.createElement("option");
   option.text = name;
@@ -31382,7 +31405,6 @@ function schedulesEventsVolumeChange(testObj) {
     console.error('Error loading audio files:', error);
   }
 }
-
 
 /*
 function schedulesEvents(atTime, element) {
@@ -31453,7 +31475,6 @@ function schedulesEvents(atTime, element) {
             Tone.Transport.start();
         }
 */
-
 
 //******************************************************************
 //******************************************************************
@@ -32241,6 +32262,7 @@ channel_1_MidSideCompressor_side_knee.addEventListener("change", function (e) {
   channel_1_MidSideCompressor_side_knee.value = Math.round(`${e.currentTarget.value}`);
 });
 
+
 /*
 autoFilter = new Tone.LFO(2, 200, 1000).connect(filter.frequency).start();
 autoPan = new Tone.LFO(1, -1, 1).connect(panner.pan).start();
@@ -32250,3 +32272,55 @@ autoPan = new Tone.LFO(1, -1, 1).connect(panner.pan).start();
 Tune.js 
 
 */
+
+
+// Define la clase. Sé que es una función, pero así es como funciona Javascript.
+class Timer {
+  constructor() {
+    // Declara algunas "variables de instancia". Siempre que tengamos un Timer,
+    // tendrá sus propios segundos, minutos, horas, etc.
+    this.seconds = 0;
+    this.minutes = 0;
+    this.hours = 0;
+    this.interval = null;
+
+    // Puedes iniciar el temporizador llamando a esta función. Inicia un intervalo
+    // que se ejecutará cada segundo y llamará al método "update" del temporizador.
+    // Para asegurarnos de que nuestro alcance funcione correctamente, llamamos a ".bind(this)" para decirle
+    // al intérprete que este objeto es el alcance al llamar al método.
+    this.start = function () {
+      this.interval = setInterval(this.update.bind(this), 1000);
+    };
+
+    // Llama a stop en el temporizador para borrar tu intervalo
+    this.stop = function () {
+      clearInterval(this.interval);
+    };
+
+    // Actualiza los valores de segundos/minutos y los reinicia a cero
+    // cuando se vuelven demasiado altos
+    this.update = function () {
+      this.seconds++;
+
+      if (this.seconds == 60) {
+        this.seconds = 0;
+        this.minutes++;
+      }
+
+      if (this.minutes == 60) {
+        this.minutes = 0;
+        this.hours++;
+      }
+    };
+
+    // Un método conveniente para obtener el número total de segundos, si lo deseas
+    this.total_seconds = function () {
+      return ((this.minutes * 60) + this.seconds);
+    };
+  }
+}
+
+//var clock = new Timer();
+//clock.start();
+//clock.stop();
+//alert(clock.total_seconds());

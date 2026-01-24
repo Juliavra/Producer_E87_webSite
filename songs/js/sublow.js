@@ -1,8 +1,9 @@
 ﻿function startsSong() {
   setInterval(() => {
     console.log(Tone.immediate());
-  }, 5000);
- // const pingPong = new Tone.PingPongDelay("4n", 0.2).toDestination();
+    console.log("transp: "+Tone.Transport.position);
+  }, 1000);
+
   const feedbackDelay = new Tone.FeedbackDelay("2n.", 0.13).toDestination();
   feedbackDelay.volume = -9;
 
@@ -17,39 +18,8 @@
   const feedbackDelay_HH = new Tone.FeedbackDelay("2n.", 0.43).connect(pingPong_HH);
   feedbackDelay.volume = -9;
 
-  console.log(Tone.Transport.sampleTime);
-
 //--------------------------------
-/*const vol = new Tone.Volume(-6).toDestination();
-const osc = new Tone.Oscillator().connect(vol).start();
-vol.volume.value = -20;
-// mute the output
-vol.mute = true;
-*/
 //-------------------------------------------
-/*
-const toneMeter = new Tone.Meter({ channelCount: 2 });
-feedbackDelay.connect(toneMeter);
-/*
-meter({
-  tone: toneMeter,
-  parent: document.querySelector("#content"),
-});
-*/
-
-
-  /*
-    const delay = new Tone.Delay().toDestination();
-    delay.volume = -15;
-    const delayLFO = new Tone.LFO(0.5, 0.1, 1).connect(delay.delayTime);
-    delayLFO.volume = -35;
-  //  delayLFO.start();
-    const pulse = new Tone.PulseOscillator().connect(delay);
-    pulse.volume = -35;
-   // pulse.start();
-  
-    // the change in delayTime causes the pitch to go up and down
-  */
   //SUB LOW INTRO
   const bassline = [
     { 'time': '0:0', 'note': 'A1', 'duration': '0:2' },
@@ -122,10 +92,7 @@ meter({
   const bassPart7 = new Tone.Part(function (time, note) {
     bass.triggerAttackRelease(note.note, note.duration, time);
   }, bassline3).start(60);
- /* const bassPart8 = new Tone.Part(function (time, note) {
-    bass.triggerAttackRelease(note.note, note.duration, time);
-  }, bassline4).start(70);
-*/
+
   const keyline = [
     { 'time': '0:3', 'note': 'D3', 'duration': '0:0:1' },
     { 'time': '1:3', 'note': 'D3', 'duration': '0:0:1' },
@@ -496,20 +463,6 @@ console.log("SETEAR  const HH_Pass highpass");
       Tone.Transport.stop();
     }
   });
-  /*
-  const player = new Tone.Player("https://tonejs.github.io/audio/drum-samples/conga-rhythm.mp3");
-  //const player2 = new Tone.Player("https://github.com/Juliavra/Producer_E87_webSite/audio/01%20Dark%20Ringy%20Short%20Loop.mp3");
-  //const player2 = new Tone.Player("https://github.com/Juliavra/Producer_E87_webSite/audio/01 Dark Ringy Short Loop.mp3");
-  const player2 = new Tone.Player("https://github.com/Juliavra/Producer_E87_webSite/audio/01%2520Dark%2520Ringy%2520Short%2520Loop.mp3");
-  */
-  /*
-  player.autostart = true; 
-  player2.autostart = true;
-  const pitchShift = new Tone.PitchShift(14).toDestination();
-  const filter = new Tone.Filter("C0").toDestination();
-  // connect a node to the pitch shift and filter in parallel
-  player.fan(pitchShift, filter);
-  */
 
   const synth2 = new Tone.Synth({
     oscillator: {
@@ -531,11 +484,3 @@ console.log("SETEAR  const HH_Pass highpass");
   Tone.Transport.start();
   Tone.Transport.bpm.value = 180;
 }
-
-
-/*
-BiquadFilterType[] = ["lowpass", "highpass", "bandpass",
-			"lowshelf", "highshelf", "notch", "allpass", "peaking"];
-		assert(types.indexOf(type) !== -1, `Invalid filter type: ${type}`);
-		this._filter.type = type;
-*/
