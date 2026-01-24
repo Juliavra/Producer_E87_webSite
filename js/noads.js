@@ -10,26 +10,27 @@ function cargarLink() {
     var carpeta_replace = "";
     if (carpeta_trim.includes("list", 0)) {
         mensaje = carpeta_trim;
-        console.log("if: " + mensaje);
+        //console.log("if: " + mensaje);
     }
     else if (carpeta_trim.includes("https://youtu.be", 0)) {
         carpeta_replace = carpeta_trim.replace("https://youtu.be", "https://www.youtube.com/embed");
         mensaje = carpeta_replace.trim();
-        console.log("else if: " + mensaje);
+        //console.log("else if: " + mensaje);
     }
     else {
         for (var f = carpeta_trim.indexOf("https", 0); f < carpeta_trim.length; f++) {
             if (carpeta_trim[f] != `"`) {
                 mensaje += carpeta_trim[f];
                 mensaje = mensaje.trim();
-                console.log("else : " + mensaje);
-                //console.log(mensaje);
+                //console.log("else : " + mensaje);
+                console.log(mensaje);
             }
             else { break; }
         }
     }
 
-    frame.src = `${mensaje}`; console.log("frame.src:  " + "\n" + `${mensaje}` + "\n");
+    frame.src = `${mensaje}`; 
+    //console.log("frame.src:  " + "\n" + `${mensaje}` + "\n");
     lista.push(`${mensaje}`);
 
     muestraLista(lista);
