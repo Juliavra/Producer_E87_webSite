@@ -124,10 +124,10 @@ html {
     color: orange;
     height: 12vh;
     width: 70%;
-    text-align: left;
+    text-align: center;
     font-size: 3rem;
     margin-top: 0%;
-    margin-bottom: 10px;
+    margin-bottom: 1vh;
     padding: 0%;
     border: red solid 2px;
 }
@@ -180,7 +180,20 @@ iframe {
     border: rgb(9, 66, 2) solid 2px;
 }
 
+::placeholder {
+    font-size: 3vh;
+    /* Change font size */
+    color: #000000;
+    /* Change color */
+    opacity: 1;
+    /* Firefox sets lower opacity by default */
+}
 
+#play_btn {
+    height: 8vh;
+    width: 12vh;
+     font-size: 3vh;
+}
 
 /* ----- -----  Mediaqueries ----- ----- */
 /*----Landscape (max-width: 650px) and (max-height:400px -----*/
