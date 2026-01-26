@@ -6,7 +6,11 @@
 //document
 
 "use strict";
+//IMPORTANTE PARA CREAR VOX FROM TEXT
+//https://github.com/kripken/speak.js/
 
+//HOWLER DOCS
+//https://github.com/goldfire/howler.js#documentation
 
 
 //https://github.com/cstoquer/audio-encoder
@@ -194,7 +198,7 @@ document.querySelector('#start-record').addEventListener('click', async () => {
 
 async function startRecording() {
   // Create a destination node
-  const clock = new Timer();
+  //const clock = new Timer();
   const destination = Tone.context.createMediaStreamDestination();
   // Connect the destination to the Tone.js master output
   Tone.Master.connect(destination);
@@ -212,7 +216,7 @@ async function startRecording() {
     const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
     const audioUrl = URL.createObjectURL(audioBlob);
 
-
+/*
 // 1. Set the name you want here
     const fileName = "my-custom-recording.webm";
 
@@ -225,20 +229,18 @@ async function startRecording() {
     // document.body.appendChild(link);
     // link.click();
     // document.body.removeChild(link);
-
-
-
+/**/
 
 
     const audio = document.querySelector('#audio-playback');
     audio.src = audioUrl;
     audioChunks = []; // Clear chunks for the next recording
-    clock.stop();
-    alert(clock.total_seconds());
+    //clock.stop();
+    //alert(clock.total_seconds());
   };
 
   mediaRecorder.start();
-  clock.start();
+  //clock.start();
     setInterval(() => {
     console.log("record Time: " + Tone.immediate());
   }, 1000);
@@ -8940,7 +8942,7 @@ fx_1_autoWah_baseFrequency.addEventListener("change", function (e) {
 //***********************  FX 1  BIT CRUSHER    ******************* */
 //************************************************************************** */
 //************************************************************************** */
-const fx_1_bitCrusher_Node = new Tone.BitCrusher();
+//const fx_1_bitCrusher_Node = new Tone.BitCrusher();
 //fx_1_bitCrusher_Node.wet = 1;
 
 const fx_1_bitCrusher_text = document.getElementById("fx_1_bitCrusher_text");
@@ -31904,15 +31906,15 @@ channel_1_Follower_smoothing.addEventListener("change", function (e) {
 //************      LowpassCombFilter     ***************
 //********************************************************
 //********************************************************
-const channel_1_LowpassCombFilter_Node = new Tone.LowpassCombFilter();
+//const channel_1_LowpassCombFilter_Node = new Tone.LowpassCombFilter();
 const channel_1_LowpassCombFilter_div = document.getElementById("channel_1_LowpassCombFilter_div");
 channel_1_LowpassCombFilter_div.style.display = "none";
-
+/*
 channel_1_LowpassCombFilter_Node.set({
   delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
   resonance: 0.9
 });
-
+/**/
 const channel_1_LowpassCombFilter_delayTime = document.getElementById("channel_1_LowpassCombFilter_delayTime");
 const channel_1_LowpassCombFilter_delayTime_value = document.getElementById("channel_1_LowpassCombFilter_delayTime_value");
 channel_1_LowpassCombFilter_delayTime.addEventListener("change", function (e) {
@@ -31942,15 +31944,15 @@ channel_1_LowpassCombFilter_dampening.addEventListener("change", function (e) {
 //************      FeedbackCombFilter     ***************
 //********************************************************
 //********************************************************
-const channel_1_FeedbackCombFilter_Node = new Tone.FeedbackCombFilter();
+//const channel_1_FeedbackCombFilter_Node = new Tone.FeedbackCombFilter();
 const channel_1_FeedbackCombFilter_div = document.getElementById("channel_1_FeedbackCombFilter_div");
 channel_1_FeedbackCombFilter_div.style.display = "none";
-
+/*
 channel_1_FeedbackCombFilter_Node.set({
   delayTime: 0.350, // you can use Time notation like "16n" or seconds (e.g., 0.05)
   resonance: 0.9
 });
-
+/**/
 const channel_1_FeedbackCombFilter_delayTime = document.getElementById("channel_1_FeedbackCombFilter_delayTime");
 const channel_1_FeedbackCombFilter_delayTime_value = document.getElementById("channel_1_FeedbackCombFilter_delayTime_value");
 channel_1_FeedbackCombFilter_delayTime.addEventListener("change", function (e) {
@@ -32275,6 +32277,7 @@ Tune.js
 
 
 // Define la clase. Sé que es una función, pero así es como funciona Javascript.
+/*
 class Timer {
   constructor() {
     // Declara algunas "variables de instancia". Siempre que tengamos un Timer,
@@ -32319,7 +32322,7 @@ class Timer {
     };
   }
 }
-
+/**/
 //var clock = new Timer();
 //clock.start();
 //clock.stop();
