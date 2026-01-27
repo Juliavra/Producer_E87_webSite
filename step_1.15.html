@@ -183,6 +183,17 @@
       <button id="various_loads" onclick="multiLoad()">Load</button>
 
       <br>
+
+      
+    <div class="contenedor_iFrame">
+            <input type='text' id='carpeta' name="nombre" placeholder="Paste link here"
+                style="height: 40px; line-height: 60px;" size="150" />
+            <button id="play_btn" onclick="cargarLink()">Aceptar</button>
+            <br>
+            <iframe id="frame" width="260" height="115" title="YouTube video player" frameborder="4" enablejsapi="true"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <br>
+
       <audio id="myAudio4">
         <source src="" type="audio/wav">
       </audio>
