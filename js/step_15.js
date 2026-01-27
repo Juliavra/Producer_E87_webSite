@@ -176,7 +176,7 @@ const loaded_BuffersList = document.getElementById("loaded_BuffersList");
 var lista_iFrame = [];
 
 function cargarLink() {
-    var playlist = document.getElementById("playlist");
+    //var playlist = document.getElementById("playlist");
     var carpeta = document.getElementById("carpeta");
     var frame = document.getElementById("frame");
     var carpeta_trim = carpeta.value.trim();
