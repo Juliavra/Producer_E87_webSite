@@ -210,8 +210,6 @@ function cargarLink() {
     //muestraLista_iFrame(lista_iFrame);
 }//CLOSES cargarLink
 
-console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
-
 function muestraLista_iFrame(lista_iFrame) {
      console.log(`lista_iFrame: ` + `${lista_iFrame}`);
     playlist.innerHTML = (`${lista_iFrame}`);
@@ -221,7 +219,6 @@ function muestraLista_iFrame(lista_iFrame) {
         cadena_Lista = cadena_Lista + `${lista_iFrame[i]}` + `<br>`;             //console.log("lista[i]  " + `${lista[i]}`);
     }
     playlist.innerHTML = cadena_Lista;
-    //https://www.youtube.com/embed/riVYg2-eKA8?si=JLbmdcdlb4gv7IxK
 }
 
 

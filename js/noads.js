@@ -45,5 +45,4 @@ function muestraLista(lista) {
         cadena_Lista = cadena_Lista + `${lista[i]}` + `<br>`;             //console.log("lista[i]  " + `${lista[i]}`);
     }
     playlist.innerHTML = cadena_Lista;
-    //https://www.youtube.com/embed/riVYg2-eKA8?si=JLbmdcdlb4gv7IxK
 }
