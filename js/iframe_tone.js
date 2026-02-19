@@ -25,6 +25,7 @@ function onPlayerReady(event) {
 
 // 3. Configurar Tone.js
 const vol = new Tone.Volume(-10).toDestination();
+player.connect(vol);
 // Si quisieras aplicar un efecto:
 // const filter = new Tone.Filter(200, "lowpass").connect(vol);
 
