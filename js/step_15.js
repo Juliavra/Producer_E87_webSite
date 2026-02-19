@@ -204,7 +204,6 @@ function cargarLink() {
   }
 
   frame.src = `${mensaje}`;
-  myVideo.src = `${mensaje}`;
   //console.log("frame.src:  " + "\n" + `${mensaje}` + "\n");
   lista_iFrame.push(`${mensaje}`);
 
@@ -31267,90 +31266,6 @@ function allSelectedChannelsToNone() {
   document.getElementById('channel_3_column').style.backgroundColor = 'white';
   document.getElementById('channel_4_column').style.backgroundColor = 'white';
 }
-
-
-const audioCtx = new AudioContext();
-const myVideo = document.getElementById("myVideo");
-
-// Create a MediaElementAudioSourceNode
-// Feed the HTMLMediaElement into it
-const source = audioCtx.createMediaElementSource(myVideo);
-
-// Create a gain node
-const gainNode = audioCtx.createGain();
-
-// Connect the AudioBufferSourceNode to the gainNode
-// and the gainNode to the destination, so we can play the
-// music and adjust the volume using the mouse cursor
-source.connect(gainNode);
-gainNode.connect(audioCtx.destination);
-
-
-
-
-/*
-function showsSetup() {
-
-const img = document.createElement('img');
-img.src = '"img/Step 1.0 Nodes.png';
-document.body.appendChild(img);
-
-  if (setup_img_column.style.display == "none") {
-    setup_img_column.style.display = "block";
-  }
-  else {
-    setup_img_column.style.display = "none";
-  }
-
-}
-/**/
-/*
-const video = document.getElementById('myVideo');
-// Ensure to connect the source to destination to hear it
-const mediaSource = Tone.context.createMediaElementSource(video);
-const panner = new Tone.Panner(0.5).toDestination();
-mediaSource.connect(panner);
-/**/
-/*
-// 1. Get a reference to your HTML audio/video element
-const audioElement = document.querySelector('myAudio'); 
-
-// 2. Create the source node using Tone.context.createMediaElementSource()
-const mediaElementSource = Tone.context.createMediaElementSource(audioElement);
-
-// 3. Connect the source to a Tone.js node (e.g., a filter or the main destination)
-const filter = new Tone.Filter(400, 'lowpass').toDestination();
-Tone.connect(mediaElementSource, filter);
-// or connect directly to the speakers
-// mediaElementSource.connect(Tone.Destination);
-/**/
-
-
-
-    /*
-document.querySelector('button#startButton').addEventListener('click', async () => {
-   // Start the Tone.js audio context
-    await Tone.start();
-    console.log('Audio context started');
-
-    // Get the HTML video element
-    const videoElement = document.getElementById('myVideo');
-
-    // Create a media element source from the video element
-    const mediaSource = Tone.context.createMediaElementSource(videoElement);
-
-    // Create a Tone.js effect (e.g., a gain node to control volume)
-    const gainNode = new Tone.Gain(0.5); // Set initial volume to 50%
-
-    // Connect the source through the effect to the destination (your speakers)
-    mediaSource.connect(gainNode);
-    gainNode.toDestination(); // This is equivalent to connecting to Tone.context.destination
-
-    // Optional: Play the video
-    videoElement.play();
-});
-/* */
-
 
 function opensAudioCard() {
   try {
