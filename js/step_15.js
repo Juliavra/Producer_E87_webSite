@@ -176,57 +176,51 @@ const loaded_BuffersList = document.getElementById("loaded_BuffersList");
 var lista_iFrame = [];
 
 function cargarLink() {
-    //var playlist = document.getElementById("playlist");
-    var carpeta = document.getElementById("carpeta");
-    var frame = document.getElementById("frame");
-    var carpeta_trim = carpeta.value.trim();
-    var mensaje = "";
-    var carpeta_replace = "";
-    if (carpeta_trim.includes("list", 0)) {
-        mensaje = carpeta_trim;
-        //console.log("if: " + mensaje);
+  //var playlist = document.getElementById("playlist");
+  var carpeta = document.getElementById("carpeta");
+  var frame = document.getElementById("frame");
+  var carpeta_trim = carpeta.value.trim();
+  var mensaje = "";
+  var carpeta_replace = "";
+  if (carpeta_trim.includes("list", 0)) {
+    mensaje = carpeta_trim;
+    //console.log("if: " + mensaje);
+  }
+  else if (carpeta_trim.includes("https://youtu.be", 0)) {
+    carpeta_replace = carpeta_trim.replace("https://youtu.be", "https://www.youtube.com/embed");
+    mensaje = carpeta_replace.trim();
+    //console.log("else if: " + mensaje);
+  }
+  else {
+    for (var f = carpeta_trim.indexOf("https", 0); f < carpeta_trim.length; f++) {
+      if (carpeta_trim[f] != `"`) {
+        mensaje += carpeta_trim[f];
+        mensaje = mensaje.trim();
+        //console.log("else : " + mensaje);
+        console.log(mensaje);
+      }
+      else { break; }
     }
-    else if (carpeta_trim.includes("https://youtu.be", 0)) {
-        carpeta_replace = carpeta_trim.replace("https://youtu.be", "https://www.youtube.com/embed");
-        mensaje = carpeta_replace.trim();
-        //console.log("else if: " + mensaje);
-    }
-    else {
-        for (var f = carpeta_trim.indexOf("https", 0); f < carpeta_trim.length; f++) {
-            if (carpeta_trim[f] != `"`) {
-                mensaje += carpeta_trim[f];
-                mensaje = mensaje.trim();
-                //console.log("else : " + mensaje);
-                console.log(mensaje);
-            }
-            else { break; }
-        }
-    }
+  }
 
-    frame.src = `${mensaje}`; 
-    //console.log("frame.src:  " + "\n" + `${mensaje}` + "\n");
-    lista_iFrame.push(`${mensaje}`);
+  frame.src = `${mensaje}`;
+  myVideo.src = `${mensaje}`;
+  //console.log("frame.src:  " + "\n" + `${mensaje}` + "\n");
+  lista_iFrame.push(`${mensaje}`);
 
-    //muestraLista_iFrame(lista_iFrame);
+  //muestraLista_iFrame(lista_iFrame);
 }//CLOSES cargarLink
 
 function muestraLista_iFrame(lista_iFrame) {
-     console.log(`lista_iFrame: ` + `${lista_iFrame}`);
-    playlist.innerHTML = (`${lista_iFrame}`);
-    var cadena_Lista = "";
+  console.log(`lista_iFrame: ` + `${lista_iFrame}`);
+  playlist.innerHTML = (`${lista_iFrame}`);
+  var cadena_Lista = "";
 
-    for (i = 0; i < lista_iFrame.length; i++) {
-        cadena_Lista = cadena_Lista + `${lista_iFrame[i]}` + `<br>`;             //console.log("lista[i]  " + `${lista[i]}`);
-    }
-    playlist.innerHTML = cadena_Lista;
+  for (i = 0; i < lista_iFrame.length; i++) {
+    cadena_Lista = cadena_Lista + `${lista_iFrame[i]}` + `<br>`;             //console.log("lista[i]  " + `${lista[i]}`);
+  }
+  playlist.innerHTML = cadena_Lista;
 }
-
-
-
-
-
-
-
 
 //***************************************
 // RECORDER
@@ -272,20 +266,20 @@ async function startRecording() {
     const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
     const audioUrl = URL.createObjectURL(audioBlob);
 
-/*
-// 1. Set the name you want here
-    const fileName = "my-custom-recording.webm";
-
-    // 2. Create a temporary link element
-    const link = document.createElement('a');
-    link.href = audioUrl;
-    link.download = fileName; // This assigns the filename
+    /*
+    // 1. Set the name you want here
+        const fileName = "my-custom-recording.webm";
     
-    // 3. (Optional) Automatically trigger the download
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
-/**/
+        // 2. Create a temporary link element
+        const link = document.createElement('a');
+        link.href = audioUrl;
+        link.download = fileName; // This assigns the filename
+        
+        // 3. (Optional) Automatically trigger the download
+        // document.body.appendChild(link);
+        // link.click();
+        // document.body.removeChild(link);
+    /**/
 
 
     const audio = document.querySelector('#audio-playback');
@@ -297,7 +291,7 @@ async function startRecording() {
 
   mediaRecorder.start();
   //clock.start();
-    setInterval(() => {
+  setInterval(() => {
     console.log("record Time: " + Tone.immediate());
   }, 1000);
   document.querySelector('#start-record').disabled = true;
@@ -2256,6 +2250,10 @@ const empty_4_div = document.getElementById("empty_4_div");
 //*************************************************************************************
 //*************************************************************************************
 //CHANNEL 1 - 4
+
+const setup_img_column = document.getElementById("setup_img_column");
+setup_img_column.style.display = "none";
+
 const audio_card_channel_column = document.getElementById("audio_card_channel_column");
 audio_card_channel_column.style.display = "none";
 
@@ -11787,6 +11785,42 @@ fx_4_select.addEventListener("change", function (e) {
   sets_New_FX("FX4", e.currentTarget.value);
   MixEventObj.logIntoListaNewValue(List, Tone.now().toFixed(4), "fx_4_select", e.currentTarget.value);
 });
+//******************************************************************
+//******************************************************************
+//*************        TRANSPORT      ******************************
+//******************************************************************
+//******************************************************************
+const transport_bpm = document.getElementById("transport_bpm");
+const transport_position = document.getElementById("transport_position");
+const transport_swing_value = document.getElementById("transport_swing_value");
+const transport_subdivision_value = document.getElementById("transport_subdivision_value");
+const transport_timeSignature_value = document.getElementById("transport_timeSignature_value");
+const transport_loopStart_value = document.getElementById("transport_loopStart_value");
+const transport_loopEnd_value = document.getElementById("transport_loopEnd_value");
+const transport_PPQ_value = document.getElementById("transport_PPQ_value");
+transport_bpm.value = Tone.Transport.bpm.value;
+transport_bpm.setAttribute('placeholder', Tone.Transport.bpm.value);
+transport_swing_value.innerHTML = Tone.Transport.swing;
+transport_subdivision_value.innerHTML = Tone.Transport.swingSubdivision;
+transport_timeSignature_value.innerHTML = Tone.Transport.timeSignature;
+transport_loopStart_value.innerHTML = Tone.Transport.loopStart;
+transport_loopEnd_value.innerHTML = Tone.Transport.loopEnd;
+transport_PPQ_value.innerHTML = Tone.Transport.PPQ;
+/*
+setInterval(() => {
+  console.log("position: "+Tone.Transport.position);
+  console.log("seconds: "+Tone.Transport.seconds);
+  console.log("ticks: "+Tone.Transport.ticks);
+}, 1000);
+/**/
+
+/*
+synth.volume.setState({
+  "0n": -Infinity, // Empieza en silencio
+  "2n": 0,         // Llega a 0 dB (volumen máximo) en 2 tiempos
+});
+/**/
+
 
 //*********************************************************************************** */
 //*********                                  ***************************************** */
@@ -25550,7 +25584,7 @@ const Recorded_Time_value = document.getElementById("Recorded_Time_value");
 
 function updatesRecordingTime() {
 
-    Recorded_Time_value.innerHTML = (`${12}`);
+  Recorded_Time_value.innerHTML = (`${12}`);
 
   //  Recorded_Time_value.innerHTML = (`${Tone.Transport.toSeconds().toFixed(3)}`);
 }
@@ -27359,10 +27393,10 @@ function loadMix() {
     }
   }
   loadsBuffersAfterFileLoad();
-  
+
   for (i = 0; i < LoadFileList.length; i++) {
     let time = Tone.Transport.toSeconds().toFixed(3);
-    console.log("TIME: "+"\n"+time);
+    console.log("TIME: " + "\n" + time);
     const testObj = LoadFileList[i];
     if (testObj.rampTime == "undefined" || testObj.rampTime == "NaN") {
       if (testObj.element != "undefined") {
@@ -31234,6 +31268,90 @@ function allSelectedChannelsToNone() {
   document.getElementById('channel_4_column').style.backgroundColor = 'white';
 }
 
+
+const audioCtx = new AudioContext();
+const myVideo = document.getElementById("myVideo");
+
+// Create a MediaElementAudioSourceNode
+// Feed the HTMLMediaElement into it
+const source = audioCtx.createMediaElementSource(myVideo);
+
+// Create a gain node
+const gainNode = audioCtx.createGain();
+
+// Connect the AudioBufferSourceNode to the gainNode
+// and the gainNode to the destination, so we can play the
+// music and adjust the volume using the mouse cursor
+source.connect(gainNode);
+gainNode.connect(audioCtx.destination);
+
+
+
+
+/*
+function showsSetup() {
+
+const img = document.createElement('img');
+img.src = '"img/Step 1.0 Nodes.png';
+document.body.appendChild(img);
+
+  if (setup_img_column.style.display == "none") {
+    setup_img_column.style.display = "block";
+  }
+  else {
+    setup_img_column.style.display = "none";
+  }
+
+}
+/**/
+/*
+const video = document.getElementById('myVideo');
+// Ensure to connect the source to destination to hear it
+const mediaSource = Tone.context.createMediaElementSource(video);
+const panner = new Tone.Panner(0.5).toDestination();
+mediaSource.connect(panner);
+/**/
+/*
+// 1. Get a reference to your HTML audio/video element
+const audioElement = document.querySelector('myAudio'); 
+
+// 2. Create the source node using Tone.context.createMediaElementSource()
+const mediaElementSource = Tone.context.createMediaElementSource(audioElement);
+
+// 3. Connect the source to a Tone.js node (e.g., a filter or the main destination)
+const filter = new Tone.Filter(400, 'lowpass').toDestination();
+Tone.connect(mediaElementSource, filter);
+// or connect directly to the speakers
+// mediaElementSource.connect(Tone.Destination);
+/**/
+
+
+
+    /*
+document.querySelector('button#startButton').addEventListener('click', async () => {
+   // Start the Tone.js audio context
+    await Tone.start();
+    console.log('Audio context started');
+
+    // Get the HTML video element
+    const videoElement = document.getElementById('myVideo');
+
+    // Create a media element source from the video element
+    const mediaSource = Tone.context.createMediaElementSource(videoElement);
+
+    // Create a Tone.js effect (e.g., a gain node to control volume)
+    const gainNode = new Tone.Gain(0.5); // Set initial volume to 50%
+
+    // Connect the source through the effect to the destination (your speakers)
+    mediaSource.connect(gainNode);
+    gainNode.toDestination(); // This is equivalent to connecting to Tone.context.destination
+
+    // Optional: Play the video
+    videoElement.play();
+});
+/* */
+
+
 function opensAudioCard() {
   try {
     //    var audioCard = new Tone.UserMedia();
@@ -31534,41 +31652,7 @@ function schedulesEvents(atTime, element) {
         }
 */
 
-//******************************************************************
-//******************************************************************
-//*************        TRANSPORT      ******************************
-//******************************************************************
-//******************************************************************
-const transport_bpm = document.getElementById("transport_bpm");
-const transport_position = document.getElementById("transport_position");
-const transport_swing_value = document.getElementById("transport_swing_value");
-const transport_subdivision_value = document.getElementById("transport_subdivision_value");
-const transport_timeSignature_value = document.getElementById("transport_timeSignature_value");
-const transport_loopStart_value = document.getElementById("transport_loopStart_value");
-const transport_loopEnd_value = document.getElementById("transport_loopEnd_value");
-const transport_PPQ_value = document.getElementById("transport_PPQ_value");
-transport_bpm.value = Tone.Transport.bpm.value;
-transport_bpm.setAttribute('placeholder', Tone.Transport.bpm.value);
-transport_swing_value.innerHTML = Tone.Transport.swing;
-transport_subdivision_value.innerHTML = Tone.Transport.swingSubdivision;
-transport_timeSignature_value.innerHTML = Tone.Transport.timeSignature;
-transport_loopStart_value.innerHTML = Tone.Transport.loopStart;
-transport_loopEnd_value.innerHTML = Tone.Transport.loopEnd;
-transport_PPQ_value.innerHTML = Tone.Transport.PPQ;
-/*
-setInterval(() => {
-  console.log("position: "+Tone.Transport.position);
-  console.log("seconds: "+Tone.Transport.seconds);
-  console.log("ticks: "+Tone.Transport.ticks);
-}, 1000);
-/**/
 
-/*
-synth.volume.setState({
-  "0n": -Infinity, // Empieza en silencio
-  "2n": 0,         // Llega a 0 dB (volumen máximo) en 2 tiempos
-});
-/**/
 /*
 //*******************************************************
 //*******************************************************
@@ -32327,7 +32411,7 @@ autoPan = new Tone.LFO(1, -1, 1).connect(panner.pan).start();
 
  <script src="https://unpkg.com/tone-rhythm@0.0.2/dist/tone-rhythm.min.js"></script>
 
-Tune.js 
+Tune.js
 
 */
 

@@ -68,6 +68,15 @@
       background-color: #f4f4f4;
     }
 
+    #setup_img_column {
+      padding: 10px;
+      background-color: #f4f4f4;
+      border: 3px solid #ea1cd5;
+      width: auto;
+      height: auto;
+      /* Maintains aspect ratio */
+    }
+
     fieldset {
       border: 3px solid #999;
       border-radius: 8px;
@@ -194,8 +203,22 @@
         <iframe id="frame" width="360" height="150" title="YouTube video player" frameborder="4" enablejsapi="true"
           referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         <br>
+        <br>
+        <br>
+        <div class="contenedor_video">
+          <video id="myVideo" controls crossorigin="anonymous"></video>
+        </div>
+        <br>
+        <br>
 
-        <audio id="myAudio4">
+        <button id="showsSetup" onclick="showsSetup()"> Shows Setup </button>
+        <div class="column" id="setup_img_column">
+          <!-- <img src="img/Step 1.0 Nodes.png" alt="Setup"> -->
+        </div>
+
+        .......................................................................................................................................................................................................................................
+
+        <audio id="myAudio">
           <source src="" type="audio/wav">
         </audio>
 
@@ -267,6 +290,7 @@ loop
           <button id="master_volume_rampTo_send_Button" value="master_volume_rampTo"
             onclick="send(value, master_volume_rampTo_gain, master_volume_rampTo_time )">go </button>
           <br>
+
           <button id="opensAudioCard" onclick="opensAudioCard()"> Opens AudioCard </button>
           <button id="consoleClear" onclick="consoleClear()"> consoleClear </button>
           <button id="Sinte" onclick="Sinte()"> Sinte </button>
@@ -581,7 +605,7 @@ function NavigatorExample() {
         value="channel_1_MultibandSplit_highFrequency_rampTo"
         onclick="send(value, channel_1_MultibandSplit_highFrequency_rampTo_gain, fx_1_MultibandCompressor_highFrequency_rampTo_time)">go
       </button>
-
+    </fieldset>
 
   </div>
 
@@ -1008,11 +1032,6 @@ function NavigatorExample() {
       </div>
       <br>
     </fieldset>
-
-
-
-
-
   </div>
 
   <!--CHEBYSHEV -->
