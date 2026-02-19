@@ -2110,6 +2110,11 @@ var cancion_107 = {
   title: "107 Aquatica_Gary_Numan",
   url_src: "https://juliavra.github.io/Producer_E87_webSite/audio/107_Aquatica_Gary_Numan.mp3"
 };
+var cancion_108 = {
+  id: 108,
+  title: "108 The-Flashbulb redball_jan2222_Limiter",
+  url_src: "https://github.com/bennjordan/The-Flashbulb/blob/main/Audio%20Demos/redball_jan2222_Limiter.mp3"
+};
 
 var array_Canciones = [];
 array_Canciones.push(cancion_1);
@@ -2219,7 +2224,7 @@ array_Canciones.push(cancion_104);
 array_Canciones.push(cancion_105);
 array_Canciones.push(cancion_106);
 array_Canciones.push(cancion_107);
-//array_Canciones.push(cancion_108);
+array_Canciones.push(cancion_108);
 
 //************************************************************************* */
 //************************************************************************* */
@@ -32382,3 +32387,8 @@ class Timer {
 //clock.start();
 //clock.stop();
 //alert(clock.total_seconds());
+
+
+
+
+const myAudio = document.getElementById("myAudio");
