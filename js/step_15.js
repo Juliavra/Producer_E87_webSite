@@ -32374,7 +32374,4 @@ class Timer {
 //clock.stop();
 //alert(clock.total_seconds());
 
-
-
-
 const myAudio = document.getElementById("myAudio");
