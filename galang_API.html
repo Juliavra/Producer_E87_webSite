@@ -1,23 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galang_discogs_API</title>
+    <style>
+        p {
+            font-size: 24px;
+            display: inline-flex;
+        }
+    </style>
+
 </head>
 
 <body>
-    <h1>Galang_discogs_API.js</h1>
+    <input type='text' id='secret_token' name="secret_token" placeholder="Paste token here"
+        style="height: 40px; line-height: 60px;" size="50" />
+    <button id="play_btn" onclick="cargarLink()">Aceptar</button>
+    <br><br>
+    <div id="prints data">
+        <img id="imgAlbum" height="200px" alt="">
+        <br>
+        <p id="artist_load_text"></p>
+        <br>
+        <p id="album_load_text"></p>
+        <br>
+        <p id="label_load_text"></p>
+        <br>
+        <p id="format_text"></p>
+        <br>
+        <p id="country_load_text"></p>
+        <br>
+        <p id="anio_load_text"></p>
+        <br>
+        <p id="genres_load_text"></p>
+        <br>
+        <p id="styles_load_text"></p>
+        <br>
 
-<br><br>
+        <p id="tracklist_load"></p>
+        <br>
+        grabado<p id="recorded_load"></p>
+        <br>
+        mezclado<p id="mixed_load"></p>
+        <br>
+        cortado<p id="cuted_load"></p>
+        <br>
+CREDITOS
+        <br>
+        <p id="credits_load"></p>
+        <br>
+        <p id="notes_load"></p>
+    </div>
 
-        <input type='text' id='secret_token' name="secret_token" placeholder="Paste token here"
-          style="height: 40px; line-height: 60px;" size="50" />
-        <button id="play_btn" onclick="cargarLink()">Aceptar</button>
-        <br> <br>
+    <div id="divToAppendInfo">
+
+    </div>
+
+
+
 
     <br><br>
     <script src="js/galang_discogs_API.js"></script>
+
+
+
+
 
 </body>
 
