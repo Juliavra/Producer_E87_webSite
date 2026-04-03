@@ -1,3 +1,5 @@
+const secret_token = document.getElementById("secret_token");
+
 const artist_load_text = document.getElementById("artist_load_text");
 const album_load_text = document.getElementById("album_load_text");
 const anio_load_text = document.getElementById("anio_load_text");
@@ -29,10 +31,6 @@ fetch(url, {
     .then(response => response.json())
     .then(data => printsData(data))
     .catch(error => console.error('Error:', error));
-
-
-
-
 
 function printsData(data) {
     console.log(data)
@@ -96,12 +94,45 @@ function printsData(data) {
     };
 
     notes_load.innerHTML = data.notes;
+
+}//CLOSES PrintsData
+
+
+
+
+
+
+
+// Tus credenciales de Discogs
+const TOKEN = 'TU_PERSONAL_ACCESS_TOKEN';
+const URL = 'https://api.discogs.com';
+
+async function buscarEnDiscogs(query) {
+  try {
+    const response = await fetch(`${URL}/database/search?q=${encodeURIComponent(query)}`, {
+      method: 'GET',
+      headers: {
+        // La autenticación se pasa en la cabecera Authorization
+        'Authorization': `Discogs token=${TOKEN}`,
+        'Content-Type': 'application/json',
+        // Discogs requiere un User-Agent personalizado
+        'User-Agent': 'MiAplicacionMusical/1.0' 
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error('Error al consultar Discogs:', error);
+  }
 }
 
-/*
-const p = document.querySelector('p');
-p.appendChild(document.createElement('br'));
-p.appendChild(document.createTextNode("New line text"));
+// Uso de la función
+buscarEnDiscogs('Nirvana Nevermind');
 
-*/
 
