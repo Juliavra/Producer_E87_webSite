@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Tone.Player with Container</title>
+    <script src="https://unpkg.com/tone@14.7.77/build/Tone.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #playerContainer {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #f9f9f9;
+            max-width: 400px;
+        }
+        #controls { margin-top: 20px; }
+        label { display: block; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Programmatic Tone.Player (Replicating player_1 Setup)</h1>
+    <button id="createPlayerBtn">Create and Load Player</button>
+    <div id="playerContainer">
+        <!-- Player controls will be added here programmatically -->
+    </div>
+
+    <script>
+        // Wait for document ready
+        document.addEventListener('DOMContentLoaded', () => {
+            const createPlayerBtn = document.getElementById('createPlayerBtn');
+            const playerContainer = document.getElementById('playerContainer');
+            let player; // The dynamic Tone.Player
+            let volNode; // Example volume node (like fx_1_volNode in project)
+            let filter; // Simple filter for effects chain
+
+            createPlayerBtn.addEventListener('click', async () => {
+                if (player) {
+                    player.dispose(); // Clean up if recreating
+                }
+
+                // Programmatically create the audio nodes (replicating project setup)
+                volNode = new Tone.Volume(-12); // Initial volume like in step_15.js
+                filter = new Tone.Filter({
+                    type: 'lowpass',
+                    frequency: 1000,
+                    Q: 1
+                }); // Example filter (project has EQ/filter nodes)
+
+                // Create the Tone.Player with properties from channel Player source
+                player = new Tone.Player({
+                    url: "https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3", // From project example
+                    loop: true, // Loop enabled
+                    autoplay: false, // We'll start manually
+                    reverse: false, // Can toggle
+                    playbackRate: 1, // Rate (speed/pitch)
+                    fadeIn: 0.5, // Smooth fade-in (seconds)
+                    fadeOut: 0.5, // Smooth fade-out
+                    onload: () => console.log('Audio loaded')
+                });
+
+                // Connect like in project: player -> volNode -> filter -> destination (or FX sends)
+                player.connect(volNode);
+                volNode.connect(filter);
+                filter.toDestination(); // Or connect to more nodes like panNode, compressor, etc.
+
+                // Await buffer load (Tone.loaded() for all buffers)
+                await Tone.loaded();
+                console.log('Player ready');
+
+                // Start playing (like autoplay true)
+                player.start();
+
+                // Programmatically create HTML controls for the player (replicating UI params)
+                // Now appending to playerContainer instead of a separate controls div
+                playerContainer.innerHTML = '<h2>Player Controls</h2>'; // Clear and add header
+
+                // Volume slider
+                const volLabel = document.createElement('label');
+                volLabel.textContent = 'Volume: ';
+                const volSlider = document.createElement('input');
+                volSlider.type = 'range';
+                volSlider.min = -60;
+                volSlider.max = 0;
+                volSlider.value = -12;
+                volSlider.addEventListener('input', (e) => {
+                    volNode.volume.value = parseFloat(e.target.value);
+                });
+                volLabel.appendChild(volSlider);
+                playerContainer.appendChild(volLabel);
+
+                // Playback rate slider
+                const rateLabel = document.createElement('label');
+                rateLabel.textContent = 'Playback Rate: ';
+                const rateSlider = document.createElement('input');
+                rateSlider.type = 'range';
+                rateSlider.min = 0.5;
+                rateSlider.max = 2;
+                rateSlider.step = 0.1;
+                rateSlider.value = 1;
+                rateSlider.addEventListener('input', (e) => {
+                    player.playbackRate = parseFloat(e.target.value);
+                });
+                rateLabel.appendChild(rateSlider);
+                playerContainer.appendChild(rateLabel);
+
+                // Loop toggle
+                const loopLabel = document.createElement('label');
+                loopLabel.textContent = 'Loop: ';
+                const loopCheckbox = document.createElement('input');
+                loopCheckbox.type = 'checkbox';
+                loopCheckbox.checked = true;
+                loopCheckbox.addEventListener('change', (e) => {
+                    player.loop = e.target.checked;
+                });
+                loopLabel.appendChild(loopCheckbox);
+                playerContainer.appendChild(loopLabel);
+
+                // Reverse toggle
+                const reverseLabel = document.createElement('label');
+                reverseLabel.textContent = 'Reverse: ';
+                const reverseCheckbox = document.createElement('input');
+                reverseCheckbox.type = 'checkbox';
+                reverseCheckbox.checked = false;
+                reverseCheckbox.addEventListener('change', (e) => {
+                    player.reverse = e.target.checked;
+                });
+                reverseLabel.appendChild(reverseCheckbox);
+                playerContainer.appendChild(reverseLabel);
+
+                // Play/Stop button
+                const playBtn = document.createElement('button');
+                playBtn.textContent = 'Stop';
+                playBtn.addEventListener('click', () => {
+                    if (player.state === 'started') {
+                        player.stop();
+                        playBtn.textContent = 'Play';
+                    } else {
+                        player.start();
+                        playBtn.textContent = 'Stop';
+                    }
+                });
+                playerContainer.appendChild(playBtn);
+
+                // Add more controls as needed (e.g., detune, fadeIn/Out sliders, FX sends)
+            });
+        });
+    </script>
+</body>
+</html>

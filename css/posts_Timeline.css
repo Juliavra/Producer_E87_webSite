@@ -1,0 +1,75 @@
+/*
+@font-face {
+    font-family: "Permanent Marker", cursive;
+    src: url('fonts/PermanentMarker-Regular.ttf');
+}
+*/
+/*
+* {
+    box-sizing: border-box;
+    margin: auto;
+    padding: 0px;
+}
+*/
+:root {
+    
+}
+
+img{
+
+}
+
+h1 {
+    font-family: 'EB Garamond', serif;
+    color: black;
+    background-color: white; 
+    text-align: left;
+    font-size: 4vw;
+}
+
+h2 {
+    font-family: 'EB Garamond', serif;
+    color: blue;
+    background-color: white; 
+    text-align: center;
+    font-size: 7vw;
+}
+
+/*--------ETIQUETAS SEMANTICAS------------*/
+/*
+header {
+    font-family: Garamond;
+    background-color: rgba(0, 102, 0, 1);
+    font-size: 10rem;
+    text-align: center;
+    margin-top: 0%;
+    padding: 0%;
+}
+
+body {
+    font-family: Garamond, sans-serif ;
+    background-color: white;
+}
+*/
+main {
+    width: 94%;
+text-align: left;
+
+}
+
+
+.contenedor {
+    font-family: 'EB Garamond', serif;
+    width: 94%;
+    padding: 0%;
+    background-color: white;
+    margin-right: auto;
+    margin-left: auto;
+    gap: 0.1%;
+
+
+}
+
+
+
+

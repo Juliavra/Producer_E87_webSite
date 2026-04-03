@@ -4,28 +4,34 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-let player;
-let tonePlayer;
+//let player;
+//let tonePlayer;
 
 // 2. Esta función crea el iframe cuando la API está lista
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '360',
         width: '640',
-        videoId: 'dQw4w9WgXcQ', // ID del video
+        //videoId: 'dQw4w9WgXcQ', // ID del video
         events: {
             'onReady': onPlayerReady
         }
     });
+
+        player.videoId= 'dQw4w9WgXcQ'; // ID del video
+
 }
 
 function onPlayerReady(event) {
     console.log("Video listo");
+    const vol = new Tone.Volume(-10).toDestination();
+    player.connect(vol);
+
 }
 
 // 3. Configurar Tone.js
 const vol = new Tone.Volume(-10).toDestination();
-player.connect(vol);
+//player.connect(vol);
 // Si quisieras aplicar un efecto:
 // const filter = new Tone.Filter(200, "lowpass").connect(vol);
 
