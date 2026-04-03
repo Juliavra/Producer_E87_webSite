@@ -1,4 +1,4 @@
-const token = 'HpUCAsgVTUrnLxCOcnWm'; // Generate at ://discogs.com
+const token = ''; // Generate at ://discogs.com
 const url = 'https://api.discogs.com/releases/249504';
 
 fetch(url, {
