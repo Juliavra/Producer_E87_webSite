@@ -74,23 +74,23 @@ function printsData(data) {
         }
     };
 
-        for (i = 0; i < data.companies.length; i++) {
+    for (i = 0; i < data.companies.length; i++) {
         if (data.companies[i].entity_type_name === "Mixed At") {
             mixed_load.append(`${data.companies[i].name}`);
             mixed_load.append(document.createElement('br'));
         }
     };
 
-        for (i = 0; i < data.companies.length; i++) {
+    for (i = 0; i < data.companies.length; i++) {
         if (data.companies[i].entity_type_name === "Lacquer Cut At") {
             cuted_load.append(`${data.companies[i].name}`);
             cuted_load.append(document.createElement('br'));
         }
     };
 
-        for (i = 0; i < data.extraartists.length; i++) {
-            credits_load.append(`${data.extraartists[i].role} ${' - '} ${data.extraartists[i].name}`);
-            credits_load.append(document.createElement('br'));
+    for (i = 0; i < data.extraartists.length; i++) {
+        credits_load.append(`${data.extraartists[i].role} ${' - '} ${data.extraartists[i].name}`);
+        credits_load.append(document.createElement('br'));
     };
 
     notes_load.innerHTML = data.notes;
@@ -99,7 +99,26 @@ function printsData(data) {
 
 
 
+/*
+const request = require('request');
+const options = {
+url: 'https://api.discogs.com/oauth/identity',
+headers: {
+'Content-Type': 'application/x-www-form-urlencoded',
+'Authorization': 'OAuth oauth_consumer_key="OAUTH_CONSUMER_KEY",
+oauth_nonce="' + Date.now() + '",oauth_token="OAUTH_TOKEN_RECEIVED_FROM_STEP_4",
+oauth_signature="YOUR_CONSUMER_SECRET&OAUTH_TOKEN_SECRET_RECEIVED_FROM_STEP_4", 
+oauth_signature_method="PLAINTEXT",  oauth_timestamp="' + Date.now() +'" ', 
+'User-Agent': 'YOUR_USER_AGENT/1.0'
+} 
+};
 
+request(options, (err, res, body)=>{
+    if(!err && res.statusCode == 200){
+    console.log(JSON.parse(body));
+    }
+});
+*/
 
 
 
@@ -108,31 +127,49 @@ const TOKEN = 'TU_PERSONAL_ACCESS_TOKEN';
 const URL = 'https://api.discogs.com';
 
 async function buscarEnDiscogs(query) {
-  try {
-    const response = await fetch(`${URL}/database/search?q=${encodeURIComponent(query)}`, {
-      method: 'GET',
-      headers: {
-        // La autenticación se pasa en la cabecera Authorization
-        'Authorization': `Discogs token=${TOKEN}`,
-        'Content-Type': 'application/json',
-        // Discogs requiere un User-Agent personalizado
-        'User-Agent': 'MiAplicacionMusical/1.0' 
-      }
-    });
+    try {
+        const response = await fetch(`${URL}/database/search?q=${encodeURIComponent(query)}`, {
+            method: 'GET',
+            headers: {
+                // La autenticación se pasa en la cabecera Authorization
+                'Authorization': `Discogs token=${TOKEN}`,
+                'Content-Type': 'application/json',
+                // Discogs requiere un User-Agent personalizado
+                'User-Agent': 'MiAplicacionMusical/1.0'
+            }
+        });
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error('Error al consultar Discogs:', error);
     }
-
-    const data = await response.json();
-    console.log(data);
-    return data;
-  } catch (error) {
-    console.error('Error al consultar Discogs:', error);
-  }
 }
 
 // Uso de la función
-buscarEnDiscogs('Nirvana Nevermind');
+//buscarEnDiscogs('Nirvana Nevermind');
+
+function releaseSearch(value){
+let nombre = 'https://api.discogs.com/releases/';
+let edad = value;
+let url = `${nombre}${edad}`;
 
 
+
+
+console.log(value);
+fetch(url, {
+    headers: {
+        'User-Agent': 'MyDiscogsApp/1.0',
+        'Authorization': `Discogs token=${token}`
+    }
+})
+    .then(response => response.json())
+    .then(data => printsData(data))
+    .catch(error => console.error('Error:', error));
+}
