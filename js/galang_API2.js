@@ -18,7 +18,7 @@ async function buscarArtistas(value) {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
+                'Authorization': `Discogs token=${myToken}`
             }
         });
 
@@ -55,7 +55,7 @@ async function buscarReleases(value) {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
+                'Authorization': `Discogs token=${myToken}`
 
             }
         });
@@ -92,7 +92,7 @@ async function buscarTracks(value) {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
+                'Authorization': `Discogs token=${myToken}`
             }
         });
 
@@ -124,7 +124,7 @@ async function buscarLabels(value) {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
+                'Authorization': `Discogs token=${myToken}`
             }
         });
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
@@ -161,7 +161,8 @@ async function buscarGenres(value) {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`            }
+                'Authorization': `Discogs token=${myToken}`
+            }
         });
 
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
@@ -235,34 +236,59 @@ async function buscar() {
 }
 
 async function buscarPRO() {
+
+    //Si ya tienes el ID del artista, el fetch debe dirigirse a:
+    //GET https://api.discogs.com/artists/{artist_id}/releases
+
+    //Para obtener los IDs de un sello discográfico, utiliza:
+    //GET https://discogs.com{label_id}/releases
     const baseUrl = "https://api.discogs.com/database/search";
-   /*
-    Información Principal
-    item.id: El identificador único de Discogs.
-    item.title: El título completo (generalmente "Artista - Título").
-    item.type: El tipo de resultado (release, master, artist o label).
-    item.year: Año de lanzamiento (solo para releases y masters).
-    item.country: País de la edición.
-    item.uri: El path relativo de la página en Discogs (ej: /release/12345).
-    item.resource_url: La URL completa de la API para obtener el detalle de ese ítem.
-    Información de Identificación y Sellos
-    item.catno: Número de catálogo.
-    item.barcode: Array con los códigos de barras asociados.
-    item.label: Array con los nombres de los sellos discográficos involucrados.
-    item.master_id: El ID del "Master" al que pertenece (si es una release).
-    Contenido Musical
-    item.genre: Array de géneros (ej: ["Reggae"]).
-    item.style: Array de estilos (ej: ["Dub", "Roots Reggae"]).
-    item.format: Array de descripciones de formato (ej: ["Vinyl", "LP", "Album"]).
-    Multimedia y Comunidad
-    item.thumb: URL de la imagen en miniatura (50x50 aprox).
-    item.cover_image: URL de la imagen de portada más grande.
-    item.community: Objeto que contiene estadísticas de want (lo quieren) y have (lo tienen).
-    */
+    /*
+     Información Principal
+     item.id: El identificador único de Discogs.
+     item.title: El título completo (generalmente "Artista - Título").
+     item.type: El tipo de resultado (release, master, artist o label).
+     item.year: Año de lanzamiento (solo para releases y masters).
+     item.country: País de la edición.
+     item.uri: El path relativo de la página en Discogs (ej: /release/12345).
+     item.resource_url: La URL completa de la API para obtener el detalle de ese ítem.
+     Información de Identificación y Sellos
+     item.catno: Número de catálogo.
+     item.barcode: Array con los códigos de barras asociados.
+     item.label: Array con los nombres de los sellos discográficos involucrados.
+     item.master_id: El ID del "Master" al que pertenece (si es una release).
+     Contenido Musical
+     item.genre: Array de géneros (ej: ["Reggae"]).
+     item.style: Array de estilos (ej: ["Dub", "Roots Reggae"]).
+     item.format: Array de descripciones de formato (ej: ["Vinyl", "LP", "Album"]).
+     Multimedia y Comunidad
+     item.thumb: URL de la imagen en miniatura (50x50 aprox).
+     item.cover_image: URL de la imagen de portada más grande.
+     item.community: Objeto que contiene estadísticas de want (lo quieren) y have (lo tienen).
+     */
+
+    const artistSearch = document.getElementById("artistSearch");
+    const artistString = `${artistSearch.value.toString()}`;
+    alert(artistString);
+
+    const releaseSearch = document.getElementById("releaseSearch");
+    const releaseString = `${releaseSearch.value.toString()}`;
+    alert(releaseString);
+
+    const trackSearch = document.getElementById("trackSearch");
+    const trackString = `${trackSearch.value.toString()}`;
+    alert(trackString);
+
+    const labelSearch = document.getElementById("labelSearch");
+    const labelString = `${labelSearch.value.toString()}`;
+    alert(labelString);
+
     const params = new URLSearchParams({
         //track: "version",
         //style: "dub",
-        artist: "aswad",
+        // artist: "aswad",
+        artist: `${artistString}`,
+        release: `${releaseString}`,
         //format: "Vinyl",
         //track: "the wall",
         //country: "jamaica",
@@ -272,8 +298,6 @@ async function buscarPRO() {
         //page: "15",         // Control de página
         token: `${myToken.value.toString()}`  // Autenticación  
     });
-
-//alert("myToken.value" + myToken.value);
 
     const url = `${baseUrl}?${params.toString()}`;
     //alert(url);
@@ -289,15 +313,13 @@ async function buscarPRO() {
         if (!response.ok) {
             throw new Error(`Error en la petición: ${response.status}`);
         }
-
-
         const data = await response.json();
 
         // REEMPLAZO DEL forEach POR for...of
         for (const item of data.results) {
             // Ahora podés usar await aquí dentro si muestralista es asíncrona
             await muestralista(item.resource_url);
-            
+
             // Opcional: Agregar un pequeño delay si muestralista hace un fetch
             // await new Promise(resolve => setTimeout(resolve, 1100));
         }
@@ -310,9 +332,6 @@ async function buscarPRO() {
             muestralista(`${item.resource_url}`);
         });
         */
-
-
-
         return data.results;
 
     } catch (error) {
@@ -324,12 +343,12 @@ async function buscarPRO() {
 
 async function muestralista(item) {
     const url = `${item}`;
-        //console.log(url);
+    //console.log(url);
     try {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${strToken}`
+                'Authorization': `Discogs token=${myToken}`
             }
         });
         const data = await response.json();
@@ -538,7 +557,7 @@ async function obtenerDetalleArtista(artistId) {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
+                'Authorization': `Discogs token=${myToken}`
             }
         });
         const data = await response.json();
@@ -558,7 +577,7 @@ async function obtenerDetalleRelease(releaseId) {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
+                'Authorization': `Discogs token=${myToken}`
             }
         });
         const data = await response.json();
@@ -575,7 +594,7 @@ async function obtenerDetalleLabel(labelId) {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
+                'Authorization': `Discogs token=${myToken}`
             }
         });
         const data = await response.json();
@@ -592,7 +611,7 @@ async function obtenerDetalleGenres(releaseId) {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
+                'Authorization': `Discogs token=${myToken}`
             }
         });
         const data = await response.json();
