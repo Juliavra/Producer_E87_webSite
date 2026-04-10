@@ -93,8 +93,8 @@ async function Offline_Context() {
   //const player_test = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3", load_play_test).connect(offlineContext.destination);
   //const player_test = new Tone.Player("https://juliavra.github.io/Producer_E87_webSite/audio/110_Base_tranqui_reggae.mp3", load_play_test);
 
-  //player_test_Node.connect(Tone.Destination); //AUDIO OK
-  player_test_Node.connect(fx_1_volNode); //AUDIO OK
+  player_test_Node.connect(Tone.Destination); //AUDIO OK
+  //player_test_Node.connect(fx_1_volNode); //AUDIO OK
   //player_test_Node.connect(channel_1_volNode); //AUDIO OK
   //player_test_Node.connect(channel_1_panNode); //AUDIO OK    
   //player_test_Node.connect(channel_1_filter_Bypass); //AUDIO OK
