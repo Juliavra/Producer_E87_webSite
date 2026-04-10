@@ -289,12 +289,30 @@ async function buscarPRO() {
         if (!response.ok) {
             throw new Error(`Error en la petición: ${response.status}`);
         }
+
+
         const data = await response.json();
+
+        // REEMPLAZO DEL forEach POR for...of
+        for (const item of data.results) {
+            // Ahora podés usar await aquí dentro si muestralista es asíncrona
+            await muestralista(item.resource_url);
+            
+            // Opcional: Agregar un pequeño delay si muestralista hace un fetch
+            // await new Promise(resolve => setTimeout(resolve, 1100));
+        }
+
+        //const data = await response.json();
         // Imprimimos los títulos de los resultados encontrados
+        /*
         data.results.forEach(item => {
          //   console.log(` ${item.resource_url} "\n"${item.title}"\n" (${item.year || 'N/A'})"\n" ID: ${item.id}"\n" catno: ${item.catno} "\n" type: ${item.type} "\n" track: ${item.track} "\n"`);
             muestralista(`${item.resource_url}`);
         });
+        */
+
+
+
         return data.results;
 
     } catch (error) {
