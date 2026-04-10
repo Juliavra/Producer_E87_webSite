@@ -268,7 +268,7 @@ async function buscarPRO() {
         //country: "jamaica",
         //year: "1970",      // Podés probar con "197*" para toda la década
         type: "release",   // Solo ediciones individuales, no artistas o sellos
-        //per_page: "50",     // Control de cantidad
+        per_page: "100",     // Control de cantidad
         //page: "15",         // Control de página
         token: `${myToken.value.toString()}`  // Autenticación  
     });
@@ -276,7 +276,7 @@ async function buscarPRO() {
 //alert("myToken.value" + myToken.value);
 
     const url = `${baseUrl}?${params.toString()}`;
-    alert(url);
+    //alert(url);
     try {
         const response = await fetch(url, {
             method: 'GET',
@@ -398,7 +398,7 @@ function mostrarListaReleases(releases, container) {
 
         // Imagen (si existe)
         if (release.thumb) {
-            alert("release.thumb")
+            //alert("release.thumb")
             const img = document.createElement('img');
             img.src = release.thumb;
             img.style.maxWidth = "160px";
@@ -446,7 +446,7 @@ function mostrarListaLabels(labels, container) {
 
         // Imagen (si existe)
         if (label.thumb) {
-            alert("label.thumb")
+            //alert("label.thumb")
             const img = document.createElement('img');
             img.src = label.thumb;
             img.style.maxWidth = "160px";
@@ -494,7 +494,7 @@ function mostrarListaGenres(genres, container) {
 
         // Imagen (si existe)
         if (genre.thumb) {
-            alert("genre.thumb")
+            //alert("genre.thumb")
             const img = document.createElement('img');
             img.src = genre.thumb;
             img.style.maxWidth = "160px";
@@ -663,8 +663,8 @@ function printsRelease(data) {
     const newDiv = document.createElement('div');
     newDiv.style.border = "2px solid green";
     newDiv.style.padding = "15px";
-    alert("data title: " + data.title)
-    alert("data artist: " + data.artists_sort)
+    //alert("data title: " + data.title)
+    //alert("data artist: " + data.artists_sort)
 
     // Release
     const release_title = document.createElement('h2');
@@ -829,7 +829,7 @@ function printsLabel(data) {
     const newDiv = document.createElement('div');
     newDiv.style.border = "2px solid green";
     newDiv.style.padding = "15px";
-    alert("data title: " + data.name)
+    //alert("data title: " + data.name)
 
     // Nombre
     const nombre = document.createElement('h2');
