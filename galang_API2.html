@@ -82,74 +82,111 @@
             /* Para que las cajas crezcan proporcionalmente */
             min-width: 100px;
         }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #0066cc;
+            /* Color principal */
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #loadingText {
+            font-family: sans-serif;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 
 <body>
-
     <header class="busqueda">
-        <strong>Discogs</strong>
+        <strong>Discogs #1</strong>
+        <br>
+        <button onclick="printErrorLog()">ErrorLog</button>
         <button onclick="buscar()">🔎 Buscar</button>
-        <input type="password" id="myToken" class="input-busqueda" placeholder="Token...">
-        <input type="text" id="artistSearch" class="input-busqueda" placeholder="Artista...">
-        <input type="text" id="releaseSearch" class="input-busqueda" placeholder="Disco...">
-        <input type="text" id="trackSearch" class="input-busqueda" placeholder="Canción...">
-        <input type="text" id="labelSearch" class="input-busqueda" placeholder="Sello...">
-
-        <select id="genreSearch">
-            <option value="">Género...</option>
-
-            <option value="Blues">Blues</option>
-            <option value="Brass & Military">Brass & Military</option>
-            <option value="Children's">Children's</option>
-            <option value="Classical">Classical</option>
-            <option value="Electronic">Electronic</option>
-            <option value="Folk, World, & Country">Folk, World, & Country</option>
-            <option value="Funk / Soul">Funk / Soul</option>
-            <option value="Hip Hop">Hip Hop</option>
-            <option value="Jazz">Jazz</option>
-            <option value="Latin">Latin</option>
-            <option value="Non-Music">Non-Music</option>
-            <option value="Pop">Pop</option>
-            <option value="Reggae">Reggae</option>
-            <option value="Rock">Rock</option>
-            <option value="Stage & Screen">Stage & Screen</option>
-        </select>
-
-
-        <select id="styleSearch">
-            <option value="">Estilo...</option>
-            <option value="Dancehall">Dancehall</option>
-            <option value="Dub">Dub</option>
-            <option value="Rocksteady">Rocksteady</option>
-            <option value="Ska">Ska</option>
-            <option value="Lovers rock">Lovers rock</option>
-            <option value="Roots Reggae">Roots Reggae</option>
-            <option value="Techno">Techno</option>
-            <option value="House">House</option>
-            <option value="Experimental">Experimental</option>
-        </select>
-
-        <input type="number" id="yearSelect" placeholder="Año" style="width: 60px;">
-
-        
+        <input type="text" id="myToken" class="input-busqueda" placeholder="Token...">
+        <input type="text" id="query" class="input-busqueda" placeholder="Query...">
+        <input type="checkbox" id="artistSearch" checked> <label for="artistSearch">Artist</label>
+        <!-- Contenedor para alinear verticalmente Disco y Masters Search -->
+        <div style="display: flex; flex-direction: column; font-size: 12px; line-height: 1;">
+            <div>
+                <input type="checkbox" id="releaseSearch">
+                <label for="releaseSearch">Disco</label>
+            </div>
+            <div>
+                <input type="checkbox" id="mastersSearch" checked>
+                <label for="mastersSearch">Masters</label>
+            </div>
+        </div>
+        <input type="checkbox" id="labelSearch"> <label for="labelSearch">Sello</label>
+        <input type="checkbox" id="genreSearch"> <label for="genreSearch">Genre</label>
+        <input type="checkbox" id="styleSearch"> <label for="styleSearch">Style</label>
+        <input type="checkbox" id="yearSearch"> <label for="yearSearch">Year</label>
+        <input type="checkbox" id="trackSearch"> <label for="trackSearch">Canción</label>
+        <!--
+Babasonicos
+Babasónicos Vs. El Público
+ID: 17635339
+Style: Alternative Rock
+Format: AAC, EP
+Label: Discos Crack
+-->
     </header>
 
     <main class="main-container">
         <aside class="query-result">
             <h3>Query Result</h3>
-            <div id="resultsList">Lista de resultados aquí...</div>
+            <div id="loadingStatusSearch" style="display: none; text-align: center; margin: 20px;">
+                <div class="spinner"></div>
+                <p id="loadingTextSearch">Buscando en Discogs...</p>
+            </div>
+            <div class="storage-controls">
+                <button id="btnSave" onclick="guardarBusquedaActual()">Guardar Local</button>
+                <button id="btnLoad" onclick="cargarBusquedaGuardada()">Cargar Local</button>
+                <button id="btnErase" onclick="limpiarCache()">borrar Local</button>
+                <br>
+                <div id="exportSection">
+                    <button onclick="exportarHistorialTXT()" style="background-color: #4CAF50; color: white;">
+                        💾 Descargar Historial (.txt)
+                    </button>
+                </div>
+            </div>
+            <div id="resultsList"></div>
+
+            <div id="paginationControls" class="hidden" style="margin-top: 20px; text-align: center;">
+                <button id="prevBtn">Anterior</button>
+                <span id="pageInfo"></span>
+                <button id="nextBtn">Siguiente</button>
+            </div>
         </aside>
 
         <section class="album-info">
             <h3>Información del Álbum</h3>
             <div id="container"></div>
-            <div id="prints-data"></div>
+            <div id="containerReleases"></div>
         </section>
     </main>
 
-    
-    <script src="js/galang_API2.js"></script>
+    <script src="js/galang_API3.js"></script>
 
 </body>
 

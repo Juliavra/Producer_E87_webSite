@@ -210,7 +210,6 @@ fetch(url, {
     .catch(error => console.error('Error:', error));
 */
 
-
 function printsData(data) {
     console.log(data)
 
@@ -1410,3 +1409,603 @@ fetch(url, {
     .catch(error => console.error('Error:', error));
 }
 */
+
+
+//----------------------------------------------------------
+//********************************************************* */
+//------------------------------------------------------------------------
+/* ORIGINAL
+async function verRelease(value) {
+    const release_id = value.toString();
+    const URL = `${release_id}`
+    try {
+        const resultsList = document.getElementById("resultsList");
+        const response = await fetch(URL, {
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
+                'Authorization': `Discogs token=${myToken.value}`
+            }
+        });
+
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const data = await response.json();
+        console.log(`"VER  "  (${data.year || 'N/A'})"\n" ID: ${data.id}"\n"`);
+
+        const div = document.createElement('div');
+        div.style.border = "2px solid #0066cc";
+        div.style.margin = "15px 0";
+        div.style.padding = "15px";
+        div.style.borderRadius = "8px";
+        div.style.backgroundColor = "#f9f9f9";
+
+        // Imagen (si existe)
+        if (data.thumb) {
+            const img = document.createElement('img');
+            img.src = data.thumb;
+            img.style.maxWidth = "160px";
+            img.style.maxHeight = "160px";
+            img.style.marginRight = "15px";
+            img.style.float = "left";
+            div.appendChild(img);
+
+            // nombre
+            const nombre = document.createElement('h3');
+            nombre.textContent = data.artists[0].name;
+            div.appendChild(nombre);
+
+            // Titulo
+            const titulo = document.createElement('h3');
+            titulo.textContent = data.title;
+            div.appendChild(titulo);
+
+            // ID
+            const idInfo = document.createElement('p');
+            idInfo.innerHTML = `<strong>ID:</strong> ${data.id}`;
+            div.appendChild(idInfo);
+
+            //Format
+            const formatInfo = document.createElement('p');
+            formatInfo.innerHTML = `<strong>Format:</strong> ${data.formats[0].descriptions}`;
+            div.appendChild(formatInfo);
+
+            //label
+            const labelInfo = document.createElement('p');
+            labelInfo.innerHTML = `<strong>label:</strong> ${data.labels[0].name}`;
+            div.appendChild(labelInfo);
+
+            // Botón para ver TODOS los datos completos
+            const btn = document.createElement('button');
+            btn.textContent = "Ver perfil completo del artista";
+            btn.style.marginTop = "10px";
+            btn.style.padding = "8px 16px";
+            btn.style.backgroundColor = "#0066cc";
+            btn.style.color = "white";
+            btn.style.border = "none";
+            btn.style.borderRadius = "4px";
+            btn.style.cursor = "pointer";
+            btn.onclick = () => obtenerDetalleArtista(artista.id);
+            div.appendChild(btn);
+        }
+        
+        resultsList.appendChild(div);
+
+    } catch (error) {
+        console.error('Error al buscar VER:', error);
+        alert('Hubo un error al conectar con Discogs. Revisa tu User-Agent o conexión.');
+    }
+
+}
+/**/
+/* ORIGINAL
+async function verLabel(value) {
+    const label_id = value.toString();
+    const URL = `https://api.discogs.com//labels/${label_id}`;
+    alert("ver label URL: " + URL);
+   
+    try {
+        const resultsList = document.getElementById("resultsList");
+        const response = await fetch(URL, {
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
+                'Authorization': `Discogs token=${myToken}`
+            }
+        });
+
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const data = await response.json();
+        console.log(`"VER  "  (${data.year || 'N/A'})"\n" ID: ${data.id}"\n"`);
+
+        const div = document.createElement('div');
+        div.style.border = "2px solid #0066cc";
+        div.style.margin = "15px 0";
+        div.style.padding = "15px";
+        div.style.borderRadius = "8px";
+        div.style.backgroundColor = "#f9f9f9";
+
+        // Imagen (si existe)
+      //  if (data.images[0].resource_url) {
+           const img = document.createElement('img');
+            img.src = data.images[0].resource_url;
+            img.style.maxWidth = "160px";
+            img.style.maxHeight = "160px";
+            img.style.marginRight = "15px";
+            img.style.float = "left";
+            div.appendChild(img);
+
+            // nombre
+            const nombre = document.createElement('h3');
+            nombre.textContent = data.artists[0].name;
+            div.appendChild(nombre);
+
+            // Titulo
+            const titulo = document.createElement('h3');
+            titulo.textContent = data.title;
+            div.appendChild(titulo);
+
+            // ID
+            const idInfo = document.createElement('p');
+            idInfo.innerHTML = `<strong>ID:</strong> ${data.id}`;
+            div.appendChild(idInfo);
+
+            // Botón para ver TODOS los datos completos
+            const btn = document.createElement('button');
+            btn.textContent = "Ver perfil completo del artista";
+            btn.style.marginTop = "10px";
+            btn.style.padding = "8px 16px";
+            btn.style.backgroundColor = "#0066cc";
+            btn.style.color = "white";
+            btn.style.border = "none";
+            btn.style.borderRadius = "4px";
+            btn.style.cursor = "pointer";
+            btn.onclick = () => obtenerDetalleArtista(artista.id);
+            div.appendChild(btn);
+    //    }
+        
+        resultsList.appendChild(div);
+
+    } catch (error) {
+        console.error('Error al buscar VER:', error);
+        alert('Hubo un error al conectar con Discogs. Revisa tu User-Agent o conexión.');
+    }
+
+}
+/**/
+/* ORIGINAL
+async function verLabel(value) {
+    const label_id = value.toString();
+    const URL = `https://api.discogs.com/${label_id}`;
+    const resultsList = document.getElementById("resultsList");
+
+    try {
+        const response = await fetch(URL, {
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
+                'Authorization': `Discogs token=${myToken.value}` 
+            }
+        });
+
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const data = await response.json();
+
+        // Creamos el contenedor
+        const div = document.createElement('div');
+        div.className = "label-card"; // Usa clases CSS para un código más limpio
+        div.style = "border: 2px solid #0066cc; margin: 15px 0; padding: 15px; border-radius: 8px; background-color: #f9f9f9; overflow: hidden;";
+
+        // Extraemos datos con valores por defecto (Evita errores si el campo no existe)
+        const imgUrl = data.images?.[0]?.resource_url || 'https://placeholder.com';
+        const name = data.name || 'Nombre no disponible';
+        const profile = data.profile ? `<p>${data.profile.substring(0, 200)}...</p>` : '';
+
+        // Construimos el contenido con Template Literals
+        div.innerHTML = `
+            <img src="${imgUrl}" style="max-width: 160px; max-height: 160px; margin-right: 15px; float: left; border-radius: 4px;">
+            <div style="display: flow-root;">
+                <h3 style="margin-top: 0;">${name}</h3>
+                <p><strong>ID:</strong> ${data.id}</p>
+                ${profile}
+                <button id="btn-${data.id}" style="margin-top: 10px; padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Ver lanzamientos del sello
+                </button>
+            </div>
+        `;
+
+        resultsList.appendChild(div);
+
+        // Asignamos el evento al botón después de insertarlo
+        document.getElementById(`btn-${data.id}`).onclick = () => verLanzamientosLabel(data.id);
+
+    } catch (error) {
+        console.error('Error al buscar sello:', error);
+        alert('No se pudo cargar la información del sello.');
+    }
+}
+*/
+
+/*ORIGINAL
+async function verArtist(value) {
+    const artist_id = value.toString();
+    const URL = `https://api.discogs.com/artists/${artist_id}`;
+    //alert("ver artist URL: " + URL);
+    
+    try {
+        const resultsList = document.getElementById("resultsList");
+        const response = await fetch(URL, {
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
+                'Authorization': `Discogs token=${myToken.value}`
+            }
+        });
+
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const data = await response.json();
+        console.log(`"VER  "  (${data.year || 'N/A'})"\n" ID: ${data.id}"\n"`);
+
+        const div = document.createElement('div');
+        div.style.border = "2px solid #0066cc";
+        div.style.margin = "15px 0";
+        div.style.padding = "15px";
+        div.style.borderRadius = "8px";
+        div.style.backgroundColor = "#f9f9f9";
+
+        // Imagen (si existe)
+        if (data.images[0].resource_url) {
+           const img = document.createElement('img');
+            img.src = data.images[0].resource_url;
+            img.style.maxWidth = "160px";
+            img.style.maxHeight = "160px";
+            img.style.marginRight = "15px";
+            img.style.float = "left";
+            div.appendChild(img);
+
+           // nombre
+            const nombre = document.createElement('h3');
+            nombre.textContent = data.name;
+            div.appendChild(nombre);
+
+            // ID
+            const idInfo = document.createElement('p');
+            idInfo.innerHTML = `<strong>ID:</strong> ${data.id}`;
+            div.appendChild(idInfo);
+
+            // Botón para ver TODOS los datos completos
+            const btn = document.createElement('button');
+            btn.textContent = "Ver perfil completo del artista";
+            btn.style.marginTop = "10px";
+            btn.style.padding = "8px 16px";
+            btn.style.backgroundColor = "#0066cc";
+            btn.style.color = "white";
+            btn.style.border = "none";
+            btn.style.borderRadius = "4px";
+            btn.style.cursor = "pointer";
+            btn.onclick = () => obtenerDetalleArtista(artista.id);
+            div.appendChild(btn);
+           
+        }
+       
+        resultsList.appendChild(div);
+
+    } catch (error) {
+        console.error('Error al buscar VER:', error);
+        alert('Hubo un error al conectar con Discogs. Revisa tu User-Agent o conexión.');
+    }
+
+}
+/**/
+/* ORIGINAL
+async function buscar() {
+    const baseUrl = "https://api.discogs.com/database/search";
+    var queryString = "";
+    var queryType = "";
+    var artistString = ""; var releaseString = ""; var labelString = ""; var trackString = "";
+
+    const artistSearch = document.getElementById("artistSearch");
+    const releaseSearch = document.getElementById("releaseSearch");
+    const trackSearch = document.getElementById("trackSearch");
+    const labelSearch = document.getElementById("labelSearch");
+    if (artistSearch.checked == true) {
+        queryString = `${query.value.toString()}`; alert("queryString artistSearch: " + queryString)
+        queryType = "master"; alert("queryType artist: " + queryType) //SI CAMBIO ESTE MASTER SE ROMPE TUTTI
+        artistString = `${queryString}`; alert("artistString: " + artistString)
+
+    }
+    else if (releaseSearch.checked == true) {
+        queryString = `${query.value.toString()}`;// alert("queryString: " + queryString)
+        queryType = "release"; alert("queryType releaseSearch: " + queryType)
+        releaseString = `${queryString}`; alert("releaseString: " + releaseString)
+    }
+    else if (labelSearch.checked == true) {
+        queryString = `${query.value.toString()}`;// alert("queryString: " + queryString)
+        queryType = "label"; //alert("queryType LabelSearch: " + queryType)
+        labelString = `${queryString}`; alert("labelString: " + labelString)
+    }
+    else { alert("MAS DE UNA OPCION") }
+
+    const params = new URLSearchParams({
+        //track: "version",
+        //style: "dub",
+        // artist: "aswad",
+        // type: "master",   // Solo ediciones individuales, no artistas o sellos
+        label: `${labelString}`,
+        track: `${trackString}`,
+        artist: `${artistString}`,
+        release: `${releaseString}`,
+        //format: "Vinyl",
+        //track: "the wall",
+        //country: "jamaica",
+        //year: "1970",      // Podés probar con "197*" para toda la década
+        type: `${queryType}`,
+        per_page: "3",     // Control de cantidad
+        //page: "15",         // Control de página
+        token: `${myToken.value.toString()}`  // Autenticación  
+    });
+    console.log("params: " + params)
+    const url = `${baseUrl}?${params.toString()}`;
+    console.log("URL: " + url)
+
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
+                'Authorization': `Discogs token=${myToken.value}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error(`Error en la petición: ${response.status}`);
+        }
+        const data = await response.json();
+        if (data.results.length > 0) {
+            for (const item of data.results) {
+                console.log(` ${item.resource_url} "\n"${item.title}"\n" (${item.year || 'N/A'})"\n" ID: ${item.id}"\n" catno: ${item.catno} "\n" type: ${item.type} "\n" track: ${item.track} "\n"`);
+                alert("queryType IFS: " + queryType)
+
+                if (queryType == "artist") {
+
+                    await verArtist(item.id);
+                }
+                else if (queryType == "master") {
+                    await verMaster(item.id);
+                }
+                else if (queryType == "release") {
+                    alert("RREELLEEAASSEE");
+                    await verRelease(item.resource_url);
+                }
+                else if (queryType == "label") {
+                    await verLabel(item.resource_url);
+                }
+                else if (queryType == "") {
+                    alert("VACIO QUERY TYPE BUSCAR PRO")
+                }
+                else { alert("ERROR EN QUERY TYPE BUSCAR PRO"); }
+              
+                await new Promise(resolve => setTimeout(resolve, 600));
+            }
+        }
+        else { alert("LPM") }
+        return data.results;
+
+    } catch (error) {
+        console.error("Hubo un error al buscar:", error);
+    }
+}
+/**/
+
+/*
+async function buscar() {
+    const baseUrl = "https://api.discogs.com/database/search";
+    const queryValue = document.getElementById("query").value;
+    const token = document.getElementById("myToken").value;
+
+    // Definimos los elementos de radio/check
+    const artistSearch = document.getElementById("artistSearch");
+    const releaseSearch = document.getElementById("releaseSearch");
+    const labelSearch = document.getElementById("labelSearch");
+
+    let paramsObj = {
+        per_page: "3",
+        token: token
+    };
+
+    let queryType = "";
+
+    // Lógica de selección: Mapeamos el radio seleccionado al parámetro correcto
+    if (artistSearch.checked) {
+        queryType = "artist"; 
+        paramsObj.title = queryValue; // Para artistas suele ser mejor usar title o q
+        paramsObj.type = "artist";
+    } 
+    else if (releaseSearch.checked) {
+        queryType = "release";
+        paramsObj.release_title = queryValue;
+        paramsObj.type = "release"; // O "master" si querés la versión principal
+    } 
+    else if (labelSearch.checked) {
+        queryType = "label";
+        paramsObj.label = queryValue;
+        paramsObj.type = "label";
+    } 
+    else {
+        alert("Por favor, seleccioná una opción de búsqueda");
+        return;
+    }
+
+    const params = new URLSearchParams(paramsObj);
+    const url = `${baseUrl}?${params.toString()}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra'
+            }
+        });
+
+        if (!response.ok) throw new Error(`Error: ${response.status}`);
+
+        const data = await response.json();
+
+        if (data.results && data.results.length > 0) {
+            for (const item of data.results) {
+                console.log(`Resultado: ${item.title} (ID: ${item.id})`);
+
+                // Ejecutamos la función según el tipo que realmente devolvió la API
+                // o el que elegimos en el buscador
+                switch (queryType) {
+                    case "artist":
+                        await verArtist(item.id);
+                        break;
+                    case "release":
+                        // Si buscaste 'release', usas verRelease o verMaster según necesites
+                        item.type === "master" ? await verMaster(item.id) : await verRelease(item.resource_url);
+                        break;
+                    case "label":
+                        await verLabel(item.resource_url);
+                        break;
+                }
+                // Delay para no saturar la API (Rate Limit)
+                await new Promise(resolve => setTimeout(resolve, 600));
+            }
+        } else {
+            alert("No se encontraron resultados.");
+        }
+        return data.results;
+
+    } catch (error) {
+        console.error("Hubo un error al buscar:", error);
+    }
+}
+*/
+/*
+async function buscar() {
+    const baseUrl = "https://api.discogs.com/database/search";
+    const queryValue = document.getElementById("query").value.trim();
+    const token = document.getElementById("myToken").value.trim();
+
+    if (!queryValue || !token) return alert("Completá la búsqueda y el token.");
+
+    // Mapeo de tipos para eliminar el exceso de condicionales
+    const searchTypes = {
+        artistSearch:  { type: "artist",  param: "title" },
+        releaseSearch: { type: "release", param: "release_title" },
+        labelSearch:   { type: "label",   param: "label" }
+    };
+
+    // Buscamos cuál está checked
+    const selectedId = Object.keys(searchTypes).find(id => document.getElementById(id)?.checked);
+    if (!selectedId) return alert("Seleccioná una opción de búsqueda.");
+
+    const config = searchTypes[selectedId];
+    const params = new URLSearchParams({
+        per_page: "50",
+        token: token,
+        type: config.type,
+        [config.param]: queryValue
+    });
+
+    try {
+        const response = await fetch(`${baseUrl}?${params}`, {
+            headers: { 'User-Agent': 'Galang/1.0 +https://github.com/juliavra' }
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const { results } = await response.json();
+
+        if (!results?.length) return alert("No se encontraron resultados.");
+
+        for (const item of results) {
+            console.log(`Resultado: ${item.title} (ID: ${item.id})`);
+
+            // Procesamiento según tipo
+            switch (config.type) {
+                case "artist":  await verArtist(item.id); break;
+                case "label":   await verLabel(item.resource_url); break;
+                case "release": 
+                    item.type === "master" ? await verMaster(item.id) : await verRelease(item.resource_url);
+                    break;
+            }
+            // Delay para Rate Limit (Discogs es estricto)
+            await new Promise(res => setTimeout(res, 600));
+        }
+
+        return results;
+    } catch (error) {
+        console.error("Error en la búsqueda:", error);
+    }
+}
+*/
+/*
+async function verMasterListado(value) {
+    const master_id = value.toString();
+    const token = document.getElementById("myToken").value.trim();
+    const resultsList = document.getElementById("resultsList");
+    const URL = `https://api.discogs.com/masters/${master_id}`;
+    //alert("ver master URL: "+ URL);
+    try {
+
+        const response = await fetch(URL, {
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
+                'Authorization': `Discogs token=${token}`
+            }
+        });
+
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const data = await response.json();
+        console.log(`"VER  "  (${data.year || 'N/A'})"\n" ID: ${data.id}"\n"`);
+
+        const div = document.createElement('div');
+        div.style.border = "2px solid #0066cc";
+        div.style.margin = "15px 0";
+        div.style.padding = "15px";
+        div.style.borderRadius = "8px";
+        div.style.backgroundColor = "#f9f9f9";
+
+        // Imagen (si existe)
+        //  if (data.images[0].resource_url) {
+        const img = document.createElement('img');
+        img.src = data.images[0].resource_url;
+        img.style.maxWidth = "160px";
+        img.style.maxHeight = "160px";
+        img.style.marginRight = "15px";
+        img.style.float = "left";
+        div.appendChild(img);
+
+        // nombre
+        const nombre = document.createElement('h3');
+        nombre.textContent = data.artists[0].name;
+        div.appendChild(nombre);
+
+        // Titulo
+        const titulo = document.createElement('h3');
+        titulo.textContent = data.title;
+        div.appendChild(titulo);
+
+        // ID
+        const idInfo = document.createElement('p');
+        idInfo.innerHTML = `<strong>ID:</strong> ${data.id}`;
+        div.appendChild(idInfo);
+
+        // Botón para ver TODOS los datos completos
+        const btn = document.createElement('button');
+        btn.textContent = "Ver perfil completo del artista";
+        btn.style.marginTop = "10px";
+        btn.style.padding = "8px 16px";
+        btn.style.backgroundColor = "#0066cc";
+        btn.style.color = "white";
+        btn.style.border = "none";
+        btn.style.borderRadius = "4px";
+        btn.style.cursor = "pointer";
+        btn.onclick = () => obtenerDetalleArtista(data.artists[0].id);
+        div.appendChild(btn);
+        //    }
+
+        resultsList.appendChild(div);
+
+    } catch (error) {
+        console.error('Error al buscar VER:', error);
+        console.log('Hubo un error al conectar con Discogs. Revisa tu User-Agent o conexión.');
+    }
+    
+}
+/**/
