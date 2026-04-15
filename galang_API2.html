@@ -125,31 +125,14 @@
         <button onclick="buscar()">🔎 Buscar</button>
         <input type="text" id="myToken" class="input-busqueda" placeholder="Token...">
         <input type="text" id="query" class="input-busqueda" placeholder="Query...">
-        <input type="checkbox" id="artistSearch" checked> <label for="artistSearch">Artist</label>
-        <!-- Contenedor para alinear verticalmente Disco y Masters Search -->
-        <div style="display: flex; flex-direction: column; font-size: 12px; line-height: 1;">
-            <div>
-                <input type="checkbox" id="releaseSearch">
-                <label for="releaseSearch">Disco</label>
-            </div>
-            <div>
-                <input type="checkbox" id="mastersSearch" checked>
-                <label for="mastersSearch">Masters</label>
-            </div>
-        </div>
-        <input type="checkbox" id="labelSearch"> <label for="labelSearch">Sello</label>
+        <input type="radio" name="searchType" id="artistSearch" checked> <label for="artistSearch">Artist</label>
+        <input type="radio" name="searchType" id="mastersSearch"> <label for="mastersSearch">Masters</label>
+        <input type="radio" name="searchType" id="releaseSearch"> <label for="releaseSearch">Disco</label>
+        <input type="radio" name="searchType" id="labelSearch"> <label for="labelSearch">Sello</label>
         <input type="checkbox" id="genreSearch"> <label for="genreSearch">Genre</label>
         <input type="checkbox" id="styleSearch"> <label for="styleSearch">Style</label>
         <input type="checkbox" id="yearSearch"> <label for="yearSearch">Year</label>
         <input type="checkbox" id="trackSearch"> <label for="trackSearch">Canción</label>
-        <!--
-Babasonicos
-Babasónicos Vs. El Público
-ID: 17635339
-Style: Alternative Rock
-Format: AAC, EP
-Label: Discos Crack
--->
     </header>
 
     <main class="main-container">
