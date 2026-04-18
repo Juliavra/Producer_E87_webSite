@@ -143,9 +143,10 @@
                 <p id="loadingTextSearch">Buscando en Discogs...</p>
             </div>
             <div class="storage-controls">
-                <button id="btnSave" onclick="guardarBusquedaActual()">Guardar Local</button>
-                <button id="btnLoad" onclick="cargarBusquedaGuardada()">Cargar Local</button>
-                <button id="btnErase" onclick="limpiarCache()">borrar Local</button>
+                <button id="btnSave" onclick="guardarBusquedaActual()">Guardar </button>
+                <button id="btnShow" onclick="mostrarHistorial()">mostrar Historial</button>
+                <button id="btnErase" onclick="limpiarHistorial()">Borrar </button>
+                
                 <br>
                 <div id="exportSection">
                     <button onclick="exportarHistorialTXT()" style="background-color: #4CAF50; color: white;">
@@ -163,7 +164,6 @@
         </aside>
 
         <section class="album-info">
-            <h3>Información del Álbum</h3>
             <div id="container"></div>
             <div id="containerReleases"></div>
         </section>

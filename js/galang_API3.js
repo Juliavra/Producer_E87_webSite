@@ -38,7 +38,6 @@ async function buscar(page = 1) {
         const el = document.getElementById(id);
         if (el) el.innerHTML = "";
     });
-
     try {
         const response = await fetch(`${baseUrl}?${params}`, {
             headers: {
@@ -64,7 +63,6 @@ async function buscar(page = 1) {
         if (data.results.length === 0) {
             return alert("No hay resultados.");
         }
-        // GUARDAMOS EL DATA EN LA VARIABLE GLOBAL para usarlo después con el botón
         ultimoDataRecibido = {
             termino: queryValue,
             categoria: selectedId,
@@ -88,6 +86,7 @@ async function buscar(page = 1) {
 
         lastSearchResults = data.results;
         lastSearchCategory = queryValue;
+        console.log(`Buscar: `);
         console.log(`Total de resultados: ${data.pagination.items}`);
         console.log(`Página actual: ${data.pagination.page} de ${data.pagination.pages}`);
         console.log(`Resultados por página: ${data.pagination.per_page}`);
@@ -103,30 +102,234 @@ async function buscar(page = 1) {
 }
 // Función auxiliar para no bloquear el bucle principal
 async function procesarResultado(item, type) {
-    resultsList.innerHTML = "";
-    //alert("item: " + item.id + "\n" + "type: " + type)
     try {
         if (type === "artist" || type === "artistSearch") {
-            await verArtist(item.id, "resultsList");
+            await verArtistSmall(item, "resultsList");
         } else if (type === "label" || type === "labelSearch") {
-            await verLabelSmall(item.resource_url, "resultsList");
+            await verLabelSmall(item, "resultsList");
         } else if (type === "release" || type === "releaseSearch") {
-            // Discogs mezcla master y release en los resultados de búsqueda
-            //hay que hacer esto tambien para masters
-            await verReleaseSmall(item.resource_url);
+            await verReleaseSmall(item, "resultsList");
         } else if (type === "master" || type === "masterSearch") {
             // Discogs mezcla master y release en los resultados de búsqueda
             //hay que hacer esto tambien para masters
-            await verMasterSmall(item.resource_url);
+            await verMasterSmall(item, "resultsList");
         }
     } catch (e) {
         console.error("Error cargando detalle:", e);
     }
 }
 
-async function verRelease(value) {//alert("verRelease FOO")
+async function verArtistSmall(data, containerId) {
+    const container = document.getElementById(containerId);
+    const div = document.createElement('div');
+    div.style.border = "2px solid #0066cc";
+    div.style.margin = "15px 0";
+    div.style.padding = "15px";
+    div.style.borderRadius = "8px";
+    div.style.backgroundColor = "#f9f9f9";
+    div.style.overflow = "hidden"; // Para limpiar el float de la imagen
+    // 1. Corregido: Validación de imagen (Discogs no siempre devuelve imágenes)
+    if (data.thumb) {
+        const img = document.createElement('img');
+        img.src = data.thumb;
+        img.style.maxWidth = "160px";
+        img.style.maxHeight = "160px";
+        img.style.marginRight = "15px";
+        img.style.float = "left";
+        div.appendChild(img);
+    }
+    // 2. Nombre
+    const nombre = document.createElement('h3');
+    nombre.textContent = data.title;
+    div.appendChild(nombre);
+    // 3. ID
+    const idInfo = document.createElement('p');
+    idInfo.innerHTML = `<strong>ID:</strong> ${data.id}`;
+    div.appendChild(idInfo);
+
+    const btn = document.createElement('button');
+    btn.textContent = "Ver artista";
+    btn.style.marginTop = "10px";
+    btn.style.padding = "8px 16px";
+    btn.style.backgroundColor = "#0066cc";
+    btn.style.color = "white";
+    btn.style.border = "none";
+    btn.style.borderRadius = "4px";
+    btn.style.cursor = "pointer";
+    btn.onclick = () => obtenerDetalleArtista(data.id);
+    div.appendChild(btn);
+
+    container.appendChild(div);
+}
+
+async function verLabelSmall(data, containerId) {
+    if (!data) {
+        console.error('ID de label no proporcionado');
+        return;
+    }
+    const container = document.getElementById(containerId);
+    const div = document.createElement('div');
+    div.className = "label-card";
+    div.style = "border: 2px solid #0066cc; margin: 15px 0; padding: 15px; border-radius: 8px; background-color: #f9f9f9; overflow: hidden;";
+    // Placeholder genérico si no hay imagen
+    const imgUrl = data.thumb || 'https://placeholder.com';
+    const name = data.title || 'Nombre no disponible';
+    div.innerHTML = `
+            <img src="${imgUrl}" style="max-width: 160px; max-height: 160px; margin-right: 15px; float: left; border-radius: 4px;">
+            <div style="display: flow-root;">
+                <h3 style="margin-top: 0;">${name}</h3>
+                <p><strong>ID:</strong> ${data.id}</p>
+                <button id="btn-${data.id}" style="margin-top: 10px; padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Ver sello
+                </button>
+            </div>
+        `;
+    //resource_url aca tengo todo la info 
+    // del label para hacer mas busquedas
+    container.appendChild(div);
+    document.getElementById(`btn-${data.id}`).onclick = () => obtenerDetalleLabel(data.id, container);
+}
+
+async function verReleaseSmall(data, containerInput) {
+    const container = (typeof containerInput === 'string')
+        ? document.getElementById(containerInput)
+        : containerInput;
+    if (!container) {
+        console.error(`Error: No se encontró el contenedor con ID "${containerId}"`);
+        return;
+    }
+    if (!data) {
+        console.error('ID de release no proporcionado');
+        return;
+    }
+    try {
+        //const container = document.getElementById(containerId);
+        const div = document.createElement('div');
+        div.style.cssText = "border: 2px solid #0066cc; margin: 15px 0; padding: 15px; border-radius: 8px; background-color: #f9f9f9; overflow: hidden;";
+        // Imagen (Validación segura)
+        if (data.thumb) {
+            const img = document.createElement('img');
+            img.src = data.thumb;
+            img.style.cssText = "max-width: 160px; max-height: 160px; margin-right: 15px; float: left;";
+            div.appendChild(img);
+        }
+
+        // Título
+        const titulo = document.createElement('h3');
+        titulo.textContent = data.title || "Sin título";
+        div.appendChild(titulo);
+
+        //Year
+        const year = document.createElement('h3');
+        year.textContent = `(${data.year || 'N/A'})`;
+        div.appendChild(year);
+
+        // Format (Validación de array y join para descripciones)
+        const formatInfo = document.createElement('p');
+        const descripciones = data.formats?.[0]?.descriptions?.join(", ") || "No especificado";
+        formatInfo.innerHTML = `<strong>Format:</strong> ${descripciones}`;
+        div.appendChild(formatInfo);
+
+        // Label
+        const labelInfo = document.createElement('p');
+        labelInfo.innerHTML = `<strong>Label:</strong> ${data.labels?.[0]?.name || "N/A"}`;
+        div.appendChild(labelInfo);
+
+        // ID
+        const idInfo = document.createElement('p');
+        idInfo.innerHTML = `<strong>ID:</strong> ${data.id || 'N/A'}`;
+        div.appendChild(idInfo);
+
+        // Botón (Validación del ID del artista para la función posterior)
+        const artistaId = data.artists?.[0]?.id;
+        if (artistaId) {
+            const btn = document.createElement('button');
+            btn.textContent = "Ver artista";
+            btn.style.cssText = "margin-top: 10px; padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
+            //ARREGLAR ESTO 
+            btn.onclick = () => obtenerDetalleRelease(artistaId);
+            div.appendChild(btn);
+        }
+
+        const btn = document.createElement('button');
+        btn.textContent = "Ver Album";
+        btn.style.marginTop = "10px";
+        btn.style.padding = "8px 16px";
+        btn.style.backgroundColor = "#0066cc";
+        btn.style.color = "white";
+        btn.style.border = "none";
+        btn.style.borderRadius = "4px";
+        btn.style.cursor = "pointer";
+        btn.onclick = () => printsRelease(data.id, "containerReleases");
+        div.appendChild(btn);
+
+
+
+
+
+
+        container.appendChild(div);
+    } catch (error) {
+        console.error('Error al buscar VER:', error);
+        console.log('Hubo un error al procesar los datos de Discogs.');
+    }
+}
+
+async function verMasterSmall(data, containerId) {
+    const container = document.getElementById(containerId);
+    try {
+        const div = document.createElement('div');
+        div.style.border = "2px solid #0066cc";
+        div.style.margin = "15px 0";
+        div.style.padding = "15px";
+        div.style.borderRadius = "8px";
+        div.style.backgroundColor = "#f9f9f9";
+        div.style.overflow = "hidden";
+        // Imagen (si existe)
+        if (data.thumb) {
+            const img = document.createElement('img');
+            img.src = data.thumb;
+            img.style.maxWidth = "160px";
+            img.style.maxHeight = "160px";
+            img.style.marginRight = "15px";
+            img.style.float = "left";
+            div.appendChild(img);
+        }
+        // Titulo + year
+        const titulo = document.createElement('h3');
+        titulo.textContent = `(${data.year || 'N/A'}) ${data.title}`;
+        div.appendChild(titulo);
+        /*
+                if (data.styles) {
+                    const styles = document.createElement("p");
+                    styles.style.clear = "both";
+                    styles.style.marginTop = "10px";
+                    styles.innerHTML = `<strong>Styles:</strong> ${data.styles.join(", ")}`;
+                    div.appendChild(styles);
+                }
+        */
+        // ID
+        const idInfo = document.createElement('h3');
+        idInfo.textContent = "ID " + "(" + data.id + ")";
+        div.appendChild(idInfo);
+
+        const btn = document.createElement('button');
+        btn.textContent = "Ver detalle del album";
+        btn.style.cssText = "margin-top: 10px; padding: 8px 16px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
+        btn.onclick = () => verMaster(data, containerId = "resultsList", btn);
+        div.appendChild(btn);
+
+        container.appendChild(div);
+    } catch (error) {
+        console.error('Error al usar verMaster:', error);
+        console.log('Hubo un error al conectar con Discogs. Revisa tu User-Agent o conexión.');
+    }
+    /**/
+}
+
+async function verRelease(value, containerId) {
+    alert("verRelease value: " + value);
     const token = document.getElementById("myToken").value.trim();
-    // Validar que el input no sea nulo o indefinido al inicio
     if (!value) {
         console.error('ID de release no proporcionado');
         return;
@@ -153,7 +356,6 @@ async function verRelease(value) {//alert("verRelease FOO")
             return; // Salimos de la función sin lanzar un error "grave" al catch
         }
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-
         const data = await response.json();
 
         const div = document.createElement('div');
@@ -203,7 +405,7 @@ async function verRelease(value) {//alert("verRelease FOO")
             const btn = document.createElement('button');
             btn.textContent = "Ver artista";
             btn.style.cssText = "margin-top: 10px; padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
-            btn.onclick = () => obtenerDetalleArtista(artistaId);
+            btn.onclick = () => obtenerDetalleRelease(data.id);
             div.appendChild(btn);
         }
         //HAY QUE CORREGIR ESTO TIENE QUE MOSTRAR EL ALBUM POR ID 
@@ -212,7 +414,7 @@ async function verRelease(value) {//alert("verRelease FOO")
         const btn2 = document.createElement('button');
         btn2.textContent = "Ver Album";
         btn2.style.cssText = "margin-top: 10px; padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
-        btn2.onclick = () => printsRelease(data.id);
+        btn2.onclick = () => printsRelease(data.id, containerId);
         div.appendChild(btn2);
 
         resultsList.appendChild(div);
@@ -223,140 +425,57 @@ async function verRelease(value) {//alert("verRelease FOO")
     }
 }
 
-async function verReleaseSmall(value) {//alert("verReleaseSmall FOO")
-    const token = document.getElementById("myToken").value.trim();
-    if (!value) {
+async function verReleaseNoFetch(release, containerId) {
+    const container = document.getElementById(containerId);
+    if (!release) {
         console.error('ID de release no proporcionado');
         return;
     }
-    try {
-        const resultsList = document.getElementById("resultsList");
-        const response = await fetch(value, {
-            headers: {
-                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
-            }
-        });
+    const div = document.createElement('div');
+    div.style.cssText = "border: 2px solid #0066cc; margin: 15px 0; padding: 15px; border-radius: 8px; background-color: #f9f9f9; overflow: hidden;";
 
-        if (response.status === 404) {
-            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
-            console.log(`Aviso: ${errorData.message} "\n" (ID: ${id})`);
-            errorLog.push(`ERROR 404: ${errorData.message} "\n" (ID: ${id})\n`);
-            return; // Salimos de la función sin lanzar un error "grave" al catch
-        }
-        if (response.status === 429) {
-            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
-            console.log(`429 Aviso: ${errorData.message} (ID: ${id})`);
-            errorLog.push(`ERROR 429: ${errorData.message} "\n" (ID: ${id})\n`);
-            return; // Salimos de la función sin lanzar un error "grave" al catch
-        }
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-
-        const data = await response.json();
-
-        const div = document.createElement('div');
-        div.style.cssText = "border: 2px solid #0066cc; margin: 15px 0; padding: 15px; border-radius: 8px; background-color: #f9f9f9; overflow: hidden;";
-
-        // Imagen (Validación segura)
-        if (data.thumb) {
-            const img = document.createElement('img');
-            img.src = data.thumb;
-            img.style.cssText = "max-width: 160px; max-height: 160px; margin-right: 15px; float: left;";
-            div.appendChild(img);
-        }
-
-        // Nombre Artista (Uso de ?. y valor por defecto)
-        const nombre = document.createElement('h3');
-        nombre.textContent = data.artists?.[0]?.name || "Artista desconocido";
-        div.appendChild(nombre);
-
-        // Título
-        const titulo = document.createElement('h3');
-        titulo.textContent = data.title || "Sin título";
-        div.appendChild(titulo);
-
-        // ID
-        const idInfo = document.createElement('p');
-        idInfo.innerHTML = `<strong>ID:</strong> ${data.id || 'N/A'}`;
-        div.appendChild(idInfo);
-
-        // Botón (Validación del ID del artista para la función posterior)
-        const artistaId = data.artists?.[0]?.id;
-        if (artistaId) {
-            const btn = document.createElement('button');
-            btn.textContent = "Ver artista";
-            btn.style.cssText = "margin-top: 10px; padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
-            //ARREGLAR ESTO 
-            //      btn.onclick = () => obtenerDetalleRelease(artistaId);
-            div.appendChild(btn);
-        }
-
-        resultsList.appendChild(div);
-
-    } catch (error) {
-        console.error('Error al buscar VER:', error);
-        console.log('Hubo un error al procesar los datos de Discogs.');
+    // Imagen (Validación segura)
+    if (release.thumb) {
+        const img = document.createElement('img');
+        img.src = release.thumb;
+        img.style.cssText = "max-width: 160px; max-height: 160px; margin-right: 15px; float: left;";
+        div.appendChild(img);
     }
-}
-
-async function verLabelSmall(value) {
-    const URL = value.toString();
-    const token = document.getElementById("myToken").value.trim();
-    const resultsList = document.getElementById("resultsList");
-    try {
-        const response = await fetch(URL, {
-            headers: {
-                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
-            }
-        });
-
-        if (response.status === 404) {
-            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
-            console.log(`Aviso: ${errorData.message} "\n" (ID: ${id})`);
-            errorLog.push(`ERROR 404: ${errorData.message} "\n" (ID: ${id})\n`);
-            return; // Salimos de la función sin lanzar un error "grave" al catch
-        }
-        if (response.status === 429) {
-            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
-            console.log(`429 Aviso: ${errorData.message} (ID: ${id})`);
-            errorLog.push(`ERROR 429: ${errorData.message} "\n" (ID: ${id})\n`);
-            return; // Salimos de la función sin lanzar un error "grave" al catch
-        }
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-        const data = await response.json();
-
-        const div = document.createElement('div');
-        div.className = "label-card";
-        div.style = "border: 2px solid #0066cc; margin: 15px 0; padding: 15px; border-radius: 8px; background-color: #f9f9f9; overflow: hidden;";
-
-        // Placeholder genérico si no hay imagen
-        const imgUrl = data.images?.[0]?.resource_url || 'https://placeholder.com';
-        const name = data.name || 'Nombre no disponible';
-
-        // Limpiar un poco el perfil (Discogs usa tags como [l=...] o [a=...])
-        const profile = data.profile ? `<p>${data.profile.substring(0, 250)}...</p>` : '<p>Sin descripción.</p>';
-
-        div.innerHTML = `
-            <img src="${imgUrl}" style="max-width: 160px; max-height: 160px; margin-right: 15px; float: left; border-radius: 4px;">
-            <div style="display: flow-root;">
-                <h3 style="margin-top: 0;">${name}</h3>
-                <p><strong>ID:</strong> ${data.id}</p>
-                ${profile}
-                <button id="btn-${data.id}" style="margin-top: 10px; padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                    Ver lanzamientos del sello
-                </button>
-            </div>
-        `;
-
-        resultsList.appendChild(div);
-
-        document.getElementById(`btn-${data.id}`).onclick = () => obtenerDetalleLabel(data.id, container);
-
-    } catch (error) {
-        console.error('Error al buscar sello:', error);
-        console.log('No se pudo cargar la información del sello. Verifica el ID.');
+    // Título
+    const titulo = document.createElement('h3');
+    titulo.textContent = release.title || "Sin título";
+    div.appendChild(titulo);
+    // Nombre Artista 
+    const nombre = document.createElement('h3');
+    nombre.textContent = release.artist || "Artista desconocido";
+    div.appendChild(nombre);
+    //Year
+    const year = document.createElement('h3');
+    year.textContent = release.year || 'N/A';
+    div.appendChild(year);
+    // ID
+    const idInfo = document.createElement('p');
+    idInfo.innerHTML = `<strong>ID:</strong> ${release.id || 'N/A'}`;
+    div.appendChild(idInfo);
+    const styleInfo = document.createElement('p');
+    styleInfo.innerHTML = `<strong>Style:</strong> ${release.styles || 'N/A'}`;
+    div.appendChild(styleInfo);
+    // Botón (Validación del ID del artista para la función posterior)
+    const artistaId = release.artists?.[0]?.id;
+    if (artistaId) {
+        const btn = document.createElement('button');
+        btn.textContent = "Ver artista";
+        btn.style.cssText = "margin-top: 10px; padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
+        //ARREGLAR ESTO 
+        btn.onclick = () => printsRelease(artistaId);
+        div.appendChild(btn);
     }
+    const btn = document.createElement('button');
+    btn.textContent = "Ver tracklist";
+    btn.style.cssText = "margin-top: 10px; padding: 8px 16px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
+    btn.onclick = () => releaseTracklist(release, div, btn);
+    div.appendChild(btn);
+    container.appendChild(div);
 }
 
 async function verArtist(value) {
@@ -388,7 +507,7 @@ async function verArtist(value) {
         if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
 
         const data = await response.json();
-        console.log(`VER: ${data.name} (ID: ${data.id})`);
+        // console.log(`VER: ${data.name} (ID: ${data.id})`);
 
         const div = document.createElement('div');
         div.style.border = "2px solid #0066cc";
@@ -428,170 +547,14 @@ async function verArtist(value) {
         btn.style.cursor = "pointer";
         btn.onclick = () => obtenerDetalleArtista(data.id);
         div.appendChild(btn);
-
         resultsList.appendChild(div);
-
     } catch (error) {
         console.error('Error al buscar VER:', error);
         console.log('Hubo un error al conectar con Discogs. Revisa tu token o conexión. VER ARTIST');
     }
 }
 
-async function verArtistSmall(value) {
-    //const artist_id = value.toString();
-    const token = document.getElementById("myToken").value.trim();
-
-    try {
-        const resultsList = document.getElementById("resultsList");
-        const response = await fetch(value, {
-            headers: {
-                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
-            }
-        });
-
-        if (response.status === 404) {
-            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
-            console.log(`Aviso: ${errorData.message} "\n" (ID: ${id})`);
-            errorLog.push(`ERROR 404: ${errorData.message} "\n" (ID: ${id})\n`);
-            return; // Salimos de la función sin lanzar un error "grave" al catch
-        }
-        if (response.status === 429) {
-            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
-            console.log(`429 Aviso: ${errorData.message} (ID: ${id})`);
-            errorLog.push(`ERROR 429: ${errorData.message} "\n" (ID: ${id})\n`);
-            return; // Salimos de la función sin lanzar un error "grave" al catch
-        }
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-
-        const data = await response.json();
-        console.log(`VER: ${data.name} (ID: ${data.id})`);
-
-        const div = document.createElement('div');
-        div.style.border = "2px solid #0066cc";
-        div.style.margin = "15px 0";
-        div.style.padding = "15px";
-        div.style.borderRadius = "8px";
-        div.style.backgroundColor = "#f9f9f9";
-        div.style.overflow = "hidden"; // Para limpiar el float de la imagen
-
-        // 1. Corregido: Validación de imagen (Discogs no siempre devuelve imágenes)
-        if (data.images && data.images.length > 0) {
-            const img = document.createElement('img');
-            img.src = data.images[0].resource_url;
-            img.style.maxWidth = "160px";
-            img.style.maxHeight = "160px";
-            img.style.marginRight = "15px";
-            img.style.float = "left";
-            div.appendChild(img);
-        }
-
-        // 2. Nombre
-        const nombre = document.createElement('h3');
-        nombre.textContent = data.name;
-        div.appendChild(nombre);
-
-        // 3. ID
-        const idInfo = document.createElement('p');
-        idInfo.innerHTML = `<strong>ID:</strong> ${data.id}`;
-        div.appendChild(idInfo);
-
-        const btn = document.createElement('button');
-        btn.textContent = "Ver artista";
-        btn.style.marginTop = "10px";
-        btn.style.padding = "8px 16px";
-        btn.style.backgroundColor = "#0066cc";
-        btn.style.color = "white";
-        btn.style.border = "none";
-        btn.style.borderRadius = "4px";
-        btn.style.cursor = "pointer";
-        btn.onclick = () => obtenerDetalleArtista(data.id);
-        div.appendChild(btn);
-
-        resultsList.appendChild(div);
-
-    } catch (error) {
-        console.error('Error al buscar VER:', error);
-        console.log('Hubo un error al conectar con Discogs. Revisa tu token o conexión. VER ARTIST');
-    }
-}
-
-async function verMasterSmall(value, containerId = "resultsList") {
-    const token = document.getElementById("myToken").value.trim();
-    const container = document.getElementById(containerId);
-
-    try {
-        const response = await fetch(value, {
-            headers: {
-                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
-                'Authorization': `Discogs token=${token}`
-            }
-        });
-        if (response.status === 404) {
-            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
-            console.log(`Aviso: ${errorData.message} "\n" (ID: ${id})`);
-            errorLog.push(`ERROR 404: ${errorData.message} "\n" (ID: ${id})\n`);
-            return; // Salimos de la función sin lanzar un error "grave" al catch
-        }
-        if (response.status === 429) {
-            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
-            console.log(`429 Aviso: ${errorData.message} (ID: ${id})`);
-            errorLog.push(`ERROR 429: ${errorData.message} "\n" (ID: ${id})\n`);
-            return; // Salimos de la función sin lanzar un error "grave" al catch
-        }
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
-        const data = await response.json();
-
-        const div = document.createElement('div');
-        div.style.border = "2px solid #0066cc";
-        div.style.margin = "15px 0";
-        div.style.padding = "15px";
-        div.style.borderRadius = "8px";
-        div.style.backgroundColor = "#f9f9f9";
-        div.style.overflow = "hidden";
-        // Imagen (si existe)
-        if (data.images && data.images.length > 0) {
-            const img = document.createElement('img');
-            img.src = data.images[0].resource_url;
-            img.style.maxWidth = "160px";
-            img.style.maxHeight = "160px";
-            img.style.marginRight = "15px";
-            img.style.float = "left";
-            div.appendChild(img);
-        }
-        // Titulo + year
-        const titulo = document.createElement('h3');
-        titulo.textContent = `(${data.year || 'N/A'}) ${data.title}`;
-        div.appendChild(titulo);
-        // nombre
-        const nombre = document.createElement('p');
-        nombre.style.fontWeight = "bold";
-        nombre.textContent = "Artista: " + data.artists.map(a => a.name).join(", ");
-        div.appendChild(nombre);
-        // ID
-        const idInfo = document.createElement('h3');
-        idInfo.textContent = "ID " + "(" + data.id + ")";
-        div.appendChild(idInfo);
-
-        const btn = document.createElement('button');
-        btn.textContent = "Ver detalle del album";
-        btn.style.cssText = "margin-top: 10px; padding: 8px 16px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
-
-        // Pasamos el div para inyectar info y el botón para borrarlo
-        btn.onclick = () => verMaster(data, containerId = "resultsList", btn);
-        div.appendChild(btn);
-
-        // ESTA ES LA ÚNICA VEZ QUE SE HACE APPEND AL CONTAINER
-        container.appendChild(div);
-
-    } catch (error) {
-        console.error('Error al usar verMaster:', error);
-        console.log('Hubo un error al conectar con Discogs. Revisa tu User-Agent o conexión.');
-    }
-    /**/
-}
-
-async function verMaster(value, containerId = "containerReleases") {
+async function verMaster(value, containerId) {
     const master_id = value.toString();
     const token = document.getElementById("myToken").value.trim();
     const container = document.getElementById(containerId);
@@ -671,13 +634,10 @@ async function verMaster(value, containerId = "containerReleases") {
 
 function pupi(data, targetDiv, btn) {
     if (btn) btn.remove();
-    // Validar que el contenedor existe
     if (!targetDiv) {
         console.error("Error: El contenedor no existe.");
         return;
     }
-    // Quitar el botón que lanzó la acción
-    // Insertar Tracklist
     if (data.tracklist) {
         const trackDiv = document.createElement("div");
         trackDiv.style.clear = "both";
@@ -692,14 +652,70 @@ function pupi(data, targetDiv, btn) {
         });
         targetDiv.appendChild(trackDiv);
     }
-    // Botón para más detalles
     const btnMore = document.createElement('button');
     btnMore.textContent = "Más detalles";
     btnMore.style.cssText = "margin-top: 10px; padding: 8px 16px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
-    // IMPORTANTE: Pasamos 'targetDiv' que es el div que ya tenemos
     btnMore.onclick = () => detalleRestanteMaster(data, targetDiv, btnMore);
     targetDiv.appendChild(btnMore);
 }
+
+async function releaseTracklist(data, targetDiv, btn) {
+    if (btn) btn.remove();
+    if (!targetDiv) return;
+
+    let tracklist = data.tracklist;
+
+    // Si no hay tracklist (común en búsquedas de labels), lo pedimos a la API
+    if (!tracklist) {
+        const loading = document.createElement("p");
+        loading.textContent = "Cargando tracks...";
+        targetDiv.appendChild(loading);
+
+        try {
+            const token = document.getElementById("myToken").value.trim();
+            const response = await fetch(`https://api.discogs.com/releases/${data.id}`, {
+                headers: {
+                    'User-Agent': 'Galang/1.0',
+                    'Authorization': `Discogs token=${token}`
+                }
+            });
+            const fullData = await response.json();
+            tracklist = fullData.tracklist;
+            loading.remove();
+        } catch (error) {
+            loading.textContent = "Error al cargar tracks.";
+            return;
+        }
+    }
+
+    // Renderizado del tracklist
+    if (tracklist && tracklist.length > 0) {
+        const trackDiv = document.createElement("div");
+        trackDiv.style.cssText = "clear: both; margin-top: 15px; padding: 10px; background: #eee; border-radius: 5px;";
+        trackDiv.innerHTML = "<strong>Tracklist:</strong><br>";
+
+        tracklist.forEach(track => {
+            const p = document.createElement("div");
+            p.style.fontSize = "0.85em";
+            p.style.borderBottom = "1px dotted #ccc";
+            p.textContent = `${track.position} - ${track.title} ${track.duration ? '(' + track.duration + ')' : ''}`;
+            trackDiv.appendChild(p);
+        });
+        targetDiv.appendChild(trackDiv);
+    } else {
+        const p = document.createElement("p");
+        p.textContent = "No hay tracklist disponible.";
+        targetDiv.appendChild(p);
+    }
+
+    // Botón de más detalles
+    const btnMore = document.createElement('button');
+    btnMore.textContent = "Más detalles";
+    btnMore.style.cssText = "margin-top: 10px; padding: 8px 16px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
+    btnMore.onclick = () => detalleRestanteLabel(data, targetDiv, btnMore);
+    targetDiv.appendChild(btnMore);
+}
+
 
 async function detalleRestanteMaster(data, div, btn) {
     const token = document.getElementById("myToken").value.trim();
@@ -770,6 +786,90 @@ async function detalleRestanteMaster(data, div, btn) {
         console.log("bUSCAR Error al conectar con Discogs.");
     }
 }
+
+async function detalleRestanteLabel(data, div, btn) {
+    const token = document.getElementById("myToken").value.trim();
+    if (btn) btn.remove();
+
+    // Determinamos la URL: si es master usamos main_release, si no, el ID del release
+    const releaseId = data.type === 'master' ? data.main_release : data.id;
+    const url = `https://api.discogs.com/releases/${releaseId}`;
+
+    try {
+        const response = await fetch(url, {
+            headers: {
+                'User-Agent': 'Galang/1.0',
+                'Authorization': `Discogs token=${token}`
+            }
+        });
+
+        if (!response.ok) throw new Error("No se pudo obtener el detalle del release");
+        const fullData = await response.json();
+
+        // 1. COMPANIES
+        if (fullData.companies && fullData.companies.length > 0) {
+            const companies = document.createElement("p");
+            const listaCompanies = fullData.companies
+                .map(c => `${c.entity_type_name}: ${c.name}`)
+                .join("<br>");
+            companies.innerHTML = `<strong>Companies:</strong><br>${listaCompanies}`;
+            div.appendChild(companies);
+        }
+
+        // 2. EXTRA ARTISTS (CRÉDITOS)
+        if (fullData.extraartists && fullData.extraartists.length > 0) {
+            const credits = document.createElement("p");
+            const listaCredits = fullData.extraartists
+                .map(e => `<strong>${e.role}</strong>: ${e.name}`)
+                .join("<br>");
+            credits.innerHTML = `<strong>Credits:</strong><br>${listaCredits}`;
+            div.appendChild(credits);
+        }
+
+        // 3. NOTES
+        if (fullData.notes) {
+            const notes = document.createElement("p");
+            const notasFormateadas = fullData.notes.replace(/\n/g, "<br>");
+            notes.innerHTML = `<strong>Notes:</strong><br>${notasFormateadas}`;
+            div.appendChild(notes);
+        }
+
+        // 4. VIDEOS (YouTube)
+        // Dentro de detalleRestanteLabel, reemplazamos el bloque de videos:
+        if (fullData.videos && fullData.videos.length > 0) {
+            const videoContainer = document.createElement("div");
+            videoContainer.style.marginTop = "20px";
+            videoContainer.innerHTML = `<strong>Previsualización de Audio (YouTube):</strong>`;
+
+            // Tomamos el primer video para incrustar (o podés hacer un bucle para todos)
+            const firstVideo = fullData.videos[0];
+
+            // Extraemos el ID del video de la URL de Discogs (usualmente es v=ID o /embed/ID)
+            const videoId = firstVideo.uri.split('v=')[1] || firstVideo.uri.split('/').pop();
+
+            const iframe = document.createElement("iframe");
+            iframe.width = "100%";
+            iframe.height = "315";
+            iframe.src = `https://youtube.com{videoId}`;
+            iframe.title = "YouTube video player";
+            iframe.frameBorder = "0";
+            iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+            iframe.allowFullscreen = true;
+            iframe.style.borderRadius = "8px";
+            iframe.style.marginTop = "10px";
+
+            videoContainer.appendChild(iframe);
+            div.appendChild(videoContainer);
+        }
+    } catch (error) {
+        console.error("Error al obtener detalles adicionales:", error);
+        const errorMsg = document.createElement("p");
+        errorMsg.style.color = "red";
+        errorMsg.textContent = "Error al conectar con la API para cargar detalles.";
+        div.appendChild(errorMsg);
+    }
+}
+
 
 //-----------------------------------------------------------------
 async function obtenerDetalleArtista(artistId) {
@@ -849,7 +949,7 @@ async function obtenerDetalleLabel(labelId) {
         btn.style.border = "none";
         btn.style.borderRadius = "4px";
         btn.style.cursor = "pointer";
-        btn.onclick = () => printsLabelReleases(data.id);
+        btn.onclick = () => printsLabelReleases(data.id, "container", btn);
         container.appendChild(btn);
     } catch (error) {
         console.error(error);
@@ -935,17 +1035,32 @@ function printsLabel(data) {
     container.appendChild(newDiv);
 }
 
-function printsRelease(data) {
+function printsRelease(data, containerInput) {
     console.log("DATA: " + data)
-    const container = document.getElementById('container');
+    const container = (typeof containerInput === 'string')
+        ? document.getElementById(containerInput)
+        : containerInput;
+    if (!container) {
+        console.error(`Error: No se encontró el contenedor con ID "${containerId}"`);
+        return;
+    }
     const newDiv = document.createElement('div');
     newDiv.style.border = "2px solid green";
     newDiv.style.padding = "15px";
-
     // Nombre
     const nombre = document.createElement('h2');
     nombre.textContent = data.name;
     newDiv.appendChild(nombre);
+
+
+    console.log(`Título: ${data.title}`);
+    console.log(`Año: ${data.year || 'N/A'}`);
+    console.log(`Sello: ${data.label || 'N/A'}`);
+    console.log(`Tipo: ${data.type}`); // puede ser 'data' o 'master'
+    console.log(`ID: ${data.id}`);
+    console.log(`URL API: ${data.resource_url}`);
+
+
 
     // Imagen principal
     if (data.images && data.images.length > 0) {
@@ -954,14 +1069,12 @@ function printsRelease(data) {
         img.style.maxWidth = "300px";
         newDiv.appendChild(img);
     }
-
     // Biografía / Perfil
     if (data.profile) {
         const perfil = document.createElement('p');
         perfil.innerHTML = `<strong>Biografía:</strong><br>${data.profile}`;
         newDiv.appendChild(perfil);
     }
-
     // Miembros (si es un grupo)
     if (data.members && data.members.length > 0) {
         const miembrosP = document.createElement('p');
@@ -971,7 +1084,6 @@ function printsRelease(data) {
         });
         newDiv.appendChild(miembrosP);
     }
-
     // Grupos en los que participa
     if (data.groups && data.groups.length > 0) {
         const gruposP = document.createElement('p');
@@ -981,7 +1093,6 @@ function printsRelease(data) {
         });
         newDiv.appendChild(gruposP);
     }
-
     // Real name
     if (data.realname) {
         const real = document.createElement('p');
@@ -991,13 +1102,63 @@ function printsRelease(data) {
     container.appendChild(newDiv);
 }
 
-async function printsArtistaReleases(artist_id, containerId, btn) {
+async function obtenerDetalleRelease(release_id) {
+    const url = `https://api.discogs.com/releases/${release_id}`;
+    try {
+        const response = await fetch(url, {
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra'
+            }
+        });
+        const data = await response.json();
+        // Limpiar contenedor y mostrar TODOS los datos
+        const container = document.getElementById('container');
+        container.innerHTML = `<h2> ${data.name}</h2>`;
+        printsRelease(data);
+        const idInfo = document.createElement('p');
+        idInfo.innerHTML = `<strong>Discografia ordenada por año </strong>`;
+        container.appendChild(idInfo);
+
+        const btn = document.createElement('button');
+        btn.textContent = "Ver albumes editados por año";
+        btn.style.marginTop = "10px";
+        btn.style.padding = "8px 16px";
+        btn.style.backgroundColor = "#0066cc";
+        btn.style.color = "white";
+        btn.style.border = "none";
+        btn.style.borderRadius = "4px";
+        btn.style.cursor = "pointer";
+        btn.onclick = () => printsLabelReleases(data.id, "container", btn);
+        container.appendChild(btn);
+    } catch (error) {
+        console.error(error);
+        console.log("Error al cargar el perfil del Label");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+async function printsArtistaReleases(artist_id, containerInput, btn) {
     if (btn) btn.remove();
+    const container = (typeof containerInput === 'string')
+        ? document.getElementById(containerInput)
+        : containerInput;
+    if (!container) {
+        console.error(`Error: No se encontró el contenedor con ID "${containerId}"`);
+        return;
+    }
     const token = document.getElementById("myToken").value.trim();
     const url = `https://api.discogs.com/artists/${artist_id}/releases?sort=year&sort_order=asc&per_page=100`;
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     const newDiv = document.createElement('div');
-    const container = document.getElementById(containerId);
+    //const container = document.getElementById(containerId);
     try {
         const response = await fetch(url, {
             headers: {
@@ -1005,11 +1166,9 @@ async function printsArtistaReleases(artist_id, containerId, btn) {
                 'Authorization': `Discogs token=${token}`
             }
         });
-        // --- MANEJO DE RATE LIMIT ---
         const remaining = response.headers.get("X-Discogs-Ratelimit-Remaining");
         console.log(`Peticiones restantes: ${remaining}`);
         alert(`Peticiones restantes: ${remaining}`);
-
         if (remaining && parseInt(remaining) < 5) {
             console.warn("Límite casi alcanzado. Ralentizando...");
             await delay(2000); // Pausa de 2 segundos si quedan pocas peticiones
@@ -1038,7 +1197,6 @@ async function printsArtistaReleases(artist_id, containerId, btn) {
         container.appendChild(idInfo);
         for (const release of releases) {
             if (release.type === "master") {
-                // Esperamos a que verMaster termine de dibujar antes de seguir
                 await verMaster(release.id, "containerReleases");
                 //console.log(`--- Release #${index + 1} ---`);
                 console.log(`Título: ${release.title}`);
@@ -1050,21 +1208,26 @@ async function printsArtistaReleases(artist_id, containerId, btn) {
             }
         }
         container.appendChild(newDiv);
-
     } catch (error) {
         console.error("Error al obtener los releases:", error);
         console.log('Hubo un error al conectar con Discogs. Revisa tu User-Agent o conexión.');
     }
 }
 
-async function printsLabelReleases(data, containerId = "containerReleases") {
+async function printsLabelReleases(label_id, containerInput, btn) {
+    if (btn) btn.remove();
+    const container = (typeof containerInput === 'string')
+        ? document.getElementById(containerInput)
+        : containerInput;
+    if (!container) {
+        console.error(`Error: No se encontró el contenedor con ID "${containerId}"`);
+        return;
+    }
     const token = document.getElementById("myToken").value.trim();
-    const url = `https://api.discogs.com/artists/${data}/releases?sort=year&sort_order=asc&per_page=100`;
-
+    const url = `https://api.discogs.com/labels/${label_id}/releases?sort=year&sort_order=asc&per_page=100`;
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
     const newDiv = document.createElement('div');
-    const container = document.getElementById(containerId);
+
     try {
         const response = await fetch(url, {
             headers: {
@@ -1072,6 +1235,7 @@ async function printsLabelReleases(data, containerId = "containerReleases") {
                 'Authorization': `Discogs token=${token}`
             }
         });
+
         const remaining = response.headers.get("X-Discogs-Ratelimit-Remaining");
         console.log(`Peticiones restantes: ${remaining}`);
         alert(`Peticiones restantes: ${remaining}`);
@@ -1085,7 +1249,7 @@ async function printsLabelReleases(data, containerId = "containerReleases") {
             console.warn("Límite excedido. Esperando 60 segundos...");
             errorLog.push(`ERROR 429: ${errorData.message} "\n" (ID: ${id})\n`);
             await delay(60000);
-            return /*printsArtistaReleases(data, containerId); // Reintenta*/
+            return;
         }
         if (response.status === 404) {
             const errorData = await response.json(); // Leemos {"message": "Artist not found."}
@@ -1099,21 +1263,23 @@ async function printsLabelReleases(data, containerId = "containerReleases") {
         if (!releases || releases.length === 0) {
             return console.log("El artista no tiene lanzamientos registrados.");
         }
+        const idInfo = document.createElement('p');
+        idInfo.innerHTML = `<strong>Discografia ordenada por año </strong>`;
+        container.appendChild(idInfo);
         for (const release of releases) {
-            if (release.type === "master") {
-                // Esperamos a que verMaster termine de dibujar antes de seguir
-                await verMaster(release.id, "containerReleases");
-                //console.log(`--- Release #${index + 1} ---`);
-                console.log(`Título: ${release.title}`);
-                console.log(`Año: ${release.year || 'N/A'}`);
-                console.log(`Sello: ${release.label || 'N/A'}`);
-                console.log(`Tipo: ${release.type}`); // puede ser 'release' o 'master'
-                console.log(`ID: ${release.id}`);
-                console.log(`URL API: ${release.resource_url}`);
-            }
+            await verReleaseNoFetch(release, "containerReleases");
+            // await verRelease(release.id, "containerReleases");
+
+            //console.log(`--- Release #${index + 1} ---`);
+            console.log(`Título: ${release.title}`);
+            console.log(`Año: ${release.year || 'N/A'}`);
+            console.log(`Sello: ${release.label || 'N/A'}`);
+            console.log(`Tipo: ${release.type}`); // puede ser 'release' o 'master'
+            console.log(`ID: ${release.id}`);
+            console.log(`URL API: ${release.resource_url}`);
+            console.log(`Style: ${release.styles}`);
         }
         container.appendChild(newDiv);
-
     } catch (error) {
         console.error("Error al obtener los releases:", error);
         console.log('Hubo un error al conectar con Discogs. Revisa tu User-Agent o conexión.');
@@ -1122,59 +1288,6 @@ async function printsLabelReleases(data, containerId = "containerReleases") {
 
 function printErrorLog() {
     console.log("errorLog: \n" + errorLog);
-}
-
-function cargarBusquedaGuardada() {
-    const backup = localStorage.getItem('ultimaBusqueda');
-
-    if (backup) {
-        const data = JSON.parse(backup);
-        console.log("Restaurando búsqueda de:", data.termino);
-        console.log("data.paginacion: " + data.paginacion.items);
-        // Aquí podrías volver a llenar tus inputs o disparar el renderizado
-        document.getElementById("query").value = data.termino;
-        if (document.getElementById(data.categoria)) {
-            document.getElementById(data.categoria).checked = true;
-        }
-        if (data.paginacion.items > 0) {
-            const pauto = document.getElementById("paginationControls");
-            const btnPrev = document.getElementById("prevBtn");
-            const btnNext = document.getElementById("nextBtn");
-            const info = document.getElementById("pageInfo");
-            pauto.classList.remove("hidden");
-            info.innerText = ` Página ${data.paginacion.page} de ${data.paginacion.pages} `;
-            btnPrev.disabled = !data.paginacion.urls.prev;
-            btnPrev.onclick = () => buscar(data.paginacion.page - 1);
-            btnNext.disabled = !data.paginacion.urls.next;
-            btnNext.onclick = () => buscar(data.paginacion.page + 1);
-            window.currentPage = data.paginacion.page;
-        }
-        // Si querés mostrar los resultados guardados sin volver a llamar a la API:
-        data.resultados.forEach(item => procesarResultado(item, data.categoria));
-    }
-}
-
-function limpiarCache() {
-    if (confirm("¿Estás seguro de borrar los resultados guardados?")) {
-        localStorage.removeItem('ultimaBusqueda');
-        location.reload(); // Recarga la página limpia
-    }
-}
-
-function guardarBusquedaActual() {
-    if (!ultimoDataRecibido) {
-        return alert("Primero realizá una búsqueda para poder guardarla.");
-    }
-    const infoAGuardar = {
-        termino: ultimoDataRecibido.termino,
-        categoria: ultimoDataRecibido.categoria,
-        timestamp: new Date().getTime(),
-        resultados: ultimoDataRecibido.data.results,
-        paginacion: ultimoDataRecibido.data.pagination
-    };
-
-    localStorage.setItem('ultimaBusqueda', JSON.stringify(infoAGuardar));
-    alert("¡Búsqueda guardada en el navegador!");
 }
 
 function exportarHistorialTXT() {
@@ -1207,41 +1320,453 @@ function exportarHistorialTXT() {
     // Limpiamos la memoria
     URL.revokeObjectURL(url);
 }
+//----------------------------------------------------------------
+//----------------------------------------------------------------
 
+function guardarBusquedaActual() {
+    if (!ultimoDataRecibido) {
+        return alert("Primero realizá una búsqueda para poder guardarla.");
+    }
 
-/*
-function pupi(data, containerId, btn) {
-    alert("containerId: " + containerId.name + " - " + `${containerId}`);
-    // 1. Hacemos que el botón desaparezca
-    if (btn) btn.remove();
-    if (!container) {
-        console.log("ERROR NO CONATINER");
+    // 1. Obtener el historial existente del localStorage (o un array vacío si no hay nada)
+    let historial = JSON.parse(localStorage.getItem('historialBusquedas')) || [];
+
+    // 2. Crear el objeto de la nueva búsqueda
+    const nuevaBusqueda = {
+        id: crypto.randomUUID(), // Generamos un ID único por búsqueda
+        termino: ultimoDataRecibido.termino,
+        categoria: ultimoDataRecibido.categoria,
+        timestamp: new Date().toLocaleString(), // Formato legible
+        resultados: ultimoDataRecibido.data.results,
+        paginacion: ultimoDataRecibido.data.pagination
+    };
+
+    // 3. Agregar al principio del array (para que la más reciente aparezca arriba)
+    historial.unshift(nuevaBusqueda);
+
+    // 4. Opcional: Limitar el historial (ej. guardar solo las últimas 10 búsquedas)
+    if (historial.length > 10) {
+        historial.pop(); // Borra la más vieja
+    }
+
+    // 5. Guardar el array completo de nuevo en localStorage
+    localStorage.setItem('historialBusquedas', JSON.stringify(historial));
+
+    alert(`¡Búsqueda de "${nuevaBusqueda.termino}" guardada! (Total: ${historial.length})`);
+}
+
+function mostrarHistorial() {
+
+    ["container", "containerReleases", "resultsList"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = "";
+    });
+
+    const historial = JSON.parse(localStorage.getItem('historialBusquedas')) || [];
+    const container = document.getElementById("containerReleases");
+    container.innerHTML = "<h3>Historial de Búsquedas</h3>";
+    if (historial.length === 0) {
+        container.innerHTML += "<p>No hay búsquedas guardadas.</p>";
+        return;
+    }
+    historial.forEach(busqueda => {
+        const item = document.createElement("div");
+        item.style.cssText = "border: 1px solid #ddd; padding: 10px; margin-bottom: 5px; border-radius: 5px; background: #fff; display: flex; justify-content: space-between; align-items: center;";
+        item.innerHTML = `
+            <div>
+                <strong>${busqueda.termino}</strong> <small>(${busqueda.categoria})</small><br>
+                <span style="font-size: 0.8em; color: #666;">${busqueda.timestamp}</span>
+            </div>
+            <div id="acciones-historial"></div>
+        `;
+        const acciones = item.querySelector("#acciones-historial");
+        // Botón Cargar (Verde)
+        const btnCargar = document.createElement("button");
+        btnCargar.textContent = "Cargar";
+        btnCargar.style.cssText = "padding: 5px 10px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 3px; margin-right: 5px;";
+        btnCargar.onclick = () => restaurarBusqueda(busqueda);
+        // Botón Borrar Individual (Rojo)
+        const btnBorrar = document.createElement("button");
+        btnBorrar.textContent = "Eliminar";
+        btnBorrar.style.cssText = "padding: 5px 10px; cursor: pointer; background: #dc3545; color: white; border: none; border-radius: 3px;";
+        btnBorrar.onclick = () => eliminarBusquedaIndividual(busqueda.id);
+        acciones.appendChild(btnCargar);
+        acciones.appendChild(btnBorrar);
+        container.appendChild(item);
+    });
+    // Botón para borrar todo el historial (al final)
+    const btnBorrarTodo = document.createElement("button");
+    btnBorrarTodo.textContent = "Limpiar Todo el Historial";
+    btnBorrarTodo.style.cssText = "margin-top: 15px; color: #dc3545; background: none; border: 1px solid #dc3545; cursor: pointer; padding: 5px; width: 100%;";
+    btnBorrarTodo.onclick = () => {
+        if (confirm("¿Borrar TODO el historial?")) {
+            localStorage.removeItem('historialBusquedas');
+            mostrarHistorial();
+        }
+    };
+    container.appendChild(btnBorrarTodo);
+}
+
+function restaurarBusqueda(busquedaGuardada) {
+    // 1. Recomponemos el objeto global para que tus otras funciones sigan funcionando
+    ultimoDataRecibido = {
+        termino: busquedaGuardada.termino,
+        categoria: busquedaGuardada.categoria,
+        data: {
+            results: busquedaGuardada.resultados,
+            pagination: busquedaGuardada.paginacion
+        }
+    };
+    container.innerHTML = "";
+    // 2. Llamamos a la función que normalmente renderiza tus resultados de búsqueda
+    // Suponiendo que tenés una función llamada 'renderizarResultados'
+    renderizarResultados(busquedaGuardada.resultados);
+
+    alert(`Restaurada búsqueda: ${busquedaGuardada.termino}`);
+}
+
+function renderizarResultados(resultados) {
+    const container = document.getElementById("containerReleases");
+
+    // 1. Limpiamos el contenedor para quitar lo que haya (o el historial)
+    container.innerHTML = "";
+
+    // 2. Verificamos si hay resultados para mostrar
+    if (!resultados || resultados.length === 0) {
+        container.innerHTML = "<p>No se encontraron resultados para esta búsqueda.</p>";
         return;
     }
 
-    //const container = document.getElementById(containerId);
-    if (data.styles) {
-        const styles = document.createElement("p");
-        styles.style.clear = "both";
-        styles.innerHTML = `<strong>Styles:</strong> ${data.styles.join(", ")}`;
-        container.appendChild(styles);
-    }
-    if (data.tracklist) {
-        const trackDiv = document.createElement("div");
-        trackDiv.style.clear = "both"; 
-        trackDiv.innerHTML = "<strong>Tracklist:</strong>";
-        data.tracklist.forEach(track => {
-            const p = document.createElement("div");
-            p.textContent = `${track.position} - ${track.title} ${track.duration ? '(' + track.duration + ')' : ''}`;
-            trackDiv.appendChild(p);
-        });
-        container.appendChild(trackDiv);
+    // 3. Iteramos sobre los resultados guardados
+    // Usamos la categoría almacenada en el objeto global 'ultimoDataRecibido'
+    resultados.forEach(item => {
+        procesarResultado(item, ultimoDataRecibido.categoria);
+    });
+
+    // 4. (Opcional) Si tenés controles de paginación, podrías actualizarlos aquí
+    actualizarInterfazPaginacion(ultimoDataRecibido.data.pagination);
+}
+
+function actualizarInterfazPaginacion(paginacion) {
+    const pauto = document.getElementById("paginationControls");
+    const btnPrev = document.getElementById("prevBtn");
+    const btnNext = document.getElementById("nextBtn");
+    const info = document.getElementById("pageInfo");
+
+    // 1. Si no hay paginación o solo hay 0 items, ocultamos los controles
+    if (!paginacion || paginacion.items === 0) {
+        pauto.classList.add("hidden");
+        return;
     }
 
-    const btnMore = document.createElement('button');
-    btnMore.textContent = "Más detalles";
-    btnMore.style.cssText = "margin-top: 10px; padding: 8px 16px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
-    btnMore.onclick = () => detalleRestanteMaster(data, div, btnMore);
-    container.appendChild(btnMore);
+    // 2. Mostramos el contenedor de paginación
+    pauto.classList.remove("hidden");
+
+    // 3. Actualizamos el texto de "Página X de Y"
+    info.innerText = ` Página ${paginacion.page} de ${paginacion.pages} `;
+
+    // 4. Configuramos el botón "Anterior"
+    // Se deshabilita si no hay una URL previa en la data de la API
+    btnPrev.disabled = !paginacion.urls.prev;
+    btnPrev.onclick = () => {
+        if (paginacion.page > 1) {
+            buscar(paginacion.page - 1);
+        }
+    };
+
+    // 5. Configuramos el botón "Siguiente"
+    // Se deshabilita si no hay una URL siguiente
+    btnNext.disabled = !paginacion.urls.next;
+    btnNext.onclick = () => {
+        if (paginacion.page < paginacion.pages) {
+            buscar(paginacion.page + 1);
+        }
+    };
+
+    // 6. Sincronizamos la variable global de página (si la usas en tu app)
+    window.currentPage = paginacion.page;
+}
+
+function eliminarBusquedaIndividual(id) {
+    if (confirm("¿Estás seguro de eliminar esta búsqueda del historial?")) {
+        // 1. Obtener historial actual
+        let historial = JSON.parse(localStorage.getItem('historialBusquedas')) || [];
+
+        // 2. Filtrar para excluir el ID seleccionado
+        historial = historial.filter(busqueda => busqueda.id !== id);
+
+        // 3. Guardar la nueva lista y refrescar la vista
+        localStorage.setItem('historialBusquedas', JSON.stringify(historial));
+        mostrarHistorial();
+    }
+}
+
+//----------------------------------------------------------------
+/*
+{
+  "pagination": {
+    "items": 4,
+    "page": 1,
+    "pages": 1,
+    "per_page": 50
+  },
+  "results": [
+    {
+      "id": 112,
+      "type": "artist",
+      "title": "Nirvana",
+      "resource_url": "https://discogs.com",
+      "thumb": "https://discogs.com"
+    },
+    {
+      "id": 358,
+      "type": "label",
+      "title": "Sub Pop",
+      "resource_url": "https://discogs.com",
+      "thumb": "https://discogs.com"
+    },
+    {
+      "id": 13814,
+      "type": "master",
+      "title": "Nirvana - Nevermind",
+      "year": "1991",
+      "resource_url": "https://discogs.com",
+      "genre": ["Rock"],
+      "style": ["Grunge"]
+    },
+    {
+      "id": 154784,
+      "type": "release",
+      "title": "Nirvana - Nevermind",
+      "year": "1991",
+      "resource_url": "https://discogs.com",
+      "format": ["Vinyl", "LP", "Album"],
+      "catno": "DGC-24425",
+      "label": ["DGC"]
+    }
+  ]
+}
+
+
+
+*/
+
+//------------------------------------------------------------
+//------------------------------------------------------------
+/* VIEJO
+async function verReleaseSmall(value) {
+    const token = document.getElementById("myToken").value.trim();
+    if (!value) {
+        console.error('ID de release no proporcionado');
+        return;
+    }
+    const url = `https://api.discogs.com/releases/${value}`;
+    try {
+        const resultsList = document.getElementById("resultsList");
+        const response = await fetch(url, {
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
+                'Authorization': `Discogs token=${token}`
+            }
+        });
+
+        if (response.status === 404) {
+            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
+            console.log(`Aviso: ${errorData.message} "\n" (ID: ${id})`);
+            errorLog.push(`ERROR 404: ${errorData.message} "\n" (ID: ${id})\n`);
+            return; // Salimos de la función sin lanzar un error "grave" al catch
+        }
+        if (response.status === 429) {
+            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
+            console.log(`429 Aviso: ${errorData.message} (ID: ${id})`);
+            errorLog.push(`ERROR 429: ${errorData.message} "\n" (ID: ${id})\n`);
+            return; // Salimos de la función sin lanzar un error "grave" al catch
+        }
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+
+        const data = await response.json();
+
+        const div = document.createElement('div');
+        div.style.cssText = "border: 2px solid #0066cc; margin: 15px 0; padding: 15px; border-radius: 8px; background-color: #f9f9f9; overflow: hidden;";
+
+        // Imagen (Validación segura)
+        if (data.thumb) {
+            const img = document.createElement('img');
+            img.src = data.thumb;
+            img.style.cssText = "max-width: 160px; max-height: 160px; margin-right: 15px; float: left;";
+            div.appendChild(img);
+        }
+
+        // Nombre Artista (Uso de ?. y valor por defecto)
+        const nombre = document.createElement('h3');
+        nombre.textContent = data.artists?.[0]?.name || "Artista desconocido";
+        div.appendChild(nombre);
+
+        // Título
+        const titulo = document.createElement('h3');
+        titulo.textContent = data.title || "Sin título";
+        div.appendChild(titulo);
+
+        // ID
+        const idInfo = document.createElement('p');
+        idInfo.innerHTML = `<strong>ID:</strong> ${data.id || 'N/A'}`;
+        div.appendChild(idInfo);
+
+        // Botón (Validación del ID del artista para la función posterior)
+        const artistaId = data.artists?.[0]?.id;
+        if (artistaId) {
+            const btn = document.createElement('button');
+            btn.textContent = "Ver artista";
+            btn.style.cssText = "margin-top: 10px; padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
+            //ARREGLAR ESTO 
+            //      btn.onclick = () => obtenerDetalleRelease(artistaId);
+            div.appendChild(btn);
+        }
+
+        resultsList.appendChild(div);
+
+    } catch (error) {
+        console.error('Error al buscar VER:', error);
+        console.log('Hubo un error al procesar los datos de Discogs.');
+    }
 }
 */
+
+/* VIEJO
+async function verLabelSmall(value) {
+    const URL = value.toString();
+    const token = document.getElementById("myToken").value.trim();
+    const resultsList = document.getElementById("resultsList");
+    try {
+        const response = await fetch(URL, {
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
+                'Authorization': `Discogs token=${token}`
+            }
+        });
+
+        if (response.status === 404) {
+            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
+            console.log(`Aviso: ${errorData.message} "\n" (ID: ${id})`);
+            errorLog.push(`ERROR 404: ${errorData.message} "\n" (ID: ${id})\n`);
+            return; // Salimos de la función sin lanzar un error "grave" al catch
+        }
+        if (response.status === 429) {
+            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
+            console.log(`429 Aviso: ${errorData.message} (ID: ${id})`);
+            errorLog.push(`ERROR 429: ${errorData.message} "\n" (ID: ${id})\n`);
+            return; // Salimos de la función sin lanzar un error "grave" al catch
+        }
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const data = await response.json();
+
+        const div = document.createElement('div');
+        div.className = "label-card";
+        div.style = "border: 2px solid #0066cc; margin: 15px 0; padding: 15px; border-radius: 8px; background-color: #f9f9f9; overflow: hidden;";
+
+        // Placeholder genérico si no hay imagen
+        const imgUrl = data.images?.[0]?.resource_url || 'https://placeholder.com';
+        const name = data.name || 'Nombre no disponible';
+
+        // Limpiar un poco el perfil (Discogs usa tags como [l=...] o [a=...])
+        const profile = data.profile ? `<p>${data.profile.substring(0, 250)}...</p>` : '<p>Sin descripción.</p>';
+
+        div.innerHTML = `
+            <img src="${imgUrl}" style="max-width: 160px; max-height: 160px; margin-right: 15px; float: left; border-radius: 4px;">
+            <div style="display: flow-root;">
+                <h3 style="margin-top: 0;">${name}</h3>
+                <p><strong>ID:</strong> ${data.id}</p>
+                ${profile}
+                <button id="btn-${data.id}" style="margin-top: 10px; padding: 8px 16px; background-color: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Ver sello
+                </button>
+            </div>
+        `;
+
+        resultsList.appendChild(div);
+        document.getElementById(`btn-${data.id}`).onclick = () => obtenerDetalleLabel(data.id, container);
+
+    } catch (error) {
+        console.error('Error al buscar sello:', error);
+        console.log('No se pudo cargar la información del sello. Verifica el ID.');
+    }
+}
+
+*/
+
+/* VIEJO
+
+async function verMasterSmall(value, containerId = "resultsList") {
+    const token = document.getElementById("myToken").value.trim();
+    const container = document.getElementById(containerId);
+    try {
+        const response = await fetch(value, {
+            headers: {
+                'User-Agent': 'Galang/1.0 +https://github.com/juliavra',
+                'Authorization': `Discogs token=${token}`
+            }
+        });
+        if (response.status === 404) {
+            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
+            console.log(`Aviso: ${errorData.message} "\n" (ID: ${id})`);
+            errorLog.push(`ERROR 404: ${errorData.message} "\n" (ID: ${id})\n`);
+            return; // Salimos de la función sin lanzar un error "grave" al catch
+        }
+        if (response.status === 429) {
+            const errorData = await response.json(); // Leemos {"message": "Artist not found."}
+            console.log(`429 Aviso: ${errorData.message} (ID: ${id})`);
+            errorLog.push(`ERROR 429: ${errorData.message} "\n" (ID: ${id})\n`);
+            return; // Salimos de la función sin lanzar un error "grave" al catch
+        }
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        const data = await response.json();
+
+        const div = document.createElement('div');
+        div.style.border = "2px solid #0066cc";
+        div.style.margin = "15px 0";
+        div.style.padding = "15px";
+        div.style.borderRadius = "8px";
+        div.style.backgroundColor = "#f9f9f9";
+        div.style.overflow = "hidden";
+        // Imagen (si existe)
+        if (data.images && data.images.length > 0) {
+            const img = document.createElement('img');
+            img.src = data.images[0].resource_url;
+            img.style.maxWidth = "160px";
+            img.style.maxHeight = "160px";
+            img.style.marginRight = "15px";
+            img.style.float = "left";
+            div.appendChild(img);
+        }
+        // Titulo + year
+        const titulo = document.createElement('h3');
+        titulo.textContent = `(${data.year || 'N/A'}) ${data.title}`;
+        div.appendChild(titulo);
+        // nombre
+        const nombre = document.createElement('p');
+        nombre.style.fontWeight = "bold";
+        nombre.textContent = "Artista: " + data.artists.map(a => a.name).join(", ");
+        div.appendChild(nombre);
+        // ID
+        const idInfo = document.createElement('h3');
+        idInfo.textContent = "ID " + "(" + data.id + ")";
+        div.appendChild(idInfo);
+
+        const btn = document.createElement('button');
+        btn.textContent = "Ver detalle del album";
+        btn.style.cssText = "margin-top: 10px; padding: 8px 16px; background: #0066cc; color: white; border: none; border-radius: 4px; cursor: pointer;";
+
+        // Pasamos el div para inyectar info y el botón para borrarlo
+        btn.onclick = () => verMaster(data, containerId = "resultsList", btn);
+        div.appendChild(btn);
+
+        // ESTA ES LA ÚNICA VEZ QUE SE HACE APPEND AL CONTAINER
+        container.appendChild(div);
+
+    } catch (error) {
+        console.error('Error al usar verMaster:', error);
+        console.log('Hubo un error al conectar con Discogs. Revisa tu User-Agent o conexión.');
+    }
+    
+}
+/**/
