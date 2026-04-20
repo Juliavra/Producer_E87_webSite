@@ -2,127 +2,168 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Calculadora de Puntos Fútbol</title>
+    <title>Carga de Partidos - Liga Argentina</title>
     <style>
-        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; background-color: #f0f2f5; }
-        .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 350px; }
-        .input-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        input { width: 60px; padding: 8px; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-size: 1.2rem; }
-        button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
-        button:hover { background-color: #218838; }
-        .resultado { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eee; }
-        .puntos { font-weight: bold; color: #007bff; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; }
+        .match-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 20px; }
+        .team-input { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+        select, input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
+        input { width: 60px; text-align: center; }
+        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: bold; }
+        button:hover { background-color: #0056b3; }
+        .tabla-container { margin-top: 30px; width: 100%; max-width: 800px; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px; text-align: center; border-bottom: 1px solid #eee; }
+        th { background-color: #343a40; color: white; }
+        tr:nth-child(even) { background-color: #f8f9fa; }
+        tr:first-child { font-weight: bold; color: #28a745; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h3>Cargar Resultado</h3>
-    
-    <div class="input-group">
-        <label>Equipo A</label>
-        <input type="number" id="golesA" value="0" min="0">
-    </div>
-    
-    <div class="input-group">
-        <label>Equipo B</label>
-        <input type="number" id="golesB" value="0" min="0">
-    </div>
+<div class="container">
+    <h2>Registrar Resultado</h2>
+    <div class="match-row">
+        <!-- Equipo Local -->
+        <div class="team-input">
+            <select id="selectA" onchange="actualizarSelectB()"></select>
+            <input type="number" id="golesA" value="0" min="0" placeholder="Goles">
+        </div>
 
-    <button onclick="mostrarPuntaje()">Calcular Puntos</button>
+        <span>VS</span>
 
-    <div class="resultado" id="resultado" style="display: none;">
-        <p>Puntos Equipo A: <span id="puntosA" class="puntos">0</span></p>
-        <p>Puntos Equipo B: <span id="puntosB" class="puntos">0</span></p>
+        <!-- Equipo Visitante -->
+        <div class="team-input">
+            <select id="selectB"></select>
+            <input type="number" id="golesB" value="0" min="0" placeholder="Goles">
+        </div>
     </div>
+    <button onclick="procesarPartido()">Cargar Partido</button>
+</div>
+
+<div class="tabla-container">
+    <h3>Tabla de Posiciones</h3>
+    <table id="tablaPosiciones">
+        <thead>
+            <tr>
+                <th>Equipo</th>
+                <th>PJ</th>
+                <th>PG</th>
+                <th>PE</th>
+                <th>PP</th>
+                <th>GF</th>
+                <th>GE</th>
+                <th>Pts</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpoTabla"></tbody>
+    </table>
 </div>
 
 <script>
-    function mostrarPuntaje() {
-        // Obtenemos los valores de los inputs
-        const gA = parseInt(document.getElementById('golesA').value) || 0;
-        const gB = parseInt(document.getElementById('golesB').value) || 0;
-
-        let pA = 0, pB = 0;
-
-        if (gA === gB) {
-            const puntosEmpate = gA === 0 ? 0 : 1;
-            pA = puntosEmpate;
-            pB = puntosEmpate;
-        } else {
-            const dif = Math.abs(gA - gB);
-            const puntosGanador = 3 + Math.min(dif, 3);
-            
-            if (gA > gB) { pA = puntosGanador; pB = 0; }
-            else { pA = 0; pB = puntosGanador; }
+    class Equipo {
+        constructor(nombre) {
+            this.nombre = nombre;
+            this.partidosJugados = 0;
+            this.partidosGanados = 0;
+            this.partidosEmpatados = 0;
+            this.partidosPerdidos = 0;
+            this.golesAFavor = 0;
+            this.golesEnContra = 0;
+            this.puntajeTotal = 0;
         }
 
-        // Mostramos los resultados en el HTML
-        document.getElementById('puntosA').innerText = pA;
-        document.getElementById('puntosB').innerText = pB;
-        document.getElementById('resultado').style.display = 'block';
-    }
+        registrarPartido(golesPropios, golesRivales) {
+            this.partidosJugados++;
+            this.golesAFavor += golesPropios;
+            this.golesEnContra += golesRivales;
 
-class Equipo {
-    constructor(nombre) {
-        this.nombre = nombre;
-        this.partidosJugados = 0;
-        this.partidosGanados = 0;
-        this.partidosEmpatados = 0;
-        this.partidosPerdidos = 0;
-        this.golesAFavor = 0;
-        this.golesEnContra = 0;
-        this.puntajeTotal = 0;
-    }
-
-    registrarPartido(golesPropios, golesRivales) {
-        this.partidosJugados++;
-        this.golesAFavor += golesPropios;
-        this.golesEnContra += golesRivales;
-
-        if (golesPropios === golesRivales) {
-            // Lógica de empates
-            this.partidosEmpatados++;
-            if (golesPropios > 0) {
-                this.puntajeTotal += 1;
+            if (golesPropios === golesRivales) {
+                this.partidosEmpatados++;
+                this.puntajeTotal += (golesPropios > 0) ? 1 : 0;
+            } else if (golesPropios > golesRivales) {
+                this.partidosGanados++;
+                const dif = golesPropios - golesRivales;
+                this.puntajeTotal += 3 + Math.min(dif, 3);
+            } else {
+                this.partidosPerdidos++;
             }
-            // Si es 0-0, se suma el partido jugado pero 0 puntos
-        } 
-        else if (golesPropios > golesRivales) {
-            // Lógica de victoria
-            this.partidosGanados++;
-            const diferencia = golesPropios - golesRivales;
-            // 3 puntos base + diferencia (máximo 3 extra)
-            const puntosGanados = 3 + Math.min(diferencia, 3);
-            this.puntajeTotal += puntosGanados;
-        } 
-        else {
-            // Lógica de derrota
-            this.partidosPerdidos++;
-            // 0 puntos
         }
     }
-}
 
-// --- Ejemplo de uso ---
-const miEquipo = new Equipo("Los Galácticos");
+    const nombresEquipos = ["Aldosivi", "Argentinos Juniors", "Atlético Tucumán", "Banfield", "Barracas Central", "Belgrano (Córdoba)", "Boca Juniors", "Central Córdoba (SdE)", "Defensa y Justicia", "Deportivo Riestra", "Estudiantes LP", "Gimnasia LP", "Godoy Cruz (Mendoza)", "Huracán", "Independiente", "Independiente Rivadavia", "Instituto (Córdoba)", "Lanús", "Newell's Old Boys", "Platense", "Racing Club", "River Plate", "Rosario Central", "San Lorenzo", "Sarmiento (Junín)", "Talleres (Córdoba)", "Tigre", "Unión (Santa Fe)", "Vélez Sarsfield"];
+    
+    const liga = nombresEquipos.map(n => new Equipo(n));
 
-miEquipo.registrarPartido(0, 0); // Empate 0-0 (0 pts)
-miEquipo.registrarPartido(2, 2); // Empate con goles (1 pt)
-miEquipo.registrarPartido(4, 1); // Victoria por 3 goles (3 base + 3 extra = 6 pts)
+    function popularSelects() {
+        const selectA = document.getElementById('selectA');
+        selectA.innerHTML = '<option value="">Seleccione Local...</option>';
+        liga.forEach(eq => {
+            let opt = document.createElement('option');
+            opt.value = eq.nombre;
+            opt.textContent = eq.nombre;
+            selectA.appendChild(opt);
+        });
+        actualizarSelectB();
+    }
 
-console.log(miEquipo);
-/* 
-Resultado esperado:
-- partidosJugados: 3
-- partidosGanados: 1
-- partidosEmpatados: 2
-- partidosPerdidos: 0
-- golesAFavor: 6
-- golesEnContra: 3
-- puntajeTotal: 7
-*/
+    function actualizarSelectB() {
+        const selectA = document.getElementById('selectA');
+        const selectB = document.getElementById('selectB');
+        const seleccionadoA = selectA.value;
 
+        selectB.innerHTML = '<option value="">Seleccione Visitante...</option>';
+        
+        liga.filter(eq => eq.nombre !== seleccionadoA).forEach(eq => {
+            let opt = document.createElement('option');
+            opt.value = eq.nombre;
+            opt.textContent = eq.nombre;
+            selectB.appendChild(opt);
+        });
+    }
+
+    function procesarPartido() {
+        const nombreA = document.getElementById('selectA').value;
+        const nombreB = document.getElementById('selectB').value;
+        const gA = parseInt(document.getElementById('golesA').value);
+        const gB = parseInt(document.getElementById('golesB').value);
+
+        if (!nombreA || !nombreB) return alert("Selecciona ambos equipos");
+
+        const eqA = liga.find(e => e.nombre === nombreA);
+        const eqB = liga.find(e => e.nombre === nombreB);
+
+        eqA.registrarPartido(gA, gB);
+        eqB.registrarPartido(gB, gA);
+
+        actualizarTablaUI();
+    }
+
+    function actualizarTablaUI() {
+        const cuerpo = document.getElementById('cuerpoTabla');
+        cuerpo.innerHTML = '';
+
+        // Ordenar por puntos (y diferencia de gol como segundo criterio opcional)
+        const ordenados = [...liga].sort((a, b) => b.puntajeTotal - a.puntajeTotal || (b.golesAFavor - b.golesEnContra) - (a.golesAFavor - a.golesEnContra));
+
+        ordenados.forEach(eq => {
+            const fila = `<tr>
+                <td style="text-align:left">${eq.nombre}</td>
+                <td>${eq.partidosJugados}</td>
+                <td>${eq.partidosGanados}</td>
+                <td>${eq.partidosEmpatados}</td>
+                <td>${eq.partidosPerdidos}</td>
+                <td>${eq.golesAFavor}</td>
+                <td>${eq.golesEnContra}</td>
+                <td class="puntos">${eq.puntajeTotal}</td>
+            </tr>`;
+            cuerpo.innerHTML += fila;
+        });
+    }
+
+    popularSelects();
+    actualizarTablaUI();
 </script>
 
 </body>
