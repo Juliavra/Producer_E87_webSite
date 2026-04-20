@@ -1,122 +1,68 @@
-class Equipo {
-    constructor(nombre) {
-        this.nombre = nombre;
-        this.partidosJugados = 0;
-        this.partidosGanados = 0;
-        this.partidosEmpatados = 0;
-        this.partidosPerdidos = 0;
-        this.golesAFavor = 0;
-        this.golesEnContra = 0;
-        this.puntajeTotal = 0;
-    }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Puntos Fútbol</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; background-color: #f0f2f5; }
+        .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 350px; }
+        .input-group { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        input { width: 60px; padding: 8px; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-size: 1.2rem; }
+        button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 1rem; }
+        button:hover { background-color: #218838; }
+        .resultado { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eee; }
+        .puntos { font-weight: bold; color: #007bff; }
+    </style>
+</head>
+<body>
 
-    registrarPartido(golesPropios, golesRivales) {
-        this.partidosJugados++;
-        this.golesAFavor += golesPropios;
-        this.golesEnContra += golesRivales;
+<div class="card">
+    <h3>Cargar Resultado</h3>
+    
+    <div class="input-group">
+        <label>Equipo A</label>
+        <input type="number" id="golesA" value="0" min="0">
+    </div>
+    
+    <div class="input-group">
+        <label>Equipo B</label>
+        <input type="number" id="golesB" value="0" min="0">
+    </div>
 
-        if (golesPropios === golesRivales) {
-            // Lógica de empates
-            this.partidosEmpatados++;
-            if (golesPropios > 0) {
-                this.puntajeTotal += 1;
-            }
-            // Si es 0-0, se suma el partido jugado pero 0 puntos
-        } 
-        else if (golesPropios > golesRivales) {
-            // Lógica de victoria
-            this.partidosGanados++;
-            const diferencia = golesPropios - golesRivales;
-            // 3 puntos base + diferencia (máximo 3 extra)
-            const puntosGanados = 3 + Math.min(diferencia, 3);
-            this.puntajeTotal += puntosGanados;
-        } 
-        else {
-            // Lógica de derrota
-            this.partidosPerdidos++;
-            // 0 puntos
-        }
-    }
-}
+    <button onclick="mostrarPuntaje()">Calcular Puntos</button>
 
-// --- Ejemplo de uso ---
-const miEquipo = new Equipo("Los Galácticos");
+    <div class="resultado" id="resultado" style="display: none;">
+        <p>Puntos Equipo A: <span id="puntosA" class="puntos">0</span></p>
+        <p>Puntos Equipo B: <span id="puntosB" class="puntos">0</span></p>
+    </div>
+</div>
 
-miEquipo.registrarPartido(0, 0); // Empate 0-0 (0 pts)
-miEquipo.registrarPartido(2, 2); // Empate con goles (1 pt)
-miEquipo.registrarPartido(4, 1); // Victoria por 3 goles (3 base + 3 extra = 6 pts)
+<script>
+    function mostrarPuntaje() {
+        // Obtenemos los valores de los inputs
+        const gA = parseInt(document.getElementById('golesA').value) || 0;
+        const gB = parseInt(document.getElementById('golesB').value) || 0;
 
-console.log(miEquipo);
-/* 
-Resultado esperado:
-- partidosJugados: 3
-- partidosGanados: 1
-- partidosEmpatados: 2
-- partidosPerdidos: 0
-- golesAFavor: 6
-- golesEnContra: 3
-- puntajeTotal: 7
-*/
+        let pA = 0, pB = 0;
 
-/*
-class Equipo {
-    constructor(nombre) {
-        this.nombre = nombre;
-        this.partidosJugados = 0;
-        this.partidosGanados = 0;
-        this.partidosEmpatados = 0;
-        this.partidosPerdidos = 0;
-        this.golesAFavor = 0;
-        this.golesEnContra = 0;
-        this.puntajeTotal = 0;
-    }
-
-    registrarPartido(golesPropios, golesRivales) {
-        this.partidosJugados++;
-        this.golesAFavor += golesPropios;
-        this.golesEnContra += golesRivales;
-
-        if (golesPropios === golesRivales) {
-            this.partidosEmpatados++;
-            this.puntajeTotal += (golesPropios > 0) ? 1 : 0;
-        } else if (golesPropios > golesRivales) {
-            this.partidosGanados++;
-            const diferencia = golesPropios - golesRivales;
-            this.puntajeTotal += 3 + Math.min(diferencia, 3);
+        if (gA === gB) {
+            const puntosEmpate = gA === 0 ? 0 : 1;
+            pA = puntosEmpate;
+            pB = puntosEmpate;
         } else {
-            this.partidosPerdidos++;
+            const dif = Math.abs(gA - gB);
+            const puntosGanador = 3 + Math.min(dif, 3);
+            
+            if (gA > gB) { pA = puntosGanador; pB = 0; }
+            else { pA = 0; pB = puntosGanador; }
         }
+
+        // Mostramos los resultados en el HTML
+        document.getElementById('puntosA').innerText = pA;
+        document.getElementById('puntosB').innerText = pB;
+        document.getElementById('resultado').style.display = 'block';
     }
-}
+</script>
 
-// 1. Array con equipos ingresados previamente
-const liga = [
-    new Equipo("Tigres"),
-    new Equipo("Delfines"),
-    new Equipo("Águilas"),
-    new Equipo("Leones")
-];
-
-// 2. Función para registrar un encuentro entre dos equipos del array
-function simularPartido(nombreEquipoA, golesA, nombreEquipoB, golesB) {
-    const equipoA = liga.find(e => e.nombre === nombreEquipoA);
-    const equipoB = liga.find(e => e.nombre === nombreEquipoB);
-
-    if (equipoA && equipoB) {
-        equipoA.registrarPartido(golesA, golesB);
-        equipoB.registrarPartido(golesB, golesA);
-    } else {
-        console.error("Uno de los equipos no existe en la liga.");
-    }
-}
-
-// 3. Simulamos algunos resultados
-simularPartido("Tigres", 3, "Delfines", 0); // Tigres gana 3-0 (6 pts)
-simularPartido("Águilas", 1, "Leones", 1);  // Empate 1-1 (1 pt cada uno)
-simularPartido("Tigres", 0, "Águilas", 0);  // Empate 0-0 (0 pts cada uno)
-
-// 4. Mostramos la tabla de posiciones ordenada por puntaje (de mayor a menor)
-const tablaPosiciones = [...liga].sort((a, b) => b.puntajeTotal - a.puntajeTotal);
-
-console.table(tablaPosiciones);
-*/
+</body>
+</html>
