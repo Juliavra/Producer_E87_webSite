@@ -18,9 +18,8 @@
         th { background: #343a40; color: white; font-size: 0.9rem; }
         tr:nth-child(even) { background-color: #f8f9fa; }
         .pts-col { background-color: #e7f1ff; font-weight: bold; color: #0056b3; font-size: 1.1rem; }
+        .actual-col { background-color: #f1f3f5; font-weight: bold; color: #495057; }
         .log-box { background: #222; color: #2ecc71; padding: 15px; font-family: monospace; border-radius: 6px; height: 100px; overflow-y: auto; width: 100%; box-sizing: border-box; font-size: 0.85rem; }
-        
-        /* Estilos para la nueva sección de búsqueda */
         .search-results { margin-top: 15px; padding: 10px; border-top: 1px solid #eee; width: 100%; }
         .match-item { padding: 8px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
         .win { color: #28a745; font-weight: bold; }
@@ -64,7 +63,7 @@
         <thead>
             <tr>
                 <th style="text-align: left;">Equipo</th>
-                <th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th class="pts-col">PTS</th>
+                <th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th class="pts-col">PTS</th><th class="actual-col">ACTUAL</th>
             </tr>
         </thead>
         <tbody id="bodyA"></tbody>
@@ -77,7 +76,7 @@
         <thead>
             <tr>
                 <th style="text-align: left;">Equipo</th>
-                <th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th class="pts-col">PTS</th>
+                <th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th class="pts-col">PTS</th><th class="actual-col">ACTUAL</th>
             </tr>
         </thead>
         <tbody id="bodyB"></tbody>
@@ -118,23 +117,18 @@ function verPartidos() {
     const equipo = document.getElementById('searchEq').value;
     const container = document.getElementById('listaPartidos');
     container.innerHTML = `<h4>Partidos de ${equipo}:</h4>`;
-    
-    // CAMBIO CLAVE: Comparamos nombres exactos separando la línea por comas
     const filtrados = historial.filter(linea => {
         const [eqL, , , eqV] = linea.split(',');
         return eqL === equipo || eqV === equipo;
     });
-    
     if(filtrados.length === 0) {
         container.innerHTML += "<p>No hay partidos registrados para este equipo.</p>";
         return;
     }
-
     filtrados.forEach(linea => {
         const [eqL, gL, gV, eqV] = linea.split(',');
         let resultadoClase = "";
         let textoResultado = "";
-
         if(eqL === equipo) {
             const golesPropio = parseInt(gL);
             const golesRival = parseInt(gV);
@@ -146,14 +140,13 @@ function verPartidos() {
             textoResultado = `${golesPropio} - ${golesRival} vs ${eqL}`;
             resultadoClase = golesPropio > golesRival ? "win" : (golesPropio < golesRival ? "loss" : "draw");
         }
-
         container.innerHTML += `<div class="match-item"><span>${textoResultado}</span> <span class="${resultadoClase}">${resultadoClase.toUpperCase()}</span></div>`;
     });
 }
 
 function render() {
     let stats = {};
-    equipos30.forEach(n => stats[n] = {pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0});
+    equipos30.forEach(n => stats[n] = {pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, ptsActual:0});
 
     historial.forEach(linea => {
         const partes = linea.split(',').map(s => s.trim());
@@ -169,14 +162,19 @@ function render() {
             if (gL === gV) {
                 stats[l].pe++; stats[v].pe++;
                 const p = gL > 0 ? 1 : 0;
-                stats[l].pts += p; stats[v].pts += p;
+                stats[l].pts += p;
+                stats[v].pts += p;
+                // Cálculo Actual: 1 punto por empate
+                stats[l].ptsActual += 1;
+                stats[v].ptsActual += 1;
             } else {
                 const ganoL = gL > gV;
                 const ganador = ganoL ? l : v;
                 const perdedor = ganoL ? v : l;
-                stats[ganador].pg++;
-                stats[perdedor].pp++;
+                stats[ganador].pg++; stats[perdedor].pp++;
                 stats[ganador].pts += 3 + Math.min(Math.abs(gL - gV), 3);
+                // Cálculo Actual: 3 puntos por ganar
+                stats[ganador].ptsActual += 3;
             }
         }
     });
@@ -192,6 +190,7 @@ function render() {
                 <td>${e.pj}</td><td>${e.pg}</td><td>${e.pe}</td><td>${e.pp}</td>
                 <td>${e.gf}</td><td>${e.gc}</td><td>${e.gf - e.gc}</td>
                 <td class="pts-col">${e.pts}</td>
+                <td class="actual-col">${e.ptsActual}</td>
             </tr>
         `).join('');
     };
