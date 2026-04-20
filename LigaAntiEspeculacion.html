@@ -1,0 +1,60 @@
+class Equipo {
+    constructor(nombre) {
+        this.nombre = nombre;
+        this.partidosJugados = 0;
+        this.partidosGanados = 0;
+        this.partidosEmpatados = 0;
+        this.partidosPerdidos = 0;
+        this.golesAFavor = 0;
+        this.golesEnContra = 0;
+        this.puntajeTotal = 0;
+    }
+
+    registrarPartido(golesPropios, golesRivales) {
+        this.partidosJugados++;
+        this.golesAFavor += golesPropios;
+        this.golesEnContra += golesRivales;
+
+        if (golesPropios === golesRivales) {
+            this.partidosEmpatados++;
+            this.puntajeTotal += (golesPropios > 0) ? 1 : 0;
+        } else if (golesPropios > golesRivales) {
+            this.partidosGanados++;
+            const diferencia = golesPropios - golesRivales;
+            this.puntajeTotal += 3 + Math.min(diferencia, 3);
+        } else {
+            this.partidosPerdidos++;
+        }
+    }
+}
+
+// 1. Array con equipos ingresados previamente
+const liga = [
+    new Equipo("Tigres"),
+    new Equipo("Delfines"),
+    new Equipo("Águilas"),
+    new Equipo("Leones")
+];
+
+// 2. Función para registrar un encuentro entre dos equipos del array
+function simularPartido(nombreEquipoA, golesA, nombreEquipoB, golesB) {
+    const equipoA = liga.find(e => e.nombre === nombreEquipoA);
+    const equipoB = liga.find(e => e.nombre === nombreEquipoB);
+
+    if (equipoA && equipoB) {
+        equipoA.registrarPartido(golesA, golesB);
+        equipoB.registrarPartido(golesB, golesA);
+    } else {
+        console.error("Uno de los equipos no existe en la liga.");
+    }
+}
+
+// 3. Simulamos algunos resultados
+simularPartido("Tigres", 3, "Delfines", 0); // Tigres gana 3-0 (6 pts)
+simularPartido("Águilas", 1, "Leones", 1);  // Empate 1-1 (1 pt cada uno)
+simularPartido("Tigres", 0, "Águilas", 0);  // Empate 0-0 (0 pts cada uno)
+
+// 4. Mostramos la tabla de posiciones ordenada por puntaje (de mayor a menor)
+const tablaPosiciones = [...liga].sort((a, b) => b.puntajeTotal - a.puntajeTotal);
+
+console.table(tablaPosiciones);
