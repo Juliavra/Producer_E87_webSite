@@ -2,64 +2,57 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Carga de Partidos - Liga Argentina</title>
+    <title>Liga Argentina - Gestión de Archivos</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; }
-        .match-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .container { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 100%; max-width: 600px; margin-bottom: 20px; }
+        .match-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 15px; }
         .team-input { flex: 1; display: flex; flex-direction: column; gap: 5px; }
-        select, input { padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
-        input { width: 60px; text-align: center; }
-        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: bold; }
-        button:hover { background-color: #0056b3; }
-        .tabla-container { margin-top: 30px; width: 100%; max-width: 800px; }
-        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
-        th, td { padding: 12px; text-align: center; border-bottom: 1px solid #eee; }
-        th { background-color: #343a40; color: white; }
-        tr:nth-child(even) { background-color: #f8f9fa; }
-        tr:first-child { font-weight: bold; color: #28a745; }
+        select, input { padding: 8px; border: 1px solid #ddd; border-radius: 6px; }
+        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
+        button { flex: 1; padding: 10px; cursor: pointer; border-radius: 6px; border: none; font-weight: bold; }
+        .btn-add { background-color: #28a745; color: white; }
+        .btn-save { background-color: #007bff; color: white; }
+        .btn-load { background-color: #6c757d; color: white; position: relative; }
+        #fileInput { display: none; }
+        table { width: 100%; max-width: 800px; border-collapse: collapse; background: white; }
+        th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: center; }
+        th { background: #343a40; color: white; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Registrar Resultado</h2>
+    <h2>Registrar Partido</h2>
     <div class="match-row">
-        <!-- Equipo Local -->
         <div class="team-input">
             <select id="selectA" onchange="actualizarSelectB()"></select>
-            <input type="number" id="golesA" value="0" min="0" placeholder="Goles">
+            <input type="number" id="golesA" value="0" min="0">
         </div>
-
         <span>VS</span>
-
-        <!-- Equipo Visitante -->
         <div class="team-input">
             <select id="selectB"></select>
-            <input type="number" id="golesB" value="0" min="0" placeholder="Goles">
+            <input type="number" id="golesB" value="0" min="0">
         </div>
     </div>
-    <button onclick="procesarPartido()">Cargar Partido</button>
+    <button class="btn-add" onclick="procesarPartido()">Cargar Resultado</button>
+
+    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+    
+    <h3>Gestión de Datos</h3>
+    <div class="btn-group">
+        <button class="btn-save" onclick="guardarArchivo()">Guardar en TXT</button>
+        <button class="btn-load" onclick="document.getElementById('fileInput').click()">Cargar desde TXT</button>
+        <input type="file" id="fileInput" accept=".txt" onchange="leerArchivo(event)">
+    </div>
 </div>
 
-<div class="tabla-container">
-    <h3>Tabla de Posiciones</h3>
-    <table id="tablaPosiciones">
-        <thead>
-            <tr>
-                <th>Equipo</th>
-                <th>PJ</th>
-                <th>PG</th>
-                <th>PE</th>
-                <th>PP</th>
-                <th>GF</th>
-                <th>GE</th>
-                <th>Pts</th>
-            </tr>
-        </thead>
-        <tbody id="cuerpoTabla"></tbody>
-    </table>
-</div>
+<table>
+    <thead>
+        <tr><th>Equipo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>Pts</th></tr>
+    </thead>
+    <tbody id="cuerpoTabla"></tbody>
+</table>
 
 <script>
     class Equipo {
@@ -74,97 +67,98 @@
             this.puntajeTotal = 0;
         }
 
-        registrarPartido(golesPropios, golesRivales) {
+        registrarPartido(gA, gR) {
             this.partidosJugados++;
-            this.golesAFavor += golesPropios;
-            this.golesEnContra += golesRivales;
-
-            if (golesPropios === golesRivales) {
+            this.golesAFavor += gA;
+            this.golesEnContra += gR;
+            if (gA === gR) {
                 this.partidosEmpatados++;
-                this.puntajeTotal += (golesPropios > 0) ? 1 : 0;
-            } else if (golesPropios > golesRivales) {
+                this.puntajeTotal += (gA > 0) ? 1 : 0;
+            } else if (gA > gR) {
                 this.partidosGanados++;
-                const dif = golesPropios - golesRivales;
-                this.puntajeTotal += 3 + Math.min(dif, 3);
+                this.puntajeTotal += 3 + Math.min(gA - gR, 3);
             } else {
                 this.partidosPerdidos++;
             }
         }
     }
 
-    const nombresEquipos = ["Aldosivi", "Argentinos Juniors", "Atlético Tucumán", "Banfield", "Barracas Central", "Belgrano (Córdoba)", "Boca Juniors", "Central Córdoba (SdE)", "Defensa y Justicia", "Deportivo Riestra", "Estudiantes LP", "Gimnasia LP", "Godoy Cruz (Mendoza)", "Huracán", "Independiente", "Independiente Rivadavia", "Instituto (Córdoba)", "Lanús", "Newell's Old Boys", "Platense", "Racing Club", "River Plate", "Rosario Central", "San Lorenzo", "Sarmiento (Junín)", "Talleres (Córdoba)", "Tigre", "Unión (Santa Fe)", "Vélez Sarsfield"];
-    
-    const liga = nombresEquipos.map(n => new Equipo(n));
+    const nombres = ["Aldosivi", "Argentinos Juniors", "Atlético Tucumán", "Banfield", "Barracas Central", "Belgrano (Córdoba)", "Boca Juniors", "Central Córdoba (SdE)", "Defensa y Justicia", "Deportivo Riestra", "Estudiantes LP", "Gimnasia LP", "Godoy Cruz (Mendoza)", "Huracán", "Independiente", "Independiente Rivadavia", "Instituto (Córdoba)", "Lanús", "Newell's Old Boys", "Platense", "Racing Club", "River Plate", "Rosario Central", "San Lorenzo", "Sarmiento (Junín)", "Talleres (Córdoba)", "Tigre", "Unión (Santa Fe)", "Vélez Sarsfield"];
+    let liga = nombres.map(n => new Equipo(n));
 
+    // Lógica de UI
     function popularSelects() {
-        const selectA = document.getElementById('selectA');
-        selectA.innerHTML = '<option value="">Seleccione Local...</option>';
-        liga.forEach(eq => {
-            let opt = document.createElement('option');
-            opt.value = eq.nombre;
-            opt.textContent = eq.nombre;
-            selectA.appendChild(opt);
-        });
+        const sA = document.getElementById('selectA');
+        sA.innerHTML = '<option value="">Local...</option>';
+        liga.forEach(e => sA.innerHTML += `<option value="${e.nombre}">${e.nombre}</option>`);
         actualizarSelectB();
     }
 
     function actualizarSelectB() {
-        const selectA = document.getElementById('selectA');
-        const selectB = document.getElementById('selectB');
-        const seleccionadoA = selectA.value;
-
-        selectB.innerHTML = '<option value="">Seleccione Visitante...</option>';
-        
-        liga.filter(eq => eq.nombre !== seleccionadoA).forEach(eq => {
-            let opt = document.createElement('option');
-            opt.value = eq.nombre;
-            opt.textContent = eq.nombre;
-            selectB.appendChild(opt);
-        });
+        const sB = document.getElementById('selectB');
+        const selA = document.getElementById('selectA').value;
+        sB.innerHTML = '<option value="">Visitante...</option>';
+        liga.filter(e => e.nombre !== selA).forEach(e => sB.innerHTML += `<option value="${e.nombre}">${e.nombre}</option>`);
     }
 
     function procesarPartido() {
-        const nombreA = document.getElementById('selectA').value;
-        const nombreB = document.getElementById('selectB').value;
+        const nA = document.getElementById('selectA').value;
+        const nB = document.getElementById('selectB').value;
         const gA = parseInt(document.getElementById('golesA').value);
         const gB = parseInt(document.getElementById('golesB').value);
-
-        if (!nombreA || !nombreB) return alert("Selecciona ambos equipos");
-
-        const eqA = liga.find(e => e.nombre === nombreA);
-        const eqB = liga.find(e => e.nombre === nombreB);
-
-        eqA.registrarPartido(gA, gB);
-        eqB.registrarPartido(gB, gA);
-
-        actualizarTablaUI();
+        if (!nA || !nB) return alert("Selecciona equipos");
+        
+        liga.find(e => e.nombre === nA).registrarPartido(gA, gB);
+        liga.find(e => e.nombre === nB).registrarPartido(gB, gA);
+        actualizarTabla();
     }
 
-    function actualizarTablaUI() {
+    function actualizarTabla() {
         const cuerpo = document.getElementById('cuerpoTabla');
         cuerpo.innerHTML = '';
-
-        // Ordenar por puntos (y diferencia de gol como segundo criterio opcional)
-        const ordenados = [...liga].sort((a, b) => b.puntajeTotal - a.puntajeTotal || (b.golesAFavor - b.golesEnContra) - (a.golesAFavor - a.golesEnContra));
-
-        ordenados.forEach(eq => {
-            const fila = `<tr>
-                <td style="text-align:left">${eq.nombre}</td>
-                <td>${eq.partidosJugados}</td>
-                <td>${eq.partidosGanados}</td>
-                <td>${eq.partidosEmpatados}</td>
-                <td>${eq.partidosPerdidos}</td>
-                <td>${eq.golesAFavor}</td>
-                <td>${eq.golesEnContra}</td>
-                <td class="puntos">${eq.puntajeTotal}</td>
-            </tr>`;
-            cuerpo.innerHTML += fila;
+        [...liga].sort((a,b) => b.puntajeTotal - a.puntajeTotal).forEach(e => {
+            cuerpo.innerHTML += `<tr><td>${e.nombre}</td><td>${e.partidosJugados}</td><td>${e.partidosGanados}</td><td>${e.partidosEmpatados}</td><td>${e.partidosPerdidos}</td><td>${e.golesAFavor}</td><td>${e.golesEnContra}</td><td><b>${e.puntajeTotal}</b></td></tr>`;
         });
     }
 
-    popularSelects();
-    actualizarTablaUI();
-</script>
+    // --- PERSISTENCIA EN ARCHIVOS ---
 
+    function guardarArchivo() {
+        const data = JSON.stringify(liga, null, 2);
+        const blob = new Blob([data], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'liga_posiciones.txt';
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function leerArchivo(event) {
+        const archivo = event.target.files[0];
+        if (!archivo) return;
+        const lector = new FileReader();
+        lector.onload = function(e) {
+            try {
+                const contenido = JSON.parse(e.target.result);
+                // Re-instanciar objetos para recuperar los métodos de la clase Equipo
+                liga = contenido.map(datos => {
+                    const eq = new Equipo(datos.nombre);
+                    Object.assign(eq, datos);
+                    return eq;
+                });
+                actualizarTabla();
+                popularSelects();
+                alert("Datos cargados con éxito");
+            } catch (err) {
+                alert("Error al leer el archivo. Asegurate de que sea un TXT generado por esta app.");
+            }
+        };
+        lector.readAsText(archivo);
+    }
+
+    popularSelects();
+    actualizarTabla();
+</script>
 </body>
 </html>
