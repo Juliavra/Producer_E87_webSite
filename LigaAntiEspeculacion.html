@@ -16,6 +16,67 @@ class Equipo {
         this.golesEnContra += golesRivales;
 
         if (golesPropios === golesRivales) {
+            // Lógica de empates
+            this.partidosEmpatados++;
+            if (golesPropios > 0) {
+                this.puntajeTotal += 1;
+            }
+            // Si es 0-0, se suma el partido jugado pero 0 puntos
+        } 
+        else if (golesPropios > golesRivales) {
+            // Lógica de victoria
+            this.partidosGanados++;
+            const diferencia = golesPropios - golesRivales;
+            // 3 puntos base + diferencia (máximo 3 extra)
+            const puntosGanados = 3 + Math.min(diferencia, 3);
+            this.puntajeTotal += puntosGanados;
+        } 
+        else {
+            // Lógica de derrota
+            this.partidosPerdidos++;
+            // 0 puntos
+        }
+    }
+}
+
+// --- Ejemplo de uso ---
+const miEquipo = new Equipo("Los Galácticos");
+
+miEquipo.registrarPartido(0, 0); // Empate 0-0 (0 pts)
+miEquipo.registrarPartido(2, 2); // Empate con goles (1 pt)
+miEquipo.registrarPartido(4, 1); // Victoria por 3 goles (3 base + 3 extra = 6 pts)
+
+console.log(miEquipo);
+/* 
+Resultado esperado:
+- partidosJugados: 3
+- partidosGanados: 1
+- partidosEmpatados: 2
+- partidosPerdidos: 0
+- golesAFavor: 6
+- golesEnContra: 3
+- puntajeTotal: 7
+*/
+
+/*
+class Equipo {
+    constructor(nombre) {
+        this.nombre = nombre;
+        this.partidosJugados = 0;
+        this.partidosGanados = 0;
+        this.partidosEmpatados = 0;
+        this.partidosPerdidos = 0;
+        this.golesAFavor = 0;
+        this.golesEnContra = 0;
+        this.puntajeTotal = 0;
+    }
+
+    registrarPartido(golesPropios, golesRivales) {
+        this.partidosJugados++;
+        this.golesAFavor += golesPropios;
+        this.golesEnContra += golesRivales;
+
+        if (golesPropios === golesRivales) {
             this.partidosEmpatados++;
             this.puntajeTotal += (golesPropios > 0) ? 1 : 0;
         } else if (golesPropios > golesRivales) {
@@ -58,3 +119,4 @@ simularPartido("Tigres", 0, "Águilas", 0);  // Empate 0-0 (0 pts cada uno)
 const tablaPosiciones = [...liga].sort((a, b) => b.puntajeTotal - a.puntajeTotal);
 
 console.table(tablaPosiciones);
+*/
