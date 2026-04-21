@@ -158,7 +158,7 @@ async function traerPartidosAPI() {
 
     // Usamos un proxy para evitar el bloqueo CORS en local
     const proxy = "https://herokuapp.com";
-    const url = `https://api-sports.io{hoy}&season=2026&timezone=America/Argentina/Buenos_Aires`;
+    const url = `https://api-sports.io/${hoy}&season=2026&timezone=America/Argentina/Buenos_Aires`;
 
     try {
         const response = await fetch(url, {
