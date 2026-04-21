@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { background: #000; color: #00ff00; font-family: 'Courier New', monospace; display: flex; flex-direction: column; align-items: center; padding: 20px 0; }
+        #status { font-size: 20px; margin-bottom: 5px; height: 30px; font-weight: bold; }
+        #word-display { font-size: 24px; color: #ffff00; margin-bottom: 5px; min-height: 40px; border: 1px solid #555; padding: 5px 20px; background: #111; width: 450px; text-align: center; }
+        #count-display { font-size: 18px; color: #ff00ff; margin-bottom: 10px; font-weight: bold; }
+        #input-container { margin-bottom: 15px; display: flex; flex-direction: column; align-items: center; gap: 5px; } 
+        #guess-input { background: #111; color: #00ff00; border: 1px solid #00ff00; padding: 10px; font-family: inherit; font-size: 18px; text-align: center; text-transform: uppercase; width: 350px; }
+        label { font-size: 12px; color: #888; }
+        #output { line-height: 0.82; letter-spacing: -1px; font-size: 18px; white-space: pre; font-weight: bold; border: 1px solid #333; padding: 5px; }
+        .btn-reveal { background: #222; color: #00ff00; border: 1px solid #00ff00; padding: 8px 15px; cursor: pointer; font-family: inherit; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+<div id="status">NIVEL 1</div>
+<div id="word-display">LETRAS: </div>
+<div id="count-display">FALTAN: 0</div>
+<div id="input-container">
+    <input type="text" id="guess-input" placeholder="TOCA '5' PARA ESCRIBIR AQUÍ" autocomplete="off">
+    <label>(ESC PARA VOLVER A MOVER AL PERSONAJE)</label>
+</div>
+<button class="btn-reveal" id="btnRevelar">MANTENER PARA VER RUTA</button>
+<div id="output"></div>
+
+<script>
+    const FILAS = 40, COLUMNAS = 40;
+    let posY = 0, posX = 2, vivo = true, nivelActual = 1, modoTrampa = false, seedActual = 0;
+    let mapaMina = [], visitados = [], letrasMapa = [], secuenciaDescubierta = [];
+    let totalLetrasNivel = 0;
+    const puertaSalidaX = COLUMNAS - 6;
+    const PALABRAS = ["", "MORCILLA", "MILANESA", "CHORIZO", "EMPANADA", "PROVOLETA", "GANASTE"];
+
+    function seededRandom() {
+        seedActual = (seedActual * 9301 + 49297) % 233280;
+        return seedActual / 233280;
+    }
+
+    function cargarNivel() {
+        const nivelGuardado = localStorage.getItem('nivelGuardado');
+        if (nivelGuardado) nivelActual = parseInt(nivelGuardado);
+        
+        posY = 0; posX = 2; vivo = true; secuenciaDescubierta = [];
+        document.getElementById('status').innerText = "NIVEL " + nivelActual;
+        document.getElementById('status').style.color = "#00ff00";
+        document.getElementById('guess-input').value = "";
+        
+        seedActual = nivelActual * 1000 + 12345;
+        let palabra = PALABRAS[nivelActual] || "GANASTE";
+        totalLetrasNivel = palabra.length;
+
+        for (let i = 0; i < FILAS; i++) {
+            mapaMina[i] = []; visitados[i] = []; letrasMapa[i] = [];
+            for (let j = 0; j < COLUMNAS; j++) {
+                mapaMina[i][j] = true; visitados[i][j] = false; letrasMapa[i][j] = null;
+            }
+        }
+
+        mapaMina[FILAS - 1][puertaSalidaX] = false;
+        const opcionesSalidaX = [puertaSalidaX - 1, puertaSalidaX, puertaSalidaX + 1];
+        const finalCheckX = opcionesSalidaX[Math.floor(seededRandom() * 3)];
+        mapaMina[FILAS - 2][finalCheckX] = false;
+
+        let curY = 0, curX = 2;
+        mapaMina[curY][curX] = false;
+        let camino = [{y:0, x:2}];
+
+        while (curY < FILAS - 2 || curX !== finalCheckX) {
+            let movs = [{y:1,x:0}, {y:-1,x:0}, {y:0,x:1}, {y:0,x:-1}];
+            let opciones = [];
+            for (let m of movs) {
+                let ny = curY + m.y, nx = curX + m.x;
+                if (ny >= 1 && ny <= FILAS - 2 && nx >= 1 && nx < COLUMNAS - 1) {
+                    let contactos = 0;
+                    if (!mapaMina[ny+1][nx]) contactos++;
+                    if (!mapaMina[ny-1][nx]) contactos++;
+                    if (!mapaMina[ny][nx+1]) contactos++;
+                    if (!mapaMina[ny][nx-1]) contactos++;
+                    if (contactos === 1 && mapaMina[ny][nx]) opciones.push({y: ny, x: nx});
+                }
+            }
+            if (opciones.length > 0) {
+                opciones.sort((a, b) => (Math.abs(FILAS - 2 - a.y) + Math.abs(finalCheckX - a.x)) - (Math.abs(FILAS - 2 - b.y) + Math.abs(finalCheckX - b.x)));
+                let elegido = seededRandom() > 0.4 ? opciones[0] : opciones[Math.floor(seededRandom() * opciones.length)];
+                curY = elegido.y; curX = elegido.x;
+                mapaMina[curY][curX] = false;
+                camino.push({y: curY, x: curX});
+            } else {
+                if (curY < FILAS - 2) curY++; else if (curX < finalCheckX) curX++; else curX--;
+                mapaMina[curY][curX] = false;
+                camino.push({y: curY, x: curX});
+            }
+        }
+        camino.push({y: FILAS - 1, x: puertaSalidaX});
+
+        let letras = palabra.split("");
+        for (let i = letras.length - 1; i > 0; i--) {
+            const j = Math.floor(seededRandom() * (i + 1));
+            [letras[i], letras[j]] = [letras[j], letras[i]];
+        }
+        let paso = Math.floor(camino.length / (letras.length + 1));
+        for (let i = 0; i < letras.length; i++) {
+            let p = camino[(i + 1) * paso];
+            letrasMapa[p.y][p.x] = { letra: letras[i], recolectada: false };
+        }
+        actualizarUI();
+        dibujar();
+    }
+
+    function actualizarUI() {
+        document.getElementById('word-display').innerText = "LETRAS: " + secuenciaDescubierta.join(" ");
+        document.getElementById('count-display').innerText = "FALTAN: " + (totalLetrasNivel - secuenciaDescubierta.length);
+    }
+
+    function dibujar() {
+        const C = ["┌","┐","─","│","└","┘","┤","├"];
+        if (posY > 0 && posY < FILAS - 1 && posX > 0 && posX < COLUMNAS - 1) {
+            if (mapaMina[posY][posX] && vivo) {
+                vivo = false;
+                document.getElementById('status').innerText = "¡BOOM! REINTENTA (1-9)";
+                document.getElementById('status').style.color = "red";
+            } else if (vivo) {
+                visitados[posY][posX] = true;
+                let L = letrasMapa[posY][posX];
+                if (L && !L.recolectada) {
+                    L.recolectada = true;
+                    secuenciaDescubierta.push(L.letra);
+                    actualizarUI();
+                }
+            }
+        }
+
+        let res = "";
+        for (let i = 0; i < FILAS; i++) {
+            for (let j = 0; j < COLUMNAS; j++) {
+                if (i === posY && j === posX) res += vivo ? "@" : "*";
+                else if (i === 0) {
+                    if (j === 0) res += C[0]; else if (j === COLUMNAS - 1) res += C[1];
+                    else if (j === 1) res += C[6]; else if (j === 2) res += " ";
+                    else if (j === 3) res += C[7]; else res += C[2];
+                } else if (i === FILAS - 1) {
+                    if (j === 0) res += C[4]; else if (j === COLUMNAS - 1) res += C[5];
+                    else if (j === puertaSalidaX - 1) res += C[6]; else if (j === puertaSalidaX) res += " ";
+                    else if (j === puertaSalidaX + 1) res += C[7]; else res += C[2];
+                } else if (j === 0 || j === COLUMNAS - 1) res += C[3];
+                else {
+                    let L = letrasMapa[i][j];
+                    if (modoTrampa) res += (!mapaMina[i][j]) ? (L && !L.recolectada ? L.letra : ".") : "x";
+                    else res += (visitados[i][j]) ? (L && L.recolectada ? " " : (L ? L.letra : " ")) : "x";
+                }
+            }
+            res += "\n";
+        }
+        document.getElementById('output').innerText = res;
+    }
+
+    document.getElementById('guess-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            if (e.target.value.toUpperCase() === (PALABRAS[nivelActual] || "GANASTE")) {
+                alert("¡CORRECTO!"); nivelActual++;
+                localStorage.setItem('nivelGuardado', nivelActual);
+                cargarNivel();
+            } else { alert("INCORRECTO"); }
+        }
+    });
+
+    const btn = document.getElementById('btnRevelar');
+    btn.onmousedown = () => { if(vivo) { modoTrampa = true; dibujar(); } };
+    btn.onmouseup = () => { modoTrampa = false; dibujar(); };
+
+    window.onkeydown = (e) => {
+        const inp = document.getElementById('guess-input');
+        if (e.key === "5") { e.preventDefault(); inp.focus(); return; }
+        if (document.activeElement === inp && e.key !== 'Escape') return;
+        if (document.activeElement === inp && e.key === 'Escape') { inp.blur(); return; }
+        
+        if (!vivo) { if ("12346789".includes(e.key)) cargarNivel(); return; }
+        
+        let ny = posY, nx = posX;
+        if (e.key === "7") { ny--; nx--; } else if (e.key === "8") { ny--; } else if (e.key === "9") { ny--; nx++; }
+        else if (e.key === "4") { nx--; } else if (e.key === "6") { nx++; }
+        else if (e.key === "1") { ny++; nx--; } else if (e.key === "2") { ny++; } else if (e.key === "3") { ny++; nx++; }
+        else return;
+
+        let esBorde = ( (ny === 0 || ny === FILAS - 1) && !((ny === 0 && nx === 2) || (ny === FILAS - 1 && nx === puertaSalidaX)) ) || (nx === 0 || nx === COLUMNAS - 1);
+        if (!esBorde && ny >= 0 && ny < FILAS && nx >= 0 && nx < COLUMNAS) { posY = ny; posX = nx; }
+        dibujar();
+    };
+
+    cargarNivel();
+</script>
+</body>
+</html>
