@@ -1,313 +1,577 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Liga Anti-Especulación - 30 Equipos (API Connect)</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .panel { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 900px; margin-bottom: 30px; }
-        .flex { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 15px; }
-        select, input, button { padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem; }
-        button { cursor: pointer; font-weight: bold; background: #007bff; color: white; border: none; }
-        button:hover { background: #0056b3; }
-        .btn-add { background: #28a745; width: 100%; margin-top: 10px; }
-        .btn-api { background: #6f42c1; color: white; }
-        .btn-api:hover { background: #59359a; }
-        .api-section { background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 5px solid #6f42c1; margin-bottom: 20px; }
-        .zone-container { width: 100%; max-width: 1100px; margin-bottom: 40px; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow-x: auto; }
-        h2 { text-align: center; color: #333; border-bottom: 3px solid #28a745; padding-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; min-width: 800px; }
-        th, td { padding: 12px 8px; border: 1px solid #e0e0e0; text-align: center; }
-        th { background: #343a40; color: white; font-size: 0.9rem; }
-        tr:nth-child(even) { background-color: #f8f9fa; }
-        .pts-col { background-color: #e7f1ff; font-weight: bold; color: #0056b3; font-size: 1.1rem; }
-        .actual-col { background-color: #f1f3f5; font-weight: bold; color: #495057; }
-        .log-box { background: #222; color: #2ecc71; padding: 15px; font-family: monospace; border-radius: 6px; height: 100px; overflow-y: auto; width: 100%; box-sizing: border-box; font-size: 0.85rem; margin-top: 15px; }
-        .match-item { padding: 10px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; margin-bottom: 5px; border-radius: 4px; }
-        .match-item button { padding: 5px 10px; font-size: 0.8rem; background: #28a745; }
-        .win { color: #28a745; font-weight: bold; }
-        .loss { color: #dc3545; font-weight: bold; }
-        .draw { color: #6c757d; font-weight: bold; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 30px;
+        }
+
+        .flex {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        select,
+        input,
+        button {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        button {
+            cursor: pointer;
+            font-weight: bold;
+            background: #007bff;
+            color: white;
+            border: none;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        .btn-add {
+            background: #28a745;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-api {
+            background: #6f42c1;
+            color: white;
+        }
+
+        .btn-api:hover {
+            background: #59359a;
+        }
+
+        .api-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #6f42c1;
+            margin-bottom: 20px;
+        }
+
+        .zone-container {
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow-x: auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            border-bottom: 3px solid #28a745;
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            min-width: 800px;
+        }
+
+        th,
+        td {
+            padding: 12px 8px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        th {
+            background: #343a40;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .pts-col {
+            background-color: #e7f1ff;
+            font-weight: bold;
+            color: #0056b3;
+            font-size: 1.1rem;
+        }
+
+        .actual-col {
+            background-color: #f1f3f5;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        .log-box {
+            background: #222;
+            color: #2ecc71;
+            padding: 15px;
+            font-family: monospace;
+            border-radius: 6px;
+            height: 100px;
+            overflow-y: auto;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+
+        .match-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+
+        .match-item button {
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            background: #28a745;
+        }
+
+        .win {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .loss {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .draw {
+            color: #6c757d;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
 
-<div class="panel">
-    <!-- SECCIÓN API -->
-    <div class="api-section">
-        <h3>Conexión API Football</h3>
-        <div class="flex">
-            <input type="password" id="apiKeyInput" placeholder="Ingresá tu API Key de RapidAPI" style="flex-grow: 1;">
-            <button onclick="saveApiKey()">Guardar Key</button>
-            <button class="btn-api" onclick="traerPartidosAPI()">Sincronizar Hoy</button>
+    <div class="panel">
+        <!-- SECCIÓN API -->
+        <div class="api-section">
+            <h3>Conexión API Football</h3>
+            <div class="flex">
+                <input type="password" id="apiKeyInput" placeholder="Ingresá tu API Key de RapidAPI"
+                    style="flex-grow: 1;">
+                <button onclick="saveApiKey()">Guardar Key</button>
+                <button class="btn-api" onclick="traerPartidosAPI()">Sincronizar Hoy</button>
+            </div>
+            <div id="apiResults" style="max-height: 200px; overflow-y: auto;"></div>
         </div>
-        <div id="apiResults" style="max-height: 200px; overflow-y: auto;"></div>
+
+        <h3>Registrar Resultado Manual</h3>
+        <div class="flex">
+            <select id="eqA"></select>
+            <input type="number" id="gA" value="0" min="0" style="width: 60px;">
+            <span>vs</span>
+            <input type="number" id="gB" value="0" min="0" style="width: 60px;">
+            <select id="eqB"></select>
+            <button class="btn-add" onclick="manualAdd()">Cargar Partido Manual</button>
+        </div>
+
+        <h3>Consultar Historial</h3>
+        <div class="flex">
+            <select id="searchEq" style="flex-grow: 1;"></select>
+            <button onclick="verPartidos()">Ver Partidos</button>
+        </div>
+        <div id="listaPartidos" class="search-results"></div>
+
+        <h3>Opciones de Archivo</h3>
+        <div class="flex">
+            <button onclick="saveFile()">Guardar TXT</button>
+            <button onclick="document.getElementById('fileInput').click()">Cargar TXT</button>
+            <button style="background:#dc3545" onclick="resetearTodo()">Limpiar Todo</button>
+            <input type="file" id="fileInput" hidden accept=".txt" onchange="loadFile(event)">
+        </div>
+        <div class="log-box" id="log">> Sistema iniciado.</div>
     </div>
 
-    <h3>Registrar Resultado Manual</h3>
-    <div class="flex">
-        <select id="eqA"></select>
-        <input type="number" id="gA" value="0" min="0" style="width: 60px;">
-        <span>vs</span>
-        <input type="number" id="gB" value="0" min="0" style="width: 60px;">
-        <select id="eqB"></select>
-        <button class="btn-add" onclick="manualAdd()">Cargar Partido Manual</button>
+    <div class="zone-container">
+        <h2>ZONA A</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Equipo</th>
+                    <th>PJ</th>
+                    <th>PG</th>
+                    <th>PE</th>
+                    <th>PP</th>
+                    <th>GF</th>
+                    <th>GC</th>
+                    <th>DG</th>
+                    <th class="pts-col">PTS</th>
+                    <th class="actual-col">ACTUAL</th>
+                </tr>
+            </thead>
+            <tbody id="bodyA"></tbody>
+        </table>
     </div>
 
-    <h3>Consultar Historial</h3>
-    <div class="flex">
-        <select id="searchEq" style="flex-grow: 1;"></select>
-        <button onclick="verPartidos()">Ver Partidos</button>
+    <div class="zone-container">
+        <h2>ZONA B</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left;">Equipo</th>
+                    <th>PJ</th>
+                    <th>PG</th>
+                    <th>PE</th>
+                    <th>PP</th>
+                    <th>GF</th>
+                    <th>GC</th>
+                    <th>DG</th>
+                    <th class="pts-col">PTS</th>
+                    <th class="actual-col">ACTUAL</th>
+                </tr>
+            </thead>
+            <tbody id="bodyB"></tbody>
+        </table>
     </div>
-    <div id="listaPartidos" class="search-results"></div>
 
-    <h3>Opciones de Archivo</h3>
-    <div class="flex">
-        <button onclick="saveFile()">Guardar TXT</button>
-        <button onclick="document.getElementById('fileInput').click()">Cargar TXT</button>
-        <button style="background:#dc3545" onclick="resetearTodo()">Limpiar Todo</button>
-        <input type="file" id="fileInput" hidden accept=".txt" onchange="loadFile(event)">
-    </div>
-    <div class="log-box" id="log">> Sistema iniciado.</div>
-</div>
+    <script>
+       
+    const equipos30 = [
+        "Aldosivi", "Argentinos Juniors", "Atlético Tucumán", "Banfield", "Barracas Central", "Belgrano (Córdoba)", "Boca Juniors", "Central Córdoba (SdE)", "Defensa y Justicia", "Deportivo Riestra", "Estudiantes LP", "Gimnasia LP", "Estudiantes (Río Cuarto)", "Huracán", "Independiente", "Independiente Rivadavia", "Instituto (Córdoba)", "Lanús", "Newell's Old Boys", "Platense", "Racing Club", "River Plate", "Rosario Central", "San Lorenzo", "Sarmiento (Junín)", "Talleres (Córdoba)", "Tigre", "Unión (Santa Fe)", "Vélez Sarsfield", "Gimnasia (Mendoza)"
+    ];
+    
+    const zonaA_ref = [
+        "Estudiantes LP", "Vélez Sarsfield", "Boca Juniors", "Talleres (Córdoba)", "Lanús", "Independiente", "Unión (Santa Fe)", "Defensa y Justicia", "San Lorenzo", "Instituto (Córdoba)", "Platense", "Gimnasia (Mendoza)", "Newell's Old Boys", "Central Córdoba (SdE)", "Deportivo Riestra"
+    ];
+    
+    const mapeoNombresAPI = {
+        "Newells Old Boys": "Newell's Old Boys",
+        "Talleres Cordoba": "Talleres (Córdoba)",
+        "Belgrano Cordoba": "Belgrano (Córdoba)",
+        "Central Cordoba": "Central Córdoba (SdE)",
+        "Union Santa Fe": "Unión (Santa Fe)",
+        "Velez Sarsfield": "Vélez Sarsfield",
+        "Gimnasia Mendoza": "Gimnasia (Mendoza)",
+        "Instituto": "Instituto (Córdoba)",
+        "Ind Rivadavia": "Independiente Rivadavia",
+        "Sarmiento": "Sarmiento (Junín)",
+        "Estudiantes L.P.": "Estudiantes LP",
+        "Gimnasia L.P.": "Gimnasia LP",
+        "Atletico Tucuman": "Atlético Tucumán"
+    };
+    
+    let historial = [];
+   
+    function init() {
+        const sorted = [...equipos30].sort();
+        const options = sorted.map(n => `<option value="${n}">${n}</option>`).join('');
+        document.getElementById('eqA').innerHTML = options;
+        document.getElementById('eqB').innerHTML = options;
+        document.getElementById('searchEq').innerHTML = options;
+        
+        const savedKey = localStorage.getItem('football_api_key');
+        if(savedKey) document.getElementById('apiKeyInput').value = savedKey;
+        
+        render();
+    }
+    
+    function saveApiKey() {
+        const key = document.getElementById('apiKeyInput').value;
+        localStorage.setItem('football_api_key', key);
+        alert("API Key guardada correctamente.");
+    }
+    
+    async function traerPartidosAPI() {
+        const key = localStorage.getItem('football_api_key');
+        if(!key) return alert("Por favor, ingresá y guardá una API Key primero.");
+        
+        const log = document.getElementById('log');
+        const resultsDiv = document.getElementById('apiResults');
+        
+        // Obtenemos fecha actual en formato local YYYY-MM-DD
+        const hoy = new Date().toLocaleDateString('sv-SE'); 
+        alert(hoy)
+        log.innerText = `> Buscando partidos del ${hoy}...`;
+        resultsDiv.innerHTML = "<p>Cargando datos...</p>";
+    
+        // Usamos un proxy para evitar el bloqueo CORS en local
+        const proxy = "https://herokuapp.com";
+        const url = `https://api-sports.io/${hoy}&season=2026&timezone=America/Argentina/Buenos_Aires`;
+    
+    /**/
 
-<div class="zone-container">
-    <h2>ZONA A</h2>
-    <table>
-        <thead>
-            <tr>
-                <th style="text-align: left;">Equipo</th>
-                <th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th class="pts-col">PTS</th><th class="actual-col">ACTUAL</th>
-            </tr>
-        </thead>
-        <tbody id="bodyA"></tbody>
-    </table>
-</div>
+        /*
+        fetch("https://v3.football.api-sports.io/leagues/", {
+            "method": "GET",
+            "headers": {
+                "x-apisports-key": "ba63b90b5c389c6e97be4bca1cdd8bb"
+            }
+        })
+        .then(response => {
+            console.log(response);
+        
+            //console.log("results: " + response.results);
+            //console.log("id: " + response.results.id);
+        
+        })
+        .catch(err => {
+            console.log(err);
+        });
+        */
+       /*
+//Argentina	Racing Club	436
+        const API_KEY = "ba63b90b5c389c6e97be4bca1cdd8bb";
+        const fixture_id = 128; // Asegúrate de que este ID exista en tu consulta previa
+        const liga_argentina = 128; // El ID de la liga
+        const temporada = 2025;     // Año de la temporada (puedes probar 2024 o 2025)
 
-<div class="zone-container">
-    <h2>ZONA B</h2>
-    <table>
-        <thead>
-            <tr>
-                <th style="text-align: left;">Equipo</th>
-                <th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th class="pts-col">PTS</th><th class="actual-col">ACTUAL</th>
-            </tr>
-        </thead>
-        <tbody id="bodyB"></tbody>
-    </table>
-</div>
+        //fetch(`https://v3.football.api-sports.io/fixtures?id=${fixture_id}`, {
+        //fetch(`https://v3.football.api-sports.io/${liga_argentina}&season=${temporada}`, {
+        fetch("https://v3.football.api-sports.io/players?league=39&season=2021", {
+            "method": "GET",
+            "headers": {
+                "x-apisports-key": API_KEY
+            }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error("Error en la red");
+                return response.json(); // ¡Esto es vital!
+            })
+            .then(data => {
+                if (data.errors.length > 0) {
+                    console.error("Error de la API:", data.errors);
+                } else {
+                    console.log("Datos de response:", data.response);
+                    console.log("Datos de response:", data.statistics.team);
 
-<script>
-const equipos30 = [
-    "Aldosivi", "Argentinos Juniors", "Atlético Tucumán", "Banfield", "Barracas Central", "Belgrano (Córdoba)", "Boca Juniors", "Central Córdoba (SdE)", "Defensa y Justicia", "Deportivo Riestra", "Estudiantes LP", "Gimnasia LP", "Estudiantes (Río Cuarto)", "Huracán", "Independiente", "Independiente Rivadavia", "Instituto (Córdoba)", "Lanús", "Newell's Old Boys", "Platense", "Racing Club", "River Plate", "Rosario Central", "San Lorenzo", "Sarmiento (Junín)", "Talleres (Córdoba)", "Tigre", "Unión (Santa Fe)", "Vélez Sarsfield", "Gimnasia (Mendoza)"
-];
+                }
+            })
+            .catch(err => console.error("Error en la petición:", err));
 
-const zonaA_ref = [
-    "Estudiantes LP", "Vélez Sarsfield", "Boca Juniors", "Talleres (Córdoba)", "Lanús", "Independiente", "Unión (Santa Fe)", "Defensa y Justicia", "San Lorenzo", "Instituto (Córdoba)", "Platense", "Gimnasia (Mendoza)", "Newell's Old Boys", "Central Córdoba (SdE)", "Deportivo Riestra"
-];
+        /**/
+        /*
+        const API_KEY = "ba63b90b5c389c6e97be4bca1cdd8bb";
 
-const mapeoNombresAPI = {
-    "Newells Old Boys": "Newell's Old Boys",
-    "Talleres Cordoba": "Talleres (Córdoba)",
-    "Belgrano Cordoba": "Belgrano (Córdoba)",
-    "Central Cordoba": "Central Córdoba (SdE)",
-    "Union Santa Fe": "Unión (Santa Fe)",
-    "Velez Sarsfield": "Vélez Sarsfield",
-    "Gimnasia Mendoza": "Gimnasia (Mendoza)",
-    "Instituto": "Instituto (Córdoba)",
-    "Ind Rivadavia": "Independiente Rivadavia",
-    "Sarmiento": "Sarmiento (Junín)",
-    "Estudiantes L.P.": "Estudiantes LP",
-    "Gimnasia L.P.": "Gimnasia LP",
-    "Atletico Tucuman": "Atlético Tucumán"
+ fetch('https://v3.football.api-sports.io/standings?league=39&season=2025', {
+  method: 'GET',
+  headers: {
+    'x-apisports-key': API_KEY,
+  }
+})
+
+            .then(response => {
+                if (!response.ok) throw new Error("Error en la red");
+                return response.json(); // ¡Esto es vital!
+            })
+            .then(data => {
+                if (data.errors.length > 0) {
+                    console.error("Error de la API:", data.errors);
+                } else {
+                    console.log("Datos de response:", data.response);
+                    //console.log("Datos de response:", data.statistics.team);
+
+                }
+            })
+            .catch(err => console.error("Error en la petición:", err));
+                
+      /*  */
+
+        
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: { 
+                        'x-rapidapi-key': key, 
+                        'x-rapidapi-host': 'v3.football.api-sports.io' 
+                    }
+                });
+                
+                const data = await response.json();
+        
+                if(!data.response || data.response.length === 0) {
+                    resultsDiv.innerHTML = "<p>No hay partidos para hoy en la Liga Argentina.</p>";
+                    log.innerText = "> No se encontraron partidos.";
+                    return;
+                }
+        
+                resultsDiv.innerHTML = "<h4>Resultados del Día:</h4>";
+                data.response.forEach(p => {
+                    const apiL = p.teams.home.name;
+                    const apiV = p.teams.away.name;
+                    const gL = p.goals.home;
+                    const gV = p.goals.away;
+                    
+                    const realL = mapeoNombresAPI[apiL] || equipos30.find(e => e.includes(apiL)) || apiL;
+                    const realV = mapeoNombresAPI[apiV] || equipos30.find(e => e.includes(apiV)) || apiV;
+        
+                    resultsDiv.innerHTML += `
+                        <div class="match-item">
+                            <span>${realL} <b>${gL ?? 0} - ${gV ?? 0}</b> ${realV}</span>
+                            <button onclick="manualAddFromAPI('${realL}', ${gL ?? 0}, ${gV ?? 0}, '${realV}')" 
+                                    ${(gL === null) ? 'disabled' : ''}>Cargar</button>
+                        </div>
+                    `;
+                });
+                log.innerText = `> API consultada con éxito.`;
+            } catch (e) {
+                log.innerText = "> Error: Probablemente necesites activar el proxy o revisar tu conexión.";
+                resultsDiv.innerHTML = `<p style="color:red">Error: Si es un problema de CORS, visita <a href="https://herokuapp.comcorsdemo" target="_blank">esta web</a> y pulsa el botón para activar el acceso temporal.</p>`;
+            }
+        }
+        
+        function manualAddFromAPI(l, gl, gv, v) {
+            if(!equipos30.includes(l) || !equipos30.includes(v)) return alert("Nombres no coinciden con la lista de 30.");
+            historial.push(`${l},${gl},${gv},${v}`);
+            render();
+            document.getElementById('log').innerText = `> Cargado desde API: ${l} vs ${v}`;
+        }
+        
+        function manualAdd() {
+            const a = document.getElementById('eqA').value;
+            const b = document.getElementById('eqB').value;
+            const ga = document.getElementById('gA').value;
+            const gb = document.getElementById('gB').value;
+            if(a === b) return alert("Seleccione equipos diferentes");
+            historial.push(`${a},${ga},${gb},${b}`);
+            render();
+        }
+        
+        function render() {
+            let stats = {};
+            equipos30.forEach(n => stats[n] = {pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, ptsActual:0});
+        
+            historial.forEach(linea => {
+                const [l, ga, gb, v] = linea.split(',').map(s => s.trim());
+                const gL = parseInt(ga), gV = parseInt(gb);
+                if(stats[l] && stats[v]) {
+                    stats[l].pj++; stats[v].pj++;
+                    stats[l].gf += gL; stats[l].gc += gV;
+                    stats[v].gf += gV; stats[v].gc += gL;
+                    if (gL === gV) {
+                        stats[l].pe++; stats[v].pe++;
+                        const p = gL > 0 ? 1 : 0;
+                        stats[l].pts += p; stats[v].pts += p;
+                        stats[l].ptsActual += 1; stats[v].ptsActual += 1;
+                    } else {
+                        const ganoL = gL > gV;
+                        const ganador = ganoL ? l : v;
+                        const perdedor = ganoL ? v : l;
+                        stats[ganador].pg++; stats[perdedor].pp++;
+                        stats[ganador].pts += 3 + Math.min(Math.abs(gL - gV), 3);
+                        stats[ganador].ptsActual += 3;
+                    }
+                }
+            });
+        
+            const sortFn = (a, b) => b.pts - a.pts || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf;
+            const dataA = equipos30.filter(n => zonaA_ref.includes(n)).map(n => ({n, ...stats[n]})).sort(sortFn);
+            const dataB = equipos30.filter(n => !zonaA_ref.includes(n)).map(n => ({n, ...stats[n]})).sort(sortFn);
+        
+            const fillTable = (data, id) => {
+                document.getElementById(id).innerHTML = data.map(e => `
+                    <tr>
+                        <td style="text-align: left; font-weight: bold;">${e.n}</td>
+                        <td>${e.pj}</td><td>${e.pg}</td><td>${e.pe}</td><td>${e.pp}</td>
+                        <td>${e.gf}</td><td>${e.gc}</td><td>${e.gf - e.gc}</td>
+                        <td class="pts-col">${e.pts}</td>
+                        <td class="actual-col">${e.ptsActual}</td>
+                    </tr>`).join('');
+            };
+        
+            fillTable(dataA, 'bodyA');
+            fillTable(dataB, 'bodyB');
+            document.getElementById('log').innerText = historial.length ? historial.map(h => "> " + h.replace(/,/g, " ")).join('\n') : "> Sin partidos.";
+        }
+        
+        function resetearTodo() {
+            if(confirm('¿Borrar todo el historial?')) {
+                historial = [];
+                render();
+                document.getElementById('listaPartidos').innerHTML = '';
+                document.getElementById('apiResults').innerHTML = '';
+            }
+        }
+        
+        function saveFile() {
+            if(!historial.length) return alert("No hay datos");
+            const blob = new Blob([historial.join('\n')], {type: 'text/plain'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = "liga_anti_especulacion.txt";
+            link.click();
+        }
+        
+        function loadFile(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                historial = ev.target.result.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                render();
+            };
+            reader.readAsText(file);
+        }
+        
+        function verPartidos() {
+            const eq = document.getElementById('searchEq').value;
+            const container = document.getElementById('listaPartidos');
+            const filtrados = historial.filter(h => h.includes(eq));
+            container.innerHTML = `<h4>Historial de ${eq}:</h4>`;
+            if(!filtrados.length) container.innerHTML += "<p>Sin datos.</p>";
+            filtrados.forEach(f => {
+                const [l, gl, gv, v] = f.split(',');
+                container.innerHTML += `<div class="match-item">${l} ${gl}-${gv} ${v}</div>`;
+            });
+        }
+        
+        init();
+     
+    </script>
+</body>
+
+</html>
+
+<!--
+var myHeaders = new Headers();
+myHeaders.append("x-apisports-key", "XxXxXxXxXxXxXxXxXxXxXxXx");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
 };
 
-let historial = [];
-
-function init() {
-    const sorted = [...equipos30].sort();
-    const options = sorted.map(n => `<option value="${n}">${n}</option>`).join('');
-    document.getElementById('eqA').innerHTML = options;
-    document.getElementById('eqB').innerHTML = options;
-    document.getElementById('searchEq').innerHTML = options;
-    
-    const savedKey = localStorage.getItem('football_api_key');
-    if(savedKey) document.getElementById('apiKeyInput').value = savedKey;
-    
-    render();
-}
-
-function saveApiKey() {
-    const key = document.getElementById('apiKeyInput').value;
-    localStorage.setItem('football_api_key', key);
-    alert("API Key guardada correctamente.");
-}
-
-async function traerPartidosAPI() {
-    const key = localStorage.getItem('football_api_key');
-    if(!key) return alert("Por favor, ingresá y guardá una API Key primero.");
-    
-    const log = document.getElementById('log');
-    const resultsDiv = document.getElementById('apiResults');
-    
-    // Obtenemos fecha actual en formato local YYYY-MM-DD
-    const hoy = new Date().toLocaleDateString('sv-SE'); 
-    
-    log.innerText = `> Buscando partidos del ${hoy}...`;
-    resultsDiv.innerHTML = "<p>Cargando datos...</p>";
-
-    // Usamos un proxy para evitar el bloqueo CORS en local
-    const proxy = "https://herokuapp.com";
-    const url = `https://api-sports.io/${hoy}&season=2026&timezone=America/Argentina/Buenos_Aires`;
-
-    try {
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: { 
-                'x-rapidapi-key': key, 
-                'x-rapidapi-host': 'v3.football.api-sports.io' 
-            }
-        });
-        
-        const data = await response.json();
-
-        if(!data.response || data.response.length === 0) {
-            resultsDiv.innerHTML = "<p>No hay partidos para hoy en la Liga Argentina.</p>";
-            log.innerText = "> No se encontraron partidos.";
-            return;
-        }
-
-        resultsDiv.innerHTML = "<h4>Resultados del Día:</h4>";
-        data.response.forEach(p => {
-            const apiL = p.teams.home.name;
-            const apiV = p.teams.away.name;
-            const gL = p.goals.home;
-            const gV = p.goals.away;
-            
-            const realL = mapeoNombresAPI[apiL] || equipos30.find(e => e.includes(apiL)) || apiL;
-            const realV = mapeoNombresAPI[apiV] || equipos30.find(e => e.includes(apiV)) || apiV;
-
-            resultsDiv.innerHTML += `
-                <div class="match-item">
-                    <span>${realL} <b>${gL ?? 0} - ${gV ?? 0}</b> ${realV}</span>
-                    <button onclick="manualAddFromAPI('${realL}', ${gL ?? 0}, ${gV ?? 0}, '${realV}')" 
-                            ${(gL === null) ? 'disabled' : ''}>Cargar</button>
-                </div>
-            `;
-        });
-        log.innerText = `> API consultada con éxito.`;
-    } catch (e) {
-        log.innerText = "> Error: Probablemente necesites activar el proxy o revisar tu conexión.";
-        resultsDiv.innerHTML = `<p style="color:red">Error: Si es un problema de CORS, visita <a href="https://herokuapp.comcorsdemo" target="_blank">esta web</a> y pulsa el botón para activar el acceso temporal.</p>`;
-    }
-}
-
-function manualAddFromAPI(l, gl, gv, v) {
-    if(!equipos30.includes(l) || !equipos30.includes(v)) return alert("Nombres no coinciden con la lista de 30.");
-    historial.push(`${l},${gl},${gv},${v}`);
-    render();
-    document.getElementById('log').innerText = `> Cargado desde API: ${l} vs ${v}`;
-}
-
-function manualAdd() {
-    const a = document.getElementById('eqA').value;
-    const b = document.getElementById('eqB').value;
-    const ga = document.getElementById('gA').value;
-    const gb = document.getElementById('gB').value;
-    if(a === b) return alert("Seleccione equipos diferentes");
-    historial.push(`${a},${ga},${gb},${b}`);
-    render();
-}
-
-function render() {
-    let stats = {};
-    equipos30.forEach(n => stats[n] = {pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0, ptsActual:0});
-
-    historial.forEach(linea => {
-        const [l, ga, gb, v] = linea.split(',').map(s => s.trim());
-        const gL = parseInt(ga), gV = parseInt(gb);
-        if(stats[l] && stats[v]) {
-            stats[l].pj++; stats[v].pj++;
-            stats[l].gf += gL; stats[l].gc += gV;
-            stats[v].gf += gV; stats[v].gc += gL;
-            if (gL === gV) {
-                stats[l].pe++; stats[v].pe++;
-                const p = gL > 0 ? 1 : 0;
-                stats[l].pts += p; stats[v].pts += p;
-                stats[l].ptsActual += 1; stats[v].ptsActual += 1;
-            } else {
-                const ganoL = gL > gV;
-                const ganador = ganoL ? l : v;
-                const perdedor = ganoL ? v : l;
-                stats[ganador].pg++; stats[perdedor].pp++;
-                stats[ganador].pts += 3 + Math.min(Math.abs(gL - gV), 3);
-                stats[ganador].ptsActual += 3;
-            }
-        }
-    });
-
-    const sortFn = (a, b) => b.pts - a.pts || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf;
-    const dataA = equipos30.filter(n => zonaA_ref.includes(n)).map(n => ({n, ...stats[n]})).sort(sortFn);
-    const dataB = equipos30.filter(n => !zonaA_ref.includes(n)).map(n => ({n, ...stats[n]})).sort(sortFn);
-
-    const fillTable = (data, id) => {
-        document.getElementById(id).innerHTML = data.map(e => `
-            <tr>
-                <td style="text-align: left; font-weight: bold;">${e.n}</td>
-                <td>${e.pj}</td><td>${e.pg}</td><td>${e.pe}</td><td>${e.pp}</td>
-                <td>${e.gf}</td><td>${e.gc}</td><td>${e.gf - e.gc}</td>
-                <td class="pts-col">${e.pts}</td>
-                <td class="actual-col">${e.ptsActual}</td>
-            </tr>`).join('');
-    };
-
-    fillTable(dataA, 'bodyA');
-    fillTable(dataB, 'bodyB');
-    document.getElementById('log').innerText = historial.length ? historial.map(h => "> " + h.replace(/,/g, " ")).join('\n') : "> Sin partidos.";
-}
-
-function resetearTodo() {
-    if(confirm('¿Borrar todo el historial?')) {
-        historial = [];
-        render();
-        document.getElementById('listaPartidos').innerHTML = '';
-        document.getElementById('apiResults').innerHTML = '';
-    }
-}
-
-function saveFile() {
-    if(!historial.length) return alert("No hay datos");
-    const blob = new Blob([historial.join('\n')], {type: 'text/plain'});
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = "liga_anti_especulacion.txt";
-    link.click();
-}
-
-function loadFile(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-        historial = ev.target.result.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-        render();
-    };
-    reader.readAsText(file);
-}
-
-function verPartidos() {
-    const eq = document.getElementById('searchEq').value;
-    const container = document.getElementById('listaPartidos');
-    const filtrados = historial.filter(h => h.includes(eq));
-    container.innerHTML = `<h4>Historial de ${eq}:</h4>`;
-    if(!filtrados.length) container.innerHTML += "<p>Sin datos.</p>";
-    filtrados.forEach(f => {
-        const [l, gl, gv, v] = f.split(',');
-        container.innerHTML += `<div class="match-item">${l} ${gl}-${gv} ${v}</div>`;
-    });
-}
-
-init();
-</script>
-</body>
-</html>
+fetch("https://v3.football.api-sports.io/leagues", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+-->
