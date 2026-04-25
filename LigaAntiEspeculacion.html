@@ -400,19 +400,32 @@ function render() {
 
             if (gL === gV) {
                 stats[l].pe++; stats[v].pe++;
-                const p = gL > 0 ? 1 : 0;
-                stats[l].pts += p;
-                stats[v].pts += p;
-                // Cálculo Actual: 1 punto por empate
+                
+                // Lógica Nueva: 0-0 da 0 pts, otros empates 1 pt
+                const pNuevos = gL > 0 ? 1 : 0;
+                stats[l].pts += pNuevos;
+                stats[v].pts += pNuevos;
+
+                // Lógica Tradicional: Siempre 1 pt por empate
                 stats[l].ptsActual += 1;
                 stats[v].ptsActual += 1;
             } else {
                 const ganoL = gL > gV;
                 const ganador = ganoL ? l : v;
                 const perdedor = ganoL ? v : l;
-                stats[ganador].pg++; stats[perdedor].pp++;
-                stats[ganador].pts += 3 + Math.min(Math.abs(gL - gV), 3);
-                // Cálculo Actual: 3 puntos por ganar
+                const diferencia = Math.abs(gL - gV);
+
+                stats[ganador].pg++;
+                stats[perdedor].pp++;
+
+                // Lógica Nueva: 3 pts base + extra por diferencia (2 goles=+1, 3 goles=+2, etc.)
+                let pNuevos = 3;
+                if (diferencia >= 2) {
+                    pNuevos += (diferencia - 1);
+                }
+                stats[ganador].pts += pNuevos;
+
+                // Lógica Tradicional: Siempre 3 pts por ganar
                 stats[ganador].ptsActual += 3;
             }
         }
@@ -438,6 +451,7 @@ function render() {
     fillTable(dataB, 'bodyB');
     document.getElementById('log').innerText = historial.length ? historial.map(h => "> " + h.replace(/,/g, " ")).join('\n') : "> Sin partidos.";
 }
+
 
 function saveFile() {
     if(!historial.length) return alert("No hay datos para guardar");
