@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscador de Libros por Autor</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f9; padding: 20px; text-align: center; }
+        .search-box { margin-bottom: 30px; }
+        input { padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 20px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
+        
+        #resultados { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+            gap: 20px; 
+            padding: 20px; 
+        }
+        .libro-card { 
+            background: white; 
+            padding: 15px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        }
+        .libro-card img { max-width: 100%; height: 250px; object-fit: cover; border-radius: 4px; }
+        .libro-card h3 { font-size: 1rem; margin: 10px 0 5px; }
+        .libro-card p { font-size: 0.8rem; color: #666; }
+    </style>
+</head>
+<body>
+
+    <h1>Buscador de Libros (Open Library)</h1>
+    
+    <div class="search-box">
+        <input type="text" id="autorInput" placeholder="Nombre del autor (ej: Borges)">
+        <button onclick="buscar()">Buscar Libros</button>
+    </div>
+
+    <div id="resultados"></div>
+
+    <script>
+        async function buscar() {
+            const autor = document.getElementById('autorInput').value;
+            const contenedor = document.getElementById('resultados');
+            
+            if (!autor) return alert("Escribí un nombre de autor");
+
+            contenedor.innerHTML = "<p>Buscando...</p>";
+
+            try {
+                // 1. Petición a la Search API
+                const params = new URLSearchParams({
+                    author: autor,
+                    fields: "title,first_publish_year,cover_i", // cover_i es el ID de la portada
+                    limit: 12
+                });
+
+                const response = await fetch(`https://openlibrary.org/${params}`);
+                const data = await response.json();
+
+                contenedor.innerHTML = ""; // Limpiamos el cargando
+
+                if (data.docs.length === 0) {
+                    contenedor.innerHTML = "<p>No se encontraron libros.</p>";
+                    return;
+                }
+
+                // 2. Renderizar cada libro
+                data.docs.forEach(libro => {
+                    const card = document.createElement('div');
+                    card.className = 'libro-card';
+
+                    // Generamos la URL de la portada (si no tiene, usamos una imagen por defecto)
+                    const coverUrl = libro.cover_i 
+                        ? `https://openlibrary.org{libro.cover_i}-M.jpg` 
+                        : 'https://placeholder.com';
+
+                    card.innerHTML = `
+                        <img src="${coverUrl}" alt="${libro.title}">
+                        <h3>${libro.title}</h3>
+                        <p>Año: ${libro.first_publish_year || 'Desconocido'}</p>
+                    `;
+                    contenedor.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error(error);
+                contenedor.innerHTML = "<p>Error al conectar con la API.</p>";
+            }
+        }
+    </script>
+</body>
+</html>
+</html>
+
+
+
+//https://openlibrary.org/author=stephen+king&fields=title%2Cfirst_publish_year%2Ccover_i&limit=12

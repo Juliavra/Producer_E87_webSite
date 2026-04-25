@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Audio DJ Console</title>
+    <style>
+        body { background: #121212; color: #eee; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .dj-mixer { background: #222; padding: 20px; border-radius: 15px; border: 4px solid #333; display: flex; gap: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+        .deck { background: #1a1a1a; padding: 15px; border-radius: 10px; width: 250px; text-align: center; }
+        .deck h3 { color: #00d4ff; margin-top: 0; }
+        canvas { width: 100%; height: 60px; background: #000; border-radius: 5px; margin-bottom: 10px; }
+        .controls { display: flex; flex-direction: column; gap: 10px; }
+        .slider-label { font-size: 0.8rem; display: flex; justify-content: space-between; margin-bottom: 5px; }
+        input[type="range"] { width: 100%; cursor: pointer; }
+        
+        .middle-section { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px; width: 120px; }
+        .crossfader-container { width: 100px; text-align: center; }
+        .btn-load { background: #00d4ff; border: none; padding: 8px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-bottom: 10px; width: 100%; }
+        .btn-play { background: #28a745; border: none; color: white; padding: 10px; border-radius: 5px; cursor: pointer; width: 100%; font-weight: bold; }
+        .btn-play.playing { background: #dc3545; }
+    </style>
+</head>
+<body>
+
+<div class="dj-mixer">
+    <!-- DECK A -->
+    <div class="deck" id="deckA">
+        <h3>DECK A</h3>
+        <canvas id="canvasA"></canvas>
+        <button class="btn-load" onclick="document.getElementById('fileA').click()">Cargar Track</button>
+        <input type="file" id="fileA" hidden accept="audio/*">
+        <div class="controls">
+            <button class="btn-play" id="playA">PLAY / STOP</button>
+            <div>
+                <div class="slider-label"><span>Pitch</span><span id="valPitchA">1.0</span></div>
+                <input type="range" id="pitchA" min="0.5" max="1.5" step="0.01" value="1">
+            </div>
+            <div>
+                <div class="slider-label"><span>Vol</span><span id="valVolA">0.8</span></div>
+                <input type="range" id="volA" min="0" max="1" step="0.01" value="0.8">
+            </div>
+        </div>
+    </div>
+
+    <!-- MIXER CENTRAL -->
+    <div class="middle-section">
+        <div class="crossfader-container">
+            <div class="slider-label"><span>A</span><span>B</span></div>
+            <input type="range" id="crossfader" min="0" max="1" step="0.01" value="0.5">
+            <p style="font-size: 0.7rem; color: #666; margin-top: 10px;">CROSSFADER</p>
+        </div>
+    </div>
+
+    <!-- DECK B -->
+    <div class="deck" id="deckB">
+        <h3>DECK B</h3>
+        <canvas id="canvasB"></canvas>
+        <button class="btn-load" onclick="document.getElementById('fileB').click()">Cargar Track</button>
+        <input type="file" id="fileB" hidden accept="audio/*">
+        <div class="controls">
+            <button class="btn-play" id="playB">PLAY / STOP</button>
+            <div>
+                <div class="slider-label"><span>Pitch</span><span id="valPitchB">1.0</span></div>
+                <input type="range" id="pitchB" min="0.5" max="1.5" step="0.01" value="1">
+            </div>
+            <div>
+                <div class="slider-label"><span>Vol</span><span id="valVolB">0.8</span></div>
+                <input type="range" id="volB" min="0" max="1" step="0.01" value="0.8">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    class Deck {
+        constructor(idPrefix, canvasId) {
+            this.id = idPrefix;
+            this.buffer = null;
+            this.source = null;
+            this.isPlaying = false;
+            
+            // Nodos de Audio
+            this.gainNode = audioCtx.createGain();
+            this.analyser = audioCtx.createAnalyser();
+            this.analyser.fftSize = 128;
+            
+            // Conexión inicial: Gain -> Analyser -> Destination
+            this.gainNode.connect(this.analyser);
+            this.analyser.connect(audioCtx.destination);
+
+            this.setupUI(canvasId);
+        }
+
+        setupUI(canvasId) {
+            const fileInput = document.getElementById(`file${this.id}`);
+            fileInput.onchange = async (e) => {
+                const file = e.target.files[0];
+                const arrayBuffer = await file.arrayBuffer();
+                this.buffer = await audioCtx.decodeAudioData(arrayBuffer);
+            };
+
+            const btnPlay = document.getElementById(`play${this.id}`);
+            btnPlay.onclick = () => this.togglePlay(btnPlay);
+
+            document.getElementById(`pitch${this.id}`).oninput = (e) => {
+                const val = e.target.value;
+                document.getElementById(`valPitch${this.id}`).innerText = val;
+                if(this.source) this.source.playbackRate.value = val;
+            };
+
+            document.getElementById(`vol${this.id}`).oninput = (e) => {
+                const val = e.target.value;
+                document.getElementById(`valVol${this.id}`).innerText = val;
+                this.updateGain();
+            };
+
+            this.visualize(canvasId);
+        }
+
+        togglePlay(btn) {
+            if (this.isPlaying) {
+                this.source.stop();
+                this.isPlaying = false;
+                btn.classList.remove('playing');
+            } else if (this.buffer) {
+                this.source = audioCtx.createBufferSource();
+                this.source.buffer = this.buffer;
+                this.source.loop = true;
+                
+                // Aplicar valores actuales de pitch
+                this.source.playbackRate.value = document.getElementById(`pitch${this.id}`).value;
+                
+                this.source.connect(this.gainNode);
+                this.source.start(0);
+                this.isPlaying = true;
+                btn.classList.add('playing');
+            }
+        }
+
+        updateGain() {
+            const vol = parseFloat(document.getElementById(`vol${this.id}`).value);
+            const cross = parseFloat(document.getElementById('crossfader').value);
+            
+            // Lógica de crossfader: A suena en 0, B suena en 1
+            let finalGain = vol;
+            if (this.id === 'A') {
+                finalGain *= (1 - cross);
+            } else {
+                finalGain *= cross;
+            }
+            this.gainNode.gain.setTargetAtTime(finalGain, audioCtx.currentTime, 0.02);
+        }
+
+        visualize(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            const data = new Uint8Array(this.analyser.frequencyBinCount);
+
+            const draw = () => {
+                requestAnimationFrame(draw);
+                this.analyser.getByteFrequencyData(data);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = this.id === 'A' ? '#00d4ff' : '#ff0055';
+                const barWidth = canvas.width / data.length;
+                data.forEach((val, i) => {
+                    const h = (val / 255) * canvas.height;
+                    ctx.fillRect(i * barWidth, canvas.height - h, barWidth - 1, h);
+                });
+            };
+            draw();
+        }
+    }
+
+    const deckA = new Deck('A', 'canvasA');
+    const deckB = new Deck('B', 'canvasB');
+
+    // Control de Crossfader global
+    document.getElementById('crossfader').oninput = () => {
+        deckA.updateGain();
+        deckB.updateGain();
+    };
+</script>
+
+</body>
+</html>

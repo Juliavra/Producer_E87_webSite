@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Audio API - Proceso de Archivos</title>
+    <style>
+        body { font-family: sans-serif; background: #1a1a1a; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        #drop-zone { width: 300px; height: 150px; border: 2px dashed #666; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; transition: 0.3s; }
+        #drop-zone.hover { border-color: #00ffcc; background: #333; }
+        .controls { background: #2a2a2a; padding: 20px; border-radius: 10px; display: grid; gap: 15px; }
+        .panel { border: 1px solid #444; padding: 10px; }
+        label { display: block; font-size: 12px; margin-bottom: 5px; color: #aaa; }
+        input[type="range"] { width: 100%; }
+        button { cursor: pointer; padding: 10px; background: #00ffcc; border: none; font-weight: bold; }
+        button.active { background: #ff4444; color: white; }
+    </style>
+</head>
+<body>
+
+    <h1>Procesador de Audio Web</h1>
+    
+    <div id="drop-zone">Arrastra tu audio aquí (WAV/MP3)</div>
+
+    <div class="controls">
+        <div class="panel">
+            <button id="bypass-btn">BYPASS FILTRO: OFF</button>
+            <label>Frecuencia Filtro (Lowpass)</label>
+            <input type="range" id="filter-freq" min="20" max="15000" value="15000">
+        </div>
+
+        <div class="panel">
+            <label>Envío DELAY</label>
+            <input type="range" id="send-delay" min="0" max="1" step="0.01" value="0">
+        </div>
+
+        <div class="panel">
+            <label>Envío REVERB</label>
+            <input type="range" id="send-reverb" min="0" max="1" step="0.01" value="0">
+        </div>
+    </div>
+
+    <script>
+        let audioCtx, source, filter, delayNode, reverbNode, masterGain;
+        let delaySend, reverbSend;
+        let isBypass = false;
+
+        const dropZone = document.getElementById('drop-zone');
+        const filterFreq = document.getElementById('filter-freq');
+        const bypassBtn = document.getElementById('bypass-btn');
+
+        // Inicializar nodos de audio
+        function initAudio() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            masterGain = audioCtx.createGain();
+            masterGain.connect(audioCtx.destination);
+
+            // Filtro Principal
+            filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = 15000;
+
+            // --- CADENA DE DELAY ---
+            delaySend = audioCtx.createGain();
+            delayNode = audioCtx.createDelay();
+            delayNode.delayTime.value = 0.4;
+            const delayFeedback = audioCtx.createGain();
+            delayFeedback.gain.value = 0.3;
+            
+            delaySend.connect(delayNode);
+            delayNode.connect(delayFeedback);
+            delayFeedback.connect(delayNode);
+            delayNode.connect(masterGain);
+
+            // --- CADENA DE REVERB (Convolución simple) ---
+            reverbSend = audioCtx.createGain();
+            reverbNode = audioCtx.createConvolver();
+            createReverbImpulse(); // Generar un impulso artificial
+            reverbSend.connect(reverbNode);
+            reverbNode.connect(masterGain);
+        }
+
+        // Crear una Reverb artificial sin archivos externos
+        function createReverbImpulse() {
+            const length = audioCtx.sampleRate * 2;
+            const impulse = audioCtx.createBuffer(2, length, audioCtx.sampleRate);
+            for (let i = 0; i < 2; i++) {
+                let channel = impulse.getChannelData(i);
+                for (let j = 0; j < length; j++) {
+                    channel[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / length, 2);
+                }
+            }
+            reverbNode.buffer = impulse;
+        }
+
+        // Manejo de Archivos
+        dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add('hover'); };
+        dropZone.ondragleave = () => dropZone.classList.remove('hover');
+        dropZone.ondrop = async (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('hover');
+            if (!audioCtx) initAudio();
+
+            const file = e.dataTransfer.files[0];
+            const arrayBuffer = await file.arrayBuffer();
+            const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+            if (source) source.stop();
+            source = audioCtx.createBufferSource();
+            source.buffer = audioBuffer;
+            source.loop = true;
+
+            updateRouting();
+            source.start();
+            dropZone.innerText = "Reproduciendo: " + file.name;
+        };
+
+        function updateRouting() {
+            if (!source) return;
+            source.disconnect();
+            
+            // Ruteo dinámico para Bypass
+            const target = isBypass ? masterGain : filter;
+            if (!isBypass) filter.connect(masterGain);
+            
+            source.connect(target);
+            source.connect(delaySend);
+            source.connect(reverbSend);
+        }
+
+        // Eventos de la Interfaz
+        bypassBtn.onclick = () => {
+            isBypass = !isBypass;
+            bypassBtn.innerText = `BYPASS FILTRO: ${isBypass ? 'ON' : 'OFF'}`;
+            bypassBtn.classList.toggle('active');
+            updateRouting();
+        };
+
+        filterFreq.oninput = (e) => { filter.frequency.value = e.target.value; };
+        document.getElementById('send-delay').oninput = (e) => { delaySend.gain.value = e.target.value; };
+        document.getElementById('send-reverb').oninput = (e) => { reverbSend.gain.value = e.target.value; };
+
+    </script>
+</body>
+</html>

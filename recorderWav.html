@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grabador WAV con Player y Visualizador</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #121212; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: #1e1e1e; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; width: 450px; }
+        h2 { margin-bottom: 1rem; color: #00d4ff; }
+        
+        canvas { width: 100%; height: 100px; background: #000; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333; }
+        
+        .controls { display: flex; flex-direction: column; gap: 12px; }
+        button { padding: 12px; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        
+        #btnCapturar { background: #00d4ff; color: #121212; }
+        #btnGrabar { background: #ff4b2b; color: white; display: none; }
+        #btnDetener { background: #ffffff; color: #121212; display: none; }
+        #btnDescargar { background: #28a745; color: white; display: none; margin-top: 10px; }
+        
+        /* Estilos del Player */
+        #playerContainer { display: none; margin-top: 20px; padding: 15px; border-top: 1px solid #333; }
+        audio { width: 100%; filter: invert(100%) hue-rotate(180deg) brightness(1.5); } /* Estética dark para el player nativo */
+
+        .status { margin-top: 20px; font-size: 0.9rem; color: #aaa; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .recording-dot { width: 10px; height: 10px; background: red; border-radius: 50%; animation: blink 1s infinite; display: none; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Grabador WAV Pro</h2>
+    
+    <canvas id="visualizer"></canvas>
+
+    <div class="controls">
+        <button id="btnCapturar">1. Vincular Audio</button>
+        <button id="btnGrabar">2. Iniciar Grabación</button>
+        <button id="btnDetener">3. Detener Grabación</button>
+    </div>
+
+    <div id="playerContainer">
+        <p style="margin-bottom: 10px; font-size: 0.9rem;">Previsualización:</p>
+        <audio id="audioPlayer" controls></audio>
+        <button id="btnDescargar">Guardar Archivo .WAV</button>
+    </div>
+    
+    <div class="status">
+        <div id="dot" class="recording-dot"></div>
+        <span id="textoEstado">Listo para comenzar</span>
+    </div>
+</div>
+
+<script>
+    let audioContext, recorderNode, analyser, dataArray, animationId;
+    let audioChunks = [];
+    let currentStream, finalBlobUrl;
+
+    const canvas = document.getElementById('visualizer');
+    const canvasCtx = canvas.getContext('2d');
+    const btnCapturar = document.getElementById('btnCapturar');
+    const btnGrabar = document.getElementById('btnGrabar');
+    const btnDetener = document.getElementById('btnDetener');
+    const btnDescargar = document.getElementById('btnDescargar');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const playerContainer = document.getElementById('playerContainer');
+    const textoEstado = document.getElementById('textoEstado');
+    const dot = document.getElementById('dot');
+
+    btnCapturar.onclick = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+            const audioTracks = stream.getAudioTracks();
+            if (audioTracks.length === 0) return alert("¡No seleccionaste 'Compartir audio'!");
+
+            currentStream = new MediaStream(audioTracks);
+            btnCapturar.style.display = 'none';
+            btnGrabar.style.display = 'block';
+            textoEstado.innerText = "Audio vinculado";
+            
+            iniciarVisualizador(currentStream);
+        } catch (err) {
+            textoEstado.innerText = "Error al vincular";
+        }
+    };
+
+    function iniciarVisualizador(stream) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioContext.createMediaStreamSource(stream);
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        source.connect(analyser);
+
+        const bufferLength = analyser.frequencyBinCount;
+        dataArray = new Uint8Array(bufferLength);
+
+        function draw() {
+            animationId = requestAnimationFrame(draw);
+            analyser.getByteFrequencyData(dataArray);
+            canvasCtx.fillStyle = '#1e1e1e';
+            canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+            let x = 0;
+            const barWidth = (canvas.width / bufferLength) * 2.5;
+            for(let i = 0; i < bufferLength; i++) {
+                const barHeight = dataArray[i] / 2;
+                canvasCtx.fillStyle = `rgb(0, ${barHeight + 100}, 255)`;
+                canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                x += barWidth + 1;
+            }
+        }
+        draw();
+    }
+
+    btnGrabar.onclick = () => {
+        audioChunks = []; // Limpiar si hubo grabaciones previas
+        recorderNode = audioContext.createScriptProcessor(4096, 2, 2);
+        const source = audioContext.createMediaStreamSource(currentStream);
+        
+        recorderNode.onaudioprocess = (e) => {
+            audioChunks.push({
+                left: new Float32Array(e.inputBuffer.getChannelData(0)),
+                right: new Float32Array(e.inputBuffer.getChannelData(1))
+            });
+        };
+
+        source.connect(recorderNode);
+        recorderNode.connect(audioContext.destination);
+
+        btnGrabar.style.display = 'none';
+        btnDetener.style.display = 'block';
+        dot.style.display = 'block';
+        playerContainer.style.display = 'none';
+        textoEstado.innerText = "Grabando...";
+    };
+
+    btnDetener.onclick = () => {
+        recorderNode.disconnect();
+        dot.style.display = 'none';
+        textoEstado.innerText = "Grabación finalizada";
+
+        const wavBlob = encodeWAV(audioChunks, audioContext.sampleRate);
+        finalBlobUrl = URL.createObjectURL(wavBlob);
+        
+        audioPlayer.src = finalBlobUrl;
+        playerContainer.style.display = 'block';
+        btnDescargar.style.display = 'block';
+        btnDetener.style.display = 'none';
+        btnGrabar.style.display = 'block'; // Permitir grabar de nuevo
+    };
+
+    btnDescargar.onclick = () => {
+        const nombre = prompt("Nombre del archivo:", "mi_audio") || "audio";
+        const a = document.createElement("a");
+        a.href = finalBlobUrl;
+        a.download = `${nombre}.wav`;
+        a.click();
+    };
+
+    function encodeWAV(chunks, sampleRate) {
+        let len = 0;
+        chunks.forEach(c => len += c.left.length);
+        const buffer = new ArrayBuffer(44 + len * 4);
+        const view = new DataView(buffer);
+        const s = (off, str) => { for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i)); };
+        s(0, 'RIFF'); view.setUint32(4, 32 + len * 4, true); s(8, 'WAVE'); s(12, 'fmt ');
+        view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, 2, true);
+        view.setUint32(24, sampleRate, true); view.setUint32(28, sampleRate * 4, true);
+        view.setUint16(32, 4, true); view.setUint16(34, 16, true); s(36, 'data');
+        view.setUint32(40, len * 4, true);
+        let offset = 44;
+        chunks.forEach(c => {
+            for (let i = 0; i < c.left.length; i++) {
+                view.setInt16(offset, c.left[i] * 0x7FFF, true);
+                view.setInt16(offset + 2, c.right[i] * 0x7FFF, true);
+                offset += 4;
+            }
+        });
+        return new Blob([view], { type: 'audio/wav' });
+    }
+</script>
+</body>
+</html>
