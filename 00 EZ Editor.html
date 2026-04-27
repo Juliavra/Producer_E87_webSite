@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stereo Studio Pro v3.1 - Fixed</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #121212; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .container { background: #1e1e1e; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; width: 650px; }
+        h2 { margin-bottom: 1rem; color: #00d4ff; }
+        #dropZone { border: 2px dashed #444; border-radius: 10px; padding: 20px; margin-bottom: 20px; background: #181818; cursor: pointer; transition: 0.3s; }
+        #dropZone.hover { border-color: #00d4ff; background: #1a2a2d; }
+        .controls { display: flex; gap: 12px; margin-bottom: 20px; }
+        button { flex: 1; padding: 12px; font-size: 0.85rem; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        #btnCapturar { background: #00d4ff; color: #121212; }
+        #btnGrabar { background: #ff4b2b; color: white; display: none; }
+        #btnDetener { background: #ffffff; color: #121212; display: none; }
+        .edit-tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; background: #252525; padding: 15px; border-radius: 10px; }
+        #btnUndo { background: #555; color: white; }
+        #btnTrim { background: #ffc107; color: black; }
+        #btnCut { background: #e74c3c; color: white; }
+        #btnMute { background: #34495e; color: white; }
+        #btnNormalizar { background: #9b59b6; color: white; }
+        #btnReverse { background: #e67e22; color: white; }
+        #btnDescargar { background: #28a745; color: white; grid-column: span 3; margin-top: 5px; }
+        #playerContainer { display: none; margin-top: 15px; }
+        .waveform-scroll-container { width: 100%; overflow-x: auto; background: #080808; border: 1px solid #333; border-radius: 8px; position: relative; height: 240px; }
+        #waveformCanvas { cursor: crosshair; display: block; height: 240px; }
+        #playbackCursor { position: absolute; top: 0; left: 0; width: 2px; height: 100%; background: #ff0000; pointer-events: none; z-index: 10; box-shadow: 0 0 5px red; }
+        .channel-label { position: absolute; left: 5px; font-size: 10px; font-weight: bold; color: #444; pointer-events: none; z-index: 5; }
+        audio { width: 100%; filter: invert(100%); margin-top: 15px; }
+        .zoom-controls { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; color: #00d4ff; font-size: 0.8rem; }
+        .zoom-controls input { flex-grow: 1; accent-color: #00d4ff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Stereo Studio Pro</h2>
+        <div id="dropZone"><p id="dropText">Suelte audio aquí o haga clic</p><input type="file" id="fileInput" accept="audio/*" style="display:none"></div>
+        <div class="controls">
+            <button id="btnCapturar">Vincular Entrada</button>
+            <button id="btnGrabar">Iniciar Grabación</button>
+            <button id="btnDetener">Detener Grabación</button>
+        </div>
+        <div id="playerContainer">
+            <div class="zoom-controls">
+                <span>Zoom:</span><input type="range" id="zoomRange" min="1" max="25" step="0.5" value="1">
+                <span id="zoomVal">1x</span>
+            </div>
+            <div class="waveform-scroll-container" id="scrollContainer">
+                <div class="channel-label" style="top: 10px;">IZQUIERDO (L)</div>
+                <div class="channel-label" style="bottom: 10px;">DERECHO (R)</div>
+                <div style="position: relative; width: fit-content;">
+                    <canvas id="waveformCanvas" width="600" height="240"></canvas>
+                    <div id="playbackCursor"></div>
+                </div>
+            </div>
+            <audio id="audioPlayer" controls></audio>
+            <div class="edit-tools">
+                <button id="btnUndo">↶ Deshacer (<span id="undoCount">0</span>)</button>
+                <button id="btnTrim">✂ Trim</button>
+                <button id="btnReverse">⇄ Reverse</button>
+                <button id="btnCut">✀ Cut Sel</button>
+                <button id="btnMute">🔇 Mute Sel</button>
+                <button id="btnNormalizar">⚡ Normalizar</button>
+                <button id="btnDescargar">Descargar .WAV</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let currentBuffer, undoStack = [], currentChannel = 'both', currentZoom = 1;
+let timeStart = null, timeEnd = null, isDragging = false;
+let finalBlobUrl, mediaRecorder, currentStream, webmChunks = [];
+
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+const wavCanvas = document.getElementById('waveformCanvas');
+const wavCtx = wavCanvas.getContext('2d');
+const audioPlayer = document.getElementById('audioPlayer');
+
+// --- CARGA DE ARCHIVOS Y DRAG & DROP ---
+dropZone.onclick = () => fileInput.click();
+fileInput.onchange = (e) => { if(e.target.files.length > 0) cargarAudio(e.target.files[0]); };
+
+// Detener el comportamiento por defecto del navegador para evitar que abra el archivo
+window.addEventListener("dragover", e => e.preventDefault(), false);
+window.addEventListener("drop", e => e.preventDefault(), false);
+
+dropZone.ondragover = (e) => { e.preventDefault(); dropZone.classList.add('hover'); };
+dropZone.ondragleave = () => dropZone.classList.remove('hover');
+dropZone.ondrop = (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('hover');
+    if (e.dataTransfer.files.length > 0) cargarAudio(e.dataTransfer.files[0]);
+};
+
+async function cargarAudio(file) {
+    if (audioContext.state === 'suspended') await audioContext.resume();
+    document.getElementById('dropText').innerText = "Procesando: " + file.name + "...";
+    
+    try {
+        const ab = await file.arrayBuffer();
+        currentBuffer = await audioContext.decodeAudioData(ab);
+        
+        // Forzar Stereo si es Mono
+        if(currentBuffer.numberOfChannels === 1) {
+            const st = audioContext.createBuffer(2, currentBuffer.length, currentBuffer.sampleRate);
+            st.copyToChannel(currentBuffer.getChannelData(0), 0);
+            st.copyToChannel(currentBuffer.getChannelData(0), 1);
+            currentBuffer = st;
+        }
+        
+        document.getElementById('playerContainer').style.display = 'block';
+        document.getElementById('dropText').innerText = "Archivo cargado correctamente";
+        actualizarInterfaz();
+    } catch (error) {
+        console.error("Error al cargar audio:", error);
+        alert("No se pudo decodificar el audio. Intentá con otro formato.");
+        document.getElementById('dropText').innerText = "Error al cargar archivo";
+    }
+}
+
+// --- INTERACCIÓN DE ONDA ---
+wavCanvas.onmousemove = e => {
+    const rect = wavCanvas.getBoundingClientRect();
+    const y = e.clientY - rect.top;
+    if (!isDragging && currentBuffer) {
+        if (y < 80) currentChannel = 'left';
+        else if (y > 160) currentChannel = 'right';
+        else currentChannel = 'both';
+        dibujarOnda();
+    } else if (isDragging) {
+        timeEnd = e.offsetX / (wavCanvas.width / currentBuffer.duration);
+        dibujarOnda();
+    }
+};
+
+wavCanvas.onmousedown = e => {
+    if (!currentBuffer) return;
+    isDragging = true;
+    timeStart = e.offsetX / (wavCanvas.width / currentBuffer.duration);
+    timeEnd = timeStart;
+};
+
+wavCanvas.onmouseup = () => { isDragging = false; if(Math.abs(timeStart - timeEnd) < 0.01) { audioPlayer.currentTime = timeStart; resetSelection(); } };
+
+function resetSelection() { timeStart = null; timeEnd = null; dibujarOnda(); }
+
+function dibujarOnda() {
+    if(!currentBuffer) return;
+    wavCanvas.width = 600 * currentZoom;
+    const pxSec = wavCanvas.width / currentBuffer.duration;
+    
+    wavCtx.fillStyle = '#000'; wavCtx.fillRect(0,0,wavCanvas.width,wavCanvas.height);
+    wavCtx.strokeStyle = '#222'; wavCtx.beginPath(); wavCtx.moveTo(0, 120); wavCtx.lineTo(wavCanvas.width, 120); wavCtx.stroke();
+
+    if(timeStart !== null) {
+        wavCtx.fillStyle = 'rgba(0, 212, 255, 0.3)';
+        const xS = Math.min(timeStart, timeEnd) * pxSec, xE = Math.max(timeStart, timeEnd) * pxSec;
+        let sY = 0, sH = 240;
+        if(currentChannel === 'left') sH = 120;
+        else if(currentChannel === 'right') { sY = 120; sH = 120; }
+        wavCtx.fillRect(xS, sY, xE - xS, sH);
+    }
+
+    for(let ch=0; ch<2; ch++) {
+        const d = currentBuffer.getChannelData(ch), step = Math.ceil(d.length / wavCanvas.width), cY = ch===0?60:180;
+        const active = currentChannel==='both' || (currentChannel==='left' && ch===0) || (currentChannel==='right' && ch===1);
+        wavCtx.strokeStyle = active ? '#00d4ff' : '#224455';
+        wavCtx.beginPath();
+        for(let i=0; i<wavCanvas.width; i++) {
+            let min=1, max=-1, idx = i*step;
+            for(let j=0; j<step; j++) { const v=d[idx+j]; if(v<min) min=v; if(v>max) max=v; }
+            wavCtx.moveTo(i, cY + min*55); wavCtx.lineTo(i, cY + max*55);
+        }
+        wavCtx.stroke();
+    }
+    document.getElementById('playbackCursor').style.left = (audioPlayer.currentTime/audioPlayer.duration)*wavCanvas.width + "px";
+}
+
+// --- PROCESAMIENTO Y EDICIÓN ---
+function actualizarInterfaz() {
+    const blob = encodeWAV(currentBuffer);
+    if(finalBlobUrl) URL.revokeObjectURL(finalBlobUrl);
+    finalBlobUrl = URL.createObjectURL(blob);
+    audioPlayer.src = finalBlobUrl;
+    dibujarOnda();
+    document.getElementById('undoCount').innerText = undoStack.length;
+}
+
+function clone(b) {
+    const n = audioContext.createBuffer(2, b.length, b.sampleRate);
+    n.copyToChannel(new Float32Array(b.getChannelData(0)), 0);
+    n.copyToChannel(new Float32Array(b.getChannelData(1)), 1);
+    return n;
+}
+
+document.getElementById('btnReverse').onclick = () => {
+    if(!currentBuffer) return;
+    undoStack.push(clone(currentBuffer));
+    let s = timeStart !== null ? Math.floor(Math.min(timeStart, timeEnd) * currentBuffer.sampleRate) : 0;
+    let e = timeStart !== null ? Math.floor(Math.max(timeStart, timeEnd) * currentBuffer.sampleRate) : currentBuffer.length;
+    [0,1].forEach(ch => {
+        if(currentChannel === 'both' || (currentChannel === 'left' && ch === 0) || (currentChannel === 'right' && ch === 1)) {
+            currentBuffer.getChannelData(ch).subarray(s, e).reverse();
+        }
+    });
+    actualizarInterfaz();
+};
+
+document.getElementById('btnCut').onclick = () => {
+    if(!currentBuffer || timeStart === null) return;
+    undoStack.push(clone(currentBuffer));
+    const s = Math.floor(Math.min(timeStart, timeEnd) * currentBuffer.sampleRate), e = Math.floor(Math.max(timeStart, timeEnd) * currentBuffer.sampleRate);
+    if(currentChannel !== 'both') {
+        currentBuffer.getChannelData(currentChannel==='left'?0:1).fill(0, s, e);
+    } else {
+        const nLen = currentBuffer.length - (e - s);
+        const nB = audioContext.createBuffer(2, nLen, currentBuffer.sampleRate);
+        for(let i=0; i<2; i++) {
+            const old = currentBuffer.getChannelData(i), nD = new Float32Array(nLen);
+            nD.set(old.subarray(0, s)); nD.set(old.subarray(e), s); nB.copyToChannel(nD, i);
+        }
+        currentBuffer = nB;
+    }
+    resetSelection(); actualizarInterfaz();
+};
+
+document.getElementById('btnNormalizar').onclick = () => {
+    if(!currentBuffer) return; undoStack.push(clone(currentBuffer));
+    let s = timeStart !== null ? Math.floor(Math.min(timeStart, timeEnd) * currentBuffer.sampleRate) : 0;
+    let e = timeStart !== null ? Math.floor(Math.max(timeStart, timeEnd) * currentBuffer.sampleRate) : currentBuffer.length;
+    [0,1].forEach(ch => {
+        if(currentChannel==='both' || (currentChannel==='left'&&ch===0) || (currentChannel==='right'&&ch===1)) {
+            const d = currentBuffer.getChannelData(ch);
+            let m = 0; for(let i=s; i<e; i++) if(Math.abs(d[i])>m) m=Math.abs(d[i]);
+            if(m>0) { const g=1/m; for(let i=s; i<e; i++) d[i]*=g; }
+        }
+    }); actualizarInterfaz();
+};
+
+document.getElementById('btnUndo').onclick = () => { if(undoStack.length) { currentBuffer = undoStack.pop(); actualizarInterfaz(); } };
+document.getElementById('zoomRange').oninput = e => { currentZoom = e.target.value; document.getElementById('zoomVal').innerText = currentZoom + "x"; dibujarOnda(); };
+audioPlayer.ontimeupdate = () => dibujarOnda();
+document.getElementById('btnDescargar').onclick = () => { const a = document.createElement("a"); a.href = finalBlobUrl; a.download = "master.wav"; a.click(); };
+
+function encodeWAV(b) {
+    const l = b.getChannelData(0), r = b.getChannelData(1), dv = new DataView(new ArrayBuffer(44 + l.length * 4));
+    const s = (o, str) => { for (let i = 0; i < str.length; i++) dv.setUint8(o + i, str.charCodeAt(i)); };
+    s(0, 'RIFF'); dv.setUint32(4, 32 + l.length * 4, true); s(8, 'WAVE'); s(12, 'fmt ');
+    dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 2, true);
+    dv.setUint32(24, b.sampleRate, true); dv.setUint32(28, b.sampleRate * 4, true);
+    dv.setUint16(32, 4, true); dv.setUint16(34, 16, true); s(36, 'data'); dv.setUint32(40, l.length * 4, true);
+    for (let i = 0; i < l.length; i++) {
+        dv.setInt16(44 + i * 4, Math.max(-1, Math.min(1, l[i])) * 0x7FFF, true);
+        dv.setInt16(46 + i * 4, Math.max(-1, Math.min(1, r[i])) * 0x7FFF, true);
+    }
+    return new Blob([dv], { type: 'audio/wav' });
+}
+</script>
+</body>
+</html>
