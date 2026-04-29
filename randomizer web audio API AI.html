@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Audio Randomizer - Ajustable</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background: #000; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: #111; padding: 30px; border-radius: 12px; width: 650px; border: 1px solid #333; box-shadow: 0 0 50px rgba(0,212,255,0.1); }
+        #dropZone { border: 2px dashed #00d4ff; padding: 40px; cursor: pointer; border-radius: 8px; margin: 20px 0; background: #050505; transition: 0.2s; }
+        #dropZone:hover { background: #001a1a; }
+        canvas { width: 100%; height: 100px; background: #000; display: block; border: 1px solid #222; margin: 5px 0; }
+        .btn { background: #00d4ff; color: #000; border: none; padding: 12px 25px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn:hover { background: #00aed3; }
+        .hidden { display: none; }
+        h3 { font-size: 0.8rem; color: #666; text-transform: uppercase; margin-top: 15px; }
+        #status { color: #ffc107; font-family: monospace; font-size: 0.9rem; margin-top: 10px; }
+        
+        /* Control de tamaño de muestra */
+        .settings { background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #333; }
+        .settings label { display: block; margin-bottom: 10px; font-size: 0.9rem; color: #00d4ff; }
+        .settings input { width: 100%; accent-color: #00d4ff; }
+        .val-display { font-weight: bold; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 style="margin:0; color:#00d4ff;">Randomizer Crossfader</h2>
+    
+    <div id="step1">
+        <p>Los navegadores bloquean el audio por seguridad. Hacé clic abajo para empezar:</p>
+        <button id="btnInit" class="btn">DESBLOQUEAR Y EMPEZAR</button>
+    </div>
+
+    <div id="step2" class="hidden">
+        <!-- Control de Tamaño de Muestra -->
+        <div class="settings">
+            <label for="segRange">Tamaño de cada trozo: <span class="val-display" id="segVal">2.0</span> segundos</label>
+            <input type="range" id="segRange" min="0.5" max="10" step="0.1" value="2.0">
+            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: #555; margin-top: 5px;">
+                <span>0.5s</span>
+                <span>10s</span>
+            </div>
+        </div>
+
+        <div id="dropZone">
+            ARRASTRÁ AUDIO ACÁ <br> <span style="font-size: 0.8rem; color: #555;">o hacé clic para seleccionar</span>
+        </div>
+        
+        <input type="file" id="fileInput" class="hidden" accept="audio/*">
+        <div id="status">Esperando archivo...</div>
+        
+        <div id="results" class="hidden">
+            <h3>Onda Original</h3>
+            <canvas id="canvOrig"></canvas>
+            <h3>Onda Randomizada</h3>
+            <canvas id="canvRes"></canvas>
+            <audio id="player" controls style="width:100%; margin-top:15px; filter: invert(1);"></audio>
+            <button id="btnDownload" class="btn" style="background:#28a745; color:#fff; margin-top:10px;">DESCARGAR WAV</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// --- ESCUDO CONTRA EL COMPORTAMIENTO DEL NAVEGADOR ---
+const kill = (e) => { e.preventDefault(); e.stopPropagation(); };
+['dragover', 'dragenter', 'dragleave', 'drop'].forEach(evt => {
+    window.addEventListener(evt, kill, true);
+});
+
+let audioCtx;
+const btnInit = document.getElementById('btnInit');
+const fileInput = document.getElementById('fileInput');
+const dropZone = document.getElementById('dropZone');
+const status = document.getElementById('status');
+const segRange = document.getElementById('segRange');
+const segVal = document.getElementById('segVal');
+
+// Actualizar visualización del slider
+segRange.oninput = () => segVal.innerText = parseFloat(segRange.value).toFixed(1);
+
+// ACTIVACIÓN INICIAL
+btnInit.onclick = async () => {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    document.getElementById('step1').classList.add('hidden');
+    document.getElementById('step2').classList.remove('hidden');
+};
+
+dropZone.onclick = () => fileInput.click();
+fileInput.onchange = (e) => { if(e.target.files.length) handleFile(e.target.files[0]); };
+
+window.addEventListener('drop', (e) => {
+    kill(e);
+    const files = e.dataTransfer.files;
+    if(files.length) handleFile(files[0]);
+}, true);
+
+async function handleFile(file) {
+    if(!file.type.startsWith('audio/')) return alert("Por favor, cargá un archivo de audio.");
+    status.innerText = "Leyendo archivo...";
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+        try {
+            status.innerText = "Decodificando...";
+            const buffer = await audioCtx.decodeAudioData(e.target.result);
+            processAudio(buffer);
+        } catch(err) {
+            status.innerText = "Error al decodificar.";
+        }
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+async function processAudio(buffer) {
+    const seg = parseFloat(segRange.value); // Obtenemos el valor del slider
+    status.innerText = `Randomizando trozos de ${seg}s...`;
+    
+    const sr = buffer.sampleRate;
+    const dur = buffer.duration;
+    const fade = 0.015; // 15ms de crossfade fijo para evitar clics
+
+    const offCtx = new OfflineAudioContext(buffer.numberOfChannels, buffer.length, sr);
+
+    let t = 0;
+    while(t < dur) {
+        const source = offCtx.createBufferSource();
+        source.buffer = buffer;
+        const gain = offCtx.createGain();
+        
+        // Evitar que el punto de inicio random se pase del final del audio
+        const maxStart = Math.max(0, dur - seg);
+        const startRand = Math.random() * maxStart;
+
+        // CROSSFADE
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(1, t + fade);
+        gain.gain.setValueAtTime(1, t + seg - fade);
+        gain.gain.linearRampToValueAtTime(0, t + seg);
+
+        source.connect(gain);
+        gain.connect(offCtx.destination);
+        
+        source.start(t, startRand, seg);
+        
+        // Avanzamos tiempo solapando el fade
+        t += (seg - fade); 
+    }
+
+    const resBuffer = await offCtx.startRendering();
+    
+    document.getElementById('results').classList.remove('hidden');
+    drawWave(buffer, 'canvOrig', '#444');
+    drawWave(resBuffer, 'canvRes', '#00d4ff');
+    
+    const wav = audioBufferToWav(resBuffer);
+    const blob = new Blob([wav], { type: 'audio/wav' });
+    const url = URL.createObjectURL(blob);
+    
+    document.getElementById('player').src = url;
+    document.getElementById('btnDownload').onclick = () => {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `random_samples_${seg}s.wav`;
+        a.click();
+    };
+    status.innerText = "¡Listo!";
+}
+
+function drawWave(buffer, canvasId, color) {
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    const data = buffer.getChannelData(0);
+    const step = Math.ceil(data.length / canvas.width);
+    ctx.fillStyle = '#000'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = color; ctx.beginPath();
+    for(let i=0; i<canvas.width; i++) {
+        let min=1, max=-1;
+        for(let j=0; j<step; j++) {
+            const v = data[i*step+j];
+            if(v < min) min = v; if(v > max) max = v;
+        }
+        ctx.moveTo(i, (1+min)*50); ctx.lineTo(i, (1+max)*50);
+    }
+    ctx.stroke();
+}
+
+function audioBufferToWav(buffer) {
+    const n = buffer.numberOfChannels, len = buffer.length * n * 2 + 44;
+    const ab = new ArrayBuffer(len), view = new DataView(ab);
+    const s = (o, str) => { for(let i=0; i<str.length; i++) view.setUint8(o+i, str.charCodeAt(i)); };
+    s(0, 'RIFF'); view.setUint32(4, len - 8, true); s(8, 'WAVE'); s(12, 'fmt ');
+    view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, n, true);
+    view.setUint32(24, buffer.sampleRate, true); view.setUint32(28, buffer.sampleRate*n*2, true);
+    view.setUint16(32, n*2, true); view.setUint16(34, 16, true); s(36, 'data'); view.setUint32(40, len - 44, true);
+    let offset = 44;
+    for(let i=0; i<buffer.length; i++) {
+        for(let ch=0; ch<n; ch++) {
+            let sample = Math.max(-1, Math.min(1, buffer.getChannelData(ch)[i]));
+            view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+            offset += 2;
+        }
+    }
+    return ab;
+}
+</script>
+</body>
+</html>
