@@ -1,0 +1,166 @@
+<!--
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>MIDI Player Funcional</title>
+    <script src="https://unpkg.com/tone"></script>
+    <script src="https://unpkg.com/@tonejs/midi"></script>
+    
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .box { border: 2px solid #00d1b2; padding: 20px; border-radius: 10px; text-align: center; }
+        #status { margin-top: 15px; color: #00d1b2; }
+        input { margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h2>Reproductor MIDI con Sampler</h2>
+        <input type="file" id="midi-input" accept=".mid,.midi">
+        <div id="status">Cargando librerías...</div>
+    </div>
+
+    <script>
+        let sampler;
+
+        // Verificación de carga de librerías
+        window.onload = () => {
+            if (typeof Tone !== 'undefined' && typeof Midi !== 'undefined') {
+                document.getElementById('status').innerText = "Librerías listas. Seleccioná un MIDI.";
+                
+                // Inicializamos el sampler con un piano real
+                sampler = new Tone.Sampler({
+                    urls: {
+                        "A0": "A0.mp3", "C1": "C1.mp3", "D#1": "Ds1.mp3", "F#1": "Fs1.mp3",
+                        "A1": "A1.mp3", "C2": "C2.mp3", "D#2": "Ds2.mp3", "F#2": "Fs2.mp3",
+                        "A2": "A2.mp3", "C3": "C3.mp3", "D#3": "Ds3.mp3", "F#3": "Fs3.mp3",
+                        "A3": "A3.mp3", "C4": "C4.mp3", "D#4": "Ds4.mp3", "F#4": "Fs4.mp3",
+                        "A4": "A4.mp3", "C5": "C5.mp3", "D#5": "Ds5.mp3", "F#5": "Fs5.mp3",
+                        "A5": "A5.mp3", "C6": "C6.mp3", "D#6": "Ds6.mp3", "F#6": "Fs6.mp3",
+                        "A6": "A6.mp3", "C7": "C7.mp3", "D#7": "Ds7.mp3", "F#7": "Fs7.mp3",
+                        "A7": "A7.mp3", "C8": "C8.mp3"
+                    },
+                    baseUrl: "https://tonejs.github.io/audio/salamander/",
+                }).toDestination();
+            } else {
+                document.getElementById('status').innerText = "Error crítico: No se pudieron cargar los scripts.";
+            }
+        };
+
+        document.getElementById('midi-input').addEventListener('change', async (e) => {
+            const file = e.target.files[0]; // Acceso correcto al archivo
+            if (!file) return;
+
+            await Tone.start();
+            document.getElementById('status').innerText = "Procesando MIDI...";
+
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                const midiData = new Midi(event.target.result);
+                
+                // Reset del transporte
+                Tone.Transport.stop();
+                Tone.Transport.cancel();
+
+                midiData.tracks.forEach(track => {
+                    track.notes.forEach(note => {
+                        Tone.Transport.schedule((time) => {
+                            sampler.triggerAttackRelease(note.name, note.duration, time, note.velocity);
+                        }, note.time);
+                    });
+                });
+
+                Tone.Transport.start();
+                document.getElementById('status').innerText = "Reproduciendo: " + file.name;
+            };
+            reader.readAsArrayBuffer(file);
+        });
+    </script>
+</body>
+</html>
+-->
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>MIDI Player - Controles</title>
+    <script src="https://unpkg.com/tone"></script>
+    <script src="https://unpkg.com/@tonejs/midi"></script>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: white; text-align: center; padding-top: 50px; }
+        .controls { margin-top: 20px; display: none; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin: 5px; border-radius: 5px; border: none; }
+        .play { background: #28a745; color: white; }
+        .stop { background: #dc3545; color: white; }
+        #status { margin: 15px; color: #00d1b2; }
+    </style>
+</head>
+<body>
+
+    <h2>Reproductor MIDI</h2>
+    <input type="file" id="midi-input" accept=".mid">
+    <div id="status">Esperando archivo...</div>
+
+    <div class="controls" id="player-controls">
+        <button class="play" onclick="playMidi()">PLAY</button>
+        <button class="stop" onclick="stopMidi()">STOP</button>
+    </div>
+
+    <script>
+        const sampler = new Tone.Sampler({
+            urls: { "A0": "A0.mp3", "C1": "C1.mp3", "A1": "A1.mp3", "C4": "C4.mp3" },
+            baseUrl: "https://tonejs.github.io/audio/salamander/",
+        }).toDestination();
+
+        document.getElementById('midi-input').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            await Tone.start();
+            document.getElementById('status').innerText = "Cargando partitura...";
+
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                const midi = new Midi(event.target.result);
+                
+                // Limpiamos cualquier secuencia previa
+                Tone.Transport.stop().cancel();
+
+                // Programamos las notas en el transporte
+                midi.tracks.forEach(track => {
+                    track.notes.forEach(note => {
+                        Tone.Transport.schedule((time) => {
+                            sampler.triggerAttackRelease(note.name, note.duration, time, note.velocity);
+                        }, note.time);
+                    });
+                });
+
+                document.getElementById('status').innerText = "MIDI cargado: " + file.name;
+                document.getElementById('player-controls').style.display = "block";
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        function playMidi() {
+            // Si el transporte ya está corriendo, lo reiniciamos
+            if (Tone.Transport.state === 'started') {
+                Tone.Transport.stop();
+            }
+            Tone.Transport.start();
+            document.getElementById('status').innerText = "Reproduciendo...";
+        }
+
+        function stopMidi() {
+            Tone.Transport.stop();
+            document.getElementById('status').innerText = "Detenido.";
+        }
+    </script>
+</body>
+</html>
+
+
+
