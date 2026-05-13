@@ -412,11 +412,6 @@ async function printsArtistaReleases(artist_id, containerInput, btn) {
     }
 }
 
-
-
-
-
-
 async function verLabelSmall(data, containerId) {
     if (!data) {
         console.error('ID de label no proporcionado');

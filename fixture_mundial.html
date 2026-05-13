@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixture Mundial 2026 - Desempate FIFA Oficial</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; color: #1a1a1a; }
+        header { text-align: center; margin-bottom: 30px; background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); color: white; padding: 25px; border-radius: 10px; }
+        header h1 { margin: 0; font-size: 2.2em; text-transform: uppercase; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .etapa-titulo { background: #111; color: #fff; padding: 12px 20px; border-radius: 6px; margin-top: 35px; margin-bottom: 15px; font-size: 1.3em; font-weight: bold; }
+        .grupos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+        .grupo-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e1e4e8; }
+        .grupo-header { background: #0052cc; color: white; padding: 10px; font-weight: bold; text-align: center; }
+        .tabla-posiciones { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.8em; background: #fafafa; }
+        .tabla-posiciones th { background: #ebedf0; padding: 6px; color: #444; }
+        .tabla-posiciones td { padding: 5px; border-top: 1px solid #e1e4e8; }
+        .inputs-criterios { width: 30px; text-align: center; font-size: 0.85em; border: 1px solid #ccc; border-radius: 3px; }
+        .partidos-lista { padding: 8px; background: #fff; border-top: 1px solid #eee; }
+        .partido { display: flex; align-items: center; justify-content: space-between; padding: 6px 4px; border-bottom: 1px solid #f1f3f5; font-size: 0.9em; }
+        .partido:last-child { border-bottom: none; }
+        .partido .equipo-lbl { width: 105px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .partido .equipo-lbl.local { text-align: right; }
+        .partido .equipo-lbl.visitante { text-align: left; }
+        .goles-input { width: 35px; text-align: center; padding: 3px; border: 1px solid #ccc; border-radius: 4px; font-weight: bold; }
+        .penales-container { display: none; align-items: center; background: #fff3cd; padding: 2px 5px; border-radius: 4px; margin: 0 4px; border: 1px solid #ffeeba; }
+        .penales-input { width: 25px; text-align: center; padding: 2px; border: 1px solid #999; border-radius: 3px; font-size: 0.8em; font-weight: bold; }
+        .eliminatoria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 15px; }
+        .llave-card { background: #fff; border-radius: 6px; padding: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #0052cc; }
+        .llave-card.destacada { border-left-color: #e67e22; background: #fffdf5; }
+        .llave-card.final-card { border-left-color: #d63031; background: #fff5f5; }
+        .llave-titulo { font-size: 0.75em; color: #666; font-weight: bold; text-transform: uppercase; margin-bottom: 6px; }
+        .btn-reset { display: block; width: 100%; max-width: 200px; margin: 10px auto; padding: 8px; background: #dc3545; color: white; border: none; font-size: 0.9em; font-weight: bold; border-radius: 6px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Fixture Mundial 2026 Lógica Avanzada FIFA</h1>
+    <p>Desempates automatizados por Puntos Partidos Propios, Goles, Tarjetas y Ranking FIFA</p>
+    <button class="btn-reset" onclick="borrarProgreso()">Borrar todo el progreso</button>
+</header>
+
+<div class="container">
+    <div class="etapa-titulo">Fase de Grupos (Configurá Goles, Tarjetas de Conducta y Puesto de Ranking FIFA)</div>
+    <div class="grupos-grid" id="contenedor-grupos"></div>
+
+    <div class="etapa-titulo">Dieciseisavos de Final (32 Selecciones)</div>
+    <div class="eliminatoria-grid" id="contenedor-r32"></div>
+
+    <div class="etapa-titulo">Octavos de Final</div>
+    <div class="eliminatoria-grid" id="contenedor-octavos"></div>
+
+    <div class="etapa-titulo">Fase Final (Cuartos, Semis y Gran Final)</div>
+    <div class="eliminatoria-grid" id="contenedor-finales"></div>
+</div>
+
+<script>
+    const datosGrupos = {
+        'A': ['México', 'Sudáfrica', 'Corea del Sur', 'Chequia'], 'B': ['Canadá', 'Bosnia y H.', 'Qatar', 'Suiza'],
+        'C': ['Brasil', 'Marruecos', 'Haití', 'Escocia'], 'D': ['EE. UU.', 'Paraguay', 'Australia', 'Turquía'],
+        'E': ['Alemania', 'Curaçao', 'Costa de Marfil', 'Ecuador'], 'F': ['Países Bajos', 'Japón', 'Suecia', 'Túnez'],
+        'G': ['Bélgica', 'Egipto', 'Irán', 'Nueva Zelanda'], 'H': ['España', 'Cabo Verde', 'Arabia Saudita', 'Uruguay'],
+        'I': ['Francia', 'Senegal', 'Irak', 'Noruega'], 'J': ['Argentina', 'Argelia', 'Austria', 'Jordania'],
+        'K': ['Portugal', 'Rep. Dem. Congo', 'Uzbekistán', 'Colombia'], 'L': ['Inglaterra', 'Croacia', 'Ghana', 'Panamá']
+    };
+
+    const partidosConfig = [];
+    let partidoId = 1;
+    for (const letra in datosGrupos) {
+        const p = [{l:0, v:1}, {l:2, v:3}, {l:0, v:2}, {l:3, v:1}, {l:3, v:0}, {l:1, v:2}];
+        p.forEach(m => { partidosConfig.push({ id: partidoId++, grupo: letra, locIdx: m.l, visIdx: m.v }); });
+    }
+
+    const crucesR32 = [
+        { cod: 'M73', L: '2A', V: '2B', desc: 'Partido 73 (Los Ángeles)' }, { cod: 'M74', L: '1E', V: '3A/B/C', desc: 'Partido 74 (Boston)' },
+        { cod: 'M75', L: '1F', V: '2C', desc: 'Partido 75 (Monterrey)' }, { cod: 'M76', L: '1C', V: '2F', desc: 'Partido 76 (Houston)' },
+        { cod: 'M77', L: '1I', V: '3C/D/F', desc: 'Partido 77 (Nueva York)' }, { cod: 'M78', L: '2E', V: '2I', desc: 'Partido 78 (Dallas)' },
+        { cod: 'M79', L: '1A', V: '3C/E/F', desc: 'Partido 79 (CDMX Azteca)' }, { cod: 'M80', L: '1L', V: '3E/H/I', desc: 'Partido 80 (Filadelfia)' },
+        { cod: 'M81', L: '1D', V: '3B/E/F', desc: 'Partido 81 (San Francisco)' }, { cod: 'M82', L: '1G', V: '3A/E/H', desc: 'Partido 82 (Seattle)' },
+        { cod: 'M83', L: '2K', V: '2L', desc: 'Partido 83 (Kansas City)' }, { cod: 'M84', L: '1H', V: '2J', desc: 'Partido 84 (Miami)' },
+        { cod: 'M85', L: '1B', V: '3E/F/G', desc: 'Partido 85 (Arlington)' }, { cod: 'M86', L: '1J', V: '2H', desc: 'Partido 86 (Houston)' },
+        { cod: 'M87', L: '1K', V: '3D/E/I', desc: 'Partido 87 (Atlanta)' }, { cod: 'M88', L: '2D', V: '2G', desc: 'Partido 88 (Vancouver)' }
+    ];
+
+    const estructuraOctavos = [
+        { cod: 'O1', L: 'M73', V: 'M74', desc: 'Octavos O1' }, { cod: 'O2', L: 'M75', V: 'M76', desc: 'Octavos O2' },
+        { cod: 'O3', L: 'M77', V: 'M78', desc: 'Octavos O3' }, { cod: 'O4', L: 'M79', V: 'M80', desc: 'Octavos O4' },
+        { cod: 'O5', L: 'M81', V: 'M82', desc: 'Octavos O5' }, { cod: 'O6', L: 'M83', V: 'M84', desc: 'Octavos O6' },
+        { cod: 'O7', L: 'M85', V: 'M86', desc: 'Octavos O7' }, { cod: 'O8', L: 'M87', V: 'M88', desc: 'Octavos O8' }
+    ];
+
+    const estructuraCuartos = [
+        { cod: 'C1', L: 'O1', V: 'O2', desc: 'Cuartos C1' }, { cod: 'C2', L: 'O3', V: 'O4', desc: 'Cuartos C2' },
+        { cod: 'C3', L: 'O5', V: 'O6', desc: 'Cuartos C3' }, { cod: 'C4', L: 'O7', V: 'O8', desc: 'Cuartos C4' }
+    ];
+
+    function inicializarFixture() {
+        const contenedor = document.getElementById('contenedor-grupos');
+        contenedor.innerHTML = '';
+        let numIdRanking = 1;
+        
+        for (const letra in datosGrupos) {
+            const card = document.createElement('div');
+            card.className = 'grupo-card';
+            let tablaHtml = `<div class="grupo-header">Grupo ${letra}</div>
+                <table class="tabla-posiciones" id="tabla-${letra}">
+                    <thead><tr><th>Equipo</th><th>Pts</th><th>DG</th><th>GF</th><th>Cond.</th><th>Rank</th></tr></thead><tbody>`;
+            
+            datosGrupos[letra].forEach(eq => { 
+                const safeName = eq.replace(/[^a-zA-Z0-9]/g, '');
+                tablaHtml += `<tr>
+                    <td style="text-align:left; padding-left:5px;">${eq}</td>
+                    <td class="m-pts">0</td><td class="m-dg">0</td><td class="m-gf">0</td>
+                    <td><input type="number" class="inputs-criterios" id="cond-${letra}-${safeName}" value="100" title="Puntos de Conducta" onchange="procesarFixture()"></td>
+                    <td><input type="number" class="inputs-criterios" id="rank-${letra}-${safeName}" value="${numIdRanking++}" title="Puesto Ranking FIFA" onchange="procesarFixture()"></td>
+                </tr>`; 
+            });
+            tablaHtml += `</tbody></table><div class="partidos-lista">`;
+
+            partidosConfig.filter(p => p.grupo === letra).forEach(p => {
+                const eqLoc = datosGrupos[letra][p.locIdx];
+                const eqVis = datosGrupos[letra][p.visIdx];
+                tablaHtml += `
+                    <div class="partido">
+                        <span class="equipo-lbl local">${eqLoc}</span>
+                        <input type="number" min="0" class="goles-input" id="g-loc-${p.id}" onchange="procesarFixture()">
+                        <input type="number" min="0" class="goles-input" id="g-vis-${p.id}" onchange="procesarFixture()">
+                        <span class="equipo-lbl visitante">${eqVis}</span>
+                    </div>`;
+            });
+            card.innerHTML = tablaHtml + `</div>`;
+            contenedor.appendChild(card);
+        }
+        renderizarEsqueletoEliminatorias();
+        cargarDatosGuardados();
+    }
+
+    function HTMLPartidaEliminatoria(c) {
+        return `
+            <div class="llave-card">
+                <div class="llave-titulo">${c.desc}</div>
+                <div class="partido">
+                    <span class="equipo-lbl local" id="L-${c.cod}">${c.L}</span>
+                    <input type="number" class="goles-input" id="gL-${c.cod}" onchange="procesarFixture()">
+                    <div class="penales-container" id="p-box-${c.cod}">
+                        <input type="number" class="penales-input" id="pL-${c.cod}" onchange="procesarFixture()">
+                        <span style="font-size:0.7em;margin:0 2px;">(P)</span>
+                        <input type="number" class="penales-input" id="pV-${c.cod}" onchange="procesarFixture()">
+                    </div>
+                    <input type="number" class="goles-input" id="gV-${c.cod}" onchange="procesarFixture()">
+                    <span class="equipo-lbl visitante" id="V-${c.cod}">${c.V}</span>
+                </div>
+            </div>`;
+    }
+
+    function renderizarEsqueletoEliminatorias() {
+        const contR32 = document.getElementById('contenedor-r32'); contR32.innerHTML = '';
+        crucesR32.forEach(c => { contR32.innerHTML += HTMLPartidaEliminatoria(c); });
+
+        const contOct = document.getElementById('contenedor-octavos'); contOct.innerHTML = '';
+        estructuraOctavos.forEach(o => { contOct.innerHTML += HTMLPartidaEliminatoria(o); });
+
+        const contFin = document.getElementById('contenedor-finales'); contFin.innerHTML = '';
+        estructuraCuartos.forEach(c => { contFin.innerHTML += HTMLPartidaEliminatoria(c); });
+
+        contFin.innerHTML += HTMLPartidaEliminatoria({ cod: 'S1', L: 'Ganador C1', V: 'Ganador C2', desc: 'Semifinal S1' });
+        contFin.innerHTML += HTMLPartidaEliminatoria({ cod: 'S2', L: 'Ganador C3', V: 'Ganador C4', desc: 'Semifinal S2' });
+        contFin.innerHTML += HTMLPartidaEliminatoria({ cod: 'FIN', L: 'Finalista 1', V: 'Finalista 2', desc: 'Gran Final (Nueva York)' });
+    }
+
+    function procesarFixture() {
+        let clasificados = {};
+        let inputsData = {};
+
+        for (const letra in datosGrupos) {
+            let stats = {};
+            datosGrupos[letra].forEach(eq => {
+                const safe = eq.replace(/[^a-zA-Z0-9]/g, '');
+                const condVal = parseInt(document.getElementById(`cond-${letra}-${safe}`).value) || 0;
+                const rankVal = parseInt(document.getElementById(`rank-${letra}-${safe}`).value) || 99;
+                inputsData[`cond-${letra}-${safe}`] = condVal;
+                inputsData[`rank-${letra}-${safe}`] = rankVal;
+
+                stats[eq] = { 
+                    nombre: eq, pts: 0, gf: 0, gc: 0, dg: 0, 
+                    conducta: condVal, rankingFifa: rankVal,
+                    partidosOponentes: {} // Guardar resultados para duelos directos
+                };
+            });
+
+            // Procesamiento de partidos ordinarios
+            partidosConfig.filter(p => p.grupo === letra).forEach(p => {
+                const loc = datosGrupos[letra][p.locIdx]; const vis = datosGrupos[letra][p.visIdx];
+                const gL = document.getElementById(`g-loc-${p.id}`).value;
+                const gV = document.getElementById(`g-vis-${p.id}`).value;
+                inputsData[`g-loc-${p.id}`] = gL; inputsData[`g-vis-${p.id}`] = gV;
+
+                if (gL !== '' && gV !== '') {
+                    const l = parseInt(gL); const v = parseInt(gV);
+                    stats[loc].gf += l; stats[loc].gc += v; stats[vis].gf += v; stats[vis].gc += l;
+                    
+                    stats[loc].partidosOponentes[vis] = { gf: l, gc: v, pts: l > v ? 3 : (l === v ? 1 : 0) };
+                    stats[vis].partidosOponentes[loc] = { gf: v, gc: l, pts: v > l ? 3 : (l === v ? 1 : 0) };
+
+                    if (l > v) stats[loc].pts += 3; else if (v > l) stats[vis].pts += 3; else { stats[loc].pts++; stats[vis].pts++; }
+                }
+            });
+
+            for (const eq in stats) stats[eq].dg = stats[eq].gf - stats[eq].gc;
+
+            // Algoritmo de Ordenación Avanzado aplicando los Pasos 1, 2 y 3 Oficiales
+            let ordenados = Object.values(stats).sort((a, b) => {
+                // Filtro base: Puntos globales
+                if (b.pts !== a.pts) return b.pts - a.pts;
+
+                // --- PRIMER PASO (Duelos directos entre equipos empatados) ---
+                let ptsDirectoA = a.partidosOponentes[b.nombre]?.pts || 0;
+                let ptsDirectoB = b.partidosOponentes[a.nombre]?.pts || 0;
+                if (ptsDirectoB !== ptsDirectoA) return ptsDirectoB - ptsDirectoA;
+
+                let dgDirectoA = (a.partidosOponentes[b.nombre]?.gf || 0) - (a.partidosOponentes[b.nombre]?.gc || 0);
+                let dgDirectoB = (b.partidosOponentes[a.nombre]?.gf || 0) - (b.partidosOponentes[a.nombre]?.gc || 0);
+                if (dgDirectoB !== dgDirectoA) return dgDirectoB - dgDirectoA;
+
+                let gfDirectoA = a.partidosOponentes[b.nombre]?.gf || 0;
+                let gfDirectoB = b.partidosOponentes[a.nombre]?.gf || 0;
+                if (gfDirectoB !== gfDirectoA) return gfDirectoB - gfDirectoA;
+
+                // --- SEGUNDO PASO (Estadísticas globales, conducta) ---
+                if (b.dg !== a.dg) return b.dg - a.dg;
+                if (b.gf !== a.gf) return b.gf - a.gf;
+                if (b.conducta !== a.conducta) return b.conducta - a.conducta; // Puntuación más alta gana
+
+                // --- TERCER PASO (Ranking FIFA / El puesto más bajo numéricamente es mejor) ---
+                return a.rankingFifa - b.rankingFifa;
+            });
+
+            clasificados[letra] = ordenados;
+
+            // Inyección visual en tablas limpias
+            const tbody = document.querySelector(`#tabla-${letra} tbody`); tbody.innerHTML = '';
+            ordenados.forEach((equipo, index) => {
+                const tr = document.createElement('tr');
+                tr.style.backgroundColor = index < 2 ? '#e3f2fd' : (index === 2 ? '#f3e5f5' : 'transparent');
+                tr.innerHTML = `
+                    <td style="text-align:left; font-weight:bold;">${equipo.nombre}</td>
+                    <td>${equipo.pts}</td><td>${equipo.dg}</td><td>${equipo.gf}</td>
+                    <td>${equipo.conducta}</td><td>#${equipo.rankingFifa}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Llenado automatizado de llaves eliminatorias
+        crucesR32.forEach(c => {
+            let locLetra = c.L.charAt(1); let locTipo = c.L.charAt(0);
+            if(clasificados[locLetra] && clasificados[locLetra][parseInt(locTipo)-1]) {
+                document.getElementById(`L-${c.cod}`).innerText = clasificados[locLetra][parseInt(locTipo)-1].nombre;
+            }
+            let visLetra = c.V.charAt(1); let visTipo = c.V.charAt(0);
+            if(clasificados[visLetra] && clasificados[visLetra][parseInt(visTipo)-1]) {
+                document.getElementById(`V-${c.cod}`).innerText = clasificados[visLetra][parseInt(visTipo)-1].nombre;
+            }
+            if(c.V.includes('3') && clasificados[locLetra] && clasificados[locLetra][2]) {
+                document.getElementById(`V-${c.cod}`).innerText = clasificados[locLetra][2].nombre;
+            }
+        });
+
+        const obtenerGanador = (codLlave, def) => {
+            const valL = document.getElementById(`gL-${codLlave}`).value;
+            const valV = document.getElementById(`gV-${codLlave}`).value;
+            inputsData[`gL-${codLlave}`] = valL; inputsData[`gV-${codLlave}`] = valV;
+            
+            const penBox = document.getElementById(`p-box-${codLlave}`);
+            const valPL = document.getElementById(`pL-${codLlave}`).value;
+            const valPV = document.getElementById(`pV-${codLlave}`).value;
+            inputsData[`pL-${codLlave}`] = valPL; inputsData[`pV-${codLlave}`] = valPV;
+
+            if (valL !== '' && valV !== '') {
+                const gL = parseInt(valL); const gV = parseInt(valV);
+                if (gL > gV) { penBox.style.display = 'none'; return document.getElementById(`L-${codLlave}`).innerText; }
+                if (gV > gL) { penBox.style.display = 'none'; return document.getElementById(`V-${codLlave}`).innerText; }
+                
+                penBox.style.display = 'inline-flex';
+                if (valPL !== '' && valPV !== '') {
+                    return parseInt(valPL) >= parseInt(valPV) ? document.getElementById(`L-${codLlave}`).innerText : document.getElementById(`V-${codLlave}`).innerText;
+                }
+            } else { penBox.style.display = 'none'; }
+            return def;
+        };
+
+        estructuraOctavos.forEach(o => {
+            document.getElementById(`L-${o.cod}`).innerText = obtenerGanador(o.L, `Ganador ${o.L}`);
+            document.getElementById(`V-${o.cod}`).innerText = obtenerGanador(o.V, `Ganador ${o.V}`);
+        });
+
+        estructuraCuartos.forEach(c => {
+            document.getElementById(`L-${c.cod}`).innerText = obtenerGanador(c.L, `Ganador ${c.L}`);
+            document.getElementById(`V-${c.cod}`).innerText = obtenerGanador(c.V, `Ganador ${c.V}`);
+        });
+
+        document.getElementById('L-S1').innerText = obtenerGanador('C1', 'Ganador C1');
+        document.getElementById('V-S1').innerText = obtenerGanador('C2', 'Ganador C2');
+        document.getElementById('L-S2').innerText = obtenerGanador('C3', 'Ganador C3');
+        document.getElementById('V-S2').innerText = obtenerGanador('C4', 'Ganador C4');
+
+        document.getElementById('L-FIN').innerText = obtenerGanador('S1', 'Finalista 1');
+        document.getElementById('V-FIN').innerText = obtenerGanador('S2', 'Finalista 2');
+        obtenerGanador('FIN', 'Campeón');
+
+        localStorage.setItem('fixture_mundial2026_oficial', JSON.stringify(inputsData));
+    }
+
+    function cargarDatosGuardados() {
+        const cache = localStorage.getItem('fixture_mundial2026_oficial');
+        if (cache) {
+            const objetoGoles = JSON.parse(cache);
+            for (const idInput in objetoGoles) {
+                const elemento = document.getElementById(idInput);
+                if (elemento) elemento.value = objetoGoles[idInput];
+            }
+        }
+        procesarFixture();
+    }
+
+    function borrarProgreso() {
+        if(confirm("¿Seguro que querés reiniciar todas las puntuaciones y desempates?")) {
+            localStorage.removeItem('fixture_mundial2026_oficial');
+            location.reload();
+        }
+    }
+
+    window.onload = inicializarFixture;
+</script>
+</body>
+</html>
