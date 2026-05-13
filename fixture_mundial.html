@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fixture Mundial 2026 - Desempate FIFA Oficial</title>
+    <title>Fixture Mundial 2026 - Completo</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background-color: #f4f6f9; margin: 0; padding: 20px; color: #1a1a1a; }
         header { text-align: center; margin-bottom: 30px; background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); color: white; padding: 25px; border-radius: 10px; }
         header h1 { margin: 0; font-size: 2.2em; text-transform: uppercase; }
         .container { max-width: 1400px; margin: 0 auto; }
         .etapa-titulo { background: #111; color: #fff; padding: 12px 20px; border-radius: 6px; margin-top: 35px; margin-bottom: 15px; font-size: 1.3em; font-weight: bold; }
-        .grupos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
+        .grupos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 20px; }
         .grupo-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e1e4e8; }
         .grupo-header { background: #0052cc; color: white; padding: 10px; font-weight: bold; text-align: center; }
-        .tabla-posiciones { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.8em; background: #fafafa; }
+        .tabla-posiciones { width: 100%; border-collapse: collapse; text-align: center; font-size: 0.85em; background: #fafafa; }
         .tabla-posiciones th { background: #ebedf0; padding: 6px; color: #444; }
-        .tabla-posiciones td { padding: 5px; border-top: 1px solid #e1e4e8; }
-        .inputs-criterios { width: 30px; text-align: center; font-size: 0.85em; border: 1px solid #ccc; border-radius: 3px; }
-        .partidos-lista { padding: 8px; background: #fff; border-top: 1px solid #eee; }
-        .partido { display: flex; align-items: center; justify-content: space-between; padding: 6px 4px; border-bottom: 1px solid #f1f3f5; font-size: 0.9em; }
+        .tabla-posiciones td { padding: 6px; border-top: 1px solid #e1e4e8; }
+        .partidos-lista { padding: 8px; background: #fff; }
+        .partido { display: flex; align-items: center; justify-content: space-between; padding: 8px 4px; border-bottom: 1px solid #f1f3f5; font-size: 0.9em; }
         .partido:last-child { border-bottom: none; }
         .partido .equipo-lbl { width: 105px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .partido .equipo-lbl.local { text-align: right; }
@@ -37,13 +36,13 @@
 <body>
 
 <header>
-    <h1>Fixture Mundial 2026 Lógica Avanzada FIFA</h1>
-    <p>Desempates automatizados por Puntos Partidos Propios, Goles, Tarjetas y Ranking FIFA</p>
+    <h1>Fixture Oficial Interactivo - Mundial 2026</h1>
+    <p>Auto-guardado local y definición por penales en llaves eliminatorias</p>
     <button class="btn-reset" onclick="borrarProgreso()">Borrar todo el progreso</button>
 </header>
 
 <div class="container">
-    <div class="etapa-titulo">Fase de Grupos (Configurá Goles, Tarjetas de Conducta y Puesto de Ranking FIFA)</div>
+    <div class="etapa-titulo">Fase de Grupos (12 Grupos Oficiales)</div>
     <div class="grupos-grid" id="contenedor-grupos"></div>
 
     <div class="etapa-titulo">Dieciseisavos de Final (32 Selecciones)</div>
@@ -99,24 +98,13 @@
     function inicializarFixture() {
         const contenedor = document.getElementById('contenedor-grupos');
         contenedor.innerHTML = '';
-        let numIdRanking = 1;
-        
         for (const letra in datosGrupos) {
             const card = document.createElement('div');
             card.className = 'grupo-card';
             let tablaHtml = `<div class="grupo-header">Grupo ${letra}</div>
                 <table class="tabla-posiciones" id="tabla-${letra}">
-                    <thead><tr><th>Equipo</th><th>Pts</th><th>DG</th><th>GF</th><th>Cond.</th><th>Rank</th></tr></thead><tbody>`;
-            
-            datosGrupos[letra].forEach(eq => { 
-                const safeName = eq.replace(/[^a-zA-Z0-9]/g, '');
-                tablaHtml += `<tr>
-                    <td style="text-align:left; padding-left:5px;">${eq}</td>
-                    <td class="m-pts">0</td><td class="m-dg">0</td><td class="m-gf">0</td>
-                    <td><input type="number" class="inputs-criterios" id="cond-${letra}-${safeName}" value="100" title="Puntos de Conducta" onchange="procesarFixture()"></td>
-                    <td><input type="number" class="inputs-criterios" id="rank-${letra}-${safeName}" value="${numIdRanking++}" title="Puesto Ranking FIFA" onchange="procesarFixture()"></td>
-                </tr>`; 
-            });
+                    <thead><tr><th>Equipo</th><th>Pts</th><th>PJ</th><th>DG</th></tr></thead><tbody>`;
+            datosGrupos[letra].forEach(eq => { tablaHtml += `<tr><td style="text-align:left; padding-left:10px;">${eq}</td><td>0</td><td>0</td><td>0</td></tr>`; });
             tablaHtml += `</tbody></table><div class="partidos-lista">`;
 
             partidosConfig.filter(p => p.grupo === letra).forEach(p => {
@@ -174,23 +162,11 @@
         let clasificados = {};
         let inputsData = {};
 
+        // 1. Calcular fase de grupos
         for (const letra in datosGrupos) {
             let stats = {};
-            datosGrupos[letra].forEach(eq => {
-                const safe = eq.replace(/[^a-zA-Z0-9]/g, '');
-                const condVal = parseInt(document.getElementById(`cond-${letra}-${safe}`).value) || 0;
-                const rankVal = parseInt(document.getElementById(`rank-${letra}-${safe}`).value) || 99;
-                inputsData[`cond-${letra}-${safe}`] = condVal;
-                inputsData[`rank-${letra}-${safe}`] = rankVal;
+            datosGrupos[letra].forEach(eq => stats[eq] = { pts: 0, pj: 0, gf: 0, gc: 0, dg: 0, nombre: eq });
 
-                stats[eq] = { 
-                    nombre: eq, pts: 0, gf: 0, gc: 0, dg: 0, 
-                    conducta: condVal, rankingFifa: rankVal,
-                    partidosOponentes: {} // Guardar resultados para duelos directos
-                };
-            });
-
-            // Procesamiento de partidos ordinarios
             partidosConfig.filter(p => p.grupo === letra).forEach(p => {
                 const loc = datosGrupos[letra][p.locIdx]; const vis = datosGrupos[letra][p.visIdx];
                 const gL = document.getElementById(`g-loc-${p.id}`).value;
@@ -199,60 +175,25 @@
 
                 if (gL !== '' && gV !== '') {
                     const l = parseInt(gL); const v = parseInt(gV);
-                    stats[loc].gf += l; stats[loc].gc += v; stats[vis].gf += v; stats[vis].gc += l;
-                    
-                    stats[loc].partidosOponentes[vis] = { gf: l, gc: v, pts: l > v ? 3 : (l === v ? 1 : 0) };
-                    stats[vis].partidosOponentes[loc] = { gf: v, gc: l, pts: v > l ? 3 : (l === v ? 1 : 0) };
-
+                    stats[loc].pj++; stats[vis].pj++; stats[loc].gf += l; stats[loc].gc += v; stats[vis].gf += v; stats[vis].gc += l;
                     if (l > v) stats[loc].pts += 3; else if (v > l) stats[vis].pts += 3; else { stats[loc].pts++; stats[vis].pts++; }
                 }
             });
 
             for (const eq in stats) stats[eq].dg = stats[eq].gf - stats[eq].gc;
-
-            // Algoritmo de Ordenación Avanzado aplicando los Pasos 1, 2 y 3 Oficiales
-            let ordenados = Object.values(stats).sort((a, b) => {
-                // Filtro base: Puntos globales
-                if (b.pts !== a.pts) return b.pts - a.pts;
-
-                // --- PRIMER PASO (Duelos directos entre equipos empatados) ---
-                let ptsDirectoA = a.partidosOponentes[b.nombre]?.pts || 0;
-                let ptsDirectoB = b.partidosOponentes[a.nombre]?.pts || 0;
-                if (ptsDirectoB !== ptsDirectoA) return ptsDirectoB - ptsDirectoA;
-
-                let dgDirectoA = (a.partidosOponentes[b.nombre]?.gf || 0) - (a.partidosOponentes[b.nombre]?.gc || 0);
-                let dgDirectoB = (b.partidosOponentes[a.nombre]?.gf || 0) - (b.partidosOponentes[a.nombre]?.gc || 0);
-                if (dgDirectoB !== dgDirectoA) return dgDirectoB - dgDirectoA;
-
-                let gfDirectoA = a.partidosOponentes[b.nombre]?.gf || 0;
-                let gfDirectoB = b.partidosOponentes[a.nombre]?.gf || 0;
-                if (gfDirectoB !== gfDirectoA) return gfDirectoB - gfDirectoA;
-
-                // --- SEGUNDO PASO (Estadísticas globales, conducta) ---
-                if (b.dg !== a.dg) return b.dg - a.dg;
-                if (b.gf !== a.gf) return b.gf - a.gf;
-                if (b.conducta !== a.conducta) return b.conducta - a.conducta; // Puntuación más alta gana
-
-                // --- TERCER PASO (Ranking FIFA / El puesto más bajo numéricamente es mejor) ---
-                return a.rankingFifa - b.rankingFifa;
-            });
-
+            let ordenados = Object.values(stats).sort((a,b) => (b.pts !== a.pts) ? b.pts - a.pts : (b.dg !== a.dg) ? b.dg - a.dg : b.gf - a.gf);
             clasificados[letra] = ordenados;
 
-            // Inyección visual en tablas limpias
             const tbody = document.querySelector(`#tabla-${letra} tbody`); tbody.innerHTML = '';
             ordenados.forEach((equipo, index) => {
                 const tr = document.createElement('tr');
                 tr.style.backgroundColor = index < 2 ? '#e3f2fd' : (index === 2 ? '#f3e5f5' : 'transparent');
-                tr.innerHTML = `
-                    <td style="text-align:left; font-weight:bold;">${equipo.nombre}</td>
-                    <td>${equipo.pts}</td><td>${equipo.dg}</td><td>${equipo.gf}</td>
-                    <td>${equipo.conducta}</td><td>#${equipo.rankingFifa}</td>`;
+                tr.innerHTML = `<td style="text-align:left; padding-left:10px;">${equipo.nombre}</td><td>${equipo.pts}</td><td>${equipo.pj}</td><td>${equipo.dg}</td>`;
                 tbody.appendChild(tr);
             });
         }
 
-        // Llenado automatizado de llaves eliminatorias
+        // 2. Población inicial de Dieciseisavos
         crucesR32.forEach(c => {
             let locLetra = c.L.charAt(1); let locTipo = c.L.charAt(0);
             if(clasificados[locLetra] && clasificados[locLetra][parseInt(locTipo)-1]) {
@@ -262,8 +203,8 @@
             if(clasificados[visLetra] && clasificados[visLetra][parseInt(visTipo)-1]) {
                 document.getElementById(`V-${c.cod}`).innerText = clasificados[visLetra][parseInt(visTipo)-1].nombre;
             }
-            if(c.V.includes('3') && clasificados[locLetra] && clasificados[locLetra][2]) {
-                document.getElementById(`V-${c.cod}`).innerText = clasificados[locLetra][2].nombre;
+            if(c.V.includes('3') && clasificados[locLetra]) {
+                document.getElementById(`V-${c.cod}`).innerText = clasificados[locLetra][2] ? clasificados[locLetra][2].nombre : c.V;
             }
         });
 
@@ -286,10 +227,13 @@
                 if (valPL !== '' && valPV !== '') {
                     return parseInt(valPL) >= parseInt(valPV) ? document.getElementById(`L-${codLlave}`).innerText : document.getElementById(`V-${codLlave}`).innerText;
                 }
-            } else { penBox.style.display = 'none'; }
+            } else {
+                penBox.style.display = 'none';
+            }
             return def;
         };
 
+        // 3. Progreso secuencial dinámico por llaves
         estructuraOctavos.forEach(o => {
             document.getElementById(`L-${o.cod}`).innerText = obtenerGanador(o.L, `Ganador ${o.L}`);
             document.getElementById(`V-${o.cod}`).innerText = obtenerGanador(o.V, `Ganador ${o.V}`);
@@ -309,24 +253,24 @@
         document.getElementById('V-FIN').innerText = obtenerGanador('S2', 'Finalista 2');
         obtenerGanador('FIN', 'Campeón');
 
-        localStorage.setItem('fixture_mundial2026_oficial', JSON.stringify(inputsData));
+        localStorage.setItem('fixture_mundial2026_goles', JSON.stringify(inputsData));
     }
 
     function cargarDatosGuardados() {
-        const cache = localStorage.getItem('fixture_mundial2026_oficial');
+        const cache = localStorage.getItem('fixture_mundial2026_goles');
         if (cache) {
             const objetoGoles = JSON.parse(cache);
             for (const idInput in objetoGoles) {
                 const elemento = document.getElementById(idInput);
                 if (elemento) elemento.value = objetoGoles[idInput];
             }
+            procesarFixture();
         }
-        procesarFixture();
     }
 
     function borrarProgreso() {
-        if(confirm("¿Seguro que querés reiniciar todas las puntuaciones y desempates?")) {
-            localStorage.removeItem('fixture_mundial2026_oficial');
+        if(confirm("¿Seguro que querés reiniciar todas las puntuaciones?")) {
+            localStorage.removeItem('fixture_mundial2026_goles');
             location.reload();
         }
     }
